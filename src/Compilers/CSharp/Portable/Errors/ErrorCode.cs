@@ -2496,10 +2496,19 @@ namespace Microsoft.CodeAnalysis.CSharp
         ERR_MissingUnionValueProperty = 9386,
         ERR_MemberProviderInUnionDeclaration = 9387,
 
-        ERR_IfBlockConditionRequiresCatch = 9388,
+        ERR_SafeModifierUnsupportedTarget = 9388,
+        ERR_ExternMemberRequiresUnsafeOrSafe = 9389,
+        ERR_PartialMemberSafeDifference = 9390,
+        ERR_AbstractBaseRecordImplementation = 9391,
+        ERR_ExplicitOrExtendedLayoutFieldRequiresUnsafeOrSafe = 9392,
 
-        ERR_InvalidMutation = 9389,
-        WRN_MutationMayFail = 9390,
+        ERR_NoBreakId = 9393,
+        ERR_NoContinueId = 9394,
+
+        ERR_IfBlockConditionRequiresCatch = 9395,
+
+        ERR_InvalidMutation = 9396,
+        WRN_MutationMayFail = 9397,
 
         // Note: you will need to do the following after adding errors:
         //  1) Update ErrorFacts.IsBuildOnlyDiagnostic (src/Compilers/CSharp/Portable/Errors/ErrorFacts.cs)

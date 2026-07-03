@@ -432,10 +432,13 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>Represents <see langword="closed"/>.</summary>
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/83717")]
         ClosedKeyword = 8453,
+        /// <summary>Represents <see langword="safe"/>.</summary>
+        [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82789")]
+        SafeKeyword = 8454,
         /// <summary>Represents <see langword="until"/>.</summary>
-        UntilKeyword = 8454,
+        UntilKeyword = 8455,
         /// <summary>Represents <see langword="to"/> in a <c>mutate</c> statement.</summary>
-        ToKeyword = 8455,
+        ToKeyword = 8456,
 
         // when adding a contextual keyword following functions must be adapted:
         // <see cref="SyntaxFacts.GetContextualKeywordKinds()"/>
@@ -727,6 +730,8 @@ namespace Microsoft.CodeAnalysis.CSharp
         RefValueExpression = 8766,
         RefTypeExpression = 8767,
         // NameOfExpression = 8768, // we represent nameof(x) as an invocation expression
+        [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82789")]
+        UnsafeExpression = 8769,
 
         // query expressions
         QueryExpression = 8774,

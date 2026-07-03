@@ -578,6 +578,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.CheckedExpression;
                 case SyntaxKind.UncheckedKeyword:
                     return SyntaxKind.UncheckedExpression;
+                case SyntaxKind.UnsafeKeyword:
+                    return SyntaxKind.UnsafeExpression;
                 case SyntaxKind.DefaultKeyword:
                     return SyntaxKind.DefaultExpression;
                 case SyntaxKind.TypeOfKeyword:
@@ -1243,7 +1245,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public static IEnumerable<SyntaxKind> GetContextualKeywordKinds()
         {
-            for (int i = (int)SyntaxKind.YieldKeyword; i <= (int)SyntaxKind.ClosedKeyword; i++)
+            for (int i = (int)SyntaxKind.YieldKeyword; i <= (int)SyntaxKind.SafeKeyword; i++)
             {
                 // 8441 corresponds to a deleted kind (DataKeyword) that was previously shipped.
                 if (i != 8441)
@@ -1310,6 +1312,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.ExtensionKeyword:
                 case SyntaxKind.UnionKeyword:
                 case SyntaxKind.ClosedKeyword:
+                case SyntaxKind.SafeKeyword:
                 case SyntaxKind.UntilKeyword:
                 case SyntaxKind.ToKeyword:
                     return true;
@@ -1445,6 +1448,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.UnionKeyword;
                 case "closed":
                     return SyntaxKind.ClosedKeyword;
+                case "safe":
+                    return SyntaxKind.SafeKeyword;
                 case "until":
                     return SyntaxKind.UntilKeyword;
                 case "to":
@@ -1906,6 +1911,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "union";
                 case SyntaxKind.ClosedKeyword:
                     return "closed";
+                case SyntaxKind.SafeKeyword:
+                    return "safe";
                 default:
                     return string.Empty;
             }
