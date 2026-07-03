@@ -357,13 +357,20 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public override BoundStatement InstrumentIfStatementConditionalGoto(BoundIfStatement original, BoundStatement rewritten)
         {
-            var syntax = (IfStatementSyntax)original.Syntax;
+            TextSpan span = original.Syntax switch
+            {
+                IfStatementSyntax ifStatement => TextSpan.FromBounds(ifStatement.IfKeyword.SpanStart, ifStatement.CloseParenToken.Span.End),
+                // Arm of an if/catch/finally chain (Binder_IfCatchStatement) -- CloseParenToken is absent
+                // for block conditions, so fall back to the arm's full span in that case.
+                IfCatchArmSyntax arm => arm.CloseParenToken is { RawKind: not 0 } closeParen
+                    ? TextSpan.FromBounds(arm.IfKeyword.SpanStart, closeParen.Span.End)
+                    : TextSpan.FromBounds(arm.IfKeyword.SpanStart, (arm.ConditionBlock ?? (SyntaxNode)arm.Consequence).Span.End),
+                var other => other.Span,
+            };
             return new BoundSequencePointWithSpan(
-                syntax,
+                original.Syntax,
                 base.InstrumentIfStatementConditionalGoto(original, rewritten),
-                TextSpan.FromBounds(
-                    syntax.IfKeyword.SpanStart,
-                    syntax.CloseParenToken.Span.End),
+                span,
                 original.HasErrors);
         }
 

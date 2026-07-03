@@ -27,11 +27,9 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
             // Infer the type from the operand
-            TypeWithAnnotations operandType = operand.TypeWithAnnotations;
-            if (!operandType.HasType)
-            {
-                operandType = TypeWithAnnotations.Create(CreateErrorType("var"));
-            }
+            TypeWithAnnotations operandType = operand.Type is { } opType
+                ? TypeWithAnnotations.Create(opType)
+                : TypeWithAnnotations.Create(CreateErrorType("var"));
 
             localSymbol.SetTypeWithAnnotations(operandType);
 

@@ -432,6 +432,10 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>Represents <see langword="closed"/>.</summary>
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/83717")]
         ClosedKeyword = 8453,
+        /// <summary>Represents <see langword="until"/>.</summary>
+        UntilKeyword = 8454,
+        /// <summary>Represents <see langword="to"/> in a <c>mutate</c> statement.</summary>
+        ToKeyword = 8455,
 
         // when adding a contextual keyword following functions must be adapted:
         // <see cref="SyntaxFacts.GetContextualKeywordKinds()"/>
@@ -948,8 +952,6 @@ namespace Microsoft.CodeAnalysis.CSharp
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82567")]
         UnionDeclaration = 9082,
 
-        /// <summary>Represents <see langword="until"/>.</summary>
-        UntilKeyword = 9083,
         /// <summary>Represents a <c>do...until</c> statement.</summary>
         DoUntilStatement = 9084,
         /// <summary>Represents an inline expression declaration <c>expr identifier</c>.</summary>

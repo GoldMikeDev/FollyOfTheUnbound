@@ -44,7 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         internal override ImmutableArray<LocalSymbol> GetDeclaredLocalsForScope(SyntaxNode scopeDesignator)
         {
-            if (_syntax == scopeDesignator)
+            if (_syntax.ConditionBlock == scopeDesignator)
             {
                 return this.Locals;
             }
@@ -57,6 +57,9 @@ namespace Microsoft.CodeAnalysis.CSharp
             throw ExceptionUtilities.Unreachable();
         }
 
-        internal override SyntaxNode ScopeDesignator => _syntax;
+        // IfCatchArmSyntax itself cannot be a scope designator (it isn't a StatementSyntax and isn't in
+        // SyntaxNodeExtensions.CanHaveAssociatedLocalBinder's allowlist) -- use its ConditionBlock (a
+        // BlockSyntax, which is a StatementSyntax) instead.
+        internal override SyntaxNode ScopeDesignator => _syntax.ConditionBlock;
     }
 }

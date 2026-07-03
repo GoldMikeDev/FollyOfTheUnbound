@@ -52,7 +52,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
         internal override SyntaxNode ScopeDesignatorOpt => null;
 
-        internal override LocalSymbol WithSynthesizedLocalKindAndSyntax(SynthesizedLocalKind kind, SyntaxNode syntax)
+        internal override LocalSymbol WithSynthesizedLocalKindAndSyntax(
+            SynthesizedLocalKind kind, SyntaxNode syntax
+#if DEBUG
+            ,
+            int createdAtLineNumber = 0,
+            string createdAtFilePath = null
+#endif
+            )
             => throw ExceptionUtilities.Unreachable();
 
         internal override bool IsImportedFromMetadata => false;

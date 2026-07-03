@@ -2100,6 +2100,20 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             DeclareVariables(node.Locals);
 
+            // The synthetic wrapper block built for an if/catch block condition (Binder_IfCatchStatement)
+            // declares 'ifout' with no initializer syntax. Per the mutate/if-catch spec, reading it
+            // unassigned is valid and meaningful (it means "null" -- the block never decided true/false),
+            // not a use-before-assignment bug, so treat it like a catch clause's exception variable:
+            // definitely assigned from the point of declaration.
+            foreach (var local in node.Locals)
+            {
+                if (local.DeclarationKind == LocalDeclarationKind.IfOutVariable)
+                {
+                    var ifoutRef = new BoundLocal(local.GetDeclaratorSyntax(), local, BoundLocalDeclarationKind.None, constantValueOpt: null, isNullableUnknown: false, type: local.Type);
+                    Assign(ifoutRef, value: null, read: false);
+                }
+            }
+
             VisitStatementsWithLocalFunctions(node);
 
             // any local using symbols are implicitly read at the end of the block when they get disposed
@@ -2216,6 +2230,17 @@ namespace Microsoft.CodeAnalysis.CSharp
             DeclareVariables(node.Locals);
             var result = base.VisitWhileStatement(node);
             ReportUnusedVariables(node.Locals);
+            return result;
+        }
+
+        public override BoundNode VisitMutateStatement(BoundMutateStatement node)
+        {
+            _ = GetOrCreateSlot(node.NewLocal);
+            var result = base.VisitMutateStatement(node);
+            // AssignImpl switches on the *first* argument's BoundKind, so the BoundLocal reference
+            // (whose Kind is BoundKind.Local) must be passed as `node`, not `value`.
+            var newLocalRef = new BoundLocal(node.Syntax, node.NewLocal, BoundLocalDeclarationKind.None, constantValueOpt: null, isNullableUnknown: false, type: node.NewLocal.Type);
+            Assign(newLocalRef, node.ConversionExpression);
             return result;
         }
 
@@ -2367,7 +2392,10 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             _ = GetOrCreateSlot(node.LocalSymbol); // creates slot for definite assignment tracking
             var result = base.VisitInlineExpressionDeclaration(node);
-            Assign(node, node.Operand);
+            // AssignImpl switches on the *first* argument's BoundKind, so the BoundLocal reference
+            // (whose Kind is BoundKind.Local) must be passed as `node`, not `value`.
+            var localRef = new BoundLocal(node.Syntax, node.LocalSymbol, BoundLocalDeclarationKind.None, constantValueOpt: null, isNullableUnknown: false, type: node.LocalSymbol.Type);
+            Assign(localRef, node.Operand);
             return result;
         }
 

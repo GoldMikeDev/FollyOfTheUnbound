@@ -78,7 +78,10 @@ namespace Microsoft.CodeAnalysis.CSharp
                     builder.Add(new BoundConditionalGoto(rewrittenCondition.Syntax, rewrittenCondition, false, alt));
                     builder.Add(rewrittenConsequence);
                     builder.Add(BoundSequencePoint.CreateHidden());
-                    var syntax = (IfStatementSyntax)node.Syntax;
+                    // Just used as a generic SyntaxNode below (for BoundGotoStatement/BoundLabelStatement,
+                    // which don't require IfStatementSyntax specifically) -- narrowing the cast would
+                    // break if/catch/finally chains, whose BoundIfStatement.Syntax is an IfCatchArmSyntax.
+                    var syntax = node.Syntax;
                     builder.Add(new BoundGotoStatement(syntax, afterif));
                     builder.Add(new BoundLabelStatement(syntax, alt));
 
@@ -99,7 +102,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 (node, var afterif, var conditionalGotoIndex) = stack.Pop();
                 Debug.Assert(builder[conditionalGotoIndex] is BoundConditionalGoto);
 
-                var syntax = (IfStatementSyntax)node.Syntax;
+                var syntax = node.Syntax;
 
                 builder.Add(BoundSequencePoint.CreateHidden());
                 builder.Add(new BoundLabelStatement(syntax, afterif));

@@ -552,6 +552,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                         Debug.Assert(node is SingleVariableDesignationSyntax);
                         break;
 
+                    case LocalDeclarationKind.InlineExpressionVariable:
+                        Debug.Assert(node is Syntax.InlineExpressionDeclarationSyntax);
+                        break;
+
+                    case LocalDeclarationKind.MutationTarget:
+                        Debug.Assert(node is Syntax.IdentifierNameSyntax);
+                        break;
+
                     default:
                         throw ExceptionUtilities.UnexpectedValue(_declarationKind);
                 }

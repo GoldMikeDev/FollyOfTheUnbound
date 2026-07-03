@@ -18,8 +18,8 @@ namespace Microsoft.CodeAnalysis.CSharp
             var targetType = node.NewLocal.Type;
             var validity = MutationValidity.GetValidity(sourceType, targetType, _compilation);
 
-            // Add the new local to the block's local list via _additionalLocals
-            _additionalLocals?.Add(node.NewLocal);
+            // node.NewLocal is already declared in the enclosing block's Locals -- it was registered by
+            // LocalScopeBinder.BuildLocals's MutateStatement case during binding, not synthesized here.
 
             var oldLocalRef = new BoundLocal(node.Syntax, node.OriginalLocal,
                 BoundLocalDeclarationKind.None, null, false, sourceType);
@@ -41,6 +41,21 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             if (validity == MutationValidityKind.AlwaysValid)
             {
+                // bool has no CLR/C# numeric conversion at all -- neither MakeConversionNode nor a plain
+                // cast can produce bool->numeric or bool->string IL. Lower it by hand as a conditional
+                // expression instead (true=1/"true", false=0/"false", per the mutate spec).
+                if (sourceType.SpecialType == SpecialType.System_Boolean)
+                {
+                    if (targetType.SpecialType == SpecialType.System_String)
+                    {
+                        return _factory.Conditional(source, _factory.Literal("true"), _factory.Literal("false"), targetType);
+                    }
+
+                    BoundExpression oneValue = MakeConversionNode(_factory.Literal(1), targetType, @checked: false);
+                    BoundExpression zeroValue = MakeConversionNode(_factory.Literal(0), targetType, @checked: false);
+                    return _factory.Conditional(source, oneValue, zeroValue, targetType);
+                }
+
                 // Always-valid: use direct IL conversion
                 return MakeConversionNode(source, targetType, @checked: false);
             }
@@ -62,6 +77,30 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return BuildToStringConversion(syntax, source, sourceType);
             }
 
+            if (toSpec == SpecialType.System_Boolean)
+            {
+                // Numeric/char → bool has no CLR conversion either; treat any nonzero value as true.
+                // (The spec's "only if exactly 0 or 1" runtime check is not enforced here.)
+                BinaryOperatorKind notEqualKind = fromSpec switch
+                {
+                    SpecialType.System_Byte => BinaryOperatorKind.UIntNotEqual,
+                    SpecialType.System_SByte => BinaryOperatorKind.IntNotEqual,
+                    SpecialType.System_Int16 => BinaryOperatorKind.IntNotEqual,
+                    SpecialType.System_UInt16 => BinaryOperatorKind.UIntNotEqual,
+                    SpecialType.System_Char => BinaryOperatorKind.UIntNotEqual,
+                    SpecialType.System_Int32 => BinaryOperatorKind.IntNotEqual,
+                    SpecialType.System_UInt32 => BinaryOperatorKind.UIntNotEqual,
+                    SpecialType.System_Int64 => BinaryOperatorKind.LongNotEqual,
+                    SpecialType.System_UInt64 => BinaryOperatorKind.ULongNotEqual,
+                    SpecialType.System_Single => BinaryOperatorKind.FloatNotEqual,
+                    SpecialType.System_Double => BinaryOperatorKind.DoubleNotEqual,
+                    SpecialType.System_Decimal => BinaryOperatorKind.DecimalNotEqual,
+                    _ => BinaryOperatorKind.IntNotEqual,
+                };
+                BoundExpression zero = MakeConversionNode(_factory.Literal(0), sourceType, @checked: false);
+                return _factory.Binary(notEqualKind, targetType, source, zero);
+            }
+
             // Numeric → Numeric (conditional, e.g. narrowing): use checked explicit cast
             return MakeConversionNode(source, targetType, @checked: true);
         }
@@ -74,7 +113,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             // Try to find a static Parse(string) method on the target type
             var targetNamedType = targetType as NamedTypeSymbol;
-            if (targetNamedType != null)
+            if (targetNamedType is not null)
             {
                 foreach (var member in targetNamedType.GetMembers("Parse"))
                 {
@@ -106,9 +145,10 @@ namespace Microsoft.CodeAnalysis.CSharp
             BoundExpression receiver = source;
             if (sourceType.IsValueType)
             {
+                TypeSymbol objectType = _compilation.GetSpecialType(SpecialType.System_Object);
                 receiver = new BoundConversion(syntax, source, Conversion.Boxing,
                     isBaseConversion: false, @checked: false, explicitCastInCode: false,
-                    constantValueOpt: null, conversionGroupOpt: null, 
+                    constantValueOpt: null, conversionGroupOpt: null,
                     inConversionGroupFlags: InConversionGroupFlags.Unspecified, type: objectType);
             }
 
@@ -119,14 +159,19 @@ namespace Microsoft.CodeAnalysis.CSharp
                 {
                     return new BoundCall(
                         syntax,
-                        receiverOpt: source,
+                        receiverOpt: receiver,
                         initialBindingReceiverIsSubjectToCloning: ThreeState.Unknown,
                         method,
                         ImmutableArray<BoundExpression>.Empty,
-                        default,
-                        default,
+                        argumentNamesOpt: default,
+                        argumentRefKindsOpt: default,
+                        isDelegateCall: false,
+                        expanded: false,
                         invokedAsExtensionMethod: false,
+                        argsToParamsOpt: default,
+                        defaultArguments: default,
                         resultKind: LookupResultKind.Viable,
+                        originalMethodsOpt: default,
                         type: stringType);
                 }
             }

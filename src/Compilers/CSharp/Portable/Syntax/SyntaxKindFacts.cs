@@ -244,6 +244,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.UnderscoreToken:
                 case SyntaxKind.MultiLineRawStringLiteralToken:
                 case SyntaxKind.SingleLineRawStringLiteralToken:
+                case SyntaxKind.UntilKeyword:
+                case SyntaxKind.ToKeyword:
                     return true;
                 default:
                     return false;
@@ -935,6 +937,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.DoKeyword;
                 case "until":
                     return SyntaxKind.UntilKeyword;
+                case "to":
+                    return SyntaxKind.ToKeyword;
                 case "switch":
                     return SyntaxKind.SwitchKeyword;
                 case "case":
@@ -1249,6 +1253,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 }
             }
             yield return SyntaxKind.UntilKeyword;
+            yield return SyntaxKind.ToKeyword;
         }
 
         public static bool IsContextualKeyword(SyntaxKind kind)
@@ -1306,6 +1311,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.UnionKeyword:
                 case SyntaxKind.ClosedKeyword:
                 case SyntaxKind.UntilKeyword:
+                case SyntaxKind.ToKeyword:
                     return true;
                 default:
                     return false;
@@ -1441,6 +1447,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.ClosedKeyword;
                 case "until":
                     return SyntaxKind.UntilKeyword;
+                case "to":
+                    return SyntaxKind.ToKeyword;
                 default:
                     return SyntaxKind.None;
             }
@@ -1640,6 +1648,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "do";
                 case SyntaxKind.UntilKeyword:
                     return "until";
+                case SyntaxKind.ToKeyword:
+                    return "to";
                 case SyntaxKind.SwitchKeyword:
                     return "switch";
                 case SyntaxKind.CaseKeyword:
@@ -1896,8 +1906,6 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "union";
                 case SyntaxKind.ClosedKeyword:
                     return "closed";
-                case SyntaxKind.UntilKeyword:
-                    return "until";
                 default:
                     return string.Empty;
             }

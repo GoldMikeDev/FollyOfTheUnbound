@@ -3420,10 +3420,10 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public override BoundNode VisitMutateStatement(BoundMutateStatement node)
         {
-            // Visit the conversion expression (reads the old local)
+            // Visit the conversion expression (reads the old local). Marking node.NewLocal as
+            // definitely assigned is handled by DefiniteAssignment's override, since Assign(...)
+            // is only available there.
             VisitRvalue(node.ConversionExpression);
-            // Assign the new local
-            Assign(node, node.NewLocal);
             return null;
         }
 

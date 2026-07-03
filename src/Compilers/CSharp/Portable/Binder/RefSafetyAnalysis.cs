@@ -736,6 +736,18 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
+        public override BoundNode? VisitMutateStatement(BoundMutateStatement node)
+        {
+            AddOrSetLocalScopes(node.NewLocal, _localScopeDepth, _localScopeDepth);
+            return base.VisitMutateStatement(node);
+        }
+
+        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        {
+            AddOrSetLocalScopes(node.LocalSymbol, _localScopeDepth, _localScopeDepth);
+            return base.VisitInlineExpressionDeclaration(node);
+        }
+
         public override BoundNode? VisitConditionalOperator(BoundConditionalOperator node)
         {
             base.VisitConditionalOperator(node);

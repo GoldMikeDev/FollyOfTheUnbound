@@ -894,7 +894,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             if (node.ConditionBlock != null)
             {
                 var armBinder = new IfCatchArmBinder(_enclosing, node);
-                AddToMap(node, armBinder);
+                AddToMap(node.ConditionBlock, armBinder);
 
                 Visit(node.ConditionBlock, armBinder);
             }

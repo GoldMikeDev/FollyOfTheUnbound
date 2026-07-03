@@ -17,7 +17,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     {
         internal static MutationValidityKind GetValidity(Symbols.TypeSymbol from, Symbols.TypeSymbol to, CSharpCompilation compilation)
         {
-            if (from == null || to == null)
+            if (from is null || to is null)
                 return MutationValidityKind.NeverValid;
 
             // Same type is always valid

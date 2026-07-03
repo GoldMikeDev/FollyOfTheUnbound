@@ -287,6 +287,30 @@ namespace Microsoft.CodeAnalysis.CSharp
                     ExpressionVariableFinder.FindExpressionVariables(this, locals, innerStatement, statementBinder);
                     break;
 
+                case SyntaxKind.MutateStatement:
+                    {
+                        // The target local of `mutate x to T;` must be pre-registered in the enclosing
+                        // block's Locals here (like an ordinary local declaration), not synthesized later
+                        // during lowering -- BoundNode.CheckLocalsDefined() validates the binder's raw
+                        // output, before lowering ever runs, so a lowering-time-only local would fail
+                        // that check for every subsequent read of the mutated variable.
+                        var mutateStatement = (MutateStatementSyntax)innerStatement;
+                        Binder mutateBinder = enclosingBinder.GetBinder(mutateStatement) ?? enclosingBinder;
+                        TypeWithAnnotations targetType = mutateBinder.BindType(mutateStatement.Type, BindingDiagnosticBag.Discarded);
+                        SourceLocalSymbol mutationLocal = SourceLocalSymbol.MakeLocal(
+                            mutateBinder.ContainingMemberOrLambda,
+                            mutateBinder,
+                            allowRefKind: false,
+                            allowScoped: false,
+                            typeSyntax: mutateStatement.Type,
+                            identifierToken: mutateStatement.VariableName.Identifier,
+                            declarationKind: LocalDeclarationKind.MutationTarget,
+                            initializer: null);
+                        mutationLocal.SetTypeWithAnnotations(targetType);
+                        locals.Add(mutationLocal);
+                    }
+                    break;
+
                 default:
                     // no other statement introduces local variables into the enclosing scope
                     break;

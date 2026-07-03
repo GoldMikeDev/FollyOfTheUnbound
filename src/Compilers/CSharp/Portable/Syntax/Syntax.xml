@@ -3077,6 +3077,9 @@
   </Node>
   <Node Name="IfCatchArmSyntax" Base="CSharpSyntaxNode">
     <Kind Name="IfCatchArm"/>
+    <Field Name="ElseKeyword" Type="SyntaxToken" Optional="true">
+      <Kind Name="ElseKeyword"/>
+    </Field>
     <Field Name="IfKeyword" Type="SyntaxToken">
       <Kind Name="IfKeyword"/>
     </Field>

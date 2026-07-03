@@ -4707,6 +4707,82 @@ internal sealed partial class DeclarationExpressionSyntax : ExpressionSyntax
         => new DeclarationExpressionSyntax(this.Kind, this.type, this.designation, GetDiagnostics(), annotations);
 }
 
+internal sealed partial class InlineExpressionDeclarationSyntax : ExpressionSyntax
+{
+    internal readonly ExpressionSyntax expression;
+    internal readonly SyntaxToken identifier;
+
+    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 2;
+        this.AdjustFlagsAndWidth(expression);
+        this.expression = expression;
+        this.AdjustFlagsAndWidth(identifier);
+        this.identifier = identifier;
+    }
+
+    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 2;
+        this.AdjustFlagsAndWidth(expression);
+        this.expression = expression;
+        this.AdjustFlagsAndWidth(identifier);
+        this.identifier = identifier;
+    }
+
+    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier)
+      : base(kind)
+    {
+        this.SlotCount = 2;
+        this.AdjustFlagsAndWidth(expression);
+        this.expression = expression;
+        this.AdjustFlagsAndWidth(identifier);
+        this.identifier = identifier;
+    }
+
+    public ExpressionSyntax Expression => this.expression;
+    public SyntaxToken Identifier => this.identifier;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.expression,
+            1 => this.identifier,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.InlineExpressionDeclarationSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitInlineExpressionDeclaration(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitInlineExpressionDeclaration(this);
+
+    public InlineExpressionDeclarationSyntax Update(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+        if (expression != this.Expression || identifier != this.Identifier)
+        {
+            var newNode = SyntaxFactory.InlineExpressionDeclaration(expression, identifier);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new InlineExpressionDeclarationSyntax(this.Kind, this.expression, this.identifier, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new InlineExpressionDeclarationSyntax(this.Kind, this.expression, this.identifier, GetDiagnostics(), annotations);
+}
+
 /// <summary>Class which represents the syntax node for cast expression.</summary>
 internal sealed partial class CastExpressionSyntax : ExpressionSyntax
 {
@@ -5825,84 +5901,6 @@ internal sealed partial class WithExpressionSyntax : ExpressionSyntax
 
     internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
         => new WithExpressionSyntax(this.Kind, this.expression, this.withKeyword, this.initializer, GetDiagnostics(), annotations);
-}
-
-/// <summary>Represents an inline expression declaration: <c>expr identifier</c>.</summary>
-internal sealed partial class InlineExpressionDeclarationSyntax : ExpressionSyntax
-{
-    internal readonly ExpressionSyntax expression;
-    internal readonly SyntaxToken identifier;
-
-    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
-      : base(kind, diagnostics, annotations)
-    {
-        this.SlotCount = 2;
-        this.AdjustFlagsAndWidth(expression);
-        this.expression = expression;
-        this.AdjustFlagsAndWidth(identifier);
-        this.identifier = identifier;
-    }
-
-    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier, SyntaxFactoryContext context)
-      : base(kind)
-    {
-        this.SetFactoryContext(context);
-        this.SlotCount = 2;
-        this.AdjustFlagsAndWidth(expression);
-        this.expression = expression;
-        this.AdjustFlagsAndWidth(identifier);
-        this.identifier = identifier;
-    }
-
-    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier)
-      : base(kind)
-    {
-        this.SlotCount = 2;
-        this.AdjustFlagsAndWidth(expression);
-        this.expression = expression;
-        this.AdjustFlagsAndWidth(identifier);
-        this.identifier = identifier;
-    }
-
-    public ExpressionSyntax Expression => this.expression;
-    public SyntaxToken Identifier => this.identifier;
-
-    internal override GreenNode? GetSlot(int index)
-        => index switch
-        {
-            0 => this.expression,
-            1 => this.identifier,
-            _ => null,
-        };
-
-    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position)
-        => new CSharp.Syntax.InlineExpressionDeclarationSyntax(this, parent, position);
-
-    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitInlineExpressionDeclaration(this);
-    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitInlineExpressionDeclaration(this);
-
-    public InlineExpressionDeclarationSyntax Update(ExpressionSyntax expression, SyntaxToken identifier)
-    {
-        if (expression != this.expression || identifier != this.identifier)
-        {
-            var newNode = SyntaxFactory.InlineExpressionDeclaration(expression, identifier);
-            var diags = GetDiagnostics();
-            if (diags?.Length > 0)
-                newNode = newNode.WithDiagnosticsGreen(diags);
-            var annotations = GetAnnotations();
-            if (annotations?.Length > 0)
-                newNode = newNode.WithAnnotationsGreen(annotations);
-            return newNode;
-        }
-
-        return this;
-    }
-
-    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
-        => new InlineExpressionDeclarationSyntax(this.Kind, this.expression, this.identifier, diagnostics, GetAnnotations());
-
-    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
-        => new InlineExpressionDeclarationSyntax(this.Kind, this.expression, this.identifier, GetDiagnostics(), annotations);
 }
 
 internal sealed partial class AnonymousObjectMemberDeclaratorSyntax : CSharpSyntaxNode
@@ -15085,6 +15083,7 @@ internal sealed partial class IfCatchStatementSyntax : StatementSyntax
 
 internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
 {
+    internal readonly SyntaxToken? elseKeyword;
     internal readonly SyntaxToken ifKeyword;
     internal readonly SyntaxToken? openParenToken;
     internal readonly ExpressionSyntax? condition;
@@ -15092,10 +15091,15 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     internal readonly BlockSyntax? conditionBlock;
     internal readonly BlockSyntax consequence;
 
-    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
       : base(kind, diagnostics, annotations)
     {
-        this.SlotCount = 6;
+        this.SlotCount = 7;
+        if (elseKeyword != null)
+        {
+            this.AdjustFlagsAndWidth(elseKeyword);
+            this.elseKeyword = elseKeyword;
+        }
         this.AdjustFlagsAndWidth(ifKeyword);
         this.ifKeyword = ifKeyword;
         if (openParenToken != null)
@@ -15122,11 +15126,16 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
         this.consequence = consequence;
     }
 
-    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, SyntaxFactoryContext context)
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, SyntaxFactoryContext context)
       : base(kind)
     {
         this.SetFactoryContext(context);
-        this.SlotCount = 6;
+        this.SlotCount = 7;
+        if (elseKeyword != null)
+        {
+            this.AdjustFlagsAndWidth(elseKeyword);
+            this.elseKeyword = elseKeyword;
+        }
         this.AdjustFlagsAndWidth(ifKeyword);
         this.ifKeyword = ifKeyword;
         if (openParenToken != null)
@@ -15153,10 +15162,15 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
         this.consequence = consequence;
     }
 
-    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
       : base(kind)
     {
-        this.SlotCount = 6;
+        this.SlotCount = 7;
+        if (elseKeyword != null)
+        {
+            this.AdjustFlagsAndWidth(elseKeyword);
+            this.elseKeyword = elseKeyword;
+        }
         this.AdjustFlagsAndWidth(ifKeyword);
         this.ifKeyword = ifKeyword;
         if (openParenToken != null)
@@ -15183,6 +15197,7 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
         this.consequence = consequence;
     }
 
+    public SyntaxToken? ElseKeyword => this.elseKeyword;
     public SyntaxToken IfKeyword => this.ifKeyword;
     public SyntaxToken? OpenParenToken => this.openParenToken;
     public ExpressionSyntax? Condition => this.condition;
@@ -15193,12 +15208,13 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     internal override GreenNode? GetSlot(int index)
         => index switch
         {
-            0 => this.ifKeyword,
-            1 => this.openParenToken,
-            2 => this.condition,
-            3 => this.closeParenToken,
-            4 => this.conditionBlock,
-            5 => this.consequence,
+            0 => this.elseKeyword,
+            1 => this.ifKeyword,
+            2 => this.openParenToken,
+            3 => this.condition,
+            4 => this.closeParenToken,
+            5 => this.conditionBlock,
+            6 => this.consequence,
             _ => null,
         };
 
@@ -15207,11 +15223,11 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitIfCatchArm(this);
     public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitIfCatchArm(this);
 
-    public IfCatchArmSyntax Update(SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, BlockSyntax conditionBlock, BlockSyntax consequence)
+    public IfCatchArmSyntax Update(SyntaxToken elseKeyword, SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, BlockSyntax conditionBlock, BlockSyntax consequence)
     {
-        if (ifKeyword != this.IfKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || conditionBlock != this.ConditionBlock || consequence != this.Consequence)
+        if (elseKeyword != this.ElseKeyword || ifKeyword != this.IfKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || conditionBlock != this.ConditionBlock || consequence != this.Consequence)
         {
-            var newNode = SyntaxFactory.IfCatchArm(ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
+            var newNode = SyntaxFactory.IfCatchArm(elseKeyword, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
             var diags = GetDiagnostics();
             if (diags?.Length > 0)
                 newNode = newNode.WithDiagnosticsGreen(diags);
@@ -15225,10 +15241,10 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     }
 
     internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
-        => new IfCatchArmSyntax(this.Kind, this.ifKeyword, this.openParenToken, this.condition, this.closeParenToken, this.conditionBlock, this.consequence, diagnostics, GetAnnotations());
+        => new IfCatchArmSyntax(this.Kind, this.elseKeyword, this.ifKeyword, this.openParenToken, this.condition, this.closeParenToken, this.conditionBlock, this.consequence, diagnostics, GetAnnotations());
 
     internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
-        => new IfCatchArmSyntax(this.Kind, this.ifKeyword, this.openParenToken, this.condition, this.closeParenToken, this.conditionBlock, this.consequence, GetDiagnostics(), annotations);
+        => new IfCatchArmSyntax(this.Kind, this.elseKeyword, this.ifKeyword, this.openParenToken, this.condition, this.closeParenToken, this.conditionBlock, this.consequence, GetDiagnostics(), annotations);
 }
 
 internal sealed partial class CatchClauseSyntax : CSharpSyntaxNode
@@ -27965,6 +27981,7 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitExpressionColon(ExpressionColonSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitNameColon(NameColonSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitDeclarationExpression(DeclarationExpressionSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitCastExpression(CastExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitAnonymousMethodExpression(AnonymousMethodExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitSimpleLambdaExpression(SimpleLambdaExpressionSyntax node) => this.DefaultVisit(node);
@@ -27974,7 +27991,6 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitObjectCreationExpression(ObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitWithExpression(WithExpressionSyntax node) => this.DefaultVisit(node);
-    public virtual TResult VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitArrayCreationExpression(ArrayCreationExpressionSyntax node) => this.DefaultVisit(node);
@@ -28062,6 +28078,8 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitSwitchExpression(SwitchExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitSwitchExpressionArm(SwitchExpressionArmSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitTryStatement(TryStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitIfCatchStatement(IfCatchStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitIfCatchArm(IfCatchArmSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitCatchClause(CatchClauseSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitCatchDeclaration(CatchDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitCatchFilterClause(CatchFilterClauseSyntax node) => this.DefaultVisit(node);
@@ -28221,6 +28239,7 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitExpressionColon(ExpressionColonSyntax node) => this.DefaultVisit(node);
     public virtual void VisitNameColon(NameColonSyntax node) => this.DefaultVisit(node);
     public virtual void VisitDeclarationExpression(DeclarationExpressionSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual void VisitCastExpression(CastExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitAnonymousMethodExpression(AnonymousMethodExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitSimpleLambdaExpression(SimpleLambdaExpressionSyntax node) => this.DefaultVisit(node);
@@ -28230,7 +28249,6 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitWithExpression(WithExpressionSyntax node) => this.DefaultVisit(node);
-    public virtual void VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual void VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node) => this.DefaultVisit(node);
     public virtual void VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitArrayCreationExpression(ArrayCreationExpressionSyntax node) => this.DefaultVisit(node);
@@ -28318,6 +28336,8 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitSwitchExpression(SwitchExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitSwitchExpressionArm(SwitchExpressionArmSyntax node) => this.DefaultVisit(node);
     public virtual void VisitTryStatement(TryStatementSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitIfCatchStatement(IfCatchStatementSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitIfCatchArm(IfCatchArmSyntax node) => this.DefaultVisit(node);
     public virtual void VisitCatchClause(CatchClauseSyntax node) => this.DefaultVisit(node);
     public virtual void VisitCatchDeclaration(CatchDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual void VisitCatchFilterClause(CatchFilterClauseSyntax node) => this.DefaultVisit(node);
@@ -28583,6 +28603,9 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
     public override CSharpSyntaxNode VisitDeclarationExpression(DeclarationExpressionSyntax node)
         => node.Update((TypeSyntax)Visit(node.Type), (VariableDesignationSyntax)Visit(node.Designation));
 
+    public override CSharpSyntaxNode VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node)
+        => node.Update((ExpressionSyntax)Visit(node.Expression), (SyntaxToken)Visit(node.Identifier));
+
     public override CSharpSyntaxNode VisitCastExpression(CastExpressionSyntax node)
         => node.Update((SyntaxToken)Visit(node.OpenParenToken), (TypeSyntax)Visit(node.Type), (SyntaxToken)Visit(node.CloseParenToken), (ExpressionSyntax)Visit(node.Expression));
 
@@ -28609,13 +28632,6 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
 
     public override CSharpSyntaxNode VisitWithExpression(WithExpressionSyntax node)
         => node.Update((ExpressionSyntax)Visit(node.Expression), (SyntaxToken)Visit(node.WithKeyword), (InitializerExpressionSyntax)Visit(node.Initializer));
-
-    public override CSharpSyntaxNode VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node)
-    {
-        var expression = (ExpressionSyntax)Visit(node.expression);
-        var identifier = (SyntaxToken)Visit(node.identifier);
-        return node.Update(expression, identifier);
-    }
 
     public override CSharpSyntaxNode VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node)
         => node.Update((NameEqualsSyntax)Visit(node.NameEquals), (ExpressionSyntax)Visit(node.Expression));
@@ -28824,7 +28840,6 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
     public override CSharpSyntaxNode VisitMutateStatement(MutateStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.MutateKeyword), (IdentifierNameSyntax)Visit(node.VariableName), (SyntaxToken)Visit(node.ToKeyword), (TypeSyntax)Visit(node.Type), (SyntaxToken)Visit(node.SemicolonToken));
 
-
     public override CSharpSyntaxNode VisitForStatement(ForStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.ForKeyword), (SyntaxToken)Visit(node.OpenParenToken), (VariableDeclarationSyntax)Visit(node.Declaration), VisitList(node.Initializers), (SyntaxToken)Visit(node.FirstSemicolonToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.SecondSemicolonToken), VisitList(node.Incrementors), (SyntaxToken)Visit(node.CloseParenToken), (StatementSyntax)Visit(node.Statement));
 
@@ -28878,6 +28893,12 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
 
     public override CSharpSyntaxNode VisitTryStatement(TryStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.TryKeyword), (BlockSyntax)Visit(node.Block), VisitList(node.Catches), (FinallyClauseSyntax)Visit(node.Finally));
+
+    public override CSharpSyntaxNode VisitIfCatchStatement(IfCatchStatementSyntax node)
+        => node.Update(VisitList(node.AttributeLists), VisitList(node.Arms), (ElseClauseSyntax)Visit(node.Else), VisitList(node.Catches), (FinallyClauseSyntax)Visit(node.Finally));
+
+    public override CSharpSyntaxNode VisitIfCatchArm(IfCatchArmSyntax node)
+        => node.Update((SyntaxToken)Visit(node.ElseKeyword), (SyntaxToken)Visit(node.IfKeyword), (SyntaxToken)Visit(node.OpenParenToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.CloseParenToken), (BlockSyntax)Visit(node.ConditionBlock), (BlockSyntax)Visit(node.Consequence));
 
     public override CSharpSyntaxNode VisitCatchClause(CatchClauseSyntax node)
         => node.Update((SyntaxToken)Visit(node.CatchKeyword), (CatchDeclarationSyntax)Visit(node.Declaration), (CatchFilterClauseSyntax)Visit(node.Filter), (BlockSyntax)Visit(node.Block));
@@ -30476,6 +30497,27 @@ internal partial class ContextAwareSyntax
         return result;
     }
 
+    public InlineExpressionDeclarationSyntax InlineExpressionDeclaration(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+#if DEBUG
+        if (expression == null) throw new ArgumentNullException(nameof(expression));
+        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
+        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
+#endif
+
+        int hash;
+        var cached = CSharpSyntaxNodeCache.TryGetNode((int)SyntaxKind.InlineExpressionDeclaration, expression, identifier, this.context, out hash);
+        if (cached != null) return (InlineExpressionDeclarationSyntax)cached;
+
+        var result = new InlineExpressionDeclarationSyntax(SyntaxKind.InlineExpressionDeclaration, expression, identifier, this.context);
+        if (hash >= 0)
+        {
+            SyntaxNodeCache.AddNode(result, hash);
+        }
+
+        return result;
+    }
+
     public CastExpressionSyntax CastExpression(SyntaxToken openParenToken, TypeSyntax type, SyntaxToken closeParenToken, ExpressionSyntax expression)
     {
 #if DEBUG
@@ -30621,27 +30663,6 @@ internal partial class ContextAwareSyntax
         if (cached != null) return (WithExpressionSyntax)cached;
 
         var result = new WithExpressionSyntax(SyntaxKind.WithExpression, expression, withKeyword, initializer, this.context);
-        if (hash >= 0)
-        {
-            SyntaxNodeCache.AddNode(result, hash);
-        }
-
-        return result;
-    }
-
-    public InlineExpressionDeclarationSyntax InlineExpressionDeclaration(ExpressionSyntax expression, SyntaxToken identifier)
-    {
-#if DEBUG
-        if (expression == null) throw new ArgumentNullException(nameof(expression));
-        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
-        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-#endif
-
-        int hash;
-        var cached = CSharpSyntaxNodeCache.TryGetNode((int)SyntaxKind.InlineExpressionDeclaration, expression, identifier, this.context, out hash);
-        if (cached != null) return (InlineExpressionDeclarationSyntax)cached;
-
-        var result = new InlineExpressionDeclarationSyntax(SyntaxKind.InlineExpressionDeclaration, expression, identifier, this.context);
         if (hash >= 0)
         {
             SyntaxNodeCache.AddNode(result, hash);
@@ -32405,18 +32426,48 @@ internal partial class ContextAwareSyntax
 
     public IfCatchStatementSyntax IfCatchStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, CoreSyntax.SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax? @else, CoreSyntax.SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax? @finally)
     {
+#if DEBUG
+#endif
+
         return new IfCatchStatementSyntax(SyntaxKind.IfCatchStatement, attributeLists.Node, arms.Node, @else, catches.Node, @finally, this.context);
     }
 
-    public IfCatchArmSyntax IfCatchArm(SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    public IfCatchArmSyntax IfCatchArm(SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
     {
 #if DEBUG
+        if (elseKeyword != null)
+        {
+            switch (elseKeyword.Kind)
+            {
+                case SyntaxKind.ElseKeyword:
+                case SyntaxKind.None: break;
+                default: throw new ArgumentException(nameof(elseKeyword));
+            }
+        }
         if (ifKeyword == null) throw new ArgumentNullException(nameof(ifKeyword));
         if (ifKeyword.Kind != SyntaxKind.IfKeyword) throw new ArgumentException(nameof(ifKeyword));
+        if (openParenToken != null)
+        {
+            switch (openParenToken.Kind)
+            {
+                case SyntaxKind.OpenParenToken:
+                case SyntaxKind.None: break;
+                default: throw new ArgumentException(nameof(openParenToken));
+            }
+        }
+        if (closeParenToken != null)
+        {
+            switch (closeParenToken.Kind)
+            {
+                case SyntaxKind.CloseParenToken:
+                case SyntaxKind.None: break;
+                default: throw new ArgumentException(nameof(closeParenToken));
+            }
+        }
         if (consequence == null) throw new ArgumentNullException(nameof(consequence));
 #endif
 
-        return new IfCatchArmSyntax(SyntaxKind.IfCatchArm, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence, this.context);
+        return new IfCatchArmSyntax(SyntaxKind.IfCatchArm, elseKeyword, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence, this.context);
     }
 
     public CatchClauseSyntax CatchClause(SyntaxToken catchKeyword, CatchDeclarationSyntax? declaration, CatchFilterClauseSyntax? filter, BlockSyntax block)
@@ -35976,6 +36027,27 @@ internal static partial class SyntaxFactory
         return result;
     }
 
+    public static InlineExpressionDeclarationSyntax InlineExpressionDeclaration(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+#if DEBUG
+        if (expression == null) throw new ArgumentNullException(nameof(expression));
+        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
+        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
+#endif
+
+        int hash;
+        var cached = SyntaxNodeCache.TryGetNode((int)SyntaxKind.InlineExpressionDeclaration, expression, identifier, out hash);
+        if (cached != null) return (InlineExpressionDeclarationSyntax)cached;
+
+        var result = new InlineExpressionDeclarationSyntax(SyntaxKind.InlineExpressionDeclaration, expression, identifier);
+        if (hash >= 0)
+        {
+            SyntaxNodeCache.AddNode(result, hash);
+        }
+
+        return result;
+    }
+
     public static CastExpressionSyntax CastExpression(SyntaxToken openParenToken, TypeSyntax type, SyntaxToken closeParenToken, ExpressionSyntax expression)
     {
 #if DEBUG
@@ -36121,27 +36193,6 @@ internal static partial class SyntaxFactory
         if (cached != null) return (WithExpressionSyntax)cached;
 
         var result = new WithExpressionSyntax(SyntaxKind.WithExpression, expression, withKeyword, initializer);
-        if (hash >= 0)
-        {
-            SyntaxNodeCache.AddNode(result, hash);
-        }
-
-        return result;
-    }
-
-    public static InlineExpressionDeclarationSyntax InlineExpressionDeclaration(ExpressionSyntax expression, SyntaxToken identifier)
-    {
-#if DEBUG
-        if (expression == null) throw new ArgumentNullException(nameof(expression));
-        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
-        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
-#endif
-
-        int hash;
-        var cached = SyntaxNodeCache.TryGetNode((int)SyntaxKind.InlineExpressionDeclaration, expression, identifier, out hash);
-        if (cached != null) return (InlineExpressionDeclarationSyntax)cached;
-
-        var result = new InlineExpressionDeclarationSyntax(SyntaxKind.InlineExpressionDeclaration, expression, identifier);
         if (hash >= 0)
         {
             SyntaxNodeCache.AddNode(result, hash);
@@ -37905,20 +37956,48 @@ internal static partial class SyntaxFactory
 
     public static IfCatchStatementSyntax IfCatchStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, CoreSyntax.SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax? @else, CoreSyntax.SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax? @finally)
     {
+#if DEBUG
+#endif
+
         return new IfCatchStatementSyntax(SyntaxKind.IfCatchStatement, attributeLists.Node, arms.Node, @else, catches.Node, @finally);
     }
 
-    public static IfCatchArmSyntax IfCatchArm(SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    public static IfCatchArmSyntax IfCatchArm(SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
     {
 #if DEBUG
+        if (elseKeyword != null)
+        {
+            switch (elseKeyword.Kind)
+            {
+                case SyntaxKind.ElseKeyword:
+                case SyntaxKind.None: break;
+                default: throw new ArgumentException(nameof(elseKeyword));
+            }
+        }
         if (ifKeyword == null) throw new ArgumentNullException(nameof(ifKeyword));
         if (ifKeyword.Kind != SyntaxKind.IfKeyword) throw new ArgumentException(nameof(ifKeyword));
-        if (openParenToken != null && openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
-        if (closeParenToken != null && closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
+        if (openParenToken != null)
+        {
+            switch (openParenToken.Kind)
+            {
+                case SyntaxKind.OpenParenToken:
+                case SyntaxKind.None: break;
+                default: throw new ArgumentException(nameof(openParenToken));
+            }
+        }
+        if (closeParenToken != null)
+        {
+            switch (closeParenToken.Kind)
+            {
+                case SyntaxKind.CloseParenToken:
+                case SyntaxKind.None: break;
+                default: throw new ArgumentException(nameof(closeParenToken));
+            }
+        }
         if (consequence == null) throw new ArgumentNullException(nameof(consequence));
 #endif
 
-        return new IfCatchArmSyntax(SyntaxKind.IfCatchArm, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
+        return new IfCatchArmSyntax(SyntaxKind.IfCatchArm, elseKeyword, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
     }
 
     public static CatchClauseSyntax CatchClause(SyntaxToken catchKeyword, CatchDeclarationSyntax? declaration, CatchFilterClauseSyntax? filter, BlockSyntax block)

@@ -5,6 +5,7 @@
 #nullable disable
 
 using System.Collections.Immutable;
+using System.Diagnostics;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -16,21 +17,24 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             var varNameText = node.VariableName.Identifier.ValueText;
 
-            // Look up the variable being mutated
-            var lookupResult = LookupResult.GetInstance();
-            CompoundUseSiteInfo<AssemblySymbol> useSiteInfo = GetNewCompoundUseSiteInfo(diagnostics);
-            this.LookupSymbolsWithFallback(lookupResult, varNameText, arity: 0, useSiteInfo: ref useSiteInfo, options: LookupOptions.Default);
+            // Look up the variable being mutated via the ordinary identifier-binding path (rather than a
+            // raw LookupSymbolsWithFallback) so this identifier gets recorded in the binder's
+            // IdentifierMap like any other expression -- MethodCompiler's debug-only consistency check
+            // (used by SynthesizedPrimaryConstructor.GetCapturedParameters) asserts that every
+            // IdentifierNameSyntax predicted to need binding was actually bound through that path.
+            BoundExpression variableExpr = this.BindExpression(node.VariableName, diagnostics);
 
-            LocalSymbol originalLocal = null;
-            if (lookupResult.IsSingleViable && lookupResult.SingleSymbolOrDefault is LocalSymbol loc)
-            {
-                originalLocal = loc;
-            }
-            lookupResult.Free();
+            LocalSymbol originalLocal = variableExpr is BoundLocal boundLocal ? boundLocal.LocalSymbol : null;
 
             if (originalLocal is null)
             {
-                diagnostics.Add(ErrorCode.ERR_UseDefViolation, node.VariableName.Location, varNameText);
+                // BindExpression already reported a diagnostic (e.g. name-not-found) unless the
+                // identifier resolved to something other than a local (e.g. a field or method), in
+                // which case we add our own explanatory error.
+                if (!variableExpr.HasErrors)
+                {
+                    diagnostics.Add(ErrorCode.ERR_UseDefViolation, node.VariableName.Location, varNameText);
+                }
                 return new BoundBadStatement(node, ImmutableArray<BoundNode>.Empty, hasErrors: true);
             }
 
@@ -53,30 +57,33 @@ namespace Microsoft.CodeAnalysis.CSharp
                 diagnostics.Add(ErrorCode.WRN_MutationMayFail, node.Location, varNameText, targetType);
             }
 
-            // Create the new local symbol with the target type, named identically to the original
-            SourceLocalSymbol newLocal = SourceLocalSymbol.MakeLocal(
-                this.ContainingMemberOrLambda,
-                this,
-                allowRefKind: false,
-                allowScoped: false,
-                typeSyntax: node.Type,
-                identifierToken: node.VariableName.Identifier,
-                declarationKind: LocalDeclarationKind.MutationTarget,
-                initializer: null);
-            newLocal.SetTypeWithAnnotations(targetTypeWithAnnotations);
+            // The target local was already created and registered in the enclosing block's Locals by
+            // LocalScopeBinder.BuildLocals's MutateStatement case (during the pre-scan that runs before
+            // any statement in the block is bound) -- look it up rather than creating a second, unrelated
+            // symbol here.
+            SourceLocalSymbol newLocal = this.LookupLocal(node.VariableName.Identifier);
+            Debug.Assert(newLocal is not null && newLocal.DeclarationKind == LocalDeclarationKind.MutationTarget);
 
-            // Build the source expression (old local)
+            // Build the source expression (old local). This is a hand-constructed reference (never
+            // went through the ordinary expression-binding/conversion pipeline), so it must be marked
+            // compiler-generated -- otherwise DefiniteAssignmentPass's debug-only strictness check
+            // (BoundLocal nodes must be WasConverted or WasCompilerGenerated) asserts.
             BoundExpression originalRef = new BoundLocal(
                 node.VariableName,
                 originalLocal,
                 BoundLocalDeclarationKind.None,
                 constantValueOpt: null,
                 isNullableUnknown: false,
-                type: sourceType);
+                type: sourceType).MakeCompilerGenerated();
 
-            // Build the conversion expression
-            BoundExpression conversionExpr = BuildMutationConversionExpression(
-                node, originalRef, sourceType, targetType, validity);
+            // BoundMutateStatement.ConversionExpression only needs to represent "reads the original
+            // local's value" for binder-time flow analysis (definite assignment, nullable). The
+            // actual conversion (parse/ToString/checked-cast) is synthesized independently by
+            // LocalRewriter_MutateStatement, which does not consult this expression at all -- so we
+            // deliberately keep it as the plain local reference rather than building a synthetic
+            // BoundConversion here (which previously mis-classified conversions like string->int
+            // and crashed NullableWalker).
+            BoundExpression conversionExpr = originalRef;
 
             // Register the mutation in the enclosing LocalScopeBinder so subsequent
             // lookups of varNameText resolve to newLocal
@@ -97,44 +104,5 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
-        private BoundExpression BuildMutationConversionExpression(
-            MutateStatementSyntax node,
-            BoundExpression source,
-            TypeSymbol sourceType,
-            TypeSymbol targetType,
-            MutationValidityKind validity)
-        {
-            if (validity == MutationValidityKind.AlwaysValid)
-            {
-                CompoundUseSiteInfo<AssemblySymbol> useSiteInfo = CompoundUseSiteInfo<AssemblySymbol>.Discarded;
-                Conversion conversion = this.Conversions.ClassifyConversionFromType(sourceType, targetType, isChecked: false, ref useSiteInfo);
-                return new BoundConversion(
-                    node,
-                    source,
-                    conversion,
-                    isBaseConversion: false,
-                    @checked: CheckOverflowAtRuntime,
-                    explicitCastInCode: false,
-                    constantValueOpt: null,
-                    conversionGroupOpt: null,
-                    inConversionGroupFlags: InConversionGroupFlags.Unspecified,
-                    type: targetType);
-            }
-            else
-            {
-                // Conditional: explicit cast - will be lowered with a checked conversion
-                return new BoundConversion(
-                    node,
-                    source,
-                    Conversion.ExplicitReference,
-                    isBaseConversion: false,
-                    @checked: true,
-                    explicitCastInCode: true,
-                    constantValueOpt: null,
-                    conversionGroupOpt: null,
-                    inConversionGroupFlags: InConversionGroupFlags.Unspecified,
-                    type: targetType);
-            }
-        }
     }
 }

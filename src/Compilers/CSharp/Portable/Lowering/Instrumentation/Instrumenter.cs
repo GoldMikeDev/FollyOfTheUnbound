@@ -191,14 +191,16 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public virtual BoundStatement InstrumentIfStatementConditionalGoto(BoundIfStatement original, BoundStatement rewritten)
         {
-            Debug.Assert(original.Syntax.Kind() == SyntaxKind.IfStatement);
+            // IfCatchArm covers the `if`/`else if` arms of an if/catch/finally chain (Binder_IfCatchStatement),
+            // which produce ordinary BoundIfStatement nodes whose Syntax is the arm, not a classic IfStatementSyntax.
+            Debug.Assert(original.Syntax.Kind() is SyntaxKind.IfStatement or SyntaxKind.IfCatchArm);
             return InstrumentStatement(original, rewritten);
         }
 
         public virtual BoundExpression InstrumentIfStatementCondition(BoundIfStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
         {
             Debug.Assert(!original.WasCompilerGenerated);
-            Debug.Assert(original.Syntax.Kind() == SyntaxKind.IfStatement);
+            Debug.Assert(original.Syntax.Kind() is SyntaxKind.IfStatement or SyntaxKind.IfCatchArm);
             Debug.Assert(factory != null);
             return rewrittenCondition;
         }

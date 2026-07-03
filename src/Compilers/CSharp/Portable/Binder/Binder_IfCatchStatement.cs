@@ -40,11 +40,26 @@ namespace Microsoft.CodeAnalysis.CSharp
                 {
                     anyBlockCondition = true;
 
-                    Binder armBinder = this.GetBinder(arm) ?? this;
+                    // GetBinder(arm.ConditionBlock) returns the block's own BlockBinder (registered when
+                    // LocalBinderFactory visits the block itself), not the IfCatchArmBinder that
+                    // introduces 'ifout' -- both are keyed to the same ConditionBlock syntax node in the
+                    // binder map, and the block's own registration wins (last one registered). However
+                    // that BlockBinder's parent chain does include the IfCatchArmBinder, so ordinary name
+                    // lookup for "ifout" through it still finds the right local.
+                    Binder armBinder = this.GetBinder(arm.ConditionBlock) ?? this;
                     BoundBlock boundConditionBlock = this.BindEmbeddedBlock(arm.ConditionBlock, diagnostics);
 
-                    LocalSymbol ifoutLocal = armBinder.GetDeclaredLocalsForScope(arm)
-                        .First(l => l.Name == IfOutLocalSymbol.IfOutName);
+                    LookupResult ifoutLookup = LookupResult.GetInstance();
+                    CompoundUseSiteInfo<AssemblySymbol> ifoutUseSiteInfo = GetNewCompoundUseSiteInfo(diagnostics);
+                    armBinder.LookupSymbolsWithFallback(ifoutLookup, IfOutLocalSymbol.IfOutName, arity: 0, useSiteInfo: ref ifoutUseSiteInfo, options: LookupOptions.Default);
+                    LocalSymbol? ifoutLocal = ifoutLookup.IsSingleViable ? ifoutLookup.SingleSymbolOrDefault as LocalSymbol : null;
+                    ifoutLookup.Free();
+
+                    if (ifoutLocal is null)
+                    {
+                        diagnostics.Add(ErrorCode.ERR_InternalError, arm.ConditionBlock.Location);
+                        ifoutLocal = new IfOutLocalSymbol(this.ContainingMemberOrLambda, TypeWithAnnotations.Create(Compilation.GetSpecialType(SpecialType.System_Nullable_T).Construct(Compilation.GetSpecialType(SpecialType.System_Boolean))), arm.ConditionBlock);
+                    }
 
                     BoundExpression ifoutValue = MakeIfOutValueAccess(arm.ConditionBlock, ifoutLocal, diagnostics);
 
@@ -101,13 +116,16 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             var nullableBoolType = (NamedTypeSymbol)ifoutLocal.Type;
 
+            // Hand-constructed reference (never went through the ordinary expression-binding pipeline),
+            // so it must be marked compiler-generated -- otherwise DefiniteAssignmentPass's debug-only
+            // strictness check (BoundLocal nodes must be WasConverted or WasCompilerGenerated) asserts.
             BoundExpression ifoutRef = new BoundLocal(
                 syntax,
                 ifoutLocal,
                 BoundLocalDeclarationKind.None,
                 constantValueOpt: null,
                 isNullableUnknown: false,
-                type: nullableBoolType);
+                type: nullableBoolType).MakeCompilerGenerated();
 
             MethodSymbol? nullableValueGetter = (MethodSymbol?)GetSpecialTypeMember(SpecialMember.System_Nullable_T_get_Value, diagnostics, syntax);
             if (nullableValueGetter is null)

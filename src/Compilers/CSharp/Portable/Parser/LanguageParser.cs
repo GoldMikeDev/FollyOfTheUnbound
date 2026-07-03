@@ -10084,10 +10084,13 @@ done:
             Debug.Assert(this.CurrentToken.Kind == SyntaxKind.IfKeyword);
 
             var arms = _pool.Allocate<IfCatchArmSyntax>();
-            var interArmElseKeywords = ArrayBuilder<SyntaxToken>.GetInstance();
             bool anyBlockCondition = false;
 
             ElseClauseSyntax elseClause = null;
+            // The 'else' token that precedes the arm currently being parsed (null for the first arm).
+            // It is threaded into that arm's ElseKeyword field so it round-trips as part of the tree
+            // instead of being silently dropped.
+            SyntaxToken pendingArmElseKeyword = null;
 
             while (true)
             {
@@ -10101,7 +10104,7 @@ done:
                 if (this.CurrentToken.Kind == SyntaxKind.OpenBraceToken)
                 {
                     anyBlockCondition = true;
-                    conditionBlock = this.ParseBlock();
+                    conditionBlock = this.ParseBlock(default);
                 }
                 else
                 {
@@ -10112,9 +10115,10 @@ done:
 
                 // Always require an actual block for the consequence -- this is a simplification over the
                 // classic `if` statement (which allows any embedded statement).
-                var consequence = this.ParseBlock();
+                var consequence = this.ParseBlock(default);
 
-                arms.Add(_syntaxFactory.IfCatchArm(ifKeyword, openParen, condition, closeParen, conditionBlock, consequence));
+                arms.Add(_syntaxFactory.IfCatchArm(pendingArmElseKeyword, ifKeyword, openParen, condition, closeParen, conditionBlock, consequence));
+                pendingArmElseKeyword = null;
 
                 if (this.CurrentToken.Kind != SyntaxKind.ElseKeyword)
                 {
@@ -10125,13 +10129,14 @@ done:
 
                 if (this.CurrentToken.Kind == SyntaxKind.IfKeyword)
                 {
-                    // continue looping to parse the next `else if` arm.
-                    interArmElseKeywords.Add(elseKeyword);
+                    // continue looping to parse the next `else if` arm; the else token is attached
+                    // to that arm above.
+                    pendingArmElseKeyword = elseKeyword;
                     continue;
                 }
 
                 // Trailing 'else { ... }'
-                var elseBlock = this.ParseBlock();
+                var elseBlock = this.ParseBlock(default);
                 elseClause = _syntaxFactory.ElseClause(elseKeyword, elseBlock);
                 break;
             }
@@ -10159,7 +10164,6 @@ done:
 
             if (anyBlockCondition || hasCatchOrFinally)
             {
-                interArmElseKeywords.Free();
                 var result = _syntaxFactory.IfCatchStatement(
                     attributes,
                     _pool.ToListAndFree(arms),
@@ -10171,7 +10175,7 @@ done:
 
             // No block conditions and no catch/finally: reconstruct the classic nested IfStatementSyntax
             // shape (identical to what the old ParseIfStatement produced) from the arms we already parsed.
-            var elseKeywords = interArmElseKeywords.ToImmutableAndFree();
+            // Each arm (other than the first) already carries the 'else' token that preceded it.
             int armCount = arms.Count;
 
             StatementSyntax alternative = elseClause?.Statement;
@@ -10195,7 +10199,7 @@ done:
                     thisElseClause);
 
                 alternative = ifStatement;
-                pendingElseKeyword = i > 0 ? elseKeywords[i - 1] : null;
+                pendingElseKeyword = arm.ElseKeyword;
             }
 
             _pool.Free(arms);
@@ -11469,6 +11473,7 @@ done:
                 case SyntaxKind.ThisExpression:
                 case SyntaxKind.TrueLiteralExpression:
                 case SyntaxKind.TupleExpression:
+                case SyntaxKind.InlineExpressionDeclaration:
                     return Precedence.Primary;
                 default:
                     throw ExceptionUtilities.UnexpectedValue(op);
