@@ -8337,4 +8337,7 @@ To remove the warning, you can use /reference instead (set the Embed Interop Typ
   <data name="ERR_MemberProviderInUnionDeclaration" xml:space="preserve">
     <value>A 'union' declaration cannot use a union member provider interface.</value>
   </data>
+  <data name="ERR_IfBlockConditionRequiresCatch" xml:space="preserve">
+    <value>An 'if' condition using a code block requires the chain to end in a 'catch' clause.</value>
+  </data>
 </root>

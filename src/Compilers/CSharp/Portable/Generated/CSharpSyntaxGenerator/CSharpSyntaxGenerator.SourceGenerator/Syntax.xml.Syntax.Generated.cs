@@ -9072,6 +9072,169 @@ public sealed partial class TryStatementSyntax : StatementSyntax
 /// <remarks>
 /// <para>This node is associated with the following syntax kinds:</para>
 /// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.IfCatchStatement"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class IfCatchStatementSyntax : StatementSyntax
+{
+    private SyntaxNode? attributeLists;
+    private SyntaxNode? arms;
+    private ElseClauseSyntax? @else;
+    private SyntaxNode? catches;
+    private FinallyClauseSyntax? @finally;
+
+    internal IfCatchStatementSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public override SyntaxList<AttributeListSyntax> AttributeLists => new SyntaxList<AttributeListSyntax>(GetRed(ref this.attributeLists, 0));
+
+    public SyntaxList<IfCatchArmSyntax> Arms => new SyntaxList<IfCatchArmSyntax>(GetRed(ref this.arms, 1));
+
+    public ElseClauseSyntax? Else => GetRed(ref this.@else, 2);
+
+    public SyntaxList<CatchClauseSyntax> Catches => new SyntaxList<CatchClauseSyntax>(GetRed(ref this.catches, 3));
+
+    public FinallyClauseSyntax? Finally => GetRed(ref this.@finally, 4);
+
+    internal override SyntaxNode? GetNodeSlot(int index)
+        => index switch
+        {
+            0 => GetRedAtZero(ref this.attributeLists)!,
+            1 => GetRed(ref this.arms, 1)!,
+            2 => GetRed(ref this.@else, 2),
+            3 => GetRed(ref this.catches, 3)!,
+            4 => GetRed(ref this.@finally, 4),
+            _ => null,
+        };
+
+    internal override SyntaxNode? GetCachedSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            1 => this.arms,
+            2 => this.@else,
+            3 => this.catches,
+            4 => this.@finally,
+            _ => null,
+        };
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitIfCatchStatement(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitIfCatchStatement(this);
+
+    public IfCatchStatementSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax? @else, SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax? @finally)
+    {
+        if (attributeLists != this.AttributeLists || arms != this.Arms || @else != this.Else || catches != this.Catches || @finally != this.Finally)
+        {
+            var newNode = SyntaxFactory.IfCatchStatement(attributeLists, arms, @else, catches, @finally);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    internal override StatementSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
+    public new IfCatchStatementSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.Arms, this.Else, this.Catches, this.Finally);
+    public IfCatchStatementSyntax WithArms(SyntaxList<IfCatchArmSyntax> arms) => Update(this.AttributeLists, arms, this.Else, this.Catches, this.Finally);
+    public IfCatchStatementSyntax WithElse(ElseClauseSyntax? @else) => Update(this.AttributeLists, this.Arms, @else, this.Catches, this.Finally);
+    public IfCatchStatementSyntax WithCatches(SyntaxList<CatchClauseSyntax> catches) => Update(this.AttributeLists, this.Arms, this.Else, catches, this.Finally);
+    public IfCatchStatementSyntax WithFinally(FinallyClauseSyntax? @finally) => Update(this.AttributeLists, this.Arms, this.Else, this.Catches, @finally);
+
+    internal override StatementSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
+    public new IfCatchStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
+    public IfCatchStatementSyntax AddArms(params IfCatchArmSyntax[] items) => WithArms(this.Arms.AddRange(items));
+    public IfCatchStatementSyntax AddCatches(params CatchClauseSyntax[] items) => WithCatches(this.Catches.AddRange(items));
+}
+
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.IfCatchArm"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
+{
+    private ExpressionSyntax? condition;
+    private BlockSyntax? conditionBlock;
+    private BlockSyntax? consequence;
+
+    internal IfCatchArmSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public SyntaxToken IfKeyword => new SyntaxToken(this, ((InternalSyntax.IfCatchArmSyntax)this.Green).ifKeyword, Position, 0);
+
+    public SyntaxToken OpenParenToken
+    {
+        get
+        {
+            var slot = ((Syntax.InternalSyntax.IfCatchArmSyntax)this.Green).openParenToken;
+            return slot != null ? new SyntaxToken(this, slot, GetChildPosition(1), GetChildIndex(1)) : default;
+        }
+    }
+
+    public ExpressionSyntax? Condition => GetRed(ref this.condition, 2);
+
+    public SyntaxToken CloseParenToken
+    {
+        get
+        {
+            var slot = ((Syntax.InternalSyntax.IfCatchArmSyntax)this.Green).closeParenToken;
+            return slot != null ? new SyntaxToken(this, slot, GetChildPosition(3), GetChildIndex(3)) : default;
+        }
+    }
+
+    public BlockSyntax? ConditionBlock => GetRed(ref this.conditionBlock, 4);
+
+    public BlockSyntax Consequence => GetRed(ref this.consequence, 5)!;
+
+    internal override SyntaxNode? GetNodeSlot(int index)
+        => index switch
+        {
+            2 => GetRed(ref this.condition, 2),
+            4 => GetRed(ref this.conditionBlock, 4),
+            5 => GetRed(ref this.consequence, 5)!,
+            _ => null,
+        };
+
+    internal override SyntaxNode? GetCachedSlot(int index)
+        => index switch
+        {
+            2 => this.condition,
+            4 => this.conditionBlock,
+            5 => this.consequence,
+            _ => null,
+        };
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitIfCatchArm(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitIfCatchArm(this);
+
+    public IfCatchArmSyntax Update(SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax? condition, SyntaxToken closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    {
+        if (ifKeyword != this.IfKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || conditionBlock != this.ConditionBlock || consequence != this.Consequence)
+        {
+            var newNode = SyntaxFactory.IfCatchArm(ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    public IfCatchArmSyntax WithIfKeyword(SyntaxToken ifKeyword) => Update(ifKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, this.ConditionBlock, this.Consequence);
+    public IfCatchArmSyntax WithOpenParenToken(SyntaxToken openParenToken) => Update(this.IfKeyword, openParenToken, this.Condition, this.CloseParenToken, this.ConditionBlock, this.Consequence);
+    public IfCatchArmSyntax WithCondition(ExpressionSyntax? condition) => Update(this.IfKeyword, this.OpenParenToken, condition, this.CloseParenToken, this.ConditionBlock, this.Consequence);
+    public IfCatchArmSyntax WithCloseParenToken(SyntaxToken closeParenToken) => Update(this.IfKeyword, this.OpenParenToken, this.Condition, closeParenToken, this.ConditionBlock, this.Consequence);
+    public IfCatchArmSyntax WithConditionBlock(BlockSyntax? conditionBlock) => Update(this.IfKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, conditionBlock, this.Consequence);
+    public IfCatchArmSyntax WithConsequence(BlockSyntax consequence) => Update(this.IfKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, this.ConditionBlock, consequence);
+}
+
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
 /// <item><description><see cref="SyntaxKind.CatchClause"/></description></item>
 /// </list>
 /// </remarks>

@@ -457,6 +457,12 @@ public partial class CSharpSyntaxVisitor<TResult>
     /// <summary>Called when the visitor visits a TryStatementSyntax node.</summary>
     public virtual TResult? VisitTryStatement(TryStatementSyntax node) => this.DefaultVisit(node);
 
+    /// <summary>Called when the visitor visits a IfCatchStatementSyntax node.</summary>
+    public virtual TResult? VisitIfCatchStatement(IfCatchStatementSyntax node) => this.DefaultVisit(node);
+
+    /// <summary>Called when the visitor visits a IfCatchArmSyntax node.</summary>
+    public virtual TResult? VisitIfCatchArm(IfCatchArmSyntax node) => this.DefaultVisit(node);
+
     /// <summary>Called when the visitor visits a CatchClauseSyntax node.</summary>
     public virtual TResult? VisitCatchClause(CatchClauseSyntax node) => this.DefaultVisit(node);
 
@@ -1209,6 +1215,12 @@ public partial class CSharpSyntaxVisitor
     /// <summary>Called when the visitor visits a TryStatementSyntax node.</summary>
     public virtual void VisitTryStatement(TryStatementSyntax node) => this.DefaultVisit(node);
 
+    /// <summary>Called when the visitor visits a IfCatchStatementSyntax node.</summary>
+    public virtual void VisitIfCatchStatement(IfCatchStatementSyntax node) => this.DefaultVisit(node);
+
+    /// <summary>Called when the visitor visits a IfCatchArmSyntax node.</summary>
+    public virtual void VisitIfCatchArm(IfCatchArmSyntax node) => this.DefaultVisit(node);
+
     /// <summary>Called when the visitor visits a CatchClauseSyntax node.</summary>
     public virtual void VisitCatchClause(CatchClauseSyntax node) => this.DefaultVisit(node);
 
@@ -1960,6 +1972,12 @@ public partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<SyntaxNode?>
 
     public override SyntaxNode? VisitTryStatement(TryStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), VisitToken(node.TryKeyword), (BlockSyntax?)Visit(node.Block) ?? throw new ArgumentNullException("block"), VisitList(node.Catches), (FinallyClauseSyntax?)Visit(node.Finally));
+
+    public override SyntaxNode? VisitIfCatchStatement(IfCatchStatementSyntax node)
+        => node.Update(VisitList(node.AttributeLists), VisitList(node.Arms), (ElseClauseSyntax?)Visit(node.Else), VisitList(node.Catches), (FinallyClauseSyntax?)Visit(node.Finally));
+
+    public override SyntaxNode? VisitIfCatchArm(IfCatchArmSyntax node)
+        => node.Update(VisitToken(node.IfKeyword), VisitToken(node.OpenParenToken), (ExpressionSyntax?)Visit(node.Condition), VisitToken(node.CloseParenToken), (BlockSyntax?)Visit(node.ConditionBlock), (BlockSyntax?)Visit(node.Consequence) ?? throw new ArgumentNullException("consequence"));
 
     public override SyntaxNode? VisitCatchClause(CatchClauseSyntax node)
         => node.Update(VisitToken(node.CatchKeyword), (CatchDeclarationSyntax?)Visit(node.Declaration), (CatchFilterClauseSyntax?)Visit(node.Filter), (BlockSyntax?)Visit(node.Block) ?? throw new ArgumentNullException("block"));
@@ -4011,6 +4029,7 @@ public static partial class SyntaxFactory
         => SyntaxFactory.Block(default, SyntaxFactory.Token(SyntaxKind.OpenBraceToken), statements, SyntaxFactory.Token(SyntaxKind.CloseBraceToken));
 #pragma warning restore RS0027
 
+
     /// <summary>Creates a new LocalFunctionStatementSyntax instance.</summary>
     public static LocalFunctionStatementSyntax LocalFunctionStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxTokenList modifiers, TypeSyntax returnType, SyntaxToken identifier, TypeParameterListSyntax? typeParameterList, ParameterListSyntax parameterList, SyntaxList<TypeParameterConstraintClauseSyntax> constraintClauses, BlockSyntax? body, ArrowExpressionClauseSyntax? expressionBody, SyntaxToken semicolonToken)
     {
@@ -4717,6 +4736,20 @@ public static partial class SyntaxFactory
     public static TryStatementSyntax TryStatement(SyntaxList<CatchClauseSyntax> catches = default)
         => SyntaxFactory.TryStatement(default, SyntaxFactory.Token(SyntaxKind.TryKeyword), SyntaxFactory.Block(), catches, default);
 #pragma warning restore RS0027
+
+    /// <summary>Creates a new IfCatchStatementSyntax instance.</summary>
+    public static IfCatchStatementSyntax IfCatchStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax? @else, SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax? @finally)
+    {
+        return (IfCatchStatementSyntax)Syntax.InternalSyntax.SyntaxFactory.IfCatchStatement(attributeLists.Node.ToGreenList<Syntax.InternalSyntax.AttributeListSyntax>(), arms.Node.ToGreenList<Syntax.InternalSyntax.IfCatchArmSyntax>(), @else == null ? null : (Syntax.InternalSyntax.ElseClauseSyntax)@else.Green, catches.Node.ToGreenList<Syntax.InternalSyntax.CatchClauseSyntax>(), @finally == null ? null : (Syntax.InternalSyntax.FinallyClauseSyntax)@finally.Green).CreateRed();
+    }
+
+    /// <summary>Creates a new IfCatchArmSyntax instance.</summary>
+    public static IfCatchArmSyntax IfCatchArm(SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax? condition, SyntaxToken closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    {
+        if (ifKeyword.Kind() != SyntaxKind.IfKeyword) throw new ArgumentException(nameof(ifKeyword));
+        if (consequence == null) throw new ArgumentNullException(nameof(consequence));
+        return (IfCatchArmSyntax)Syntax.InternalSyntax.SyntaxFactory.IfCatchArm((Syntax.InternalSyntax.SyntaxToken)ifKeyword.Node!, (Syntax.InternalSyntax.SyntaxToken?)openParenToken.Node, condition == null ? null : (Syntax.InternalSyntax.ExpressionSyntax)condition.Green, (Syntax.InternalSyntax.SyntaxToken?)closeParenToken.Node, conditionBlock == null ? null : (Syntax.InternalSyntax.BlockSyntax)conditionBlock.Green, (Syntax.InternalSyntax.BlockSyntax)consequence.Green).CreateRed();
+    }
 
     /// <summary>Creates a new CatchClauseSyntax instance.</summary>
     public static CatchClauseSyntax CatchClause(SyntaxToken catchKeyword, CatchDeclarationSyntax? declaration, CatchFilterClauseSyntax? filter, BlockSyntax block)

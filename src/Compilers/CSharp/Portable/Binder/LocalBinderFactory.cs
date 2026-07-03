@@ -843,6 +843,52 @@ namespace Microsoft.CodeAnalysis.CSharp
             VisitPossibleEmbeddedStatement(node.Statement, _enclosing);
         }
 
+        public override void VisitIfCatchStatement(IfCatchStatementSyntax node)
+        {
+            // Ensure GetBinder(node) always resolves (e.g. when this statement is used, unusually, as the
+            // braces-less embedded statement of an enclosing construct like `while (x) if (a) {} catch {}`).
+            AddToMap(node, _enclosing);
+
+            foreach (var arm in node.Arms)
+            {
+                Visit(arm, _enclosing);
+            }
+
+            if (node.Else != null)
+            {
+                Visit(node.Else, _enclosing);
+            }
+
+            foreach (CatchClauseSyntax c in node.Catches)
+            {
+                Visit(c, _enclosing);
+            }
+
+            if (node.Finally != null)
+            {
+                Visit(node.Finally, _enclosing);
+            }
+        }
+
+        public override void VisitIfCatchArm(IfCatchArmSyntax node)
+        {
+            Debug.Assert((object)_containingMemberOrLambda == _enclosing.ContainingMemberOrLambda);
+
+            if (node.ConditionBlock != null)
+            {
+                var armBinder = new IfCatchArmBinder(_enclosing, node);
+                AddToMap(node, armBinder);
+
+                Visit(node.ConditionBlock, armBinder);
+            }
+            else if (node.Condition != null)
+            {
+                Visit(node.Condition, _enclosing);
+            }
+
+            Visit(node.Consequence, _enclosing);
+        }
+
         public override void VisitLabeledStatement(LabeledStatementSyntax node)
         {
             Visit(node.Statement, _enclosing);

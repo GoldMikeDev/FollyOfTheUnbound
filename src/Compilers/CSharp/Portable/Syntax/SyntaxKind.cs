@@ -947,5 +947,10 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82567")]
         UnionDeclaration = 9082,
+
+        /// <summary>Represents an <c>if</c>/<c>else if</c>/<c>else</c> chain with trailing <c>catch</c>/<c>finally</c> clauses.</summary>
+        IfCatchStatement = 9083,
+        /// <summary>Represents a single arm of an <see cref="IfCatchStatement"/>.</summary>
+        IfCatchArm = 9084,
     }
 }

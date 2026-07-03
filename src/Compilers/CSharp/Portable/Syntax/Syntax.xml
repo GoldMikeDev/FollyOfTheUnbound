@@ -3024,6 +3024,29 @@
     <Field Name="Catches" Type="SyntaxList&lt;CatchClauseSyntax&gt;"/>
     <Field Name="Finally" Type="FinallyClauseSyntax" Optional="true"/>
   </Node>
+  <Node Name="IfCatchStatementSyntax" Base="StatementSyntax">
+    <Kind Name="IfCatchStatement"/>
+    <Field Name="AttributeLists" Type="SyntaxList&lt;AttributeListSyntax&gt;" Override="true"/>
+    <Field Name="Arms" Type="SyntaxList&lt;IfCatchArmSyntax&gt;"/>
+    <Field Name="Else" Type="ElseClauseSyntax" Optional="true"/>
+    <Field Name="Catches" Type="SyntaxList&lt;CatchClauseSyntax&gt;"/>
+    <Field Name="Finally" Type="FinallyClauseSyntax" Optional="true"/>
+  </Node>
+  <Node Name="IfCatchArmSyntax" Base="CSharpSyntaxNode">
+    <Kind Name="IfCatchArm"/>
+    <Field Name="IfKeyword" Type="SyntaxToken">
+      <Kind Name="IfKeyword"/>
+    </Field>
+    <Field Name="OpenParenToken" Type="SyntaxToken" Optional="true">
+      <Kind Name="OpenParenToken"/>
+    </Field>
+    <Field Name="Condition" Type="ExpressionSyntax" Optional="true"/>
+    <Field Name="CloseParenToken" Type="SyntaxToken" Optional="true">
+      <Kind Name="CloseParenToken"/>
+    </Field>
+    <Field Name="ConditionBlock" Type="BlockSyntax" Optional="true"/>
+    <Field Name="Consequence" Type="BlockSyntax"/>
+  </Node>
   <Node Name="CatchClauseSyntax" Base="CSharpSyntaxNode">
     <Kind Name="CatchClause"/>
     <Field Name="CatchKeyword" Type="SyntaxToken">

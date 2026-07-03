@@ -14597,6 +14597,302 @@ internal sealed partial class TryStatementSyntax : StatementSyntax
         => new TryStatementSyntax(this.Kind, this.attributeLists, this.tryKeyword, this.block, this.catches, this.@finally, GetDiagnostics(), annotations);
 }
 
+internal sealed partial class IfCatchStatementSyntax : StatementSyntax
+{
+    internal readonly GreenNode? attributeLists;
+    internal readonly GreenNode? arms;
+    internal readonly ElseClauseSyntax? @else;
+    internal readonly GreenNode? catches;
+    internal readonly FinallyClauseSyntax? @finally;
+
+    internal IfCatchStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, GreenNode? arms, ElseClauseSyntax? @else, GreenNode? catches, FinallyClauseSyntax? @finally, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 5;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        if (arms != null)
+        {
+            this.AdjustFlagsAndWidth(arms);
+            this.arms = arms;
+        }
+        if (@else != null)
+        {
+            this.AdjustFlagsAndWidth(@else);
+            this.@else = @else;
+        }
+        if (catches != null)
+        {
+            this.AdjustFlagsAndWidth(catches);
+            this.catches = catches;
+        }
+        if (@finally != null)
+        {
+            this.AdjustFlagsAndWidth(@finally);
+            this.@finally = @finally;
+        }
+    }
+
+    internal IfCatchStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, GreenNode? arms, ElseClauseSyntax? @else, GreenNode? catches, FinallyClauseSyntax? @finally, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 5;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        if (arms != null)
+        {
+            this.AdjustFlagsAndWidth(arms);
+            this.arms = arms;
+        }
+        if (@else != null)
+        {
+            this.AdjustFlagsAndWidth(@else);
+            this.@else = @else;
+        }
+        if (catches != null)
+        {
+            this.AdjustFlagsAndWidth(catches);
+            this.catches = catches;
+        }
+        if (@finally != null)
+        {
+            this.AdjustFlagsAndWidth(@finally);
+            this.@finally = @finally;
+        }
+    }
+
+    internal IfCatchStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, GreenNode? arms, ElseClauseSyntax? @else, GreenNode? catches, FinallyClauseSyntax? @finally)
+      : base(kind)
+    {
+        this.SlotCount = 5;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        if (arms != null)
+        {
+            this.AdjustFlagsAndWidth(arms);
+            this.arms = arms;
+        }
+        if (@else != null)
+        {
+            this.AdjustFlagsAndWidth(@else);
+            this.@else = @else;
+        }
+        if (catches != null)
+        {
+            this.AdjustFlagsAndWidth(catches);
+            this.catches = catches;
+        }
+        if (@finally != null)
+        {
+            this.AdjustFlagsAndWidth(@finally);
+            this.@finally = @finally;
+        }
+    }
+
+    public override CoreSyntax.SyntaxList<AttributeListSyntax> AttributeLists => new CoreSyntax.SyntaxList<AttributeListSyntax>(this.attributeLists);
+    public CoreSyntax.SyntaxList<IfCatchArmSyntax> Arms => new CoreSyntax.SyntaxList<IfCatchArmSyntax>(this.arms);
+    public ElseClauseSyntax? Else => this.@else;
+    public CoreSyntax.SyntaxList<CatchClauseSyntax> Catches => new CoreSyntax.SyntaxList<CatchClauseSyntax>(this.catches);
+    public FinallyClauseSyntax? Finally => this.@finally;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            1 => this.arms,
+            2 => this.@else,
+            3 => this.catches,
+            4 => this.@finally,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.IfCatchStatementSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitIfCatchStatement(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitIfCatchStatement(this);
+
+    public IfCatchStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, CoreSyntax.SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax @else, CoreSyntax.SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax @finally)
+    {
+        if (attributeLists != this.AttributeLists || arms != this.Arms || @else != this.Else || catches != this.Catches || @finally != this.Finally)
+        {
+            var newNode = SyntaxFactory.IfCatchStatement(attributeLists, arms, @else, catches, @finally);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new IfCatchStatementSyntax(this.Kind, this.attributeLists, this.arms, this.@else, this.catches, this.@finally, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new IfCatchStatementSyntax(this.Kind, this.attributeLists, this.arms, this.@else, this.catches, this.@finally, GetDiagnostics(), annotations);
+}
+
+internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
+{
+    internal readonly SyntaxToken ifKeyword;
+    internal readonly SyntaxToken? openParenToken;
+    internal readonly ExpressionSyntax? condition;
+    internal readonly SyntaxToken? closeParenToken;
+    internal readonly BlockSyntax? conditionBlock;
+    internal readonly BlockSyntax consequence;
+
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 6;
+        this.AdjustFlagsAndWidth(ifKeyword);
+        this.ifKeyword = ifKeyword;
+        if (openParenToken != null)
+        {
+            this.AdjustFlagsAndWidth(openParenToken);
+            this.openParenToken = openParenToken;
+        }
+        if (condition != null)
+        {
+            this.AdjustFlagsAndWidth(condition);
+            this.condition = condition;
+        }
+        if (closeParenToken != null)
+        {
+            this.AdjustFlagsAndWidth(closeParenToken);
+            this.closeParenToken = closeParenToken;
+        }
+        if (conditionBlock != null)
+        {
+            this.AdjustFlagsAndWidth(conditionBlock);
+            this.conditionBlock = conditionBlock;
+        }
+        this.AdjustFlagsAndWidth(consequence);
+        this.consequence = consequence;
+    }
+
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 6;
+        this.AdjustFlagsAndWidth(ifKeyword);
+        this.ifKeyword = ifKeyword;
+        if (openParenToken != null)
+        {
+            this.AdjustFlagsAndWidth(openParenToken);
+            this.openParenToken = openParenToken;
+        }
+        if (condition != null)
+        {
+            this.AdjustFlagsAndWidth(condition);
+            this.condition = condition;
+        }
+        if (closeParenToken != null)
+        {
+            this.AdjustFlagsAndWidth(closeParenToken);
+            this.closeParenToken = closeParenToken;
+        }
+        if (conditionBlock != null)
+        {
+            this.AdjustFlagsAndWidth(conditionBlock);
+            this.conditionBlock = conditionBlock;
+        }
+        this.AdjustFlagsAndWidth(consequence);
+        this.consequence = consequence;
+    }
+
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+      : base(kind)
+    {
+        this.SlotCount = 6;
+        this.AdjustFlagsAndWidth(ifKeyword);
+        this.ifKeyword = ifKeyword;
+        if (openParenToken != null)
+        {
+            this.AdjustFlagsAndWidth(openParenToken);
+            this.openParenToken = openParenToken;
+        }
+        if (condition != null)
+        {
+            this.AdjustFlagsAndWidth(condition);
+            this.condition = condition;
+        }
+        if (closeParenToken != null)
+        {
+            this.AdjustFlagsAndWidth(closeParenToken);
+            this.closeParenToken = closeParenToken;
+        }
+        if (conditionBlock != null)
+        {
+            this.AdjustFlagsAndWidth(conditionBlock);
+            this.conditionBlock = conditionBlock;
+        }
+        this.AdjustFlagsAndWidth(consequence);
+        this.consequence = consequence;
+    }
+
+    public SyntaxToken IfKeyword => this.ifKeyword;
+    public SyntaxToken? OpenParenToken => this.openParenToken;
+    public ExpressionSyntax? Condition => this.condition;
+    public SyntaxToken? CloseParenToken => this.closeParenToken;
+    public BlockSyntax? ConditionBlock => this.conditionBlock;
+    public BlockSyntax Consequence => this.consequence;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.ifKeyword,
+            1 => this.openParenToken,
+            2 => this.condition,
+            3 => this.closeParenToken,
+            4 => this.conditionBlock,
+            5 => this.consequence,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.IfCatchArmSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitIfCatchArm(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitIfCatchArm(this);
+
+    public IfCatchArmSyntax Update(SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, BlockSyntax conditionBlock, BlockSyntax consequence)
+    {
+        if (ifKeyword != this.IfKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || conditionBlock != this.ConditionBlock || consequence != this.Consequence)
+        {
+            var newNode = SyntaxFactory.IfCatchArm(ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new IfCatchArmSyntax(this.Kind, this.ifKeyword, this.openParenToken, this.condition, this.closeParenToken, this.conditionBlock, this.consequence, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new IfCatchArmSyntax(this.Kind, this.ifKeyword, this.openParenToken, this.condition, this.closeParenToken, this.conditionBlock, this.consequence, GetDiagnostics(), annotations);
+}
+
 internal sealed partial class CatchClauseSyntax : CSharpSyntaxNode
 {
     internal readonly SyntaxToken catchKeyword;
@@ -31692,6 +31988,22 @@ internal partial class ContextAwareSyntax
         return new TryStatementSyntax(SyntaxKind.TryStatement, attributeLists.Node, tryKeyword, block, catches.Node, @finally, this.context);
     }
 
+    public IfCatchStatementSyntax IfCatchStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, CoreSyntax.SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax? @else, CoreSyntax.SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax? @finally)
+    {
+        return new IfCatchStatementSyntax(SyntaxKind.IfCatchStatement, attributeLists.Node, arms.Node, @else, catches.Node, @finally, this.context);
+    }
+
+    public IfCatchArmSyntax IfCatchArm(SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    {
+#if DEBUG
+        if (ifKeyword == null) throw new ArgumentNullException(nameof(ifKeyword));
+        if (ifKeyword.Kind != SyntaxKind.IfKeyword) throw new ArgumentException(nameof(ifKeyword));
+        if (consequence == null) throw new ArgumentNullException(nameof(consequence));
+#endif
+
+        return new IfCatchArmSyntax(SyntaxKind.IfCatchArm, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence, this.context);
+    }
+
     public CatchClauseSyntax CatchClause(SyntaxToken catchKeyword, CatchDeclarationSyntax? declaration, CatchFilterClauseSyntax? filter, BlockSyntax block)
     {
 #if DEBUG
@@ -37117,6 +37429,24 @@ internal static partial class SyntaxFactory
 #endif
 
         return new TryStatementSyntax(SyntaxKind.TryStatement, attributeLists.Node, tryKeyword, block, catches.Node, @finally);
+    }
+
+    public static IfCatchStatementSyntax IfCatchStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, CoreSyntax.SyntaxList<IfCatchArmSyntax> arms, ElseClauseSyntax? @else, CoreSyntax.SyntaxList<CatchClauseSyntax> catches, FinallyClauseSyntax? @finally)
+    {
+        return new IfCatchStatementSyntax(SyntaxKind.IfCatchStatement, attributeLists.Node, arms.Node, @else, catches.Node, @finally);
+    }
+
+    public static IfCatchArmSyntax IfCatchArm(SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    {
+#if DEBUG
+        if (ifKeyword == null) throw new ArgumentNullException(nameof(ifKeyword));
+        if (ifKeyword.Kind != SyntaxKind.IfKeyword) throw new ArgumentException(nameof(ifKeyword));
+        if (openParenToken != null && openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
+        if (closeParenToken != null && closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
+        if (consequence == null) throw new ArgumentNullException(nameof(consequence));
+#endif
+
+        return new IfCatchArmSyntax(SyntaxKind.IfCatchArm, ifKeyword, openParenToken, condition, closeParenToken, conditionBlock, consequence);
     }
 
     public static CatchClauseSyntax CatchClause(SyntaxToken catchKeyword, CatchDeclarationSyntax? declaration, CatchFilterClauseSyntax? filter, BlockSyntax block)

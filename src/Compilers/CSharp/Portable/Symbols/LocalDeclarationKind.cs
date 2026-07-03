@@ -69,5 +69,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         /// This occurs as a result of error recovery in incorrect code.
         /// </summary>
         DeclarationExpressionVariable,
+
+        /// <summary>
+        /// The synthesized <c>ifout</c> local implicitly declared inside an if/catch arm's condition block.
+        /// </summary>
+        IfOutVariable,
     }
 }

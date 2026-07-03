@@ -75,6 +75,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.IfStatement:
                     result = BindIfStatement((IfStatementSyntax)node, diagnostics);
                     break;
+                case SyntaxKind.IfCatchStatement:
+                    result = BindIfCatchStatement((IfCatchStatementSyntax)node, diagnostics);
+                    break;
                 case SyntaxKind.SwitchStatement:
                     result = BindSwitchStatement((SwitchStatementSyntax)node, diagnostics);
                     break;
@@ -332,6 +335,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.ExpressionStatement:
                 case SyntaxKind.LockStatement:
                 case SyntaxKind.IfStatement:
+                case SyntaxKind.IfCatchStatement:
                 case SyntaxKind.YieldReturnStatement:
                 case SyntaxKind.ReturnStatement:
                 case SyntaxKind.ThrowStatement:

@@ -8359,7 +8359,7 @@ done:
                     case SyntaxKind.GotoKeyword:
                         return this.ParseGotoStatement(attributes);
                     case SyntaxKind.IfKeyword:
-                        return this.ParseIfStatement(attributes);
+                        return this.ParseIfStatementOrIfCatchStatement(attributes);
                     case SyntaxKind.ElseKeyword:
                         // Including 'else' keyword to handle 'else without if' error cases 
                         return this.ParseMisplacedElse(attributes);
@@ -10032,67 +10032,132 @@ done:
             return expression;
         }
 
-        private IfStatementSyntax ParseIfStatement(SyntaxList<AttributeListSyntax> attributes)
+        // NOTE: this method parses both the classic `if`/`else if`/`else` chain (producing an
+        // IfStatementSyntax, identical to what the old ParseIfStatement produced) as well as the new
+        // extended form that allows block-based conditions (`if { ... } ifout = ...; { ... }`) and/or
+        // trailing `catch`/`finally` clauses (producing an IfCatchStatementSyntax). We always parse via
+        // the arm-based representation below and, only at the very end, decide which shape to build --
+        // this avoids needing to backtrack the parser.
+        private StatementSyntax ParseIfStatementOrIfCatchStatement(SyntaxList<AttributeListSyntax> attributes)
         {
             Debug.Assert(this.CurrentToken.Kind == SyntaxKind.IfKeyword);
 
-            var stack = ArrayBuilder<(SyntaxToken, SyntaxToken, ExpressionSyntax, SyntaxToken, StatementSyntax, SyntaxToken)>.GetInstance();
+            var arms = _pool.Allocate<IfCatchArmSyntax>();
+            var interArmElseKeywords = ArrayBuilder<SyntaxToken>.GetInstance();
+            bool anyBlockCondition = false;
 
-            StatementSyntax alternative = null;
+            ElseClauseSyntax elseClause = null;
+
             while (true)
             {
                 var ifKeyword = this.EatToken(SyntaxKind.IfKeyword);
-                var openParen = this.EatToken(SyntaxKind.OpenParenToken);
-                var condition = this.ParseExpressionForParenthesizedConstruct();
-                var closeParen = this.EatToken(SyntaxKind.CloseParenToken);
-                var consequence = this.ParseEmbeddedStatement();
 
-                var elseKeyword = this.CurrentToken.Kind != SyntaxKind.ElseKeyword ?
-                    null :
-                    this.EatToken(SyntaxKind.ElseKeyword);
-                stack.Push((ifKeyword, openParen, condition, closeParen, consequence, elseKeyword));
+                SyntaxToken openParen = null;
+                ExpressionSyntax condition = null;
+                SyntaxToken closeParen = null;
+                BlockSyntax conditionBlock = null;
 
-                if (elseKeyword is null)
+                if (this.CurrentToken.Kind == SyntaxKind.OpenBraceToken)
                 {
-                    alternative = null;
+                    anyBlockCondition = true;
+                    conditionBlock = this.ParseBlock();
+                }
+                else
+                {
+                    openParen = this.EatToken(SyntaxKind.OpenParenToken);
+                    condition = this.ParseExpressionForParenthesizedConstruct();
+                    closeParen = this.EatToken(SyntaxKind.CloseParenToken);
+                }
+
+                // Always require an actual block for the consequence -- this is a simplification over the
+                // classic `if` statement (which allows any embedded statement).
+                var consequence = this.ParseBlock();
+
+                arms.Add(_syntaxFactory.IfCatchArm(ifKeyword, openParen, condition, closeParen, conditionBlock, consequence));
+
+                if (this.CurrentToken.Kind != SyntaxKind.ElseKeyword)
+                {
                     break;
                 }
 
-                if (this.CurrentToken.Kind != SyntaxKind.IfKeyword)
+                var elseKeyword = this.EatToken(SyntaxKind.ElseKeyword);
+
+                if (this.CurrentToken.Kind == SyntaxKind.IfKeyword)
                 {
-                    alternative = this.ParseEmbeddedStatement();
-                    break;
+                    // continue looping to parse the next `else if` arm.
+                    interArmElseKeywords.Add(elseKeyword);
+                    continue;
                 }
 
-                alternative = TryReuseStatement(attributes: default, isGlobal: false);
-                if (alternative is not null)
-                {
-                    break;
-                }
+                // Trailing 'else { ... }'
+                var elseBlock = this.ParseBlock();
+                elseClause = _syntaxFactory.ElseClause(elseKeyword, elseBlock);
+                break;
             }
 
-            IfStatementSyntax ifStatement;
-            do
+            SyntaxListBuilder<CatchClauseSyntax> catchClauses = default;
+            FinallyClauseSyntax finallyClause = null;
+
+            if (this.CurrentToken.Kind == SyntaxKind.CatchKeyword)
             {
-                var (ifKeyword, openParen, condition, closeParen, consequence, elseKeyword) = stack.Pop();
-                var elseClause = alternative is null ?
-                    null :
-                    _syntaxFactory.ElseClause(
-                        elseKeyword,
-                        alternative);
-                ifStatement = _syntaxFactory.IfStatement(
-                    attributeLists: stack.Any() ? default : attributes,
-                    ifKeyword,
-                    openParen,
-                    condition,
-                    closeParen,
-                    consequence,
-                    elseClause);
-                alternative = ifStatement;
+                catchClauses = _pool.Allocate<CatchClauseSyntax>();
+                while (this.CurrentToken.Kind == SyntaxKind.CatchKeyword)
+                {
+                    catchClauses.Add(this.ParseCatchClause());
+                }
             }
-            while (stack.Any());
 
-            stack.Free();
+            if (this.CurrentToken.Kind == SyntaxKind.FinallyKeyword)
+            {
+                finallyClause = _syntaxFactory.FinallyClause(
+                    this.EatToken(),
+                    this.ParsePossiblyAttributedBlock());
+            }
+
+            bool hasCatchOrFinally = !catchClauses.IsNull || finallyClause != null;
+
+            if (anyBlockCondition || hasCatchOrFinally)
+            {
+                interArmElseKeywords.Free();
+                var result = _syntaxFactory.IfCatchStatement(
+                    attributes,
+                    _pool.ToListAndFree(arms),
+                    elseClause,
+                    _pool.ToListAndFree(catchClauses),
+                    finallyClause);
+                return result;
+            }
+
+            // No block conditions and no catch/finally: reconstruct the classic nested IfStatementSyntax
+            // shape (identical to what the old ParseIfStatement produced) from the arms we already parsed.
+            var elseKeywords = interArmElseKeywords.ToImmutableAndFree();
+            int armCount = arms.Count;
+
+            StatementSyntax alternative = elseClause?.Statement;
+            SyntaxToken pendingElseKeyword = elseClause?.ElseKeyword;
+
+            IfStatementSyntax ifStatement = null;
+            for (int i = armCount - 1; i >= 0; i--)
+            {
+                var arm = arms[i];
+                ElseClauseSyntax thisElseClause = alternative is null
+                    ? null
+                    : _syntaxFactory.ElseClause(pendingElseKeyword, alternative);
+
+                ifStatement = _syntaxFactory.IfStatement(
+                    attributeLists: i == 0 ? attributes : default,
+                    arm.IfKeyword,
+                    arm.OpenParenToken,
+                    arm.Condition,
+                    arm.CloseParenToken,
+                    arm.Consequence,
+                    thisElseClause);
+
+                alternative = ifStatement;
+                pendingElseKeyword = i > 0 ? elseKeywords[i - 1] : null;
+            }
+
+            _pool.Free(arms);
 
             return ifStatement;
         }
