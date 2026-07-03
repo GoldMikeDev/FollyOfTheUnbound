@@ -71,6 +71,16 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
         DeclarationExpressionVariable,
 
         /// <summary>
+        /// User variable declared by an inline expression declaration (<c>expr identifier</c>).
+        /// </summary>
+        InlineExpressionVariable,
+
+        /// <summary>
+        /// User variable declared by a <c>mutate</c> statement.
+        /// </summary>
+        MutationTarget,
+
+        /// <summary>
         /// The synthesized <c>ifout</c> local implicitly declared inside an if/catch arm's condition block.
         /// </summary>
         IfOutVariable,

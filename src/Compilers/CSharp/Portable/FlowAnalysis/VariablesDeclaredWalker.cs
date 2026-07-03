@@ -268,5 +268,15 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             return null;
         }
+
+        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        {
+            if (IsInside)
+            {
+                _variablesDeclared.Add(node.LocalSymbol);
+            }
+
+            return base.VisitInlineExpressionDeclaration(node);
+        }
     }
 }

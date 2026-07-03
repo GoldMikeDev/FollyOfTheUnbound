@@ -3762,6 +3762,50 @@ public sealed partial class WithExpressionSyntax : ExpressionSyntax
     public WithExpressionSyntax AddInitializerExpressions(params ExpressionSyntax[] items) => WithInitializer(this.Initializer.WithExpressions(this.Initializer.Expressions.AddRange(items)));
 }
 
+/// <summary>Represents an inline expression declaration: <c>expr identifier</c>.</summary>
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.InlineExpressionDeclaration"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class InlineExpressionDeclarationSyntax : ExpressionSyntax
+{
+    private ExpressionSyntax? _expression;
+
+    internal InlineExpressionDeclarationSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    /// <summary>The expression whose value is assigned to the declared identifier.</summary>
+    public ExpressionSyntax Expression => GetRedAtZero(ref _expression)!;
+
+    /// <summary>The identifier of the declared local variable.</summary>
+    public SyntaxToken Identifier => new SyntaxToken(this, ((Syntax.InternalSyntax.InlineExpressionDeclarationSyntax)this.Green).identifier, GetChildPosition(1), GetChildIndex(1));
+
+    internal override SyntaxNode? GetNodeSlot(int index) => index == 0 ? GetRedAtZero(ref _expression)! : null;
+    internal override SyntaxNode? GetCachedSlot(int index) => index == 0 ? _expression : null;
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitInlineExpressionDeclaration(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitInlineExpressionDeclaration(this);
+
+    public InlineExpressionDeclarationSyntax Update(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+        if (expression != this.Expression || identifier != this.Identifier)
+        {
+            var newNode = SyntaxFactory.InlineExpressionDeclaration(expression, identifier);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    public InlineExpressionDeclarationSyntax WithExpression(ExpressionSyntax expression) => Update(expression, this.Identifier);
+    public InlineExpressionDeclarationSyntax WithIdentifier(SyntaxToken identifier) => Update(this.Expression, identifier);
+}
+
 /// <remarks>
 /// <para>This node is associated with the following syntax kinds:</para>
 /// <list type="bullet">
@@ -7604,6 +7648,160 @@ public sealed partial class DoStatementSyntax : StatementSyntax
 
     internal override StatementSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
     public new DoStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
+}
+
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.DoUntilStatement"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class DoUntilStatementSyntax : StatementSyntax
+{
+    private SyntaxNode? attributeLists;
+    private StatementSyntax? statement;
+    private ExpressionSyntax? condition;
+
+    internal DoUntilStatementSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public override SyntaxList<AttributeListSyntax> AttributeLists => new SyntaxList<AttributeListSyntax>(GetRed(ref this.attributeLists, 0));
+
+    public SyntaxToken DoKeyword => new SyntaxToken(this, ((InternalSyntax.DoUntilStatementSyntax)this.Green).doKeyword, GetChildPosition(1), GetChildIndex(1));
+
+    public StatementSyntax Statement => GetRed(ref this.statement, 2)!;
+
+    public SyntaxToken UntilKeyword => new SyntaxToken(this, ((InternalSyntax.DoUntilStatementSyntax)this.Green).untilKeyword, GetChildPosition(3), GetChildIndex(3));
+
+    public SyntaxToken OpenParenToken => new SyntaxToken(this, ((InternalSyntax.DoUntilStatementSyntax)this.Green).openParenToken, GetChildPosition(4), GetChildIndex(4));
+
+    public ExpressionSyntax Condition => GetRed(ref this.condition, 5)!;
+
+    public SyntaxToken CloseParenToken => new SyntaxToken(this, ((InternalSyntax.DoUntilStatementSyntax)this.Green).closeParenToken, GetChildPosition(6), GetChildIndex(6));
+
+    public SyntaxToken SemicolonToken => new SyntaxToken(this, ((InternalSyntax.DoUntilStatementSyntax)this.Green).semicolonToken, GetChildPosition(7), GetChildIndex(7));
+
+    internal override SyntaxNode? GetNodeSlot(int index)
+        => index switch
+        {
+            0 => GetRedAtZero(ref this.attributeLists)!,
+            2 => GetRed(ref this.statement, 2)!,
+            5 => GetRed(ref this.condition, 5)!,
+            _ => null,
+        };
+
+    internal override SyntaxNode? GetCachedSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            2 => this.statement,
+            5 => this.condition,
+            _ => null,
+        };
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitDoUntilStatement(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitDoUntilStatement(this);
+
+    public DoUntilStatementSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || doKeyword != this.DoKeyword || statement != this.Statement || untilKeyword != this.UntilKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.DoUntilStatement(attributeLists, doKeyword, statement, untilKeyword, openParenToken, condition, closeParenToken, semicolonToken);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    internal override StatementSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
+    public new DoUntilStatementSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.DoKeyword, this.Statement, this.UntilKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithDoKeyword(SyntaxToken doKeyword) => Update(this.AttributeLists, doKeyword, this.Statement, this.UntilKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithStatement(StatementSyntax statement) => Update(this.AttributeLists, this.DoKeyword, statement, this.UntilKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithUntilKeyword(SyntaxToken untilKeyword) => Update(this.AttributeLists, this.DoKeyword, this.Statement, untilKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithOpenParenToken(SyntaxToken openParenToken) => Update(this.AttributeLists, this.DoKeyword, this.Statement, this.UntilKeyword, openParenToken, this.Condition, this.CloseParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithCondition(ExpressionSyntax condition) => Update(this.AttributeLists, this.DoKeyword, this.Statement, this.UntilKeyword, this.OpenParenToken, condition, this.CloseParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithCloseParenToken(SyntaxToken closeParenToken) => Update(this.AttributeLists, this.DoKeyword, this.Statement, this.UntilKeyword, this.OpenParenToken, this.Condition, closeParenToken, this.SemicolonToken);
+    public DoUntilStatementSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.DoKeyword, this.Statement, this.UntilKeyword, this.OpenParenToken, this.Condition, this.CloseParenToken, semicolonToken);
+
+    internal override StatementSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
+    public new DoUntilStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
+}
+
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.MutateStatement"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class MutateStatementSyntax : StatementSyntax
+{
+    private SyntaxNode? attributeLists;
+    private IdentifierNameSyntax? variableName;
+    private TypeSyntax? type;
+
+    internal MutateStatementSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public override SyntaxList<AttributeListSyntax> AttributeLists => new SyntaxList<AttributeListSyntax>(GetRed(ref this.attributeLists, 0));
+
+    public SyntaxToken MutateKeyword => new SyntaxToken(this, ((InternalSyntax.MutateStatementSyntax)this.Green).mutateKeyword, GetChildPosition(1), GetChildIndex(1));
+
+    public IdentifierNameSyntax VariableName => GetRed(ref this.variableName, 2)!;
+
+    public SyntaxToken ToKeyword => new SyntaxToken(this, ((InternalSyntax.MutateStatementSyntax)this.Green).toKeyword, GetChildPosition(3), GetChildIndex(3));
+
+    public TypeSyntax Type => GetRed(ref this.type, 4)!;
+
+    public SyntaxToken SemicolonToken => new SyntaxToken(this, ((InternalSyntax.MutateStatementSyntax)this.Green).semicolonToken, GetChildPosition(5), GetChildIndex(5));
+
+    internal override SyntaxNode? GetNodeSlot(int index)
+        => index switch
+        {
+            0 => GetRedAtZero(ref this.attributeLists)!,
+            2 => GetRed(ref this.variableName, 2)!,
+            4 => GetRed(ref this.type, 4)!,
+            _ => null,
+        };
+
+    internal override SyntaxNode? GetCachedSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            2 => this.variableName,
+            4 => this.type,
+            _ => null,
+        };
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitMutateStatement(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitMutateStatement(this);
+
+    public MutateStatementSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || mutateKeyword != this.MutateKeyword || variableName != this.VariableName || toKeyword != this.ToKeyword || type != this.Type || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.MutateStatement(attributeLists, mutateKeyword, variableName, toKeyword, type, semicolonToken);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    internal override StatementSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
+    public new MutateStatementSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.MutateKeyword, this.VariableName, this.ToKeyword, this.Type, this.SemicolonToken);
+    public MutateStatementSyntax WithMutateKeyword(SyntaxToken mutateKeyword) => Update(this.AttributeLists, mutateKeyword, this.VariableName, this.ToKeyword, this.Type, this.SemicolonToken);
+    public MutateStatementSyntax WithVariableName(IdentifierNameSyntax variableName) => Update(this.AttributeLists, this.MutateKeyword, variableName, this.ToKeyword, this.Type, this.SemicolonToken);
+    public MutateStatementSyntax WithToKeyword(SyntaxToken toKeyword) => Update(this.AttributeLists, this.MutateKeyword, this.VariableName, toKeyword, this.Type, this.SemicolonToken);
+    public MutateStatementSyntax WithType(TypeSyntax type) => Update(this.AttributeLists, this.MutateKeyword, this.VariableName, this.ToKeyword, type, this.SemicolonToken);
+    public MutateStatementSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.MutateKeyword, this.VariableName, this.ToKeyword, this.Type, semicolonToken);
+
+    internal override StatementSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
+    public new MutateStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
 }
 
 /// <remarks>

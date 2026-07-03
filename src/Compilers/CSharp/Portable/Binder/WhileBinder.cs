@@ -21,7 +21,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         public WhileBinder(Binder enclosing, StatementSyntax syntax)
             : base(enclosing)
         {
-            Debug.Assert(syntax != null && (syntax.IsKind(SyntaxKind.WhileStatement) || syntax.IsKind(SyntaxKind.DoStatement)));
+            Debug.Assert(syntax != null && (syntax.IsKind(SyntaxKind.WhileStatement) || syntax.IsKind(SyntaxKind.DoStatement) || syntax.IsKind(SyntaxKind.DoUntilStatement)));
             _syntax = syntax;
         }
 
@@ -45,6 +45,16 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundDoStatement(node, this.Locals, condition, body, this.BreakLabel, this.ContinueLabel);
         }
 
+        internal override BoundDoUntilStatement BindDoUntilParts(BindingDiagnosticBag diagnostics, Binder originalBinder)
+        {
+            var node = (DoUntilStatementSyntax)_syntax;
+
+            var condition = originalBinder.BindBooleanExpression(node.Condition, diagnostics);
+            var body = originalBinder.BindPossibleEmbeddedStatement(node.Statement, diagnostics);
+            Debug.Assert(this.Locals == this.GetDeclaredLocalsForScope(node));
+            return new BoundDoUntilStatement(node, this.Locals, condition, body, this.BreakLabel, this.ContinueLabel);
+        }
+
         protected override ImmutableArray<LocalSymbol> BuildLocals()
         {
             var locals = ArrayBuilder<LocalSymbol>.GetInstance();
@@ -57,6 +67,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                     break;
                 case SyntaxKind.DoStatement:
                     condition = ((DoStatementSyntax)_syntax).Condition;
+                    break;
+                case SyntaxKind.DoUntilStatement:
+                    condition = ((DoUntilStatementSyntax)_syntax).Condition;
                     break;
                 default:
                     throw ExceptionUtilities.UnexpectedValue(_syntax.Kind());

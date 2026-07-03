@@ -694,6 +694,14 @@ namespace Microsoft.CodeAnalysis.CSharp
                 return null;
             }
 
+            public override BoundNode? VisitDoUntilStatement(BoundDoUntilStatement node)
+            {
+                AddAll(node.Locals);
+                base.VisitDoUntilStatement(node);
+                RemoveAll(node.Locals);
+                return null;
+            }
+
             public override BoundNode? VisitWhileStatement(BoundWhileStatement node)
             {
                 AddAll(node.Locals);

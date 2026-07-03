@@ -3593,10 +3593,30 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.VisitDoStatement(node);
         }
 
+        public override BoundNode? VisitDoUntilStatement(BoundDoUntilStatement node)
+        {
+            DeclareLocals(node.Locals);
+            return base.VisitDoUntilStatement(node);
+        }
+
         public override BoundNode? VisitWhileStatement(BoundWhileStatement node)
         {
             DeclareLocals(node.Locals);
             return base.VisitWhileStatement(node);
+        }
+
+        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        {
+            var operandResult = VisitRvalueWithState(node.Operand);
+            var type = node.LocalSymbol.TypeWithAnnotations;
+            int slot = GetOrCreateSlot(node.LocalSymbol);
+            if (slot > 0)
+            {
+                this.State[slot] = operandResult.State;
+            }
+            TrackNullableStateForAssignment(node.Operand, type, slot, operandResult);
+            SetResultType(node, operandResult);
+            return null;
         }
 
         public override BoundNode? VisitWithExpression(BoundWithExpression withExpr)

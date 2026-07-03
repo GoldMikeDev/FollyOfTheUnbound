@@ -439,6 +439,21 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
         }
 
+        public override void VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node)
+        {
+            // Visit the inner expression first so any nested variables get registered
+            Visit(node.Expression);
+
+            // Register the declared variable
+            TFieldOrLocalSymbol? variable = MakeInlineExpressionVariable(node, _nodeToBind);
+            if ((object?)variable != null)
+            {
+                _variablesBuilder.Add(variable);
+            }
+        }
+
+        protected abstract TFieldOrLocalSymbol? MakeInlineExpressionVariable(InlineExpressionDeclarationSyntax node, SyntaxNode nodeToBind);
+
 #nullable disable
 
         public override void VisitAssignmentExpression(AssignmentExpressionSyntax node)
@@ -644,6 +659,19 @@ namespace Microsoft.CodeAnalysis.CSharp
                             nodeToBind: nodeToBind);
         }
 
+        protected override LocalSymbol? MakeInlineExpressionVariable(InlineExpressionDeclarationSyntax node, SyntaxNode nodeToBind)
+        {
+            Debug.Assert(_scopeBinder.ContainingMemberOrLambda != null);
+            return SourceLocalSymbol.MakeLocalSymbolWithEnclosingContext(
+                            containingSymbol: _scopeBinder.ContainingMemberOrLambda,
+                            scopeBinder: _scopeBinder,
+                            nodeBinder: _enclosingBinder,
+                            typeSyntax: null,
+                            identifierToken: node.Identifier,
+                            kind: LocalDeclarationKind.InlineExpressionVariable,
+                            nodeToBind: nodeToBind);
+        }
+
 #nullable disable
 
         protected override LocalSymbol MakeDeconstructionVariable(
@@ -727,6 +755,12 @@ namespace Microsoft.CodeAnalysis.CSharp
                 _containingType, _modifiers, node.Type,
                 designation.Identifier.ValueText, designation, designation.Identifier.Span,
                 _containingFieldOpt, nodeToBind);
+        }
+
+        protected override Symbol? MakeInlineExpressionVariable(InlineExpressionDeclarationSyntax node, SyntaxNode nodeToBind)
+        {
+            // Inline expression declarations don't appear in script-level field contexts
+            return null;
         }
 
 #nullable disable

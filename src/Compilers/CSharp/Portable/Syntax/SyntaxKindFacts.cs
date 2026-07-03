@@ -933,6 +933,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.ForEachKeyword;
                 case "do":
                     return SyntaxKind.DoKeyword;
+                case "until":
+                    return SyntaxKind.UntilKeyword;
                 case "switch":
                     return SyntaxKind.SwitchKeyword;
                 case "case":
@@ -1246,6 +1248,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     yield return (SyntaxKind)i;
                 }
             }
+            yield return SyntaxKind.UntilKeyword;
         }
 
         public static bool IsContextualKeyword(SyntaxKind kind)
@@ -1302,6 +1305,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.ExtensionKeyword:
                 case SyntaxKind.UnionKeyword:
                 case SyntaxKind.ClosedKeyword:
+                case SyntaxKind.UntilKeyword:
                     return true;
                 default:
                     return false;
@@ -1435,6 +1439,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return SyntaxKind.UnionKeyword;
                 case "closed":
                     return SyntaxKind.ClosedKeyword;
+                case "until":
+                    return SyntaxKind.UntilKeyword;
                 default:
                     return SyntaxKind.None;
             }
@@ -1632,6 +1638,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "foreach";
                 case SyntaxKind.DoKeyword:
                     return "do";
+                case SyntaxKind.UntilKeyword:
+                    return "until";
                 case SyntaxKind.SwitchKeyword:
                     return "switch";
                 case SyntaxKind.CaseKeyword:
@@ -1888,6 +1896,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return "union";
                 case SyntaxKind.ClosedKeyword:
                     return "closed";
+                case SyntaxKind.UntilKeyword:
+                    return "until";
                 default:
                     return string.Empty;
             }

@@ -867,6 +867,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                     case SyntaxKind.WithExpression:
                         return BindWithExpression((WithExpressionSyntax)node, diagnostics);
 
+                    case SyntaxKind.InlineExpressionDeclaration:
+                        return BindInlineExpressionDeclaration((InlineExpressionDeclarationSyntax)node, diagnostics);
+
                     default:
                         // NOTE: We could probably throw an exception here, but it's conceivable
                         // that a non-parser syntax tree could reach this point with an unexpected

@@ -326,6 +326,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return statement.GetFirstToken();
                 case SyntaxKind.DoStatement:
                     return ((DoStatementSyntax)statement).DoKeyword;
+                case SyntaxKind.DoUntilStatement:
+                    return ((DoUntilStatementSyntax)statement).DoKeyword;
+                case SyntaxKind.MutateStatement:
+                    return ((MutateStatementSyntax)statement).MutateKeyword;
                 case SyntaxKind.EmptyStatement:
                     return default(SyntaxToken); //The caller will have to check for this.
                 case SyntaxKind.FixedStatement:
@@ -387,6 +391,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((LocalDeclarationStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.DoStatement:
                     return ((DoStatementSyntax)statement).SemicolonToken;
+                case SyntaxKind.DoUntilStatement:
+                    return ((DoUntilStatementSyntax)statement).SemicolonToken;
+                case SyntaxKind.MutateStatement:
+                    return ((MutateStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.EmptyStatement:
                     return ((EmptyStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.ExpressionStatement:

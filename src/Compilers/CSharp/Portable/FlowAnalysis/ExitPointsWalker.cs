@@ -83,6 +83,16 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.VisitDoStatement(node);
         }
 
+        public override BoundNode VisitDoUntilStatement(BoundDoUntilStatement node)
+        {
+            if (IsInside)
+            {
+                _labelsInside.Add(node.BreakLabel);
+                _labelsInside.Add(node.ContinueLabel);
+            }
+            return base.VisitDoUntilStatement(node);
+        }
+
         public override BoundNode VisitForEachStatement(BoundForEachStatement node)
         {
             if (IsInside)

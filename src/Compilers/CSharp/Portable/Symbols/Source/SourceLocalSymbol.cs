@@ -809,7 +809,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
                 SyntaxNode nodeToBind)
                 : base(containingSymbol, scopeBinder, allowRefKind: false, allowScoped: true, typeSyntax, identifierToken, declarationKind)
             {
-                Debug.Assert(declarationKind is LocalDeclarationKind.OutVariable or LocalDeclarationKind.PatternVariable);
+                Debug.Assert(declarationKind is LocalDeclarationKind.OutVariable or LocalDeclarationKind.PatternVariable or LocalDeclarationKind.InlineExpressionVariable);
                 Debug.Assert(
                     nodeToBind.Kind() == SyntaxKind.CasePatternSwitchLabel ||
                     nodeToBind.Kind() == SyntaxKind.ThisConstructorInitializer ||
@@ -879,7 +879,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 
                 if (this._type == null)
                 {
-                    Debug.Assert(this.DeclarationKind is LocalDeclarationKind.DeclarationExpressionVariable or LocalDeclarationKind.OutVariable);
+                    Debug.Assert(this.DeclarationKind is LocalDeclarationKind.DeclarationExpressionVariable or LocalDeclarationKind.OutVariable or LocalDeclarationKind.InlineExpressionVariable);
                     SetTypeWithAnnotations(TypeWithAnnotations.Create(DeclaringCompilation.ImplicitlyTypedVariableInferenceFailedType));
                 }
 

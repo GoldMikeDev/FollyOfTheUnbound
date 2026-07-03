@@ -538,6 +538,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case BoundKind.DoStatement:
                     syntaxForSpan = ((BoundDoStatement)statement).Condition.Syntax;
                     break;
+                case BoundKind.DoUntilStatement:
+                    syntaxForSpan = ((BoundDoUntilStatement)statement).Condition.Syntax;
+                    break;
                 case BoundKind.UsingStatement:
                     {
                         BoundUsingStatement usingStatement = (BoundUsingStatement)statement;

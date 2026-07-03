@@ -591,6 +591,23 @@ namespace Microsoft.CodeAnalysis.CSharp
             VisitPossibleEmbeddedStatement(node.Statement, whileBinder);
         }
 
+        public override void VisitDoUntilStatement(DoUntilStatementSyntax node)
+        {
+            Debug.Assert((object)_containingMemberOrLambda == _enclosing.ContainingMemberOrLambda);
+            var whileBinder = new WhileBinder(_enclosing, node);
+            AddToMap(node, whileBinder);
+
+            Visit(node.Condition, whileBinder);
+            VisitPossibleEmbeddedStatement(node.Statement, whileBinder);
+        }
+
+        public override void VisitMutateStatement(MutateStatementSyntax node)
+        {
+            // MutateStatement does not create a new scope; the enclosing binder handles it.
+            // The variable name and type are visited normally.
+            base.VisitMutateStatement(node);
+        }
+
         public override void VisitForStatement(ForStatementSyntax node)
         {
             Debug.Assert((object)_containingMemberOrLambda == _enclosing.ContainingMemberOrLambda);

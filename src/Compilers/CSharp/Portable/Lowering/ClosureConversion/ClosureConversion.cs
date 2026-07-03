@@ -1788,6 +1788,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     case SyntaxKind.ForEachVariableStatement:
                     case SyntaxKind.WhileStatement:
                     case SyntaxKind.DoStatement:
+                    case SyntaxKind.DoUntilStatement:
+                    case SyntaxKind.MutateStatement:
                     case SyntaxKind.SimpleLambdaExpression:
                     case SyntaxKind.ParenthesizedLambdaExpression:
                         return true;

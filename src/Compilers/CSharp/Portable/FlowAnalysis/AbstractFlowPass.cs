@@ -2407,6 +2407,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
+        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        {
+            VisitRvalue(node.Operand);
+            return null;
+        }
+
         public override BoundNode VisitArrayAccess(BoundArrayAccess node)
         {
             VisitRvalue(node.Expression);
@@ -3407,6 +3413,30 @@ namespace Microsoft.CodeAnalysis.CSharp
             VisitCondition(node.Condition);
             TLocalState breakState = this.StateWhenFalse;
             SetState(this.StateWhenTrue);
+            LoopTail(node);
+            ResolveBreaks(breakState, node.BreakLabel);
+            return null;
+        }
+
+        public override BoundNode VisitMutateStatement(BoundMutateStatement node)
+        {
+            // Visit the conversion expression (reads the old local)
+            VisitRvalue(node.ConversionExpression);
+            // Assign the new local
+            Assign(node, node.NewLocal);
+            return null;
+        }
+
+        public override BoundNode VisitDoUntilStatement(BoundDoUntilStatement node)
+        {
+            // do { statements; node.ContinueLabel: } until (node.Condition) node.BreakLabel:
+            // Exits when condition is true; equivalent to do-while with negated condition.
+            LoopHead(node);
+            VisitStatement(node.Body);
+            ResolveContinues(node.ContinueLabel);
+            VisitCondition(node.Condition);
+            TLocalState breakState = this.StateWhenTrue;
+            SetState(this.StateWhenFalse);
             LoopTail(node);
             ResolveBreaks(breakState, node.BreakLabel);
             return null;

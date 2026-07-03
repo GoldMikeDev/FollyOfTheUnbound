@@ -22,6 +22,16 @@ namespace Microsoft.CodeAnalysis.CSharp
         private ImmutableArray<LocalFunctionSymbol> _localFunctions;
         private ImmutableArray<LabelSymbol> _labels;
 
+        // Mutation overlay: tracks variables that have been mutated to new types within this scope
+        private System.Collections.Generic.Dictionary<string, LocalSymbol> _mutationOverrideMap;
+
+        internal void AddMutationOverride(string name, LocalSymbol newLocal)
+        {
+            if (_mutationOverrideMap == null)
+                _mutationOverrideMap = new System.Collections.Generic.Dictionary<string, LocalSymbol>(System.StringComparer.Ordinal);
+            _mutationOverrideMap[name] = newLocal;
+        }
+
         internal LocalScopeBinder(Binder next)
             : this(next, next.Flags)
         {
@@ -423,6 +433,16 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             Debug.Assert(options.AreValid());
             Debug.Assert(result.IsClear);
+
+            // Check mutation overlay first - mutated locals shadow the original
+            if (_mutationOverrideMap != null &&
+                (options & LookupOptions.LabelsOnly) == 0 &&
+                (options & LookupOptions.NamespaceAliasesOnly) == 0 &&
+                _mutationOverrideMap.TryGetValue(name, out var mutatedLocal))
+            {
+                result.MergeEqual(originalBinder.CheckViability(mutatedLocal, arity, options, null, diagnose, ref useSiteInfo));
+                return;
+            }
 
             if ((options & LookupOptions.LabelsOnly) != 0)
             {

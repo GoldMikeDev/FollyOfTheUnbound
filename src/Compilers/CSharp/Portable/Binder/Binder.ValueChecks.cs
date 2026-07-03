@@ -4591,6 +4591,10 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return GetValEscape(withExpression.Receiver)
                         .Intersect(GetValEscape(withExpression.InitializerExpression));
 
+                case BoundKind.InlineExpressionDeclaration:
+                    var inlineDecl = (BoundInlineExpressionDeclaration)expr;
+                    return GetValEscape(inlineDecl.Operand);
+
                 case BoundKind.UnaryOperator:
                     var unaryOperator = (BoundUnaryOperator)expr;
                     if (unaryOperator.MethodOpt is { } unaryMethod)
@@ -5356,6 +5360,12 @@ namespace Microsoft.CodeAnalysis.CSharp
                         escape = escape && CheckValEscape(initializerExpr.Syntax, initializerExpr, escapeTo, checkingReceiver: false, diagnostics: diagnostics);
 
                         return escape;
+                    }
+
+                case BoundKind.InlineExpressionDeclaration:
+                    {
+                        var inlineExprDecl = (BoundInlineExpressionDeclaration)expr;
+                        return CheckValEscape(node, inlineExprDecl.Operand, escapeTo, checkingReceiver: false, diagnostics);
                     }
 
                 case BoundKind.UnaryOperator:

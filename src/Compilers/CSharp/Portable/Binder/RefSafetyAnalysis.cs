@@ -444,6 +444,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.VisitDoStatement(node);
         }
 
+        public override BoundNode? VisitDoUntilStatement(BoundDoUntilStatement node)
+        {
+            using var _ = new LocalScope(this, node.Locals);
+            return base.VisitDoUntilStatement(node);
+        }
+
         public override BoundNode? VisitWhileStatement(BoundWhileStatement node)
         {
             using var _ = new LocalScope(this, node.Locals);

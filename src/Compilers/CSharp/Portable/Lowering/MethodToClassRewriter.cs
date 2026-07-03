@@ -76,6 +76,17 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             throw ExceptionUtilities.Unreachable();
         }
 
+        public override BoundNode VisitDoUntilStatement(BoundDoUntilStatement node)
+        {
+            throw ExceptionUtilities.Unreachable();
+        }
+
+        public override BoundNode VisitMutateStatement(BoundMutateStatement node)
+        {
+            throw ExceptionUtilities.Unreachable();
+        }
+
+
         public override BoundNode VisitWhileStatement(BoundWhileStatement node)
         {
             throw ExceptionUtilities.Unreachable();

@@ -84,6 +84,12 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.DoStatement:
                     result = BindDo((DoStatementSyntax)node, diagnostics);
                     break;
+                case SyntaxKind.DoUntilStatement:
+                    result = BindDoUntil((DoUntilStatementSyntax)node, diagnostics);
+                    break;
+                case SyntaxKind.MutateStatement:
+                    result = BindMutateStatement((MutateStatementSyntax)node, diagnostics);
+                    break;
                 case SyntaxKind.WhileStatement:
                     result = BindWhile((WhileStatementSyntax)node, diagnostics);
                     break;
@@ -2830,6 +2836,19 @@ namespace Microsoft.CodeAnalysis.CSharp
         internal virtual BoundDoStatement BindDoParts(BindingDiagnosticBag diagnostics, Binder originalBinder)
         {
             return this.Next.BindDoParts(diagnostics, originalBinder);
+        }
+
+        private BoundStatement BindDoUntil(DoUntilStatementSyntax node, BindingDiagnosticBag diagnostics)
+        {
+            var loopBinder = this.GetBinder(node);
+            Debug.Assert(loopBinder != null);
+
+            return loopBinder.BindDoUntilParts(diagnostics, loopBinder);
+        }
+
+        internal virtual BoundDoUntilStatement BindDoUntilParts(BindingDiagnosticBag diagnostics, Binder originalBinder)
+        {
+            return this.Next.BindDoUntilParts(diagnostics, originalBinder);
         }
 
         internal BoundForStatement BindFor(ForStatementSyntax node, BindingDiagnosticBag diagnostics)

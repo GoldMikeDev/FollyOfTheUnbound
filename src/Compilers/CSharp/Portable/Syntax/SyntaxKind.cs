@@ -948,9 +948,18 @@ namespace Microsoft.CodeAnalysis.CSharp
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82567")]
         UnionDeclaration = 9082,
 
+        /// <summary>Represents <see langword="until"/>.</summary>
+        UntilKeyword = 9083,
+        /// <summary>Represents a <c>do...until</c> statement.</summary>
+        DoUntilStatement = 9084,
+        /// <summary>Represents an inline expression declaration <c>expr identifier</c>.</summary>
+        InlineExpressionDeclaration = 9085,
+        /// <summary>Represents a <c>mutate</c> statement.</summary>
+        MutateStatement = 9086,
+
         /// <summary>Represents an <c>if</c>/<c>else if</c>/<c>else</c> chain with trailing <c>catch</c>/<c>finally</c> clauses.</summary>
-        IfCatchStatement = 9083,
+        IfCatchStatement = 9087,
         /// <summary>Represents a single arm of an <see cref="IfCatchStatement"/>.</summary>
-        IfCatchArm = 9084,
+        IfCatchArm = 9088,
     }
 }

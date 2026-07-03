@@ -1335,6 +1335,13 @@
       <summary>Creates a DeclarationExpression node.</summary>
     </FactoryComment>
   </Node>
+  <Node Name="InlineExpressionDeclarationSyntax" Base="ExpressionSyntax">
+    <Kind Name="InlineExpressionDeclaration"/>
+    <Field Name="Expression" Type="ExpressionSyntax"/>
+    <Field Name="Identifier" Type="SyntaxToken">
+      <Kind Name="IdentifierToken"/>
+    </Field>
+  </Node>
   <Node Name="CastExpressionSyntax" Base="ExpressionSyntax">
     <Kind Name="CastExpression"/>
     <Field Name="OpenParenToken" Type="SyntaxToken">
@@ -2552,6 +2559,42 @@
     <Field Name="CloseParenToken" Type="SyntaxToken">
       <Kind Name="CloseParenToken"/>
     </Field>
+    <Field Name="SemicolonToken" Type="SyntaxToken">
+      <Kind Name="SemicolonToken"/>
+    </Field>
+  </Node>
+  <Node Name="DoUntilStatementSyntax" Base="StatementSyntax">
+    <Kind Name="DoUntilStatement"/>
+    <Field Name="AttributeLists" Type="SyntaxList&lt;AttributeListSyntax&gt;" Override="true"/>
+    <Field Name="DoKeyword" Type="SyntaxToken">
+      <Kind Name="DoKeyword"/>
+    </Field>
+    <Field Name="Statement" Type="StatementSyntax"/>
+    <Field Name="UntilKeyword" Type="SyntaxToken">
+      <Kind Name="UntilKeyword"/>
+    </Field>
+    <Field Name="OpenParenToken" Type="SyntaxToken">
+      <Kind Name="OpenParenToken"/>
+    </Field>
+    <Field Name="Condition" Type="ExpressionSyntax"/>
+    <Field Name="CloseParenToken" Type="SyntaxToken">
+      <Kind Name="CloseParenToken"/>
+    </Field>
+    <Field Name="SemicolonToken" Type="SyntaxToken">
+      <Kind Name="SemicolonToken"/>
+    </Field>
+  </Node>
+  <Node Name="MutateStatementSyntax" Base="StatementSyntax">
+    <Kind Name="MutateStatement"/>
+    <Field Name="AttributeLists" Type="SyntaxList&lt;AttributeListSyntax&gt;" Override="true"/>
+    <Field Name="MutateKeyword" Type="SyntaxToken">
+      <Kind Name="IdentifierToken"/>
+    </Field>
+    <Field Name="VariableName" Type="IdentifierNameSyntax"/>
+    <Field Name="ToKeyword" Type="SyntaxToken">
+      <Kind Name="ToKeyword"/>
+    </Field>
+    <Field Name="Type" Type="TypeSyntax"/>
     <Field Name="SemicolonToken" Type="SyntaxToken">
       <Kind Name="SemicolonToken"/>
     </Field>

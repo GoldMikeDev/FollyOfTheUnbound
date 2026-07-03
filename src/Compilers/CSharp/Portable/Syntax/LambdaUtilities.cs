@@ -406,6 +406,8 @@ namespace Microsoft.CodeAnalysis.CSharp
 
                 // Due to pattern-matching, any statement that contains an expression may introduce a scope.
                 case SyntaxKind.DoStatement:
+                case SyntaxKind.DoUntilStatement:
+                case SyntaxKind.MutateStatement:
                 case SyntaxKind.ExpressionStatement:
                 case SyntaxKind.FixedStatement:
                 case SyntaxKind.GotoCaseStatement:

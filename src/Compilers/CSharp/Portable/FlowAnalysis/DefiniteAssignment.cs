@@ -2203,6 +2203,14 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result;
         }
 
+        public override BoundNode VisitDoUntilStatement(BoundDoUntilStatement node)
+        {
+            DeclareVariables(node.Locals);
+            var result = base.VisitDoUntilStatement(node);
+            ReportUnusedVariables(node.Locals);
+            return result;
+        }
+
         public override BoundNode VisitWhileStatement(BoundWhileStatement node)
         {
             DeclareVariables(node.Locals);
@@ -2352,6 +2360,14 @@ namespace Microsoft.CodeAnalysis.CSharp
             {
                 Assign(node, node.InitializerOpt);
             }
+            return result;
+        }
+
+        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        {
+            _ = GetOrCreateSlot(node.LocalSymbol); // creates slot for definite assignment tracking
+            var result = base.VisitInlineExpressionDeclaration(node);
+            Assign(node, node.Operand);
             return result;
         }
 

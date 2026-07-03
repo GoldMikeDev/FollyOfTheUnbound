@@ -5827,6 +5827,84 @@ internal sealed partial class WithExpressionSyntax : ExpressionSyntax
         => new WithExpressionSyntax(this.Kind, this.expression, this.withKeyword, this.initializer, GetDiagnostics(), annotations);
 }
 
+/// <summary>Represents an inline expression declaration: <c>expr identifier</c>.</summary>
+internal sealed partial class InlineExpressionDeclarationSyntax : ExpressionSyntax
+{
+    internal readonly ExpressionSyntax expression;
+    internal readonly SyntaxToken identifier;
+
+    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 2;
+        this.AdjustFlagsAndWidth(expression);
+        this.expression = expression;
+        this.AdjustFlagsAndWidth(identifier);
+        this.identifier = identifier;
+    }
+
+    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 2;
+        this.AdjustFlagsAndWidth(expression);
+        this.expression = expression;
+        this.AdjustFlagsAndWidth(identifier);
+        this.identifier = identifier;
+    }
+
+    internal InlineExpressionDeclarationSyntax(SyntaxKind kind, ExpressionSyntax expression, SyntaxToken identifier)
+      : base(kind)
+    {
+        this.SlotCount = 2;
+        this.AdjustFlagsAndWidth(expression);
+        this.expression = expression;
+        this.AdjustFlagsAndWidth(identifier);
+        this.identifier = identifier;
+    }
+
+    public ExpressionSyntax Expression => this.expression;
+    public SyntaxToken Identifier => this.identifier;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.expression,
+            1 => this.identifier,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position)
+        => new CSharp.Syntax.InlineExpressionDeclarationSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitInlineExpressionDeclaration(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitInlineExpressionDeclaration(this);
+
+    public InlineExpressionDeclarationSyntax Update(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+        if (expression != this.expression || identifier != this.identifier)
+        {
+            var newNode = SyntaxFactory.InlineExpressionDeclaration(expression, identifier);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new InlineExpressionDeclarationSyntax(this.Kind, this.expression, this.identifier, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new InlineExpressionDeclarationSyntax(this.Kind, this.expression, this.identifier, GetDiagnostics(), annotations);
+}
+
 internal sealed partial class AnonymousObjectMemberDeclaratorSyntax : CSharpSyntaxNode
 {
     internal readonly NameEqualsSyntax? nameEquals;
@@ -12266,6 +12344,266 @@ internal sealed partial class DoStatementSyntax : StatementSyntax
 
     internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
         => new DoStatementSyntax(this.Kind, this.attributeLists, this.doKeyword, this.statement, this.whileKeyword, this.openParenToken, this.condition, this.closeParenToken, this.semicolonToken, GetDiagnostics(), annotations);
+}
+
+internal sealed partial class DoUntilStatementSyntax : StatementSyntax
+{
+    internal readonly GreenNode? attributeLists;
+    internal readonly SyntaxToken doKeyword;
+    internal readonly StatementSyntax statement;
+    internal readonly SyntaxToken untilKeyword;
+    internal readonly SyntaxToken openParenToken;
+    internal readonly ExpressionSyntax condition;
+    internal readonly SyntaxToken closeParenToken;
+    internal readonly SyntaxToken semicolonToken;
+
+    internal DoUntilStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 8;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(doKeyword);
+        this.doKeyword = doKeyword;
+        this.AdjustFlagsAndWidth(statement);
+        this.statement = statement;
+        this.AdjustFlagsAndWidth(untilKeyword);
+        this.untilKeyword = untilKeyword;
+        this.AdjustFlagsAndWidth(openParenToken);
+        this.openParenToken = openParenToken;
+        this.AdjustFlagsAndWidth(condition);
+        this.condition = condition;
+        this.AdjustFlagsAndWidth(closeParenToken);
+        this.closeParenToken = closeParenToken;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal DoUntilStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 8;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(doKeyword);
+        this.doKeyword = doKeyword;
+        this.AdjustFlagsAndWidth(statement);
+        this.statement = statement;
+        this.AdjustFlagsAndWidth(untilKeyword);
+        this.untilKeyword = untilKeyword;
+        this.AdjustFlagsAndWidth(openParenToken);
+        this.openParenToken = openParenToken;
+        this.AdjustFlagsAndWidth(condition);
+        this.condition = condition;
+        this.AdjustFlagsAndWidth(closeParenToken);
+        this.closeParenToken = closeParenToken;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal DoUntilStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+      : base(kind)
+    {
+        this.SlotCount = 8;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(doKeyword);
+        this.doKeyword = doKeyword;
+        this.AdjustFlagsAndWidth(statement);
+        this.statement = statement;
+        this.AdjustFlagsAndWidth(untilKeyword);
+        this.untilKeyword = untilKeyword;
+        this.AdjustFlagsAndWidth(openParenToken);
+        this.openParenToken = openParenToken;
+        this.AdjustFlagsAndWidth(condition);
+        this.condition = condition;
+        this.AdjustFlagsAndWidth(closeParenToken);
+        this.closeParenToken = closeParenToken;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    public override CoreSyntax.SyntaxList<AttributeListSyntax> AttributeLists => new CoreSyntax.SyntaxList<AttributeListSyntax>(this.attributeLists);
+    public SyntaxToken DoKeyword => this.doKeyword;
+    public StatementSyntax Statement => this.statement;
+    public SyntaxToken UntilKeyword => this.untilKeyword;
+    public SyntaxToken OpenParenToken => this.openParenToken;
+    public ExpressionSyntax Condition => this.condition;
+    public SyntaxToken CloseParenToken => this.closeParenToken;
+    public SyntaxToken SemicolonToken => this.semicolonToken;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            1 => this.doKeyword,
+            2 => this.statement,
+            3 => this.untilKeyword,
+            4 => this.openParenToken,
+            5 => this.condition,
+            6 => this.closeParenToken,
+            7 => this.semicolonToken,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.DoUntilStatementSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitDoUntilStatement(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitDoUntilStatement(this);
+
+    public DoUntilStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || doKeyword != this.DoKeyword || statement != this.Statement || untilKeyword != this.UntilKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.DoUntilStatement(attributeLists, doKeyword, statement, untilKeyword, openParenToken, condition, closeParenToken, semicolonToken);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new DoUntilStatementSyntax(this.Kind, this.attributeLists, this.doKeyword, this.statement, this.untilKeyword, this.openParenToken, this.condition, this.closeParenToken, this.semicolonToken, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new DoUntilStatementSyntax(this.Kind, this.attributeLists, this.doKeyword, this.statement, this.untilKeyword, this.openParenToken, this.condition, this.closeParenToken, this.semicolonToken, GetDiagnostics(), annotations);
+}
+
+internal sealed partial class MutateStatementSyntax : StatementSyntax
+{
+    internal readonly GreenNode? attributeLists;
+    internal readonly SyntaxToken mutateKeyword;
+    internal readonly IdentifierNameSyntax variableName;
+    internal readonly SyntaxToken toKeyword;
+    internal readonly TypeSyntax type;
+    internal readonly SyntaxToken semicolonToken;
+
+    internal MutateStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 6;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(mutateKeyword);
+        this.mutateKeyword = mutateKeyword;
+        this.AdjustFlagsAndWidth(variableName);
+        this.variableName = variableName;
+        this.AdjustFlagsAndWidth(toKeyword);
+        this.toKeyword = toKeyword;
+        this.AdjustFlagsAndWidth(type);
+        this.type = type;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal MutateStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 6;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(mutateKeyword);
+        this.mutateKeyword = mutateKeyword;
+        this.AdjustFlagsAndWidth(variableName);
+        this.variableName = variableName;
+        this.AdjustFlagsAndWidth(toKeyword);
+        this.toKeyword = toKeyword;
+        this.AdjustFlagsAndWidth(type);
+        this.type = type;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal MutateStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken)
+      : base(kind)
+    {
+        this.SlotCount = 6;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(mutateKeyword);
+        this.mutateKeyword = mutateKeyword;
+        this.AdjustFlagsAndWidth(variableName);
+        this.variableName = variableName;
+        this.AdjustFlagsAndWidth(toKeyword);
+        this.toKeyword = toKeyword;
+        this.AdjustFlagsAndWidth(type);
+        this.type = type;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    public override CoreSyntax.SyntaxList<AttributeListSyntax> AttributeLists => new CoreSyntax.SyntaxList<AttributeListSyntax>(this.attributeLists);
+    public SyntaxToken MutateKeyword => this.mutateKeyword;
+    public IdentifierNameSyntax VariableName => this.variableName;
+    public SyntaxToken ToKeyword => this.toKeyword;
+    public TypeSyntax Type => this.type;
+    public SyntaxToken SemicolonToken => this.semicolonToken;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            1 => this.mutateKeyword,
+            2 => this.variableName,
+            3 => this.toKeyword,
+            4 => this.type,
+            5 => this.semicolonToken,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.MutateStatementSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitMutateStatement(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitMutateStatement(this);
+
+    public MutateStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || mutateKeyword != this.MutateKeyword || variableName != this.VariableName || toKeyword != this.ToKeyword || type != this.Type || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.MutateStatement(attributeLists, mutateKeyword, variableName, toKeyword, type, semicolonToken);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new MutateStatementSyntax(this.Kind, this.attributeLists, this.mutateKeyword, this.variableName, this.toKeyword, this.type, this.semicolonToken, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new MutateStatementSyntax(this.Kind, this.attributeLists, this.mutateKeyword, this.variableName, this.toKeyword, this.type, this.semicolonToken, GetDiagnostics(), annotations);
 }
 
 internal sealed partial class ForStatementSyntax : StatementSyntax
@@ -27636,6 +27974,7 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitObjectCreationExpression(ObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitWithExpression(WithExpressionSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitArrayCreationExpression(ArrayCreationExpressionSyntax node) => this.DefaultVisit(node);
@@ -27703,6 +28042,8 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitYieldStatement(YieldStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitWhileStatement(WhileStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitDoUntilStatement(DoUntilStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitMutateStatement(MutateStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForEachStatement(ForEachStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForEachVariableStatement(ForEachVariableStatementSyntax node) => this.DefaultVisit(node);
@@ -27889,6 +28230,7 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitImplicitObjectCreationExpression(ImplicitObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitObjectCreationExpression(ObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitWithExpression(WithExpressionSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node) => this.DefaultVisit(node);
     public virtual void VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node) => this.DefaultVisit(node);
     public virtual void VisitAnonymousObjectCreationExpression(AnonymousObjectCreationExpressionSyntax node) => this.DefaultVisit(node);
     public virtual void VisitArrayCreationExpression(ArrayCreationExpressionSyntax node) => this.DefaultVisit(node);
@@ -27956,6 +28298,8 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitYieldStatement(YieldStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitWhileStatement(WhileStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitDoUntilStatement(DoUntilStatementSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitMutateStatement(MutateStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForEachStatement(ForEachStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForEachVariableStatement(ForEachVariableStatementSyntax node) => this.DefaultVisit(node);
@@ -28266,6 +28610,13 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
     public override CSharpSyntaxNode VisitWithExpression(WithExpressionSyntax node)
         => node.Update((ExpressionSyntax)Visit(node.Expression), (SyntaxToken)Visit(node.WithKeyword), (InitializerExpressionSyntax)Visit(node.Initializer));
 
+    public override CSharpSyntaxNode VisitInlineExpressionDeclaration(InlineExpressionDeclarationSyntax node)
+    {
+        var expression = (ExpressionSyntax)Visit(node.expression);
+        var identifier = (SyntaxToken)Visit(node.identifier);
+        return node.Update(expression, identifier);
+    }
+
     public override CSharpSyntaxNode VisitAnonymousObjectMemberDeclarator(AnonymousObjectMemberDeclaratorSyntax node)
         => node.Update((NameEqualsSyntax)Visit(node.NameEquals), (ExpressionSyntax)Visit(node.Expression));
 
@@ -28466,6 +28817,13 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
 
     public override CSharpSyntaxNode VisitDoStatement(DoStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.DoKeyword), (StatementSyntax)Visit(node.Statement), (SyntaxToken)Visit(node.WhileKeyword), (SyntaxToken)Visit(node.OpenParenToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.CloseParenToken), (SyntaxToken)Visit(node.SemicolonToken));
+
+    public override CSharpSyntaxNode VisitDoUntilStatement(DoUntilStatementSyntax node)
+        => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.DoKeyword), (StatementSyntax)Visit(node.Statement), (SyntaxToken)Visit(node.UntilKeyword), (SyntaxToken)Visit(node.OpenParenToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.CloseParenToken), (SyntaxToken)Visit(node.SemicolonToken));
+
+    public override CSharpSyntaxNode VisitMutateStatement(MutateStatementSyntax node)
+        => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.MutateKeyword), (IdentifierNameSyntax)Visit(node.VariableName), (SyntaxToken)Visit(node.ToKeyword), (TypeSyntax)Visit(node.Type), (SyntaxToken)Visit(node.SemicolonToken));
+
 
     public override CSharpSyntaxNode VisitForStatement(ForStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.ForKeyword), (SyntaxToken)Visit(node.OpenParenToken), (VariableDeclarationSyntax)Visit(node.Declaration), VisitList(node.Initializers), (SyntaxToken)Visit(node.FirstSemicolonToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.SecondSemicolonToken), VisitList(node.Incrementors), (SyntaxToken)Visit(node.CloseParenToken), (StatementSyntax)Visit(node.Statement));
@@ -30271,6 +30629,27 @@ internal partial class ContextAwareSyntax
         return result;
     }
 
+    public InlineExpressionDeclarationSyntax InlineExpressionDeclaration(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+#if DEBUG
+        if (expression == null) throw new ArgumentNullException(nameof(expression));
+        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
+        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
+#endif
+
+        int hash;
+        var cached = CSharpSyntaxNodeCache.TryGetNode((int)SyntaxKind.InlineExpressionDeclaration, expression, identifier, this.context, out hash);
+        if (cached != null) return (InlineExpressionDeclarationSyntax)cached;
+
+        var result = new InlineExpressionDeclarationSyntax(SyntaxKind.InlineExpressionDeclaration, expression, identifier, this.context);
+        if (hash >= 0)
+        {
+            SyntaxNodeCache.AddNode(result, hash);
+        }
+
+        return result;
+    }
+
     public AnonymousObjectMemberDeclaratorSyntax AnonymousObjectMemberDeclarator(NameEqualsSyntax? nameEquals, ExpressionSyntax expression)
     {
 #if DEBUG
@@ -31619,6 +31998,42 @@ internal partial class ContextAwareSyntax
 #endif
 
         return new DoStatementSyntax(SyntaxKind.DoStatement, attributeLists.Node, doKeyword, statement, whileKeyword, openParenToken, condition, closeParenToken, semicolonToken, this.context);
+    }
+
+    public DoUntilStatementSyntax DoUntilStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+    {
+#if DEBUG
+        if (doKeyword == null) throw new ArgumentNullException(nameof(doKeyword));
+        if (doKeyword.Kind != SyntaxKind.DoKeyword) throw new ArgumentException(nameof(doKeyword));
+        if (statement == null) throw new ArgumentNullException(nameof(statement));
+        if (untilKeyword == null) throw new ArgumentNullException(nameof(untilKeyword));
+        if (untilKeyword.Kind != SyntaxKind.UntilKeyword) throw new ArgumentException(nameof(untilKeyword));
+        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
+        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
+        if (condition == null) throw new ArgumentNullException(nameof(condition));
+        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
+        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
+        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+#endif
+
+        return new DoUntilStatementSyntax(SyntaxKind.DoUntilStatement, attributeLists.Node, doKeyword, statement, untilKeyword, openParenToken, condition, closeParenToken, semicolonToken, this.context);
+    }
+
+    public MutateStatementSyntax MutateStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken)
+    {
+#if DEBUG
+        if (mutateKeyword == null) throw new ArgumentNullException(nameof(mutateKeyword));
+        if (mutateKeyword.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(mutateKeyword));
+        if (variableName == null) throw new ArgumentNullException(nameof(variableName));
+        if (toKeyword == null) throw new ArgumentNullException(nameof(toKeyword));
+        if (toKeyword.Kind != SyntaxKind.ToKeyword) throw new ArgumentException(nameof(toKeyword));
+        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+#endif
+
+        return new MutateStatementSyntax(SyntaxKind.MutateStatement, attributeLists.Node, mutateKeyword, variableName, toKeyword, type, semicolonToken, this.context);
     }
 
     public ForStatementSyntax ForStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken forKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> initializers, SyntaxToken firstSemicolonToken, ExpressionSyntax? condition, SyntaxToken secondSemicolonToken, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> incrementors, SyntaxToken closeParenToken, StatementSyntax statement)
@@ -35714,6 +36129,27 @@ internal static partial class SyntaxFactory
         return result;
     }
 
+    public static InlineExpressionDeclarationSyntax InlineExpressionDeclaration(ExpressionSyntax expression, SyntaxToken identifier)
+    {
+#if DEBUG
+        if (expression == null) throw new ArgumentNullException(nameof(expression));
+        if (identifier == null) throw new ArgumentNullException(nameof(identifier));
+        if (identifier.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(identifier));
+#endif
+
+        int hash;
+        var cached = SyntaxNodeCache.TryGetNode((int)SyntaxKind.InlineExpressionDeclaration, expression, identifier, out hash);
+        if (cached != null) return (InlineExpressionDeclarationSyntax)cached;
+
+        var result = new InlineExpressionDeclarationSyntax(SyntaxKind.InlineExpressionDeclaration, expression, identifier);
+        if (hash >= 0)
+        {
+            SyntaxNodeCache.AddNode(result, hash);
+        }
+
+        return result;
+    }
+
     public static AnonymousObjectMemberDeclaratorSyntax AnonymousObjectMemberDeclarator(NameEqualsSyntax? nameEquals, ExpressionSyntax expression)
     {
 #if DEBUG
@@ -37062,6 +37498,42 @@ internal static partial class SyntaxFactory
 #endif
 
         return new DoStatementSyntax(SyntaxKind.DoStatement, attributeLists.Node, doKeyword, statement, whileKeyword, openParenToken, condition, closeParenToken, semicolonToken);
+    }
+
+    public static DoUntilStatementSyntax DoUntilStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken doKeyword, StatementSyntax statement, SyntaxToken untilKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, SyntaxToken semicolonToken)
+    {
+#if DEBUG
+        if (doKeyword == null) throw new ArgumentNullException(nameof(doKeyword));
+        if (doKeyword.Kind != SyntaxKind.DoKeyword) throw new ArgumentException(nameof(doKeyword));
+        if (statement == null) throw new ArgumentNullException(nameof(statement));
+        if (untilKeyword == null) throw new ArgumentNullException(nameof(untilKeyword));
+        if (untilKeyword.Kind != SyntaxKind.UntilKeyword) throw new ArgumentException(nameof(untilKeyword));
+        if (openParenToken == null) throw new ArgumentNullException(nameof(openParenToken));
+        if (openParenToken.Kind != SyntaxKind.OpenParenToken) throw new ArgumentException(nameof(openParenToken));
+        if (condition == null) throw new ArgumentNullException(nameof(condition));
+        if (closeParenToken == null) throw new ArgumentNullException(nameof(closeParenToken));
+        if (closeParenToken.Kind != SyntaxKind.CloseParenToken) throw new ArgumentException(nameof(closeParenToken));
+        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+#endif
+
+        return new DoUntilStatementSyntax(SyntaxKind.DoUntilStatement, attributeLists.Node, doKeyword, statement, untilKeyword, openParenToken, condition, closeParenToken, semicolonToken);
+    }
+
+    public static MutateStatementSyntax MutateStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken mutateKeyword, IdentifierNameSyntax variableName, SyntaxToken toKeyword, TypeSyntax type, SyntaxToken semicolonToken)
+    {
+#if DEBUG
+        if (mutateKeyword == null) throw new ArgumentNullException(nameof(mutateKeyword));
+        if (mutateKeyword.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(mutateKeyword));
+        if (variableName == null) throw new ArgumentNullException(nameof(variableName));
+        if (toKeyword == null) throw new ArgumentNullException(nameof(toKeyword));
+        if (toKeyword.Kind != SyntaxKind.ToKeyword) throw new ArgumentException(nameof(toKeyword));
+        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+#endif
+
+        return new MutateStatementSyntax(SyntaxKind.MutateStatement, attributeLists.Node, mutateKeyword, variableName, toKeyword, type, semicolonToken);
     }
 
     public static ForStatementSyntax ForStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken forKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> initializers, SyntaxToken firstSemicolonToken, ExpressionSyntax? condition, SyntaxToken secondSemicolonToken, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> incrementors, SyntaxToken closeParenToken, StatementSyntax statement)

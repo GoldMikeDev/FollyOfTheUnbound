@@ -65,6 +65,8 @@ namespace Microsoft.CodeAnalysis.Operations
                     return CreateBoundObjectCreationExpressionOperation((BoundObjectCreationExpression)boundNode);
                 case BoundKind.WithExpression:
                     return CreateBoundWithExpressionOperation((BoundWithExpression)boundNode);
+                case BoundKind.InlineExpressionDeclaration:
+                    return CreateBoundInlineExpressionDeclarationOperation((BoundInlineExpressionDeclaration)boundNode);
                 case BoundKind.DynamicObjectCreationExpression:
                     return CreateBoundDynamicObjectCreationExpressionOperation((BoundDynamicObjectCreationExpression)boundNode);
                 case BoundKind.ObjectInitializerExpression:
@@ -176,6 +178,10 @@ namespace Microsoft.CodeAnalysis.Operations
                     return CreateBoundWhileStatementOperation((BoundWhileStatement)boundNode);
                 case BoundKind.DoStatement:
                     return CreateBoundDoStatementOperation((BoundDoStatement)boundNode);
+                case BoundKind.DoUntilStatement:
+                    return CreateBoundDoUntilStatementOperation((BoundDoUntilStatement)boundNode);
+                case BoundKind.MutateStatement:
+                    return CreateBoundMutateStatementOperation((BoundMutateStatement)boundNode);
                 case BoundKind.ForStatement:
                     return CreateBoundForStatementOperation((BoundForStatement)boundNode);
                 case BoundKind.ForEachStatement:
@@ -757,6 +763,18 @@ namespace Microsoft.CodeAnalysis.Operations
             ITypeSymbol? type = boundWithExpression.GetPublicTypeSymbol();
             bool isImplicit = boundWithExpression.WasCompilerGenerated;
             return new WithOperation(operand, constructor.GetPublicSymbol(), initializer, _semanticModel, syntax, type, isImplicit);
+        }
+
+        private IOperation CreateBoundInlineExpressionDeclarationOperation(BoundInlineExpressionDeclaration node)
+        {
+            // Lower inline expression declaration to a simple assignment operation for the API surface
+            IOperation value = Create(node.Operand);
+            ILocalSymbol localSymbol = node.LocalSymbol.GetPublicSymbol();
+            SyntaxNode syntax = node.Syntax;
+            ITypeSymbol? type = node.GetPublicTypeSymbol();
+            bool isImplicit = node.WasCompilerGenerated;
+            ILocalReferenceOperation target = new LocalReferenceOperation(localSymbol, isDeclaration: true, _semanticModel, syntax, type, constantValue: null, isImplicit);
+            return new SimpleAssignmentOperation(isRef: false, target, value, _semanticModel, syntax, type, constantValue: default, isImplicit);
         }
 
         private IDynamicObjectCreationOperation CreateBoundDynamicObjectCreationExpressionOperation(BoundDynamicObjectCreationExpression boundDynamicObjectCreationExpression)
@@ -1933,6 +1951,28 @@ namespace Microsoft.CodeAnalysis.Operations
             SyntaxNode syntax = boundDoStatement.Syntax;
             bool isImplicit = boundDoStatement.WasCompilerGenerated;
             return new WhileLoopOperation(condition, conditionIsTop, conditionIsUntil, ignoredCondition: null, body, locals, continueLabel, exitLabel, _semanticModel, syntax, isImplicit);
+        }
+
+        private IWhileLoopOperation CreateBoundDoUntilStatementOperation(BoundDoUntilStatement boundDoUntilStatement)
+        {
+            IOperation condition = Create(boundDoUntilStatement.Condition);
+            IOperation body = Create(boundDoUntilStatement.Body);
+            ILabelSymbol continueLabel = boundDoUntilStatement.ContinueLabel.GetPublicSymbol();
+            ILabelSymbol exitLabel = boundDoUntilStatement.BreakLabel.GetPublicSymbol();
+            bool conditionIsTop = false;
+            bool conditionIsUntil = true;
+            ImmutableArray<ILocalSymbol> locals = boundDoUntilStatement.Locals.GetPublicSymbols();
+            SyntaxNode syntax = boundDoUntilStatement.Syntax;
+            bool isImplicit = boundDoUntilStatement.WasCompilerGenerated;
+            return new WhileLoopOperation(condition, conditionIsTop, conditionIsUntil, ignoredCondition: null, body, locals, continueLabel, exitLabel, _semanticModel, syntax, isImplicit);
+        }
+
+
+        private IOperation CreateBoundMutateStatementOperation(BoundMutateStatement boundMutateStatement)
+        {
+            // Represent the mutate statement as an expression statement containing the conversion
+            IOperation conversionOp = Create(boundMutateStatement.ConversionExpression);
+            return new NoneOperation(ImmutableArray.Create(conversionOp), _semanticModel, boundMutateStatement.Syntax, type: null, constantValue: null, isImplicit: true);
         }
 
         private IForLoopOperation CreateBoundForStatementOperation(BoundForStatement boundForStatement)

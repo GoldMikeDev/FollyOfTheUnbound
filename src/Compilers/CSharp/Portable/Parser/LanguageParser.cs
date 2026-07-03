@@ -8351,7 +8351,7 @@ done:
                     case SyntaxKind.UncheckedKeyword:
                         return this.ParseCheckedStatement(attributes);
                     case SyntaxKind.DoKeyword:
-                        return this.ParseDoStatement(attributes);
+                        return this.ParseDoOrDoUntilStatement(attributes);
                     case SyntaxKind.ForKeyword:
                         return this.ParseForOrForEachStatement(attributes);
                     case SyntaxKind.ForEachKeyword:
@@ -8486,6 +8486,10 @@ done:
             else if (this.IsPossibleYieldStatement())
             {
                 return this.ParseYieldStatement(attributes);
+            }
+            else if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && this.CurrentToken.ValueText == "mutate")
+            {
+                return this.ParseMutateStatement(attributes);
             }
             else if (this.IsPossibleAwaitExpressionStatement())
             {
@@ -9543,11 +9547,17 @@ done:
                 this.ParsePossiblyAttributedBlock());
         }
 
-        private DoStatementSyntax ParseDoStatement(SyntaxList<AttributeListSyntax> attributes)
+        private StatementSyntax ParseDoOrDoUntilStatement(SyntaxList<AttributeListSyntax> attributes)
         {
             Debug.Assert(this.CurrentToken.Kind == SyntaxKind.DoKeyword);
             var @do = this.EatToken(SyntaxKind.DoKeyword);
             var statement = this.ParseEmbeddedStatement();
+
+            if (this.CurrentToken.ContextualKind == SyntaxKind.UntilKeyword)
+            {
+                return ParseDoUntilStatementRest(attributes, @do, statement);
+            }
+
             var @while = this.EatToken(SyntaxKind.WhileKeyword);
             var openParen = this.EatToken(SyntaxKind.OpenParenToken);
 
@@ -9561,6 +9571,37 @@ done:
                 @do,
                 statement,
                 @while,
+                openParen,
+                expression,
+                this.EatToken(SyntaxKind.CloseParenToken),
+                this.EatToken(SyntaxKind.SemicolonToken));
+        }
+
+        private MutateStatementSyntax ParseMutateStatement(SyntaxList<AttributeListSyntax> attributes)
+        {
+            var mutateToken = this.EatToken(SyntaxKind.IdentifierToken); // "mutate"
+            var variableName = (IdentifierNameSyntax)this.ParseIdentifierName();
+            var toToken = this.EatContextualToken(SyntaxKind.ToKeyword);
+            var type = this.ParseType();
+            var semicolon = this.EatToken(SyntaxKind.SemicolonToken);
+            return _syntaxFactory.MutateStatement(attributes, mutateToken, variableName, toToken, type, semicolon);
+        }
+
+        private DoUntilStatementSyntax ParseDoUntilStatementRest(SyntaxList<AttributeListSyntax> attributes, SyntaxToken @do, StatementSyntax statement)
+        {
+            var until = this.EatContextualToken(SyntaxKind.UntilKeyword);
+            var openParen = this.EatToken(SyntaxKind.OpenParenToken);
+
+            var saveTerm = _termState;
+            _termState |= TerminatorState.IsEndOfDoWhileExpression;
+            var expression = this.ParseExpressionForParenthesizedConstruct();
+            _termState = saveTerm;
+
+            return _syntaxFactory.DoUntilStatement(
+                attributes,
+                @do,
+                statement,
+                until,
                 openParen,
                 expression,
                 this.EatToken(SyntaxKind.CloseParenToken),
@@ -11633,6 +11674,14 @@ done:
             if (this.CurrentToken.Kind == SyntaxKind.QuestionToken && precedence <= Precedence.Conditional)
                 return consumeConditionalExpression(currentExpression);
 
+            // Check for trailing inline expression declaration: <expr> <identifier>
+            // where <identifier> is followed by a terminating token (comma, close-paren, etc.)
+            if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && IsInlineDeclarationContext())
+            {
+                var identToken = this.EatToken(SyntaxKind.IdentifierToken);
+                currentExpression = _syntaxFactory.InlineExpressionDeclaration(currentExpression, identToken);
+            }
+
             return currentExpression;
 
             ExpressionSyntax? tryExpandExpression(ExpressionSyntax leftOperand, Precedence precedence)
@@ -13521,6 +13570,21 @@ done:
         }
 
 #nullable enable
+
+        private bool IsInlineDeclarationContext()
+        {
+            // The token after the identifier must be a statement/expression terminator
+            // to avoid ambiguity with binary operators, member access, etc.
+            var after = this.PeekToken(1);
+            return after.Kind is
+                SyntaxKind.CommaToken or
+                SyntaxKind.CloseParenToken or
+                SyntaxKind.CloseBracketToken or
+                SyntaxKind.SemicolonToken or
+                SyntaxKind.CloseBraceToken or
+                SyntaxKind.ColonToken or
+                SyntaxKind.EndOfFileToken;
+        }
 
         private WithExpressionSyntax ParseWithExpression(ExpressionSyntax receiverExpression, SyntaxToken withKeyword)
         {

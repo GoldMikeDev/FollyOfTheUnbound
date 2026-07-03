@@ -2498,6 +2498,9 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         ERR_IfBlockConditionRequiresCatch = 9388,
 
+        ERR_InvalidMutation = 9389,
+        WRN_MutationMayFail = 9390,
+
         // Note: you will need to do the following after adding errors:
         //  1) Update ErrorFacts.IsBuildOnlyDiagnostic (src/Compilers/CSharp/Portable/Errors/ErrorFacts.cs)
         //  2) Add message to CSharpResources.resx

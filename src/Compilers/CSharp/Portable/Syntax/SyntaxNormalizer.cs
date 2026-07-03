@@ -412,8 +412,10 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                 case SyntaxKind.ElseKeyword:
                     return 1;
                 default:
-                    if (kind == SyntaxKind.WhileKeyword &&
-                        nextToken.Parent.IsKind(SyntaxKind.DoStatement))
+                    if ((kind == SyntaxKind.WhileKeyword &&
+                        nextToken.Parent.IsKind(SyntaxKind.DoStatement)) ||
+                        (kind == SyntaxKind.UntilKeyword &&
+                        nextToken.Parent.IsKind(SyntaxKind.DoUntilStatement)))
                     {
                         return 1;
                     }
