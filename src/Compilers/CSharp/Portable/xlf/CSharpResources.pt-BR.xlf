@@ -1157,6 +1157,11 @@
         <target state="translated">O membro posicional “{0}” encontrado correspondente a este parâmetro está oculto.</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_IfBlockConditionRequiresCatch">
+        <source>An 'if' condition using a code block requires the chain to end in a 'catch' clause.</source>
+        <target state="new">An 'if' condition using a code block requires the chain to end in a 'catch' clause.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_IllegalAtSequence">
         <source>Sequence of '@' characters is not allowed. A verbatim string or identifier can only have one '@' character and a raw string cannot have any.</source>
         <target state="translated">A sequência de caracteres “@” não é permitida. Uma cadeia de caracteres verbatim ou um identificador só podem ter um caractere “@” e uma cadeia de caracteres bruta não pode ter nenhum.</target>
@@ -1515,6 +1520,11 @@
       <trans-unit id="ERR_InvalidExperimentalDiagID">
         <source>The diagnosticId argument to the 'Experimental' attribute must be a valid identifier</source>
         <target state="translated">O argumento diagnosticId para o atributo 'Experimental' deve ser um identificador válido</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ERR_InvalidMutation">
+        <source>Cannot mutate '{0}' to type '{1}': no valid conversion exists from '{2}'.</source>
+        <target state="new">Cannot mutate '{0}' to type '{1}': no valid conversion exists from '{2}'.</target>
         <note />
       </trans-unit>
       <trans-unit id="ERR_MemberProviderInUnionDeclaration">
@@ -3725,6 +3735,16 @@
       <trans-unit id="WRN_MismatchedRefEscapeInTernary_Title">
         <source>The branches of the ref conditional operator refer to variables with incompatible declaration scopes</source>
         <target state="translated">As ramificações do operador condicional ref referem-se a variáveis com escopos de declaração incompatíveis</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="WRN_MutationMayFail">
+        <source>Mutation of '{0}' to '{1}' may throw InvalidMutationException at runtime.</source>
+        <target state="new">Mutation of '{0}' to '{1}' may throw InvalidMutationException at runtime.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="WRN_MutationMayFail_Title">
+        <source>Mutation may fail at runtime</source>
+        <target state="new">Mutation may fail at runtime</target>
         <note />
       </trans-unit>
       <trans-unit id="WRN_NullabilityMismatchInParameterTypeOnInterceptor">

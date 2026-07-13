@@ -274,6 +274,9 @@ internal static class BreakpointSpans
             case SyntaxKind.ElseClause:
                 return TryCreateSpanForNode(((ElseClauseSyntax)node).Statement, position);
 
+            case SyntaxKind.IfCatchArm:
+                return TryCreateSpanForIfCatchArm((IfCatchArmSyntax)node, position);
+
             case SyntaxKind.CatchFilterClause:
                 return CreateSpan(node);
 
@@ -623,6 +626,21 @@ internal static class BreakpointSpans
                         LastNotMissing(doStatement.CloseParenToken, doStatement.SemicolonToken));
                 }
 
+            case SyntaxKind.DoUntilStatement:
+                // Note: if the user was in the body of the loop, then we would have hit its nested
+                // statement on the way up.  This means we're either in the "until(expr)" portion or
+                // the "do" portion.
+                var doUntilStatement = (DoUntilStatementSyntax)statement;
+                if (position < doUntilStatement.Statement.Span.Start)
+                {
+                    return TryCreateSpanForStatement(doUntilStatement.Statement, position);
+                }
+                else
+                {
+                    return CreateSpan(doUntilStatement.UntilKeyword,
+                        LastNotMissing(doUntilStatement.CloseParenToken, doUntilStatement.SemicolonToken));
+                }
+
             case SyntaxKind.ForStatement:
                 // Note: if the user was in the body of the for, then we would have hit its nested
                 // statement on the way up.  If they were in the condition or the incrementors, then
@@ -745,6 +763,16 @@ internal static class BreakpointSpans
                 var tryStatement = (TryStatementSyntax)statement;
                 return TryCreateSpanForStatement(tryStatement.Block, position);
 
+            case SyntaxKind.IfCatchStatement:
+                // Note: if the user was within a specific arm, a catch, or a finally, that will
+                // already have been handled above (via the IfCatchArm/CatchClause/FinallyClause
+                // cases in TryCreateSpanForNode).  This means we must be on the very first
+                // "if (...)" part.
+                var ifCatchStatement = (IfCatchStatementSyntax)statement;
+                return ifCatchStatement.Arms.Count > 0
+                    ? TryCreateSpanForIfCatchArm(ifCatchStatement.Arms[0], position)
+                    : CreateSpan(statement);
+
             // All these cases are handled by just putting a breakpoint over the entire
             // statement
             case SyntaxKind.GotoStatement:
@@ -758,6 +786,7 @@ internal static class BreakpointSpans
             case SyntaxKind.ThrowStatement:
             case SyntaxKind.ExpressionStatement:
             case SyntaxKind.EmptyStatement:
+            case SyntaxKind.MutateStatement:
             default:
                 // Fallback case.  If it was none of the above types of statements, then we make a span
                 // over the entire statement.  Note: this is not a very desirable thing to do (as
@@ -765,6 +794,21 @@ internal static class BreakpointSpans
                 // better.
                 return CreateSpan(statement);
         }
+    }
+
+    private static TextSpan? TryCreateSpanForIfCatchArm(IfCatchArmSyntax arm, int position)
+    {
+        // Classic form: (else )if (cond) { ... } — bp on the "(else )if (cond)" portion, mirroring
+        // how a plain if-statement puts the bp on "if (expr)".
+        if (!arm.CloseParenToken.IsMissing && arm.CloseParenToken.Kind() != SyntaxKind.None)
+        {
+            return CreateSpan(arm, arm.CloseParenToken);
+        }
+
+        // Extended block-condition form: if { conditionBlock } ifout = ...; { consequence }
+        // Both blocks are handled on the way up as ordinary blocks; if we get here the user must
+        // be positioned directly on the "(else )if" keyword(s).
+        return CreateSpan(arm, arm.IfKeyword);
     }
 
     private static SyntaxToken LastNotMissing(SyntaxToken token1, SyntaxToken token2)

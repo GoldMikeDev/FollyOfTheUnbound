@@ -151,7 +151,7 @@ internal sealed class SpacingFormattingRule : BaseFormattingRule
 
         // For Spacing b/n control flow keyword and paren. Parent check not needed.
         if (currentKind == SyntaxKind.OpenParenToken &&
-            (previousKind == SyntaxKind.IfKeyword || previousKind == SyntaxKind.WhileKeyword || previousKind == SyntaxKind.SwitchKeyword ||
+            (previousKind == SyntaxKind.IfKeyword || previousKind == SyntaxKind.WhileKeyword || previousKind == SyntaxKind.UntilKeyword || previousKind == SyntaxKind.SwitchKeyword ||
             previousKind == SyntaxKind.ForKeyword || previousKind == SyntaxKind.ForEachKeyword || previousKind == SyntaxKind.CatchKeyword ||
             previousKind == SyntaxKind.UsingKeyword || previousKind == SyntaxKind.WhenKeyword || previousKind == SyntaxKind.LockKeyword ||
             previousKind == SyntaxKind.FixedKeyword))
@@ -616,7 +616,8 @@ internal sealed class SpacingFormattingRule : BaseFormattingRule
     {
         return syntaxKind is SyntaxKind.IfStatement or SyntaxKind.WhileStatement or SyntaxKind.SwitchStatement or
             SyntaxKind.ForStatement or SyntaxKind.ForEachStatement or SyntaxKind.ForEachVariableStatement or
-            SyntaxKind.DoStatement or
+            SyntaxKind.DoStatement or SyntaxKind.DoUntilStatement or
+            SyntaxKind.IfCatchArm or
             SyntaxKind.CatchDeclaration or SyntaxKind.UsingStatement or SyntaxKind.LockStatement or
             SyntaxKind.FixedStatement or SyntaxKind.CatchFilterClause;
     }

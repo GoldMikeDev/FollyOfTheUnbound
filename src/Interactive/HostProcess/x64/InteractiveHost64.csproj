@@ -9,7 +9,13 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <UseWindowsForms>true</UseWindowsForms>
     <ExcludeFromSourceOnlyBuild>true</ExcludeFromSourceOnlyBuild>
-    <IsSymbolPublishingPackage>true</IsSymbolPublishingPackage>
+    <!--
+      Packing this multi-targeted (net472;net10.0-windows), RID-pinned (win-x64) project trips NU1012
+      ("dependency group TFMs missing a platform version") because the net10.0-windows TFM has no
+      platform-specific dependency group to pair with the RID. This has only ever been exercised in
+      official builds, which is the only context that needs the Interactive symbol-publishing package.
+    -->
+    <IsSymbolPublishingPackage Condition="'$(OfficialBuildId)' != ''">true</IsSymbolPublishingPackage>
 
     <!-- Publishing (only precompile binaries when building Release) -->
     <!-- Temporarily disable R2R until APIScan supports them https://github.com/dotnet/roslyn/issues/74135 -->

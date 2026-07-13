@@ -2388,7 +2388,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return result;
         }
 
-        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        public override BoundNode VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
         {
             _ = GetOrCreateSlot(node.LocalSymbol); // creates slot for definite assignment tracking
             var result = base.VisitInlineExpressionDeclaration(node);

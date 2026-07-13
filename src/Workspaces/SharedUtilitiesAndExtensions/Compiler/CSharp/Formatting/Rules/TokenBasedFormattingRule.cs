@@ -65,8 +65,9 @@ internal sealed class TokenBasedFormattingRule : BaseFormattingRule
                 return CreateAdjustNewLinesOperation(1, AdjustNewLinesOption.PreserveLines);
         }
 
-        // do { } while case
-        if (previousToken.Kind() == SyntaxKind.CloseBraceToken && currentToken.Kind() == SyntaxKind.WhileKeyword)
+        // do { } while case, and do { } until case
+        if (previousToken.Kind() == SyntaxKind.CloseBraceToken &&
+            (currentToken.Kind() == SyntaxKind.WhileKeyword || currentToken.Kind() == SyntaxKind.UntilKeyword))
         {
             return CreateAdjustNewLinesOperation(0, AdjustNewLinesOption.PreserveLines);
         }
@@ -167,7 +168,8 @@ internal sealed class TokenBasedFormattingRule : BaseFormattingRule
             return CreateAdjustNewLinesOperation(1, AdjustNewLinesOption.PreserveLines);
         }
 
-        if (previousToken.Kind() == SyntaxKind.DoKeyword && previousToken.Parent.IsKind(SyntaxKind.DoStatement))
+        if (previousToken.Kind() == SyntaxKind.DoKeyword &&
+            (previousToken.Parent.IsKind(SyntaxKind.DoStatement) || previousToken.Parent.IsKind(SyntaxKind.DoUntilStatement)))
         {
             return CreateAdjustNewLinesOperation(1, AdjustNewLinesOption.PreserveLines);
         }

@@ -400,6 +400,7 @@ internal static partial class SyntaxNodeExtensions
         switch (node?.Kind())
         {
             case SyntaxKind.DoStatement:
+            case SyntaxKind.DoUntilStatement:
             case SyntaxKind.WhileStatement:
             case SyntaxKind.ForStatement:
             case SyntaxKind.ForEachStatement:

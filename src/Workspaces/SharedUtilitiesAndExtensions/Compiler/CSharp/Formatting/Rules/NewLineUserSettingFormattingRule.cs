@@ -52,8 +52,10 @@ internal sealed class NewLineUserSettingFormattingRule : BaseFormattingRule
         {
             case SyntaxKind.IfStatement:
             case SyntaxKind.ElseClause:
+            case SyntaxKind.IfCatchArm:
             case SyntaxKind.WhileStatement:
             case SyntaxKind.DoStatement:
+            case SyntaxKind.DoUntilStatement:
             case SyntaxKind.ForEachStatement:
             case SyntaxKind.ForEachVariableStatement:
             case SyntaxKind.UsingStatement:
@@ -73,6 +75,16 @@ internal sealed class NewLineUserSettingFormattingRule : BaseFormattingRule
         }
     }
 
+    // "} else" between two arms of the same if/catch chain: unlike a regular if-else (where the
+    // `else` token's parent is an ElseClauseSyntax whose parent is the enclosing IfStatementSyntax,
+    // matching the depth of the preceding block's Block.Parent), an IfCatchArm's ElseKeyword is a
+    // direct field of the arm itself, one level shallower. Compare at matching depth instead.
+    private static bool IsSameIfCatchArmChain(in SyntaxToken previousToken, in SyntaxToken currentToken)
+        => previousToken.Parent?.Parent is IfCatchArmSyntax previousArm
+            && currentToken.Parent is IfCatchArmSyntax { ElseKeyword: var elseKeyword } currentArm
+            && elseKeyword == currentToken
+            && previousArm.Parent == currentArm.Parent;
+
     public override AdjustSpacesOperation? GetAdjustSpacesOperation(in SyntaxToken previousToken, in SyntaxToken currentToken, in NextGetAdjustSpacesOperation nextOperation)
     {
         RoslynDebug.AssertNotNull(currentToken.Parent);
@@ -82,7 +94,7 @@ internal sealed class NewLineUserSettingFormattingRule : BaseFormattingRule
         // } else in the if else context
         if (previousToken.IsKind(SyntaxKind.CloseBraceToken)
             && currentToken.IsKind(SyntaxKind.ElseKeyword)
-            && previousToken.Parent!.Parent == currentToken.Parent.Parent)
+            && (previousToken.Parent!.Parent == currentToken.Parent.Parent || IsSameIfCatchArmChain(in previousToken, in currentToken)))
         {
             if (!_options.NewLines.HasFlag(NewLinePlacement.BeforeElse))
             {
@@ -277,7 +289,7 @@ internal sealed class NewLineUserSettingFormattingRule : BaseFormattingRule
         if (previousToken.IsKind(SyntaxKind.CloseBraceToken) && currentToken.IsKind(SyntaxKind.ElseKeyword))
         {
             if (_options.NewLines.HasFlag(NewLinePlacement.BeforeElse)
-                || previousToken.Parent!.Parent != currentToken.Parent.Parent)
+                || (previousToken.Parent!.Parent != currentToken.Parent.Parent && !IsSameIfCatchArmChain(in previousToken, in currentToken)))
             {
                 return CreateAdjustNewLinesOperation(1, AdjustNewLinesOption.PreserveLines);
             }

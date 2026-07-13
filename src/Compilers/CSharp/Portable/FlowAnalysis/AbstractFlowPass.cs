@@ -2359,7 +2359,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
-        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        public override BoundNode VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
         {
             VisitRvalue(node.Operand);
             return null;

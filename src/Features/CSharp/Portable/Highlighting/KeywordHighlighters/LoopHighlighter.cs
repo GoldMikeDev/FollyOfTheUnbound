@@ -28,6 +28,7 @@ internal sealed class LoopHighlighter() : AbstractKeywordHighlighter(findInsideT
             or SyntaxKind.ForKeyword
             or SyntaxKind.ForEachKeyword
             or SyntaxKind.WhileKeyword
+            or SyntaxKind.UntilKeyword
             or SyntaxKind.BreakKeyword
             or SyntaxKind.ContinueKeyword
             or SyntaxKind.SemicolonToken);
@@ -44,6 +45,9 @@ internal sealed class LoopHighlighter() : AbstractKeywordHighlighter(findInsideT
         {
             case DoStatementSyntax doStatement:
                 HighlightDoStatement(doStatement, spans);
+                break;
+            case DoUntilStatementSyntax doUntilStatement:
+                HighlightDoUntilStatement(doUntilStatement, spans);
                 break;
             case ForStatementSyntax forStatement:
                 HighlightForStatement(forStatement, spans);
@@ -63,6 +67,13 @@ internal sealed class LoopHighlighter() : AbstractKeywordHighlighter(findInsideT
     {
         spans.Add(statement.DoKeyword.Span);
         spans.Add(statement.WhileKeyword.Span);
+        spans.Add(EmptySpan(statement.SemicolonToken.Span.End));
+    }
+
+    private static void HighlightDoUntilStatement(DoUntilStatementSyntax statement, List<TextSpan> spans)
+    {
+        spans.Add(statement.DoKeyword.Span);
+        spans.Add(statement.UntilKeyword.Span);
         spans.Add(EmptySpan(statement.SemicolonToken.Span.End));
     }
 

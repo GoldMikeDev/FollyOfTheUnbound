@@ -96,6 +96,49 @@ var methodDecl = generator.MethodDeclaration("MyMethod", ...);
 - **Cancellation**: Always thread `CancellationToken` through async operations
 - **Performance**: Avoid LINQ in hot paths, prefer `for` loops or `.AsSpan()`, use `ObjectPool<T>`
 
+## Adding IDE Support for a New Statement/Expression SyntaxKind
+
+When the compiler side of a new language construct (parser/binder/lowering) already exists but the
+IDE doesn't recognize it yet, the gap is spread across several independent, per-`SyntaxKind`
+registration points rather than one place. Checklist, in the order it's easiest to verify each:
+
+1. **Classification** (`src/Workspaces/CSharp/Portable/Classification/ClassificationHelpers.cs`) —
+   real/contextual keywords are colored automatically via `SyntaxFacts.IsKeywordKind`; a keyword
+   that's parsed as a bare `IdentifierToken` (matched by text, not `SyntaxKind`) needs a case added
+   to `IsActualContextualKeyword`. Add the statement's `SyntaxKind` to `IsControlStatementKind` for
+   `ControlKeyword` coloring parity with existing control-flow statements.
+2. **Keyword completion** (`src/Features/CSharp/Portable/Completion/KeywordRecommenders/`) — one
+   recommender class per keyword, registered in `KeywordCompletionProvider.cs`'s alphabetical array.
+   `AbstractSyntacticSingleKeywordRecommender` requires a real `SyntaxKind` (used for
+   `SyntaxFacts.GetText`); a text-matched keyword with no `SyntaxKind` needs a recommender written
+   directly against `IKeywordRecommender<CSharpSyntaxContext>` instead (see `MutateKeywordRecommender.cs`).
+3. **Formatting** (`src/Workspaces/SharedUtilitiesAndExtensions/Compiler/CSharp/Formatting/Rules/`) —
+   indentation is generic (Block-parent based, needs nothing), but same-line keyword placement
+   (`} while`, `} catch`, `} else`) and brace/paren spacing are hardcoded per token-kind/parent-kind
+   in `TokenBasedFormattingRule.cs`, `NewLineUserSettingFormattingRule.cs`, `SpacingFormattingRule.cs`.
+4. **Outlining** (`src/Features/CSharp/Portable/Structure/Providers/BlockSyntaxStructureProvider.cs`)
+   — one shared provider keyed off a block's parent `SyntaxKind`; add cases to `GetType` and, for
+   constructs with multiple related blocks (if/else-if/else, try/catch/finally), a dedicated branch
+   in `CollectBlockSpans` plus a `GetEnd` override so the outer region extends through the whole chain.
+5. **Brace matching** and **generic close-brace Quick Info**
+   (`CSharpSyntacticQuickInfoProvider.BuildQuickInfoCloseBrace`) — both fully generic/token-based;
+   new constructs get these for free as long as they reuse ordinary `{`/`}`/`(`/`)` tokens.
+6. **Keyword highlighting** (`src/Features/CSharp/Portable/Highlighting/KeywordHighlighters/`) — one
+   MEF-exported highlighter per concrete node type (`AbstractKeywordHighlighter<TNode>`); a new
+   statement kind gets zero highlighting until a case/class is added, even if it's conceptually
+   similar to an existing construct (e.g. `do`/`until` needed its own case in `LoopHighlighter`
+   alongside `do`/`while`, since it's a distinct node type).
+7. **Breakpoint spans** (`src/Features/CSharp/Portable/EditAndContinue/BreakpointSpans.cs`) — an
+   exhaustive switch (`TryCreateSpanForNode` for non-statement nodes, `TryCreateSpanForStatement`
+   for `StatementSyntax`); an unhandled kind falls through to a whole-statement span (degraded, not
+   broken) — add explicit cases mirroring the closest existing construct.
+
+**Don't forget shared low-level helpers with their own exhaustive switches** — e.g.
+`SyntaxNodeExtensions.IsContinuableConstruct`/`IsBreakableConstruct` (used by `break`/`continue`
+keyword completion *and* `LoopHighlighter`) has its own `SyntaxKind` list separate from all of the
+above; a new loop-like statement needs a case there too or `break`/`continue` silently won't be
+recommended/highlighted inside it. See `known-issues/ide.md`.
+
 ## Common Gotchas
 
 - **ImportingConstructor must be marked `[Obsolete]`** with `MefConstruction.ImportingConstructorMessage`

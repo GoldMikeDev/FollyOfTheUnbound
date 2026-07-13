@@ -1119,7 +1119,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.VisitWithExpression(node);
         }
 
-        public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
+        public override BoundNode VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
         {
             if (_inExpressionLambda)
             {

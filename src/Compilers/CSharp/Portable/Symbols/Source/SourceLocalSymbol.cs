@@ -189,7 +189,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
             Symbol containingSymbol,
             Binder scopeBinder,
             Binder nodeBinder,
-            TypeSyntax typeSyntax,
+            TypeSyntax? typeSyntax,
             SyntaxToken identifierToken,
             LocalDeclarationKind kind,
             SyntaxNode nodeToBind)

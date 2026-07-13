@@ -1157,6 +1157,11 @@
         <target state="translated">找到之與此參數對應的「{0}」位置成員已隱藏。</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_IfBlockConditionRequiresCatch">
+        <source>An 'if' condition using a code block requires the chain to end in a 'catch' clause.</source>
+        <target state="new">An 'if' condition using a code block requires the chain to end in a 'catch' clause.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_IllegalAtSequence">
         <source>Sequence of '@' characters is not allowed. A verbatim string or identifier can only have one '@' character and a raw string cannot have any.</source>
         <target state="translated">不允許 '@' 字元序列。逐字字串或識別碼只可有一個 '@' 字元，而原始字串不可有任何字元。</target>
@@ -1515,6 +1520,11 @@
       <trans-unit id="ERR_InvalidExperimentalDiagID">
         <source>The diagnosticId argument to the 'Experimental' attribute must be a valid identifier</source>
         <target state="translated">'Experimental' 屬性的 diagnosticId 引數必須是有效的識別碼</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="ERR_InvalidMutation">
+        <source>Cannot mutate '{0}' to type '{1}': no valid conversion exists from '{2}'.</source>
+        <target state="new">Cannot mutate '{0}' to type '{1}': no valid conversion exists from '{2}'.</target>
         <note />
       </trans-unit>
       <trans-unit id="ERR_MemberProviderInUnionDeclaration">
@@ -3725,6 +3735,16 @@
       <trans-unit id="WRN_MismatchedRefEscapeInTernary_Title">
         <source>The branches of the ref conditional operator refer to variables with incompatible declaration scopes</source>
         <target state="translated">Ref 條件運算子的分支參考具有不相容宣告範圍的變數</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="WRN_MutationMayFail">
+        <source>Mutation of '{0}' to '{1}' may throw InvalidMutationException at runtime.</source>
+        <target state="new">Mutation of '{0}' to '{1}' may throw InvalidMutationException at runtime.</target>
+        <note />
+      </trans-unit>
+      <trans-unit id="WRN_MutationMayFail_Title">
+        <source>Mutation may fail at runtime</source>
+        <target state="new">Mutation may fail at runtime</target>
         <note />
       </trans-unit>
       <trans-unit id="WRN_NullabilityMismatchInParameterTypeOnInterceptor">

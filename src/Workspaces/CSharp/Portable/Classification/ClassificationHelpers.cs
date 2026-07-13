@@ -21,6 +21,7 @@ internal static class ClassificationHelpers
     private const string NotNullKeyword = "notnull";
     private const string DynamicKeyword = "dynamic";
     private const string AwaitKeyword = "await";
+    private const string MutateKeyword = "mutate";
 
     /// <summary>
     /// Determine the classification type for a given token.
@@ -104,6 +105,7 @@ internal static class ClassificationHelpers
             case SyntaxKind.BreakStatement:
             case SyntaxKind.ContinueStatement:
             case SyntaxKind.DoStatement:
+            case SyntaxKind.DoUntilStatement:
             case SyntaxKind.ForEachStatement:
             case SyntaxKind.ForEachVariableStatement:
             case SyntaxKind.ForStatement:
@@ -125,6 +127,8 @@ internal static class ClassificationHelpers
             case SyntaxKind.ElseClause:
             case SyntaxKind.FinallyClause:
             case SyntaxKind.IfStatement:
+            case SyntaxKind.IfCatchStatement:
+            case SyntaxKind.IfCatchArm:
             case SyntaxKind.SwitchExpression:
             case SyntaxKind.SwitchSection:
             case SyntaxKind.SwitchStatement:
@@ -498,6 +502,10 @@ internal static class ClassificationHelpers
                     return token.Parent is IdentifierNameSyntax
                         && token.Parent.Parent is TypeConstraintSyntax
                         && token.Parent.Parent.Parent is TypeParameterConstraintClauseSyntax;
+
+                case MutateKeyword:
+                    return token.Parent is MutateStatementSyntax mutateStatement
+                        && mutateStatement.MutateKeyword == token;
             }
         }
 

@@ -88,7 +88,48 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
                 subHeadings.ToImmutableAndClear(),
                 autoCollapse: false));
         }
-        else if (parentKind == SyntaxKind.ElseClause || IsNonBlockStatement(parent))
+        else if (parent is IfCatchArmSyntax { ElseKeyword: var elseKeyword } firstArm &&
+                 elseKeyword.IsKind(SyntaxKind.None) &&
+                 node == firstArm.Consequence)
+        {
+            // The topmost (first) arm of an if/catch chain: fold in the remaining arms, catches, and
+            // finally as subheadings, mirroring how if/else-if/else and try/catch/finally are combined
+            // into a single collapsible region above.
+            using var subHeadings = TemporaryArray<(TextSpan textSpan, TextSpan hintSpan, string type)>.Empty;
+
+            if (firstArm.Parent is IfCatchStatementSyntax ifCatchStatement)
+            {
+                foreach (var arm in ifCatchStatement.Arms)
+                {
+                    if (arm == firstArm)
+                        continue;
+
+                    if (arm.ConditionBlock is { IsMissing: false } conditionBlock)
+                        subHeadings.Add((GetTextSpan(conditionBlock), GetHintSpan(conditionBlock), BlockTypes.Conditional));
+
+                    if (arm.Consequence is { IsMissing: false } consequence)
+                        subHeadings.Add((GetTextSpan(consequence), GetHintSpan(consequence), BlockTypes.Conditional));
+                }
+
+                foreach (var catchClause in ifCatchStatement.Catches)
+                {
+                    if (!catchClause.Block.IsMissing)
+                        subHeadings.Add((GetTextSpan(catchClause.Block), GetHintSpan(catchClause.Block), BlockTypes.Statement));
+                }
+
+                if (ifCatchStatement.Finally?.Block is { IsMissing: false } finallyBlock)
+                    subHeadings.Add((GetTextSpan(finallyBlock), GetHintSpan(finallyBlock), BlockTypes.Statement));
+            }
+
+            spans.Add(new BlockSpan(
+                BlockTypes.Conditional,
+                isCollapsible: true,
+                GetTextSpan(node),
+                GetHintSpan(node),
+                subHeadings.ToImmutableAndClear(),
+                autoCollapse: false));
+        }
+        else if (parentKind == SyntaxKind.ElseClause || parentKind == SyntaxKind.IfCatchArm || IsNonBlockStatement(parent))
         {
             var autoCollapse = false;
 
@@ -192,6 +233,16 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
             //                 b;
             return node.Span.End;
         }
+        else if (node.Parent is IfCatchArmSyntax { ElseKeyword: var elseKeyword } arm &&
+                 elseKeyword.IsKind(SyntaxKind.None) &&
+                 node == arm.Consequence &&
+                 arm.Parent is IfCatchStatementSyntax ifCatchStatement)
+        {
+            // For the topmost arm of an if/catch chain, extend through the rest of the chain
+            // (remaining arms, catches, finally), mirroring how a try-statement's block already
+            // extends through its own catches/finally by virtue of being their parent.
+            return ifCatchStatement.Span.End;
+        }
         else
         {
             // For all other constructs, we collapse up to the end of the parent
@@ -208,6 +259,7 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
             SyntaxKind.ForEachVariableStatement => BlockTypes.Loop,
             SyntaxKind.WhileStatement => BlockTypes.Loop,
             SyntaxKind.DoStatement => BlockTypes.Loop,
+            SyntaxKind.DoUntilStatement => BlockTypes.Loop,
             SyntaxKind.TryStatement => BlockTypes.Statement,
             SyntaxKind.CatchClause => BlockTypes.Statement,
             SyntaxKind.FinallyClause => BlockTypes.Statement,
@@ -217,6 +269,7 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
             SyntaxKind.UsingStatement => BlockTypes.Statement,
             SyntaxKind.IfStatement => BlockTypes.Conditional,
             SyntaxKind.ElseClause => BlockTypes.Conditional,
+            SyntaxKind.IfCatchArm => BlockTypes.Conditional,
             SyntaxKind.SwitchSection => BlockTypes.Conditional,
             SyntaxKind.Block => BlockTypes.Statement,
             SyntaxKind.LocalFunctionStatement => BlockTypes.Statement,
