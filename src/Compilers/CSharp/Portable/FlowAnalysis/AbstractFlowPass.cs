@@ -3379,6 +3379,18 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
+        public override BoundNode VisitConditionalCoalesceStatement(BoundConditionalCoalesceStatement node)
+        {
+            // `node.Access?.Chain(...) ?? fallback;`. Access and FallbackStatement are mutually exclusive
+            // at runtime, but we visit both unconditionally (rather than splitting flow state) so that
+            // derived walkers (e.g. NullableWalker) run their own specialized conditional-access handling
+            // via the normal virtual dispatch instead of bypassing it -- this is conservative for flow
+            // analysis (e.g. definite assignment) but not unsound.
+            VisitRvalue(node.Access);
+            VisitStatement(node.FallbackStatement);
+            return null;
+        }
+
         public override BoundNode VisitDoUntilStatement(BoundDoUntilStatement node)
         {
             // do { statements; node.ContinueLabel: } until (node.Condition) node.BreakLabel:

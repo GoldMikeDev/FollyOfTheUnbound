@@ -21,6 +21,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             throw ExceptionUtilities.Unreachable();
         }
 
+        public override BoundNode VisitConditionalCoalesceStatement(BoundConditionalCoalesceStatement node)
+        {
+            var rewrittenFallback = VisitExpression(node.FallbackStatement.Expression);
+            var rewrittenAccess = RewriteConditionalAccess(node.Access, used: true, whenNullOpt: rewrittenFallback)!;
+            return _factory.ExpressionStatement(rewrittenAccess);
+        }
+
         // null when currently enclosing conditional access node
         // is not supposed to be lowered.
         private BoundExpression? _currentConditionalAccessTarget;
@@ -35,7 +42,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         // IL gen can generate more compact code for certain conditional accesses 
         // by utilizing stack dup/pop instructions 
-        internal BoundExpression? RewriteConditionalAccess(BoundConditionalAccess node, bool used)
+        internal BoundExpression? RewriteConditionalAccess(BoundConditionalAccess node, bool used, BoundExpression? whenNullOpt = null)
         {
             Debug.Assert(!_inExpressionLambda);
             Debug.Assert(node.AccessExpression.Type is { });
@@ -105,7 +112,14 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             if (used)
             {
-                loweredAccessExpression = this.VisitExpression(node.AccessExpression);
+                // If we have a whenNullOpt fallback and the access expression continues the same
+                // conditional-access chain (e.g. `a?.b?.c()`, where `.b?.c()` is itself a nested
+                // BoundConditionalAccess rooted at this chain's placeholder receiver), propagate the
+                // fallback down so it also fires when a null is hit deeper in the chain, not just at
+                // this outermost link.
+                loweredAccessExpression = whenNullOpt != null && node.AccessExpression is BoundConditionalAccess nestedConditionalAccess
+                    ? RewriteConditionalAccess(nestedConditionalAccess, used: true, whenNullOpt: whenNullOpt)
+                    : this.VisitExpression(node.AccessExpression);
             }
             else
             {
@@ -154,7 +168,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                                  UnsafeGetNullableMethod(node.Syntax, loweredReceiver.Type, SpecialMember.System_Nullable_T_get_HasValue) :
                                  null,
                         loweredAccessExpression,
-                        null,
+                        whenNullOpt,
                         currentConditionalAccessID,
                         forceCopyOfNullableValueType: true,
                         type);

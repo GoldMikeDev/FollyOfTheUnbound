@@ -468,16 +468,19 @@ statement
   | common_for_each_statement
   | continue_statement
   | do_statement
+  | do_until_statement
   | empty_statement
   | expression_statement
   | fixed_statement
   | for_statement
   | goto_statement
+  | if_catch_statement
   | if_statement
   | labeled_statement
   | local_declaration_statement
   | local_function_statement
   | lock_statement
+  | mutate_statement
   | return_statement
   | switch_statement
   | throw_statement
@@ -517,6 +520,10 @@ do_statement
   : attribute_list* 'do' statement 'while' '(' expression ')' ';'
   ;
 
+do_until_statement
+  : attribute_list* 'do' statement 'until' '(' expression ')' ';'
+  ;
+
 empty_statement
   : attribute_list* ';'
   ;
@@ -537,12 +544,36 @@ goto_statement
   : attribute_list* 'goto' ('case' | 'default')? expression? ';'
   ;
 
-if_statement
-  : attribute_list* 'if' '(' expression ')' statement else_clause?
+if_catch_statement
+  : attribute_list* if_catch_arm* else_clause? catch_clause* finally_clause?
+  ;
+
+if_catch_arm
+  : 'else'? 'if' '('? expression? ')'? block? block
   ;
 
 else_clause
   : 'else' statement
+  ;
+
+catch_clause
+  : 'catch' catch_declaration? catch_filter_clause? block
+  ;
+
+catch_declaration
+  : '(' type identifier_token? ')'
+  ;
+
+catch_filter_clause
+  : 'when' '(' expression ')'
+  ;
+
+finally_clause
+  : 'finally' block
+  ;
+
+if_statement
+  : attribute_list* 'if' '(' expression ')' statement else_clause?
   ;
 
 labeled_statement
@@ -559,6 +590,10 @@ local_function_statement
 
 lock_statement
   : attribute_list* 'lock' '(' expression ')' statement
+  ;
+
+mutate_statement
+  : attribute_list* identifier_token identifier_name 'to' type ';'
   ;
 
 return_statement
@@ -710,22 +745,6 @@ try_statement
   : attribute_list* 'try' block catch_clause* finally_clause?
   ;
 
-catch_clause
-  : 'catch' catch_declaration? catch_filter_clause? block
-  ;
-
-catch_declaration
-  : '(' type identifier_token? ')'
-  ;
-
-catch_filter_clause
-  : 'when' '(' expression ')'
-  ;
-
-finally_clause
-  : 'finally' block
-  ;
-
 unsafe_statement
   : attribute_list* 'unsafe' block
   ;
@@ -764,6 +783,7 @@ expression
   | implicit_element_access
   | implicit_stack_alloc_array_creation_expression
   | initializer_expression
+  | inline_expression_declaration
   | instance_expression
   | interpolated_string_expression
   | invocation_expression
@@ -924,6 +944,10 @@ implicit_element_access
 
 implicit_stack_alloc_array_creation_expression
   : 'stackalloc' '[' ']' initializer_expression
+  ;
+
+inline_expression_declaration
+  : expression identifier_token
   ;
 
 instance_expression

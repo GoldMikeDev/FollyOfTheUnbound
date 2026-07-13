@@ -653,7 +653,36 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public BoundStatement BindExpressionStatement(ExpressionStatementSyntax node, BindingDiagnosticBag diagnostics)
         {
+            // Statement-level shorthand: `receiver?.Call(...) ?? fallback;`. Ordinary `??` binding requires
+            // a typed (non-void) left operand, so a void-returning conditional-access chain on the left is
+            // otherwise a bind error. Detect that shape here and bind it as a null-conditional short-circuit
+            // between two statements instead of as a value-producing `??` expression.
+            if (node.Expression.Kind() == SyntaxKind.CoalesceExpression)
+            {
+                var coalesce = (BinaryExpressionSyntax)node.Expression;
+                if (coalesce.Left is ConditionalAccessExpressionSyntax conditionalAccessSyntax)
+                {
+                    BoundConditionalAccess speculativeAccess = BindConditionalAccessExpression(conditionalAccessSyntax, BindingDiagnosticBag.Discarded);
+                    if (!speculativeAccess.HasAnyErrors && speculativeAccess.Type.IsVoidType())
+                    {
+                        return BindConditionalCoalesceStatement(node, conditionalAccessSyntax, coalesce.Right, diagnostics);
+                    }
+                }
+            }
+
             return BindExpressionStatement(node, node.Expression, node.AllowsAnyExpression, diagnostics);
+        }
+
+        private BoundStatement BindConditionalCoalesceStatement(
+            ExpressionStatementSyntax node,
+            ConditionalAccessExpressionSyntax accessSyntax,
+            ExpressionSyntax fallbackSyntax,
+            BindingDiagnosticBag diagnostics)
+        {
+            BoundConditionalAccess access = BindConditionalAccessExpression(accessSyntax, diagnostics);
+            BoundExpressionStatement fallback = BindExpressionStatement(fallbackSyntax, fallbackSyntax, allowsAnyExpression: false, diagnostics);
+
+            return new BoundConditionalCoalesceStatement(node, access, fallback, hasErrors: access.HasErrors || fallback.HasErrors);
         }
 
         private BoundExpressionStatement BindExpressionStatement(CSharpSyntaxNode node, ExpressionSyntax syntax, bool allowsAnyExpression, BindingDiagnosticBag diagnostics)

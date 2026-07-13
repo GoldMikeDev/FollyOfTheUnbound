@@ -172,6 +172,9 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static Syntax.InternalSyntax.DeclarationExpressionSyntax GenerateDeclarationExpression()
             => InternalSyntaxFactory.DeclarationExpression(GenerateIdentifierName(), GenerateSingleVariableDesignation());
 
+        private static Syntax.InternalSyntax.InlineExpressionDeclarationSyntax GenerateInlineExpressionDeclaration()
+            => InternalSyntaxFactory.InlineExpressionDeclaration(GenerateIdentifierName(), InternalSyntaxFactory.Identifier("Identifier"));
+
         private static Syntax.InternalSyntax.CastExpressionSyntax GenerateCastExpression()
             => InternalSyntaxFactory.CastExpression(InternalSyntaxFactory.Token(SyntaxKind.OpenParenToken), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.CloseParenToken), GenerateIdentifierName());
 
@@ -400,6 +403,12 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static Syntax.InternalSyntax.DoStatementSyntax GenerateDoStatement()
             => InternalSyntaxFactory.DoStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.DoKeyword), GenerateBlock(), InternalSyntaxFactory.Token(SyntaxKind.WhileKeyword), InternalSyntaxFactory.Token(SyntaxKind.OpenParenToken), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.CloseParenToken), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
+        private static Syntax.InternalSyntax.DoUntilStatementSyntax GenerateDoUntilStatement()
+            => InternalSyntaxFactory.DoUntilStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.DoKeyword), GenerateBlock(), InternalSyntaxFactory.Token(SyntaxKind.UntilKeyword), InternalSyntaxFactory.Token(SyntaxKind.OpenParenToken), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.CloseParenToken), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+        private static Syntax.InternalSyntax.MutateStatementSyntax GenerateMutateStatement()
+            => InternalSyntaxFactory.MutateStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Identifier("MutateKeyword"), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.ToKeyword), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
         private static Syntax.InternalSyntax.ForStatementSyntax GenerateForStatement()
             => InternalSyntaxFactory.ForStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.ForKeyword), InternalSyntaxFactory.Token(SyntaxKind.OpenParenToken), null, new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SeparatedSyntaxList<Syntax.InternalSyntax.ExpressionSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken), null, InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SeparatedSyntaxList<Syntax.InternalSyntax.ExpressionSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.CloseParenToken), GenerateBlock());
 
@@ -453,6 +462,12 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
 
         private static Syntax.InternalSyntax.TryStatementSyntax GenerateTryStatement()
             => InternalSyntaxFactory.TryStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.TryKeyword), GenerateBlock(), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.CatchClauseSyntax>(), null);
+
+        private static Syntax.InternalSyntax.IfCatchStatementSyntax GenerateIfCatchStatement()
+            => InternalSyntaxFactory.IfCatchStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.IfCatchArmSyntax>(), null, new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.CatchClauseSyntax>(), null);
+
+        private static Syntax.InternalSyntax.IfCatchArmSyntax GenerateIfCatchArm()
+            => InternalSyntaxFactory.IfCatchArm(null, InternalSyntaxFactory.Token(SyntaxKind.IfKeyword), null, null, null, null, GenerateBlock());
 
         private static Syntax.InternalSyntax.CatchClauseSyntax GenerateCatchClause()
             => InternalSyntaxFactory.CatchClause(InternalSyntaxFactory.Token(SyntaxKind.CatchKeyword), null, null, GenerateBlock());
@@ -1383,6 +1398,17 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
 
             Assert.NotNull(node.Type);
             Assert.NotNull(node.Designation);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
+        public void TestInlineExpressionDeclarationFactoryAndProperties()
+        {
+            var node = GenerateInlineExpressionDeclaration();
+
+            Assert.NotNull(node.Expression);
+            Assert.Equal(SyntaxKind.IdentifierToken, node.Identifier.Kind);
 
             AttachAndCheckDiagnostics(node);
         }
@@ -2319,6 +2345,38 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestDoUntilStatementFactoryAndProperties()
+        {
+            var node = GenerateDoUntilStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(SyntaxKind.DoKeyword, node.DoKeyword.Kind);
+            Assert.NotNull(node.Statement);
+            Assert.Equal(SyntaxKind.UntilKeyword, node.UntilKeyword.Kind);
+            Assert.Equal(SyntaxKind.OpenParenToken, node.OpenParenToken.Kind);
+            Assert.NotNull(node.Condition);
+            Assert.Equal(SyntaxKind.CloseParenToken, node.CloseParenToken.Kind);
+            Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
+        public void TestMutateStatementFactoryAndProperties()
+        {
+            var node = GenerateMutateStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(SyntaxKind.IdentifierToken, node.MutateKeyword.Kind);
+            Assert.NotNull(node.VariableName);
+            Assert.Equal(SyntaxKind.ToKeyword, node.ToKeyword.Kind);
+            Assert.NotNull(node.Type);
+            Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
         public void TestForStatementFactoryAndProperties()
         {
             var node = GenerateForStatement();
@@ -2574,6 +2632,36 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.NotNull(node.Block);
             Assert.Equal(default, node.Catches);
             Assert.Null(node.Finally);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
+        public void TestIfCatchStatementFactoryAndProperties()
+        {
+            var node = GenerateIfCatchStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(default, node.Arms);
+            Assert.Null(node.Else);
+            Assert.Equal(default, node.Catches);
+            Assert.Null(node.Finally);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
+        public void TestIfCatchArmFactoryAndProperties()
+        {
+            var node = GenerateIfCatchArm();
+
+            Assert.Null(node.ElseKeyword);
+            Assert.Equal(SyntaxKind.IfKeyword, node.IfKeyword.Kind);
+            Assert.Null(node.OpenParenToken);
+            Assert.Null(node.Condition);
+            Assert.Null(node.CloseParenToken);
+            Assert.Null(node.ConditionBlock);
+            Assert.NotNull(node.Consequence);
 
             AttachAndCheckDiagnostics(node);
         }
@@ -5394,6 +5482,32 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestInlineExpressionDeclarationTokenDeleteRewriter()
+        {
+            var oldNode = GenerateInlineExpressionDeclaration();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestInlineExpressionDeclarationIdentityRewriter()
+        {
+            var oldNode = GenerateInlineExpressionDeclaration();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
         public void TestCastExpressionTokenDeleteRewriter()
         {
             var oldNode = GenerateCastExpression();
@@ -7370,6 +7484,58 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestDoUntilStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateDoUntilStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestDoUntilStatementIdentityRewriter()
+        {
+            var oldNode = GenerateDoUntilStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestMutateStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateMutateStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestMutateStatementIdentityRewriter()
+        {
+            var oldNode = GenerateMutateStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
         public void TestForStatementTokenDeleteRewriter()
         {
             var oldNode = GenerateForStatement();
@@ -7831,6 +7997,58 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         public void TestTryStatementIdentityRewriter()
         {
             var oldNode = GenerateTryStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestIfCatchStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateIfCatchStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestIfCatchStatementIdentityRewriter()
+        {
+            var oldNode = GenerateIfCatchStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestIfCatchArmTokenDeleteRewriter()
+        {
+            var oldNode = GenerateIfCatchArm();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestIfCatchArmIdentityRewriter()
+        {
+            var oldNode = GenerateIfCatchArm();
             var rewriter = new IdentityRewriter();
             var newNode = rewriter.Visit(oldNode);
 
@@ -10656,6 +10874,9 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static DeclarationExpressionSyntax GenerateDeclarationExpression()
             => SyntaxFactory.DeclarationExpression(GenerateIdentifierName(), GenerateSingleVariableDesignation());
 
+        private static InlineExpressionDeclarationSyntax GenerateInlineExpressionDeclaration()
+            => SyntaxFactory.InlineExpressionDeclaration(GenerateIdentifierName(), SyntaxFactory.Identifier("Identifier"));
+
         private static CastExpressionSyntax GenerateCastExpression()
             => SyntaxFactory.CastExpression(SyntaxFactory.Token(SyntaxKind.OpenParenToken), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.CloseParenToken), GenerateIdentifierName());
 
@@ -10884,6 +11105,12 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static DoStatementSyntax GenerateDoStatement()
             => SyntaxFactory.DoStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Token(SyntaxKind.DoKeyword), GenerateBlock(), SyntaxFactory.Token(SyntaxKind.WhileKeyword), SyntaxFactory.Token(SyntaxKind.OpenParenToken), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.CloseParenToken), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
+        private static DoUntilStatementSyntax GenerateDoUntilStatement()
+            => SyntaxFactory.DoUntilStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Token(SyntaxKind.DoKeyword), GenerateBlock(), SyntaxFactory.Token(SyntaxKind.UntilKeyword), SyntaxFactory.Token(SyntaxKind.OpenParenToken), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.CloseParenToken), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+        private static MutateStatementSyntax GenerateMutateStatement()
+            => SyntaxFactory.MutateStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Identifier("MutateKeyword"), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.ToKeyword), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
         private static ForStatementSyntax GenerateForStatement()
             => SyntaxFactory.ForStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Token(SyntaxKind.ForKeyword), SyntaxFactory.Token(SyntaxKind.OpenParenToken), default(VariableDeclarationSyntax), new SeparatedSyntaxList<ExpressionSyntax>(), SyntaxFactory.Token(SyntaxKind.SemicolonToken), default(ExpressionSyntax), SyntaxFactory.Token(SyntaxKind.SemicolonToken), new SeparatedSyntaxList<ExpressionSyntax>(), SyntaxFactory.Token(SyntaxKind.CloseParenToken), GenerateBlock());
 
@@ -10937,6 +11164,12 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
 
         private static TryStatementSyntax GenerateTryStatement()
             => SyntaxFactory.TryStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Token(SyntaxKind.TryKeyword), GenerateBlock(), new SyntaxList<CatchClauseSyntax>(), default(FinallyClauseSyntax));
+
+        private static IfCatchStatementSyntax GenerateIfCatchStatement()
+            => SyntaxFactory.IfCatchStatement(new SyntaxList<AttributeListSyntax>(), new SyntaxList<IfCatchArmSyntax>(), default(ElseClauseSyntax), new SyntaxList<CatchClauseSyntax>(), default(FinallyClauseSyntax));
+
+        private static IfCatchArmSyntax GenerateIfCatchArm()
+            => SyntaxFactory.IfCatchArm(default(SyntaxToken), SyntaxFactory.Token(SyntaxKind.IfKeyword), default(SyntaxToken), default(ExpressionSyntax), default(SyntaxToken), default(BlockSyntax), GenerateBlock());
 
         private static CatchClauseSyntax GenerateCatchClause()
             => SyntaxFactory.CatchClause(SyntaxFactory.Token(SyntaxKind.CatchKeyword), default(CatchDeclarationSyntax), default(CatchFilterClauseSyntax), GenerateBlock());
@@ -11872,6 +12105,17 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestInlineExpressionDeclarationFactoryAndProperties()
+        {
+            var node = GenerateInlineExpressionDeclaration();
+
+            Assert.NotNull(node.Expression);
+            Assert.Equal(SyntaxKind.IdentifierToken, node.Identifier.Kind());
+            var newNode = node.WithExpression(node.Expression).WithIdentifier(node.Identifier);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
         public void TestCastExpressionFactoryAndProperties()
         {
             var node = GenerateCastExpression();
@@ -12803,6 +13047,38 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestDoUntilStatementFactoryAndProperties()
+        {
+            var node = GenerateDoUntilStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(SyntaxKind.DoKeyword, node.DoKeyword.Kind());
+            Assert.NotNull(node.Statement);
+            Assert.Equal(SyntaxKind.UntilKeyword, node.UntilKeyword.Kind());
+            Assert.Equal(SyntaxKind.OpenParenToken, node.OpenParenToken.Kind());
+            Assert.NotNull(node.Condition);
+            Assert.Equal(SyntaxKind.CloseParenToken, node.CloseParenToken.Kind());
+            Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind());
+            var newNode = node.WithAttributeLists(node.AttributeLists).WithDoKeyword(node.DoKeyword).WithStatement(node.Statement).WithUntilKeyword(node.UntilKeyword).WithOpenParenToken(node.OpenParenToken).WithCondition(node.Condition).WithCloseParenToken(node.CloseParenToken).WithSemicolonToken(node.SemicolonToken);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
+        public void TestMutateStatementFactoryAndProperties()
+        {
+            var node = GenerateMutateStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(SyntaxKind.IdentifierToken, node.MutateKeyword.Kind());
+            Assert.NotNull(node.VariableName);
+            Assert.Equal(SyntaxKind.ToKeyword, node.ToKeyword.Kind());
+            Assert.NotNull(node.Type);
+            Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind());
+            var newNode = node.WithAttributeLists(node.AttributeLists).WithMutateKeyword(node.MutateKeyword).WithVariableName(node.VariableName).WithToKeyword(node.ToKeyword).WithType(node.Type).WithSemicolonToken(node.SemicolonToken);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
         public void TestForStatementFactoryAndProperties()
         {
             var node = GenerateForStatement();
@@ -13059,6 +13335,36 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.Equal(default, node.Catches);
             Assert.Null(node.Finally);
             var newNode = node.WithAttributeLists(node.AttributeLists).WithTryKeyword(node.TryKeyword).WithBlock(node.Block).WithCatches(node.Catches).WithFinally(node.Finally);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
+        public void TestIfCatchStatementFactoryAndProperties()
+        {
+            var node = GenerateIfCatchStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(default, node.Arms);
+            Assert.Null(node.Else);
+            Assert.Equal(default, node.Catches);
+            Assert.Null(node.Finally);
+            var newNode = node.WithAttributeLists(node.AttributeLists).WithArms(node.Arms).WithElse(node.Else).WithCatches(node.Catches).WithFinally(node.Finally);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
+        public void TestIfCatchArmFactoryAndProperties()
+        {
+            var node = GenerateIfCatchArm();
+
+            Assert.Equal(SyntaxKind.None, node.ElseKeyword.Kind());
+            Assert.Equal(SyntaxKind.IfKeyword, node.IfKeyword.Kind());
+            Assert.Equal(SyntaxKind.None, node.OpenParenToken.Kind());
+            Assert.Null(node.Condition);
+            Assert.Equal(SyntaxKind.None, node.CloseParenToken.Kind());
+            Assert.Null(node.ConditionBlock);
+            Assert.NotNull(node.Consequence);
+            var newNode = node.WithElseKeyword(node.ElseKeyword).WithIfKeyword(node.IfKeyword).WithOpenParenToken(node.OpenParenToken).WithCondition(node.Condition).WithCloseParenToken(node.CloseParenToken).WithConditionBlock(node.ConditionBlock).WithConsequence(node.Consequence);
             Assert.Equal(node, newNode);
         }
 
@@ -15878,6 +16184,32 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestInlineExpressionDeclarationTokenDeleteRewriter()
+        {
+            var oldNode = GenerateInlineExpressionDeclaration();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestInlineExpressionDeclarationIdentityRewriter()
+        {
+            var oldNode = GenerateInlineExpressionDeclaration();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
         public void TestCastExpressionTokenDeleteRewriter()
         {
             var oldNode = GenerateCastExpression();
@@ -17854,6 +18186,58 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestDoUntilStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateDoUntilStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestDoUntilStatementIdentityRewriter()
+        {
+            var oldNode = GenerateDoUntilStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestMutateStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateMutateStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestMutateStatementIdentityRewriter()
+        {
+            var oldNode = GenerateMutateStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
         public void TestForStatementTokenDeleteRewriter()
         {
             var oldNode = GenerateForStatement();
@@ -18315,6 +18699,58 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         public void TestTryStatementIdentityRewriter()
         {
             var oldNode = GenerateTryStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestIfCatchStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateIfCatchStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestIfCatchStatementIdentityRewriter()
+        {
+            var oldNode = GenerateIfCatchStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestIfCatchArmTokenDeleteRewriter()
+        {
+            var oldNode = GenerateIfCatchArm();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestIfCatchArmIdentityRewriter()
+        {
+            var oldNode = GenerateIfCatchArm();
             var rewriter = new IdentityRewriter();
             var newNode = rewriter.Visit(oldNode);
 

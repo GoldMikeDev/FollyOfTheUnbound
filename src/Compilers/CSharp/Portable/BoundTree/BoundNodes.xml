@@ -1176,6 +1176,15 @@
     <Field Name="Expression" Type="BoundExpression"/>
   </Node>
 
+  <!--
+  Represents the statement-level shorthand `receiver?.Call(...) ?? fallback;`: if any link in the
+  conditional-access chain is null, FallbackStatement runs instead of Access.
+  -->
+  <Node Name="BoundConditionalCoalesceStatement" Base="BoundStatement">
+    <Field Name="Access" Type="BoundConditionalAccess"/>
+    <Field Name="FallbackStatement" Type="BoundExpressionStatement"/>
+  </Node>
+
   <Node Name="BoundBreakStatement" Base="BoundStatement">
     <!-- The compiler-generated label that the break jumps to (e.g. the loop's "break" label). -->
     <Field Name="Label" Type="LabelSymbol" />
