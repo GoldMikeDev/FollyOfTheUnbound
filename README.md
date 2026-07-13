@@ -8,6 +8,8 @@
 
 Roslyn is the open-source implementation of both the C# and Visual Basic compilers with an API surface for building code analysis tools.
 
+> **This is a fork of [dotnet/roslyn](https://github.com/dotnet/roslyn)**, used to prototype experimental C# language extensions under the codename "Folly of the Unbound." It adds new, non-standard control-flow constructs on top of upstream C# — `do`/`until` loops, `mutate` statements, inline expression declarations, and `if`/`catch`/`finally` chains with block conditions — implemented through the full compiler pipeline (parser, binder, lowering, IDE tooling). These are not proposals under consideration by the C# language design team; they exist only in this fork.
+
 ### C# and Visual Basic Language Feature Suggestions
 
 If you want to suggest a new feature for the C# or Visual Basic languages go here:
