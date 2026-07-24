@@ -1712,9 +1712,10 @@ namespace Microsoft.CodeAnalysis.Operations
             IConditionalAccessOperation access = CreateBoundConditionalAccessOperation(boundConditionalCoalesceStatement.Access);
             IOperation whenNull = Create(boundConditionalCoalesceStatement.FallbackStatement.Expression);
             SyntaxNode coalesceSyntax = boundConditionalCoalesceStatement.Access.Syntax.Parent ?? boundConditionalCoalesceStatement.Syntax;
+            ITypeSymbol? type = boundConditionalCoalesceStatement.Access.GetPublicTypeSymbol();
             bool isImplicit = boundConditionalCoalesceStatement.WasCompilerGenerated;
 
-            var voidCoalesce = new VoidCoalesceOperation(access, whenNull, _semanticModel, coalesceSyntax, type: null, isImplicit);
+            var voidCoalesce = new VoidCoalesceOperation(access, whenNull, _semanticModel, coalesceSyntax, type, isImplicit);
             return new ExpressionStatementOperation(voidCoalesce, _semanticModel, boundConditionalCoalesceStatement.Syntax, isImplicit);
         }
 

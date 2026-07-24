@@ -3581,8 +3581,13 @@ oneMoreTime:
 
             AppendNewBlock(whenNullBlock);
 
-            IOperation fallbackResult = VisitRequired(operation.WhenNull);
-            AddStatement(fallbackResult);
+            // WhenNull is itself an arbitrary statement-expression -- it can be a nested VoidCoalesce
+            // (`a?.M() ?? b?.N() ?? c();`) or a bare conditional-access statement (`a?.M() ?? b?.N();`),
+            // both of which only behave correctly (and, for VoidCoalesce, only avoid violating
+            // VisitRequired's non-null-in/non-null-out invariant) when visited with statement semantics,
+            // i.e. with _currentStatement pointing at WhenNull itself. VisitStatement (used for ordinary
+            // statement lists) does exactly that, including tolerating a null visit result.
+            VisitStatement(operation.WhenNull);
 
             UnconditionalBranch(afterBlock);
 
