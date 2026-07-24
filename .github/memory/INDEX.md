@@ -17,7 +17,7 @@ This is the loading map for the agent knowledge base under `.github/memory/`. **
 | **`API_MAP.md`** | Build/test entry points & PublicAPI tracking | When changing build, tests, or public APIs |
 | **`KNOWN_ISSUES.md`** | Repo-wide / cross-cutting quirks & workarounds | Always for code review; unfamiliar areas |
 | **`TESTING_STRATEGY.md`** | Test layout, shared authoring conventions & how to run tests | When writing tests or debugging test failures |
-| **`experimental-language-features.md`** | This fork's new constructs (do/until, mutate, inline expression declaration, if/catch/finally chains) — syntax shape and IDE support status | Working on any of these four constructs, or on `src/Features/CSharp/Portable` IDE support generally |
+| **`experimental-language-features.md`** | This fork's new constructs (do/until, mutate, inline expression declaration, if/catch/finally chains, `*.` root-namespace placeholder) — syntax shape and IDE support status | Working on any of these constructs, or on `src/Features/CSharp/Portable` IDE support generally |
 
 ## Layer-specific knowledge
 

@@ -9,6 +9,20 @@ Layer-specific quirks for the compiler. Load when working under
 (generated code, CI marker gating, environmental test failures) live in
 `.github/memory/KNOWN_ISSUES.md`.
 
-_No compiler-specific known issues are currently documented. Add entries here as
-they are discovered, using the `Affected area` / `Description` / `Workaround`
-shape from the repo-wide `KNOWN_ISSUES.md`._
+## Namespace-declaration `Name` is decomposed independently in two places
+
+**Affected area:** `src/Compilers/CSharp/Portable/Declarations/DeclarationTreeBuilder.cs`,
+`src/Compilers/CSharp/Portable/Binder/BinderFactory.BinderFactoryVisitor.cs`
+**Description:** `BaseNamespaceDeclarationSyntax.Name` (a dotted `NameSyntax` chain) is walked
+right-to-left in two entirely separate places that don't share code: `DeclarationTreeBuilder.VisitBaseNamespaceDeclaration`
+(builds the `SingleNamespaceDeclaration` tree used for symbol lookup) and
+`BinderFactory.BinderFactoryVisitor.MakeNamespaceBinder` (resolves the container symbol for member
+binding). A change to how a namespace declaration's name resolves (e.g. adding the `*.`
+root-namespace placeholder — see `.github/memory/experimental-language-features.md`) has to be made
+in **both** or the second one fails silently/asserts the first time a member inside the namespace is
+bound. There's also a pre-existing same-category comment in `DeclarationTreeBuilder.cs` about staying
+in sync with `NamespaceSymbol.GetNestedNamespace` for alias-qualified names — same root cause, third
+call site.
+**Workaround:** When touching namespace-declaration name resolution, grep for
+`GetNestedNamespace`/`MakeNamespaceBinder`/`GetUnqualifiedName` and check all call sites, not just
+`DeclarationTreeBuilder`.

@@ -52,6 +52,13 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// </summary>
         public override NullableContextOptions NullableContextOptions { get; protected set; }
 
+        /// <summary>
+        /// Gets the default namespace substituted for a '*' root-namespace placeholder qualifier used
+        /// as the leftmost segment of a namespace declaration's name (e.g. <c>namespace *.AddonModules</c>).
+        /// Corresponds to the "RootNamespace" project property or the "/rootnamespace" command line option.
+        /// </summary>
+        public string? RootNamespace { get; private set; }
+
         // Defaults correspond to the compiler's defaults or indicate that the user did not specify when that is significant.
         // That's significant when one option depends on another's setting. SubsystemVersion depends on Platform and Target.
         public CSharpCompilationOptions(
@@ -273,6 +280,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             // https://github.com/dotnet/roslyn/issues/82546: should be in the constructor
             MemorySafetyRules = other.MemorySafetyRules;
+            RootNamespace = other.RootNamespace;
         }
 
         public override string Language => LanguageNames.CSharp;
@@ -429,6 +437,30 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
             return new CSharpCompilationOptions(this) { AllowUnsafe = enabled };
+        }
+
+        public CSharpCompilationOptions WithRootNamespace(string? rootNamespace)
+        {
+            if (rootNamespace == this.RootNamespace)
+            {
+                return this;
+            }
+
+            return new CSharpCompilationOptions(this) { RootNamespace = rootNamespace };
+        }
+
+        /// <summary>
+        /// Splits <see cref="RootNamespace"/> into its dot-separated parts, or an empty array if it is
+        /// unset or not a valid namespace name.
+        /// </summary>
+        internal ImmutableArray<string> GetRootNamespaceParts()
+        {
+            if (string.IsNullOrEmpty(RootNamespace) || !RootNamespace.IsValidClrNamespaceName())
+            {
+                return ImmutableArray<string>.Empty;
+            }
+
+            return MetadataHelpers.SplitQualifiedName(RootNamespace);
         }
 
         // https://github.com/dotnet/roslyn/issues/82546: public API
@@ -742,6 +774,11 @@ namespace Microsoft.CodeAnalysis.CSharp
                 builder.Add(Diagnostic.Create(MessageProvider.Instance, (int)ErrorCode.ERR_BadCompilationOptionValue, nameof(Usings), Usings.Where(u => !u.IsValidClrNamespaceName()).First() ?? "null"));
             }
 
+            if (!string.IsNullOrEmpty(RootNamespace) && !RootNamespace.IsValidClrNamespaceName())
+            {
+                builder.Add(Diagnostic.Create(MessageProvider.Instance, (int)ErrorCode.ERR_BadCompilationOptionValue, nameof(RootNamespace), RootNamespace));
+            }
+
             if (Platform == Platform.AnyCpu32BitPreferred && OutputKind.IsValid() && !(OutputKind == OutputKind.ConsoleApplication || OutputKind == OutputKind.WindowsApplication || OutputKind == OutputKind.WindowsRuntimeApplication))
             {
                 builder.Add(Diagnostic.Create(MessageProvider.Instance, (int)ErrorCode.ERR_BadPrefer32OnLib));
@@ -775,7 +812,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                    this.MemorySafetyRules == other.MemorySafetyRules &&
                    this.TopLevelBinderFlags == other.TopLevelBinderFlags &&
                    (this.Usings == null ? other.Usings == null : this.Usings.SequenceEqual(other.Usings, StringComparer.Ordinal) &&
-                   this.NullableContextOptions == other.NullableContextOptions);
+                   this.NullableContextOptions == other.NullableContextOptions) &&
+                   string.Equals(this.RootNamespace, other.RootNamespace, StringComparison.Ordinal);
         }
 
         public override bool Equals(object? obj)
@@ -789,7 +827,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                    Hash.Combine(this.MemorySafetyRules,
                    Hash.Combine(this.AllowUnsafe,
                    Hash.Combine(Hash.CombineValues(this.Usings, StringComparer.Ordinal),
-                   Hash.Combine(((uint)TopLevelBinderFlags).GetHashCode(), ((int)this.NullableContextOptions).GetHashCode())))));
+                   Hash.Combine(((uint)TopLevelBinderFlags).GetHashCode(),
+                   Hash.Combine(((int)this.NullableContextOptions).GetHashCode(),
+                   this.RootNamespace != null ? StringComparer.Ordinal.GetHashCode(this.RootNamespace) : 0))))));
         }
 
         internal override Diagnostic? FilterDiagnostic(Diagnostic diagnostic, CancellationToken cancellationToken)

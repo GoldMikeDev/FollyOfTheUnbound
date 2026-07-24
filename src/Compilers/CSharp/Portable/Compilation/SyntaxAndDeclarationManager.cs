@@ -24,15 +24,23 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private State _lazyState;
 
+        /// <summary>
+        /// The parts of <see cref="CSharpCompilationOptions.RootNamespace"/>, used to substitute the '*' root-namespace
+        /// placeholder qualifier when building declarations for each syntax tree.
+        /// </summary>
+        internal readonly ImmutableArray<string> RootNamespaceParts;
+
         internal SyntaxAndDeclarationManager(
             ImmutableArray<SyntaxTree> externalSyntaxTrees,
             string scriptClassName,
             SourceReferenceResolver resolver,
             CommonMessageProvider messageProvider,
             bool isSubmission,
+            ImmutableArray<string> rootNamespaceParts,
             State state)
             : base(externalSyntaxTrees, scriptClassName, resolver, messageProvider, isSubmission)
         {
+            RootNamespaceParts = rootNamespaceParts;
             _lazyState = state;
         }
 
@@ -40,7 +48,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             if (_lazyState == null)
             {
-                Interlocked.CompareExchange(ref _lazyState, CreateState(this.ExternalSyntaxTrees, this.ScriptClassName, this.Resolver, this.MessageProvider, this.IsSubmission), null);
+                Interlocked.CompareExchange(ref _lazyState, CreateState(this.ExternalSyntaxTrees, this.ScriptClassName, this.Resolver, this.MessageProvider, this.IsSubmission, this.RootNamespaceParts), null);
             }
 
             return _lazyState;
@@ -51,7 +59,8 @@ namespace Microsoft.CodeAnalysis.CSharp
             string scriptClassName,
             SourceReferenceResolver resolver,
             CommonMessageProvider messageProvider,
-            bool isSubmission)
+            bool isSubmission,
+            ImmutableArray<string> rootNamespaceParts)
         {
             var treesBuilder = ArrayBuilder<SyntaxTree>.GetInstance();
             var ordinalMapBuilder = PooledDictionary<SyntaxTree, int>.GetInstance();
@@ -70,6 +79,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     resolver,
                     messageProvider,
                     isSubmission,
+                    rootNamespaceParts,
                     ordinalMapBuilder,
                     loadDirectiveMapBuilder,
                     loadedSyntaxTreeMapBuilder,
@@ -112,6 +122,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             var treesBuilder = ArrayBuilder<SyntaxTree>.GetInstance();
             treesBuilder.AddRange(state.SyntaxTrees);
 
+            var rootNamespaceParts = this.RootNamespaceParts;
             foreach (var tree in trees)
             {
                 AppendAllSyntaxTrees(
@@ -121,6 +132,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                         resolver,
                         messageProvider,
                         isSubmission,
+                        rootNamespaceParts,
                         ordinalMapBuilder,
                         loadDirectiveMapBuilder,
                         loadedSyntaxTreeMapBuilder,
@@ -144,6 +156,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 resolver,
                 messageProvider,
                 isSubmission,
+                rootNamespaceParts,
                 state);
         }
 
@@ -157,6 +170,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             SourceReferenceResolver resolver,
             CommonMessageProvider messageProvider,
             bool isSubmission,
+            ImmutableArray<string> rootNamespaceParts,
             IDictionary<SyntaxTree, int> ordinalMapBuilder,
             IDictionary<SyntaxTree, ImmutableArray<LoadDirective>> loadDirectiveMapBuilder,
             IDictionary<string, SyntaxTree> loadedSyntaxTreeMapBuilder,
@@ -167,7 +181,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             var sourceCodeKind = tree.Options.Kind;
             if (sourceCodeKind == SourceCodeKind.Script)
             {
-                AppendAllLoadedSyntaxTrees(treesBuilder, tree, scriptClassName, resolver, messageProvider, isSubmission, ordinalMapBuilder, loadDirectiveMapBuilder, loadedSyntaxTreeMapBuilder, declMapBuilder, lastComputedMemberNamesMap, declTableBuilder);
+                AppendAllLoadedSyntaxTrees(treesBuilder, tree, scriptClassName, resolver, messageProvider, isSubmission, rootNamespaceParts, ordinalMapBuilder, loadDirectiveMapBuilder, loadedSyntaxTreeMapBuilder, declMapBuilder, lastComputedMemberNamesMap, declTableBuilder);
             }
 
             // We're adding new trees, so passing in .Empty for lastComputedMemberNames as we do not have prior named
@@ -175,7 +189,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             // used as a way to save on memory *if* items are present in it.  If not, we simply do the normal full work
             // to compute the new member names.
             AddSyntaxTreeToDeclarationMapAndTable(
-                tree, scriptClassName, isSubmission, declMapBuilder,
+                tree, scriptClassName, isSubmission, rootNamespaceParts, declMapBuilder,
                 lastComputedMemberNames: OneOrMany<WeakReference<StrongBox<ImmutableSegmentedHashSet<string>>>>.Empty, declTableBuilder);
 
             treesBuilder.Add(tree);
@@ -192,6 +206,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             SourceReferenceResolver resolver,
             CommonMessageProvider messageProvider,
             bool isSubmission,
+            ImmutableArray<string> rootNamespaceParts,
             IDictionary<SyntaxTree, int> ordinalMapBuilder,
             IDictionary<SyntaxTree, ImmutableArray<LoadDirective>> loadDirectiveMapBuilder,
             IDictionary<string, SyntaxTree> loadedSyntaxTreeMapBuilder,
@@ -253,6 +268,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                                 resolver,
                                 messageProvider,
                                 isSubmission,
+                                rootNamespaceParts,
                                 ordinalMapBuilder,
                                 loadDirectiveMapBuilder,
                                 loadedSyntaxTreeMapBuilder,
@@ -292,11 +308,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             SyntaxTree tree,
             string scriptClassName,
             bool isSubmission,
+            ImmutableArray<string> rootNamespaceParts,
             IDictionary<SyntaxTree, Lazy<RootSingleNamespaceDeclaration>> declMapBuilder,
             OneOrMany<WeakReference<StrongBox<ImmutableSegmentedHashSet<string>>>> lastComputedMemberNames,
             DeclarationTable.Builder declTableBuilder)
         {
-            var lazyRoot = new Lazy<RootSingleNamespaceDeclaration>(() => DeclarationTreeBuilder.ForTree(tree, scriptClassName, isSubmission, lastComputedMemberNames));
+            var lazyRoot = new Lazy<RootSingleNamespaceDeclaration>(() => DeclarationTreeBuilder.ForTree(tree, rootNamespaceParts, scriptClassName, isSubmission, lastComputedMemberNames));
             declMapBuilder.Add(tree, lazyRoot); // Callers are responsible for checking for existing entries.
             declTableBuilder.AddRootDeclaration(lazyRoot);
         }
@@ -371,6 +388,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 this.Resolver,
                 this.MessageProvider,
                 this.IsSubmission,
+                this.RootNamespaceParts,
                 state);
         }
 
@@ -536,6 +554,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     this.Resolver,
                     this.MessageProvider,
                     this.IsSubmission,
+                    this.RootNamespaceParts,
                     ordinalMapBuilder,
                     loadDirectiveMapBuilder,
                     loadedSyntaxTreeMapBuilder,
@@ -563,7 +582,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
             else
             {
-                AddSyntaxTreeToDeclarationMapAndTable(newTree, this.ScriptClassName, this.IsSubmission, declMapBuilder, lastComputedMemberNames, declTableBuilder);
+                AddSyntaxTreeToDeclarationMapAndTable(newTree, this.ScriptClassName, this.IsSubmission, this.RootNamespaceParts, declMapBuilder, lastComputedMemberNames, declTableBuilder);
 
                 if (newLoadDirectivesSyntax.Any())
                 {
@@ -600,6 +619,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 this.Resolver,
                 this.MessageProvider,
                 this.IsSubmission,
+                this.RootNamespaceParts,
                 state);
 
             static OneOrMany<WeakReference<StrongBox<ImmutableSegmentedHashSet<string>>>> tryGetLastComputedMemberNames(
@@ -662,7 +682,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         internal SyntaxAndDeclarationManager WithExternalSyntaxTrees(ImmutableArray<SyntaxTree> trees)
         {
-            return new SyntaxAndDeclarationManager(trees, this.ScriptClassName, this.Resolver, this.MessageProvider, this.IsSubmission, state: null);
+            return new SyntaxAndDeclarationManager(trees, this.ScriptClassName, this.Resolver, this.MessageProvider, this.IsSubmission, this.RootNamespaceParts, state: null);
         }
 
         internal static bool IsLoadedSyntaxTree(SyntaxTree tree, ImmutableDictionary<string, SyntaxTree> loadedSyntaxTreeMap)

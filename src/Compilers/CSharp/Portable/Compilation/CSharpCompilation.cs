@@ -519,6 +519,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     options.SourceReferenceResolver,
                     CSharp.MessageProvider.Instance,
                     isSubmission,
+                    options.GetRootNamespaceParts(),
                     state: null),
                 semanticModelProvider: null);
 
@@ -740,7 +741,8 @@ namespace Microsoft.CodeAnalysis.CSharp
             var oldOptions = this.Options;
             bool reuseReferenceManager = oldOptions.CanReuseCompilationReferenceManager(options);
             bool reuseSyntaxAndDeclarationManager = oldOptions.ScriptClassName == options.ScriptClassName &&
-                oldOptions.SourceReferenceResolver == options.SourceReferenceResolver;
+                oldOptions.SourceReferenceResolver == options.SourceReferenceResolver &&
+                oldOptions.RootNamespace == options.RootNamespace;
 
             return new CSharpCompilation(
                 this.AssemblyName,
@@ -760,6 +762,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                         options.SourceReferenceResolver,
                         _syntaxAndDeclarations.MessageProvider,
                         _syntaxAndDeclarations.IsSubmission,
+                        options.GetRootNamespaceParts(),
                         state: null),
                 this.SemanticModelProvider);
         }

@@ -4,6 +4,7 @@ param
     [string]$config
 )
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$ErrorActionPreference = "Stop"
 
 # FollyOfTheUnbound.slnx is Roslyn.slnx with the RoslynAnalyzers projects removed. Those projects
 # build the shared Formatting/Extensions files against an older, released Microsoft.CodeAnalysis
@@ -33,14 +34,42 @@ else {
 # that made Build.cmd succeed earlier when a bare `dotnet build <csproj>` failed with an SDK-not-found
 # error), so both actions go through eng/build.ps1 instead.
 
-if ($action -eq "weave") {
+if ($action -eq "attune") {
+    & $buildScript -restore -solution $solution -configuration $configuration
+}
+elseif ($action -eq "weave") {
     & $buildScript -restore -build -solution $solution -configuration $configuration
 }
 elseif ($action -eq "bind") {
     & $buildScript -restore -build -pack -solution $solution -configuration $configuration
-    if ($LASTEXITCODE -eq 0) {
-        New-Item -ItemType Directory -Force -Path $nupkgDir | Out-Null
-        $packagesDir = Join-Path $PSScriptRoot "artifacts\packages\$configuration"
-        Get-ChildItem -Path $packagesDir -Filter "*.nupkg" -Recurse | Copy-Item -Destination $nupkgDir -Force
+}
+else {
+    Write-Host "Unrecognized action '$action'. Expected 'attune', 'weave', or 'bind'." -ForegroundColor Red
+    exit 1
+}
+
+$buildExitCode = $LASTEXITCODE
+if ($buildExitCode -ne 0) {
+    exit $buildExitCode
+}
+
+if ($action -eq "bind") {
+    $packagesDir = Join-Path $PSScriptRoot "artifacts\packages\$configuration"
+
+    if (-not (Test-Path -LiteralPath $packagesDir -PathType Container)) {
+        Write-Host "Package output directory '$packagesDir' does not exist." -ForegroundColor Red
+        exit 1
+    }
+
+    New-Item -ItemType Directory -Force -Path $nupkgDir | Out-Null
+
+    & robocopy $packagesDir $nupkgDir /MIR /MT:16
+
+    $robocopyExitCode = $LASTEXITCODE
+    if ($robocopyExitCode -ge 8) {
+        Write-Host "Robocopy failed with exit code $robocopyExitCode." -ForegroundColor Red
+        exit $robocopyExitCode
     }
 }
+
+exit 0

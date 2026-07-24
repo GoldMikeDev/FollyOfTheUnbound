@@ -887,13 +887,36 @@ namespace Microsoft.CodeAnalysis.CSharp
                     else
                     {
                         // if between the curlies, members are in scope
-                        result = MakeNamespaceBinder(parent, parent.Name, outer, inUsing);
+                        var namespaceOuter = outer;
+                        if (parent.RootNamespaceQualifier != null)
+                        {
+                            // '*.' resolves to the compilation's RootNamespace: descend through its parts
+                            // (as plain synthesized containers, not the parsed Name) before resolving parent.Name itself.
+                            foreach (var part in outer.Compilation.Options.GetRootNamespaceParts())
+                            {
+                                namespaceOuter = MakeRootNamespaceContainerBinder(part, namespaceOuter);
+                            }
+                        }
+
+                        result = MakeNamespaceBinder(parent, parent.Name, namespaceOuter, inUsing);
                     }
 
                     binderCache.TryAdd(key, result);
                 }
 
                 return result;
+            }
+
+            private static Binder MakeRootNamespaceContainerBinder(string namePart, Binder outer)
+            {
+                NamespaceOrTypeSymbol container = outer is InContainerBinder inContainerBinder
+                    ? inContainerBinder.Container
+                    : outer.Compilation.GlobalNamespace;
+
+                NamespaceSymbol ns = ((NamespaceSymbol)container).GetNestedNamespace(namePart);
+                if ((object)ns == null) return outer;
+
+                return new InContainerBinder(ns, outer);
             }
 
             private static Binder MakeNamespaceBinder(CSharpSyntaxNode node, NameSyntax name, Binder outer, bool inUsing)

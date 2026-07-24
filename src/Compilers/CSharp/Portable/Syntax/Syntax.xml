@@ -3259,9 +3259,26 @@
       </PropertyComment>
     </Field>
   </AbstractNode>
+  <Node Name="RootNamespaceQualifierSyntax" Base="CSharpSyntaxNode">
+    <TypeComment>
+      <summary>Class representing the '*' root-namespace placeholder qualifier at the start of a namespace declaration's name (e.g. <c>namespace *.AddonModules</c>), which resolves to the compilation's RootNamespace option at bind time.</summary>
+    </TypeComment>
+    <Kind Name="RootNamespaceQualifier"/>
+    <Field Name="AsteriskToken" Type="SyntaxToken">
+      <Kind Name="AsteriskToken"/>
+    </Field>
+    <Field Name="DotToken" Type="SyntaxToken">
+      <Kind Name="DotToken"/>
+    </Field>
+  </Node>
   <AbstractNode Name="BaseNamespaceDeclarationSyntax" Base="MemberDeclarationSyntax">
     <Field Name="NamespaceKeyword" Type="SyntaxToken">
       <Kind Name="NamespaceKeyword"/>
+    </Field>
+    <Field Name="RootNamespaceQualifier" Type="RootNamespaceQualifierSyntax" Optional="true">
+      <PropertyComment>
+        <summary>Gets the optional '*' root-namespace placeholder qualifier.</summary>
+      </PropertyComment>
     </Field>
     <Field Name="Name" Type="NameSyntax"/>
     <Field Name="Externs" Type="SyntaxList&lt;ExternAliasDirectiveSyntax&gt;"/>
@@ -3275,6 +3292,7 @@
     <Field Name="NamespaceKeyword" Type="SyntaxToken" Override="true">
       <Kind Name="NamespaceKeyword"/>
     </Field>
+    <Field Name="RootNamespaceQualifier" Type="RootNamespaceQualifierSyntax" Override="true" Optional="true"/>
     <Field Name="Name" Type="NameSyntax" Override="true"/>
     <Field Name="OpenBraceToken" Type="SyntaxToken">
       <Kind Name="OpenBraceToken"/>
@@ -3299,6 +3317,7 @@
     <Field Name="NamespaceKeyword" Type="SyntaxToken" Override="true">
       <Kind Name="NamespaceKeyword"/>
     </Field>
+    <Field Name="RootNamespaceQualifier" Type="RootNamespaceQualifierSyntax" Override="true" Optional="true"/>
     <Field Name="Name" Type="NameSyntax" Override="true"/>
     <Field Name="SemicolonToken" Type="SyntaxToken">
       <Kind Name="SemicolonToken"/>

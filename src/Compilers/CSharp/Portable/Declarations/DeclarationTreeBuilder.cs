@@ -39,6 +39,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         private static readonly BoxedMemberNames s_emptyMemberNames = new BoxedMemberNames(ImmutableSegmentedHashSet<string>.Empty);
 
         private readonly SyntaxTree _syntaxTree;
+        private readonly ImmutableArray<string> _rootNamespaceParts;
         private readonly string _scriptClassName;
         private readonly bool _isSubmission;
 
@@ -74,11 +75,13 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private DeclarationTreeBuilder(
             SyntaxTree syntaxTree,
+            ImmutableArray<string> rootNamespaceParts,
             string scriptClassName,
             bool isSubmission,
             OneOrMany<WeakReference<BoxedMemberNames>> previousMemberNames)
         {
             _syntaxTree = syntaxTree;
+            _rootNamespaceParts = rootNamespaceParts;
             _scriptClassName = scriptClassName;
             _isSubmission = isSubmission;
             _previousMemberNames = previousMemberNames;
@@ -86,12 +89,13 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public static RootSingleNamespaceDeclaration ForTree(
             SyntaxTree syntaxTree,
+            ImmutableArray<string> rootNamespaceParts,
             string scriptClassName,
             bool isSubmission,
             OneOrMany<WeakReference<BoxedMemberNames>>? previousMemberNames = null)
         {
             var builder = new DeclarationTreeBuilder(
-                syntaxTree, scriptClassName, isSubmission,
+                syntaxTree, rootNamespaceParts, scriptClassName, isSubmission,
                 previousMemberNames ?? OneOrMany<WeakReference<BoxedMemberNames>>.Empty);
             return (RootSingleNamespaceDeclaration)builder.Visit(syntaxTree.GetRoot());
         }
@@ -610,10 +614,16 @@ namespace Microsoft.CodeAnalysis.CSharp
             CheckFeatureAvailabilityForUsings(diagnostics, node.Usings);
             CheckFeatureAvailabilityForExterns(diagnostics, node.Externs);
 
+            var rootNamespaceQualifier = node.RootNamespaceQualifier;
+            if (rootNamespaceQualifier != null && _rootNamespaceParts.IsEmpty)
+            {
+                diagnostics.Add(ErrorCode.ERR_RootNamespaceQualifierRequiresRootNamespace, rootNamespaceQualifier.GetLocation());
+            }
+
             // NOTE: *Something* has to happen for alias-qualified names.  It turns out that we
             // just grab the part after the colons (via GetUnqualifiedName, below).  This logic
             // must be kept in sync with NamespaceSymbol.GetNestedNamespace.
-            return SingleNamespaceDeclaration.Create(
+            SingleNamespaceDeclaration result = SingleNamespaceDeclaration.Create(
                 name: name.GetUnqualifiedName().Identifier.ValueText,
                 hasUsings: hasUsings,
                 hasExternAliases: hasExterns,
@@ -621,6 +631,28 @@ namespace Microsoft.CodeAnalysis.CSharp
                 nameLocation: new SourceLocation(name),
                 children: children,
                 diagnostics: diagnostics.ToReadOnlyAndFree());
+
+            // '*.' resolves to the compilation's RootNamespace: wrap the declaration in one more
+            // SingleNamespaceDeclaration per dot-separated part, from innermost (rightmost) to outermost.
+            if (rootNamespaceQualifier != null && !_rootNamespaceParts.IsEmpty)
+            {
+                var qualifierReference = _syntaxTree.GetReference(rootNamespaceQualifier);
+                var qualifierLocation = new SourceLocation(rootNamespaceQualifier);
+
+                for (int i = _rootNamespaceParts.Length - 1; i >= 0; i--)
+                {
+                    result = SingleNamespaceDeclaration.Create(
+                        name: _rootNamespaceParts[i],
+                        hasUsings: false,
+                        hasExternAliases: false,
+                        syntaxReference: qualifierReference,
+                        nameLocation: qualifierLocation,
+                        children: ImmutableArray.Create<SingleNamespaceOrTypeDeclaration>(result),
+                        diagnostics: ImmutableArray<Diagnostic>.Empty);
+                }
+            }
+
+            return result;
         }
 
         private static bool ContainsAlias(NameSyntax name)

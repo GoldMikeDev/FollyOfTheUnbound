@@ -968,5 +968,8 @@ namespace Microsoft.CodeAnalysis.CSharp
         IfCatchStatement = 9087,
         /// <summary>Represents a single arm of an <see cref="IfCatchStatement"/>.</summary>
         IfCatchArm = 9088,
+
+        /// <summary>Represents the <c>*.</c> root-namespace placeholder qualifier at the start of a namespace declaration's name.</summary>
+        RootNamespaceQualifier = 9089,
     }
 }

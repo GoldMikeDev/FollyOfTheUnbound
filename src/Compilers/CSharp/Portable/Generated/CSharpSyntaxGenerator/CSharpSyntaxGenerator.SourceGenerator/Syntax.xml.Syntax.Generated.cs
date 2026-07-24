@@ -10005,6 +10005,48 @@ public abstract partial class MemberDeclarationSyntax : CSharpSyntaxNode
     internal abstract MemberDeclarationSyntax AddModifiersCore(params SyntaxToken[] items);
 }
 
+/// <summary>Class representing the '*' root-namespace placeholder qualifier at the start of a namespace declaration's name (e.g. <c>namespace *.AddonModules</c>), which resolves to the compilation's RootNamespace option at bind time.</summary>
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.RootNamespaceQualifier"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class RootNamespaceQualifierSyntax : CSharpSyntaxNode
+{
+
+    internal RootNamespaceQualifierSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public SyntaxToken AsteriskToken => new SyntaxToken(this, ((InternalSyntax.RootNamespaceQualifierSyntax)this.Green).asteriskToken, Position, 0);
+
+    public SyntaxToken DotToken => new SyntaxToken(this, ((InternalSyntax.RootNamespaceQualifierSyntax)this.Green).dotToken, GetChildPosition(1), GetChildIndex(1));
+
+    internal override SyntaxNode? GetNodeSlot(int index) => null;
+
+    internal override SyntaxNode? GetCachedSlot(int index) => null;
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitRootNamespaceQualifier(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitRootNamespaceQualifier(this);
+
+    public RootNamespaceQualifierSyntax Update(SyntaxToken asteriskToken, SyntaxToken dotToken)
+    {
+        if (asteriskToken != this.AsteriskToken || dotToken != this.DotToken)
+        {
+            var newNode = SyntaxFactory.RootNamespaceQualifier(asteriskToken, dotToken);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    public RootNamespaceQualifierSyntax WithAsteriskToken(SyntaxToken asteriskToken) => Update(asteriskToken, this.DotToken);
+    public RootNamespaceQualifierSyntax WithDotToken(SyntaxToken dotToken) => Update(this.AsteriskToken, dotToken);
+}
+
 public abstract partial class BaseNamespaceDeclarationSyntax : MemberDeclarationSyntax
 {
     internal BaseNamespaceDeclarationSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
@@ -10015,6 +10057,11 @@ public abstract partial class BaseNamespaceDeclarationSyntax : MemberDeclaration
     public abstract SyntaxToken NamespaceKeyword { get; }
     public BaseNamespaceDeclarationSyntax WithNamespaceKeyword(SyntaxToken namespaceKeyword) => WithNamespaceKeywordCore(namespaceKeyword);
     internal abstract BaseNamespaceDeclarationSyntax WithNamespaceKeywordCore(SyntaxToken namespaceKeyword);
+
+    /// <summary>Gets the optional '*' root-namespace placeholder qualifier.</summary>
+    public abstract RootNamespaceQualifierSyntax? RootNamespaceQualifier { get; }
+    public BaseNamespaceDeclarationSyntax WithRootNamespaceQualifier(RootNamespaceQualifierSyntax? rootNamespaceQualifier) => WithRootNamespaceQualifierCore(rootNamespaceQualifier);
+    internal abstract BaseNamespaceDeclarationSyntax WithRootNamespaceQualifierCore(RootNamespaceQualifierSyntax? rootNamespaceQualifier);
 
     public abstract NameSyntax Name { get; }
     public BaseNamespaceDeclarationSyntax WithName(NameSyntax name) => WithNameCore(name);
@@ -10058,6 +10105,7 @@ public abstract partial class BaseNamespaceDeclarationSyntax : MemberDeclaration
 public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
 {
     private SyntaxNode? attributeLists;
+    private RootNamespaceQualifierSyntax? rootNamespaceQualifier;
     private NameSyntax? name;
     private SyntaxNode? externs;
     private SyntaxNode? usings;
@@ -10081,17 +10129,19 @@ public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclaratio
 
     public override SyntaxToken NamespaceKeyword => new SyntaxToken(this, ((InternalSyntax.NamespaceDeclarationSyntax)this.Green).namespaceKeyword, GetChildPosition(2), GetChildIndex(2));
 
-    public override NameSyntax Name => GetRed(ref this.name, 3)!;
+    public override RootNamespaceQualifierSyntax? RootNamespaceQualifier => GetRed(ref this.rootNamespaceQualifier, 3);
 
-    public SyntaxToken OpenBraceToken => new SyntaxToken(this, ((InternalSyntax.NamespaceDeclarationSyntax)this.Green).openBraceToken, GetChildPosition(4), GetChildIndex(4));
+    public override NameSyntax Name => GetRed(ref this.name, 4)!;
 
-    public override SyntaxList<ExternAliasDirectiveSyntax> Externs => new SyntaxList<ExternAliasDirectiveSyntax>(GetRed(ref this.externs, 5));
+    public SyntaxToken OpenBraceToken => new SyntaxToken(this, ((InternalSyntax.NamespaceDeclarationSyntax)this.Green).openBraceToken, GetChildPosition(5), GetChildIndex(5));
 
-    public override SyntaxList<UsingDirectiveSyntax> Usings => new SyntaxList<UsingDirectiveSyntax>(GetRed(ref this.usings, 6));
+    public override SyntaxList<ExternAliasDirectiveSyntax> Externs => new SyntaxList<ExternAliasDirectiveSyntax>(GetRed(ref this.externs, 6));
 
-    public override SyntaxList<MemberDeclarationSyntax> Members => new SyntaxList<MemberDeclarationSyntax>(GetRed(ref this.members, 7));
+    public override SyntaxList<UsingDirectiveSyntax> Usings => new SyntaxList<UsingDirectiveSyntax>(GetRed(ref this.usings, 7));
 
-    public SyntaxToken CloseBraceToken => new SyntaxToken(this, ((InternalSyntax.NamespaceDeclarationSyntax)this.Green).closeBraceToken, GetChildPosition(8), GetChildIndex(8));
+    public override SyntaxList<MemberDeclarationSyntax> Members => new SyntaxList<MemberDeclarationSyntax>(GetRed(ref this.members, 8));
+
+    public SyntaxToken CloseBraceToken => new SyntaxToken(this, ((InternalSyntax.NamespaceDeclarationSyntax)this.Green).closeBraceToken, GetChildPosition(9), GetChildIndex(9));
 
     /// <summary>Gets the optional semicolon token.</summary>
     public SyntaxToken SemicolonToken
@@ -10099,7 +10149,7 @@ public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclaratio
         get
         {
             var slot = ((Syntax.InternalSyntax.NamespaceDeclarationSyntax)this.Green).semicolonToken;
-            return slot != null ? new SyntaxToken(this, slot, GetChildPosition(9), GetChildIndex(9)) : default;
+            return slot != null ? new SyntaxToken(this, slot, GetChildPosition(10), GetChildIndex(10)) : default;
         }
     }
 
@@ -10107,10 +10157,11 @@ public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclaratio
         => index switch
         {
             0 => GetRedAtZero(ref this.attributeLists)!,
-            3 => GetRed(ref this.name, 3)!,
-            5 => GetRed(ref this.externs, 5)!,
-            6 => GetRed(ref this.usings, 6)!,
-            7 => GetRed(ref this.members, 7)!,
+            3 => GetRed(ref this.rootNamespaceQualifier, 3),
+            4 => GetRed(ref this.name, 4)!,
+            6 => GetRed(ref this.externs, 6)!,
+            7 => GetRed(ref this.usings, 7)!,
+            8 => GetRed(ref this.members, 8)!,
             _ => null,
         };
 
@@ -10118,21 +10169,22 @@ public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclaratio
         => index switch
         {
             0 => this.attributeLists,
-            3 => this.name,
-            5 => this.externs,
-            6 => this.usings,
-            7 => this.members,
+            3 => this.rootNamespaceQualifier,
+            4 => this.name,
+            6 => this.externs,
+            7 => this.usings,
+            8 => this.members,
             _ => null,
         };
 
     public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitNamespaceDeclaration(this);
     public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitNamespaceDeclaration(this);
 
-    public NamespaceDeclarationSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxTokenList modifiers, SyntaxToken namespaceKeyword, NameSyntax name, SyntaxToken openBraceToken, SyntaxList<ExternAliasDirectiveSyntax> externs, SyntaxList<UsingDirectiveSyntax> usings, SyntaxList<MemberDeclarationSyntax> members, SyntaxToken closeBraceToken, SyntaxToken semicolonToken)
+    public NamespaceDeclarationSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxTokenList modifiers, SyntaxToken namespaceKeyword, RootNamespaceQualifierSyntax? rootNamespaceQualifier, NameSyntax name, SyntaxToken openBraceToken, SyntaxList<ExternAliasDirectiveSyntax> externs, SyntaxList<UsingDirectiveSyntax> usings, SyntaxList<MemberDeclarationSyntax> members, SyntaxToken closeBraceToken, SyntaxToken semicolonToken)
     {
-        if (attributeLists != this.AttributeLists || modifiers != this.Modifiers || namespaceKeyword != this.NamespaceKeyword || name != this.Name || openBraceToken != this.OpenBraceToken || externs != this.Externs || usings != this.Usings || members != this.Members || closeBraceToken != this.CloseBraceToken || semicolonToken != this.SemicolonToken)
+        if (attributeLists != this.AttributeLists || modifiers != this.Modifiers || namespaceKeyword != this.NamespaceKeyword || rootNamespaceQualifier != this.RootNamespaceQualifier || name != this.Name || openBraceToken != this.OpenBraceToken || externs != this.Externs || usings != this.Usings || members != this.Members || closeBraceToken != this.CloseBraceToken || semicolonToken != this.SemicolonToken)
         {
-            var newNode = SyntaxFactory.NamespaceDeclaration(attributeLists, modifiers, namespaceKeyword, name, openBraceToken, externs, usings, members, closeBraceToken, semicolonToken);
+            var newNode = SyntaxFactory.NamespaceDeclaration(attributeLists, modifiers, namespaceKeyword, rootNamespaceQualifier, name, openBraceToken, externs, usings, members, closeBraceToken, semicolonToken);
             var annotations = GetAnnotations();
             return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
         }
@@ -10141,22 +10193,24 @@ public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclaratio
     }
 
     internal override MemberDeclarationSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
-    public new NamespaceDeclarationSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public new NamespaceDeclarationSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
     internal override MemberDeclarationSyntax WithModifiersCore(SyntaxTokenList modifiers) => WithModifiers(modifiers);
-    public new NamespaceDeclarationSyntax WithModifiers(SyntaxTokenList modifiers) => Update(this.AttributeLists, modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public new NamespaceDeclarationSyntax WithModifiers(SyntaxTokenList modifiers) => Update(this.AttributeLists, modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
     internal override BaseNamespaceDeclarationSyntax WithNamespaceKeywordCore(SyntaxToken namespaceKeyword) => WithNamespaceKeyword(namespaceKeyword);
-    public new NamespaceDeclarationSyntax WithNamespaceKeyword(SyntaxToken namespaceKeyword) => Update(this.AttributeLists, this.Modifiers, namespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public new NamespaceDeclarationSyntax WithNamespaceKeyword(SyntaxToken namespaceKeyword) => Update(this.AttributeLists, this.Modifiers, namespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    internal override BaseNamespaceDeclarationSyntax WithRootNamespaceQualifierCore(RootNamespaceQualifierSyntax? rootNamespaceQualifier) => WithRootNamespaceQualifier(rootNamespaceQualifier);
+    public new NamespaceDeclarationSyntax WithRootNamespaceQualifier(RootNamespaceQualifierSyntax? rootNamespaceQualifier) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, rootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
     internal override BaseNamespaceDeclarationSyntax WithNameCore(NameSyntax name) => WithName(name);
-    public new NamespaceDeclarationSyntax WithName(NameSyntax name) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
-    public NamespaceDeclarationSyntax WithOpenBraceToken(SyntaxToken openBraceToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, openBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public new NamespaceDeclarationSyntax WithName(NameSyntax name) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public NamespaceDeclarationSyntax WithOpenBraceToken(SyntaxToken openBraceToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, openBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
     internal override BaseNamespaceDeclarationSyntax WithExternsCore(SyntaxList<ExternAliasDirectiveSyntax> externs) => WithExterns(externs);
-    public new NamespaceDeclarationSyntax WithExterns(SyntaxList<ExternAliasDirectiveSyntax> externs) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public new NamespaceDeclarationSyntax WithExterns(SyntaxList<ExternAliasDirectiveSyntax> externs) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, externs, this.Usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
     internal override BaseNamespaceDeclarationSyntax WithUsingsCore(SyntaxList<UsingDirectiveSyntax> usings) => WithUsings(usings);
-    public new NamespaceDeclarationSyntax WithUsings(SyntaxList<UsingDirectiveSyntax> usings) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
+    public new NamespaceDeclarationSyntax WithUsings(SyntaxList<UsingDirectiveSyntax> usings) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, usings, this.Members, this.CloseBraceToken, this.SemicolonToken);
     internal override BaseNamespaceDeclarationSyntax WithMembersCore(SyntaxList<MemberDeclarationSyntax> members) => WithMembers(members);
-    public new NamespaceDeclarationSyntax WithMembers(SyntaxList<MemberDeclarationSyntax> members) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, this.Usings, members, this.CloseBraceToken, this.SemicolonToken);
-    public NamespaceDeclarationSyntax WithCloseBraceToken(SyntaxToken closeBraceToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, closeBraceToken, this.SemicolonToken);
-    public NamespaceDeclarationSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, semicolonToken);
+    public new NamespaceDeclarationSyntax WithMembers(SyntaxList<MemberDeclarationSyntax> members) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, members, this.CloseBraceToken, this.SemicolonToken);
+    public NamespaceDeclarationSyntax WithCloseBraceToken(SyntaxToken closeBraceToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, closeBraceToken, this.SemicolonToken);
+    public NamespaceDeclarationSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.OpenBraceToken, this.Externs, this.Usings, this.Members, this.CloseBraceToken, semicolonToken);
 
     internal override MemberDeclarationSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
     public new NamespaceDeclarationSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
@@ -10179,6 +10233,7 @@ public sealed partial class NamespaceDeclarationSyntax : BaseNamespaceDeclaratio
 public sealed partial class FileScopedNamespaceDeclarationSyntax : BaseNamespaceDeclarationSyntax
 {
     private SyntaxNode? attributeLists;
+    private RootNamespaceQualifierSyntax? rootNamespaceQualifier;
     private NameSyntax? name;
     private SyntaxNode? externs;
     private SyntaxNode? usings;
@@ -10202,24 +10257,27 @@ public sealed partial class FileScopedNamespaceDeclarationSyntax : BaseNamespace
 
     public override SyntaxToken NamespaceKeyword => new SyntaxToken(this, ((InternalSyntax.FileScopedNamespaceDeclarationSyntax)this.Green).namespaceKeyword, GetChildPosition(2), GetChildIndex(2));
 
-    public override NameSyntax Name => GetRed(ref this.name, 3)!;
+    public override RootNamespaceQualifierSyntax? RootNamespaceQualifier => GetRed(ref this.rootNamespaceQualifier, 3);
 
-    public SyntaxToken SemicolonToken => new SyntaxToken(this, ((InternalSyntax.FileScopedNamespaceDeclarationSyntax)this.Green).semicolonToken, GetChildPosition(4), GetChildIndex(4));
+    public override NameSyntax Name => GetRed(ref this.name, 4)!;
 
-    public override SyntaxList<ExternAliasDirectiveSyntax> Externs => new SyntaxList<ExternAliasDirectiveSyntax>(GetRed(ref this.externs, 5));
+    public SyntaxToken SemicolonToken => new SyntaxToken(this, ((InternalSyntax.FileScopedNamespaceDeclarationSyntax)this.Green).semicolonToken, GetChildPosition(5), GetChildIndex(5));
 
-    public override SyntaxList<UsingDirectiveSyntax> Usings => new SyntaxList<UsingDirectiveSyntax>(GetRed(ref this.usings, 6));
+    public override SyntaxList<ExternAliasDirectiveSyntax> Externs => new SyntaxList<ExternAliasDirectiveSyntax>(GetRed(ref this.externs, 6));
 
-    public override SyntaxList<MemberDeclarationSyntax> Members => new SyntaxList<MemberDeclarationSyntax>(GetRed(ref this.members, 7));
+    public override SyntaxList<UsingDirectiveSyntax> Usings => new SyntaxList<UsingDirectiveSyntax>(GetRed(ref this.usings, 7));
+
+    public override SyntaxList<MemberDeclarationSyntax> Members => new SyntaxList<MemberDeclarationSyntax>(GetRed(ref this.members, 8));
 
     internal override SyntaxNode? GetNodeSlot(int index)
         => index switch
         {
             0 => GetRedAtZero(ref this.attributeLists)!,
-            3 => GetRed(ref this.name, 3)!,
-            5 => GetRed(ref this.externs, 5)!,
-            6 => GetRed(ref this.usings, 6)!,
-            7 => GetRed(ref this.members, 7)!,
+            3 => GetRed(ref this.rootNamespaceQualifier, 3),
+            4 => GetRed(ref this.name, 4)!,
+            6 => GetRed(ref this.externs, 6)!,
+            7 => GetRed(ref this.usings, 7)!,
+            8 => GetRed(ref this.members, 8)!,
             _ => null,
         };
 
@@ -10227,21 +10285,22 @@ public sealed partial class FileScopedNamespaceDeclarationSyntax : BaseNamespace
         => index switch
         {
             0 => this.attributeLists,
-            3 => this.name,
-            5 => this.externs,
-            6 => this.usings,
-            7 => this.members,
+            3 => this.rootNamespaceQualifier,
+            4 => this.name,
+            6 => this.externs,
+            7 => this.usings,
+            8 => this.members,
             _ => null,
         };
 
     public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitFileScopedNamespaceDeclaration(this);
     public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitFileScopedNamespaceDeclaration(this);
 
-    public FileScopedNamespaceDeclarationSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxTokenList modifiers, SyntaxToken namespaceKeyword, NameSyntax name, SyntaxToken semicolonToken, SyntaxList<ExternAliasDirectiveSyntax> externs, SyntaxList<UsingDirectiveSyntax> usings, SyntaxList<MemberDeclarationSyntax> members)
+    public FileScopedNamespaceDeclarationSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxTokenList modifiers, SyntaxToken namespaceKeyword, RootNamespaceQualifierSyntax? rootNamespaceQualifier, NameSyntax name, SyntaxToken semicolonToken, SyntaxList<ExternAliasDirectiveSyntax> externs, SyntaxList<UsingDirectiveSyntax> usings, SyntaxList<MemberDeclarationSyntax> members)
     {
-        if (attributeLists != this.AttributeLists || modifiers != this.Modifiers || namespaceKeyword != this.NamespaceKeyword || name != this.Name || semicolonToken != this.SemicolonToken || externs != this.Externs || usings != this.Usings || members != this.Members)
+        if (attributeLists != this.AttributeLists || modifiers != this.Modifiers || namespaceKeyword != this.NamespaceKeyword || rootNamespaceQualifier != this.RootNamespaceQualifier || name != this.Name || semicolonToken != this.SemicolonToken || externs != this.Externs || usings != this.Usings || members != this.Members)
         {
-            var newNode = SyntaxFactory.FileScopedNamespaceDeclaration(attributeLists, modifiers, namespaceKeyword, name, semicolonToken, externs, usings, members);
+            var newNode = SyntaxFactory.FileScopedNamespaceDeclaration(attributeLists, modifiers, namespaceKeyword, rootNamespaceQualifier, name, semicolonToken, externs, usings, members);
             var annotations = GetAnnotations();
             return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
         }
@@ -10250,20 +10309,22 @@ public sealed partial class FileScopedNamespaceDeclarationSyntax : BaseNamespace
     }
 
     internal override MemberDeclarationSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
-    public new FileScopedNamespaceDeclarationSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
+    public new FileScopedNamespaceDeclarationSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
     internal override MemberDeclarationSyntax WithModifiersCore(SyntaxTokenList modifiers) => WithModifiers(modifiers);
-    public new FileScopedNamespaceDeclarationSyntax WithModifiers(SyntaxTokenList modifiers) => Update(this.AttributeLists, modifiers, this.NamespaceKeyword, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
+    public new FileScopedNamespaceDeclarationSyntax WithModifiers(SyntaxTokenList modifiers) => Update(this.AttributeLists, modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
     internal override BaseNamespaceDeclarationSyntax WithNamespaceKeywordCore(SyntaxToken namespaceKeyword) => WithNamespaceKeyword(namespaceKeyword);
-    public new FileScopedNamespaceDeclarationSyntax WithNamespaceKeyword(SyntaxToken namespaceKeyword) => Update(this.AttributeLists, this.Modifiers, namespaceKeyword, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
+    public new FileScopedNamespaceDeclarationSyntax WithNamespaceKeyword(SyntaxToken namespaceKeyword) => Update(this.AttributeLists, this.Modifiers, namespaceKeyword, this.RootNamespaceQualifier, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
+    internal override BaseNamespaceDeclarationSyntax WithRootNamespaceQualifierCore(RootNamespaceQualifierSyntax? rootNamespaceQualifier) => WithRootNamespaceQualifier(rootNamespaceQualifier);
+    public new FileScopedNamespaceDeclarationSyntax WithRootNamespaceQualifier(RootNamespaceQualifierSyntax? rootNamespaceQualifier) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, rootNamespaceQualifier, this.Name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
     internal override BaseNamespaceDeclarationSyntax WithNameCore(NameSyntax name) => WithName(name);
-    public new FileScopedNamespaceDeclarationSyntax WithName(NameSyntax name) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
-    public FileScopedNamespaceDeclarationSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, semicolonToken, this.Externs, this.Usings, this.Members);
+    public new FileScopedNamespaceDeclarationSyntax WithName(NameSyntax name) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, name, this.SemicolonToken, this.Externs, this.Usings, this.Members);
+    public FileScopedNamespaceDeclarationSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, semicolonToken, this.Externs, this.Usings, this.Members);
     internal override BaseNamespaceDeclarationSyntax WithExternsCore(SyntaxList<ExternAliasDirectiveSyntax> externs) => WithExterns(externs);
-    public new FileScopedNamespaceDeclarationSyntax WithExterns(SyntaxList<ExternAliasDirectiveSyntax> externs) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.SemicolonToken, externs, this.Usings, this.Members);
+    public new FileScopedNamespaceDeclarationSyntax WithExterns(SyntaxList<ExternAliasDirectiveSyntax> externs) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.SemicolonToken, externs, this.Usings, this.Members);
     internal override BaseNamespaceDeclarationSyntax WithUsingsCore(SyntaxList<UsingDirectiveSyntax> usings) => WithUsings(usings);
-    public new FileScopedNamespaceDeclarationSyntax WithUsings(SyntaxList<UsingDirectiveSyntax> usings) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.SemicolonToken, this.Externs, usings, this.Members);
+    public new FileScopedNamespaceDeclarationSyntax WithUsings(SyntaxList<UsingDirectiveSyntax> usings) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.SemicolonToken, this.Externs, usings, this.Members);
     internal override BaseNamespaceDeclarationSyntax WithMembersCore(SyntaxList<MemberDeclarationSyntax> members) => WithMembers(members);
-    public new FileScopedNamespaceDeclarationSyntax WithMembers(SyntaxList<MemberDeclarationSyntax> members) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.Name, this.SemicolonToken, this.Externs, this.Usings, members);
+    public new FileScopedNamespaceDeclarationSyntax WithMembers(SyntaxList<MemberDeclarationSyntax> members) => Update(this.AttributeLists, this.Modifiers, this.NamespaceKeyword, this.RootNamespaceQualifier, this.Name, this.SemicolonToken, this.Externs, this.Usings, members);
 
     internal override MemberDeclarationSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
     public new FileScopedNamespaceDeclarationSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));

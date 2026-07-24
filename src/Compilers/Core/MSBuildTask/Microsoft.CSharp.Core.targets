@@ -156,6 +156,7 @@
          ReportIVTs="$(ReportIVTs)"
          Resources="@(_CoreCompileResourceInputs);@(CompiledLicenseFile)"
          ResponseFiles="$(CompilerResponseFile)"
+         RootNamespace="$(RootNamespace)"
          RuntimeMetadataVersion="$(RuntimeMetadataVersion)"
          SharedCompilationId="$(SharedCompilationId)"
          SkipAnalyzers="$(_SkipAnalyzers)"

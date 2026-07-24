@@ -98,6 +98,12 @@ namespace Microsoft.CodeAnalysis.BuildTasks
             get { return (string?)_store[nameof(ModuleAssemblyName)]; }
         }
 
+        public string? RootNamespace
+        {
+            set { _store[nameof(RootNamespace)] = value; }
+            get { return (string?)_store[nameof(RootNamespace)]; }
+        }
+
         public bool NoStandardLib
         {
             set { _store[nameof(NoStandardLib)] = value; }
@@ -232,6 +238,7 @@ namespace Microsoft.CodeAnalysis.BuildTasks
             commandLine.AppendSwitchWithSplitting("/nowarn:", DisabledWarnings, ",", ';', ',');
             commandLine.AppendWhenTrue("/fullpaths", _store, nameof(GenerateFullPaths));
             commandLine.AppendSwitchIfNotNull("/moduleassemblyname:", ModuleAssemblyName);
+            commandLine.AppendSwitchIfNotNull("/rootnamespace:", RootNamespace);
             commandLine.AppendSwitchIfNotNull("/pdb:", PdbFile);
             commandLine.AppendPlusOrMinusSwitch("/nostdlib", _store, nameof(NoStandardLib));
             commandLine.AppendSwitchIfNotNull("/platform:", PlatformWith32BitPreference);

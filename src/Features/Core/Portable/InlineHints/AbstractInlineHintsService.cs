@@ -19,6 +19,7 @@ internal abstract class AbstractInlineHintsService : IInlineHintsService
     {
         var inlineParameterService = document.GetLanguageService<IInlineParameterNameHintsService>();
         var inlineTypeService = document.GetLanguageService<IInlineTypeHintsService>();
+        var inlineRootNamespaceService = document.GetLanguageService<IInlineRootNamespaceHintsService>();
 
         // Allow large array instances in the pool, as these arrays often exceed the ArrayBuilder reuse size threshold
         using var _ = ArrayBuilder<InlineHint>.GetInstance(discardLargeInstances: false, out var result);
@@ -31,6 +32,11 @@ internal abstract class AbstractInlineHintsService : IInlineHintsService
         if (inlineTypeService is not null)
         {
             await inlineTypeService.AddInlineHintsAsync(document, textSpan, options.TypeOptions, options.DisplayOptions, displayAllOverride, result, cancellationToken).ConfigureAwait(false);
+        }
+
+        if (inlineRootNamespaceService is not null)
+        {
+            await inlineRootNamespaceService.AddInlineHintsAsync(document, textSpan, result, cancellationToken).ConfigureAwait(false);
         }
 
         return result.ToImmutableAndClear();

@@ -28,6 +28,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             writer.Write("unsafe", csharpOptions.AllowUnsafe);
             writer.Write("memorySafetyRules", csharpOptions.MemorySafetyRules);
             writer.Write("topLevelBinderFlags", csharpOptions.TopLevelBinderFlags);
+            writer.Write("rootNamespace", csharpOptions.RootNamespace);
             writer.WriteKey("usings");
             writer.WriteArrayStart();
             foreach (var name in csharpOptions.Usings)

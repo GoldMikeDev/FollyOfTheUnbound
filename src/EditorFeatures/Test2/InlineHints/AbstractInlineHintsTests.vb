@@ -4,6 +4,7 @@
 
 Imports System.Collections.Immutable
 Imports System.Threading
+Imports Microsoft.CodeAnalysis.CSharp
 Imports Microsoft.CodeAnalysis.InlineHints
 Imports Microsoft.CodeAnalysis.LanguageService
 Imports Microsoft.CodeAnalysis.PooledObjects
@@ -104,6 +105,31 @@ Namespace Microsoft.CodeAnalysis.Editor.UnitTests.InlineHints
                 Dim outWorkspace = EditorTestWorkspace.Create(output)
                 Dim expectedDocument = outWorkspace.CurrentSolution.GetDocument(outWorkspace.Documents.Single().Id)
                 Await ValidateDoubleClick(document, expectedDocument, typeHints)
+            End Using
+        End Function
+
+        Protected Async Function VerifyRootNamespaceHints(test As XElement, rootNamespace As String) As Task
+            Using workspace = EditorTestWorkspace.Create(test)
+                WpfTestRunner.RequireWpfFact($"{NameOf(AbstractInlineHintsTests)}.{NameOf(Me.VerifyRootNamespaceHints)} creates asynchronous taggers")
+
+                Dim hostDocument = workspace.Documents.Single()
+                Dim snapshot = hostDocument.GetTextBuffer().CurrentSnapshot
+
+                Dim project = workspace.CurrentSolution.GetProject(hostDocument.Project.Id)
+                Dim newOptions = DirectCast(project.CompilationOptions, CSharpCompilationOptions).WithRootNamespace(rootNamespace)
+                Dim document = project.WithCompilationOptions(newOptions).GetDocument(hostDocument.Id)
+
+                Dim tagService = document.GetRequiredLanguageService(Of IInlineRootNamespaceHintsService)
+
+                Dim span = New TextSpan(0, snapshot.Length)
+                Dim hints = ArrayBuilder(Of InlineHint).GetInstance()
+
+                Await tagService.AddInlineHintsAsync(document, span, hints, CancellationToken.None)
+
+                Dim producedTags = From hint In hints
+                                   Select hint.DisplayParts.GetFullText() + ":" + hint.Span.ToString()
+
+                ValidateSpans(hostDocument, producedTags)
             End Using
         End Function
     End Class

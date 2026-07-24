@@ -126,6 +126,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             bool printFullPaths = false;
             string? moduleAssemblyName = null;
             string? moduleName = null;
+            string? rootNamespace = null;
             List<string> features = new List<string>();
             string? runtimeMetadataVersion = null;
             bool errorEndLocation = false;
@@ -651,6 +652,20 @@ namespace Microsoft.CodeAnalysis.CSharp
                             else
                             {
                                 moduleName = unquotedModuleName;
+                            }
+
+                            continue;
+
+                        case "rootnamespace":
+                            var unquotedRootNamespace = RemoveQuotesAndSlashes(valueMemory);
+                            if (string.IsNullOrEmpty(unquotedRootNamespace))
+                            {
+                                AddDiagnostic(diagnostics, ErrorCode.ERR_SwitchNeedsString, MessageID.IDS_Text.Localize(), "rootnamespace");
+                                continue;
+                            }
+                            else
+                            {
+                                rootNamespace = unquotedRootNamespace;
                             }
 
                             continue;
@@ -1537,7 +1552,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 specificDiagnosticOptions: diagnosticOptions,
                 reportSuppressedDiagnostics: reportSuppressedDiagnostics,
                 publicSign: publicSign
-            );
+            ).WithRootNamespace(rootNamespace);
 
             if (debugPlus)
             {

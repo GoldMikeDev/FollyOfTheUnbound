@@ -1582,6 +1582,11 @@
         <target state="translated">소스에서 'RequiresUnsafeAttribute'를 사용하지 마세요. 대신 'unsafe' 한정자를 사용하세요.</target>
         <note>'RequiresUnsafeAttribute' and 'unsafe' should not be localized.</note>
       </trans-unit>
+      <trans-unit id="ERR_RootNamespaceQualifierRequiresRootNamespace">
+        <source>The '*.' root-namespace placeholder qualifier cannot be used because no RootNamespace is set for this compilation.</source>
+        <target state="new">The '*.' root-namespace placeholder qualifier cannot be used because no RootNamespace is set for this compilation.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_RuntimeDoesNotSupportExtendedLayoutTypes">
         <source>The target runtime does not support extended layout types.</source>
         <target state="translated">대상 런타임이 확장 레이아웃 형식을 지원하지 않습니다.</target>

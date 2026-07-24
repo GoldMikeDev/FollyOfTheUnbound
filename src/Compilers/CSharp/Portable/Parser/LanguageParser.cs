@@ -256,6 +256,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 namespaceToken = this.AddError(namespaceToken, ErrorCode.ERR_NamespaceNotAllowedInScript);
             }
 
+            RootNamespaceQualifierSyntax? rootNamespaceQualifier = null;
+            if (this.CurrentToken.Kind == SyntaxKind.AsteriskToken && this.PeekToken(1).Kind == SyntaxKind.DotToken)
+            {
+                var asteriskToken = this.EatToken(SyntaxKind.AsteriskToken);
+                var dotToken = this.EatToken(SyntaxKind.DotToken);
+                rootNamespaceQualifier = _syntaxFactory.RootNamespaceQualifier(asteriskToken, dotToken);
+            }
+
             var name = this.ParseQualifiedName();
 
             SyntaxToken? openBrace = null;
@@ -296,6 +304,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                         attributeLists,
                         modifiers.ToList(),
                         namespaceToken,
+                        rootNamespaceQualifier,
                         name,
                         semicolon,
                         body.Externs,
@@ -312,6 +321,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                         attributeLists,
                         modifiers.ToList(),
                         namespaceToken,
+                        rootNamespaceQualifier,
                         name,
                         openBrace,
                         body.Externs,
