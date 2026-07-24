@@ -44,6 +44,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         protected override ImmutableArray<BoundNode?> Children => ImmutableArray.Create<BoundNode?>(this.Left, this.Right);
     }
 
+
     internal partial class BoundBadExpression : IBoundInvalidNode
     {
         protected override ImmutableArray<BoundNode?> Children => StaticCast<BoundNode?>.From(this.ChildBoundNodes);

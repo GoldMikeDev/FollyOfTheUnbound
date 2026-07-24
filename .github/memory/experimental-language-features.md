@@ -1,5 +1,5 @@
 ---
-coverage: This fork's experimental C# language features (do/until, mutate, inline expression declaration, if/catch/finally chains, '*.' root-namespace placeholder) — syntax shape, compiler status, and IDE support status
+coverage: This fork's experimental C# language features (do/until, mutate, inline expression declaration, if/catch/finally chains, '*.' root-namespace placeholder, null-conditional-coalescing statement, void-coalescing expression) — syntax shape, compiler status, and IDE support status
 ---
 
 # Experimental Language Features ("Folly of the Unbound")
@@ -32,6 +32,38 @@ This would be a `CodeRefactoringProvider`/`CodeFixProvider`, not yet started.
 
 **Not audited:** whether other IDE analyzers with exhaustive `SyntaxKind` switches (IDE0xxx style/
 simplification analyzers) silently skip these new node kinds. Not yet checked.
+
+## `receiver?.Call(...) ?? fallback;` — two overlapping features, same surface syntax
+
+No new `SyntaxKind` or grammar for either: `a?.b() ?? c` already parses today as an ordinary
+`CoalesceExpressionSyntax` whose `Left` is a `ConditionalAccessExpressionSyntax`; upstream Roslyn
+rejects it at bind time because `??`'s left operand can't be `void`. Two independent fork commits
+each taught the binder to accept this shape, at different levels, and the order they run in matters:
+
+- **Null-conditional-coalescing statement** (`BoundConditionalCoalesceStatement`, added first). Detected
+  in `Binder_Statements.BindExpressionStatement` *before* the expression binder ever sees the
+  `CoalesceExpressionSyntax`: if `node.Expression` is a `CoalesceExpressionSyntax` whose `Left` is a
+  `ConditionalAccessExpressionSyntax` that speculatively binds to `void`, it's bound as a statement
+  (`Access` + `FallbackStatement`) instead of an expression — for **any** receiver type, value or
+  reference. Lowered in `LocalRewriter_ConditionalAccess.cs` by threading a `whenNullOpt` fallback
+  through `RewriteConditionalAccess` (reusing `BoundLoweredConditionalAccess`'s existing `WhenNullOpt`
+  slot). Flow analysis: `AbstractFlowPass.VisitConditionalCoalesceStatement` visits both branches
+  unconditionally (conservative, not flow-splitting).
+- **Void-coalescing expression** (`BoundVoidCoalesceExpression`, added second, in `Binder_Operators.
+  BindNullCoalescingOperator`). Same trigger shape, but reached only when ordinary `??` expression
+  binding sees a void-typed `BoundConditionalAccess` on the left — and only accepts **reference-type**
+  receivers, reporting `ERR_VoidCoalesceRequiresReferenceTypeReceiver` (CS9400) otherwise. Lowered
+  separately in `LocalRewriter_VoidCoalesceExpression.cs` to an `if (receiver != null) { ... } else
+  { fallback; }`.
+
+**Known gap, not yet resolved:** because `Binder_Statements` intercepts the shape first and
+unconditionally (any receiver type), `BindVoidCoalesceExpression`'s own path — and in particular its
+reference-type-only restriction and CS9400 diagnostic — is likely unreachable when the coalesce
+appears directly as an expression statement, which is the only context `IsValidStatementExpression`
+allows it in. It would only be reachable if a caller binds the `CoalesceExpressionSyntax` outside
+`BindExpressionStatement`'s interception (e.g. speculative binding, or future non-statement contexts).
+If touching either feature, check the other — they compete for the same syntax shape, and the
+statement-level binder currently wins.
 
 ## `*.` root-namespace placeholder qualifier
 

@@ -7245,6 +7245,11 @@ target:module               Compila un modulo che può essere aggiunto ad altro
         <target state="translated">L'operazione è indefinita sui puntatori a void</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
+        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
+        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_ConditionalOnOverride">
         <source>The Conditional attribute is not valid on '{0}' because it is an override method</source>
         <target state="translated">L'attributo Conditional non è valido per '{0}' perché è un metodo di override</target>

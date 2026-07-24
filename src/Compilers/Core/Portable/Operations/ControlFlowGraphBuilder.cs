@@ -3392,7 +3392,7 @@ oneMoreTime:
             while (true)
             {
                 testExpression = currentConditionalAccess.Operation;
-                if (!isConditionalAccessInstancePresentInChildren(currentConditionalAccess.WhenNotNull))
+                if (!IsConditionalAccessInstancePresentInChildren(currentConditionalAccess.WhenNotNull))
                 {
                     // https://github.com/dotnet/roslyn/issues/27564: It looks like there is a bug in IOperation tree around XmlMemberAccessExpressionSyntax,
                     //                      a None operation is created and all children are dropped.
@@ -3482,48 +3482,118 @@ oneMoreTime:
                 _currentConditionalAccessTracker.Free();
                 _currentConditionalAccessTracker = previousTracker;
             }
+        }
 
-            static bool isConditionalAccessInstancePresentInChildren(IOperation operation)
+        // Extracted (unchanged) from VisitConditionalAccess so VisitVoidCoalesce below can reuse the same
+        // chain-walk logic for the fork-specific void-coalescing construct.
+        private static bool IsConditionalAccessInstancePresentInChildren(IOperation operation)
+        {
+            if (operation is InvalidOperation invalidOperation)
             {
-                if (operation is InvalidOperation invalidOperation)
-                {
-                    return checkInvalidChildren(invalidOperation);
-                }
-
-                // The conditional access should always be first leaf node in the subtree when performing a depth-first search. Visit the first child recursively
-                // until we either reach the bottom, or find the conditional access.
-                Operation currentOperation = (Operation)operation;
-                while (currentOperation.ChildOperations.GetEnumerator() is var enumerator && enumerator.MoveNext())
-                {
-                    if (enumerator.Current is IConditionalAccessInstanceOperation)
-                    {
-                        return true;
-                    }
-                    else if (enumerator.Current is InvalidOperation invalidChild)
-                    {
-                        return checkInvalidChildren(invalidChild);
-                    }
-
-                    currentOperation = (Operation)enumerator.Current;
-                }
-
-                return false;
+                return CheckInvalidChildrenForConditionalAccessInstance(invalidOperation);
             }
 
-            static bool checkInvalidChildren(InvalidOperation operation)
+            // The conditional access should always be first leaf node in the subtree when performing a depth-first search. Visit the first child recursively
+            // until we either reach the bottom, or find the conditional access.
+            Operation currentOperation = (Operation)operation;
+            while (currentOperation.ChildOperations.GetEnumerator() is var enumerator && enumerator.MoveNext())
             {
-                // Invalid operations can have children ordering that doesn't put the conditional access instance first. For these cases,
-                // use a recursive check
-                foreach (var child in operation.ChildOperations)
+                if (enumerator.Current is IConditionalAccessInstanceOperation)
                 {
-                    if (child is IConditionalAccessInstanceOperation || isConditionalAccessInstancePresentInChildren(child))
-                    {
-                        return true;
-                    }
+                    return true;
+                }
+                else if (enumerator.Current is InvalidOperation invalidChild)
+                {
+                    return CheckInvalidChildrenForConditionalAccessInstance(invalidChild);
                 }
 
-                return false;
+                currentOperation = (Operation)enumerator.Current;
             }
+
+            return false;
+        }
+
+        private static bool CheckInvalidChildrenForConditionalAccessInstance(InvalidOperation operation)
+        {
+            // Invalid operations can have children ordering that doesn't put the conditional access instance first. For these cases,
+            // use a recursive check
+            foreach (var child in operation.ChildOperations)
+            {
+                if (child is IConditionalAccessInstanceOperation || IsConditionalAccessInstancePresentInChildren(child))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Fork-specific (Folly of the Unbound): `receiver?.VoidMethod(...) ?? fallback;`, both as an
+        // expression (IVoidCoalesceOperation directly) and as a statement (wrapped in
+        // IExpressionStatementOperation by CSharpOperationFactory). Neither Access nor WhenNull produces
+        // a usable value, so -- unlike VisitCoalesce, which null-tests a captured *value* -- this reuses
+        // the same chain-walk-and-execute machinery VisitConditionalAccess uses for the existing bare
+        // `receiver?.M();` statement form (branch on each link in the chain being non-null, then execute
+        // the final WhenNotNull action), just with a real fallback action in the null branch instead of
+        // nothing.
+        public override IOperation? VisitVoidCoalesce(IVoidCoalesceOperation operation, int? captureIdForResult)
+        {
+            SpillEvalStack();
+            Debug.Assert(captureIdForResult == null);
+
+            var operations = ArrayBuilder<IOperation>.GetInstance();
+            IConditionalAccessOperation currentConditionalAccess = operation.Access;
+            IOperation testExpression;
+            var whenNullBlock = new BasicBlockBuilder(BasicBlockKind.Block);
+            var previousTracker = _currentConditionalAccessTracker;
+            _currentConditionalAccessTracker = new ConditionalAccessOperationTracker(operations, whenNullBlock);
+
+            while (true)
+            {
+                testExpression = currentConditionalAccess.Operation;
+                if (!IsConditionalAccessInstancePresentInChildren(currentConditionalAccess.WhenNotNull))
+                {
+                    _ = VisitConditionalAccessTestExpression(testExpression);
+                    break;
+                }
+
+                operations.Push(testExpression);
+
+                if (currentConditionalAccess.WhenNotNull is not IConditionalAccessOperation nested)
+                {
+                    break;
+                }
+
+                currentConditionalAccess = nested;
+            }
+
+            IOperation whenNotNullResult = VisitRequired(currentConditionalAccess.WhenNotNull);
+
+            Debug.Assert(!_currentConditionalAccessTracker.IsDefault);
+            Debug.Assert(_currentConditionalAccessTracker.Operations.Count == 0);
+            _currentConditionalAccessTracker.Free();
+            _currentConditionalAccessTracker = previousTracker;
+
+            AddStatement(whenNotNullResult);
+
+            var afterBlock = new BasicBlockBuilder(BasicBlockKind.Block);
+            UnconditionalBranch(afterBlock);
+
+            AppendNewBlock(whenNullBlock);
+
+            // WhenNull is itself an arbitrary statement-expression -- it can be a nested VoidCoalesce
+            // (`a?.M() ?? b?.N() ?? c();`) or a bare conditional-access statement (`a?.M() ?? b?.N();`),
+            // both of which only behave correctly (and, for VoidCoalesce, only avoid violating
+            // VisitRequired's non-null-in/non-null-out invariant) when visited with statement semantics,
+            // i.e. with _currentStatement pointing at WhenNull itself. VisitStatement (used for ordinary
+            // statement lists) does exactly that, including tolerating a null visit result.
+            VisitStatement(operation.WhenNull);
+
+            UnconditionalBranch(afterBlock);
+
+            AppendNewBlock(afterBlock);
+
+            return null;
         }
 
         public override IOperation VisitConditionalAccessInstance(IConditionalAccessInstanceOperation operation, int? captureIdForResult)
@@ -3569,7 +3639,7 @@ oneMoreTime:
 
             if (underlying == null)
             {
-                Debug.Assert(operation.Operation.Kind == OperationKind.ConditionalAccess || operation.Operation.Kind == OperationKind.CoalesceAssignment);
+                Debug.Assert(operation.Operation.Kind == OperationKind.ConditionalAccess || operation.Operation.Kind == OperationKind.CoalesceAssignment || operation.Operation.Kind == OperationKind.VoidCoalesce);
                 return FinishVisitingStatement(operation);
             }
             else if (operation.Operation.Kind == OperationKind.Throw)

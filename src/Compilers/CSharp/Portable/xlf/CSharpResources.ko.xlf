@@ -7245,6 +7245,11 @@
         <target state="translated">요청한 작업이 void 포인터에 정의되어 있지 않습니다.</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
+        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
+        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_ConditionalOnOverride">
         <source>The Conditional attribute is not valid on '{0}' because it is an override method</source>
         <target state="translated">'{0}'은(는) 재정의 메서드이기 때문에 Conditional 특성이 유효하지 않습니다.</target>

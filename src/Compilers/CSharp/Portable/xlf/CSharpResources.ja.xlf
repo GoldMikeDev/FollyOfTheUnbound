@@ -7245,6 +7245,11 @@
         <target state="translated">問題の操作は void ポインターで定義されていません</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
+        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
+        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_ConditionalOnOverride">
         <source>The Conditional attribute is not valid on '{0}' because it is an override method</source>
         <target state="translated">条件付き属性はオーバーライド メソッドであるため、 '{0}' では無効です</target>
