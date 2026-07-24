@@ -44,10 +44,6 @@ namespace Microsoft.CodeAnalysis.CSharp
         protected override ImmutableArray<BoundNode?> Children => ImmutableArray.Create<BoundNode?>(this.Left, this.Right);
     }
 
-    internal sealed partial class BoundVoidCoalesceExpression : BoundExpression
-    {
-        protected override ImmutableArray<BoundNode?> Children => ImmutableArray.Create<BoundNode?>(this.Access, this.WhenNull);
-    }
 
     internal partial class BoundBadExpression : IBoundInvalidNode
     {

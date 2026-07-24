@@ -134,6 +134,10 @@ namespace Microsoft.CodeAnalysis.Operations
                     return CreateBoundConditionalOperatorOperation((BoundConditionalOperator)boundNode);
                 case BoundKind.NullCoalescingOperator:
                     return CreateBoundNullCoalescingOperatorOperation((BoundNullCoalescingOperator)boundNode);
+                case BoundKind.VoidCoalesceExpression:
+                    return CreateBoundVoidCoalesceExpressionOperation((BoundVoidCoalesceExpression)boundNode);
+                case BoundKind.ConditionalCoalesceStatement:
+                    return CreateBoundConditionalCoalesceStatementOperation((BoundConditionalCoalesceStatement)boundNode);
                 case BoundKind.AwaitExpression:
                     return CreateBoundAwaitExpressionOperation((BoundAwaitExpression)boundNode);
                 case BoundKind.ArrayAccess:
@@ -309,8 +313,6 @@ namespace Microsoft.CodeAnalysis.Operations
                 case BoundKind.StackAllocArrayCreation:
                 case BoundKind.TypeExpression:
                 case BoundKind.TypeOrValueExpression:
-                case BoundKind.VoidCoalesceExpression:
-                case BoundKind.ConditionalCoalesceStatement:
                     ConstantValue? constantValue = (boundNode as BoundExpression)?.ConstantValueOpt;
                     bool isImplicit = boundNode.WasCompilerGenerated;
 
@@ -1685,6 +1687,33 @@ namespace Microsoft.CodeAnalysis.Operations
             }
 
             return new CoalesceOperation(value, whenNull, valueConversion, _semanticModel, syntax, type, constantValue, isImplicit);
+        }
+
+        // Both void-coalescing forms (`receiver?.VoidMethod() ?? fallback;`, expression and statement)
+        // share the same "conditionally-evaluated fallback" shape as an ordinary `??`, just with a void
+        // left operand. Modeled as ICoalesceOperation wrapping the existing IConditionalAccessOperation
+        // for Access, so CFG/dataflow consumers get the same branching semantics they already have for
+        // `x?.y ?? z` and `x?.y` alone, instead of a NoneOperation that appears to run sequentially.
+        private ICoalesceOperation CreateBoundVoidCoalesceExpressionOperation(BoundVoidCoalesceExpression boundVoidCoalesceExpression)
+        {
+            IOperation value = Create(boundVoidCoalesceExpression.Access);
+            IOperation whenNull = Create(boundVoidCoalesceExpression.WhenNull);
+            SyntaxNode syntax = boundVoidCoalesceExpression.Syntax;
+            ITypeSymbol? type = boundVoidCoalesceExpression.GetPublicTypeSymbol();
+            bool isImplicit = boundVoidCoalesceExpression.WasCompilerGenerated;
+
+            return new CoalesceOperation(value, whenNull, Conversion.Identity, _semanticModel, syntax, type, constantValue: null, isImplicit);
+        }
+
+        private IExpressionStatementOperation CreateBoundConditionalCoalesceStatementOperation(BoundConditionalCoalesceStatement boundConditionalCoalesceStatement)
+        {
+            IOperation value = Create(boundConditionalCoalesceStatement.Access);
+            IOperation whenNull = Create(boundConditionalCoalesceStatement.FallbackStatement.Expression);
+            SyntaxNode coalesceSyntax = boundConditionalCoalesceStatement.Access.Syntax.Parent ?? boundConditionalCoalesceStatement.Syntax;
+            bool isImplicit = boundConditionalCoalesceStatement.WasCompilerGenerated;
+
+            var coalesce = new CoalesceOperation(value, whenNull, Conversion.Identity, _semanticModel, coalesceSyntax, type: null, constantValue: null, isImplicit);
+            return new ExpressionStatementOperation(coalesce, _semanticModel, boundConditionalCoalesceStatement.Syntax, isImplicit);
         }
 
         private IOperation CreateBoundNullCoalescingAssignmentOperatorOperation(BoundNullCoalescingAssignmentOperator boundNode)
