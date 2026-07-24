@@ -6490,6 +6490,35 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
+        public override BoundNode? VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node)
+        {
+            // node.Access's AccessExpression contains a BoundConditionalReceiver placeholder standing in for
+            // the receiver -- NullableWalker's own private VisitConditionalAccess helper (used by its ordinary
+            // VisitConditionalAccess override) is what correctly wires that placeholder's nullability info
+            // before visiting the call, so reuse it verbatim for the Access sub-part rather than manually
+            // decomposing Receiver/AccessExpression (which was tried and crashed the receiver-placeholder
+            // handling inside the nested call's VisitAndCheckReceiver).
+            //
+            // The fallback (WhenNull) is conservatively visited unconditionally-reachable from the state
+            // *before* the conditional access, rather than precisely gated on "receiver was null" (that
+            // finer-grained state isn't exposed by the helper) -- a sound over-approximation for a nullable
+            // warnings pass, not a runtime-correctness concern (lowering has its own precise if/else).
+            var stateBeforeAccess = this.State.Clone();
+
+            VisitConditionalAccess(node.Access, out _);
+            var stateAfterAccess = this.State.Clone();
+
+            SetState(stateBeforeAccess);
+            VisitRvalue(node.WhenNull);
+            var stateAfterFallback = this.State;
+
+            Join(ref stateAfterAccess, ref stateAfterFallback);
+            SetState(stateAfterAccess);
+
+            SetNotNullResult(node);
+            return null;
+        }
+
         protected override BoundNode? VisitConditionalOperatorCore(
             BoundExpression node,
             bool isRef,

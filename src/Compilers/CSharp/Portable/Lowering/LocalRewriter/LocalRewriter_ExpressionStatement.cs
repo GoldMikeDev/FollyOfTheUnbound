@@ -20,6 +20,14 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private BoundStatement? RewriteExpressionStatement(BoundExpressionStatement node, bool suppressInstrumentation = false)
         {
+            // `receiver?.VoidMethod(...) ?? fallback;` shorthand: this can only appear directly as an
+            // expression-statement (the binder guarantees it, since it's void-typed like any other void
+            // expression), so intercept it here rather than going through the generic VisitUnusedExpression path.
+            if (node.Expression is BoundVoidCoalesceExpression voidCoalesce)
+            {
+                return RewriteVoidCoalesceExpressionStatement(node, voidCoalesce);
+            }
+
             var loweredExpression = VisitUnusedExpression(node.Expression);
 
             if (loweredExpression == null)

@@ -182,6 +182,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         DynamicMemberAccess,
         DynamicInvocation,
         ConditionalAccess,
+        VoidCoalesceExpression,
         LoweredConditionalAccess,
         ConditionalReceiver,
         ComplexConditionalReceiver,
@@ -6126,6 +6127,39 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
     }
 
+    internal sealed partial class BoundVoidCoalesceExpression : BoundExpression
+    {
+        public BoundVoidCoalesceExpression(SyntaxNode syntax, BoundConditionalAccess access, BoundExpression whenNull, TypeSymbol type, bool hasErrors = false)
+            : base(BoundKind.VoidCoalesceExpression, syntax, type, hasErrors || access.HasErrors() || whenNull.HasErrors())
+        {
+
+            RoslynDebug.Assert(access is object, "Field 'access' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
+            RoslynDebug.Assert(whenNull is object, "Field 'whenNull' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
+            RoslynDebug.Assert(type is object, "Field 'type' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
+
+            this.Access = access;
+            this.WhenNull = whenNull;
+        }
+
+        public new TypeSymbol Type => base.Type!;
+        public BoundConditionalAccess Access { get; }
+        public BoundExpression WhenNull { get; }
+
+        [DebuggerStepThrough]
+        public override BoundNode? Accept(BoundTreeVisitor visitor) => visitor.VisitVoidCoalesceExpression(this);
+
+        public BoundVoidCoalesceExpression Update(BoundConditionalAccess access, BoundExpression whenNull, TypeSymbol type)
+        {
+            if (access != this.Access || whenNull != this.WhenNull || !TypeSymbol.Equals(type, this.Type, TypeCompareKind.ConsiderEverything))
+            {
+                var result = new BoundVoidCoalesceExpression(this.Syntax, access, whenNull, type, this.HasErrors);
+                result.CopyAttributes(this);
+                return result;
+            }
+            return this;
+        }
+    }
+
     internal sealed partial class BoundLoweredConditionalAccess : BoundExpression
     {
         public BoundLoweredConditionalAccess(SyntaxNode syntax, BoundExpression receiver, MethodSymbol? hasValueMethodOpt, BoundExpression whenNotNull, BoundExpression? whenNullOpt, int id, bool forceCopyOfNullableValueType, TypeSymbol type, bool hasErrors = false)
@@ -9532,6 +9566,8 @@ namespace Microsoft.CodeAnalysis.CSharp
                     return VisitDynamicInvocation((BoundDynamicInvocation)node, arg);
                 case BoundKind.ConditionalAccess:
                     return VisitConditionalAccess((BoundConditionalAccess)node, arg);
+                case BoundKind.VoidCoalesceExpression:
+                    return VisitVoidCoalesceExpression((BoundVoidCoalesceExpression)node, arg);
                 case BoundKind.LoweredConditionalAccess:
                     return VisitLoweredConditionalAccess((BoundLoweredConditionalAccess)node, arg);
                 case BoundKind.ConditionalReceiver:
@@ -9860,6 +9896,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         public virtual R VisitDynamicMemberAccess(BoundDynamicMemberAccess node, A arg) => this.DefaultVisit(node, arg);
         public virtual R VisitDynamicInvocation(BoundDynamicInvocation node, A arg) => this.DefaultVisit(node, arg);
         public virtual R VisitConditionalAccess(BoundConditionalAccess node, A arg) => this.DefaultVisit(node, arg);
+        public virtual R VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node, A arg) => this.DefaultVisit(node, arg);
         public virtual R VisitLoweredConditionalAccess(BoundLoweredConditionalAccess node, A arg) => this.DefaultVisit(node, arg);
         public virtual R VisitConditionalReceiver(BoundConditionalReceiver node, A arg) => this.DefaultVisit(node, arg);
         public virtual R VisitComplexConditionalReceiver(BoundComplexConditionalReceiver node, A arg) => this.DefaultVisit(node, arg);
@@ -10105,6 +10142,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         public virtual BoundNode? VisitDynamicMemberAccess(BoundDynamicMemberAccess node) => this.DefaultVisit(node);
         public virtual BoundNode? VisitDynamicInvocation(BoundDynamicInvocation node) => this.DefaultVisit(node);
         public virtual BoundNode? VisitConditionalAccess(BoundConditionalAccess node) => this.DefaultVisit(node);
+        public virtual BoundNode? VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node) => this.DefaultVisit(node);
         public virtual BoundNode? VisitLoweredConditionalAccess(BoundLoweredConditionalAccess node) => this.DefaultVisit(node);
         public virtual BoundNode? VisitConditionalReceiver(BoundConditionalReceiver node) => this.DefaultVisit(node);
         public virtual BoundNode? VisitComplexConditionalReceiver(BoundComplexConditionalReceiver node) => this.DefaultVisit(node);
@@ -10880,6 +10918,12 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             this.Visit(node.Receiver);
             this.Visit(node.AccessExpression);
+            return null;
+        }
+        public override BoundNode? VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node)
+        {
+            this.Visit(node.Access);
+            this.Visit(node.WhenNull);
             return null;
         }
         public override BoundNode? VisitLoweredConditionalAccess(BoundLoweredConditionalAccess node)
@@ -12320,6 +12364,13 @@ namespace Microsoft.CodeAnalysis.CSharp
             BoundExpression accessExpression = (BoundExpression)this.Visit(node.AccessExpression);
             TypeSymbol? type = this.VisitType(node.Type);
             return node.Update(receiver, accessExpression, type);
+        }
+        public override BoundNode? VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node)
+        {
+            BoundConditionalAccess access = (BoundConditionalAccess)this.Visit(node.Access);
+            BoundExpression whenNull = (BoundExpression)this.Visit(node.WhenNull);
+            TypeSymbol? type = this.VisitType(node.Type);
+            return node.Update(access, whenNull, type);
         }
         public override BoundNode? VisitLoweredConditionalAccess(BoundLoweredConditionalAccess node)
         {
@@ -14549,6 +14600,24 @@ namespace Microsoft.CodeAnalysis.CSharp
             else
             {
                 updatedNode = node.Update(receiver, accessExpression, node.Type);
+            }
+            return updatedNode;
+        }
+
+        public override BoundNode? VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node)
+        {
+            BoundConditionalAccess access = (BoundConditionalAccess)this.Visit(node.Access);
+            BoundExpression whenNull = (BoundExpression)this.Visit(node.WhenNull);
+            BoundVoidCoalesceExpression updatedNode;
+
+            if (_updatedNullabilities.TryGetValue(node, out (NullabilityInfo Info, TypeSymbol? Type) infoAndType))
+            {
+                updatedNode = node.Update(access, whenNull, infoAndType.Type!);
+                updatedNode.TopLevelNullability = infoAndType.Info;
+            }
+            else
+            {
+                updatedNode = node.Update(access, whenNull, node.Type);
             }
             return updatedNode;
         }
@@ -17121,6 +17190,15 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             new TreeDumperNode("receiver", null, new TreeDumperNode[] { Visit(node.Receiver, null) }),
             new TreeDumperNode("accessExpression", null, new TreeDumperNode[] { Visit(node.AccessExpression, null) }),
+            new TreeDumperNode("type", node.Type, null),
+            new TreeDumperNode("isSuppressed", node.IsSuppressed, null),
+            new TreeDumperNode("hasErrors", node.HasErrors, null)
+        }
+        );
+        public override TreeDumperNode VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node, object? arg) => new TreeDumperNode("voidCoalesceExpression", null, new TreeDumperNode[]
+        {
+            new TreeDumperNode("access", null, new TreeDumperNode[] { Visit(node.Access, null) }),
+            new TreeDumperNode("whenNull", null, new TreeDumperNode[] { Visit(node.WhenNull, null) }),
             new TreeDumperNode("type", node.Type, null),
             new TreeDumperNode("isSuppressed", node.IsSuppressed, null),
             new TreeDumperNode("hasErrors", node.HasErrors, null)
