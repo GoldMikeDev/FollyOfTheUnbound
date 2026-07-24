@@ -310,6 +310,7 @@ namespace Microsoft.CodeAnalysis.Operations
                 case BoundKind.TypeExpression:
                 case BoundKind.TypeOrValueExpression:
                 case BoundKind.VoidCoalesceExpression:
+                case BoundKind.ConditionalCoalesceStatement:
                     ConstantValue? constantValue = (boundNode as BoundExpression)?.ConstantValueOpt;
                     bool isImplicit = boundNode.WasCompilerGenerated;
 

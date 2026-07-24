@@ -34,4 +34,9 @@ namespace Microsoft.CodeAnalysis.CSharp
     {
         protected override ImmutableArray<BoundNode?> Children => ImmutableArray.Create<BoundNode?>(this.Operand);
     }
+
+    internal sealed partial class BoundConditionalCoalesceStatement : BoundStatement
+    {
+        protected override ImmutableArray<BoundNode?> Children => ImmutableArray.Create<BoundNode?>(this.Access, this.FallbackStatement);
+    }
 }
