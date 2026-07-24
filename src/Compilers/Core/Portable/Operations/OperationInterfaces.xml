@@ -1183,6 +1183,35 @@
       </Comments>
     </Property>
   </Node>
+  <Node Name="IVoidCoalesceOperation" Base="IOperation" ChildrenOrder="Access,WhenNull" HasType="true">
+    <Comments>
+      <summary>
+        Represents a fork-specific (Folly of the Unbound) void-coalescing construct with two operands:
+        <list type="number">
+          <item><description><see cref="Access" />, a void-typed conditional-access chain that is unconditionally evaluated for its side effect when every link is non-null</description></item>
+          <item><description><see cref="WhenNull" />, which is conditionally evaluated for its side effect if some link in <see cref="Access" /> is null</description></item>
+        </list>
+        Unlike <see cref="ICoalesceOperation" />, neither operand produces a usable value -- this node's own <see cref="IOperation.Type" /> is always the <see langword="void" /> type symbol.
+        <para>
+        Current usage:
+        <list type="number">
+          <item><description>C# void-coalescing shorthand expression <c>receiver?.VoidMethod(...) ?? fallback</c></description></item>
+          <item><description>C# null-conditional-coalescing statement <c>receiver?.VoidMethod(...) ?? fallback;</c> (wrapped in an <see cref="IExpressionStatementOperation" />)</description></item>
+        </list>
+        </para>
+      </summary>
+    </Comments>
+    <Property Name="Access" Type="IConditionalAccessOperation">
+      <Comments>
+        <summary>Void-typed conditional-access chain to be unconditionally evaluated for its side effect if every link is non-null.</summary>
+      </Comments>
+    </Property>
+    <Property Name="WhenNull" Type="IOperation">
+      <Comments>
+        <summary>Operation to be conditionally evaluated for its side effect if some link in <see cref="Access" /> is null.</summary>
+      </Comments>
+    </Property>
+  </Node>
   <Node Name="IAnonymousFunctionOperation" Base="IOperation">
     <!--
       IAnonymousFunctionOperations do not have a type, users must look at the IConversionOperation

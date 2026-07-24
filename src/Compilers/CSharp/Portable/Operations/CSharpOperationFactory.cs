@@ -1690,30 +1690,32 @@ namespace Microsoft.CodeAnalysis.Operations
         }
 
         // Both void-coalescing forms (`receiver?.VoidMethod() ?? fallback;`, expression and statement)
-        // share the same "conditionally-evaluated fallback" shape as an ordinary `??`, just with a void
-        // left operand. Modeled as ICoalesceOperation wrapping the existing IConditionalAccessOperation
-        // for Access, so CFG/dataflow consumers get the same branching semantics they already have for
-        // `x?.y ?? z` and `x?.y` alone, instead of a NoneOperation that appears to run sequentially.
-        private ICoalesceOperation CreateBoundVoidCoalesceExpressionOperation(BoundVoidCoalesceExpression boundVoidCoalesceExpression)
+        // get a dedicated IVoidCoalesceOperation/OperationKind.VoidCoalesce rather than reusing
+        // ICoalesceOperation: ICoalesceOperation's CFG handling (ControlFlowGraphBuilder.VisitCoalesce)
+        // treats Value as value-producing and null-tests the captured result, which is wrong here since
+        // Access is void -- there's no value to test, only the receiver-chain's own null test (which
+        // ControlFlowGraphBuilder.VisitVoidCoalesce below reuses from IConditionalAccessOperation's
+        // existing statement-level chain-walk).
+        private IVoidCoalesceOperation CreateBoundVoidCoalesceExpressionOperation(BoundVoidCoalesceExpression boundVoidCoalesceExpression)
         {
-            IOperation value = Create(boundVoidCoalesceExpression.Access);
+            IConditionalAccessOperation access = CreateBoundConditionalAccessOperation(boundVoidCoalesceExpression.Access);
             IOperation whenNull = Create(boundVoidCoalesceExpression.WhenNull);
             SyntaxNode syntax = boundVoidCoalesceExpression.Syntax;
             ITypeSymbol? type = boundVoidCoalesceExpression.GetPublicTypeSymbol();
             bool isImplicit = boundVoidCoalesceExpression.WasCompilerGenerated;
 
-            return new CoalesceOperation(value, whenNull, Conversion.Identity, _semanticModel, syntax, type, constantValue: null, isImplicit);
+            return new VoidCoalesceOperation(access, whenNull, _semanticModel, syntax, type, isImplicit);
         }
 
         private IExpressionStatementOperation CreateBoundConditionalCoalesceStatementOperation(BoundConditionalCoalesceStatement boundConditionalCoalesceStatement)
         {
-            IOperation value = Create(boundConditionalCoalesceStatement.Access);
+            IConditionalAccessOperation access = CreateBoundConditionalAccessOperation(boundConditionalCoalesceStatement.Access);
             IOperation whenNull = Create(boundConditionalCoalesceStatement.FallbackStatement.Expression);
             SyntaxNode coalesceSyntax = boundConditionalCoalesceStatement.Access.Syntax.Parent ?? boundConditionalCoalesceStatement.Syntax;
             bool isImplicit = boundConditionalCoalesceStatement.WasCompilerGenerated;
 
-            var coalesce = new CoalesceOperation(value, whenNull, Conversion.Identity, _semanticModel, coalesceSyntax, type: null, constantValue: null, isImplicit);
-            return new ExpressionStatementOperation(coalesce, _semanticModel, boundConditionalCoalesceStatement.Syntax, isImplicit);
+            var voidCoalesce = new VoidCoalesceOperation(access, whenNull, _semanticModel, coalesceSyntax, type: null, isImplicit);
+            return new ExpressionStatementOperation(voidCoalesce, _semanticModel, boundConditionalCoalesceStatement.Syntax, isImplicit);
         }
 
         private IOperation CreateBoundNullCoalescingAssignmentOperatorOperation(BoundNullCoalescingAssignmentOperator boundNode)

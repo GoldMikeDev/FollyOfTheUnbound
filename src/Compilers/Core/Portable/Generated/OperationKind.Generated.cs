@@ -289,5 +289,7 @@ namespace Microsoft.CodeAnalysis
         /// <summary>Indicates an <see cref="ICollectionExpressionElementsPlaceholderOperation"/>.</summary>
         [Experimental(global::Microsoft.CodeAnalysis.RoslynExperiments.PreviewLanguageFeatureApi, UrlFormat = @"https://github.com/dotnet/roslyn/issues/82210")]
         CollectionExpressionElementsPlaceholder = 0x81,
+        /// <summary>Indicates an <see cref="IVoidCoalesceOperation"/>.</summary>
+        VoidCoalesce = 0x82,
     }
 }

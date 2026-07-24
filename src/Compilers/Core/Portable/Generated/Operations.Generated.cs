@@ -1225,6 +1225,40 @@ namespace Microsoft.CodeAnalysis.Operations
         CommonConversion ValueConversion { get; }
     }
     /// <summary>
+    /// Represents a fork-specific (Folly of the Unbound) void-coalescing construct with two operands:
+    /// <list type="number">
+    ///   <item><description><see cref="Access" />, a void-typed conditional-access chain that is unconditionally evaluated for its side effect when every link is non-null</description></item>
+    ///   <item><description><see cref="WhenNull" />, which is conditionally evaluated for its side effect if some link in <see cref="Access" /> is null</description></item>
+    /// </list>
+    /// Unlike <see cref="ICoalesceOperation" />, neither operand produces a usable value -- this node's own <see cref="IOperation.Type" /> is always the <see langword="void" /> type symbol.
+    /// <para>
+    /// Current usage:
+    /// <list type="number">
+    ///   <item><description>C# void-coalescing shorthand expression <c>receiver?.VoidMethod(...) ?? fallback</c></description></item>
+    ///   <item><description>C# null-conditional-coalescing statement <c>receiver?.VoidMethod(...) ?? fallback;</c> (wrapped in an <see cref="IExpressionStatementOperation" />)</description></item>
+    /// </list>
+    /// </para>
+    /// </summary>
+    /// <remarks>
+    /// <para>This node is associated with the following operation kinds:</para>
+    /// <list type="bullet">
+    /// <item><description><see cref="OperationKind.VoidCoalesce"/></description></item>
+    /// </list>
+    /// <para>This interface is reserved for implementation by its associated APIs. We reserve the right to
+    /// change it in the future.</para>
+    /// </remarks>
+    public interface IVoidCoalesceOperation : IOperation
+    {
+        /// <summary>
+        /// Void-typed conditional-access chain to be unconditionally evaluated for its side effect if every link is non-null.
+        /// </summary>
+        IConditionalAccessOperation Access { get; }
+        /// <summary>
+        /// Operation to be conditionally evaluated for its side effect if some link in <see cref="Access" /> is null.
+        /// </summary>
+        IOperation WhenNull { get; }
+    }
+    /// <summary>
     /// Represents an anonymous function operation.
     /// <para>
     /// Current usage:
@@ -5898,6 +5932,69 @@ namespace Microsoft.CodeAnalysis.Operations
         public override OperationKind Kind => OperationKind.Coalesce;
         public override void Accept(OperationVisitor visitor) => visitor.VisitCoalesce(this);
         public override TResult? Accept<TArgument, TResult>(OperationVisitor<TArgument, TResult> visitor, TArgument argument) where TResult : default => visitor.VisitCoalesce(this, argument);
+    }
+    internal sealed partial class VoidCoalesceOperation : Operation, IVoidCoalesceOperation
+    {
+        internal VoidCoalesceOperation(IConditionalAccessOperation access, IOperation whenNull, SemanticModel? semanticModel, SyntaxNode syntax, ITypeSymbol? type, bool isImplicit)
+            : base(semanticModel, syntax, isImplicit)
+        {
+            Access = SetParentOperation(access, this);
+            WhenNull = SetParentOperation(whenNull, this);
+            Type = type;
+        }
+        public IConditionalAccessOperation Access { get; }
+        public IOperation WhenNull { get; }
+        internal override int ChildOperationsCount =>
+            (Access is null ? 0 : 1) +
+            (WhenNull is null ? 0 : 1);
+        internal override IOperation GetCurrent(int slot, int index)
+            => slot switch
+            {
+                0 when Access != null
+                    => Access,
+                1 when WhenNull != null
+                    => WhenNull,
+                _ => throw ExceptionUtilities.UnexpectedValue((slot, index)),
+            };
+        internal override (bool hasNext, int nextSlot, int nextIndex) MoveNext(int previousSlot, int previousIndex)
+        {
+            switch (previousSlot)
+            {
+                case -1:
+                    if (Access != null) return (true, 0, 0);
+                    else goto case 0;
+                case 0:
+                    if (WhenNull != null) return (true, 1, 0);
+                    else goto case 1;
+                case 1:
+                case 2:
+                    return (false, 2, 0);
+                default:
+                    throw ExceptionUtilities.UnexpectedValue((previousSlot, previousIndex));
+            }
+        }
+        internal override (bool hasNext, int nextSlot, int nextIndex) MoveNextReversed(int previousSlot, int previousIndex)
+        {
+            switch (previousSlot)
+            {
+                case int.MaxValue:
+                    if (WhenNull != null) return (true, 1, 0);
+                    else goto case 1;
+                case 1:
+                    if (Access != null) return (true, 0, 0);
+                    else goto case 0;
+                case 0:
+                case -1:
+                    return (false, -1, 0);
+                default:
+                    throw ExceptionUtilities.UnexpectedValue((previousSlot, previousIndex));
+            }
+        }
+        public override ITypeSymbol? Type { get; }
+        internal override ConstantValue? OperationConstantValue => null;
+        public override OperationKind Kind => OperationKind.VoidCoalesce;
+        public override void Accept(OperationVisitor visitor) => visitor.VisitVoidCoalesce(this);
+        public override TResult? Accept<TArgument, TResult>(OperationVisitor<TArgument, TResult> visitor, TArgument argument) where TResult : default => visitor.VisitVoidCoalesce(this, argument);
     }
     internal sealed partial class AnonymousFunctionOperation : Operation, IAnonymousFunctionOperation
     {
@@ -11030,6 +11127,11 @@ namespace Microsoft.CodeAnalysis.Operations
             var internalOperation = (CoalesceOperation)operation;
             return new CoalesceOperation(Visit(internalOperation.Value), Visit(internalOperation.WhenNull), internalOperation.ValueConversionConvertible, internalOperation.OwningSemanticModel, internalOperation.Syntax, internalOperation.Type, internalOperation.OperationConstantValue, internalOperation.IsImplicit);
         }
+        public override IOperation VisitVoidCoalesce(IVoidCoalesceOperation operation, object? argument)
+        {
+            var internalOperation = (VoidCoalesceOperation)operation;
+            return new VoidCoalesceOperation(Visit(internalOperation.Access), Visit(internalOperation.WhenNull), internalOperation.OwningSemanticModel, internalOperation.Syntax, internalOperation.Type, internalOperation.IsImplicit);
+        }
         public override IOperation VisitAnonymousFunction(IAnonymousFunctionOperation operation, object? argument)
         {
             var internalOperation = (AnonymousFunctionOperation)operation;
@@ -11523,6 +11625,7 @@ namespace Microsoft.CodeAnalysis.Operations
         public virtual void VisitBinaryOperator(IBinaryOperation operation) => DefaultVisit(operation);
         public virtual void VisitConditional(IConditionalOperation operation) => DefaultVisit(operation);
         public virtual void VisitCoalesce(ICoalesceOperation operation) => DefaultVisit(operation);
+        public virtual void VisitVoidCoalesce(IVoidCoalesceOperation operation) => DefaultVisit(operation);
         public virtual void VisitAnonymousFunction(IAnonymousFunctionOperation operation) => DefaultVisit(operation);
         public virtual void VisitObjectCreation(IObjectCreationOperation operation) => DefaultVisit(operation);
         public virtual void VisitTypeParameterObjectCreation(ITypeParameterObjectCreationOperation operation) => DefaultVisit(operation);
@@ -11664,6 +11767,7 @@ namespace Microsoft.CodeAnalysis.Operations
         public virtual TResult? VisitBinaryOperator(IBinaryOperation operation, TArgument argument) => DefaultVisit(operation, argument);
         public virtual TResult? VisitConditional(IConditionalOperation operation, TArgument argument) => DefaultVisit(operation, argument);
         public virtual TResult? VisitCoalesce(ICoalesceOperation operation, TArgument argument) => DefaultVisit(operation, argument);
+        public virtual TResult? VisitVoidCoalesce(IVoidCoalesceOperation operation, TArgument argument) => DefaultVisit(operation, argument);
         public virtual TResult? VisitAnonymousFunction(IAnonymousFunctionOperation operation, TArgument argument) => DefaultVisit(operation, argument);
         public virtual TResult? VisitObjectCreation(IObjectCreationOperation operation, TArgument argument) => DefaultVisit(operation, argument);
         public virtual TResult? VisitTypeParameterObjectCreation(ITypeParameterObjectCreationOperation operation, TArgument argument) => DefaultVisit(operation, argument);

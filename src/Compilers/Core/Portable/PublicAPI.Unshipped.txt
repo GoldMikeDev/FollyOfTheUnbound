@@ -25,3 +25,9 @@ Microsoft.CodeAnalysis.Text.SourceHashAlgorithm.Sha512 = 4 -> Microsoft.CodeAnal
 [RSEXPERIMENTAL007]Microsoft.CodeAnalysis.PreCompilationSourceProductionContext.PreCompilationSourceProductionContext() -> void
 Microsoft.CodeAnalysis.IncrementalGeneratorOutputKind.PreCompilation = 16 -> Microsoft.CodeAnalysis.IncrementalGeneratorOutputKind
 const Microsoft.CodeAnalysis.WellKnownGeneratorOutputs.PreCompilationSourceOutput = "PreCompilationSourceOutput" -> string!
+Microsoft.CodeAnalysis.OperationKind.VoidCoalesce = 130 -> Microsoft.CodeAnalysis.OperationKind
+Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation
+Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation.Access.get -> Microsoft.CodeAnalysis.Operations.IConditionalAccessOperation!
+Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation.WhenNull.get -> Microsoft.CodeAnalysis.IOperation!
+virtual Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitVoidCoalesce(Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation! operation) -> void
+virtual Microsoft.CodeAnalysis.Operations.OperationVisitor<TArgument, TResult>.VisitVoidCoalesce(Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation! operation, TArgument argument) -> TResult?
