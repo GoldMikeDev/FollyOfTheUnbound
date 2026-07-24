@@ -3530,6 +3530,15 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private static bool IsValidStatementExpression(SyntaxNode syntax, BoundExpression expression)
         {
+            // `receiver?.VoidMethod(...) ?? fallback;` -- syntactically a `??` binary expression, which
+            // SyntaxFacts.IsStatementExpression doesn't recognize as a valid statement-expression shape (it
+            // only knows about the classic call/assignment/increment/await/object-creation kinds). The
+            // binder only ever produces this BoundKind for that specific shape, so it's always valid here.
+            if (expression.Kind == BoundKind.VoidCoalesceExpression)
+            {
+                return true;
+            }
+
             bool syntacticallyValid = SyntaxFacts.IsStatementExpression(syntax);
             if (!syntacticallyValid)
             {

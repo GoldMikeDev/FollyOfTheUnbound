@@ -3147,6 +3147,31 @@ namespace Microsoft.CodeAnalysis.CSharp
             return null;
         }
 
+        public override BoundNode? VisitVoidCoalesceExpression(BoundVoidCoalesceExpression node)
+        {
+            // Model as `if (receiver != null) { access } else { whenNull }` -- a conservative two-branch
+            // split (not reusing the private VisitConditionalAccess chain-tracking helper above, since that
+            // exists specifically to propagate "stateWhenNotNull" through chained `?.` accesses, which
+            // isn't needed here: we just need the two branches individually, then joined).
+            VisitRvalue(node.Access.Receiver);
+
+            TLocalState stateWhenNotNull = this.State.Clone();
+            TLocalState stateWhenNull = this.State.Clone();
+
+            SetState(stateWhenNotNull);
+            VisitRvalue(node.Access.AccessExpression);
+            stateWhenNotNull = this.State;
+
+            SetState(stateWhenNull);
+            VisitRvalue(node.WhenNull);
+            stateWhenNull = this.State;
+
+            Join(ref stateWhenNotNull, ref stateWhenNull);
+            SetState(stateWhenNotNull);
+
+            return null;
+        }
+
 #nullable disable
 
         public override BoundNode VisitLoweredConditionalAccess(BoundLoweredConditionalAccess node)

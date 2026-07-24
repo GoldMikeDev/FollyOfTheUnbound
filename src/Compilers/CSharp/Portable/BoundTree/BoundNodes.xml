@@ -1807,7 +1807,15 @@
   <Node Name="BoundConditionalAccess" Base="BoundExpression">
     <Field Name="Type" Type="TypeSymbol" Override="true" Null="disallow"/>
     <Field Name="Receiver" Type="BoundExpression"/>
-    <Field Name="AccessExpression" Type="BoundExpression"/> 
+    <Field Name="AccessExpression" Type="BoundExpression"/>
+  </Node>
+
+  <!-- `receiver?.VoidMethod(...) ?? fallback;` shorthand: if receiver is non-null, run Access's call;
+       otherwise run WhenNull. Always void-typed; only meaningful as an expression-statement. -->
+  <Node Name="BoundVoidCoalesceExpression" Base="BoundExpression">
+    <Field Name="Type" Type="TypeSymbol" Override="true" Null="disallow"/>
+    <Field Name="Access" Type="BoundConditionalAccess"/>
+    <Field Name="WhenNull" Type="BoundExpression"/>
   </Node>
 
   <Node Name="BoundLoweredConditionalAccess" Base="BoundExpression">

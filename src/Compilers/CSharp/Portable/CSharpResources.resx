@@ -8156,6 +8156,9 @@ To remove the warning, you can use /reference instead (set the Embed Interop Typ
   <data name="WRN_MutationMayFail_Title" xml:space="preserve">
     <value>Mutation may fail at runtime</value>
   </data>
+  <data name="ERR_VoidCoalesceRequiresReferenceTypeReceiver" xml:space="preserve">
+    <value>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</value>
+  </data>
   <data name="ERR_StructLayoutAndExtendedLayout" xml:space="preserve">
     <value>Use of 'StructLayoutAttribute' and 'ExtendedLayoutAttribute' on the same type is not allowed.</value>
   </data>
