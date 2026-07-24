@@ -7245,6 +7245,11 @@ strument:TestCoverage      產生檢測要收集
         <target state="translated">在 Void 指標上未定義有問題的作業</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
+        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
+        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_ConditionalOnOverride">
         <source>The Conditional attribute is not valid on '{0}' because it is an override method</source>
         <target state="translated">Conditional 屬性在 '{0}' 上無效，因為其為覆寫方法</target>

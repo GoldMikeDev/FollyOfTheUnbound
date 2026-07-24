@@ -7245,6 +7245,11 @@
         <target state="translated">相关操作在 void 指针上未定义</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
+        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
+        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_ConditionalOnOverride">
         <source>The Conditional attribute is not valid on '{0}' because it is an override method</source>
         <target state="translated">Conditional 特性在“{0}”上无效，因为该特性是重写方法</target>
