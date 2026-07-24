@@ -32,6 +32,7 @@ Roslyn follows a **layered compiler architecture**:
 Several core data structures are generated from XML definitions — **never edit the generated `.cs` or `.vb` files directly**:
 - **Syntax trees**: `src/Compilers/CSharp/Portable/Syntax/Syntax.xml`
 - **Bound trees**: `src/Compilers/CSharp/Portable/BoundTree/BoundNodes.xml`
+- **IOperation API**: `src/Compilers/Core/Portable/Operations/OperationInterfaces.xml` (shared between C# and VB — generates `OperationKind.Generated.cs` and `Operations.Generated.cs`, both public API tracked via `PublicAPI.Unshipped.txt`)
 - After modifying these XML files, regenerate and build:
   ```bash
   dotnet run --file eng/generate-compiler-code.cs
