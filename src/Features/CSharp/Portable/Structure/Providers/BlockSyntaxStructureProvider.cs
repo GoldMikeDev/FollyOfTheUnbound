@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -218,12 +218,14 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
 
     private static int GetEnd(BlockSyntax node)
     {
-        if (node.Parent.IsKind(SyntaxKind.IfStatement))
+        if (node.Parent.IsKind(SyntaxKind.IfStatement) || node.Parent.IsKind(SyntaxKind.TryStatement))
         {
-            // For an if-statement, just collapse up to the end of the block.
-            // We don't want collapse the whole statement just for the 'true'
-            // portion.  Also, while outlining might be ok, the Indent-Guide
-            // would look very strange for nodes like:
+            // For an if-statement or try-statement, just collapse up to the end of the block.
+            // We don't want to collapse the whole statement just for the 'true' portion (of an
+            // 'if'), or just the 'try' portion (of a 'try/catch/finally'). Each attached
+            // clause (else/catch/finally) gets its own collapsible region instead.
+            // Also, while outlining might be ok, the Indent-Guide would look very strange for nodes
+            // like:
             //
             //      if (goo)
             //      {
