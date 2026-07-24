@@ -2513,6 +2513,8 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         ERR_RootNamespaceQualifierRequiresRootNamespace = 9399,
 
+        ERR_VoidCoalesceRequiresReferenceTypeReceiver = 9398,
+
         // Note: you will need to do the following after adding errors:
         //  1) Update ErrorFacts.IsBuildOnlyDiagnostic (src/Compilers/CSharp/Portable/Errors/ErrorFacts.cs)
         //  2) Add message to CSharpResources.resx

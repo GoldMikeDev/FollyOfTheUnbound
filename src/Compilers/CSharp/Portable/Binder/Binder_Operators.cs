@@ -5683,10 +5683,57 @@ namespace Microsoft.CodeAnalysis.CSharp
                 leftPlaceholder: null, leftConversion: null, BoundNullCoalescingOperatorResultKind.NoCommonType, @checked: CheckOverflowAtRuntime, CreateErrorType(), hasErrors: true);
         }
 
+        /// <summary>
+        /// Binds the `receiver?.VoidMethod(...) ?? fallback;` shorthand. <paramref name="conditionalAccess"/> is
+        /// the already-bound left side (a void-returning null-conditional access). This is only meaningful as a
+        /// statement -- the resulting expression's type is void, same restriction as any other void-typed
+        /// expression, so using it anywhere other than an expression-statement already produces the usual
+        /// "value of void expression" errors elsewhere in the binder.
+        /// </summary>
+        private BoundExpression BindVoidCoalesceExpression(BinaryExpressionSyntax node, BoundConditionalAccess conditionalAccess, BindingDiagnosticBag diagnostics)
+        {
+            bool hasErrors = conditionalAccess.HasAnyErrors;
+
+            // Scope restriction: only reference-type receivers are supported. Nullable value-type receivers
+            // would require replicating BoundLoweredConditionalAccess's HasValue-based null test (a codegen-level
+            // concern), which this shorthand does not attempt.
+            TypeSymbol? receiverType = conditionalAccess.Receiver.Type;
+            if (receiverType is null || !receiverType.IsReferenceType)
+            {
+                if (!hasErrors)
+                {
+                    Error(diagnostics, ErrorCode.ERR_VoidCoalesceRequiresReferenceTypeReceiver, node.Left);
+                }
+                hasErrors = true;
+            }
+
+            BoundExpression fallback = BindValue(node.Right, diagnostics, BindValueKind.RValue);
+
+            if (!fallback.HasAnyErrors && !IsValidStatementExpression(node.Right, fallback))
+            {
+                Error(diagnostics, ErrorCode.ERR_IllegalStatement, node.Right);
+                hasErrors = true;
+            }
+
+            hasErrors = hasErrors || fallback.HasAnyErrors;
+
+            return new BoundVoidCoalesceExpression(node, conditionalAccess, fallback, conditionalAccess.Type, hasErrors);
+        }
+
         private BoundExpression BindNullCoalescingOperator(BinaryExpressionSyntax node, BindingDiagnosticBag diagnostics)
         {
             var leftOperand = BindValue(node.Left, diagnostics, BindValueKind.RValue);
             leftOperand = BindToNaturalType(leftOperand, diagnostics);
+
+            // Shorthand: `receiver?.VoidMethod(...) ?? fallback;` -- normally illegal since void can't be an
+            // operand of `??`, but when the left side is exactly a void-returning null-conditional access, treat
+            // the whole `??` as a statement-only construct meaning:
+            //   if (receiver != null) { receiver.VoidMethod(...); } else { fallback; }
+            if (leftOperand is BoundConditionalAccess { Type.SpecialType: SpecialType.System_Void } voidConditionalAccess)
+            {
+                return BindVoidCoalesceExpression(node, voidConditionalAccess, diagnostics);
+            }
+
             var rightOperand = BindValue(node.Right, diagnostics, BindValueKind.RValue);
 
             // If either operand is bad, bail out preventing more cascading errors
