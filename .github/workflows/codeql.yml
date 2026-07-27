@@ -3,9 +3,17 @@ name: "CodeQL"
 # Advanced setup: runs an actual build instead of relying on CodeQL's default
 # autobuild, which doesn't understand this repo's SDK bootstrapping / restore
 # script and ends up compiling little of the codebase (reported as "Low C#
-# analysis quality"). Building Compilers.slnf and Ide.slnf gives CodeQL real
-# compiled output to analyze across both the compiler and IDE layers without
-# paying for a full build.sh run.
+# analysis quality"). Building FollyOfTheUnbound.slnx gives CodeQL real
+# compiled output across the compiler, IDE, and Razor layers in one pass.
+#
+# Deliberately not Roslyn.slnx (the true full solution): most of
+# src/RoslynAnalyzers is Roslyn's own dogfooding lint tooling, built against
+# an older released Microsoft.CodeAnalysis reference, and breaks whenever
+# this fork adds a new SyntaxKind -- see the comment in
+# FollyOfTheUnbound.slnx's /Analyzers/ folder. That filter already excludes
+# the known-broken bulk while keeping the one analyzer-adjacent project other
+# real projects depend on, so building it (rather than Roslyn.slnx, or adding
+# RoslynAnalyzers projects by hand) is both broader-coverage and safe here.
 
 on:
   push:
@@ -49,10 +57,8 @@ jobs:
           CI: false # avoid GitInfo/CI-specific restore failures, matching copilot-setup-steps.yml
         run: ./restore.sh
 
-      - name: Build (Compilers + IDE)
-        run: |
-          dotnet build Compilers.slnf
-          dotnet build Ide.slnf
+      - name: Build (Compilers + IDE + Razor)
+        run: dotnet build FollyOfTheUnbound.slnx
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
