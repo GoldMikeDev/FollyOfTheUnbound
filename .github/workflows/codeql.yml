@@ -1,0 +1,60 @@
+name: "CodeQL"
+
+# Advanced setup: runs an actual build instead of relying on CodeQL's default
+# autobuild, which doesn't understand this repo's SDK bootstrapping / restore
+# script and ends up compiling little of the codebase (reported as "Low C#
+# analysis quality"). Building Compilers.slnf and Ide.slnf gives CodeQL real
+# compiled output to analyze across both the compiler and IDE layers without
+# paying for a full build.sh run.
+
+on:
+  push:
+    branches: ["folly-of-the-unbound", "main"]
+  pull_request:
+    branches: ["folly-of-the-unbound", "main"]
+  schedule:
+    - cron: "30 4 * * 1" # 04:30 UTC every Monday
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (csharp)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      security-events: write
+      contents: read
+      actions: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          build-mode: manual
+
+      - name: Restore
+        env:
+          CI: false # avoid GitInfo/CI-specific restore failures, matching copilot-setup-steps.yml
+        run: ./restore.sh
+
+      - name: Build (Compilers + IDE)
+        run: |
+          dotnet build Compilers.slnf
+          dotnet build Ide.slnf
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"
