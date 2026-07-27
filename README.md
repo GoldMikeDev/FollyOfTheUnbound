@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="1448" height="1086" alt="image" src="https://github.com/user-attachments/assets/5a98b7c7-b336-405f-8a98-04d0880406f3" alt="FotU logo/>
+  <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/efee3290-9ca6-4bb0-a52a-c7374362f7a5" alt="FotU logo/>
 </p>
 
 <h1 align="center">The .NET Compiler fork made by the man who got pissed off with the limitations of C# and Roslyn</h1>
