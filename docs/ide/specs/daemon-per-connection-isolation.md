@@ -2,7 +2,8 @@
 
 ## Status
 
-Design write-up, not yet implemented. Tracked in
+Phase 1 (verify `AsyncLocal` propagation) complete; phase 2 (wire the primitive into
+`GlobalLogMessageLogger`) not yet started. Tracked in
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three
 separate Codex review rounds on PR #3 (the daemon-mode `roslyn-language-server` thin client).
 
@@ -144,23 +145,37 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
 4. **`IGlobalOptionService` facade + `DidChangeConfigurationNotificationHandlerFactory` rewire**, once step 3
    has produced a complete call-site inventory.
 5. **`ExtensionLogDirectory` per-connection routing**, independent of steps 3–4 and can happen in parallel.
-6. **`TelemetryLevel`/`SessionId`/`RoslynLogger`**: explicitly out of scope for this design until someone
-   decides whether per-connection telemetry sessions are even a desired product behavior (vs. e.g. keeping
-   telemetry daemon-global by design, which may be an acceptable simplification telemetry infrastructure
-   elsewhere in Visual Studio already assumes). Needs its own decision before design work, not lumped in
-   here.
+6. **`TelemetryLevel`/`SessionId`/`RoslynLogger`**: **decided out of scope, by design** (see "Decisions" below)
+   — not deferred pending a future decision, just not going to happen.
 7. **`SourceGeneratorExecutionPreference`**: falls out of step 4 for free once the option facade exists,
    since it's already routed through `IGlobalOptionService`.
 
-## Open questions
+## Decisions
 
-- Is per-connection telemetry session isolation actually desired, or is "one telemetry session per daemon
-  process" an acceptable, deliberate simplification? This blocks phase 6 and should be settled before any
-  code is written for it.
-- Should `IGlobalOptionService` reads/writes from **outside** LSP request handling (e.g. background analysis
-  work queued on a workspace) attribute to a connection at all, or are they inherently daemon-global?  This
-  affects how much of phase 3's audit surface actually needs facade routing vs. can stay on the shared
-  instance.
-- Does `AsyncLocal` propagation actually survive every relevant transition in this codebase (thread pool
-  hops via `ConfigureAwait(false)`, `Task.Run`, JSON-RPC's own dispatch)? Needs to be verified with a test
-  before phase 2, not assumed.
+These were open questions in an earlier draft; resolved before starting implementation so phase 1 isn't
+blocked on them.
+
+- **Telemetry session isolation: won't fix, by design.** Telemetry answers "how is this tool used/crashing in
+  aggregate," not "what did this specific workspace do." Two clients sharing a daemon landing in the same
+  telemetry session is an accuracy loss (some events get attributed to the session that happened to launch
+  the daemon), not a correctness or privacy problem — nothing about it exposes one client's *content* to
+  another the way the option-bleed and log-broadcast symptoms do. Phase 6 is dropped entirely, not deferred.
+  This also removes the one open question that had no clean answer, so the remaining scope (phases 1–5, 7) is
+  fully options + logs, both of which cause behavior a user would actually notice as wrong.
+- **Scope of the phase 3 option-read audit: bounded to the LSP request-handling path.** "Every option read
+  anywhere in the IDE layer" is unbounded and is what made phase 3 look risky. Scope it instead to option
+  reads reachable while a `LanguageServerHost` is handling a specific client's request or notification
+  (formatting, completion, and similar per-request work). Background/global work not attributable to any one
+  client (e.g. a workspace-event-triggered source-generator run with no request in flight) stays on the
+  shared `IGlobalOptionService` instance untouched — there's no other client for it to leak into, so it's not
+  in scope for isolation. This turns phase 3 into a grep from the LSP handler dispatch entry points, not a
+  whole-codebase audit.
+- **`AsyncLocal` propagation: verified, not assumed.** `AsyncLocalPropagationTests`
+  (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.UnitTests/Daemon/AsyncLocalPropagationTests.cs`)
+  confirms the value survives a direct `await`, `ConfigureAwait(false)`, `Task.Run`, and — the one that
+  actually matters for this design — a real `StreamJsonRpc` request/response round trip through
+  `JsonRpc.InvokeAsync`/`StartListening`, i.e. the same dispatch mechanism `LanguageServerHost` uses for real
+  LSP requests. Also confirmed the isolation property the whole design depends on: concurrent `Task.Run` calls
+  each see only their own value (no cross-talk), and a value set inside a child `Task.Run` never leaks back to
+  the caller. All 6 cases pass. `AsyncLocal` is a viable mechanism for the ambient-context primitive; phase 2
+  can proceed without this being an open risk.
