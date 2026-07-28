@@ -196,7 +196,8 @@
     <Project Path="src/LanguageServer/Protocol.TestUtilities/Microsoft.CodeAnalysis.LanguageServer.Protocol.Test.Utilities.csproj" />
     <Project Path="src/LanguageServer/Protocol/Microsoft.CodeAnalysis.LanguageServer.Protocol.csproj" />
     <Project Path="src/LanguageServer/ProtocolUnitTests/Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests.csproj" />
-  </Folder>
+    <Project Path="src/LanguageServer/roslyn-language-server/roslyn-language-server.csproj" />
+</Folder>
   <Folder Name="/LanguageServer/ExternalAccess/">
     <Project Path="src/LanguageServer/ExternalAccess/CompilerDeveloperSDK/Microsoft.CodeAnalysis.ExternalAccess.CompilerDeveloperSDK.csproj" />
     <Project Path="src/LanguageServer/ExternalAccess/Copilot/Microsoft.CodeAnalysis.LanguageServer.ExternalAccess.Copilot.csproj" />
