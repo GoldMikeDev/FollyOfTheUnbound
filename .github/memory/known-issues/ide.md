@@ -17,20 +17,24 @@ unrelated-looking test failure rather than a clear composition error.
 first (`[ExportLanguageService]`/`[ExportWorkspaceService]`, `[Shared]`,
 `[ImportingConstructor]` + `[Obsolete(MefConstruction.ImportingConstructorMessage)]`).
 
-## Daemon-mode `roslyn-language-server` has no per-connection isolation
+## Daemon-mode `roslyn-language-server` has incomplete per-connection isolation
 
 **Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/` daemon mode (`--daemon`),
 `src/LanguageServer/roslyn-language-server/`
 **Description:** The daemon builds exactly one MEF `ExportProvider` and consumes one client's
 `ServerConfiguration`, once, at startup. Every later client that connects to the shared daemon gets its own
-`LanguageServerHost` but shares the same `IGlobalOptionService`, the same `GlobalLogMessageLogger` (which
-broadcasts every process-global log entry to every connected client), and the same per-session config
+`LanguageServerHost`. Global log routing is now fixed: `DaemonConnectionContext` (an
+`AsyncLocal<LanguageServerHost?>` ambient context, set by `LanguageServerConnectionManager` per connection)
+lets `GlobalLogMessageLogger.GetTargetServers` route a log call to just the connection it's attributable to,
+instead of broadcasting to every client. **Still open:** every connection shares the same `IGlobalOptionService`
+(a client's option writes silently affect every other connection), and the same per-session config
 (`ExtensionLogDirectory`, `TelemetryLevel`, `SessionId`) from whichever client happened to launch the daemon.
 Confirmed (via reflection over the actual restored assembly) that this isn't a `Microsoft.VisualStudio.Composition`
 version gap — this repo already restores 18.9.15, ahead of the entire public nuget.org release history, and
 it has no scoped/child-`ExportProvider` API to unlock.
-**Workaround:** None yet; tracked as [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9).
-Full design write-up and phased plan: `docs/ide/specs/daemon-per-connection-isolation.md`.
+**Workaround:** None yet for the option/config gaps; tracked as
+[GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phased plan, and
+current status: `docs/ide/specs/daemon-per-connection-isolation.md`.
 
 ## New loop-like statement kinds need registering in `IsContinuableConstruct`/`IsBreakableConstruct`
 

@@ -74,7 +74,10 @@
     </PropertyGroup>
 
     <ItemGroup Condition="'$(_ThinClientOutputPath)' != ''">
-      <_ThinClientFile Include="$(_ThinClientOutputPath)\roslyn-language-server.*" />
+      <!-- No dot after the base name: on Windows the apphost is roslyn-language-server.exe, but on Linux/macOS
+           it's the extensionless roslyn-language-server itself, which a "roslyn-language-server.*" glob would
+           silently exclude, and ServerExecutable.ResolveSelf then can't find it to launch the daemon bootstrap. -->
+      <_ThinClientFile Include="$(_ThinClientOutputPath)\roslyn-language-server*" />
       <Content Include="@(_ThinClientFile)" Link="RoslynLSP\%(_ThinClientFile.Filename)%(_ThinClientFile.Extension)" CopyToOutputDirectory="PreserveNewest" />
     </ItemGroup>
   </Target>
