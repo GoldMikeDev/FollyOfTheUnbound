@@ -35,4 +35,5 @@ This file is a **top-level map only**. For per-area directory detail, read the m
 |------|--------|---------|
 | `eng/` | Config / Generated | Arcade build engineering. `eng/common/` is DARC-synced — do not hand-edit. `eng/generate-compiler-code.cs` regenerates compiler code. |
 | `docs/` | Active | Contributor & design docs. New docs use kebab-case filenames in the right subdirectory. |
-| Root | Config | Entry points & solution filters: `build.sh`/`Build.cmd`, `test.sh`/`Test.cmd`, `Roslyn.slnx`, `Compilers.slnf`, `Ide.slnf`, `Razor.slnf`, `global.json`, `Directory.*.props/targets`, `Directory.Packages.props`. |
+| Root | Config | Entry points & solution filters: `build.sh`/`Build.cmd`, `test.sh`/`Test.cmd`, `Roslyn.slnx`, `Compilers.slnf`, `Ide.slnf`, `Razor.slnf`, `FollyOfTheUnbound.slnx` (Compilers+IDE+Razor, deliberately excluding most of `src/RoslynAnalyzers` — see its `/Analyzers/` folder comment), `global.json`, `Directory.*.props/targets`, `Directory.Packages.props`. |
+| `.github/workflows/` | Active | GitHub Actions. `codeql.yml` runs CodeQL with an advanced/manual build (`FollyOfTheUnbound.slnx`) instead of default autobuild, which can't handle this repo's SDK bootstrapping. |

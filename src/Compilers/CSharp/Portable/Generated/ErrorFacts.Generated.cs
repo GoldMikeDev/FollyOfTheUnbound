@@ -346,7 +346,6 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case ErrorCode.WRN_UnscopedRefAttributeOldRules:
                 case ErrorCode.WRN_InterceptsLocationAttributeUnsupportedSignature:
                 case ErrorCode.WRN_RedundantPattern:
-                case ErrorCode.WRN_UnsafeMeaningless:
                 case ErrorCode.WRN_MutationMayFail:
                     return true;
                 default:
