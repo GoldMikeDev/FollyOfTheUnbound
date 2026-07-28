@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information. -->
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
@@ -6,6 +6,14 @@
     <TargetFramework>net472</TargetFramework>
     <UseWpf>true</UseWpf>
     <RootNamespace>Microsoft.VisualStudio.LanguageServices.CSharp</RootNamespace>
+    <!-- Renamed so this assembly's identity doesn't collide with VS's in-box Roslyn (devenv.exe.config
+         binding-redirects any Microsoft.CodeAnalysis.*/Microsoft.VisualStudio.LanguageServices.* reference
+         onto VS's own copy). -->
+    <AssemblyName>FollyOfTheUnbound.LanguageServices.CSharpUnbound</AssemblyName>
+    <StrongNameKeyId>FollyOfTheUnbound</StrongNameKeyId>
+    <AssemblyOriginatorKeyFile>$(FollyOfTheUnboundKeyFile)</AssemblyOriginatorKeyFile>
+    <PublicKey>$(FollyOfTheUnboundPublicKey)</PublicKey>
+    <PublicKeyToken>$(FollyOfTheUnboundPublicKeyToken)</PublicKeyToken>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ApplyNgenOptimization>full</ApplyNgenOptimization>
     <IsSymbolPublishingPackage>true</IsSymbolPublishingPackage>
@@ -46,12 +54,12 @@
     <PackageReference Include="Microsoft.VisualStudio.Extensibility.JsonGenerators.Sdk" PrivateAssets="all" />
   </ItemGroup>
   <ItemGroup>
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.ProjectSystem.CSharp" WorkItem="https://github.com/dotnet/roslyn/issues/35070" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Test.Utilities2" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.New.IntegrationTests" />
-    <InternalsVisibleTo Include="Roslyn.VisualStudio.Next.UnitTests" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.ProjectSystem.CSharp" Key="$(MicrosoftSharedPublicKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35070" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Test.Utilities2" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.New.IntegrationTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Roslyn.VisualStudio.Next.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="CSharpVSResources.resx" GenerateSource="true" />

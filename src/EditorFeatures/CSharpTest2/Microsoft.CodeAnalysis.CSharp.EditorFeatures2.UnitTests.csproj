@@ -27,4 +27,10 @@
     <ProjectReference Include="..\..\Workspaces\CSharp\Portable\Microsoft.CodeAnalysis.CSharp.Workspaces.csproj" />
     <ProjectReference Include="..\..\Workspaces\VisualBasic\Portable\Microsoft.CodeAnalysis.VisualBasic.Workspaces.vbproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- A transitive dependency pulls in the real, released Microsoft.CodeAnalysis.CSharp.Workspaces NuGet
+         package, which collides (CS0433) with our own renamed ProjectReference above since they no longer
+         share an assembly name for MSBuild to silently de-duplicate. Exclude the transitive copy. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" ExcludeAssets="all" />
+  </ItemGroup>
 </Project>

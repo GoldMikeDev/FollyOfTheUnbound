@@ -108,11 +108,11 @@ public class MefHostServices(CompositionContext compositionContext) : HostServic
     // updated: includes feature assemblies since they now have public API's.
     internal static ImmutableArray<string> DefaultAssemblyNames =
         [
-            "Microsoft.CodeAnalysis.Workspaces",
-            "Microsoft.CodeAnalysis.CSharp.Workspaces",
+            "FollyOfTheUnbound.CodeAnalysis.Workspaces",
+            "FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Workspaces",
             "Microsoft.CodeAnalysis.VisualBasic.Workspaces",
-            "Microsoft.CodeAnalysis.Features",
-            "Microsoft.CodeAnalysis.CSharp.Features",
+            "FollyOfTheUnbound.CodeAnalysis.Features",
+            "FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features",
             "Microsoft.CodeAnalysis.VisualBasic.Features"
         ];
 

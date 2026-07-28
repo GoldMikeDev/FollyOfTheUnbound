@@ -41,6 +41,13 @@
     <ProjectReference Include="..\..\VisualStudio\Core\Impl\Microsoft.VisualStudio.LanguageServices.Implementation.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Transitive dependencies pull in the real, released Microsoft.CodeAnalysis(.CSharp).Workspaces NuGet
+         packages, which collide (ambiguous type) with our own renamed ProjectReferences above since they no
+         longer share an assembly name for MSBuild to silently de-duplicate. Exclude the transitive copies. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" ExcludeAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="BasicUndo" />
     <PackageReference Include="Microsoft.VisualStudio.InteractiveWindow" />
     <PackageReference Include="Xunit.Combinatorial" PrivateAssets="all" />

@@ -13,7 +13,7 @@
     </PackageDescription>
   </PropertyGroup>
   <ItemGroup>
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.Features" Key="$(FollyOfTheUnboundPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Features.UnitTests" />
   </ItemGroup>
   <ItemGroup>

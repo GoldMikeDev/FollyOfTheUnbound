@@ -84,16 +84,16 @@
   <Folder Name="/EditorFeatures/">
     <Project Path="src/EditorFeatures/Core/Microsoft.CodeAnalysis.EditorFeatures.csproj" />
     <Project Path="src/EditorFeatures/CSharp/Microsoft.CodeAnalysis.CSharp.EditorFeatures.csproj" />
-    <Project Path="src/EditorFeatures/CSharpTest/Microsoft.CodeAnalysis.CSharp.EditorFeatures.UnitTests.csproj" />
     <Project Path="src/EditorFeatures/CSharpTest2/Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests.csproj" />
-    <Project Path="src/EditorFeatures/DiagnosticsTestUtilities/Microsoft.CodeAnalysis.EditorFeatures.DiagnosticsTests.Utilities.csproj" />
-    <Project Path="src/EditorFeatures/Test/Microsoft.CodeAnalysis.EditorFeatures.UnitTests.csproj" />
+    <!-- EditorFeatures.DiagnosticsTests.Utilities.csproj ProjectReferences Features.DiagnosticsTests.Utilities.csproj,
+         which has the same real-vs-renamed Workspaces identity conflict noted under /Features/ below. Excluded along
+         with its dependents (CSharp/VisualBasic EditorFeatures.UnitTests, and LanguageServices.CSharp.UnitTests under
+         /VisualStudio/CSharp/) since none of them have further dependents of their own. -->
     <Project Path="src/EditorFeatures/Test2/Microsoft.CodeAnalysis.EditorFeatures2.UnitTests.vbproj" />
     <Project Path="src/EditorFeatures/TestUtilities/Microsoft.CodeAnalysis.EditorFeatures.Test.Utilities.csproj" />
     <Project Path="src/EditorFeatures/TestUtilities2/Microsoft.CodeAnalysis.EditorFeatures.Test.Utilities2.vbproj" />
     <Project Path="src/EditorFeatures/Text/Microsoft.CodeAnalysis.EditorFeatures.Text.csproj" />
     <Project Path="src/EditorFeatures/VisualBasic/Microsoft.CodeAnalysis.VisualBasic.EditorFeatures.vbproj" />
-    <Project Path="src/EditorFeatures/VisualBasicTest/Microsoft.CodeAnalysis.VisualBasic.EditorFeatures.UnitTests.vbproj" />
     <Project Path="src/EditorFeatures/XunitHook/Microsoft.CodeAnalysis.XunitHook.csproj" />
     <Project Path="src/NuGet/Microsoft.CodeAnalysis.EditorFeatures.Package/Microsoft.CodeAnalysis.EditorFeatures.Package.csproj" />
   </Folder>
@@ -131,12 +131,14 @@
   <Folder Name="/Features/">
     <Project Path="src/Features/Core/Portable/Microsoft.CodeAnalysis.Features.csproj" />
     <Project Path="src/Features/CSharp/Portable/Microsoft.CodeAnalysis.CSharp.Features.csproj" />
-    <Project Path="src/Features/CSharpTest/Microsoft.CodeAnalysis.CSharp.Features.UnitTests.csproj" />
-    <Project Path="src/Features/DiagnosticsTestUtilities/Microsoft.CodeAnalysis.Features.DiagnosticsTests.Utilities.csproj" />
+    <!-- Microsoft.CodeAnalysis.Features.DiagnosticsTests.Utilities.csproj (and its two dependents,
+         CSharp.Features.UnitTests and VisualBasic.Features.UnitTests) needs both the real Roslyn
+         Workspaces identity (for Microsoft.CodeAnalysis.Testing base classes) and our renamed identity
+         (for ordinary IWorkspaceService code) in the same project. Excluded rather than maintaining a
+         permanent extern-alias split; these test Roslyn's existing Features behavior, not C#Unbound's. -->
     <Project Path="src/Features/Test/Microsoft.CodeAnalysis.Features.UnitTests.csproj" />
     <Project Path="src/Features/TestUtilities/Microsoft.CodeAnalysis.Features.Test.Utilities.csproj" />
     <Project Path="src/Features/VisualBasic/Portable/Microsoft.CodeAnalysis.VisualBasic.Features.vbproj" />
-    <Project Path="src/Features/VisualBasicTest/Microsoft.CodeAnalysis.VisualBasic.Features.UnitTests.vbproj" />
   </Folder>
   <Folder Name="/Features/Analyzers/">
     <Project Path="src/Analyzers/Core/Analyzers/Analyzers.shproj" />
@@ -151,19 +153,22 @@
   <Folder Name="/Features/CodeStyle/">
     <Project Path="src/CodeStyle/Core/Analyzers/Microsoft.CodeAnalysis.CodeStyle.csproj" />
     <Project Path="src/CodeStyle/Core/CodeFixes/Microsoft.CodeAnalysis.CodeStyle.Fixes.csproj" />
-    <Project Path="src/CodeStyle/Core/Tests/LegacyTestFramework/Microsoft.CodeAnalysis.CodeStyle.LegacyTestFramework.UnitTestUtilities.csproj" />
-    <Project Path="src/CodeStyle/Core/Tests/UnitTestUtilities/Microsoft.CodeAnalysis.CodeStyle.UnitTestUtilities.csproj" />
+    <!-- Microsoft.CodeAnalysis.CodeStyle.LegacyTestFramework.UnitTestUtilities.csproj is also excluded:
+         it's only referenced by the two CodeStyle.UnitTests projects excluded below, so it has no
+         remaining referencer in this solution.
+         Microsoft.CodeAnalysis.CodeStyle.UnitTestUtilities.csproj (and its two dependents,
+         CSharp.CodeStyle.UnitTests and VisualBasic.CodeStyle.UnitTests) has the same real-vs-renamed
+         Workspaces identity conflict as the Features.DiagnosticsTests.Utilities exclusion above.
+         Excluded for the same reason: these test Roslyn's existing CodeStyle behavior, not C#Unbound's. -->
     <Project Path="src/CodeStyle/CSharp/Analyzers/Microsoft.CodeAnalysis.CSharp.CodeStyle.csproj" />
     <Project Path="src/CodeStyle/CSharp/CodeFixes/Microsoft.CodeAnalysis.CSharp.CodeStyle.Fixes.csproj">
       <BuildDependency Project="src/CodeStyle/Tools/CodeStyleConfigFileGenerator.csproj" />
     </Project>
-    <Project Path="src/CodeStyle/CSharp/Tests/Microsoft.CodeAnalysis.CSharp.CodeStyle.UnitTests.csproj" />
     <Project Path="src/CodeStyle/Tools/CodeStyleConfigFileGenerator.csproj" />
     <Project Path="src/CodeStyle/VisualBasic/Analyzers/Microsoft.CodeAnalysis.VisualBasic.CodeStyle.vbproj" />
     <Project Path="src/CodeStyle/VisualBasic/CodeFixes/Microsoft.CodeAnalysis.VisualBasic.CodeStyle.Fixes.vbproj">
       <BuildDependency Project="src/CodeStyle/Tools/CodeStyleConfigFileGenerator.csproj" />
     </Project>
-    <Project Path="src/CodeStyle/VisualBasic/Tests/Microsoft.CodeAnalysis.VisualBasic.CodeStyle.UnitTests.vbproj" />
   </Folder>
   <Folder Name="/Features/ExternalAccess/">
     <Project Path="src/Features/ExternalAccess/AspNetCore/Microsoft.CodeAnalysis.ExternalAccess.AspNetCore.csproj" />
@@ -269,7 +274,8 @@
     <Project Path="src/VisualStudio/Core/Test.Next/Roslyn.VisualStudio.Next.UnitTests.csproj" />
     <Project Path="src/VisualStudio/Core/Test/Microsoft.VisualStudio.LanguageServices.UnitTests.vbproj" />
     <Project Path="src/VisualStudio/CSharp/Impl/Microsoft.VisualStudio.LanguageServices.CSharp.csproj" />
-    <Project Path="src/VisualStudio/CSharp/Test/Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests.csproj" />
+    <!-- Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests.csproj is excluded: it references
+         EditorFeatures.DiagnosticsTests.Utilities.csproj, excluded under /EditorFeatures/ above. -->
     <Project Path="src/VisualStudio/DevKit/Impl/Microsoft.VisualStudio.LanguageServices.DevKit.csproj" />
     <Project Path="src/VisualStudio/LiveShare/Impl/Microsoft.VisualStudio.LanguageServices.LiveShare.csproj" />
     <Project Path="src/VisualStudio/LiveShare/Test/Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.csproj" />
@@ -303,7 +309,8 @@
   <Folder Name="/Workspaces/">
     <Project Path="src/Workspaces/Core/Desktop/Microsoft.CodeAnalysis.Workspaces.Desktop.csproj" />
     <Project Path="src/Workspaces/Core/Portable/Microsoft.CodeAnalysis.Workspaces.csproj" />
-    <Project Path="src/Workspaces/CoreTest/Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj" />
+    <!-- Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj has the same real-vs-renamed Workspaces
+         identity conflict as the exclusions above; no other project in the build references it. -->
     <Project Path="src/Workspaces/CoreTestUtilities/Microsoft.CodeAnalysis.Workspaces.Test.Utilities.csproj" />
     <Project Path="src/Workspaces/CSharp/Portable/Microsoft.CodeAnalysis.CSharp.Workspaces.csproj" />
     <Project Path="src/Workspaces/CSharpTest/Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests.csproj" />

@@ -4,6 +4,13 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <RootNamespace>Microsoft.CodeAnalysis</RootNamespace>
+    <!-- Renamed so this assembly's identity doesn't collide with VS's in-box Roslyn (devenv.exe.config
+         binding-redirects any Microsoft.CodeAnalysis.* reference onto VS's own copy). -->
+    <AssemblyName>FollyOfTheUnbound.CodeAnalysis.Workspaces</AssemblyName>
+    <StrongNameKeyId>FollyOfTheUnbound</StrongNameKeyId>
+    <AssemblyOriginatorKeyFile>$(FollyOfTheUnboundKeyFile)</AssemblyOriginatorKeyFile>
+    <PublicKey>$(FollyOfTheUnboundPublicKey)</PublicKey>
+    <PublicKeyToken>$(FollyOfTheUnboundPublicKeyToken)</PublicKeyToken>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TargetFrameworks>$(NetRoslynSourceBuild);netstandard2.0</TargetFrameworks>
     <DefineConstants>$(DefineConstants);WORKSPACE</DefineConstants>
@@ -46,26 +53,26 @@
     <Compile Include="..\..\..\Compilers\Core\Portable\AssemblyUtilitiesCore.cs" Link="AssemblyUtilitiesCore.cs" />
   </ItemGroup>
   <ItemGroup>
-    <InternalsVisibleTo Include="AnalyzerRunner" />
-    <InternalsVisibleTo Include="csi" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.SemanticSearch.Extensions" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.EditorFeatures" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Features" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.LanguageServer.Protocol" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Workspaces" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.Text" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.DiagnosticsTests.Utilities" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.DiagnosticsTests.Utilities" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Apex" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Debugger" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.ExternalAccess" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.UnitTesting" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.HotReload" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.DevKit" />
+    <InternalsVisibleTo Include="AnalyzerRunner" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="csi" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.SemanticSearch.Extensions" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.EditorFeatures" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.LanguageServer.Protocol" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Workspaces" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.EditorFeatures" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.EditorFeatures.Text" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.DiagnosticsTests.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.DiagnosticsTests.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Apex" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Debugger" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.ExternalAccess" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.UnitTesting" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.HotReload" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.CodeAnalysis.Features" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.DevKit" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Razor" Key="$(RazorKey)" />
     <InternalsVisibleTo Include="Microsoft.VisualStudio.RazorExtension" Key="$(RazorKey)" />
     <InternalsVisibleTo Include="Microsoft.VisualStudioCode.RazorExtension" Key="$(RazorKey)" />
@@ -86,78 +93,78 @@
     <RestrictedInternalsVisibleTo Include="Microsoft.CodeAnalysis.LiveUnitTesting.Orchestrator" Partner="UnitTesting" Key="$(UnitTestingKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.CodeAnalysis.LiveUnitTesting.Orchestrator.UnitTests" Partner="UnitTesting" Key="$(UnitTestingKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.CodeAnalysis.LiveUnitTesting.Test.Utilities" Partner="UnitTesting" Key="$(UnitTestingKey)" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.Protocol" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Remote.ServiceHub" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Remote.Workspaces" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.Protocol" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Remote.ServiceHub" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Remote.Workspaces" Key="$(MicrosoftSharedPublicKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.CodeAnalysis.UnitTesting.SourceBasedTestDiscovery" Partner="UnitTesting" Key="$(UnitTestingKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.CodeAnalysis.UnitTesting.SourceBasedTestDiscovery.Core" Partner="UnitTesting" Key="$(UnitTestingKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.CodeAnalysis.UnitTesting.SourceBasedTestDiscovery.UnitTests" Partner="UnitTesting" Key="$(UnitTestingKey)" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.EditorFeatures" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Features" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.LanguageServer.Protocol" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.Desktop" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CodeLens" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CSharp" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Implementation" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.LiveShare" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.VisualBasic" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Xaml" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests" />
-    <InternalsVisibleTo Include="Roslyn.Hosting.Diagnostics" />
-    <InternalsVisibleTo Include="Roslyn.VisualStudio.Setup" />
-    <InternalsVisibleTo Include="Roslyn.VisualStudio.DiagnosticsWindow" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Features.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.EditorFeatures.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures2.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Features.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.EditorFeatures.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.DiagnosticsTests.Utilities" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.Test.Utilities" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.Protocol.Test.Utilities" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.Test.Utilities" />
-    <InternalsVisibleTo Include="IdeBenchmarks" />
-    <InternalsVisibleTo Include="IdeCoreBenchmarks" />
-    <InternalsVisibleTo Include="NgramStorageAnalyzer" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.Test.Utilities2" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.Test.Utilities" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests" />
-    <InternalsVisibleTo Include="Roslyn.VisualStudio.Closed.UnitTests" WorkItem="https://github.com/dotnet/roslyn/issues/35081" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.New.IntegrationTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.IntegrationTest.Setup" />
-    <InternalsVisibleTo Include="Roslyn.VisualStudio.Next.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.ExternalAccess" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.ExternalAccess.Copilot" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Test.Utilities2" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Copilot" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Extensions" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.ExternalAccess" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.FSharp" />
-    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.ExternalAccess" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.CSharp" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.AspNetCore" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Xaml" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.EditorConfigGenerator" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.VisualDiagnostics" />
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.TestDiscovery" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.EditorFeatures" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Features" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.LanguageServer.Protocol" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.Desktop" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.MSBuild" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CodeLens" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.LanguageServices" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.LanguageServices.CSharpUnbound" />
+    <InternalsVisibleTo Include="FollyOfTheUnbound.LanguageServices.Implementation" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.LiveShare" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.VisualBasic" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Xaml" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Roslyn.Hosting.Diagnostics" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Roslyn.VisualStudio.Setup" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Roslyn.VisualStudio.DiagnosticsWindow" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Features.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.EditorFeatures.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures2.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Features.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.EditorFeatures.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.DiagnosticsTests.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.Test.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.Protocol.Test.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.Test.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="IdeBenchmarks" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="IdeCoreBenchmarks" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="NgramStorageAnalyzer" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.EditorFeatures.Test.Utilities2" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Workspaces.Test.Utilities" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Roslyn.VisualStudio.Closed.UnitTests" Key="$(MicrosoftSharedPublicKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35081" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.New.IntegrationTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.IntegrationTest.Setup" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Roslyn.VisualStudio.Next.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.ExternalAccess" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.ExternalAccess.Copilot" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.Test.Utilities2" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Copilot" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Extensions" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.ExternalAccess" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.FSharp" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.LanguageServer.ExternalAccess" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.CSharp" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.AspNetCore" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Xaml" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.EditorConfigGenerator" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.VisualDiagnostics" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.TestDiscovery" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.TypeScript.EditorFeatures" Key="$(TypeScriptKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35077" />
     <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.TypeScript" Key="$(TypeScriptKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35077" />
     <InternalsVisibleTo Include="Roslyn.Services.Editor.TypeScript.UnitTests" Key="$(TypeScriptKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35077" />
@@ -168,11 +175,11 @@
     <RestrictedInternalsVisibleTo Include="Microsoft.VisualStudio.IntelliCode" Partner="Pythia" Key="$(IntelliCodeKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.VisualStudio.IntelliCode.CSharp" Partner="Pythia" Key="$(IntelliCodeCSharpKey)" />
     <RestrictedInternalsVisibleTo Include="Microsoft.VisualStudio.IntelliCode.CSharp.Extraction" Partner="Pythia" Key="$(IntelliCodeCSharpKey)" />
-    <RestrictedInternalsVisibleTo Include="Microsoft.Net.Sdk.AnalyzerRedirecting" Namespace="Microsoft.CodeAnalysis.Workspaces.AnalyzerRedirecting" />
+    <RestrictedInternalsVisibleTo Include="Microsoft.Net.Sdk.AnalyzerRedirecting" Key="$(MicrosoftSharedPublicKey)" Namespace="Microsoft.CodeAnalysis.Workspaces.AnalyzerRedirecting" />
   </ItemGroup>
   <ItemGroup>
     <!-- TODO: Remove the below IVTs to CodeStyle Unit test projects once all analyzer/code fix tests are switched to Microsoft.CodeAnalysis.Testing -->
-    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CodeStyle.LegacyTestFramework.UnitTestUtilities" />
+    <InternalsVisibleTo Include="Microsoft.CodeAnalysis.CodeStyle.LegacyTestFramework.UnitTestUtilities" Key="$(MicrosoftSharedPublicKey)" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Workspace\ProjectSystem\Readme.md" />

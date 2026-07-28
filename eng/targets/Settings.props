@@ -126,6 +126,16 @@
     <AIToolsKey>$(MicrosoftSharedPublicKey)</AIToolsKey>
   </PropertyGroup>
 
+  <!-- Strong-name identity for the assemblies renamed to FollyOfTheUnbound.* (see AssemblyName
+       overrides in their .csproj files). Using our own key here, instead of the MicrosoftShared key
+       every other project in this repo defaults to via Arcade's ProjectDefaults.props, makes these
+       assemblies unambiguously not Microsoft's, on top of the AssemblyName change alone. -->
+  <PropertyGroup>
+    <FollyOfTheUnboundKeyFile>$(RepoRoot)eng\keys\FollyOfTheUnbound.snk</FollyOfTheUnboundKeyFile>
+    <FollyOfTheUnboundPublicKey>0024000004800000940000000602000000240000525341310004000001000100f189e984a8ff2ddc3af74bc31c3be102c611ac15970d260c9492d159e2310e2e8500f30af86be2df604a6d3ed961170328d0087ef389ee6ab581644e1bc610442b83ab862c6111497e5359a57c3f360cd47c4d27c58a305b2857cdf52c5ec7f1546c3e866ab8f00afe357820eaac82b7cab4bd7f9dbc81548cd1fa5cc2bee3ca</FollyOfTheUnboundPublicKey>
+    <FollyOfTheUnboundPublicKeyToken>fb63bba87c641027</FollyOfTheUnboundPublicKeyToken>
+  </PropertyGroup>
+
   <!--
        Enable hard links for the build. This is not done by default due to fears about
        inadvertently corrupting the NuGet cache (hard links in the output directory will

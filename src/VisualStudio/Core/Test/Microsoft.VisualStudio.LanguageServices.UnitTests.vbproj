@@ -42,6 +42,13 @@
     <ProjectReference Include="..\..\..\Workspaces\CoreTestUtilities\Microsoft.CodeAnalysis.Workspaces.Test.Utilities.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Transitive dependencies pull in the real, released Microsoft.CodeAnalysis(.CSharp).Workspaces NuGet
+         packages, which collide (ambiguous type) with our own renamed ProjectReferences above since they no
+         longer share an assembly name for MSBuild to silently de-duplicate. Exclude the transitive copies. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" ExcludeAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" ExcludeAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
     <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.CSharp.UnitTests" />
   </ItemGroup>
   <ItemGroup>

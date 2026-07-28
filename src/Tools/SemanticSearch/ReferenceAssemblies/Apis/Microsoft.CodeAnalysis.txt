@@ -1894,6 +1894,7 @@ Microsoft.CodeAnalysis.OperationKind.VariableDeclaration
 Microsoft.CodeAnalysis.OperationKind.VariableDeclarationGroup
 Microsoft.CodeAnalysis.OperationKind.VariableDeclarator
 Microsoft.CodeAnalysis.OperationKind.VariableInitializer
+Microsoft.CodeAnalysis.OperationKind.VoidCoalesce
 Microsoft.CodeAnalysis.OperationKind.With
 Microsoft.CodeAnalysis.OperationKind.YieldBreak
 Microsoft.CodeAnalysis.OperationKind.YieldReturn
@@ -2360,6 +2361,9 @@ Microsoft.CodeAnalysis.Operations.IVariableDeclaratorOperation.get_IgnoredArgume
 Microsoft.CodeAnalysis.Operations.IVariableDeclaratorOperation.get_Initializer
 Microsoft.CodeAnalysis.Operations.IVariableDeclaratorOperation.get_Symbol
 Microsoft.CodeAnalysis.Operations.IVariableInitializerOperation
+Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation
+Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation.get_Access
+Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation.get_WhenNull
 Microsoft.CodeAnalysis.Operations.IWhileLoopOperation
 Microsoft.CodeAnalysis.Operations.IWhileLoopOperation.get_Condition
 Microsoft.CodeAnalysis.Operations.IWhileLoopOperation.get_ConditionIsTop
@@ -2531,6 +2535,7 @@ Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitVariableDeclaration(Micr
 Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitVariableDeclarationGroup(Microsoft.CodeAnalysis.Operations.IVariableDeclarationGroupOperation)
 Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitVariableDeclarator(Microsoft.CodeAnalysis.Operations.IVariableDeclaratorOperation)
 Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitVariableInitializer(Microsoft.CodeAnalysis.Operations.IVariableInitializerOperation)
+Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitVoidCoalesce(Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation)
 Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitWhileLoop(Microsoft.CodeAnalysis.Operations.IWhileLoopOperation)
 Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitWith(Microsoft.CodeAnalysis.Operations.IWithOperation)
 Microsoft.CodeAnalysis.Operations.OperationVisitor`2
@@ -2663,6 +2668,7 @@ Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitVariableDeclaration(Mi
 Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitVariableDeclarationGroup(Microsoft.CodeAnalysis.Operations.IVariableDeclarationGroupOperation,`0)
 Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitVariableDeclarator(Microsoft.CodeAnalysis.Operations.IVariableDeclaratorOperation,`0)
 Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitVariableInitializer(Microsoft.CodeAnalysis.Operations.IVariableInitializerOperation,`0)
+Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitVoidCoalesce(Microsoft.CodeAnalysis.Operations.IVoidCoalesceOperation,`0)
 Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitWhileLoop(Microsoft.CodeAnalysis.Operations.IWhileLoopOperation,`0)
 Microsoft.CodeAnalysis.Operations.OperationVisitor`2.VisitWith(Microsoft.CodeAnalysis.Operations.IWithOperation,`0)
 Microsoft.CodeAnalysis.Operations.OperationWalker
