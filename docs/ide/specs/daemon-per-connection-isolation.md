@@ -84,17 +84,23 @@ changes to the telemetry plumbing itself, not just this file. So of the three "p
 only `ExtensionLogDirectory` is close to independently fixable; `TelemetryLevel`/`SessionId` and
 `SourceGeneratorExecutionPreference` both bottom out in the same singleton problem as symptom 1.
 
-### 3. Global log broadcast (`GlobalLogMessageLogger`)
+### 3. Global log broadcast (`GlobalLogMessageLogger`) — fixed in phase 2
 
 `GlobalLogMessageLogger` (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/Logging/GlobalLogMessageLogger.cs`)
-implements the MEF-exported process-global `ILogger` by iterating every started server
-(`LanguageServerConnectionManager.GetStartedServers()`) and forwarding each log entry to every one of them
-over `window/logMessage`. Because some of what logs through this path is workspace-specific (e.g.
-`VSCodeExtensionAssemblyAnalyzerLoader.LoadFromPath` logs a full analyzer path), one client's activity
-becomes visible in every other connected client's log output. The root cause is that the operations being
-logged (extension loading, MEF composition) are themselves process-global under the current
-single-composition design, so there's no per-connection context available at the log call site to route
-through even in principle.
+implements the MEF-exported process-global `ILogger`. It **used to** iterate every started server
+(`LanguageServerConnectionManager.GetStartedServers()`) and forward each log entry to every one of them over
+`window/logMessage`, regardless of which connection the work was attributable to -- so, since some of what
+logs through this path is workspace-specific (e.g. `VSCodeExtensionAssemblyAnalyzerLoader.LoadFromPath` logs a
+full analyzer path), one client's activity became visible in every other connected client's log output.
+
+This is now fixed (phase 2, see "Suggested phasing" below): `LanguageServerConnectionManager` sets
+`DaemonConnectionContext.SetCurrent(server)` immediately before starting each connection's server, so the
+JSON-RPC dispatch loop that connection spins up captures it as ambient context.
+`GlobalLogMessageLogger.GetTargetServers` reads that ambient context and, when it identifies a still-live
+connection, routes the log entry to just that one server instead of broadcasting. The broadcast-to-all
+behavior is retained only as the fallback for genuinely ambientless activity (process-wide startup logging
+before any client has connected, or a stale ambient value whose connection already ended) -- see
+`GlobalLogMessageLoggerTests` for the cases this covers.
 
 ## Why one fix, not three
 
