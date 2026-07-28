@@ -21,6 +21,12 @@
     <PackageId>roslyn-language-server</PackageId>
     <ToolCommandName>roslyn-language-server</ToolCommandName>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- The packaged tool must bundle the language server (see PublishBundledLanguageServer below), which is
+         wired up as an AfterTargets="Publish" step. Pack does not otherwise depend on Publish, so make sure
+         Publish (and therefore the bundling step) runs before Pack when the two are invoked independently,
+         e.g. via this repo's build wrapper (`-pack`) or `folly.sh bind`, which do not run `dotnet publish` first. -->
+    <PackDependsOn>Publish;$(PackDependsOn)</PackDependsOn>
   </PropertyGroup>
 
   <Import Project="..\LanguageServerPublish.props" />
@@ -44,6 +50,7 @@
 
   <ItemGroup Label="Shared runtime host helper">
     <Compile Include="..\..\Compilers\Shared\RuntimeHostInfo.cs" LinkBase="Shared" />
+    <Compile Include="..\..\Workspaces\Core\Portable\Utilities\ProcessStartInfoExtensions.cs" LinkBase="Shared" />
   </ItemGroup>
 
   <!--

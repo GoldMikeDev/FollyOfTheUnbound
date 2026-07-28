@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
 
@@ -99,6 +100,8 @@ internal sealed class ServerExecutable
 
             startInfo.Environment[RuntimeHostInfo.DotNetRootEnvironmentName] = dotNetRoot;
         }
+
+        startInfo.RemoveInheritedDotNetDiagnosticPorts();
 
         foreach (var argument in arguments)
             startInfo.ArgumentList.Add(argument);

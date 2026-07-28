@@ -42,13 +42,18 @@ internal static class LspRelay
         var serverToEditor = CopyUntilClosedAsync(fromServer, toEditor, RelayEndpoint.Server, RelayEndpoint.Editor, cancellationSource.Token);
         var completedTask = await Task.WhenAny(editorToServer, serverToEditor).ConfigureAwait(false);
 
-        // Give the other direction a brief window to finish on its own. If it does, both sides closed, which
-        // indicates a clean shutdown rather than a crash on one side.
+        var result = await completedTask.ConfigureAwait(false);
+
+        // Give the other direction a brief window to finish on its own. A clean shutdown closes both sides, so
+        // the other direction's copy will also complete -- and, because it observed the *other* endpoint's
+        // stream closing, will report the opposite endpoint. If both directions instead report the same
+        // endpoint (e.g. a crash that tears down both of that endpoint's pipes at once), this is not a clean,
+        // two-sided shutdown.
         var otherTask = completedTask == editorToServer ? serverToEditor : editorToServer;
-        var bothSidesClosed = await Task.WhenAny(otherTask, Task.Delay(s_secondCloseGracePeriod)).ConfigureAwait(false) == otherTask;
+        var otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(s_secondCloseGracePeriod)).ConfigureAwait(false) == otherTask;
+        var bothSidesClosed = otherCompletedInTime && await otherTask.ConfigureAwait(false) != result;
 
         cancellationSource.Cancel();
-        var result = await completedTask.ConfigureAwait(false);
         return new RelayResult(result, bothSidesClosed);
     }
 

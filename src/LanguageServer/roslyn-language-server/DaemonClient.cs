@@ -35,7 +35,11 @@ internal static class DaemonClient
 {
     private static readonly TimeSpan s_daemonMutexTimeout = TimeSpan.FromSeconds(20);
     private static readonly TimeSpan s_existingDaemonConnectTimeout = TimeSpan.FromSeconds(5);
-    private static readonly TimeSpan s_newDaemonConnectTimeout = TimeSpan.FromSeconds(20);
+
+    // Must be at least DaemonBootstrap.ReadyTimeout: the bootstrap keeps trying to start the daemon for that
+    // long, so a shorter connect timeout here would make us give up on (and report a launch failure for) a
+    // daemon that is still legitimately starting, leaving a healthy but unused daemon running behind us.
+    private static readonly TimeSpan s_newDaemonConnectTimeout = DaemonBootstrap.ReadyTimeout;
 
     public static Task<DaemonConnectResult> ConnectAsync(
         ServerExecutable executable,
