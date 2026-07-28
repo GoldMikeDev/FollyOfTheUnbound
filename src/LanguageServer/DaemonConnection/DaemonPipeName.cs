@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
@@ -41,35 +42,50 @@ internal static class DaemonPipeName
     public const string PipeNameOverrideEnvironmentVariable = "ROSLYN_LANGUAGE_SERVER_DAEMON_PIPE_NAME";
 
     /// <summary>
-    /// Computes the pipe name for the current user, scoped by <paramref name="toolIdentifier"/>.
+    /// Computes the pipe name for the current user, scoped by <paramref name="toolIdentifier"/> and
+    /// <paramref name="serverArguments"/>.
     /// </summary>
-    public static string GetPipeName(string toolIdentifier)
+    public static string GetPipeName(string toolIdentifier, IReadOnlyList<string> serverArguments)
     {
-        // Prefix with username and elevation so different users / elevation levels don't share a daemon.
+        // Prefix with identity and elevation so different users / elevation levels don't share a daemon.
         var isAdmin = false;
+        var userName = Environment.UserName;
         if (OperatingSystem.IsWindows())
         {
             using var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             isAdmin = principal.IsInRole(WindowsBuiltInRole.Administrator);
+
+            // Environment.UserName is only the short account name, which a domain account and a local
+            // account can share on the same machine; the SID uniquely identifies the actual account, so
+            // prefer it when available.
+            userName = identity.User?.Value ?? userName;
         }
 
-        return GetPipeName(Environment.UserName, isAdmin, toolIdentifier);
+        return GetPipeName(userName, isAdmin, toolIdentifier, serverArguments);
     }
 
     /// <summary>
-    /// Computes the pipe name from the user identity and a tool identifier. The
-    /// <paramref name="toolIdentifier"/> ensures only compatible clients connect to a compatible
-    /// server; we use the full path to the server executable (in a versioned location).
+    /// Computes the pipe name from the user identity, a tool identifier, and the daemon-global startup
+    /// arguments. The <paramref name="toolIdentifier"/> ensures only compatible clients connect to a
+    /// compatible server; we use the full path to the server executable (in a versioned location).
+    /// <paramref name="serverArguments"/> (forwarded verbatim to the daemon on first launch -- e.g.
+    /// <c>--extension</c>, <c>--devKitDependencyPath</c>) ensures clients requesting incompatible startup
+    /// configuration don't silently share a daemon composed for a different one; since MEF composition
+    /// only happens once per daemon, a second client's requested extensions/configuration would otherwise
+    /// be silently ignored.
     /// </summary>
-    public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier)
+    public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier, IReadOnlyList<string> serverArguments)
     {
         // Windows paths are case-insensitive. Preserve casing on other platforms, where paths may be
         // case-sensitive and distinct executables must not share a daemon.
         if (OperatingSystem.IsWindows())
             toolIdentifier = toolIdentifier.ToLowerInvariant();
 
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}";
+        // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
+        // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
+        // ["--extension", "a", "b"]).
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', serverArguments)}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")

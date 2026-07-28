@@ -90,8 +90,14 @@ internal sealed class LanguageServerWorkspaceFactory : ILspService, IHostWorkspa
 
     public void Dispose()
     {
+        // The project factories don't own their workspaces -- disposing them alone clears their project
+        // system state but leaves the Host and MiscellaneousFiles workspaces themselves (and their
+        // registered solutions/services/event listeners) alive until the daemon process exits. Dispose
+        // the workspaces too so a completed per-server connection actually releases them.
         HostProjectFactory.Dispose();
+        HostProjectFactory.Workspace.Dispose();
         MiscellaneousFilesWorkspaceProjectFactory.Dispose();
+        MiscellaneousFilesWorkspaceProjectFactory.Workspace.Dispose();
     }
 
     private ImmutableArray<AnalyzerFileReference> CreateSolutionLevelAnalyzerReferences(IAnalyzerAssemblyLoaderProvider loaderProvider)

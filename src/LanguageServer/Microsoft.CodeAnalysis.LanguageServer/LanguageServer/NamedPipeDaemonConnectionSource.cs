@@ -110,6 +110,16 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
                 continue;
             }
 
+            // CurrentUserOnly (used by both client and server) already guarantees matching identity, but not
+            // matching elevation -- without this check an unelevated process running as the same user could
+            // derive an elevated daemon's pipe name and submit LSP requests with the daemon's privileges.
+            if (!NamedPipeUtil.CheckClientElevationMatches(pipeStream))
+            {
+                _logger.LogWarning("Daemon rejected a client connection whose elevation did not match the daemon's.");
+                await pipeStream.DisposeAsync().ConfigureAwait(false);
+                continue;
+            }
+
             _onConnectionAccepted?.Invoke();
             _idleTimeout.OpenConnection();
             _logger.LogInformation("Daemon accepted a new client connection.");

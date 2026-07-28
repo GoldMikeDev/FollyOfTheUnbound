@@ -20,7 +20,9 @@ namespace Microsoft.CodeAnalysis.LanguageServer.Client;
 /// prevents the child from receiving them, while the freshly created redirection pipes (which the runtime sets up
 /// separately) are unaffected. A no-op off Windows, where redirected children don't leak the parent's standard handles.
 /// </para>
-/// TODO - Switch to ProcessStartInfo.InheritedHandles when we upgrade to .NET 11 which allows us to configure handle inheritance directly.
+/// Tracked follow-up: switch to ProcessStartInfo.InheritedHandles when we upgrade to .NET 11, which
+/// allows us to configure handle inheritance directly -- see
+/// https://github.com/GoldMikeDev/roslyn/issues/8.
 /// </summary>
 internal static class DaemonHandleInheritance
 {
