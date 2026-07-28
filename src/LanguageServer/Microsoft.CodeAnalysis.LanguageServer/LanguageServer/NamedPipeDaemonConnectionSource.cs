@@ -113,7 +113,23 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
             // CurrentUserOnly (used by both client and server) already guarantees matching identity, but not
             // matching elevation -- without this check an unelevated process running as the same user could
             // derive an elevated daemon's pipe name and submit LSP requests with the daemon's privileges.
-            if (!NamedPipeUtil.CheckClientElevationMatches(pipeStream))
+            // A client that disconnects immediately after WaitForConnectionAsync succeeds (e.g. it gave up
+            // waiting) can make this check itself throw -- treat that the same as any other single-connection
+            // failure (log and move on to the next client) rather than let it escape the loop and take the
+            // whole daemon down with it.
+            bool elevationMatches;
+            try
+            {
+                elevationMatches = NamedPipeUtil.CheckClientElevationMatches(pipeStream);
+            }
+            catch (Exception ex) when (ex is IOException or ObjectDisposedException)
+            {
+                _logger.LogWarning(ex, "Daemon failed to verify a client connection's elevation; treating it as rejected.");
+                await pipeStream.DisposeAsync().ConfigureAwait(false);
+                continue;
+            }
+
+            if (!elevationMatches)
             {
                 _logger.LogWarning("Daemon rejected a client connection whose elevation did not match the daemon's.");
                 await pipeStream.DisposeAsync().ConfigureAwait(false);
