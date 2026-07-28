@@ -1,9 +1,10 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
@@ -50,6 +51,14 @@ internal static class DaemonPipeName
     public const string DaemonKeepAliveEnvironmentVariable = "ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE";
 
     /// <summary>
+    /// The daemon keepalive (in seconds) used when neither <c>--daemonKeepAlive</c> nor
+    /// <see cref="DaemonKeepAliveEnvironmentVariable"/> resolve to a valid value. Defined here (rather than
+    /// solely in <c>LanguageServerCommandLine</c>) so the pipe-key computation can normalize an unset/invalid
+    /// environment value to the same effective setting <c>LanguageServerCommandLine</c> would resolve to.
+    /// </summary>
+    public const int DefaultDaemonKeepAliveSeconds = 15 * 60;
+
+    /// <summary>
     /// Computes the pipe name for the current user, scoped by <paramref name="toolIdentifier"/> and
     /// <paramref name="serverArguments"/>.
     /// </summary>
@@ -83,15 +92,20 @@ internal static class DaemonPipeName
     /// only happens once per daemon, a second client's requested extensions/configuration would otherwise
     /// be silently ignored.
     /// <para>
-    /// Also folds in <see cref="DaemonKeepAliveEnvironmentVariable"/>'s raw value, even though it's an
-    /// environment variable rather than one of <paramref name="serverArguments"/>: unlike most per-session
-    /// settings, keepalive genuinely can't be given per-connection semantics (it governs how long the one
-    /// shared daemon process lingers after its *last* client disconnects, not any single client's session),
-    /// so two clients wanting different keepalives can only be reconciled by giving them separate daemons,
-    /// the same trade-off already accepted for incompatible <paramref name="serverArguments"/>. An explicit
-    /// <c>--daemonKeepAlive</c> argument already flows through <paramref name="serverArguments"/> and doesn't
-    /// need separate handling here; this only matters when a client relies on the environment variable
-    /// default, which wouldn't otherwise appear anywhere in the hashed input.
+    /// Also folds in the *effective* <see cref="DaemonKeepAliveEnvironmentVariable"/> setting, even though
+    /// it's an environment variable rather than one of <paramref name="serverArguments"/>: unlike most
+    /// per-session settings, keepalive genuinely can't be given per-connection semantics (it governs how long
+    /// the one shared daemon process lingers after its *last* client disconnects, not any single client's
+    /// session), so two clients wanting different keepalives can only be reconciled by giving them separate
+    /// daemons, the same trade-off already accepted for incompatible <paramref name="serverArguments"/>. An
+    /// explicit <c>--daemonKeepAlive</c> argument already flows through <paramref name="serverArguments"/>
+    /// and takes precedence over the environment variable in <c>LanguageServerCommandLine</c>, so when one is
+    /// present here the environment variable is ignored entirely for the key too -- clients that already agree
+    /// on an explicit keepalive shouldn't be split into separate daemons just because they inherited different,
+    /// moot environment values. When there's no explicit argument, the raw environment value is normalized to
+    /// the effective seconds it resolves to (matching <c>LanguageServerCommandLine</c>'s own fallback), so an
+    /// unset variable, one equal to the default, and an invalid one that also falls back to the default don't
+    /// get split into unnecessary separate daemons either.
     /// </para>
     /// </summary>
     public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier, IReadOnlyList<string> serverArguments)
@@ -101,16 +115,32 @@ internal static class DaemonPipeName
         if (OperatingSystem.IsWindows())
             toolIdentifier = toolIdentifier.ToLowerInvariant();
 
-        var keepAliveEnvironmentValue = Environment.GetEnvironmentVariable(DaemonKeepAliveEnvironmentVariable) ?? string.Empty;
+        var effectiveKeepAlive = GetEffectiveKeepAliveForPipeKey(serverArguments);
 
         // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
         // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
         // ["--extension", "a", "b"]).
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', serverArguments)}.{keepAliveEnvironmentValue}";
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', serverArguments)}.{effectiveKeepAlive}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")
             .Replace("=", string.Empty);
+    }
+
+    private static string GetEffectiveKeepAliveForPipeKey(IReadOnlyList<string> serverArguments)
+    {
+        foreach (var argument in serverArguments)
+        {
+            if (argument == "--daemonKeepAlive")
+                return string.Empty;
+        }
+
+        var rawValue = Environment.GetEnvironmentVariable(DaemonKeepAliveEnvironmentVariable);
+        var effectiveSeconds = int.TryParse(rawValue, out var value) && value >= -1
+            ? value
+            : DefaultDaemonKeepAliveSeconds;
+
+        return effectiveSeconds.ToString(CultureInfo.InvariantCulture);
     }
 
     /// <summary>

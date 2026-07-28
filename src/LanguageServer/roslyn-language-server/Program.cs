@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
 
@@ -48,6 +49,7 @@ internal static class Program
                     using var editorConnection = await EditorConnection.CreateAsync(thinClientArguments);
                     return await RelayDaemonAsync(
                         daemonResult.NamedPipeStream,
+                        daemonResult.PipeName,
                         editorConnection);
                 }
 
@@ -69,6 +71,7 @@ internal static class Program
 
     private static async Task<int> RelayDaemonAsync(
         Stream daemonStream,
+        string pipeName,
         EditorConnection editorConnection)
     {
         var relayResult = await LspRelay.RelayAsync(
@@ -77,8 +80,13 @@ internal static class Program
             daemonStream,
             daemonStream);
 
-        // A clean LSP shutdown closes both sides; report success so the editor doesn't treat it as a crash.
-        if (relayResult.BothSidesClosed)
+        // A clean LSP shutdown closes both sides -- but a graceful-looking pipe closure alone isn't proof of
+        // one: the daemon process being killed closes its pipe handle the same way a graceful Dispose() after
+        // processing 'exit' does, so LspRelay's byte-level signal can't tell "this connection ended cleanly"
+        // apart from "the whole daemon just died." Disambiguate with a signal LspRelay doesn't have access to:
+        // whether the daemon still holds its server mutex. A per-connection clean shutdown leaves the daemon
+        // (and its mutex) alive for other clients; the daemon dying releases it.
+        if (relayResult.BothSidesClosed && DaemonServerMutex.IsRunning(pipeName))
         {
             Console.Error.WriteLine("Language server session ended cleanly.");
             return ExitCodes.Success;

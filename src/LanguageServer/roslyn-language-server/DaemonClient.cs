@@ -10,22 +10,32 @@ namespace Microsoft.CodeAnalysis.LanguageServer.Client;
 
 internal sealed class DaemonConnectResult : IDisposable
 {
-    private DaemonConnectResult(bool daemonConnected, Stream? namedPipeStream)
+    private DaemonConnectResult(bool daemonConnected, Stream? namedPipeStream, string? pipeName)
     {
         DaemonConnected = daemonConnected;
         NamedPipeStream = namedPipeStream;
+        PipeName = pipeName;
     }
 
     [MemberNotNullWhen(true, nameof(NamedPipeStream))]
+    [MemberNotNullWhen(true, nameof(PipeName))]
     public bool DaemonConnected { get; }
 
     public Stream? NamedPipeStream { get; }
 
-    public static DaemonConnectResult Connected(Stream stream)
-        => new(daemonConnected: true, stream);
+    /// <summary>
+    /// The pipe this connection was made to, so callers can independently check
+    /// <see cref="DaemonServerMutex.IsRunning(string)"/> later -- e.g. to tell a clean per-connection shutdown
+    /// apart from the whole daemon process dying, which the pipe stream's own EOF can't distinguish (a killed
+    /// process's pipe handle closes the same way a graceful one does).
+    /// </summary>
+    public string? PipeName { get; }
+
+    public static DaemonConnectResult Connected(Stream stream, string pipeName)
+        => new(daemonConnected: true, stream, pipeName);
 
     public static DaemonConnectResult FallbackToNonDaemon()
-        => new(daemonConnected: false, namedPipeStream: null);
+        => new(daemonConnected: false, namedPipeStream: null, pipeName: null);
 
     public void Dispose()
         => NamedPipeStream?.Dispose();
@@ -64,7 +74,7 @@ internal static class DaemonClient
 
             try
             {
-                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon)));
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon), pipeName));
             }
             catch (TimeoutException) when (!launchedDaemon)
             {
@@ -79,7 +89,7 @@ internal static class DaemonClient
                     throw;
 
                 LaunchDaemon(pipeName, serverArguments);
-                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true)));
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true), pipeName));
             }
         }
     }

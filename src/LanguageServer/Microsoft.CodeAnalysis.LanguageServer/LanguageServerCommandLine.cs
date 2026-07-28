@@ -225,9 +225,12 @@ internal static class LanguageServerCommandLine
     }
 
     /// <summary>
-    /// The default amount of time a daemon stays alive after its last client disconnects.
+    /// The default amount of time a daemon stays alive after its last client disconnects. Defined in
+    /// <see cref="Daemon.DaemonPipeName"/> (shared with the thin client) since the pipe-key computation also
+    /// needs this default to normalize an unset/invalid environment value; aliased here so existing
+    /// references in this file don't change.
     /// </summary>
-    internal const int DefaultDaemonKeepAliveSeconds = 15 * 60;
+    internal const int DefaultDaemonKeepAliveSeconds = Daemon.DaemonPipeName.DefaultDaemonKeepAliveSeconds;
 
     /// <summary>
     /// Environment variable that can override the daemon keepalive (in seconds) when the

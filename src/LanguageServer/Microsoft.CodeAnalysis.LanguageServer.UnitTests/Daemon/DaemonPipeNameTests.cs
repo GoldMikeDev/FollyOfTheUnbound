@@ -101,6 +101,59 @@ public sealed class DaemonPipeNameTests
     }
 
     [Fact]
+    public void PipeName_NormalizesEquivalentKeepAliveEnvironmentValues()
+    {
+        // An unset variable, one explicitly equal to the default, and an invalid one (which also falls back
+        // to the default in LanguageServerCommandLine) all resolve to the same effective keepalive -- clients
+        // that happen to differ only in these should still share a daemon rather than being split unnecessarily.
+        var original = Environment.GetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable);
+        try
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, null);
+            var unset = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, DaemonPipeName.DefaultDaemonKeepAliveSeconds.ToString());
+            var explicitDefault = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "not-a-number");
+            var invalid = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Assert.Equal(unset, explicitDefault);
+            Assert.Equal(unset, invalid);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, original);
+        }
+    }
+
+    [Fact]
+    public void PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit()
+    {
+        // An explicit --daemonKeepAlive argument already dominates the environment variable in
+        // LanguageServerCommandLine, and it's already part of serverArguments -- so two clients that agree on
+        // an explicit value shouldn't be split into separate daemons just because they inherited different,
+        // moot environment values.
+        var original = Environment.GetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable);
+        try
+        {
+            string[] explicitArguments = ["--daemonKeepAlive", "60"];
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "1");
+            var withEnvironmentValueOne = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, explicitArguments);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "3600");
+            var withEnvironmentValueDifferent = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, explicitArguments);
+
+            Assert.Equal(withEnvironmentValueOne, withEnvironmentValueDifferent);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, original);
+        }
+    }
+
+    [Fact]
     public void PipeName_IsFileSystemAndUrlSafe()
     {
         var name = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
