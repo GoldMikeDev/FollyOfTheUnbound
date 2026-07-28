@@ -62,18 +62,41 @@ internal static class DaemonClient
                 launchedDaemon = true;
             }
 
-            var pipeClient = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
             try
             {
-                var connectTimeout = launchedDaemon ? s_newDaemonConnectTimeout : s_existingDaemonConnectTimeout;
-                pipeClient.Connect(connectTimeout);
-                return Task.FromResult(DaemonConnectResult.Connected(pipeClient));
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon)));
             }
-            catch
+            catch (TimeoutException) when (!launchedDaemon)
             {
-                pipeClient.Dispose();
-                throw;
+                // The daemon IsRunning observed above can have exited (crashed, or its idle-keepalive window
+                // elapsed) in the gap between that check and this connect attempt -- nothing here holds it open,
+                // so this is a genuine TOCTOU race, not just a slow daemon. Recheck under the same client mutex
+                // (still held, so no other client can race us here) before concluding it's really gone: if it's
+                // still running, the timeout is a real connection problem and should propagate as one; otherwise
+                // launch a fresh daemon and connect to that instead of surfacing a spurious launch failure for a
+                // daemon that simply isn't there anymore.
+                if (DaemonServerMutex.IsRunning(pipeName))
+                    throw;
+
+                LaunchDaemon(pipeName, serverArguments);
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true)));
             }
+        }
+    }
+
+    private static Stream ConnectPipe(string pipeName, bool launchedDaemon)
+    {
+        var pipeClient = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
+        try
+        {
+            var connectTimeout = launchedDaemon ? s_newDaemonConnectTimeout : s_existingDaemonConnectTimeout;
+            pipeClient.Connect(connectTimeout);
+            return pipeClient;
+        }
+        catch
+        {
+            pipeClient.Dispose();
+            throw;
         }
     }
 

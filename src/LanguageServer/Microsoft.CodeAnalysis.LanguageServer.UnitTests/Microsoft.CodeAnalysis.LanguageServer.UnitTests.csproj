@@ -28,6 +28,14 @@
     <Compile Include="..\..\Compilers\Shared\NamedPipeUtil.cs" Link="Daemon\NamedPipeUtil.cs" />
   </ItemGroup>
 
+  <ItemGroup Label="Thin client relay logic under test">
+    <!-- LspRelay has no dependency on the daemon/workspace layer, so it's simplest to link it (and its stream-copy
+         helper) directly into this test project rather than adding a ProjectReference to the AOT/trim-sensitive
+         thin client project. -->
+    <Compile Include="..\roslyn-language-server\LspRelay.cs" Link="Client\LspRelay.cs" />
+    <Compile Include="..\roslyn-language-server\ProcessUtilities.cs" Link="Client\ProcessUtilities.cs" />
+  </ItemGroup>
+
   <!--
     Copy files contained in the project to a RoslynLSP subdirectory to emulate deployment of the language server.
   -->
