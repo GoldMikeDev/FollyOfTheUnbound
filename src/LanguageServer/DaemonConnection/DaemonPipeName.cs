@@ -42,6 +42,14 @@ internal static class DaemonPipeName
     public const string PipeNameOverrideEnvironmentVariable = "ROSLYN_LANGUAGE_SERVER_DAEMON_PIPE_NAME";
 
     /// <summary>
+    /// Environment variable that overrides the daemon's keepalive (in seconds) when <c>--daemonKeepAlive</c>
+    /// isn't explicitly passed. Defined here (rather than solely in <c>LanguageServerCommandLine</c>, which
+    /// resolves it into the effective value) because <see cref="GetPipeName(string, bool, string, IReadOnlyList{string})"/>
+    /// needs the same name to fold this setting into the pipe key -- see the remarks there for why.
+    /// </summary>
+    public const string DaemonKeepAliveEnvironmentVariable = "ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE";
+
+    /// <summary>
     /// Computes the pipe name for the current user, scoped by <paramref name="toolIdentifier"/> and
     /// <paramref name="serverArguments"/>.
     /// </summary>
@@ -74,6 +82,17 @@ internal static class DaemonPipeName
     /// configuration don't silently share a daemon composed for a different one; since MEF composition
     /// only happens once per daemon, a second client's requested extensions/configuration would otherwise
     /// be silently ignored.
+    /// <para>
+    /// Also folds in <see cref="DaemonKeepAliveEnvironmentVariable"/>'s raw value, even though it's an
+    /// environment variable rather than one of <paramref name="serverArguments"/>: unlike most per-session
+    /// settings, keepalive genuinely can't be given per-connection semantics (it governs how long the one
+    /// shared daemon process lingers after its *last* client disconnects, not any single client's session),
+    /// so two clients wanting different keepalives can only be reconciled by giving them separate daemons,
+    /// the same trade-off already accepted for incompatible <paramref name="serverArguments"/>. An explicit
+    /// <c>--daemonKeepAlive</c> argument already flows through <paramref name="serverArguments"/> and doesn't
+    /// need separate handling here; this only matters when a client relies on the environment variable
+    /// default, which wouldn't otherwise appear anywhere in the hashed input.
+    /// </para>
     /// </summary>
     public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier, IReadOnlyList<string> serverArguments)
     {
@@ -82,10 +101,12 @@ internal static class DaemonPipeName
         if (OperatingSystem.IsWindows())
             toolIdentifier = toolIdentifier.ToLowerInvariant();
 
+        var keepAliveEnvironmentValue = Environment.GetEnvironmentVariable(DaemonKeepAliveEnvironmentVariable) ?? string.Empty;
+
         // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
         // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
         // ["--extension", "a", "b"]).
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', serverArguments)}";
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', serverArguments)}.{keepAliveEnvironmentValue}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")

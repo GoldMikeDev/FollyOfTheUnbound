@@ -44,6 +44,28 @@ public class MyTests
 Both modes share the same `LogMessageReceived` event and `window/logMessage` capture on the test LSP client,
 and the same file-watcher-release / MEF composition setup from the base class.
 
+## Language Server process-host tests (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests`)
+
+A separate, heavier base from the in-memory one above: `AbstractLanguageServerClientTests`
+(`Utilities/AbstractLanguageServerClientTests.cs`) actually launches the real `roslyn-language-server` thin
+client and `Microsoft.CodeAnalysis.LanguageServer` as out-of-process executables (deployed into a `RoslynLSP`
+test-output subdirectory — see the project's `_CopyLanguageServerFiles`/`_CopyThinClientFiles` MSBuild
+targets), rather than wiring an in-memory `LanguageServerHost` to in-process pipes. Use this layer for
+anything that needs the real process boundary: daemon bootstrap/orphaning, named-pipe vs. stdio transport
+selection, or process-kill/crash lifecycle behavior that an in-memory host can't exercise.
+
+`CreateLanguageServerAsync` selects one of four launch modes via `LspServerLaunchOptions`
+(`DaemonMode` × `UseNamedPipe`), each routed to its own `TestLspClient` factory:
+
+- `TestLspClient.CreateDaemonPipeAsync` — daemon mode over a named pipe.
+- `TestLspClient.CreateDaemonStdioAsync` — daemon mode over stdio.
+- `TestLspClient.CreateSingleServerPipeAsync` — single-server (non-daemon) mode over a named pipe.
+- `TestLspClient.CreateSingleServerStdioAsync` — single-server mode over stdio.
+
+See `Lifecycle/DaemonServerLifecycleTests.cs` and `Lifecycle/SingleServerLifecycleTests.cs` for the existing
+lifecycle/cleanup conventions (e.g. asserting on process exit codes, killing one client/the daemon and
+checking only the expected connections tear down) before adding another ad hoc process-launching test.
+
 ## Conventions
 
 - Use `[UseExportProvider]` for any test that depends on MEF services (a missing

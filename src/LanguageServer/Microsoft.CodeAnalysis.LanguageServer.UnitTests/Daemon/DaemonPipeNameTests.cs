@@ -71,6 +71,36 @@ public sealed class DaemonPipeNameTests
     }
 
     [Fact]
+    public void PipeName_DiffersByKeepAliveEnvironmentVariable()
+    {
+        // Keepalive genuinely can't be given per-connection semantics (it governs how long the one shared
+        // daemon lingers after its *last* client disconnects), so two clients relying on different
+        // ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE values -- without an explicit --daemonKeepAlive argument,
+        // which would already be part of serverArguments -- must get separate daemons rather than one
+        // silently ignoring the other's requested lifetime.
+        var original = Environment.GetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable);
+        try
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "60");
+            var short60 = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "3600");
+            var long3600 = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, null);
+            var unset = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Assert.NotEqual(short60, long3600);
+            Assert.NotEqual(short60, unset);
+            Assert.NotEqual(long3600, unset);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, original);
+        }
+    }
+
+    [Fact]
     public void PipeName_IsFileSystemAndUrlSafe()
     {
         var name = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);

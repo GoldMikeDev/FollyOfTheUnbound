@@ -82,19 +82,27 @@ internal sealed class GlobalLogMessageLogger(
     }
 
     /// <summary>
-    /// The server(s) this log entry should be delivered to. When the ambient <see cref="DaemonConnectionContext"/>
-    /// identifies a still-live connection, this call is attributable to that one connection alone -- e.g. a
-    /// daemon client's own extension loading -- so route to just that server instead of every connected
-    /// client. Falls back to every started server (the pre-existing broadcast behavior) when there's no
-    /// ambient connection (genuine process-wide activity, or single-server/non-daemon mode) or it's no longer
-    /// live, since in those cases there's no more specific target to prefer.
+    /// The server(s) this log entry should be delivered to.
+    /// <list type="bullet">
+    /// <item>No ambient <see cref="DaemonConnectionContext"/>: genuine process-wide activity (e.g. before any
+    /// client has connected, or single-server/non-daemon mode) -- broadcast to every started server (the
+    /// pre-existing behavior), since there's no more specific target to prefer.</item>
+    /// <item>Ambient connection set and still live: this call is attributable to that one connection alone --
+    /// e.g. a daemon client's own extension loading -- so route to just that server.</item>
+    /// <item>Ambient connection set but no longer live (its connection ended, e.g. a fire-and-forget
+    /// non-mutating request whose work outlives client disconnection -- <c>RequestExecutionQueue</c> cancels
+    /// such work on shutdown without awaiting it): this call is still attributable to that one, now-departed
+    /// connection, not to process-wide activity, so it must not be broadcast to *other*, unrelated live
+    /// clients either. Falls through to the fallback logger instead (an empty target list), the same as the
+    /// "no servers started yet" case.</item>
+    /// </list>
     /// </summary>
     private ImmutableArray<LanguageServerHost> GetTargetServers()
     {
         var servers = connectionManager.GetStartedServers();
 
-        if (DaemonConnectionContext.Current is { } currentConnection && servers.Contains(currentConnection))
-            return [currentConnection];
+        if (DaemonConnectionContext.Current is { } currentConnection)
+            return servers.Contains(currentConnection) ? [currentConnection] : [];
 
         return servers;
     }

@@ -55,7 +55,7 @@ public sealed class GlobalLogMessageLoggerTests(ITestOutputHelper testOutputHelp
     }
 
     [Fact]
-    public async Task AmbientConnectionSetButNoLongerLive_FallsBackToAllStartedServers()
+    public async Task AmbientConnectionSetButNoLongerLive_AndNoOtherServers_TargetsNothing()
     {
         await using var daemon = await CreateDaemonServerAsync();
         var first = await daemon.CreateClientAsync();
@@ -73,9 +73,35 @@ public sealed class GlobalLogMessageLoggerTests(ITestOutputHelper testOutputHelp
         DaemonConnectionContext.SetCurrent(staleServer);
         var targets = logger.GetTestAccessor().GetTargetServers();
 
-        // No longer a valid target to prefer, so this falls back to the (now empty) set of started servers --
-        // not to the stale server, which the caller shouldn't be sending anything to anymore.
+        // No longer a valid target -- falls through to the fallback logger (empty target list) rather than
+        // the stale server, which the caller shouldn't be sending anything to anymore.
         Assert.Empty(targets);
+    }
+
+    [Fact]
+    public async Task AmbientConnectionSetButNoLongerLive_WithOtherServersStillConnected_DoesNotLeakToThem()
+    {
+        // This is the case NoLongerLive_AndNoOtherServers can't distinguish from a genuinely ambientless call:
+        // a log entry attributable to one, now-disconnected client must not be broadcast to a *different*,
+        // still-live client's logs either -- it's not process-wide activity just because its own connection
+        // ended, so the "no ambient connection" broadcast fallback must not apply here.
+        await using var daemon = await CreateDaemonServerAsync();
+        var first = await daemon.CreateClientAsync();
+        await using var survivor = await daemon.CreateClientAsync();
+
+        var logger = CreateLogger(daemon);
+        var serversBeforeDisconnect = daemon.GetStartedServers();
+
+        await first.DisposeAsync();
+        await WaitForConditionAsync(() => daemon.GetStartedServers().Length == 1);
+        var survivorServer = daemon.GetStartedServers().Single();
+        var staleServer = serversBeforeDisconnect.Single(s => s != survivorServer);
+
+        DaemonConnectionContext.SetCurrent(staleServer);
+        var targets = logger.GetTestAccessor().GetTargetServers();
+
+        Assert.Empty(targets);
+        Assert.DoesNotContain(survivorServer, targets);
     }
 
     [Fact]

@@ -231,9 +231,11 @@ internal static class LanguageServerCommandLine
 
     /// <summary>
     /// Environment variable that can override the daemon keepalive (in seconds) when the
-    /// <c>--daemonKeepAlive</c> option is not specified.
+    /// <c>--daemonKeepAlive</c> option is not specified. Defined in <see cref="Daemon.DaemonPipeName"/>
+    /// (shared with the thin client) since the pipe-key computation also needs this name; aliased here so
+    /// existing references in this file don't change.
     /// </summary>
-    internal const string DaemonKeepAliveEnvironmentVariable = "ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE";
+    internal const string DaemonKeepAliveEnvironmentVariable = Daemon.DaemonPipeName.DaemonKeepAliveEnvironmentVariable;
 
     private static TimeSpan ResolveDaemonKeepAlive(int seconds)
     {

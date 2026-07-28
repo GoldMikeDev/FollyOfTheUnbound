@@ -84,6 +84,18 @@ changes to the telemetry plumbing itself, not just this file. So of the three "p
 only `ExtensionLogDirectory` is close to independently fixable; `TelemetryLevel`/`SessionId` and
 `SourceGeneratorExecutionPreference` both bottom out in the same singleton problem as symptom 1.
 
+**A fourth, narrower case turned out to be genuinely fixable, unlike the three above — fixed directly**:
+`ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE` (resolved into the daemon's keepalive by
+`LanguageServerCommandLine`) is read from the *environment*, not from `serverArguments`, so two clients
+relying on different values for it (without an explicit `--daemonKeepAlive` argument, which would already be
+part of `serverArguments`) previously derived the same pipe name and silently shared a daemon keyed to
+whichever value happened to launch it. Unlike `ExtensionLogDirectory`, keepalive can't be given per-connection
+semantics at all — it governs how long the one shared daemon lingers after its *last* client disconnects, not
+any single client's session — so there's no routing fix available, only the same "different daemons" trade-off
+already accepted for incompatible `serverArguments`. `DaemonKeepAliveEnvironmentVariable` moved from
+`LanguageServerCommandLine` into the shared `DaemonPipeName.cs` (aliased back for source compatibility) so its
+raw value can be folded into the pipe-key hash. See `DaemonPipeNameTests.PipeName_DiffersByKeepAliveEnvironmentVariable`.
+
 ### 3. Global log broadcast (`GlobalLogMessageLogger`) — fixed in phase 2
 
 `GlobalLogMessageLogger` (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/Logging/GlobalLogMessageLogger.cs`)
@@ -144,12 +156,19 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
 2. **Wire it into `GlobalLogMessageLogger`** — done. `LanguageServerConnectionManager.TryStartServerAsync`
    calls `DaemonConnectionContext.SetCurrent(server)` immediately before `server.Start()` (so the JSON-RPC
    dispatch loop `Start()` spins up captures it), and `GlobalLogMessageLogger.GetTargetServers` routes to just
-   that connection when it's set and still live, falling back to the pre-existing broadcast-to-all otherwise.
-   Verified by `GlobalLogMessageLoggerTests`, using the real two-client daemon test harness (not mocks): no
-   ambient context broadcasts to all, a live ambient connection routes to just that one, a stale ambient
-   connection (its client disconnected after the value was captured) falls back to broadcast rather than
-   targeting a torn-down server, and two connections' ambient values don't cross-talk. All 4 pass, plus the
-   full pre-existing 28-test daemon suite still passes unchanged.
+   that connection when it's set and still live. **Refined after an initial gap**: a *stale* ambient
+   connection (its client disconnected after the value was captured, e.g. `RequestExecutionQueue` cancels a
+   fire-and-forget non-mutating request on shutdown without awaiting it, so the request's own work can still
+   be running and logging after its connection is gone) does **not** fall back to broadcasting to every other,
+   *unrelated* live connection -- that would just relocate the leak from "this client's activity visible
+   everywhere" to "this now-departed client's activity visible in other still-connected clients' logs," not
+   fix it. It falls through to the fallback logger (an empty target list) instead, same as the "no servers
+   started yet" case. Only a genuinely null ambient context (no connection at all, e.g. process-wide startup
+   logging) still broadcasts. Verified by `GlobalLogMessageLoggerTests`, using the real multi-client daemon
+   test harness (not mocks): no ambient context broadcasts to all; a live ambient connection routes to just
+   that one; a stale ambient connection with no other servers targets nothing; a stale ambient connection
+   *with another live connection still connected* does not leak to it; and two connections' ambient values
+   don't cross-talk. All 6 pass, plus the full pre-existing 28-test daemon suite still passes unchanged.
 3. **Audit every `IGlobalOptionService` call site** reachable from daemon-mode code before touching anything
    — this is the expensive, non-optional step. A facade is easy to write; verifying nothing still calls the
    raw shared singleton directly and silently bypasses it is the actual work, and doing it half-way would
