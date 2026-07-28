@@ -466,6 +466,9 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         /// <summary>The language servers the daemon currently has running, one per connected client.</summary>
         internal ImmutableArray<LanguageServerHost> GetStartedServers() => _connectionManager.GetStartedServers();
 
+        /// <summary>The connection manager backing this daemon, for tests exercising infrastructure that reads it directly (e.g. <see cref="Logging.GlobalLogMessageLogger"/>).</summary>
+        internal LanguageServerConnectionManager ConnectionManager => _connectionManager;
+
         /// <summary>Exposes the connection manager's test-only API for injecting startup failures.</summary>
         internal LanguageServerConnectionManager.TestAccessor GetConnectionManagerTestAccessor()
             => _connectionManager.GetTestAccessor();

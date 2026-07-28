@@ -164,6 +164,11 @@ internal sealed class LanguageServerConnectionManager
 
             try
             {
+                // Must happen before Start(): the JSON-RPC dispatch loop Start() spins up captures this as its
+                // ambient connection context at that point, so shared daemon-wide infrastructure invoked from
+                // that loop (e.g. GlobalLogMessageLogger) can attribute its work to this connection.
+                DaemonConnectionContext.SetCurrent(server);
+
                 _onBeforeStartServer?.Invoke();
                 server.Start();
             }

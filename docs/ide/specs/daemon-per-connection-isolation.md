@@ -2,8 +2,8 @@
 
 ## Status
 
-Phase 1 (verify `AsyncLocal` propagation) complete; phase 2 (wire the primitive into
-`GlobalLogMessageLogger`) not yet started. Tracked in
+Phases 1 (verify `AsyncLocal` propagation) and 2 (wire it into `GlobalLogMessageLogger`) complete.
+Phases 3+ (the `IGlobalOptionService` audit/facade) not started. Tracked in
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three
 separate Codex review rounds on PR #3 (the daemon-mode `roslyn-language-server` thin client).
 
@@ -132,12 +132,18 @@ naturally through `async`/`await` continuations the same way `ExecutionContext` 
 
 This is explicitly **not** a single PR. Recommended order, smallest/least-entangled first:
 
-1. **Build the ambient-context primitive in isolation**, with unit tests for the propagation semantics
-   (does it survive `Task.Run`? Nested connections? Disposal?) but no consumers wired up yet. No user-visible
-   behavior change.
-2. **Wire it into `GlobalLogMessageLogger`** as the first consumer — the smallest full vertical slice, and
-   the one with the least entanglement with other shared singletons (no facade needed, just a routing
-   change).
+1. **Build the ambient-context primitive in isolation** — done. `DaemonConnectionContext`
+   (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/LanguageServer/DaemonConnectionContext.cs`), an
+   `AsyncLocal<LanguageServerHost?>` wrapper, propagation verified by `AsyncLocalPropagationTests`.
+2. **Wire it into `GlobalLogMessageLogger`** — done. `LanguageServerConnectionManager.TryStartServerAsync`
+   calls `DaemonConnectionContext.SetCurrent(server)` immediately before `server.Start()` (so the JSON-RPC
+   dispatch loop `Start()` spins up captures it), and `GlobalLogMessageLogger.GetTargetServers` routes to just
+   that connection when it's set and still live, falling back to the pre-existing broadcast-to-all otherwise.
+   Verified by `GlobalLogMessageLoggerTests`, using the real two-client daemon test harness (not mocks): no
+   ambient context broadcasts to all, a live ambient connection routes to just that one, a stale ambient
+   connection (its client disconnected after the value was captured) falls back to broadcast rather than
+   targeting a torn-down server, and two connections' ambient values don't cross-talk. All 4 pass, plus the
+   full pre-existing 28-test daemon suite still passes unchanged.
 3. **Audit every `IGlobalOptionService` call site** reachable from daemon-mode code before touching anything
    — this is the expensive, non-optional step. A facade is easy to write; verifying nothing still calls the
    raw shared singleton directly and silently bypasses it is the actual work, and doing it half-way would

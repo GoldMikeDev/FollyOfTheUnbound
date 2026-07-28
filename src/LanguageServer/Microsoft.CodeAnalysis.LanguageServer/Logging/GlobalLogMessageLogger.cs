@@ -2,14 +2,17 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Collections.Immutable;
+using Microsoft.CodeAnalysis.LanguageServer.LanguageServer;
 using Microsoft.Extensions.Logging;
 using StreamJsonRpc;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Logging;
 
 /// <summary>
-/// Implements the global MEF <see cref="ILogger"/> by sending messages to all active LSP servers,
-/// or to a fallback logger if no LSP servers are active yet.
+/// Implements the global MEF <see cref="ILogger"/>. When the log call is attributable to a specific, still-live
+/// connection (see <see cref="DaemonConnectionContext"/>), routes to just that connection's server; otherwise
+/// broadcasts to every active LSP server, or to a fallback logger if none are active yet.
 /// </summary>
 internal sealed class GlobalLogMessageLogger(
     string categoryName,
@@ -24,7 +27,7 @@ internal sealed class GlobalLogMessageLogger(
 
     public bool IsEnabled(LogLevel logLevel)
     {
-        var servers = connectionManager.GetStartedServers();
+        var servers = GetTargetServers();
         if (servers.IsEmpty)
         {
             // If there are no started servers, then we should use the fallback logger's log level to determine if logging is enabled.
@@ -56,7 +59,7 @@ internal sealed class GlobalLogMessageLogger(
             return;
         }
 
-        var servers = connectionManager.GetStartedServers();
+        var servers = GetTargetServers();
         if (servers.IsEmpty)
         {
             // If there are no started servers, then we should log to the fallback logger.
@@ -76,5 +79,30 @@ internal sealed class GlobalLogMessageLogger(
                 // This is inherently racy, the best we can do is catch and move on.
             }
         }
+    }
+
+    /// <summary>
+    /// The server(s) this log entry should be delivered to. When the ambient <see cref="DaemonConnectionContext"/>
+    /// identifies a still-live connection, this call is attributable to that one connection alone -- e.g. a
+    /// daemon client's own extension loading -- so route to just that server instead of every connected
+    /// client. Falls back to every started server (the pre-existing broadcast behavior) when there's no
+    /// ambient connection (genuine process-wide activity, or single-server/non-daemon mode) or it's no longer
+    /// live, since in those cases there's no more specific target to prefer.
+    /// </summary>
+    private ImmutableArray<LanguageServerHost> GetTargetServers()
+    {
+        var servers = connectionManager.GetStartedServers();
+
+        if (DaemonConnectionContext.Current is { } currentConnection && servers.Contains(currentConnection))
+            return [currentConnection];
+
+        return servers;
+    }
+
+    internal TestAccessor GetTestAccessor() => new(this);
+
+    internal readonly struct TestAccessor(GlobalLogMessageLogger instance)
+    {
+        internal ImmutableArray<LanguageServerHost> GetTargetServers() => instance.GetTargetServers();
     }
 }
