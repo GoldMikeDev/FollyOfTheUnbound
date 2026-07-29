@@ -74,32 +74,38 @@ internal static class Program
         string pipeName,
         EditorConnection editorConnection)
     {
-        var relayResult = await LspRelay.RelayAsync(
+        var relayCompletionKind = await LspRelay.RelayAsync(
             editorConnection.Input,
             editorConnection.Output,
             daemonStream,
             daemonStream);
 
-        // A clean LSP shutdown closes both sides -- but a graceful-looking pipe closure alone isn't proof of
-        // one: the daemon process being killed closes its pipe handle the same way a graceful Dispose() after
-        // processing 'exit' does, so LspRelay's byte-level signal can't tell "this connection ended cleanly"
-        // apart from "the whole daemon just died." Disambiguate with a signal LspRelay doesn't have access to:
-        // whether the daemon still holds its server mutex. A per-connection clean shutdown leaves the daemon
-        // (and its mutex) alive for other clients; the daemon dying releases it.
-        if (relayResult.BothSidesClosed && DaemonServerMutex.IsRunning(pipeName))
-        {
-            Console.Error.WriteLine("Language server session ended cleanly.");
-            return ExitCodes.Success;
-        }
+        // A CleanShutdown classification from LspRelay is necessary but not sufficient: the daemon process
+        // being killed closes its pipe handle the same way a graceful Dispose() after processing 'exit' does,
+        // so the relay's byte-level signal alone can't tell "this connection ended cleanly" apart from "the
+        // whole daemon just died." Disambiguate with a signal LspRelay doesn't have access to: whether the
+        // daemon still holds its server mutex. A per-connection clean shutdown leaves the daemon (and its
+        // mutex) alive for other clients; the daemon dying releases it.
+        if (relayCompletionKind == RelayCompletionKind.CleanShutdown && !DaemonServerMutex.IsRunning(pipeName))
+            relayCompletionKind = RelayCompletionKind.ServerConnectionLost;
 
-        if (relayResult.ClosedEndpoint == RelayEndpoint.Editor)
+        switch (relayCompletionKind)
         {
-            Console.Error.WriteLine("Editor connection closed before the language server daemon connection.");
-            return ExitCodes.EditorConnectionLost;
-        }
+            case RelayCompletionKind.CleanShutdown:
+                Console.Error.WriteLine("Language server session ended cleanly.");
+                return ExitCodes.Success;
 
-        Console.Error.WriteLine("Language server daemon connection closed before the editor connection.");
-        return ExitCodes.ServerConnectionLost;
+            case RelayCompletionKind.EditorConnectionLost:
+                Console.Error.WriteLine("Editor connection closed before the language server daemon connection.");
+                return ExitCodes.EditorConnectionLost;
+
+            case RelayCompletionKind.ServerConnectionLost:
+                Console.Error.WriteLine("Language server daemon connection closed before the editor connection.");
+                return ExitCodes.ServerConnectionLost;
+
+            default:
+                throw new InvalidOperationException($"Unexpected relay completion kind: {relayCompletionKind}");
+        }
     }
 
     private static Task StartClientProcessMonitorAsync(int? processId)
