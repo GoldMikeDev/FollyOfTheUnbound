@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
@@ -105,6 +106,14 @@ internal static class DaemonPipeName
     private static readonly string[] s_pipeKeyIrrelevantOptions = ["--sessionId"];
 
     /// <summary>
+    /// Environment variables folded into <c>GetPipeName</c>'s hash input alongside <c>PATH</c> because
+    /// <c>DotnetCliHelper.Run</c> inherits the daemon process's own environment into every dotnet CLI
+    /// invocation it makes on behalf of any connection, regardless of which client is currently connected --
+    /// see the remarks on <see cref="GetPipeName(string, bool, string, IReadOnlyList{string})"/>.
+    /// </summary>
+    private static readonly string[] s_dotnetEnvironmentVariablesForPipeKey = ["PATH", "NUGET_PACKAGES", "DOTNET_CLI_HOME"];
+
+    /// <summary>
     /// Computes the pipe name from the user identity, a tool identifier, and the daemon-global startup
     /// arguments. The <paramref name="toolIdentifier"/> ensures only compatible clients connect to a
     /// compatible server; we use the full path to the server executable (in a versioned location).
@@ -141,20 +150,25 @@ internal static class DaemonPipeName
         var effectiveKeepAlive = GetEffectiveKeepAliveForPipeKey(serverArguments);
         var keyRelevantArguments = GetServerArgumentsForPipeKey(serverArguments);
 
-        // Like keepalive, this can't be given per-connection semantics: DotnetCliHelper.GetDotNetPathOrDefault
-        // resolves the dotnet executable from this process's PATH once (lazily, per connection instance, but
-        // every connection instance in the same daemon process reads the same inherited-at-launch PATH), not
-        // from whichever client is currently connecting -- so two clients with different PATH values selecting
-        // different dotnet/SDK installations would otherwise silently share a daemon that only ever uses
-        // whichever client happened to launch it, running restores/builds/tests against the wrong SDK for
-        // every other connection. Folding PATH into the key gives such clients separate daemons instead,
-        // the same trade-off already accepted for incompatible serverArguments and keepalive.
-        var effectivePath = Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
+        // Like keepalive, this can't be given per-connection semantics: DotnetCliHelper.Run inherits the
+        // daemon process's own environment into every dotnet CLI invocation (restore/build/test) it makes,
+        // regardless of which connection asked for it -- so two clients with different values for
+        // PATH (which dotnet/SDK gets resolved) or the other variables below (where NuGet reads/writes
+        // packages, and the CLI's own home/telemetry/profile directory) would otherwise silently share a
+        // daemon that only ever uses whichever client happened to launch it. Folding them into the key gives
+        // such clients separate daemons instead, the same trade-off already accepted for incompatible
+        // serverArguments and keepalive.
+        // This list is best-effort, not exhaustive -- covers PATH plus the NuGet/CLI-home variables most
+        // likely to actually change dotnet CLI behavior across restores/builds/tests, not every environment
+        // variable that could conceivably affect it (e.g. proxy settings). Extend it if another one is found
+        // to matter in practice.
+        var effectiveDotnetEnvironment = string.Join('', s_dotnetEnvironmentVariablesForPipeKey
+            .Select(static name => $"{name}={Environment.GetEnvironmentVariable(name)}"));
 
         // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
         // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
         // ["--extension", "a", "b"]).
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}.{effectivePath}";
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}.{effectiveDotnetEnvironment}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")

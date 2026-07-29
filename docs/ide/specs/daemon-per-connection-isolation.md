@@ -593,6 +593,28 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   `ReadyTimeout` when present, keeping the client's patience in sync with the bootstrap's own. Verified with a
   real build and the real subprocess-based `MultipleClients_ShareOneDaemon`/`TwoClientsRacingToStart_ShareExactlyOneDaemon`
   tests (3/3 passed).
+- **Two more findings: one fixed, one deferred as a real protocol-design gap.**
+  - **`DaemonPipeName`'s PATH fold-in didn't cover other dotnet-CLI-behavior-affecting environment
+    variables** -- `DotnetCliHelper.Run` inherits the daemon process's *entire* environment into every dotnet
+    CLI invocation (restore/build/test), not just PATH, so clients with the same PATH but different
+    `NUGET_PACKAGES` or `DOTNET_CLI_HOME` could still share a daemon that uses the wrong package cache/CLI home
+    for every connection after the first. Fixed by expanding the fold-in to a small curated list,
+    `s_dotnetEnvironmentVariablesForPipeKey = ["PATH", "NUGET_PACKAGES", "DOTNET_CLI_HOME"]` -- explicitly
+    documented as best-effort, not exhaustive (there's no closed set of "every environment variable that could
+    conceivably affect dotnet CLI behavior"; proxy settings and others are known gaps, extend this list if one
+    is found to matter in practice). Verified with a real build and `DaemonPipeNameTests` (18/18 passed).
+  - **A crashed per-connection language server and a clean per-connection `exit` are indistinguishable to the
+    thin client when the daemon survives either way** -- confirmed real, **not fixed**. `LanguageServerConnectionManager.SuperviseAsync`
+    catches a fault from `entry.Server.WaitForExitAsync()` and disposes that connection's transport the exact
+    same way it would after a graceful `exit`; the resulting pipe EOF and the still-alive daemon mutex (used by
+    `Program.cs`'s `RelayDaemonAsync` to tell "this connection ended" apart from "the whole daemon died") look
+    identical in both cases, so the thin client reports `CleanShutdown`/exit-code `Success` even for a crashed
+    session. A correct fix needs the daemon to actively communicate this connection's actual fault status to
+    the client before the pipe closes -- but that stream is the raw LSP JSON-RPC channel at that point, so any
+    such signal has to be designed carefully to avoid corrupting or being misread as LSP protocol traffic (e.g.
+    a distinct out-of-band frame/marker written and reliably flushed in the fault path specifically, read by
+    `LspRelay` before or instead of treating the closure as graceful). That's a real protocol design question,
+    not a targeted code change, so it's deferred as follow-up work rather than rushed.
 
 ## The ambient-token ordering bug
 
