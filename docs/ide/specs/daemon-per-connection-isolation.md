@@ -498,6 +498,52 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   suite (129/129 net10.0 tests passed, including `DidChangeConfigurationNotificationHandlerTest`). No new
   dedicated regression test was added for the refresh-queue fix in this round due to time; the fix itself
   mirrors the already-tested `SolutionAnalyzerConfigOptionsUpdater` pattern from earlier this round.
+- **A large batch of six further Codex findings, all confirmed real:**
+  - **`FileBasedProgramsProjectSystem` never unloaded/reclassified loose-file projects when a connection
+    toggled `dotnet.projects.enableFileBasedPrograms` after they'd already loaded** -- same root cause as the
+    refresh-queue finding above (`OnGlobalOptionChanged` only fires from the shared service's event), but for a
+    different event-only consumer. Fixed by having `FileBasedProgramsProjectSystem` implement
+    `IOnConfigurationChanged` (an existing extension point `DidChangeConfigurationNotificationHandler` already
+    invokes, per connection, after every configuration change, that had zero implementers before this) and
+    tracking the last-observed value itself (`_lastKnownEnableFileBasedPrograms`) to detect an actual change,
+    since that hook fires on every configuration change, not just ones affecting this option.
+  - **`FileBasedProgramsEntryPointDiscovery.FindAndLoadEntryPointsAsync` read `EnableFileBasedPrograms` via raw
+    `GetOption`** at server-initialization time, missing the same audit that fixed the other executable-project
+    read sites earlier this round. Fixed by switching to `GetConnectionScopedOption`.
+  - **`DaemonPipeName.GetPipeName` didn't fold in the effective `PATH`**, so two clients with different `PATH`
+    values (selecting different `dotnet`/SDK installations) could share a daemon whose `DotnetCliHelper`
+    resolves the dotnet executable once, lazily, from whichever `PATH` the daemon process itself inherited at
+    launch -- silently running restores/builds/tests against the wrong SDK for every connection after the
+    first. Fixed by folding the raw `PATH` value into the pipe-key hash input, the same "give genuinely
+    incompatible clients separate daemons" trade-off already accepted for keepalive and daemon-global
+    `serverArguments`.
+  - **`ConnectionHandshake.ExtensionLogDirectory` carried a relative path verbatim**, later resolved by the
+    daemon (`Directory.CreateDirectory`, `RunTestsHandler`'s test-log path) against the daemon's own working
+    directory -- inherited from whichever client launched it, not the connection that set the option -- so a
+    later client's relative log directory could be created underneath the first client's directory instead of
+    its own. Fixed by resolving it to an absolute path (`Path.GetFullPath`) in `ConnectionHandshake.FromServerArguments`,
+    which only ever runs client-side (in `DaemonClient.ConnectPipe`, before the handshake is written), so
+    `Path.GetFullPath` resolves against the *connecting client's* own working directory, exactly the value that
+    matters.
+  - **`Program.cs`'s dedicated (non-daemon) single-server mode connected to the editor's pipe with an unbounded
+    wait** -- `pipeClient.ConnectAsync(cancellationToken)` used the top-level entry point's `CancellationToken.None`,
+    so an editor that never created its end of the pipe left the server connecting forever; the earlier
+    `EditorConnection` timeout fix (phase-adjacent, this round's second finding) only covered daemon mode and
+    didn't touch this separate, older single-server connect path. Fixed by bounding it with the same 30s pattern
+    `EditorConnection` uses (a linked `CancellationTokenSource` combining the caller's token with a timeout).
+  - **`DaemonPipeName` doesn't canonicalize path-valued `serverArguments` (e.g. `--extension ./plugin.dll`)
+    before hashing** -- confirmed real, **not fixed in this PR**. Two clients from different working directories
+    passing the identical relative string hash identically and share a daemon, but `ExtensionAssemblyManager`
+    later resolves that relative path with `File.Exists` against the daemon's inherited working directory, so
+    the second client can silently receive the first client's extension composition even though its own
+    relative path refers to a different file. A correct fix means canonicalizing path-valued arguments (not
+    just `--extension`; auditing which other `serverArguments` are paths) to absolute paths in the thin client
+    before they're used for *either* hashing or forwarding to the daemon's actual startup arguments -- broader
+    in scope than a single field like the log-directory fix above (which had exactly one call site and one
+    field to fix), so it needs its own pass rather than a rushed edit here. Tracked as follow-up work.
+  Verified with real builds of the Protocol, executable, and thin-client projects, plus the existing
+  `DidChangeConfigurationNotificationHandlerTest` (7/7), `SourceGeneratorExecutionPreferenceRoutingTests`/
+  `ConnectionHandshakeRegistryTests` (7/7), and `DaemonPipeNameTests` (18/18) suites.
 
 ## The ambient-token ordering bug
 

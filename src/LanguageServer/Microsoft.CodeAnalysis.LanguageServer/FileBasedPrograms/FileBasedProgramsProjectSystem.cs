@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.ErrorReporting;
 using Microsoft.CodeAnalysis.Features.Workspaces;
 using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.LanguageServer;
+using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.ProjectTelemetry;
 using Microsoft.CodeAnalysis.Options;
@@ -25,13 +26,20 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.LanguageServer.FileBasedPrograms;
 
 /// <summary>Handles loading both miscellaneous files and file-based program projects.</summary>
-internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoader, ILspMiscellaneousFilesWorkspaceProvider
+internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoader, ILspMiscellaneousFilesWorkspaceProvider, IOnConfigurationChanged
 {
     private readonly ILspServices _lspServices;
     private readonly ILogger<FileBasedProgramsProjectSystem> _logger;
     private readonly VirtualProjectXmlProvider _projectXmlProvider;
     private readonly CanonicalMiscellaneousFilesProjectProvider _canonicalProjectProvider;
     private readonly DotnetCliHelper _dotnetCliHelper;
+
+    /// <summary>
+    /// The last value of <see cref="LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms"/> this
+    /// connection observed, used by <see cref="OnConfigurationChangedAsync"/> to detect an actual change (that
+    /// method is called on every configuration change notification, not just ones affecting this option).
+    /// </summary>
+    private bool _lastKnownEnableFileBasedPrograms;
 
     /// <summary>
     /// Virtual (in-memory) projects don't exist on disk, so MSBuild worker nodes
@@ -62,8 +70,31 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         _projectXmlProvider = projectXmlProvider;
         _canonicalProjectProvider = new CanonicalMiscellaneousFilesProjectProvider(lspServices.GetRequiredService<IHostWorkspaceProvider>(), loggerFactory);
         _dotnetCliHelper = dotnetCliHelper;
+        _lastKnownEnableFileBasedPrograms = globalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
 
         globalOptionService.AddOptionChangedHandler(this, OnGlobalOptionChanged);
+    }
+
+    /// <summary>
+    /// Connection-scoped counterpart to <see cref="OnGlobalOptionChanged"/>: <c>ConnectionScopedOptionOverrides.SetOverrides</c>
+    /// deliberately never raises the shared <see cref="IGlobalOptionService"/>'s option-changed event for a daemon
+    /// connection's own option changes (see docs/ide/specs/daemon-per-connection-isolation.md), so a client
+    /// toggling <c>dotnet.projects.enableFileBasedPrograms</c> via <c>workspace/didChangeConfiguration</c> would
+    /// otherwise never trigger this transition. <c>DidChangeConfigurationNotificationHandler</c> invokes
+    /// every connection-scoped <see cref="IOnConfigurationChanged"/> after every configuration change (not just
+    /// ones affecting this option), so this compares against <see cref="_lastKnownEnableFileBasedPrograms"/> to
+    /// detect an actual change rather than unloading projects unconditionally on every call.
+    /// </summary>
+    public Task OnConfigurationChangedAsync(RequestContext context, CancellationToken cancellationToken)
+    {
+        var currentValue = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+        if (currentValue != _lastKnownEnableFileBasedPrograms)
+        {
+            _lastKnownEnableFileBasedPrograms = currentValue;
+            OnEnableFileBasedProgramsChanged(currentValue);
+        }
+
+        return Task.CompletedTask;
     }
 
     public override void Dispose()
@@ -78,12 +109,26 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         {
             if (key.Option.Equals(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms))
             {
-                // This event handler can't be async, so we ignore the resulting task here,
-                // and take care that the ignored call doesn't throw an exception
-                _ = HandleEnableFileBasedProgramsChangedAsync((bool)value!);
+                OnEnableFileBasedProgramsChanged((bool)value!);
                 break;
             }
         }
+    }
+
+    /// <summary>
+    /// Connection-scoped counterpart to <see cref="OnGlobalOptionChanged"/>: <c>ConnectionScopedOptionOverrides.SetOverrides</c>
+    /// deliberately never raises the shared <see cref="IGlobalOptionService"/>'s option-changed event for a daemon
+    /// connection's own option changes (see docs/ide/specs/daemon-per-connection-isolation.md), so a client
+    /// toggling <c>dotnet.projects.enableFileBasedPrograms</c> via <c>workspace/didChangeConfiguration</c> would
+    /// otherwise never trigger this transition. This instance is itself connection-scoped (constructed per
+    /// connection by <see cref="FileBasedProgramsWorkspaceProviderFactory"/>), so the caller only needs to invoke
+    /// this on its own connection's instance.
+    /// </summary>
+    public void OnEnableFileBasedProgramsChanged(bool value)
+    {
+        // This can't be awaited by callers that must stay synchronous (the OptionChanged event handler above),
+        // so we ignore the resulting task here, and take care that the ignored call doesn't throw an exception.
+        _ = HandleEnableFileBasedProgramsChangedAsync(value);
 
         async Task HandleEnableFileBasedProgramsChangedAsync(bool value)
         {

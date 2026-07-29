@@ -53,7 +53,12 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
         {
             if (TryReadOption(serverArguments, ref i, "--extensionLogDirectory", out var logDirectory))
             {
-                extensionLogDirectory = logDirectory;
+                // Resolve against *this* (the connecting client's) current directory before it ever leaves the
+                // client. The daemon inherits its working directory from whichever client happened to launch
+                // it, not from this connection -- so a relative value would otherwise be resolved (via
+                // Directory.CreateDirectory and RunTestsHandler's test-log path) against the wrong base once it
+                // reaches the daemon, writing this connection's logs underneath an unrelated directory.
+                extensionLogDirectory = logDirectory is null ? null : Path.GetFullPath(logDirectory);
                 continue;
             }
 

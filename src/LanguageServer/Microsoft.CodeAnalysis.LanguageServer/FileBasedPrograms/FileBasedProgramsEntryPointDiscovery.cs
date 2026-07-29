@@ -14,6 +14,7 @@ using Microsoft.CodeAnalysis.Collections;
 using Microsoft.CodeAnalysis.ErrorReporting;
 using Microsoft.CodeAnalysis.Features.Workspaces;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.Options;
@@ -86,7 +87,7 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
             return;
         }
 
-        if (!globalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms))
+        if (!globalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms))
         {
             _logger.LogTrace(@"""dotnet.projects.enableFileBasedPrograms"" is false. Not discovering entry points.");
             return;

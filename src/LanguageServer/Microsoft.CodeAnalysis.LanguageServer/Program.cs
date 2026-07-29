@@ -171,7 +171,15 @@ static async Task<int> RunAsync(ServerConfiguration serverConfiguration, Cancell
         }
 
         var pipeClient = new NamedPipeClientStream(".", pipeName, PipeDirection.InOut, PipeOptions.CurrentUserOnly | PipeOptions.Asynchronous);
-        await pipeClient.ConnectAsync(cancellationToken);
+
+        // Bounded like EditorConnection's own daemon-mode pipe connect (see its s_connectTimeout): the top-level
+        // cancellationToken here is CancellationToken.None (see this file's entry point), so an editor that
+        // never creates its end of the pipe would otherwise leave this dedicated server connecting forever --
+        // and, when --clientProcessId was supplied, the process-exit monitor below isn't registered until after
+        // this connects, so a dead editor wouldn't even be noticed to unblock it.
+        using var connectTimeoutSource = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+        using var connectCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, connectTimeoutSource.Token);
+        await pipeClient.ConnectAsync(connectCancellation.Token);
         connectionSource = new SingleLanguageServerConnectionSource(new LanguageServerConnection(pipeClient, pipeClient, pipeClient));
     }
 

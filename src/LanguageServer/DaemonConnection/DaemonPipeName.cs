@@ -129,10 +129,20 @@ internal static class DaemonPipeName
         var effectiveKeepAlive = GetEffectiveKeepAliveForPipeKey(serverArguments);
         var keyRelevantArguments = GetServerArgumentsForPipeKey(serverArguments);
 
+        // Like keepalive, this can't be given per-connection semantics: DotnetCliHelper.GetDotNetPathOrDefault
+        // resolves the dotnet executable from this process's PATH once (lazily, per connection instance, but
+        // every connection instance in the same daemon process reads the same inherited-at-launch PATH), not
+        // from whichever client is currently connecting -- so two clients with different PATH values selecting
+        // different dotnet/SDK installations would otherwise silently share a daemon that only ever uses
+        // whichever client happened to launch it, running restores/builds/tests against the wrong SDK for
+        // every other connection. Folding PATH into the key gives such clients separate daemons instead,
+        // the same trade-off already accepted for incompatible serverArguments and keepalive.
+        var effectivePath = Environment.GetEnvironmentVariable("PATH") ?? string.Empty;
+
         // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
         // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
         // ["--extension", "a", "b"]).
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}";
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}.{effectivePath}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")
