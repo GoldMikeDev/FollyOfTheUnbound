@@ -43,13 +43,22 @@ internal sealed class DaemonConnectResult : IDisposable
 
 internal static class DaemonClient
 {
-    private static readonly TimeSpan s_daemonMutexTimeout = TimeSpan.FromSeconds(20);
     private static readonly TimeSpan s_existingDaemonConnectTimeout = TimeSpan.FromSeconds(5);
 
     // Must be at least DaemonBootstrap.ReadyTimeout: the bootstrap keeps trying to start the daemon for that
     // long, so a shorter connect timeout here would make us give up on (and report a launch failure for) a
     // daemon that is still legitimately starting, leaving a healthy but unused daemon running behind us.
     private static readonly TimeSpan s_newDaemonConnectTimeout = DaemonBootstrap.ReadyTimeout;
+
+    // Must be at least s_newDaemonConnectTimeout: the client that wins the race to launch the daemon holds
+    // this mutex for its entire cold-start connect attempt (up to s_newDaemonConnectTimeout), not just the
+    // brief "check server, launch if absent" decision -- ConnectAsync's `using (clientMutex)` spans the whole
+    // method. A second client that gives up waiting for the mutex sooner than that would conclude the shared
+    // daemon is unreachable while it's actually still starting successfully, and launch its own redundant
+    // fallback server instead of sharing it -- defeating daemon sharing precisely in the case (slow cold
+    // start / heavy MEF composition) it matters most. The extra 10s is scheduling margin, not part of the
+    // legitimate startup window itself.
+    private static readonly TimeSpan s_daemonMutexTimeout = s_newDaemonConnectTimeout + TimeSpan.FromSeconds(10);
 
     public static Task<DaemonConnectResult> ConnectAsync(
         ServerExecutable executable,

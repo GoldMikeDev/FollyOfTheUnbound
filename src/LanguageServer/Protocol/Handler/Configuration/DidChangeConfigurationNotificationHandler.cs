@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.ImplementType;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.PooledObjects;
@@ -127,11 +128,16 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
         // the OptionChanged event SolutionAnalyzerConfigOptionsUpdater normally listens for to keep
         // Solution.FallbackAnalyzerOptions (and therefore already-computed diagnostics) in sync -- so already
         // loaded workspaces would otherwise keep stale editorconfig-backed option values until recreated.
-        // Apply the same transform directly to just this connection's own workspaces (never another
-        // connection's -- LspWorkspaceRegistrationService is a per-server view, see its own remarks).
+        // Apply the same transform directly to just this connection's own workspaces. LspWorkspaceRegistrationService
+        // is mostly a per-server view (Host/MiscellaneousFiles are registered directly per server), but its
+        // registrations also include WorkspaceKind.MetadataAsSource, which LanguageServerLspWorkspaceRegistrationEventListener
+        // deliberately shares process-wide across every daemon connection -- that one must be skipped here, or
+        // this connection's option change would leak into every other connection's metadata-as-source documents.
         var changedOptions = optionsToUpdate.ToImmutable();
         foreach (var workspace in _workspaceRegistrationService.GetAllRegistrations())
         {
+            if (workspace.Kind == WorkspaceKind.MetadataAsSource)
+                continue;
             SolutionAnalyzerConfigOptionsUpdater.ApplyChangedOptionsIfRelevant(workspace, changedOptions);
         }
     }

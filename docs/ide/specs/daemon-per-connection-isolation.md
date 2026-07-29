@@ -374,11 +374,37 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   recreated. Fixed by extracting `SolutionAnalyzerConfigOptionsUpdater`'s solution-transform logic into a
   reusable `ApplyChangedOptionsIfRelevant(Workspace, IReadOnlyList<KeyValuePair<OptionKey2, object?>>)`, and
   calling it directly from `DidChangeConfigurationNotificationHandler.RefreshOptionsAsync` for just this
-  connection's own workspaces (enumerated via its `LspWorkspaceRegistrationService`, itself already a
-  per-server view -- never another connection's workspaces) right after installing the override. Verified by
-  a new `DidChangeConfigurationNotificationHandlerTest` case confirming `Solution.FallbackAnalyzerOptions`
-  reflects the client's new value immediately after the notification, not just `GetConnectionScopedOption`'s
-  own read path.
+  connection's own workspaces (enumerated via its `LspWorkspaceRegistrationService`) right after installing
+  the override. Verified by a new `DidChangeConfigurationNotificationHandlerTest` case confirming
+  `Solution.FallbackAnalyzerOptions` reflects the client's new value immediately after the notification, not
+  just `GetConnectionScopedOption`'s own read path. **Correction from a follow-up finding below:**
+  `LspWorkspaceRegistrationService` is *not* purely a per-server view, as first assumed here -- see the next
+  entry.
+- **The fix above wasn't scoped correctly: `LspWorkspaceRegistrationService.GetAllRegistrations()` includes
+  the one workspace kind that genuinely is shared process-wide.** `LanguageServerLspWorkspaceRegistrationEventListener`
+  deliberately shares `WorkspaceKind.MetadataAsSource` across every daemon connection in the process (its own
+  doc comment says so explicitly), while only Host/MiscellaneousFiles are registered per-server. The
+  `ApplyChangedOptionsIfRelevant` loop above, added to fix the previous finding, iterated *all* of
+  `GetAllRegistrations()` with no such distinction -- so it re-introduced exactly the cross-connection leak
+  the whole per-connection-isolation effort exists to prevent, just for metadata-as-source documents instead
+  of the option value itself. Fixed by skipping `WorkspaceKind.MetadataAsSource` in that loop. **Verification
+  note:** a test written for this (opening a metadata-as-source document, then asserting its
+  `Solution.FallbackAnalyzerOptions` don't change) passed identically with and without the fix -- i.e. it
+  didn't actually exercise the bug, for a reason not tracked down within this session's time budget (most
+  likely the shared workspace's `FallbackAnalyzerOptions` dictionary not yet containing a `"csharp"` entry by
+  the point the test reads it, so both the buggy and fixed code paths are no-ops for that specific check). The
+  test was removed rather than kept as false assurance; the fix itself stands on the listener's own explicit,
+  unambiguous doc comment about which workspace kind is shared, not on this test.
+- **`DaemonClientMutex`'s wait timeout didn't cover the daemon-launching client's own hold duration.**
+  `DaemonClient.ConnectAsync` holds `clientMutex` for its *entire* `using` block, including the connecting
+  client's full wait for a newly-launched daemon to become ready (`s_newDaemonConnectTimeout`, i.e.
+  `DaemonBootstrap.ReadyTimeout`, 60s) -- not just the brief "check server, launch if absent" decision. A
+  second client racing to connect during that same cold start waited only `s_daemonMutexTimeout` (20s,
+  independent of and shorter than the 60s the first client might legitimately hold the mutex) before giving
+  up and concluding the shared daemon was unreachable, launching its own redundant fallback server instead --
+  defeating daemon sharing precisely when MEF composition is slowest and sharing matters most. Fixed by
+  deriving `s_daemonMutexTimeout` from `s_newDaemonConnectTimeout` plus a fixed scheduling margin, instead of
+  an independent literal.
 
 ## The ambient-token ordering bug
 
