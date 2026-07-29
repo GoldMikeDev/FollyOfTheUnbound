@@ -405,6 +405,29 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   defeating daemon sharing precisely when MEF composition is slowest and sharing matters most. Fixed by
   deriving `s_daemonMutexTimeout` from `s_newDaemonConnectTimeout` plus a fixed scheduling margin, instead of
   an independent literal.
+- **The shared `WorkspaceKind.MetadataAsSource` workspace has a second, separate cross-connection leak beyond
+  `FallbackAnalyzerOptions`, in `DecompilationMetadataAsSourceFileProvider` itself (confirmed real, not yet
+  fixed).** `DecompilationMetadataAsSourceFileProvider` is a `[Shared]` (process-wide singleton) MEF part with
+  its own `_keyToInformation` / `_generatedFilenameToInformation` caches, keyed by `UniqueDocumentKey`
+  (assembly identity/metadata ID + language + symbol ID + `signaturesOnly` -- see
+  `GetUniqueDocumentKeyAsync`). Neither the key nor the cached `MetadataAsSourceGeneratedFileInfo` includes the
+  requesting connection or `sourceWorkspace` identity: `_keyToInformation.GetOrAdd(infoKey, _ => new
+  MetadataAsSourceGeneratedFileInfo(tempPath, sourceWorkspace, sourceProject, ...))` captures whichever
+  connection's `sourceWorkspace`/`sourceProject` happened to request that symbol *first*, and every later
+  request for the same symbol from a *different* connection reuses that cached `fileInfo` -- including its
+  captured first-connection workspace/project. So a second daemon client navigating to the same framework
+  symbol resolves its metadata-as-source document against the first client's project, and can fail outright
+  once that first connection's workspace is disposed, or silently return results from the wrong solution.
+  This is independent of (and not fixed by) the `WorkspaceKind.MetadataAsSource` skip added above for
+  `FallbackAnalyzerOptions` propagation -- that fix only addressed the options-sync path; this is the
+  decompilation cache itself. **Not fixed in this PR**: a correct fix means making
+  `DecompilationMetadataAsSourceFileProvider`'s cache connection-aware (e.g. keying on `sourceWorkspace`
+  identity in addition to symbol/assembly), which is a real behavioral change to a process-wide singleton
+  service shared by design (see `LanguageServerLspWorkspaceRegistrationEventListener`'s doc comment) and needs
+  its own design/test pass rather than a rushed edit in a review-response cycle -- particularly around what
+  happens to `_generatedFilenameToInformation`'s temp-file-path keying (physical files on disk are not
+  naturally connection-scoped the way in-memory dictionaries are) if two connections generate the same symbol
+  concurrently. Tracked as follow-up work; flagged explicitly in the PR review thread rather than closed out.
 
 ## The ambient-token ordering bug
 
