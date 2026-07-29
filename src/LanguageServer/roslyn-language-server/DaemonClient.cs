@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Pipes;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
@@ -75,15 +76,16 @@ internal static class DaemonClient
         using (clientMutex)
         {
             var launchedDaemon = false;
+            Process? bootstrapProcess = null;
             if (!DaemonServerMutex.IsRunning(pipeName))
             {
-                LaunchDaemon(pipeName, serverArguments);
+                bootstrapProcess = LaunchDaemon(pipeName, serverArguments);
                 launchedDaemon = true;
             }
 
             try
             {
-                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon, serverArguments), pipeName));
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon, bootstrapProcess, serverArguments), pipeName));
             }
             catch (TimeoutException) when (!launchedDaemon)
             {
@@ -97,19 +99,26 @@ internal static class DaemonClient
                 if (DaemonServerMutex.IsRunning(pipeName))
                     throw;
 
-                LaunchDaemon(pipeName, serverArguments);
-                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true, serverArguments), pipeName));
+                bootstrapProcess = LaunchDaemon(pipeName, serverArguments);
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true, bootstrapProcess, serverArguments), pipeName));
             }
         }
     }
 
-    private static Stream ConnectPipe(string pipeName, bool launchedDaemon, IReadOnlyList<string> serverArguments)
+    private static Stream ConnectPipe(string pipeName, bool launchedDaemon, Process? bootstrapProcess, IReadOnlyList<string> serverArguments)
     {
         var pipeClient = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
         try
         {
             var connectTimeout = launchedDaemon ? s_newDaemonConnectTimeout : s_existingDaemonConnectTimeout;
-            pipeClient.Connect(connectTimeout);
+            if (bootstrapProcess is not null)
+            {
+                ConnectWithBootstrapFailureDetection(pipeClient, bootstrapProcess, connectTimeout);
+            }
+            else
+            {
+                pipeClient.Connect(connectTimeout);
+            }
 
             // Tell the daemon which per-connection settings (e.g. our own --extensionLogDirectory) apply to
             // this connection specifically, before the stream becomes the raw LSP relay channel -- otherwise
@@ -141,7 +150,7 @@ internal static class DaemonClient
             : pipeNameOverride;
     }
 
-    private static void LaunchDaemon(
+    private static Process LaunchDaemon(
         string pipeName,
         IReadOnlyList<string> serverArguments)
     {
@@ -185,6 +194,45 @@ internal static class DaemonClient
         _ = ProcessUtilities.ForwardStreamAsync(process.StandardOutput.BaseStream, Stream.Null, CancellationToken.None);
         _ = ForwardAndDisposeStandardErrorAsync(process.StandardError.BaseStream);
         Console.Error.WriteLine($"Started language server daemon bootstrap (pid {process.Id})");
+
+        return process;
+    }
+
+    /// <summary>
+    /// Connects to the daemon's pipe the same way <see cref="NamedPipeClientStream.Connect(int)"/> would, but
+    /// polls in short slices instead of blocking for the whole timeout so it can notice <paramref
+    /// name="bootstrapProcess"/> exiting early. Without this, a daemon that fails fast (bad command-line
+    /// arguments, MEF composition failure, another process already owning the pipe) still leaves this client
+    /// blocked for the full <paramref name="connectTimeout"/> (up to <see cref="s_newDaemonConnectTimeout"/>,
+    /// 60s) even though <see cref="DaemonBootstrap.RunAsync"/> already knew the failure within a couple of
+    /// seconds and reported it on this same bootstrap process's exit code -- the editor would appear hung for
+    /// up to a minute for a failure that was already known.
+    /// </summary>
+    private static void ConnectWithBootstrapFailureDetection(NamedPipeClientStream pipeClient, Process bootstrapProcess, TimeSpan connectTimeout)
+    {
+        var pollInterval = TimeSpan.FromMilliseconds(100);
+        var stopwatch = Stopwatch.StartNew();
+        while (true)
+        {
+            var remaining = connectTimeout - stopwatch.Elapsed;
+            if (remaining <= TimeSpan.Zero)
+                throw new TimeoutException($"Timed out after {connectTimeout} connecting to the daemon pipe.");
+
+            var thisAttemptTimeout = remaining < pollInterval ? remaining : pollInterval;
+            try
+            {
+                pipeClient.Connect((int)thisAttemptTimeout.TotalMilliseconds);
+                return;
+            }
+            catch (TimeoutException)
+            {
+                if (bootstrapProcess.HasExited)
+                {
+                    throw new InvalidOperationException(
+                        $"The language server daemon bootstrap exited with code {bootstrapProcess.ExitCode} before this client could connect. See its forwarded standard error output above for the failure reason.");
+                }
+            }
+        }
     }
 
     private static Task ForwardAndDisposeStandardErrorAsync(Stream daemonStandardError)

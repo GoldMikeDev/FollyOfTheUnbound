@@ -428,6 +428,35 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   happens to `_generatedFilenameToInformation`'s temp-file-path keying (physical files on disk are not
   naturally connection-scoped the way in-memory dictionaries are) if two connections generate the same symbol
   concurrently. Tracked as follow-up work; flagged explicitly in the PR review thread rather than closed out.
+- **`WorkspaceConfigurationService.Options` cached its result forever with `field ??=`, silently undoing the
+  per-connection `SourceGeneratorExecution` routing from phase 7 for every connection after the first.** This
+  LSP-specific `IWorkspaceConfigurationService` implementation is `[Shared]` -- one instance for the whole
+  daemon process, same as every other MEF service here -- and its `Options` getter cached
+  `_globalOptions.GetWorkspaceConfigurationOptions()` (which itself reads the connection-scoped override) on
+  first access, forever. So whichever connection happened to read `Options` first (via
+  `SourceGeneratorRefreshQueue`, `Workspace.ProcessUpdateSourceGeneratorRequestAsync`,
+  `SolutionCompilationState.RegularCompilationTracker`, etc.) fixed `SourceGeneratorExecution` for every
+  workspace in the process; every other connection's override was silently ignored, leaving generated documents
+  stale relative to what that connection actually asked for. This predates phase 7 -- the caching was harmless
+  when `SourceGeneratorExecution` was just a plain global option read once per process -- but phase 7 made the
+  underlying value legitimately vary per call (per ambient connection), which the cache broke. Fixed by
+  removing the cache entirely: `Options` now recomputes from `_globalOptions` on every access (each of which is
+  already just a couple of dictionary lookups via `ConnectionScopedOptionOverrides`, so this isn't a
+  perf-sensitive hot path). Verified with a real build of the Protocol project plus the existing
+  `SourceGeneratorExecutionPreferenceRoutingTests`/`ConnectionHandshakeRegistryTests` (7/7 passed).
+- **A daemon that failed fast during startup still left the launching client blocked for the full 60s connect
+  timeout.** `DaemonBootstrap.RunAsync` detects the daemon exiting during startup (bad arguments, MEF
+  composition failure, a pipe name collision) and reports it via its own exit code within a couple of seconds
+  -- but `DaemonClient.LaunchDaemon` discarded the bootstrap `Process` after starting it, so `ConnectPipe`'s
+  single blocking `pipeClient.Connect(s_newDaemonConnectTimeout)` had no way to notice and just waited out the
+  full 60s regardless, making the editor look hung for a failure that was already known. Fixed by having
+  `LaunchDaemon` return the bootstrap `Process`, and replacing the single blocking connect (for the
+  launched-a-new-daemon path only) with `ConnectWithBootstrapFailureDetection`, which polls the pipe connect in
+  100ms slices and checks `bootstrapProcess.HasExited` between attempts, throwing immediately with the
+  bootstrap's exit code once it's known to have failed rather than continuing to wait. The
+  already-existing-daemon path (`s_existingDaemonConnectTimeout`, no bootstrap process involved) is unchanged.
+  Verified with a real build and the real subprocess-based `MultipleClients_ShareOneDaemon`/
+  `TwoClientsRacingToStart_ShareExactlyOneDaemon` tests (3/3 passed, no flakiness this run).
 
 ## The ambient-token ordering bug
 
