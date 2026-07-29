@@ -338,6 +338,12 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
             try
             {
                 await clientStream.ConnectAsync();
+
+                // Real clients (DaemonClient.ConnectPipe) always send a ConnectionHandshake immediately after
+                // connecting; NamedPipeDaemonConnectionSource.AcceptConnectionsAsync blocks reading one for
+                // every accepted connection, so a test client that skipped this would pay that read's full
+                // timeout on every single connection instead of failing fast.
+                await ConnectionHandshake.Empty.WriteAsync(clientStream, CancellationToken.None);
             }
             catch
             {

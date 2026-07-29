@@ -4,6 +4,7 @@
 
 using System.IO.Pipes;
 using System.Threading;
+using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.Text;
 using Roslyn.LanguageServer.Protocol;
@@ -273,6 +274,12 @@ public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper
         try
         {
             await firstClient.ConnectAsync(timeout: 30_000);
+
+            // NamedPipeDaemonConnectionSource.AcceptConnectionsAsync reads a handshake from every connection
+            // before accepting it (OnBeforeStartServer runs after that); a real client always sends one
+            // immediately after connecting (see DaemonClient.ConnectPipe), so this raw test client must too.
+            await ConnectionHandshake.Empty.WriteAsync(firstClient, CancellationToken.None);
+
             Assert.True(firstStartEntered.Wait(TimeSpan.FromSeconds(30)));
 
             await using var secondClient = await daemon.CreateClientAsync().WaitAsync(TimeSpan.FromSeconds(30));

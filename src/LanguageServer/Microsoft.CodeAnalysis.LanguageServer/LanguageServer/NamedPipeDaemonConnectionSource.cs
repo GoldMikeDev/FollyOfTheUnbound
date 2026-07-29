@@ -28,6 +28,7 @@ namespace Microsoft.CodeAnalysis.LanguageServer;
 internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectionSource, IDisposable
 {
     private static readonly TimeSpan s_initialConnectionTimeout = TimeSpan.FromMinutes(1);
+    private static readonly TimeSpan s_handshakeTimeout = TimeSpan.FromSeconds(10);
 
     private readonly string _pipeName;
     private readonly ILogger _logger;
@@ -138,13 +139,32 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
                 continue;
             }
 
+            // Read the connecting client's own per-connection configuration before this stream becomes the
+            // raw LSP JSON-RPC channel -- see ConnectionHandshake and docs/ide/specs/daemon-per-connection-isolation.md's
+            // phase 5. Bounded so a client that connects but never completes the handshake (or an
+            // incompatible/garbled one) can't hang this accept loop; treated the same as any other
+            // single-connection failure (log and move on), not a reason to take the whole daemon down.
+            ConnectionHandshake handshake;
+            try
+            {
+                using var handshakeTimeoutSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                handshakeTimeoutSource.CancelAfter(s_handshakeTimeout);
+                handshake = await ConnectionHandshake.ReadAsync(pipeStream, handshakeTimeoutSource.Token).ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is IOException or ObjectDisposedException or OperationCanceledException or InvalidOperationException)
+            {
+                _logger.LogWarning(ex, "Daemon failed to read a client connection's handshake; treating it as rejected.");
+                await pipeStream.DisposeAsync().ConfigureAwait(false);
+                continue;
+            }
+
             _onConnectionAccepted?.Invoke();
             _idleTimeout.OpenConnection();
             _logger.LogInformation("Daemon accepted a new client connection.");
             RoslynLog.Logger.Log(RoslynLog.FunctionId.VSCode_LanguageServer_Daemon_Client_Connected, logLevel: RoslynLog.LogLevel.Information);
 
             // The accepted stream is both input and output, and is disposed when its language server exits.
-            yield return new LanguageServerConnection(pipeStream, pipeStream, new ConnectionResource(pipeStream, this));
+            yield return new LanguageServerConnection(pipeStream, pipeStream, new ConnectionResource(pipeStream, this), handshake);
         }
     }
 

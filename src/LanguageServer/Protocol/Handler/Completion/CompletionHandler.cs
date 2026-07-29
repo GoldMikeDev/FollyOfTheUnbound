@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Completion;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler.Completion;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.PooledObjects;
@@ -76,7 +77,7 @@ internal sealed partial class CompletionHandler : ILspServiceDocumentRequestHand
         CancellationToken cancellationToken)
     {
         var completionOptions = globalOptions.GetCompletionOptionsForLsp(document.Project.Language, capabilityHelper);
-        var completionListMaxSize = globalOptions.GetOption(LspOptionsStorage.MaxCompletionListSize);
+        var completionListMaxSize = globalOptions.GetConnectionScopedOption(LspOptionsStorage.MaxCompletionListSize);
 
         var documentText = await document.GetValueTextAsync(cancellationToken).ConfigureAwait(false);
         var completionTrigger = await ProtocolConversions

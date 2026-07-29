@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Immutable;
+using System.IO;
 using System.Threading;
 using Microsoft.CodeAnalysis.LanguageServer.LanguageServer;
 using Microsoft.CommonLanguageServerProtocol.Framework;
@@ -125,6 +126,14 @@ internal sealed class LanguageServerConnectionManager
         // race with startup; construction and startup failures are cleaned up and propagated to the caller.
         async Task<ServerEntry?> TryStartServerAsync(LanguageServerConnection connection)
         {
+            // Must happen before constructing the server, not just before Start(): LanguageServerHost's
+            // constructor synchronously spins up RequestExecutionQueue's background dispatch loop (via
+            // AbstractLanguageServer.Initialize()), which captures whatever ambient token is current *at that
+            // point*. Setting it only before Start() (as an earlier version of this code did) would leave that
+            // loop -- and everything it later dispatches -- permanently holding a null ambient value, no
+            // matter what runs afterward. See DaemonConnectionContext's remarks.
+            AmbientConnectionToken.SetCurrent(new object());
+
             // --- Phase 1: construct the LanguageServerHost (MEF composition happens here) ---
             LanguageServerHost server;
             try
@@ -135,6 +144,19 @@ internal sealed class LanguageServerConnectionManager
             {
                 connection.Resource?.Dispose();
                 throw;
+            }
+
+            DaemonConnectionContext.Associate(server);
+
+            if (connection.Handshake is { } handshake)
+            {
+                ConnectionHandshakeRegistry.Register(handshake);
+
+                // The log directory a client passed us might not exist yet, though its parent is
+                // guaranteed to -- mirrors Program.cs's equivalent daemon-wide creation for the value
+                // whichever client happened to launch the daemon.
+                if (handshake.ExtensionLogDirectory is { } extensionLogDirectory)
+                    Directory.CreateDirectory(extensionLogDirectory);
             }
 
             var entry = new ServerEntry(server, connection.Resource);
@@ -164,11 +186,6 @@ internal sealed class LanguageServerConnectionManager
 
             try
             {
-                // Must happen before Start(): the JSON-RPC dispatch loop Start() spins up captures this as its
-                // ambient connection context at that point, so shared daemon-wide infrastructure invoked from
-                // that loop (e.g. GlobalLogMessageLogger) can attribute its work to this connection.
-                DaemonConnectionContext.SetCurrent(server);
-
                 _onBeforeStartServer?.Invoke();
                 server.Start();
             }

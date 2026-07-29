@@ -3,11 +3,16 @@
 ## Status
 
 Phases 1 (verify `AsyncLocal` propagation), 2 (wire it into `GlobalLogMessageLogger`), 3 (audit
-`IGlobalOptionService` call sites reachable from LSP request handling), and 4 (the per-connection option
-override facade + `DidChangeConfigurationNotificationHandler` rewire) are complete. Phases 5–7 (per-connection
-`ExtensionLogDirectory` routing; telemetry, dropped; `SourceGeneratorExecutionPreference`) not started. Tracked
-in [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three separate Codex
+`IGlobalOptionService` call sites reachable from LSP request handling), 4 (the per-connection option
+override facade + `DidChangeConfigurationNotificationHandler` rewire), and 5 (per-connection
+`ExtensionLogDirectory` routing via a new client→daemon handshake) are complete. Phase 6 (telemetry) is
+dropped by design. Phase 7 (`SourceGeneratorExecutionPreference`) not started. Tracked in
+[GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three separate Codex
 review rounds on PR #3 (the daemon-mode `roslyn-language-server` thin client).
+
+**A foundational ordering bug, found by Codex during phase 5 review, affected every phase built on the
+ambient-context primitive (2, 4, 5) for real (non-test) request dispatch** -- see "The ambient-token ordering
+bug" below. Fixed; all phases were re-verified against the fix.
 
 ## Background
 
@@ -239,10 +244,83 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
      (which exercises the no-ambient-connection fallback path, since it drives one `LspTestServer` directly
      rather than through the multi-client daemon harness) still passes unchanged.
 5. **`ExtensionLogDirectory` per-connection routing**, independent of steps 3–4 and can happen in parallel.
+   **Done.** Required more than routing existing state, unlike phases 2–4: the daemon previously had *no*
+   protocol at all for a connecting client to tell it anything about itself before the pipe stream became the
+   raw LSP JSON-RPC channel (`LanguageServerConnection` was just a stream pair;
+   `NamedPipeDaemonConnectionSource.AcceptConnectionsAsync` accepted a client and immediately yielded it with
+   no handshake). Added:
+   - `ConnectionHandshake` (`src/LanguageServer/DaemonConnection/ConnectionHandshake.cs`, source-shared into
+     both the thin client and daemon like `DaemonPipeName`) — a small hand-rolled, length-prefixed binary
+     frame (no JSON dependency, keeping the thin client dependency-light) a connecting client writes
+     immediately after its pipe connects, carrying `ExtensionLogDirectory` and (for phase 7, unused for now)
+     `SourceGeneratorExecutionPreference`. General-purpose by design rather than single-field, since phase 7
+     needs the same mechanism for a second field.
+   - `DaemonClient.ConnectPipe` (thin client) writes the handshake, built from the client's own
+     `serverArguments` via `ConnectionHandshake.FromServerArguments`, right after connecting — blocking
+     (`.GetAwaiter().GetResult()`), not awaited, because this method runs under `DaemonClientMutex`, which is
+     documented to require acquire/release on the same thread (no `await` in between).
+   - `NamedPipeDaemonConnectionSource.AcceptConnectionsAsync` reads the handshake (10s timeout; a client that
+     never completes it is rejected like any other bad connection, not allowed to hang the accept loop) before
+     yielding the connection.
+   - `ConnectionHandshakeRegistry` (daemon project) associates each connection's handshake with its ambient
+     token (see the ordering-bug fix below), read back by `RunTestsHandler` in place of the daemon-wide
+     `ServerConfiguration.ExtensionLogDirectory`.
+   - **Test-infrastructure fallout**: the daemon's real (non-thin-client) test harnesses connect with a raw
+     `NamedPipeClientStream` and don't know about this new protocol. Both `AbstractLanguageServerHostTests`
+     (`DaemonClientTestLspServer.CreateAsync`) and `LanguageServerDaemonTests`
+     (`Daemon_SlowServerStartup_DoesNotBlockAcceptingNextConnection`'s raw client) needed a
+     `ConnectionHandshake.Empty.WriteAsync(...)` added right after connecting -- without it, every test
+     connection paid the daemon's full 10-second handshake-read timeout before being rejected, which is what
+     turned a normal ~20-second daemon test run into a 77-minute one the first time this was tested end to
+     end. Caught by actually running the full suite, not just the individually-targeted new tests, which is
+     why "run the whole affected suite, not just what you wrote" stayed the standard here even under time
+     pressure.
 6. **`TelemetryLevel`/`SessionId`/`RoslynLogger`**: **decided out of scope, by design** (see "Decisions" below)
    — not deferred pending a future decision, just not going to happen.
 7. **`SourceGeneratorExecutionPreference`**: falls out of step 4 for free once the option facade exists,
-   since it's already routed through `IGlobalOptionService`.
+   since it's already routed through `IGlobalOptionService`. Not started; `ConnectionHandshake` already
+   carries the field phase 5 added support for, unused until this lands.
+
+## The ambient-token ordering bug
+
+Found by Codex while reviewing phase 5, but it affected phases 2 and 4 too for real (non-test) request
+dispatch, undetected until then because every existing test set the ambient token directly in the test's own
+call context rather than exercising the real connection-startup path.
+
+**The bug**: `LanguageServerConnectionManager.TryStartServerAsync` called `DaemonConnectionContext.SetCurrent(server)`
+*after* constructing `LanguageServerHost`, but `LanguageServerHost`'s constructor synchronously starts
+`RequestExecutionQueue`'s background dispatch loop (via `RoslynLanguageServer`'s constructor calling
+`AbstractLanguageServer.Initialize()` → `GetRequestExecutionQueue()` → `new RequestExecutionQueue(...)`, whose
+own constructor kicks off `ProcessQueueAsync()`). That loop's `ExecutionContext` -- and therefore its ambient
+`AsyncLocal` state -- is captured the moment it starts, permanently, for that loop and everything it later
+schedules (including a `Task.Run` per dispatched request). Setting the token afterward, even "before `Start()`"
+as the code claimed, was already too late: the loop had captured a null ambient value before `SetCurrent` ever
+ran, so *every* request actually dispatched through the real queue saw no ambient connection, regardless of
+what was set elsewhere at request time. `GlobalLogMessageLoggerTests` and `ConnectionScopedOptionOverridesTests`
+didn't catch this because they call `DaemonConnectionContext.SetCurrent`/read routing decisions directly in the
+test body, never through a request the real `RequestExecutionQueue` dispatches.
+
+**The fix**: the ambient token now has to exist *before* `LanguageServerHost` is constructed, not merely before
+`Start()`. `TryStartServerAsync` mints a lightweight marker object and calls
+`AmbientConnectionToken.SetCurrent(new object())` before `new LanguageServerHost(...)`, so the queue's
+background loop captures the right value from the start. `DaemonConnectionContext.Associate(server)` (called
+right after construction succeeds) then maps that token to the constructed `LanguageServerHost`, so `Current`
+still resolves to a `LanguageServerHost?` for existing consumers. `ConnectionHandshakeRegistry` (phase 5) keys
+directly by the ambient token's identity rather than going through that resolution, for the same reason
+`ConnectionScopedOptionOverrides` (phase 4) already does. `DaemonConnectionContext.SetCurrent(LanguageServerHost)`
+is kept as a test-only convenience for tests that want to simulate "the current connection is this server"
+directly without the early-token dance.
+
+`AsyncLocalPropagationTests` gained two tests (`ValueSetAfterAsyncWorkAlreadyStarted_IsNotObservedByThatWork`,
+`ValueSetBeforeAsyncWorkStarted_IsObservedByThatWork`) that isolate and document this exact ordering property
+with a minimal `Task.Run`-based reproduction, independent of the full daemon/MEF stack.
+
+**Also found during the same re-audit** (not the ordering bug, a separate miss from phase 3's original
+call-site audit): `CodeLensHandler.GetCodeLensAsync`, `AbstractFormatDocumentHandlerBase.GetTextEditsAsync`,
+`ProtocolConversions.ConvertDiagnostic` (fading options), `CompletionHandler.GetCompletionListAsync`
+(`MaxCompletionListSize`), and `TaskListOptionsStorage.GetTaskListOptions` all read `IGlobalOptionService`
+directly instead of through the phase 4 facade. Migrated to `GetConnectionScopedOption`; `ClassificationOptionsStorage.cs`
+was re-confirmed as a correct exclusion (it's written against `IOptionsReader`, not `IGlobalOptionService`).
 
 ## Decisions
 

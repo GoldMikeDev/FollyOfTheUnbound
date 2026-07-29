@@ -65,7 +65,13 @@ internal sealed class RunTestsHandler(TestDiscoverer testDiscoverer, TestRunner 
 
         var logConfiguration = context.GetRequiredService<LspLoggerFactory>().LogConfiguration;
 
-        var testLogPath = serverConfiguration.ExtensionLogDirectory is not null ? Path.Combine(serverConfiguration.ExtensionLogDirectory, "testLogs", "vsTestLogs.txt") : null;
+        // Prefer the connection's own --extensionLogDirectory (from its ConnectionHandshake) over the
+        // daemon-wide ServerConfiguration, which only ever reflects whichever client happened to launch the
+        // daemon -- see docs/ide/specs/daemon-per-connection-isolation.md's phase 5. Single-server mode (no
+        // handshake) and any client that didn't pass its own value both fall back to the daemon-wide value,
+        // matching the pre-existing behavior for those cases.
+        var extensionLogDirectory = ConnectionHandshakeRegistry.Current.ExtensionLogDirectory ?? serverConfiguration.ExtensionLogDirectory;
+        var testLogPath = extensionLogDirectory is not null ? Path.Combine(extensionLogDirectory, "testLogs", "vsTestLogs.txt") : null;
         // Instantiate the test platform wrapper.
         var vsTestConsoleWrapper = new VsTestConsoleWrapper(vsTestConsolePath, new ConsoleParameters
         {

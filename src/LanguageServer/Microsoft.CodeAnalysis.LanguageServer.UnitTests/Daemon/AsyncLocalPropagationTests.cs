@@ -116,6 +116,64 @@ public sealed class AsyncLocalPropagationTests
         Assert.Equal("connection-1", observedInsideHandler);
     }
 
+    /// <summary>
+    /// Documents the exact ordering bug a Codex review found in an earlier version of
+    /// <c>LanguageServerConnectionManager.RunAsync</c>: it called <c>DaemonConnectionContext.SetCurrent</c>
+    /// only after constructing that connection's <c>LanguageServerHost</c>, but
+    /// <c>LanguageServerHost</c>'s constructor synchronously starts <c>RequestExecutionQueue</c>'s
+    /// background dispatch loop (via <c>AbstractLanguageServer.Initialize()</c>) -- so the loop's
+    /// <see cref="ExecutionContext"/> was already captured, permanently, with no ambient value, before
+    /// <c>SetCurrent</c> ever ran. Every request the loop later dispatched (and everything <em>that</em>
+    /// scheduled, like <see cref="Task.Run(Action)"/> for each request) inherited that same empty context
+    /// regardless of what the ambient value was elsewhere at dispatch time.
+    /// </summary>
+    [Fact]
+    public async Task ValueSetAfterAsyncWorkAlreadyStarted_IsNotObservedByThatWork()
+    {
+        var startedLoopSawValue = new TaskCompletionSource<string?>();
+        var releaseLoop = new TaskCompletionSource();
+
+        // Starts "the loop" (standing in for RequestExecutionQueue.ProcessQueueAsync) before any ambient value
+        // is set -- its ExecutionContext is captured right now, at this call, per normal Task.Run semantics.
+        var loop = Task.Run(async () =>
+        {
+            await releaseLoop.Task;
+            startedLoopSawValue.SetResult(s_ambientValue.Value);
+        });
+
+        // Only now does the "connection" become ambient -- too late for the loop already running above, which
+        // is exactly the bug: this ordering looks correct locally (the value is set before doing anything
+        // request-shaped) but the loop it needed to reach had already started beforehand.
+        s_ambientValue.Value = "connection-1";
+        releaseLoop.SetResult();
+
+        var observedByLoop = await startedLoopSawValue.Task;
+        await loop;
+
+        Assert.Null(observedByLoop);
+    }
+
+    /// <summary>
+    /// The fix's actual requirement: the ambient value must be set *before* the work that will read it later
+    /// is started (constructed/scheduled), not merely before that work is explicitly kicked off
+    /// (<c>Start()</c>/<c>StartListening()</c>) -- see <c>LanguageServerConnectionManager</c>'s
+    /// <c>AmbientConnectionToken.SetCurrent</c> call, which now happens before constructing the
+    /// <c>LanguageServerHost</c> rather than merely before <c>LanguageServerHost.Start</c>.
+    /// </summary>
+    [Fact]
+    public async Task ValueSetBeforeAsyncWorkStarted_IsObservedByThatWork()
+    {
+        s_ambientValue.Value = "connection-1";
+
+        var observedByLoop = await Task.Run(async () =>
+        {
+            await Task.Yield();
+            return s_ambientValue.Value;
+        });
+
+        Assert.Equal("connection-1", observedByLoop);
+    }
+
     private sealed class JsonRpcTarget
     {
         public string? GetAmbientValue() => s_ambientValue.Value;

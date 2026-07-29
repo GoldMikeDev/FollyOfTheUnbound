@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CodeLens;
 using Microsoft.CodeAnalysis.Features.Testing;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler.Testing;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.PooledObjects;
@@ -47,8 +48,8 @@ internal sealed class CodeLensHandler : ILspServiceDocumentRequestHandler<LSP.Co
 
     internal static async Task<LSP.CodeLens[]?> GetCodeLensAsync(LSP.TextDocumentIdentifier textDocumentIdentifier, Document document, IGlobalOptionService globalOptionService, CancellationToken cancellationToken)
     {
-        var referencesCodeLensEnabled = globalOptionService.GetOption(LspOptionsStorage.LspEnableReferencesCodeLens, document.Project.Language);
-        var testsCodeLensEnabled = globalOptionService.GetOption(LspOptionsStorage.LspEnableTestsCodeLens, document.Project.Language);
+        var referencesCodeLensEnabled = globalOptionService.GetConnectionScopedOption(LspOptionsStorage.LspEnableReferencesCodeLens, document.Project.Language);
+        var testsCodeLensEnabled = globalOptionService.GetConnectionScopedOption(LspOptionsStorage.LspEnableTestsCodeLens, document.Project.Language);
 
         if (!referencesCodeLensEnabled && !testsCodeLensEnabled)
         {
@@ -72,7 +73,7 @@ internal sealed class CodeLensHandler : ILspServiceDocumentRequestHandler<LSP.Co
             await AddReferencesCodeLensAsync(codeLenses, members, document, text, textDocumentIdentifier, cancellationToken).ConfigureAwait(false);
         }
 
-        if (!globalOptionService.GetOption(LspOptionsStorage.LspUsingDevkitFeatures) && testsCodeLensEnabled)
+        if (!globalOptionService.GetConnectionScopedOption(LspOptionsStorage.LspUsingDevkitFeatures) && testsCodeLensEnabled)
         {
             // Only return test codelenses if we're not using devkit.
             AddTestCodeLens(codeLenses, members, document, text, textDocumentIdentifier);

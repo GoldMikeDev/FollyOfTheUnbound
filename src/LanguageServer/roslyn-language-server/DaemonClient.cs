@@ -74,7 +74,7 @@ internal static class DaemonClient
 
             try
             {
-                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon), pipeName));
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon, serverArguments), pipeName));
             }
             catch (TimeoutException) when (!launchedDaemon)
             {
@@ -89,18 +89,29 @@ internal static class DaemonClient
                     throw;
 
                 LaunchDaemon(pipeName, serverArguments);
-                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true), pipeName));
+                return Task.FromResult(DaemonConnectResult.Connected(ConnectPipe(pipeName, launchedDaemon: true, serverArguments), pipeName));
             }
         }
     }
 
-    private static Stream ConnectPipe(string pipeName, bool launchedDaemon)
+    private static Stream ConnectPipe(string pipeName, bool launchedDaemon, IReadOnlyList<string> serverArguments)
     {
         var pipeClient = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
         try
         {
             var connectTimeout = launchedDaemon ? s_newDaemonConnectTimeout : s_existingDaemonConnectTimeout;
             pipeClient.Connect(connectTimeout);
+
+            // Tell the daemon which per-connection settings (e.g. our own --extensionLogDirectory) apply to
+            // this connection specifically, before the stream becomes the raw LSP relay channel -- otherwise
+            // the daemon only ever knows about whichever client's command line happened to launch it. See
+            // ConnectionHandshake and docs/ide/specs/daemon-per-connection-isolation.md's phase 5.
+            // Blocking (not awaited): this whole method runs on the single thread that holds the caller's
+            // DaemonClientMutex, which must not be released from a different thread than it was acquired on
+            // -- an `await` here could resume on a different thread pool thread and violate that.
+            using var handshakeTimeoutSource = new CancellationTokenSource(s_existingDaemonConnectTimeout);
+            ConnectionHandshake.FromServerArguments(serverArguments).WriteAsync(pipeClient, handshakeTimeoutSource.Token).GetAwaiter().GetResult();
+
             return pipeClient;
         }
         catch
