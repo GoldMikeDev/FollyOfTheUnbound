@@ -226,7 +226,13 @@ internal static class DaemonClient
             }
             catch (TimeoutException)
             {
-                if (bootstrapProcess.HasExited)
+                // The bootstrap exits with Success as soon as it observes the daemon's readiness mutex
+                // (DaemonBootstrap.WaitForReadyOrExitAsync), which can happen slightly before the daemon
+                // finishes standing up its pipe listener in AcceptConnectionsAsync -- so a successful bootstrap
+                // exit racing a poll slice here is expected, not a failure. Only a nonzero exit code means the
+                // daemon itself failed to start; keep polling for the pipe in every other case (still exited
+                // with Success, or not exited yet).
+                if (bootstrapProcess.HasExited && bootstrapProcess.ExitCode != ExitCodes.Success)
                 {
                     throw new InvalidOperationException(
                         $"The language server daemon bootstrap exited with code {bootstrapProcess.ExitCode} before this client could connect. See its forwarded standard error output above for the failure reason.");

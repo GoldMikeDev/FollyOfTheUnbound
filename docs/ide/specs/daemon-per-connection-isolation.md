@@ -457,6 +457,17 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   already-existing-daemon path (`s_existingDaemonConnectTimeout`, no bootstrap process involved) is unchanged.
   Verified with a real build and the real subprocess-based `MultipleClients_ShareOneDaemon`/
   `TwoClientsRacingToStart_ShareExactlyOneDaemon` tests (3/3 passed, no flakiness this run).
+- **`ConnectWithBootstrapFailureDetection` (added for the previous finding) treated a successful bootstrap exit
+  racing a poll slice as a failure.** `DaemonBootstrap.WaitForReadyOrExitAsync` exits with `ExitCodes.Success`
+  as soon as it observes the daemon's readiness mutex, which can happen slightly before the daemon itself
+  finishes standing up its pipe listener in `AcceptConnectionsAsync` -- so seeing `bootstrapProcess.HasExited`
+  true while a 100ms connect slice was timing out did not necessarily mean the daemon failed to start; it could
+  just as easily mean the bootstrap had *already succeeded* and exited (by design, to orphan the daemon) a beat
+  before the pipe was ready. The original check treated any exit as failure and threw immediately, which could
+  turn a normal successful cold start into a spurious `ServerLaunchOrConnectFailure`. Fixed by only treating a
+  *nonzero* bootstrap exit code as failure; a `Success` exit (or no exit yet) just continues polling for the
+  pipe as before. Verified with a real build and the real subprocess-based `MultipleClients_ShareOneDaemon`/
+  `TwoClientsRacingToStart_ShareExactlyOneDaemon` tests (3/3 passed).
 
 ## The ambient-token ordering bug
 
