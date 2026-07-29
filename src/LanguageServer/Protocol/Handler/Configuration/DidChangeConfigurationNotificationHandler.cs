@@ -28,6 +28,7 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
     private readonly IGlobalOptionService _globalOptionService;
     private readonly IClientLanguageServerManager _clientLanguageServerManager;
     private readonly LspWorkspaceRegistrationService _workspaceRegistrationService;
+    private readonly ImmutableArray<AbstractRefreshQueue> _refreshQueues;
     private readonly Guid _registrationId;
 
     /// <summary>
@@ -51,12 +52,14 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
         ILspLogger logger,
         IGlobalOptionService globalOptionService,
         IClientLanguageServerManager clientLanguageServerManager,
-        LspWorkspaceRegistrationService workspaceRegistrationService)
+        LspWorkspaceRegistrationService workspaceRegistrationService,
+        IEnumerable<AbstractRefreshQueue> refreshQueues)
     {
         _lspLogger = logger;
         _globalOptionService = globalOptionService;
         _clientLanguageServerManager = clientLanguageServerManager;
         _workspaceRegistrationService = workspaceRegistrationService;
+        _refreshQueues = refreshQueues.ToImmutableArray();
         _registrationId = Guid.NewGuid();
         _configurationItems = GenerateGlobalConfigurationItems();
         _optionsAndLanguageNamesToRefresh = GenerateOptionsNeedsToRefresh();
@@ -139,6 +142,15 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
             if (workspace.Kind == WorkspaceKind.MetadataAsSource)
                 continue;
             SolutionAnalyzerConfigOptionsUpdater.ApplyChangedOptionsIfRelevant(workspace, changedOptions);
+        }
+
+        // Same reasoning as above: refresh queues (inlay hints, code lens) normally learn about relevant option
+        // changes via IGlobalOptionService.OptionChanged, which the connection-scoped write above never raises.
+        // These queues are themselves per-connection ILspServices, so it's safe to invoke this connection's own
+        // instances directly rather than needing any further connection-scoping here.
+        foreach (var refreshQueue in _refreshQueues)
+        {
+            refreshQueue.RefreshIfOptionsChanged(changedOptions);
         }
     }
 

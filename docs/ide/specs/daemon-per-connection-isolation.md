@@ -468,6 +468,36 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   *nonzero* bootstrap exit code as failure; a `Success` exit (or no exit yet) just continues polling for the
   pipe as before. Verified with a real build and the real subprocess-based `MultipleClients_ShareOneDaemon`/
   `TwoClientsRacingToStart_ShareExactlyOneDaemon` tests (3/3 passed).
+- **Two more consumers of connection-scoped `workspace/didChangeConfiguration` options never actually read the
+  connection-scoped values, undoing the same-round `SolutionAnalyzerConfigOptionsUpdater`/`WorkspaceConfigurationService`
+  fixes for a different pair of gaps.** Both confirmed real by Codex, fixed together:
+  - **Raw `IGlobalOptionService.GetOption` reads bypassing the scoped facade entirely**, in the executable
+    project rather than the already-audited Protocol project: `BinLogPathProvider.GetNewLogPath` (binary log
+    path), `LanguageServerProjectLoader`'s automatic-restore check, and `FileBasedProgramsProjectSystem`'s
+    file-based-programs and semantic-errors-in-miscellaneous-files checks all called
+    `IGlobalOptionService.GetOption` directly instead of the `ConnectionScopedOptionExtensions.GetConnectionScopedOption`
+    facade that phases 3/4 introduced for exactly this reason -- so these four client-configurable settings
+    (`dotnet.projects.binaryLogPath`, automatic restore, file-based programs, semantic errors for miscellaneous
+    files) had zero effect in daemon mode: `ConnectionScopedOptionOverrides.SetOverrides` writes only into its
+    per-connection table when an ambient connection exists, never touching the shared `IGlobalOptionService`, so
+    a raw `GetOption` read always saw the process default/whatever was there before, regardless of what any
+    connection asked for. Fixed by switching all five call sites to `GetConnectionScopedOption`.
+  - **`InlayHintRefreshQueue`/`CodeLensRefreshQueue` only push `workspace/inlayHint/refresh`/
+    `workspace/codeLens/refresh` from `IGlobalOptionService`'s `OptionChanged` event**, which
+    `ConnectionScopedOptionOverrides.SetOverrides` deliberately never raises (same reasoning as the
+    `SolutionAnalyzerConfigOptionsUpdater` gap fixed earlier this round) -- so toggling an inlay-hint or
+    code-lens option via `workspace/didChangeConfiguration` left existing decorations stale until something
+    unrelated triggered a refresh. Fixed analogously to that earlier fix: `AbstractRefreshQueue` gained a
+    `RefreshIfOptionsChanged` method (backed by a new `IsRefreshRelevantOption` hook, `virtual`/`false` by
+    default so the other three refresh-queue subclasses that don't listen for option changes at all aren't
+    forced to implement it) that `DidChangeConfigurationNotificationHandler.RefreshOptionsAsync` calls directly
+    on this connection's own `InlayHintRefreshQueue`/`CodeLensRefreshQueue` instances (both are themselves
+    per-connection `ILspService`s, so no further connection-scoping is needed) right after installing the
+    connection-scoped overrides.
+  Verified with a real build of the Protocol and executable projects, plus the existing Protocol unit test
+  suite (129/129 net10.0 tests passed, including `DidChangeConfigurationNotificationHandlerTest`). No new
+  dedicated regression test was added for the refresh-queue fix in this round due to time; the fix itself
+  mirrors the already-tested `SolutionAnalyzerConfigOptionsUpdater` pattern from earlier this round.
 
 ## The ambient-token ordering bug
 

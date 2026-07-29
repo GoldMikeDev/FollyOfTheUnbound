@@ -29,6 +29,11 @@ internal sealed class DidChangeConfigurationNotificationHandlerFactory : ILspSer
         var clientManager = lspServices.GetRequiredService<IClientLanguageServerManager>();
         var lspLogger = lspServices.GetRequiredService<ILspLogger>();
         var workspaceRegistrationService = lspServices.GetRequiredService<LspWorkspaceRegistrationService>();
-        return new DidChangeConfigurationNotificationHandler(lspLogger, _globalOptionService, clientManager, workspaceRegistrationService);
+        var refreshQueues = new AbstractRefreshQueue[]
+        {
+            lspServices.GetRequiredService<InlayHint.InlayHintRefreshQueue>(),
+            lspServices.GetRequiredService<CodeLens.CodeLensRefreshQueue>(),
+        };
+        return new DidChangeConfigurationNotificationHandler(lspLogger, _globalOptionService, clientManager, workspaceRegistrationService, refreshQueues);
     }
 }

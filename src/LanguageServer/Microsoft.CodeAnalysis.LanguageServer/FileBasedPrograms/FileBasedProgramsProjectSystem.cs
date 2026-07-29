@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.ErrorReporting;
 using Microsoft.CodeAnalysis.Features.Workspaces;
 using Microsoft.CodeAnalysis.Host;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.ProjectTelemetry;
 using Microsoft.CodeAnalysis.Options;
@@ -106,7 +107,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         // 2. Is `enableFileBasedPrograms` enabled?
         //    - No → Classify as Miscellaneous File With No References
         //    - Yes → Continue to next check
-        var enableFileBasedPrograms = GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+        var enableFileBasedPrograms = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
         if (!enableFileBasedPrograms)
         {
             return true;
@@ -193,7 +194,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         // - No → Classify as Miscellaneous File With Standard References
         // - Yes → Continue to heuristic detection
 
-        if (!GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableSemanticErrorsInMiscellaneousFiles))
+        if (!GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableSemanticErrorsInMiscellaneousFiles))
         {
             return LooseDocumentKind.MiscellaneousFileWithStandardReferences;
         }
@@ -278,7 +279,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
 
         ProjectInfo CreatePrimordialProjectInfo(ProjectSystemProjectFactory projectFactory)
         {
-            var enableFileBasedPrograms = GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+            var enableFileBasedPrograms = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
             return MiscellaneousFileUtilities.CreateMiscellaneousProjectInfoForDocument(
                 projectFactory.Workspace, documentFilePath, textLoader, languageInformation, checksumAlgorithm, projectFactory.Workspace.Services.SolutionServices, [], enableFileBasedPrograms);
         }
