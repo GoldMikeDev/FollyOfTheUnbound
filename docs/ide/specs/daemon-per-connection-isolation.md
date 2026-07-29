@@ -2,11 +2,11 @@
 
 ## Status
 
-Phases 1 (verify `AsyncLocal` propagation), 2 (wire it into `GlobalLogMessageLogger`), 3 (audit
-`IGlobalOptionService` call sites reachable from LSP request handling), 4 (the per-connection option
-override facade + `DidChangeConfigurationNotificationHandler` rewire), and 5 (per-connection
-`ExtensionLogDirectory` routing via a new client→daemon handshake) are complete. Phase 6 (telemetry) is
-dropped by design. Phase 7 (`SourceGeneratorExecutionPreference`) not started. Tracked in
+All phases are complete except phase 6 (telemetry), which is dropped by design: 1 (verify `AsyncLocal`
+propagation), 2 (wire it into `GlobalLogMessageLogger`), 3 (audit `IGlobalOptionService` call sites reachable
+from LSP request handling), 4 (the per-connection option override facade + `DidChangeConfigurationNotificationHandler`
+rewire), 5 (per-connection `ExtensionLogDirectory` routing via a new client→daemon handshake), and 7
+(`SourceGeneratorExecutionPreference` routing, reusing that same handshake). Tracked in
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three separate Codex
 review rounds on PR #3 (the daemon-mode `roslyn-language-server` thin client).
 
@@ -277,9 +277,29 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
      pressure.
 6. **`TelemetryLevel`/`SessionId`/`RoslynLogger`**: **decided out of scope, by design** (see "Decisions" below)
    — not deferred pending a future decision, just not going to happen.
-7. **`SourceGeneratorExecutionPreference`**: falls out of step 4 for free once the option facade exists,
-   since it's already routed through `IGlobalOptionService`. Not started; `ConnectionHandshake` already
-   carries the field phase 5 added support for, unused until this lands.
+7. **`SourceGeneratorExecutionPreference`**. **Done.** `LanguageServerConnectionManager.TryStartServerAsync`
+   now parses `connection.Handshake.SourceGeneratorExecutionPreference` (case-insensitive
+   `Enum.TryParse<SourceGeneratorExecutionPreference>`, matching how `LanguageServerCommandLine`'s
+   `Option<SourceGeneratorExecutionPreference>` itself parses `--sourceGeneratorExecutionPreference` --
+   deliberately *not* `SourceGeneratorExecutionPreferenceUtilities.Parse`, which is a different lowercase
+   editorconfig-string format for a different purpose) and, if it parses, writes it as a connection-scoped
+   override via `ConnectionScopedOptionOverrides.SetOverrides` while the connection's marker token is still
+   ambient. A client that didn't send one, or sent one that doesn't parse, falls through to the daemon-wide
+   default `Program.cs` already sets from whichever client launched the daemon -- unchanged from before this
+   phase.
+   - Verified by `SourceGeneratorExecutionPreferenceRoutingTests`, which surfaced a real gap in how far the
+     *test-only* `DaemonConnectionContext.SetCurrent(LanguageServerHost)` shortcut (added for phase 2's
+     `GlobalLogMessageLoggerTests`, which only needs `DaemonConnectionContext.Current` to resolve correctly)
+     can be reused: it makes the *server instance itself* the ambient token, but the real per-connection write
+     happens under a separate, internal marker token minted before that server is even constructed (see the
+     ordering-bug section above). A test using `SetCurrent(server)` to read back an option override doesn't
+     see it -- it's looking up the wrong key entirely, not "no override was written" -- and silently falls
+     through to the shared default, which was indistinguishable from a passing assertion until a value
+     collided with that default by coincidence. Added `DaemonConnectionContext.GetAmbientTokenForTesting`,
+     a reverse `LanguageServerHost` → token lookup populated alongside `Associate`, so tests can recover and
+     re-establish the *actual* token real connection startup used, rather than substituting a different one
+     that happens to also resolve `Current` correctly for the one thing (`GlobalLogMessageLogger`) that
+     doesn't care about token identity beyond that.
 
 ## The ambient-token ordering bug
 

@@ -2,10 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Threading;
+using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.LanguageServer.LanguageServer;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.CommonLanguageServerProtocol.Framework;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.Composition;
@@ -157,6 +161,21 @@ internal sealed class LanguageServerConnectionManager
                 // whichever client happened to launch the daemon.
                 if (handshake.ExtensionLogDirectory is { } extensionLogDirectory)
                     Directory.CreateDirectory(extensionLogDirectory);
+
+                // Same parsing System.CommandLine's Option<SourceGeneratorExecutionPreference> does for
+                // --sourceGeneratorExecutionPreference (case-insensitive enum name) -- not
+                // SourceGeneratorExecutionPreferenceUtilities.Parse, which is a *different* string format
+                // (lowercase editorconfig values like "automatic"/"balanced") for a different purpose. A
+                // client that didn't pass its own value, or passed one that doesn't parse, falls through to
+                // the daemon-wide default Program.cs already set from whichever client launched the daemon.
+                if (handshake.SourceGeneratorExecutionPreference is { } rawPreference &&
+                    Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var preference))
+                {
+                    var globalOptionService = exportProvider.GetExportedValue<IGlobalOptionService>();
+                    ConnectionScopedOptionOverrides.SetOverrides(
+                        globalOptionService,
+                        [KeyValuePair.Create(new OptionKey2(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution), (object?)preference)]);
+                }
             }
 
             var entry = new ServerEntry(server, connection.Resource);

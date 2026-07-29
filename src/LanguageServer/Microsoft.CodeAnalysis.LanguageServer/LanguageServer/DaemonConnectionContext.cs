@@ -28,6 +28,12 @@ internal static class DaemonConnectionContext
 {
     private static readonly ConditionalWeakTable<object, LanguageServerHost> s_serversByToken = new();
 
+    // Reverse of s_serversByToken, populated alongside it in Associate. Exists only so tests can recover the
+    // real per-connection marker token for a known LanguageServerHost -- e.g. to verify state (like
+    // ConnectionScopedOptionOverrides entries) written under that token during real connection startup, which
+    // SetCurrent's server-as-its-own-token shortcut below cannot reach, since it's a different token identity.
+    private static readonly ConditionalWeakTable<LanguageServerHost, object> s_tokensByServer = new();
+
     /// <summary>
     /// The connection the currently-executing code is running on behalf of, or <see langword="null"/> when
     /// there isn't one -- e.g. genuine process-wide startup work that happens before any client has connected,
@@ -49,8 +55,22 @@ internal static class DaemonConnectionContext
     public static void Associate(LanguageServerHost server)
     {
         if (AmbientConnectionToken.Current is { } token)
+        {
             s_serversByToken.AddOrUpdate(token, server);
+            s_tokensByServer.AddOrUpdate(server, token);
+        }
     }
+
+    /// <summary>
+    /// Test-only: the real per-connection marker token <see cref="LanguageServerConnectionManager"/> minted and
+    /// made ambient before constructing <paramref name="server"/>, if any (only real daemon-connection startup
+    /// populates this; the <see cref="SetCurrent"/> shortcut does not). Lets a test re-establish that exact
+    /// ambient value (via <see cref="AmbientConnectionToken.SetCurrent"/>) to observe state written while it was
+    /// ambient during real startup -- <see cref="SetCurrent"/>'s server-as-its-own-token shortcut is a
+    /// <em>different</em> token identity and cannot see that state.
+    /// </summary>
+    internal static object? GetAmbientTokenForTesting(LanguageServerHost server)
+        => s_tokensByServer.TryGetValue(server, out var token) ? token : null;
 
     /// <summary>
     /// Test-only convenience: establishes <paramref name="server"/> as both the ambient token and its own

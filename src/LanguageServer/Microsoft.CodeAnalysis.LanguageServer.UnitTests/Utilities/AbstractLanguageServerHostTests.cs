@@ -332,7 +332,8 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
             string pipeName,
             ExportProvider exportProvider,
             ClientCapabilities clientCapabilities,
-            ITestOutputHelper testOutputHelper)
+            ITestOutputHelper testOutputHelper,
+            ConnectionHandshake? handshake = null)
         {
             var clientStream = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, System.IO.Pipes.PipeOptions.Asynchronous);
             try
@@ -343,7 +344,7 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
                 // connecting; NamedPipeDaemonConnectionSource.AcceptConnectionsAsync blocks reading one for
                 // every accepted connection, so a test client that skipped this would pay that read's full
                 // timeout on every single connection instead of failing fast.
-                await ConnectionHandshake.Empty.WriteAsync(clientStream, CancellationToken.None);
+                await (handshake ?? ConnectionHandshake.Empty).WriteAsync(clientStream, CancellationToken.None);
             }
             catch
             {
@@ -364,6 +365,16 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
 
         /// <summary>Associates this client with the specific server the daemon created for its connection.</summary>
         internal void AttachDaemonServer(LanguageServerHost server) => _daemonServer = server;
+
+        /// <summary>The specific <see cref="LanguageServerHost"/> the daemon created for this client's connection.</summary>
+        internal LanguageServerHost DaemonServer
+        {
+            get
+            {
+                Contract.ThrowIfNull(_daemonServer, "The daemon server has not been attached to this client.");
+                return _daemonServer;
+            }
+        }
 
         private protected override LanguageServerHost GetServerForLspServices()
         {
@@ -475,6 +486,9 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         /// <summary>The connection manager backing this daemon, for tests exercising infrastructure that reads it directly (e.g. <see cref="Logging.GlobalLogMessageLogger"/>).</summary>
         internal LanguageServerConnectionManager ConnectionManager => _connectionManager;
 
+        /// <summary>The daemon-wide MEF export provider, for tests reading shared services like <see cref="Options.IGlobalOptionService"/> directly.</summary>
+        internal ExportProvider ExportProvider => _exportProvider;
+
         /// <summary>Exposes the connection manager's test-only API for injecting startup failures.</summary>
         internal LanguageServerConnectionManager.TestAccessor GetConnectionManagerTestAccessor()
             => _connectionManager.GetTestAccessor();
@@ -487,10 +501,10 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         /// for the connection. Clients are created one at a time (the new server is correlated by diffing the daemon's
         /// server set, which assumes a single connection is in flight).
         /// </summary>
-        internal async Task<DaemonClientTestLspServer> CreateClientAsync(ClientCapabilities? clientCapabilities = null)
+        internal async Task<DaemonClientTestLspServer> CreateClientAsync(ClientCapabilities? clientCapabilities = null, ConnectionHandshake? handshake = null)
         {
             var serversBefore = _connectionManager.GetStartedServers();
-            var client = await DaemonClientTestLspServer.CreateAsync(_pipeName, _exportProvider, clientCapabilities ?? new ClientCapabilities(), _testOutputHelper);
+            var client = await DaemonClientTestLspServer.CreateAsync(_pipeName, _exportProvider, clientCapabilities ?? new ClientCapabilities(), _testOutputHelper, handshake);
 
             LanguageServerHost? newServer = null;
             await WaitForConditionAsync(() =>
