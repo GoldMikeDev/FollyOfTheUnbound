@@ -154,6 +154,31 @@ public sealed class DaemonPipeNameTests
     }
 
     [Fact]
+    public void PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit_InlineForm()
+    {
+        // System.CommandLine also accepts "--daemonKeepAlive=60" (in addition to the two-token
+        // "--daemonKeepAlive 60" form covered above); both make the argument explicit in
+        // LanguageServerCommandLine, so both must be recognized as explicit here too.
+        var original = Environment.GetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable);
+        try
+        {
+            string[] inlineArguments = ["--daemonKeepAlive=60"];
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "1");
+            var withEnvironmentValueOne = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, inlineArguments);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "3600");
+            var withEnvironmentValueDifferent = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, inlineArguments);
+
+            Assert.Equal(withEnvironmentValueOne, withEnvironmentValueDifferent);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, original);
+        }
+    }
+
+    [Fact]
     public void PipeName_IsFileSystemAndUrlSafe()
     {
         var name = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);

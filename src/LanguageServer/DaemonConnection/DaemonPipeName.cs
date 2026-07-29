@@ -131,7 +131,10 @@ internal static class DaemonPipeName
     {
         foreach (var argument in serverArguments)
         {
-            if (argument == "--daemonKeepAlive")
+            // System.CommandLine also accepts the inline "--daemonKeepAlive=60" spelling in addition to the
+            // two-token "--daemonKeepAlive 60" form; both make the argument explicit and dominate the
+            // environment variable in LanguageServerCommandLine, so both must be recognized here too.
+            if (argument == "--daemonKeepAlive" || argument.StartsWith("--daemonKeepAlive=", StringComparison.Ordinal))
                 return string.Empty;
         }
 

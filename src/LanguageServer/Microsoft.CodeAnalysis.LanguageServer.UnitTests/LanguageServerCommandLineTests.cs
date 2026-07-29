@@ -72,6 +72,15 @@ public sealed class LanguageServerCommandLineTests
     }
 
     [Fact]
+    public async Task DaemonKeepAlive_InlineForm_UsesProvidedSeconds()
+    {
+        var configuration = await ParseAsync("--daemonKeepAlive=60");
+
+        Assert.NotNull(configuration);
+        Assert.Equal(TimeSpan.FromSeconds(60), configuration.DaemonKeepAlive);
+    }
+
+    [Fact]
     public async Task DaemonKeepAlive_NegativeOne_IsInfinite()
     {
         var configuration = await ParseAsync("--daemonKeepAlive", "-1");
