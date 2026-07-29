@@ -51,7 +51,7 @@ internal sealed class OnAutoInsertHandler(
         if (document == null)
             return null;
 
-        var onAutoInsertEnabled = _globalOptions.GetOption(LspOptionsStorage.LspEnableAutoInsert, document.Project.Language);
+        var onAutoInsertEnabled = _globalOptions.GetConnectionScopedOption(LspOptionsStorage.LspEnableAutoInsert, document.Project.Language);
         if (!onAutoInsertEnabled)
             return null;
 

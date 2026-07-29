@@ -114,7 +114,11 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
             }
         }
 
-        _globalOptionService.SetGlobalOptions(optionsToUpdate.ToImmutable());
+        // Scoped to the connection this notification came in on: every daemon connection shares the same
+        // underlying IGlobalOptionService (see docs/ide/specs/daemon-per-connection-isolation.md), so writing
+        // directly here would silently change option values seen by every other concurrently connected
+        // client, not just this one.
+        ConnectionScopedOptionOverrides.SetOverrides(_globalOptionService, optionsToUpdate);
     }
 
     private async Task<ImmutableArray<string?>> GetConfigurationsAsync(CancellationToken cancellationToken)

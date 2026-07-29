@@ -2,10 +2,12 @@
 
 ## Status
 
-Phases 1 (verify `AsyncLocal` propagation) and 2 (wire it into `GlobalLogMessageLogger`) complete.
-Phases 3+ (the `IGlobalOptionService` audit/facade) not started. Tracked in
-[GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three
-separate Codex review rounds on PR #3 (the daemon-mode `roslyn-language-server` thin client).
+Phases 1 (verify `AsyncLocal` propagation), 2 (wire it into `GlobalLogMessageLogger`), 3 (audit
+`IGlobalOptionService` call sites reachable from LSP request handling), and 4 (the per-connection option
+override facade + `DidChangeConfigurationNotificationHandler` rewire) are complete. Phases 5–7 (per-connection
+`ExtensionLogDirectory` routing; telemetry, dropped; `SourceGeneratorExecutionPreference`) not started. Tracked
+in [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Flagged across three separate Codex
+review rounds on PR #3 (the daemon-mode `roslyn-language-server` thin client).
 
 ## Background
 
@@ -153,6 +155,16 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
 1. **Build the ambient-context primitive in isolation** — done. `DaemonConnectionContext`
    (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/LanguageServer/DaemonConnectionContext.cs`), an
    `AsyncLocal<LanguageServerHost?>` wrapper, propagation verified by `AsyncLocalPropagationTests`.
+   **Split during phase 4** (see phase 4 below) into `AmbientConnectionToken`
+   (`src/LanguageServer/Protocol/LspServices/AmbientConnectionToken.cs`), the actual `AsyncLocal<object?>`
+   holder, with `DaemonConnectionContext` reduced to a thin `LanguageServerHost`-typed wrapper around it. This
+   was required by project layering, not a design change: the daemon project
+   (`Microsoft.CodeAnalysis.LanguageServer`, home of `LanguageServerHost`/`DaemonConnectionContext`) has a
+   one-way `ProjectReference` to the Protocol project (`Microsoft.CodeAnalysis.LanguageServer.Protocol`, home
+   of the LSP handlers and `*OptionsStorage` files phase 4 needed to touch); Protocol cannot reference back to
+   `LanguageServerHost`. `AmbientConnectionToken` is typed `object?` precisely so it can live at the lower
+   layer both projects can see, with each layer attaching its own meaning to the token's identity
+   (`LanguageServerHost` in the daemon project; an opaque per-connection key in Protocol).
 2. **Wire it into `GlobalLogMessageLogger`** — done. `LanguageServerConnectionManager.TryStartServerAsync`
    calls `DaemonConnectionContext.SetCurrent(server)` immediately before `server.Start()` (so the JSON-RPC
    dispatch loop `Start()` spins up captures it), and `GlobalLogMessageLogger.GetTargetServers` routes to just
@@ -172,9 +184,60 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
 3. **Audit every `IGlobalOptionService` call site** reachable from daemon-mode code before touching anything
    — this is the expensive, non-optional step. A facade is easy to write; verifying nothing still calls the
    raw shared singleton directly and silently bypasses it is the actual work, and doing it half-way would
-   "look fixed without being fixed" (the same failure mode flagged in the original Codex finding).
+   "look fixed without being fixed" (the same failure mode flagged in the original Codex finding). **Done.**
+   Findings, scoped per the "Decisions" section below (LSP request-handling path, not the whole IDE layer):
+   - **One confirmed write call site**, and it's the one this whole symptom is named after:
+     `DidChangeConfigurationNotificationHandler.RefreshOptionsAsync`
+     (`src/LanguageServer/Protocol/Handler/Configuration/DidChangeConfigurationNotificationHandler.cs`),
+     reachable both from the `workspace/didChangeConfiguration` notification itself and from
+     `OnInitializedAsync`'s initial fetch.
+   - **Two writes that are daemon-startup-time, not per-connection LSP dispatch**, and therefore correctly
+     out of scope per the phase-3 scoping decision: `ServerConfigurationFactory.InitializeConfiguration` and
+     `Program.cs`'s one-time `SourceGeneratorExecution` write (this is the same `SourceGeneratorExecutionPreference`
+     case tracked as phase 7 — falls out of the facade for free once something routes it per-connection, but
+     nothing does yet, so it stays shared for now).
+   - **~35 handler classes** with direct read-only `IGlobalOptionService`/`IGlobalOptionService`-derived
+     injection, most via `[ExportCSharpVisualBasicStatelessLspService(...), Shared]` handlers that are
+     themselves process-wide singletons (no per-connection object identity to exploit even if we wanted to —
+     confirming the ambient-context approach, not per-connection handler instances, is the only option here).
+   - **The read surface funnels through a small, enumerable set of `*OptionsStorage` extension-method files**
+     under `src/LanguageServer/Protocol/Features/Options/` — 12 of them call `IGlobalOptionService.GetOption`
+     directly and were the migration surface for phase 4 (see below); a few others (e.g.
+     `ClassificationOptionsStorage.cs`) are written against the more general `IOptionsReader` abstraction
+     instead and were correctly left alone (see phase 4's "false positive" note). One additional call site,
+     `ClientFallbackAnalyzerConfigOptionsProvider.cs`, reads via the `OptionKey2` overload rather than a typed
+     option and needed its own extension overload. Total call-site count for phase 4 landed in the low dozens,
+     not hundreds — the audit's main output was confirming that, not just asserting it.
 4. **`IGlobalOptionService` facade + `DidChangeConfigurationNotificationHandlerFactory` rewire**, once step 3
-   has produced a complete call-site inventory.
+   has produced a complete call-site inventory. **Done.** Implemented as explicit call-site routing rather
+   than MEF-level interception (VS MEF's `[Export(typeof(IGlobalOptionService)), Shared]` process-wide
+   singleton export has no supported way to shadow/override per connection without production catalog
+   surgery — `ComposableCatalog.WithoutPartsOfTypes`/`.WithParts` exists and is used by
+   `TestComposition.RemoveParts`/`.WithParts` in test infrastructure, but was judged too risky to apply to the
+   real composition graph blind):
+   - `ConnectionScopedOptionOverrides` (`src/LanguageServer/Protocol/Features/Options/ConnectionScopedOptionOverrides.cs`)
+     — a `ConditionalWeakTable<object, ConcurrentDictionary<OptionKey2, object?>>` keyed by
+     `AmbientConnectionToken.Current`'s identity. `TryGetOverride` checks the ambient connection's dictionary
+     first; `SetOverrides` writes into it, falling back to writing the shared `IGlobalOptionService` directly
+     only when there's genuinely no ambient connection (preserving prior behavior for connection-less callers
+     instead of silently dropping the write).
+   - `ConnectionScopedOptionExtensions` (`ConnectionScopedOptionExtensions.cs`) — `GetConnectionScopedOption`
+     extension methods mirroring `IGlobalOptionService.GetOption`'s three overloads (`Option2<T>`,
+     `PerLanguageOption2<T>` + language, `OptionKey2`), each checking the override before falling through to
+     the real `GetOption`.
+   - `DidChangeConfigurationNotificationHandler.RefreshOptionsAsync`'s final `SetGlobalOptions` call replaced
+     with `ConnectionScopedOptionOverrides.SetOverrides` — the one confirmed write site from the audit.
+   - All 12 `*OptionsStorage` files identified by the audit, plus `ClientFallbackAnalyzerConfigOptionsProvider.cs`
+     and `OnAutoInsertHandler.cs`/`DiagnosticsPullCache.cs` (direct handler call sites also found during the
+     audit), migrated from `GetOption` to `GetConnectionScopedOption`.
+   - Verified by `ConnectionScopedOptionOverridesTests`
+     (`src/LanguageServer/ProtocolUnitTests/Options/ConnectionScopedOptionOverridesTests.cs`): a write under one
+     ambient connection token is invisible to a different token's reads and never mutates the underlying shared
+     `IGlobalOptionService`, for both `Option2<T>`/`PerLanguageOption2<T>`-typed and `OptionKey2`-keyed reads;
+     the no-ambient-connection case still falls all the way through to the shared service, matching prior
+     behavior. `DidChangeConfigurationNotificationHandlerTest`'s pre-existing single-connection workflow test
+     (which exercises the no-ambient-connection fallback path, since it drives one `LspTestServer` directly
+     rather than through the multi-client daemon harness) still passes unchanged.
 5. **`ExtensionLogDirectory` per-connection routing**, independent of steps 3–4 and can happen in parallel.
 6. **`TelemetryLevel`/`SessionId`/`RoslynLogger`**: **decided out of scope, by design** (see "Decisions" below)
    — not deferred pending a future decision, just not going to happen.

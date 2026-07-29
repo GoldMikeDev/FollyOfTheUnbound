@@ -4,6 +4,7 @@
 
 using Microsoft.CodeAnalysis.LanguageService;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.InlineHints;
 
@@ -20,24 +21,24 @@ internal static class InlineHintsOptionsStorage
     public static InlineParameterHintsOptions GetInlineParameterHintsOptions(this IGlobalOptionService globalOptions, string language)
         => new()
         {
-            EnabledForParameters = globalOptions.GetOption(EnabledForParameters, language),
-            ForLiteralParameters = globalOptions.GetOption(ForLiteralParameters, language),
-            ForIndexerParameters = globalOptions.GetOption(ForIndexerParameters, language),
-            ForObjectCreationParameters = globalOptions.GetOption(ForObjectCreationParameters, language),
-            ForOtherParameters = globalOptions.GetOption(ForOtherParameters, language),
-            SuppressForParametersThatDifferOnlyBySuffix = globalOptions.GetOption(SuppressForParametersThatDifferOnlyBySuffix, language),
-            SuppressForParametersThatMatchMethodIntent = globalOptions.GetOption(SuppressForParametersThatMatchMethodIntent, language),
-            SuppressForParametersThatMatchArgumentName = globalOptions.GetOption(SuppressForParametersThatMatchArgumentName, language),
+            EnabledForParameters = globalOptions.GetConnectionScopedOption(EnabledForParameters, language),
+            ForLiteralParameters = globalOptions.GetConnectionScopedOption(ForLiteralParameters, language),
+            ForIndexerParameters = globalOptions.GetConnectionScopedOption(ForIndexerParameters, language),
+            ForObjectCreationParameters = globalOptions.GetConnectionScopedOption(ForObjectCreationParameters, language),
+            ForOtherParameters = globalOptions.GetConnectionScopedOption(ForOtherParameters, language),
+            SuppressForParametersThatDifferOnlyBySuffix = globalOptions.GetConnectionScopedOption(SuppressForParametersThatDifferOnlyBySuffix, language),
+            SuppressForParametersThatMatchMethodIntent = globalOptions.GetConnectionScopedOption(SuppressForParametersThatMatchMethodIntent, language),
+            SuppressForParametersThatMatchArgumentName = globalOptions.GetConnectionScopedOption(SuppressForParametersThatMatchArgumentName, language),
         };
 
     public static InlineTypeHintsOptions GetInlineTypeHintsOptions(this IGlobalOptionService globalOptions, string language)
         => new()
         {
-            EnabledForTypes = globalOptions.GetOption(EnabledForTypes, language),
-            ForImplicitVariableTypes = globalOptions.GetOption(ForImplicitVariableTypes, language),
-            ForLambdaParameterTypes = globalOptions.GetOption(ForLambdaParameterTypes, language),
-            ForImplicitObjectCreation = globalOptions.GetOption(ForImplicitObjectCreation, language),
-            ForCollectionExpressions = globalOptions.GetOption(ForCollectionExpressions, language),
+            EnabledForTypes = globalOptions.GetConnectionScopedOption(EnabledForTypes, language),
+            ForImplicitVariableTypes = globalOptions.GetConnectionScopedOption(ForImplicitVariableTypes, language),
+            ForLambdaParameterTypes = globalOptions.GetConnectionScopedOption(ForLambdaParameterTypes, language),
+            ForImplicitObjectCreation = globalOptions.GetConnectionScopedOption(ForImplicitObjectCreation, language),
+            ForCollectionExpressions = globalOptions.GetConnectionScopedOption(ForCollectionExpressions, language),
         };
 
     // Note: inlay hints is the term used in LSP, we Want to use the LSP name when communicate with the LSP client.

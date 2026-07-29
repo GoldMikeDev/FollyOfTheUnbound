@@ -4,6 +4,7 @@
 
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.DocumentationComments;
 
@@ -14,9 +15,9 @@ internal static class DocumentationCommentOptionsStorage
       => new()
       {
           LineFormatting = lineFormatting,
-          AutoXmlDocCommentGeneration = globalOptions.GetOption(AutoXmlDocCommentGeneration, language),
-          GenerateSummaryTagOnSingleLine = globalOptions.GetOption(GenerateSummaryTagOnSingleLine, language),
-          GenerateOnlySummaryTag = globalOptions.GetOption(GenerateOnlySummaryTag, language),
+          AutoXmlDocCommentGeneration = globalOptions.GetConnectionScopedOption(AutoXmlDocCommentGeneration, language),
+          GenerateSummaryTagOnSingleLine = globalOptions.GetConnectionScopedOption(GenerateSummaryTagOnSingleLine, language),
+          GenerateOnlySummaryTag = globalOptions.GetConnectionScopedOption(GenerateOnlySummaryTag, language),
       };
 
     public static readonly PerLanguageOption2<bool> AutoXmlDocCommentGeneration = new(

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.DocumentHighlighting;
 
@@ -11,8 +12,8 @@ internal static class HighlightingOptionsStorage
     public static HighlightingOptions GetHighlightingOptions(this IGlobalOptionService globalOptions, string language)
         => new()
         {
-            HighlightRelatedRegexComponentsUnderCursor = globalOptions.GetOption(HighlightRelatedRegexComponentsUnderCursor, language),
-            HighlightRelatedJsonComponentsUnderCursor = globalOptions.GetOption(HighlightRelatedJsonComponentsUnderCursor, language)
+            HighlightRelatedRegexComponentsUnderCursor = globalOptions.GetConnectionScopedOption(HighlightRelatedRegexComponentsUnderCursor, language),
+            HighlightRelatedJsonComponentsUnderCursor = globalOptions.GetConnectionScopedOption(HighlightRelatedJsonComponentsUnderCursor, language)
         };
 
     private static readonly OptionGroup s_highlightingGroup = new(name: "highlighting", description: "");

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.Structure;
 
@@ -14,19 +15,19 @@ internal static class BlockStructureOptionsStorage
     public static BlockStructureOptions GetBlockStructureOptions(this IGlobalOptionService globalOptions, string language, bool isMetadataAsSource)
         => new()
         {
-            ShowBlockStructureGuidesForCommentsAndPreprocessorRegions = globalOptions.GetOption(ShowBlockStructureGuidesForCommentsAndPreprocessorRegions, language),
-            ShowBlockStructureGuidesForDeclarationLevelConstructs = globalOptions.GetOption(ShowBlockStructureGuidesForDeclarationLevelConstructs, language),
-            ShowBlockStructureGuidesForCodeLevelConstructs = globalOptions.GetOption(ShowBlockStructureGuidesForCodeLevelConstructs, language),
-            ShowOutliningForCommentsAndPreprocessorRegions = globalOptions.GetOption(ShowOutliningForCommentsAndPreprocessorRegions, language),
-            ShowOutliningForDeclarationLevelConstructs = globalOptions.GetOption(ShowOutliningForDeclarationLevelConstructs, language),
-            ShowOutliningForCodeLevelConstructs = globalOptions.GetOption(ShowOutliningForCodeLevelConstructs, language),
-            CollapseRegionsWhenFirstOpened = globalOptions.GetOption(CollapseRegionsWhenFirstOpened, language),
-            CollapseImportsWhenFirstOpened = globalOptions.GetOption(CollapseImportsWhenFirstOpened, language),
-            CollapseMetadataImplementationsWhenFirstOpened = globalOptions.GetOption(CollapseSourceLinkEmbeddedDecompiledFilesWhenFirstOpened, language),
-            CollapseEmptyMetadataImplementationsWhenFirstOpened = globalOptions.GetOption(CollapseMetadataSignatureFilesWhenFirstOpened, language),
-            CollapseLocalFunctionsWhenCollapsingToDefinitions = globalOptions.GetOption(CollapseLocalFunctionsWhenCollapsingToDefinitions, language),
-            CollapseRegionsWhenCollapsingToDefinitions = globalOptions.GetOption(CollapseRegionsWhenCollapsingToDefinitions, language),
-            MaximumBannerLength = globalOptions.GetOption(MaximumBannerLength, language),
+            ShowBlockStructureGuidesForCommentsAndPreprocessorRegions = globalOptions.GetConnectionScopedOption(ShowBlockStructureGuidesForCommentsAndPreprocessorRegions, language),
+            ShowBlockStructureGuidesForDeclarationLevelConstructs = globalOptions.GetConnectionScopedOption(ShowBlockStructureGuidesForDeclarationLevelConstructs, language),
+            ShowBlockStructureGuidesForCodeLevelConstructs = globalOptions.GetConnectionScopedOption(ShowBlockStructureGuidesForCodeLevelConstructs, language),
+            ShowOutliningForCommentsAndPreprocessorRegions = globalOptions.GetConnectionScopedOption(ShowOutliningForCommentsAndPreprocessorRegions, language),
+            ShowOutliningForDeclarationLevelConstructs = globalOptions.GetConnectionScopedOption(ShowOutliningForDeclarationLevelConstructs, language),
+            ShowOutliningForCodeLevelConstructs = globalOptions.GetConnectionScopedOption(ShowOutliningForCodeLevelConstructs, language),
+            CollapseRegionsWhenFirstOpened = globalOptions.GetConnectionScopedOption(CollapseRegionsWhenFirstOpened, language),
+            CollapseImportsWhenFirstOpened = globalOptions.GetConnectionScopedOption(CollapseImportsWhenFirstOpened, language),
+            CollapseMetadataImplementationsWhenFirstOpened = globalOptions.GetConnectionScopedOption(CollapseSourceLinkEmbeddedDecompiledFilesWhenFirstOpened, language),
+            CollapseEmptyMetadataImplementationsWhenFirstOpened = globalOptions.GetConnectionScopedOption(CollapseMetadataSignatureFilesWhenFirstOpened, language),
+            CollapseLocalFunctionsWhenCollapsingToDefinitions = globalOptions.GetConnectionScopedOption(CollapseLocalFunctionsWhenCollapsingToDefinitions, language),
+            CollapseRegionsWhenCollapsingToDefinitions = globalOptions.GetConnectionScopedOption(CollapseRegionsWhenCollapsingToDefinitions, language),
+            MaximumBannerLength = globalOptions.GetConnectionScopedOption(MaximumBannerLength, language),
             IsMetadataAsSource = isMetadataAsSource,
         };
 
