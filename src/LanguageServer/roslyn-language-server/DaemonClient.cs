@@ -46,28 +46,33 @@ internal static class DaemonClient
 {
     private static readonly TimeSpan s_existingDaemonConnectTimeout = TimeSpan.FromSeconds(5);
 
-    // Must be at least DaemonBootstrap.ReadyTimeout: the bootstrap keeps trying to start the daemon for that
-    // long, so a shorter connect timeout here would make us give up on (and report a launch failure for) a
-    // daemon that is still legitimately starting, leaving a healthy but unused daemon running behind us.
-    private static readonly TimeSpan s_newDaemonConnectTimeout = DaemonBootstrap.ReadyTimeout;
+    // Must be at least the bootstrap's own readiness wait for these serverArguments (DaemonBootstrap.ReadyTimeout
+    // normally, or DaemonBootstrap.DebugReadyTimeout when --debug is present): the bootstrap keeps trying to
+    // start the daemon for that long, so a shorter connect timeout here would make us give up on (and report a
+    // launch failure for) a daemon that is still legitimately starting -- e.g. still waiting for a debugger to
+    // attach -- leaving a healthy but unused (and, without a relay, unusable) daemon running behind us.
+    private static TimeSpan GetNewDaemonConnectTimeout(IReadOnlyList<string> serverArguments)
+        => serverArguments.Contains(DaemonBootstrap.DebugArgument) ? DaemonBootstrap.DebugReadyTimeout : DaemonBootstrap.ReadyTimeout;
 
-    // Must be at least s_newDaemonConnectTimeout: the client that wins the race to launch the daemon holds
-    // this mutex for its entire cold-start connect attempt (up to s_newDaemonConnectTimeout), not just the
-    // brief "check server, launch if absent" decision -- ConnectAsync's `using (clientMutex)` spans the whole
-    // method. A second client that gives up waiting for the mutex sooner than that would conclude the shared
-    // daemon is unreachable while it's actually still starting successfully, and launch its own redundant
-    // fallback server instead of sharing it -- defeating daemon sharing precisely in the case (slow cold
-    // start / heavy MEF composition) it matters most. The extra 10s is scheduling margin, not part of the
-    // legitimate startup window itself.
-    private static readonly TimeSpan s_daemonMutexTimeout = s_newDaemonConnectTimeout + TimeSpan.FromSeconds(10);
+    // Must be at least GetNewDaemonConnectTimeout: the client that wins the race to launch the daemon holds
+    // this mutex for its entire cold-start connect attempt (up to that timeout), not just the brief "check
+    // server, launch if absent" decision -- ConnectAsync's `using (clientMutex)` spans the whole method. A
+    // second client that gives up waiting for the mutex sooner than that would conclude the shared daemon is
+    // unreachable while it's actually still starting successfully, and launch its own redundant fallback server
+    // instead of sharing it -- defeating daemon sharing precisely in the case (slow cold start / heavy MEF
+    // composition / a debugger not yet attached) it matters most. The extra 10s is scheduling margin, not part
+    // of the legitimate startup window itself.
+    private static TimeSpan GetDaemonMutexTimeout(IReadOnlyList<string> serverArguments)
+        => GetNewDaemonConnectTimeout(serverArguments) + TimeSpan.FromSeconds(10);
 
     public static Task<DaemonConnectResult> ConnectAsync(
         ServerExecutable executable,
         IReadOnlyList<string> serverArguments)
     {
         var pipeName = GetDaemonPipeName(executable, serverArguments);
+        var daemonMutexTimeout = GetDaemonMutexTimeout(serverArguments);
 
-        if (!DaemonClientMutex.TryAcquire(pipeName, s_daemonMutexTimeout, out var clientMutex))
+        if (!DaemonClientMutex.TryAcquire(pipeName, daemonMutexTimeout, out var clientMutex))
         {
             Console.Error.WriteLine($"Timed out waiting for the daemon startup mutex for pipe '{pipeName}'. Falling back to non-daemon mode.");
             return Task.FromResult(DaemonConnectResult.FallbackToNonDaemon());
@@ -110,7 +115,7 @@ internal static class DaemonClient
         var pipeClient = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
         try
         {
-            var connectTimeout = launchedDaemon ? s_newDaemonConnectTimeout : s_existingDaemonConnectTimeout;
+            var connectTimeout = launchedDaemon ? GetNewDaemonConnectTimeout(serverArguments) : s_existingDaemonConnectTimeout;
             if (bootstrapProcess is not null)
             {
                 ConnectWithBootstrapFailureDetection(pipeClient, bootstrapProcess, connectTimeout);
@@ -203,8 +208,8 @@ internal static class DaemonClient
     /// polls in short slices instead of blocking for the whole timeout so it can notice <paramref
     /// name="bootstrapProcess"/> exiting early. Without this, a daemon that fails fast (bad command-line
     /// arguments, MEF composition failure, another process already owning the pipe) still leaves this client
-    /// blocked for the full <paramref name="connectTimeout"/> (up to <see cref="s_newDaemonConnectTimeout"/>,
-    /// 60s) even though <see cref="DaemonBootstrap.RunAsync"/> already knew the failure within a couple of
+    /// blocked for the full <paramref name="connectTimeout"/> (up to <see cref="GetNewDaemonConnectTimeout"/>,
+    /// normally 60s) even though <see cref="DaemonBootstrap.RunAsync"/> already knew the failure within a couple of
     /// seconds and reported it on this same bootstrap process's exit code -- the editor would appear hung for
     /// up to a minute for a failure that was already known.
     /// </summary>

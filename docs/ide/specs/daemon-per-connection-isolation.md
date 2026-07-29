@@ -580,6 +580,19 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
     rushed code change here.
   Verified (for the two fixes that landed) with real builds and the existing `DaemonPipeNameTests` (18/18) and
   `LanguageServerDaemonTests` (12/12, confirmed passing again after the revert) suites.
+- **The `--debug` fix above only made `DaemonBootstrap`'s own `ReadyTimeout` debug-aware, not `DaemonClient`'s
+  connect/mutex timeouts, which are derived from it.** `s_newDaemonConnectTimeout`/`s_daemonMutexTimeout` were
+  `static readonly` fields computed once at type load from `DaemonBootstrap.ReadyTimeout` (fixed 60s/70s),
+  with no way to know a particular `ConnectAsync` call's `serverArguments` contained `--debug` -- so even
+  though the bootstrap would now legitimately wait up to `DebugReadyTimeout` (5 minutes) for a debugger to
+  attach, the *thin client* still gave up and fell back to non-daemon mode after 60/70s, exiting while the
+  daemon could subsequently start successfully but with no relay left to serve it. Fixed by making
+  `DaemonBootstrap.DebugArgument`/`DebugReadyTimeout` `internal` (were `private`) and converting the two
+  `DaemonClient` fields into `GetNewDaemonConnectTimeout(serverArguments)`/`GetDaemonMutexTimeout(serverArguments)`
+  methods that check for `--debug` in that specific call's arguments and use `DebugReadyTimeout` instead of
+  `ReadyTimeout` when present, keeping the client's patience in sync with the bootstrap's own. Verified with a
+  real build and the real subprocess-based `MultipleClients_ShareOneDaemon`/`TwoClientsRacingToStart_ShareExactlyOneDaemon`
+  tests (3/3 passed).
 
 ## The ambient-token ordering bug
 

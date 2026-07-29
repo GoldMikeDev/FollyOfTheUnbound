@@ -35,7 +35,7 @@ internal static class DaemonBootstrap
     internal static readonly TimeSpan ReadyTimeout = TimeSpan.FromSeconds(60);
 
     /// <summary>Marker the daemon recognizes to wait for a debugger before starting up (see <c>Program.cs</c>).</summary>
-    private const string DebugArgument = "--debug";
+    internal const string DebugArgument = "--debug";
 
     /// <summary>
     /// Upper bound used instead of <see cref="ReadyTimeout"/> when <see cref="DebugArgument"/> is present: on
@@ -43,9 +43,10 @@ internal static class DaemonBootstrap
     /// daemon even starts becoming ready, so <see cref="ReadyTimeout"/>'s default 60s would make this bootstrap
     /// kill the daemon out from under a developer who is still attaching a debugger -- the documented
     /// <c>--debug</c> option could never actually reach its own timeout in daemon mode. Comfortably exceeds that
-    /// two-minute wait plus normal startup time.
+    /// two-minute wait plus normal startup time. Internal (not private) because <see cref="DaemonClient"/> needs
+    /// the same value to keep its own connect/mutex timeouts from giving up before this bootstrap does.
     /// </summary>
-    private static readonly TimeSpan DebugReadyTimeout = TimeSpan.FromMinutes(5);
+    internal static readonly TimeSpan DebugReadyTimeout = TimeSpan.FromMinutes(5);
 
     /// <summary>Whether <paramref name="args"/> request the daemon bootstrap stage.</summary>
     public static bool IsBootstrapRequested(string[] args)
