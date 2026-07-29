@@ -24,7 +24,7 @@ public sealed class LspRelayTests
         public PipeWriter EditorWriter => _editorSource.Writer;
         public PipeWriter ServerWriter => _serverSource.Writer;
 
-        public Task<RelayResult> RelayAsync()
+        public Task<RelayCompletionKind> RelayAsync()
             => LspRelay.RelayAsync(
                 fromEditor: _editorSource.Reader.AsStream(),
                 toEditor: new MemoryStream(),
@@ -43,8 +43,7 @@ public sealed class LspRelayTests
 
         var result = await harness.RelayAsync();
 
-        Assert.Equal(RelayEndpoint.Server, result.ClosedEndpoint);
-        Assert.True(result.BothSidesClosed);
+        Assert.Equal(RelayCompletionKind.CleanShutdown, result);
     }
 
     [Fact]
@@ -57,7 +56,7 @@ public sealed class LspRelayTests
 
         var result = await harness.RelayAsync();
 
-        Assert.True(result.BothSidesClosed);
+        Assert.Equal(RelayCompletionKind.CleanShutdown, result);
     }
 
     [Fact]
@@ -65,16 +64,15 @@ public sealed class LspRelayTests
     {
         // The server's connection breaks (an exception reading from it, not a clean EOF) and the editor never
         // follows -- this must not be mistaken for a clean shutdown. This is the regression guard for the
-        // original bug this whole struct was added to fix: naively treating "the server side ended" as proof of
-        // a clean shutdown regardless of whether it was graceful.
+        // original bug this classification was added to fix: naively treating "the server side ended" as proof
+        // of a clean shutdown regardless of whether it was graceful.
         var harness = new RelayHarness();
 
         harness.ServerWriter.Complete(new IOException("simulated daemon crash"));
 
         var result = await harness.RelayAsync();
 
-        Assert.Equal(RelayEndpoint.Server, result.ClosedEndpoint);
-        Assert.False(result.BothSidesClosed);
+        Assert.Equal(RelayCompletionKind.ServerConnectionLost, result);
     }
 
     [Fact]
@@ -86,7 +84,6 @@ public sealed class LspRelayTests
 
         var result = await harness.RelayAsync();
 
-        Assert.Equal(RelayEndpoint.Editor, result.ClosedEndpoint);
-        Assert.False(result.BothSidesClosed);
+        Assert.Equal(RelayCompletionKind.EditorConnectionLost, result);
     }
 }
