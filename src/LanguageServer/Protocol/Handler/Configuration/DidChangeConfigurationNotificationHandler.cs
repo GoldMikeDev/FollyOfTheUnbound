@@ -26,6 +26,7 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
     private readonly ILspLogger _lspLogger;
     private readonly IGlobalOptionService _globalOptionService;
     private readonly IClientLanguageServerManager _clientLanguageServerManager;
+    private readonly LspWorkspaceRegistrationService _workspaceRegistrationService;
     private readonly Guid _registrationId;
 
     /// <summary>
@@ -48,11 +49,13 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
     public DidChangeConfigurationNotificationHandler(
         ILspLogger logger,
         IGlobalOptionService globalOptionService,
-        IClientLanguageServerManager clientLanguageServerManager)
+        IClientLanguageServerManager clientLanguageServerManager,
+        LspWorkspaceRegistrationService workspaceRegistrationService)
     {
         _lspLogger = logger;
         _globalOptionService = globalOptionService;
         _clientLanguageServerManager = clientLanguageServerManager;
+        _workspaceRegistrationService = workspaceRegistrationService;
         _registrationId = Guid.NewGuid();
         _configurationItems = GenerateGlobalConfigurationItems();
         _optionsAndLanguageNamesToRefresh = GenerateOptionsNeedsToRefresh();
@@ -119,6 +122,18 @@ internal sealed partial class DidChangeConfigurationNotificationHandler : ILspSe
         // directly here would silently change option values seen by every other concurrently connected
         // client, not just this one.
         ConnectionScopedOptionOverrides.SetOverrides(_globalOptionService, optionsToUpdate);
+
+        // Because the write above intentionally never touches the shared IGlobalOptionService, it never raises
+        // the OptionChanged event SolutionAnalyzerConfigOptionsUpdater normally listens for to keep
+        // Solution.FallbackAnalyzerOptions (and therefore already-computed diagnostics) in sync -- so already
+        // loaded workspaces would otherwise keep stale editorconfig-backed option values until recreated.
+        // Apply the same transform directly to just this connection's own workspaces (never another
+        // connection's -- LspWorkspaceRegistrationService is a per-server view, see its own remarks).
+        var changedOptions = optionsToUpdate.ToImmutable();
+        foreach (var workspace in _workspaceRegistrationService.GetAllRegistrations())
+        {
+            SolutionAnalyzerConfigOptionsUpdater.ApplyChangedOptionsIfRelevant(workspace, changedOptions);
+        }
     }
 
     private async Task<ImmutableArray<string?>> GetConfigurationsAsync(CancellationToken cancellationToken)

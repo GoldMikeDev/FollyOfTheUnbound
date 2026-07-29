@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.LanguageServer.Handler.Configuration;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.Test.Utilities;
@@ -101,6 +102,58 @@ public sealed class DidChangeConfigurationNotificationHandlerTest : AbstractLang
 
         await server.ExecuteRequestAsync<DidChangeConfigurationParams, object>(Methods.WorkspaceDidChangeConfigurationName, new DidChangeConfigurationParams(), CancellationToken.None).ConfigureAwait(false);
         VerifyValuesInServer(server.TestWorkspace, clientCallbackTarget.MockClientSideValues);
+    }
+
+    /// <summary>
+    /// Regression coverage for a Codex finding on PR #3: <c>ConnectionScopedOptionOverrides.SetOverrides</c>
+    /// (the daemon-per-connection option facade -- see docs/ide/specs/daemon-per-connection-isolation.md)
+    /// never touches the shared <see cref="Microsoft.CodeAnalysis.Options.IGlobalOptionService"/>, so it never
+    /// raises the change event <c>SolutionAnalyzerConfigOptionsUpdater</c> normally listens for to keep
+    /// <see cref="Solution.FallbackAnalyzerOptions"/> (and downstream diagnostics) in sync. Without a direct
+    /// path, an editorconfig-backed option change from <c>workspace/didChangeConfiguration</c> would be
+    /// readable via <c>GetConnectionScopedOption</c> but never actually reach analyzers reading
+    /// <see cref="Solution.FallbackAnalyzerOptions"/> for an already-loaded workspace.
+    /// </summary>
+    [Theory, CombinatorialData]
+    public async Task VerifyFallbackAnalyzerOptionsUpdatedOnConfigurationChange(bool mutatingLspWorkspace)
+    {
+        var markup = """
+            public class A { }
+            """;
+
+        var clientCapabilities = new ClientCapabilities()
+        {
+            Workspace = new WorkspaceClientCapabilities()
+            {
+                DidChangeConfiguration = new DidChangeConfigurationClientCapabilities() { DynamicRegistration = true },
+                Configuration = true
+            }
+        };
+
+        var clientCallbackTarget = new ClientCallbackTarget();
+        var initializationOptions = new InitializationOptions()
+        {
+            CallInitialized = true,
+            ClientCapabilities = clientCapabilities,
+            ServerKind = WellKnownLspServerKinds.CSharpVisualBasicLspServer,
+            ClientTarget = clientCallbackTarget,
+        };
+
+        clientCallbackTarget.SetClientSideOptionValues(setToDefaultValue: false);
+
+        var server = await CreateTestLspServerAsync(markup, mutatingLspWorkspace, initializationOptions);
+
+        // SupportedOptions and MockClientSideValues aren't 1:1 -- IPerLanguageValuedOption entries expand to
+        // two consecutive values (C# then VB), matching VerifyValuesInServer's own expansion below.
+        var optionsAndLanguageToVerify = DidChangeConfigurationNotificationHandler.SupportedOptions.SelectManyAsArray(option => option is IPerLanguageValuedOption
+            ? DidChangeConfigurationNotificationHandler.SupportedLanguages.SelectAsArray(lang => (option, lang))
+            : [(option, string.Empty)]);
+        var indentationSizeIndex = optionsAndLanguageToVerify.IndexOf((FormattingOptions2.IndentationSize, LanguageNames.CSharp));
+        var nonDefaultIndentationSize = clientCallbackTarget.MockClientSideValues[indentationSizeIndex];
+
+        var fallbackOptions = server.TestWorkspace.CurrentSolution.FallbackAnalyzerOptions[LanguageNames.CSharp];
+        Assert.True(fallbackOptions.TryGetOption<int>(new OptionKey2(FormattingOptions2.IndentationSize, LanguageNames.CSharp), out var actualIndentationSize));
+        Assert.Equal(int.Parse(nonDefaultIndentationSize), actualIndentationSize);
     }
 
     [Fact]

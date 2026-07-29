@@ -303,7 +303,7 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
 
 ## Post-phase-7 Codex findings
 
-Five more real findings across two Codex review rounds on the phase 7 commits, all fixed:
+Six more real findings across three Codex review rounds on the phase 7 commits, all fixed:
 
 - **Handshake-processing failures weren't cleaned up.** `LanguageServerConnectionManager.TryStartServerAsync`'s
   handshake handling (`Directory.CreateDirectory` for a client's `ExtensionLogDirectory`; parsing and applying
@@ -364,6 +364,21 @@ Five more real findings across two Codex review rounds on the phase 7 commits, a
   (`NamedPipeClientStream.ConnectAsync(int)`, which throws `TimeoutException` on expiry); `Program.cs`'s
   existing `catch` for `TimeoutException` and the `using` around the daemon connection already handle
   reporting and cleanup correctly once this throws instead of hanging, no changes needed there.
+- **Connection-scoped option overrides never propagated into already-loaded workspaces.**
+  `ConnectionScopedOptionOverrides.SetOverrides` (phase 4) intentionally never touches the shared
+  `IGlobalOptionService`, so it never raises the `OptionChanged` event `SolutionAnalyzerConfigOptionsUpdater`
+  listens for to keep `Solution.FallbackAnalyzerOptions` in sync. A daemon connection's editorconfig-backed
+  option change (naming style, diagnostic scope, code-style options, ...) from `workspace/didChangeConfiguration`
+  was therefore readable via `GetConnectionScopedOption` but silently never reached already-loaded workspaces'
+  analyzer configuration -- diagnostics stayed computed against the stale value until the workspace was
+  recreated. Fixed by extracting `SolutionAnalyzerConfigOptionsUpdater`'s solution-transform logic into a
+  reusable `ApplyChangedOptionsIfRelevant(Workspace, IReadOnlyList<KeyValuePair<OptionKey2, object?>>)`, and
+  calling it directly from `DidChangeConfigurationNotificationHandler.RefreshOptionsAsync` for just this
+  connection's own workspaces (enumerated via its `LspWorkspaceRegistrationService`, itself already a
+  per-server view -- never another connection's workspaces) right after installing the override. Verified by
+  a new `DidChangeConfigurationNotificationHandlerTest` case confirming `Solution.FallbackAnalyzerOptions`
+  reflects the client's new value immediately after the notification, not just `GetConnectionScopedOption`'s
+  own read path.
 
 ## The ambient-token ordering bug
 

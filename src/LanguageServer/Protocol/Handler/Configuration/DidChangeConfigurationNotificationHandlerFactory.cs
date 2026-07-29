@@ -5,6 +5,7 @@
 using System;
 using System.Composition;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CommonLanguageServerProtocol.Framework;
 
@@ -27,6 +28,7 @@ internal sealed class DidChangeConfigurationNotificationHandlerFactory : ILspSer
     {
         var clientManager = lspServices.GetRequiredService<IClientLanguageServerManager>();
         var lspLogger = lspServices.GetRequiredService<ILspLogger>();
-        return new DidChangeConfigurationNotificationHandler(lspLogger, _globalOptionService, clientManager);
+        var workspaceRegistrationService = lspServices.GetRequiredService<LspWorkspaceRegistrationService>();
+        return new DidChangeConfigurationNotificationHandler(lspLogger, _globalOptionService, clientManager, workspaceRegistrationService);
     }
 }

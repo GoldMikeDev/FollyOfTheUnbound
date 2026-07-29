@@ -17,24 +17,31 @@ unrelated-looking test failure rather than a clear composition error.
 first (`[ExportLanguageService]`/`[ExportWorkspaceService]`, `[Shared]`,
 `[ImportingConstructor]` + `[Obsolete(MefConstruction.ImportingConstructorMessage)]`).
 
-## Daemon-mode `roslyn-language-server` has incomplete per-connection isolation
+## Daemon-mode `roslyn-language-server` per-connection isolation: telemetry only, by design
 
 **Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/` daemon mode (`--daemon`),
 `src/LanguageServer/roslyn-language-server/`
-**Description:** The daemon builds exactly one MEF `ExportProvider` and consumes one client's
-`ServerConfiguration`, once, at startup. Every later client that connects to the shared daemon gets its own
-`LanguageServerHost`. Global log routing is now fixed: `DaemonConnectionContext` (an
-`AsyncLocal<LanguageServerHost?>` ambient context, set by `LanguageServerConnectionManager` per connection)
-lets `GlobalLogMessageLogger.GetTargetServers` route a log call to just the connection it's attributable to,
-instead of broadcasting to every client. **Still open:** every connection shares the same `IGlobalOptionService`
-(a client's option writes silently affect every other connection), and the same per-session config
-(`ExtensionLogDirectory`, `TelemetryLevel`, `SessionId`) from whichever client happened to launch the daemon.
-Confirmed (via reflection over the actual restored assembly) that this isn't a `Microsoft.VisualStudio.Composition`
-version gap — this repo already restores 18.9.15, ahead of the entire public nuget.org release history, and
-it has no scoped/child-`ExportProvider` API to unlock.
-**Workaround:** None yet for the option/config gaps; tracked as
-[GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phased plan, and
-current status: `docs/ide/specs/daemon-per-connection-isolation.md`.
+**Description:** The daemon builds exactly one MEF `ExportProvider` and, since every connection shares that
+one composition (no `Microsoft.VisualStudio.Composition` version currently ships a scoped/child-`ExportProvider`
+API — confirmed via reflection over the actual restored 18.9.15 assembly, ahead of the entire public
+nuget.org release history), everything genuinely per-connection is layered on top via an ambient-token
+primitive (`AmbientConnectionToken`/`DaemonConnectionContext`), not a real MEF scope. This is now largely
+complete: global log routing (`GlobalLogMessageLogger`), `IGlobalOptionService` reads/writes reachable from
+LSP request handling (`ConnectionScopedOptionOverrides`/`GetConnectionScopedOption`, including propagation
+into `Solution.FallbackAnalyzerOptions` via `SolutionAnalyzerConfigOptionsUpdater.ApplyChangedOptionsIfRelevant`),
+and per-connection `ExtensionLogDirectory`/`SourceGeneratorExecutionPreference` (via a `ConnectionHandshake`
+a connecting client sends before its stream becomes the LSP channel, no longer baked into the daemon pipe
+key) are all isolated per connection. **Still open, by design, not deferred:** `TelemetryLevel`/`SessionId`
+still come from whichever client happened to launch the daemon — `RoslynLogger` is a hard process-wide
+singleton with no way for two instances (one per connection) to coexist without a telemetry-plumbing
+redesign that's out of scope, and telemetry answers "how is this tool used in aggregate," not "what did this
+workspace do," so misattributing it across a shared daemon's connections isn't a correctness/privacy problem
+the way the option/log gaps were.
+**Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution has
+no workaround and isn't going to get one; tracked as
+[GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
+history, and the "Decisions" section explaining why telemetry is out of scope:
+`docs/ide/specs/daemon-per-connection-isolation.md`.
 
 ## New loop-like statement kinds need registering in `IsContinuableConstruct`/`IsBreakableConstruct`
 
