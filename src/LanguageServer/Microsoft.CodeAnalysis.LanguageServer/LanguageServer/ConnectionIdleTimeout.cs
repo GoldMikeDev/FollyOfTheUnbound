@@ -139,6 +139,12 @@ internal sealed class ConnectionIdleTimeout : IDisposable
 
     private sealed class TimeoutGeneration : IDisposable
     {
+        // CancellationTokenSource.CancelAfter rejects delays above this (~49.7 days); a keepalive configured
+        // beyond that (there's no upper bound on --daemonKeepAlive or its environment variable, only -1/>=0)
+        // would otherwise throw ArgumentOutOfRangeException here -- inside CloseConnection's lock, uncaught --
+        // instead of just running for a shorter time than requested.
+        private static readonly TimeSpan s_maxCancelAfterDelay = TimeSpan.FromMilliseconds(uint.MaxValue - 1);
+
         private readonly CancellationTokenSource _cancellationSource = new();
         private readonly TimeSpan _timeout;
 
@@ -153,7 +159,7 @@ internal sealed class ConnectionIdleTimeout : IDisposable
         public bool IsInitialConnectionTimeout { get; }
 
         public void StartTimeout()
-            => _cancellationSource.CancelAfter(_timeout);
+            => _cancellationSource.CancelAfter(_timeout > s_maxCancelAfterDelay ? s_maxCancelAfterDelay : _timeout);
 
         public void Cancel()
             => _cancellationSource.Cancel();
