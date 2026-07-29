@@ -93,6 +93,18 @@ internal static class DaemonPipeName
     private static readonly string[] s_perConnectionRoutedOptions = ["--extensionLogDirectory", "--sourceGeneratorExecutionPreference"];
 
     /// <summary>
+    /// Options excluded from <c>GetPipeName</c>'s hash input for a different reason than
+    /// <see cref="s_perConnectionRoutedOptions"/>: these aren't routed per-connection at all, they're simply
+    /// irrelevant to whether two clients can share a daemon. <c>--sessionId</c> only initializes the daemon
+    /// process's telemetry singleton once at startup; the per-connection-isolation design already accepts
+    /// attributing telemetry to whichever client happened to launch the shared daemon (see
+    /// docs/ide/specs/daemon-per-connection-isolation.md's phase 6 notes) rather than isolating it. Hashing
+    /// this normally session-specific value would silently defeat daemon sharing for every client -- each
+    /// session gets its own daemon -- without buying any actual isolation in return.
+    /// </summary>
+    private static readonly string[] s_pipeKeyIrrelevantOptions = ["--sessionId"];
+
+    /// <summary>
     /// Computes the pipe name from the user identity, a tool identifier, and the daemon-global startup
     /// arguments. The <paramref name="toolIdentifier"/> ensures only compatible clients connect to a
     /// compatible server; we use the full path to the server executable (in a versioned location).
@@ -151,16 +163,18 @@ internal static class DaemonPipeName
 
     /// <summary>
     /// Filters <paramref name="serverArguments"/> down to the subset that should still distinguish which
-    /// daemon a client connects to, dropping any <see cref="s_perConnectionRoutedOptions"/> occurrence (and
-    /// its value, whether given as a separate token or inline <c>--option=value</c>) since those are now
-    /// routed per-connection instead of baked into daemon-wide state.
+    /// daemon a client connects to, dropping any <see cref="s_perConnectionRoutedOptions"/> or
+    /// <see cref="s_pipeKeyIrrelevantOptions"/> occurrence (and its value, whether given as a separate token or
+    /// inline <c>--option=value</c>) since neither category needs to split clients into separate daemons.
     /// </summary>
     private static IEnumerable<string> GetServerArgumentsForPipeKey(IReadOnlyList<string> serverArguments)
     {
         for (var i = 0; i < serverArguments.Count; i++)
         {
             var argument = serverArguments[i];
-            var matchedOption = Array.Find(s_perConnectionRoutedOptions, option => IsOptionOrInlineValue(argument, option));
+            var matchedOption =
+                Array.Find(s_perConnectionRoutedOptions, option => IsOptionOrInlineValue(argument, option)) ??
+                Array.Find(s_pipeKeyIrrelevantOptions, option => IsOptionOrInlineValue(argument, option));
 
             if (matchedOption is null)
             {

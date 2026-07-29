@@ -34,6 +34,19 @@ internal static class DaemonBootstrap
     /// </summary>
     internal static readonly TimeSpan ReadyTimeout = TimeSpan.FromSeconds(60);
 
+    /// <summary>Marker the daemon recognizes to wait for a debugger before starting up (see <c>Program.cs</c>).</summary>
+    private const string DebugArgument = "--debug";
+
+    /// <summary>
+    /// Upper bound used instead of <see cref="ReadyTimeout"/> when <see cref="DebugArgument"/> is present: on
+    /// non-Windows, <c>Program.cs</c>'s own debugger-attach wait can itself take up to two minutes before the
+    /// daemon even starts becoming ready, so <see cref="ReadyTimeout"/>'s default 60s would make this bootstrap
+    /// kill the daemon out from under a developer who is still attaching a debugger -- the documented
+    /// <c>--debug</c> option could never actually reach its own timeout in daemon mode. Comfortably exceeds that
+    /// two-minute wait plus normal startup time.
+    /// </summary>
+    private static readonly TimeSpan DebugReadyTimeout = TimeSpan.FromMinutes(5);
+
     /// <summary>Whether <paramref name="args"/> request the daemon bootstrap stage.</summary>
     public static bool IsBootstrapRequested(string[] args)
         => Array.IndexOf(args, BootstrapArgument) >= 0;
@@ -75,7 +88,8 @@ internal static class DaemonBootstrap
         var drainStandardOutput = ProcessUtilities.CopyStreamAsync(daemonProcess.StandardOutput.BaseStream, Stream.Null, forwardingCancellation.Token);
         var forwardStandardError = ProcessUtilities.CopyStreamAsync(daemonProcess.StandardError.BaseStream, Console.OpenStandardError(), forwardingCancellation.Token);
 
-        var readiness = await WaitForReadyOrExitAsync(daemonProcess, pipeName).ConfigureAwait(false);
+        var readyTimeout = Array.IndexOf(daemonArguments, DebugArgument) >= 0 ? DebugReadyTimeout : ReadyTimeout;
+        var readiness = await WaitForReadyOrExitAsync(daemonProcess, pipeName, readyTimeout).ConfigureAwait(false);
 
         if (readiness.State == DaemonReadinessState.Exited)
         {
@@ -90,7 +104,7 @@ internal static class DaemonBootstrap
 
         if (readiness.State == DaemonReadinessState.TimedOut)
         {
-            Console.Error.WriteLine($"Timed out waiting {ReadyTimeout} for the language server daemon to become ready; terminating it.");
+            Console.Error.WriteLine($"Timed out waiting {readyTimeout} for the language server daemon to become ready; terminating it.");
             await TerminateDaemonAsync(daemonProcess).ConfigureAwait(false);
             await FlushForwardersAsync(drainStandardOutput, forwardStandardError).ConfigureAwait(false);
             daemonProcess.Dispose();
@@ -107,7 +121,7 @@ internal static class DaemonBootstrap
     /// <summary>
     /// Polls until the daemon signals readiness by acquiring its server mutex, exits, or the ready timeout elapses.
     /// </summary>
-    private static async Task<DaemonReadinessResult> WaitForReadyOrExitAsync(Process daemonProcess, string pipeName)
+    private static async Task<DaemonReadinessResult> WaitForReadyOrExitAsync(Process daemonProcess, string pipeName, TimeSpan readyTimeout)
     {
         var stopwatch = Stopwatch.StartNew();
         while (true)
@@ -120,7 +134,7 @@ internal static class DaemonBootstrap
             if (DaemonServerMutex.IsRunning(pipeName))
                 return DaemonReadinessResult.Ready;
 
-            if (stopwatch.Elapsed >= ReadyTimeout)
+            if (stopwatch.Elapsed >= readyTimeout)
                 return DaemonReadinessResult.TimedOut;
 
             await Task.Delay(TimeSpan.FromMilliseconds(50)).ConfigureAwait(false);

@@ -544,6 +544,42 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   Verified with real builds of the Protocol, executable, and thin-client projects, plus the existing
   `DidChangeConfigurationNotificationHandlerTest` (7/7), `SourceGeneratorExecutionPreferenceRoutingTests`/
   `ConnectionHandshakeRegistryTests` (7/7), and `DaemonPipeNameTests` (18/18) suites.
+- **A further four-finding Codex batch, two fixed, one deliberately reverted after it broke tests, one deferred:**
+  - **`DaemonPipeName.GetPipeName` hashed `--sessionId`**, splitting clients with different session IDs into
+    separate daemons even though the option only ever initializes the daemon's process-wide telemetry singleton
+    once at startup -- and the isolation design already accepts attributing telemetry to whichever client
+    happened to launch the shared daemon (phase 6 was dropped by design, see above). Fixed by adding a second
+    exclusion list, `s_pipeKeyIrrelevantOptions`, distinct from `s_perConnectionRoutedOptions` (this option isn't
+    routed per-connection at all, it's just irrelevant to daemon compatibility).
+  - **`DaemonBootstrap`'s 60s `ReadyTimeout` could kill the daemon before `Program.cs`'s own up-to-2-minute
+    non-Windows debugger-attach wait (`--debug`) even finished** -- the daemon doesn't acquire its readiness
+    mutex until after that wait completes, so the documented `--debug` option could never actually reach its
+    own timeout in daemon mode. Fixed with a longer `DebugReadyTimeout` (5 minutes) used instead of the default
+    whenever `--debug` is present in the daemon's own arguments.
+  - **`NamedPipeDaemonConnectionSource.AcceptConnectionsAsync` serialized creating the next pipe listener
+    behind the just-accepted connection's elevation check and handshake read** -- confirmed real (a client
+    stalled mid-handshake blocks new listeners from existing for up to `s_handshakeTimeout`, 10s, during which
+    `DaemonClient`'s 5s existing-daemon connect timeout can make unrelated clients spuriously fail), **but the
+    fix was reverted.** A `Channel`-based rewrite (background accept loop publishing validated connections
+    through an unbounded channel, so listener creation no longer waits on per-connection processing) built
+    cleanly but made the full `LanguageServerDaemonTests` class hang indefinitely when run together, even
+    though every test in it passed individually in isolation -- pointing at some cross-test resource
+    interaction (leaked pipe instances, orphaned background tasks, or similar) introduced by decoupling accept
+    from per-connection processing, not tracked down within this round's time budget. Reverted rather than
+    land a change that breaks the existing test suite; the underlying finding is still real and unaddressed.
+    Tracked as follow-up work needing its own dedicated investigation (ideally with the hang reproduced and
+    diagnosed directly, not worked around).
+  - **`ServerExecutable`'s cross-OS apphost lookup and the generic (RID-less) `roslyn-language-server` tool
+    package** -- confirmed real, **not fixed**. A package built without a `RuntimeIdentifier` (the
+    `PackDependsOn=Publish` framework-dependent publish path) only emits an apphost for the *build* host's OS,
+    but `ServerExecutable.ResolveLanguageServer`/`ResolveSelf` look up the executable by the *install* host's OS
+    at runtime -- so a package built on Linux and installed on Windows (or vice versa) can't find its bundled
+    executables at all. This is a packaging/build-infrastructure question (RID-specific packages vs.
+    managed-DLL launching) entirely orthogonal to the daemon-per-connection-isolation work and outside what this
+    sandbox can validate (no cross-OS package install to test against) -- needs its own design decision, not a
+    rushed code change here.
+  Verified (for the two fixes that landed) with real builds and the existing `DaemonPipeNameTests` (18/18) and
+  `LanguageServerDaemonTests` (12/12, confirmed passing again after the revert) suites.
 
 ## The ambient-token ordering bug
 
