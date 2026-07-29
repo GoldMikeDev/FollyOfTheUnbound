@@ -37,11 +37,22 @@ internal static class ConnectionHandshakeRegistry
     }
 
     /// <summary>
-    /// The ambient connection's handshake, or <see cref="ConnectionHandshake.Empty"/> if there is no ambient
-    /// connection or it never received one (single-server mode, or a genuinely connection-less caller).
+    /// The ambient connection's handshake, or <see langword="null"/> if there is no ambient connection or it
+    /// never received one -- meaning this is <em>not</em> a daemon connection with a handshake (single-server
+    /// mode, or a genuinely connection-less caller), not merely one whose handshake omitted every field.
+    /// <para>
+    /// Deliberately distinct from a non-null <see cref="ConnectionHandshake"/> whose fields are all
+    /// <see langword="null"/> (a real daemon connection that simply didn't pass a value for something): now
+    /// that daemon connections can share a daemon regardless of per-connection-routed fields like
+    /// <see cref="ConnectionHandshake.ExtensionLogDirectory"/> (see <c>DaemonPipeName</c>'s pipe-key exclusion),
+    /// falling back to the *daemon-wide* configuration for an omitted field would silently leak whichever
+    /// client happened to launch the daemon's value to every other connection that omitted it -- exactly the
+    /// bug this distinction exists to prevent. Consumers should treat a non-null <see cref="Current"/> with a
+    /// null field as "this connection explicitly has no value," not "fall through to the shared default."
+    /// </para>
     /// </summary>
-    public static ConnectionHandshake Current
+    public static ConnectionHandshake? Current
         => AmbientConnectionToken.Current is { } token && s_handshakesByToken.TryGetValue(token, out var handshake)
             ? handshake
-            : ConnectionHandshake.Empty;
+            : null;
 }

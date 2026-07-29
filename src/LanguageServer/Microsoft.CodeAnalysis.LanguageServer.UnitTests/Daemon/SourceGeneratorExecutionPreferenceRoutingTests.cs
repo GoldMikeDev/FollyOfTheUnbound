@@ -49,27 +49,36 @@ public sealed class SourceGeneratorExecutionPreferenceRoutingTests(ITestOutputHe
         SetAmbientToRealConnectionToken(balancedClient.DaemonServer);
         Assert.Equal(SourceGeneratorExecutionPreference.Balanced, globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
 
-        // The connection that never sent a preference falls through to the shared, daemon-wide default --
-        // which neither override above ever actually mutated.
-        var sharedDefault = globalOptions.GetOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution);
+        // A daemon connection that never sent a preference gets the command-line default (Automatic) as its
+        // own explicit override -- *not* whatever the shared IGlobalOptionService happens to hold (which
+        // reflects the daemon-launching client's own explicit choice, potentially a completely different
+        // client than this one now that --sourceGeneratorExecutionPreference no longer splits clients into
+        // separate daemons). Falling through to the shared value here would leak that launching client's
+        // choice into this connection.
         SetAmbientToRealConnectionToken(unspecifiedClient.DaemonServer);
-        Assert.Equal(sharedDefault, globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
+        Assert.Equal(SourceGeneratorExecutionPreference.Automatic, globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
+
+        // And the shared service itself still was never actually mutated by any connection's override.
+        Assert.Equal(SourceGeneratorExecutionPreference.Balanced, globalOptions.GetOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
     }
 
     [Fact]
-    public async Task InvalidPreference_FallsThroughToSharedDefault()
+    public async Task InvalidPreference_FallsBackToCommandLineDefault_NotSharedValue()
     {
         await using var daemon = await CreateDaemonServerAsync();
 
+        // A daemon-launching client whose own explicit value differs from the command-line default, so this
+        // test can distinguish "fell back to the shared value" (the bug) from "fell back to the command-line
+        // default" (the fix) -- both are legal-looking answers unless they're pinned apart like this.
+        await using var launchingClient = await daemon.CreateClientAsync(
+            handshake: new ConnectionHandshake(ExtensionLogDirectory: null, SourceGeneratorExecutionPreference: "Balanced"));
         await using var client = await daemon.CreateClientAsync(
             handshake: new ConnectionHandshake(ExtensionLogDirectory: null, SourceGeneratorExecutionPreference: "not-a-real-value"));
 
         var globalOptions = daemon.ExportProvider.GetExportedValue<IGlobalOptionService>();
 
         SetAmbientToRealConnectionToken(client.DaemonServer);
-        Assert.Equal(
-            globalOptions.GetOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution),
-            globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
+        Assert.Equal(SourceGeneratorExecutionPreference.Automatic, globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
     }
 
     private static void SetAmbientToRealConnectionToken(LanguageServerHost server)

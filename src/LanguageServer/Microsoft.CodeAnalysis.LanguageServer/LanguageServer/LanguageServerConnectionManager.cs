@@ -174,17 +174,25 @@ internal sealed class LanguageServerConnectionManager
                     // Same parsing System.CommandLine's Option<SourceGeneratorExecutionPreference> does for
                     // --sourceGeneratorExecutionPreference (case-insensitive enum name) -- not
                     // SourceGeneratorExecutionPreferenceUtilities.Parse, which is a *different* string format
-                    // (lowercase editorconfig values like "automatic"/"balanced") for a different purpose. A
-                    // client that didn't pass its own value, or passed one that doesn't parse, falls through to
-                    // the daemon-wide default Program.cs already set from whichever client launched the daemon.
-                    if (handshake.SourceGeneratorExecutionPreference is { } rawPreference &&
-                        Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var preference))
-                    {
-                        var globalOptionService = exportProvider.GetExportedValue<IGlobalOptionService>();
-                        ConnectionScopedOptionOverrides.SetOverrides(
-                            globalOptionService,
-                            [KeyValuePair.Create(new OptionKey2(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution), (object?)preference)]);
-                    }
+                    // (lowercase editorconfig values like "automatic"/"balanced") for a different purpose.
+                    //
+                    // Always installs an override for a daemon connection, even when its handshake omitted
+                    // this or passed something unparseable -- falling through to the shared IGlobalOptionService
+                    // in that case would leak whichever value the client that happened to launch the daemon
+                    // explicitly requested (Program.cs writes it there once, from that client's command line),
+                    // not the actual command-line default. --sourceGeneratorExecutionPreference no longer
+                    // splits clients into separate daemons (see DaemonPipeName's pipe-key exclusion), so this
+                    // is a real, not just theoretical, cross-connection leak.
+                    var preference =
+                        handshake.SourceGeneratorExecutionPreference is { } rawPreference &&
+                        Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var parsedPreference)
+                            ? parsedPreference
+                            : SourceGeneratorExecutionPreference.Automatic; // LanguageServerCommandLine's own default.
+
+                    var globalOptionService = exportProvider.GetExportedValue<IGlobalOptionService>();
+                    ConnectionScopedOptionOverrides.SetOverrides(
+                        globalOptionService,
+                        [KeyValuePair.Create(new OptionKey2(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution), (object?)preference)]);
                 }
             }
             catch

@@ -303,7 +303,7 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
 
 ## Post-phase-7 Codex findings
 
-Two more real findings, both from Codex reviewing the phase 7 commit, both fixed:
+Five more real findings across two Codex review rounds on the phase 7 commits, all fixed:
 
 - **Handshake-processing failures weren't cleaned up.** `LanguageServerConnectionManager.TryStartServerAsync`'s
   handshake handling (`Directory.CreateDirectory` for a client's `ExtensionLogDirectory`; parsing and applying
@@ -331,6 +331,39 @@ Two more real findings, both from Codex reviewing the phase 7 commit, both fixed
   sent through the handshake as before. Verified by new `DaemonPipeNameTests` cases confirming pipe names are
   unaffected by either option's value (both argument forms) while still differing on other, still-daemon-wide
   arguments positioned around them.
+- **The pipe-key exclusion above reopened a leak in both fields' *read* side.** Once
+  `--extensionLogDirectory`/`--sourceGeneratorExecutionPreference` stopped splitting clients into separate
+  daemons, a second finding surfaced: `ConnectionHandshakeRegistry.Current` returned the same sentinel
+  (`ConnectionHandshake.Empty`, all fields null) both when a connection had no handshake at all
+  (single-server mode) *and* when a real daemon connection's handshake simply omitted a field -- making the
+  two indistinguishable to every consumer. Both consumers fell back to the daemon-wide value in the second
+  case, which now reflects an unrelated client's explicit choice (whichever client happened to launch the
+  daemon), not a sensible default:
+  - `RunTestsHandler` wrote a later client's `runTests` log into the *launching* client's
+    `ExtensionLogDirectory` whenever the later client omitted its own.
+  - The `SourceGeneratorExecutionPreference` override write only ran when the handshake's field parsed
+    successfully, so an omitted/unparseable value installed *no* override, silently falling through to
+    whatever `Program.cs` wrote into the shared `IGlobalOptionService` from the launching client's explicit
+    request -- not the command-line default (`Automatic`) a client omitting the option would reasonably expect.
+  Fixed by making `ConnectionHandshakeRegistry.Current` return `ConnectionHandshake?` (nullable): `null` means
+  "no handshake, fall back to daemon-wide configuration" (still correct for single-server mode); a non-null
+  handshake with a null field means "this connection explicitly has no value," which callers must not paper
+  over with the daemon-wide value. `RunTestsHandler` now uses `null` only when there's no handshake at all.
+  The `SourceGeneratorExecutionPreference` write now *always* installs an override for a daemon connection
+  (falling back to `SourceGeneratorExecutionPreference.Automatic`, matching `LanguageServerCommandLine`'s own
+  default, when the handshake's value is missing or unparseable) instead of skipping the write. Verified by
+  new `ConnectionHandshakeRegistryTests` (the nullable-vs-sentinel distinction, isolated from the daemon) and
+  updated `SourceGeneratorExecutionPreferenceRoutingTests` (a daemon-launching client with an explicit,
+  non-default preference, to distinguish "fell back to the shared value" from "fell back to the command-line
+  default" -- both looked like plausible-but-different answers unless pinned apart like this).
+- **`EditorConnection.CreateAsync`'s pipe connect had no timeout.** In daemon mode, `Program.cs` already opens
+  a connection to the shared daemon before calling this, so an editor that launched the thin client but never
+  created its own listening pipe (crashed, or `--pipe` pointed at the wrong name) left this waiting forever --
+  with the daemon connection opened moments earlier still counted as active the whole time, permanently
+  blocking that daemon's idle keepalive from ever starting. Fixed with a 30-second bound on the pipe connect
+  (`NamedPipeClientStream.ConnectAsync(int)`, which throws `TimeoutException` on expiry); `Program.cs`'s
+  existing `catch` for `TimeoutException` and the `using` around the daemon connection already handle
+  reporting and cleanup correctly once this throws instead of hanging, no changes needed there.
 
 ## The ambient-token ordering bug
 
