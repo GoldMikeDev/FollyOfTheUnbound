@@ -615,6 +615,25 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
     a distinct out-of-band frame/marker written and reliably flushed in the fault path specifically, read by
     `LspRelay` before or instead of treating the closure as graceful). That's a real protocol design question,
     not a targeted code change, so it's deferred as follow-up work rather than rushed.
+- **`GlobalLogMessageLogger` conflated "no ambient connection at all" with "ambient connection not yet
+  resolvable," broadcasting a second connection's pre-association construction-window activity to every other
+  live client.** `GetTargetServers` only ever checked `DaemonConnectionContext.Current` (which resolves the
+  ambient token *through* `DaemonConnectionContext.Associate`, populated only once `LanguageServerHost`
+  construction succeeds) -- so during the window between `LanguageServerConnectionManager` minting a token and
+  making it ambient (before constructing the host, required by the ambient-token ordering fix below) and that
+  same connection's `Associate` call actually running, `DaemonConnectionContext.Current` was `null` exactly the
+  same way it is for genuine process-wide activity. Logging or an exception during that construction window (or
+  during handshake/registration processing, also before `Associate` runs) was therefore broadcast to every
+  other already-connected client's LSP logger, not just kept to the connection it was actually about. Fixed by
+  checking `AmbientConnectionToken.Current` (the lower-level primitive, non-null the moment the token is
+  minted, before any association) separately from `DaemonConnectionContext.Current`: only broadcast when there
+  is no ambient token at all; when one exists but doesn't yet (or no longer) resolve to a live server, return
+  no targets (fall through to the fallback logger) instead of either broadcasting or guessing. Added
+  `AmbientTokenSetButNeverAssociated_WithOtherServersStillConnected_DoesNotLeakToThem`, which uses
+  `AmbientConnectionToken.SetCurrent` directly (not `DaemonConnectionContext.SetCurrent`, which associates
+  immediately) to simulate exactly this window; verified it actually catches the bug by reverting the
+  production fix, confirming the new test failed, then restoring the fix and confirming all 6 tests in the
+  class pass.
 
 ## The ambient-token ordering bug
 

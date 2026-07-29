@@ -84,27 +84,34 @@ internal sealed class GlobalLogMessageLogger(
     /// <summary>
     /// The server(s) this log entry should be delivered to.
     /// <list type="bullet">
-    /// <item>No ambient <see cref="DaemonConnectionContext"/>: genuine process-wide activity (e.g. before any
-    /// client has connected, or single-server/non-daemon mode) -- broadcast to every started server (the
-    /// pre-existing behavior), since there's no more specific target to prefer.</item>
-    /// <item>Ambient connection set and still live: this call is attributable to that one connection alone --
-    /// e.g. a daemon client's own extension loading -- so route to just that server.</item>
-    /// <item>Ambient connection set but no longer live (its connection ended, e.g. a fire-and-forget
-    /// non-mutating request whose work outlives client disconnection -- <c>RequestExecutionQueue</c> cancels
-    /// such work on shutdown without awaiting it): this call is still attributable to that one, now-departed
-    /// connection, not to process-wide activity, so it must not be broadcast to *other*, unrelated live
-    /// clients either. Falls through to the fallback logger instead (an empty target list), the same as the
-    /// "no servers started yet" case.</item>
+    /// <item>No ambient <see cref="AmbientConnectionToken"/> at all: genuine process-wide activity (e.g.
+    /// before any client has connected, or single-server/non-daemon mode) -- broadcast to every started server
+    /// (the pre-existing behavior), since there's no more specific target to prefer.</item>
+    /// <item>Ambient token set and resolves (via <see cref="DaemonConnectionContext.Current"/>) to a live,
+    /// still-started server: this call is attributable to that one connection alone -- e.g. a daemon client's
+    /// own extension loading -- so route to just that server.</item>
+    /// <item>Ambient token set but does not resolve to a live server -- either it hasn't been associated with
+    /// one yet (<see cref="LanguageServerConnectionManager"/> internally mints the token and makes it
+    /// ambient *before* constructing the <see cref="LanguageServerHost"/>, so logging or a thrown exception
+    /// during that construction window, or during handshake/registration processing before
+    /// <see cref="DaemonConnectionContext.Associate"/> runs, has an ambient token that doesn't resolve yet), or
+    /// its connection has since ended (e.g. a fire-and-forget non-mutating request whose work outlives client
+    /// disconnection -- <c>RequestExecutionQueue</c> cancels such work on shutdown without awaiting it): either
+    /// way this call is still attributable to that one specific connection, not to process-wide activity, so it
+    /// must not be broadcast to *other*, unrelated live clients. Falls through to the fallback logger instead
+    /// (an empty target list), the same as the "no servers started yet" case.</item>
     /// </list>
     /// </summary>
     private ImmutableArray<LanguageServerHost> GetTargetServers()
     {
         var servers = connectionManager.GetStartedServers();
 
-        if (DaemonConnectionContext.Current is { } currentConnection)
-            return servers.Contains(currentConnection) ? [currentConnection] : [];
+        if (AmbientConnectionToken.Current is null)
+            return servers;
 
-        return servers;
+        return DaemonConnectionContext.Current is { } currentConnection && servers.Contains(currentConnection)
+            ? [currentConnection]
+            : [];
     }
 
     internal TestAccessor GetTestAccessor() => new(this);

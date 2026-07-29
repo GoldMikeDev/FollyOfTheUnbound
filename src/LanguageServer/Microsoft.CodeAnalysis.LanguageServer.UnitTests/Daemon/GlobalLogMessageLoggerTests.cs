@@ -105,6 +105,31 @@ public sealed class GlobalLogMessageLoggerTests(ITestOutputHelper testOutputHelp
     }
 
     [Fact]
+    public async Task AmbientTokenSetButNeverAssociated_WithOtherServersStillConnected_DoesNotLeakToThem()
+    {
+        // LanguageServerConnectionManager mints and makes the token ambient *before* constructing the
+        // LanguageServerHost, associating it (via DaemonConnectionContext.Associate) only once construction
+        // succeeds -- so there's a real window (construction, or handshake/registration processing before
+        // that) where AmbientConnectionToken.Current is non-null but DaemonConnectionContext.Current still
+        // resolves to null, because no server has been associated with that token yet. A log call or thrown
+        // exception during that window must not be broadcast to *other*, unrelated live connections just
+        // because DaemonConnectionContext.Current alone can't distinguish "never associated" from "no ambient
+        // connection at all" -- the same leak AmbientConnectionSetButNoLongerLive_WithOtherServersStillConnected_DoesNotLeakToThem
+        // guards against for a token whose connection *ended*, but for a token whose connection hasn't
+        // *started* yet.
+        await using var daemon = await CreateDaemonServerAsync();
+        await using var survivor = await daemon.CreateClientAsync();
+
+        var logger = CreateLogger(daemon);
+
+        AmbientConnectionToken.SetCurrent(new object());
+        var targets = logger.GetTestAccessor().GetTargetServers();
+
+        Assert.Empty(targets);
+        Assert.DoesNotContain(daemon.GetStartedServers().Single(), targets);
+    }
+
+    [Fact]
     public async Task ConcurrentConnections_DoNotObserveEachOthersAmbientContext()
     {
         // The routing decision relies on AsyncLocal isolation between concurrent flows (verified generically in
