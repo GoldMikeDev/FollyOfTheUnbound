@@ -152,30 +152,46 @@ internal sealed class LanguageServerConnectionManager
 
             DaemonConnectionContext.Associate(server);
 
-            if (connection.Handshake is { } handshake)
+            // A failure anywhere in here (e.g. Directory.CreateDirectory on a client-supplied path whose
+            // permissions changed) must be cleaned up the same as a construction failure above: server is
+            // already constructed at this point, so leaving it undisposed and connection.Resource
+            // undisposed would leak the pipe and, since NamedPipeDaemonConnectionSource already counted
+            // this as an active connection via OpenConnection(), permanently prevent the daemon from ever
+            // reaching its idle keepalive timeout (CloseConnection(), which decrements that count, only runs
+            // from connection.Resource's Dispose()).
+            try
             {
-                ConnectionHandshakeRegistry.Register(handshake);
-
-                // The log directory a client passed us might not exist yet, though its parent is
-                // guaranteed to -- mirrors Program.cs's equivalent daemon-wide creation for the value
-                // whichever client happened to launch the daemon.
-                if (handshake.ExtensionLogDirectory is { } extensionLogDirectory)
-                    Directory.CreateDirectory(extensionLogDirectory);
-
-                // Same parsing System.CommandLine's Option<SourceGeneratorExecutionPreference> does for
-                // --sourceGeneratorExecutionPreference (case-insensitive enum name) -- not
-                // SourceGeneratorExecutionPreferenceUtilities.Parse, which is a *different* string format
-                // (lowercase editorconfig values like "automatic"/"balanced") for a different purpose. A
-                // client that didn't pass its own value, or passed one that doesn't parse, falls through to
-                // the daemon-wide default Program.cs already set from whichever client launched the daemon.
-                if (handshake.SourceGeneratorExecutionPreference is { } rawPreference &&
-                    Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var preference))
+                if (connection.Handshake is { } handshake)
                 {
-                    var globalOptionService = exportProvider.GetExportedValue<IGlobalOptionService>();
-                    ConnectionScopedOptionOverrides.SetOverrides(
-                        globalOptionService,
-                        [KeyValuePair.Create(new OptionKey2(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution), (object?)preference)]);
+                    ConnectionHandshakeRegistry.Register(handshake);
+
+                    // The log directory a client passed us might not exist yet, though its parent is
+                    // guaranteed to -- mirrors Program.cs's equivalent daemon-wide creation for the value
+                    // whichever client happened to launch the daemon.
+                    if (handshake.ExtensionLogDirectory is { } extensionLogDirectory)
+                        Directory.CreateDirectory(extensionLogDirectory);
+
+                    // Same parsing System.CommandLine's Option<SourceGeneratorExecutionPreference> does for
+                    // --sourceGeneratorExecutionPreference (case-insensitive enum name) -- not
+                    // SourceGeneratorExecutionPreferenceUtilities.Parse, which is a *different* string format
+                    // (lowercase editorconfig values like "automatic"/"balanced") for a different purpose. A
+                    // client that didn't pass its own value, or passed one that doesn't parse, falls through to
+                    // the daemon-wide default Program.cs already set from whichever client launched the daemon.
+                    if (handshake.SourceGeneratorExecutionPreference is { } rawPreference &&
+                        Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var preference))
+                    {
+                        var globalOptionService = exportProvider.GetExportedValue<IGlobalOptionService>();
+                        ConnectionScopedOptionOverrides.SetOverrides(
+                            globalOptionService,
+                            [KeyValuePair.Create(new OptionKey2(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution), (object?)preference)]);
+                    }
                 }
+            }
+            catch
+            {
+                await AbortServerAsync(server).ConfigureAwait(false);
+                connection.Resource?.Dispose();
+                throw;
             }
 
             var entry = new ServerEntry(server, connection.Resource);

@@ -70,6 +70,55 @@ public sealed class DaemonPipeNameTests
         Assert.NotEqual(split, joined);
     }
 
+    [Theory]
+    [InlineData("--extensionLogDirectory")]
+    [InlineData("--sourceGeneratorExecutionPreference")]
+    public void PipeName_IgnoresPerConnectionRoutedOptions_TwoTokenForm(string option)
+    {
+        // Values now routed per-connection via ConnectionHandshake (see
+        // docs/ide/specs/daemon-per-connection-isolation.md's phases 5/7) no longer need to split clients into
+        // separate daemons: unlike the rest of serverArguments, a second client's value for one of these is
+        // genuinely applied to that connection, not silently ignored.
+        var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [option, "/tmp/a"]);
+        var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [option, "/tmp/b"]);
+        var none = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+        Assert.Equal(first, second);
+        Assert.Equal(first, none);
+    }
+
+    [Theory]
+    [InlineData("--extensionLogDirectory")]
+    [InlineData("--sourceGeneratorExecutionPreference")]
+    public void PipeName_IgnoresPerConnectionRoutedOptions_InlineForm(string option)
+    {
+        var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [$"{option}=/tmp/a"]);
+        var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [$"{option}=/tmp/b"]);
+        var none = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+        Assert.Equal(first, second);
+        Assert.Equal(first, none);
+    }
+
+    [Fact]
+    public void PipeName_StillDiffersByOtherArgumentsAroundPerConnectionRoutedOptions()
+    {
+        // Excluding a per-connection-routed option and its value must not accidentally swallow neighboring,
+        // still-relevant arguments.
+        var first = DaemonPipeName.GetPipeName(
+            "user", isAdmin: false, ToolIdentifier,
+            serverArguments: ["--extension", "a.dll", "--extensionLogDirectory", "/tmp/a", "--extension", "b.dll"]);
+        var second = DaemonPipeName.GetPipeName(
+            "user", isAdmin: false, ToolIdentifier,
+            serverArguments: ["--extension", "a.dll", "--extensionLogDirectory", "/tmp/b", "--extension", "b.dll"]);
+        var differentExtensions = DaemonPipeName.GetPipeName(
+            "user", isAdmin: false, ToolIdentifier,
+            serverArguments: ["--extension", "a.dll", "--extensionLogDirectory", "/tmp/a", "--extension", "c.dll"]);
+
+        Assert.Equal(first, second);
+        Assert.NotEqual(first, differentExtensions);
+    }
+
     [Fact]
     public void PipeName_DiffersByKeepAliveEnvironmentVariable()
     {

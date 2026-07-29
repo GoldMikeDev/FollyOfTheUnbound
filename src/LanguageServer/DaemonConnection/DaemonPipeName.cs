@@ -83,6 +83,16 @@ internal static class DaemonPipeName
     }
 
     /// <summary>
+    /// Options whose value is now routed per-connection via <c>ConnectionHandshake</c> (see
+    /// docs/ide/specs/daemon-per-connection-isolation.md's phases 5 and 7) rather than baked into the daemon's
+    /// one-time MEF composition or global option state. Excluded from <c>GetPipeName</c>'s hash input:
+    /// clients that differ only in one of these no longer have a reason to be split into separate daemons --
+    /// unlike the rest of <c>serverArguments</c>, a second client's value for one of these is no longer
+    /// silently ignored, it's genuinely applied to that connection specifically.
+    /// </summary>
+    private static readonly string[] s_perConnectionRoutedOptions = ["--extensionLogDirectory", "--sourceGeneratorExecutionPreference"];
+
+    /// <summary>
     /// Computes the pipe name from the user identity, a tool identifier, and the daemon-global startup
     /// arguments. The <paramref name="toolIdentifier"/> ensures only compatible clients connect to a
     /// compatible server; we use the full path to the server executable (in a versioned location).
@@ -90,7 +100,8 @@ internal static class DaemonPipeName
     /// <c>--extension</c>, <c>--devKitDependencyPath</c>) ensures clients requesting incompatible startup
     /// configuration don't silently share a daemon composed for a different one; since MEF composition
     /// only happens once per daemon, a second client's requested extensions/configuration would otherwise
-    /// be silently ignored.
+    /// be silently ignored. <see cref="s_perConnectionRoutedOptions"/> are excluded from this, since that
+    /// reasoning no longer applies to them.
     /// <para>
     /// Also folds in the *effective* <see cref="DaemonKeepAliveEnvironmentVariable"/> setting, even though
     /// it's an environment variable rather than one of <paramref name="serverArguments"/>: unlike most
@@ -116,15 +127,45 @@ internal static class DaemonPipeName
             toolIdentifier = toolIdentifier.ToLowerInvariant();
 
         var effectiveKeepAlive = GetEffectiveKeepAliveForPipeKey(serverArguments);
+        var keyRelevantArguments = GetServerArgumentsForPipeKey(serverArguments);
 
         // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
         // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
         // ["--extension", "a", "b"]).
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', serverArguments)}.{effectiveKeepAlive}";
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")
             .Replace("=", string.Empty);
+    }
+
+    /// <summary>
+    /// Filters <paramref name="serverArguments"/> down to the subset that should still distinguish which
+    /// daemon a client connects to, dropping any <see cref="s_perConnectionRoutedOptions"/> occurrence (and
+    /// its value, whether given as a separate token or inline <c>--option=value</c>) since those are now
+    /// routed per-connection instead of baked into daemon-wide state.
+    /// </summary>
+    private static IEnumerable<string> GetServerArgumentsForPipeKey(IReadOnlyList<string> serverArguments)
+    {
+        for (var i = 0; i < serverArguments.Count; i++)
+        {
+            var argument = serverArguments[i];
+            var matchedOption = Array.Find(s_perConnectionRoutedOptions, option => IsOptionOrInlineValue(argument, option));
+
+            if (matchedOption is null)
+            {
+                yield return argument;
+                continue;
+            }
+
+            // Only the two-token form ("--option value") has a separate value token to also skip; the inline
+            // form ("--option=value") is entirely contained in the one token already excluded above.
+            if (argument == matchedOption && i + 1 < serverArguments.Count)
+                i++;
+        }
+
+        static bool IsOptionOrInlineValue(string argument, string optionName)
+            => argument == optionName || argument.StartsWith(optionName + "=", StringComparison.Ordinal);
     }
 
     private static string GetEffectiveKeepAliveForPipeKey(IReadOnlyList<string> serverArguments)

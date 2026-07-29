@@ -301,6 +301,37 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
      that happens to also resolve `Current` correctly for the one thing (`GlobalLogMessageLogger`) that
      doesn't care about token identity beyond that.
 
+## Post-phase-7 Codex findings
+
+Two more real findings, both from Codex reviewing the phase 7 commit, both fixed:
+
+- **Handshake-processing failures weren't cleaned up.** `LanguageServerConnectionManager.TryStartServerAsync`'s
+  handshake handling (`Directory.CreateDirectory` for a client's `ExtensionLogDirectory`; parsing and applying
+  its `SourceGeneratorExecutionPreference`) ran *after* `LanguageServerHost` was constructed but *outside* any
+  try/catch, unlike construction itself (which already aborts/disposes on failure) and unlike `Start()` (same).
+  A failure there -- e.g. `CreateDirectory` throwing because a client-supplied log path's permissions changed,
+  or a path segment collided with an existing file -- propagated up to `StartAndSuperviseAsync`'s
+  `catch (Exception ex) when (isolateFaults)`, which only logs. The constructed server was never aborted and
+  `connection.Resource` was never disposed, so `NamedPipeDaemonConnectionSource`'s already-incremented
+  active-connection count (from `OpenConnection()`) never returned to zero -- `ConnectionIdleTimeout` only
+  re-arms when it does -- permanently preventing the daemon from ever reaching its idle keepalive timeout,
+  regardless of how it's configured. Fixed by wrapping the handshake-processing block in the same
+  abort-server/dispose-connection/rethrow pattern already used for construction and `Start()`. Verified by
+  `LanguageServerDaemonTests.HandshakeProcessingFailure_CleansUpConnection_AndIdleTimeoutStillElapses`, which
+  forces `CreateDirectory` to fail (a path segment that's an existing file) and confirms the daemon still
+  reaches its (short, test-only) keepalive and exits -- it wouldn't have, before the fix, regardless of how
+  long the test waited.
+- **`--extensionLogDirectory` (and, by the same reasoning, `--sourceGeneratorExecutionPreference`) still split
+  clients into separate daemons.** `DaemonPipeName.GetPipeName` hashes the complete `serverArguments` array,
+  including these two, so two clients differing only in one of them still got different pipe names and never
+  shared a daemon -- meaning they never actually exercised the phase 5/7 per-connection routing this whole
+  effort built, since each was the only client of its own daemon. Both options are now excluded from the
+  pipe-key hash (`DaemonPipeName.GetServerArgumentsForPipeKey`, handling both the two-token and inline
+  `--option=value` forms, mirroring `ConnectionHandshake.FromServerArguments`'s own parsing) while still being
+  sent through the handshake as before. Verified by new `DaemonPipeNameTests` cases confirming pipe names are
+  unaffected by either option's value (both argument forms) while still differing on other, still-daemon-wide
+  arguments positioned around them.
+
 ## The ambient-token ordering bug
 
 Found by Codex while reviewing phase 5, but it affected phases 2 and 4 too for real (non-test) request

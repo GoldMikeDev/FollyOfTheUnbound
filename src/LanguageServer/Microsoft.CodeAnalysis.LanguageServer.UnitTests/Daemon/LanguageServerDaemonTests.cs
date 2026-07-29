@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
+using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
@@ -14,6 +16,32 @@ namespace Microsoft.CodeAnalysis.LanguageServer.UnitTests;
 
 public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper) : AbstractLanguageServerHostTests(testOutputHelper)
 {
+    /// <summary>
+    /// Regression coverage for a Codex finding on PR #3: a connection whose handshake processing fails after
+    /// <see cref="LanguageServer.LanguageServerHost"/> has already been constructed (e.g.
+    /// <see cref="System.IO.Directory.CreateDirectory(string)"/> throwing for a client-supplied
+    /// <c>ExtensionLogDirectory</c> whose permissions changed) previously wasn't cleaned up the same way a
+    /// construction failure is: the server was never aborted and <c>connection.Resource</c> was never disposed,
+    /// so <see cref="NamedPipeDaemonConnectionSource"/>'s already-incremented active-connection count never
+    /// returned to zero and the daemon's idle keepalive could never re-arm, keeping it alive indefinitely.
+    /// </summary>
+    [Fact]
+    public async Task HandshakeProcessingFailure_CleansUpConnection_AndIdleTimeoutStillElapses()
+    {
+        await using var daemon = await CreateDaemonServerAsync(keepAlive: TimeSpan.FromMilliseconds(200));
+
+        // Directory.CreateDirectory throws when an existing regular file occupies a path segment.
+        var blockingFile = TempRoot.CreateFile();
+        var uncreatableDirectory = Path.Combine(blockingFile.Path, "subdir");
+
+        await Assert.ThrowsAnyAsync<Exception>(() => daemon.CreateClientAsync(
+            handshake: new ConnectionHandshake(ExtensionLogDirectory: uncreatableDirectory, SourceGeneratorExecutionPreference: null)));
+
+        // Before the fix, this would never happen: the leaked active-connection count meant the idle timer
+        // never got a chance to elapse, regardless of how long the test waited.
+        await WaitForConditionAsync(() => !daemon.IsRunning);
+    }
+
     [Fact]
     public async Task Daemon_SecondInstanceOnSamePipe_TryCreateReturnsFalse()
     {
