@@ -681,6 +681,23 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   already has (or plumbing a per-connection routing key through `FeatureProviderRefresher` itself), and doing
   that safely across five refresh-queue subclasses without the ability to run two isolated daemon connections
   side-by-side in this sandbox risks a rushed, unverified change. Added as new evidence to issue #9.
+- **`ServiceBrokerProvider` (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/BrokeredServices/ServiceBrokerProvider.cs`)
+  is the same shape yet again, found by Codex reviewing doc-only commit `5f2f9bb02`, but more severe than the
+  refresh-queue instance: it crashes rather than just misrouting.** It's `[ExportWorkspaceService(...), Shared]`,
+  and confirmed by tracing `MefWorkspaceServices`'s constructor (`host.GetExports<IWorkspaceService,
+  WorkspaceServiceMetadata>()`, where `host` wraps the one daemon-wide `ExportProvider`): a `[Shared]` MEF part
+  resolves to the same singleton instance for every `Workspace`/connection built from that shared provider, the
+  same way `IGlobalOptionService` does. `ServiceBrokerFactory.CreateAsync` (`ServiceBrokerFactory.cs:58-59`)
+  calls `provider.SetContainer(container)` once per connection's workspace; `ServiceBrokerProvider.SetContainer`
+  (`ServiceBrokerProvider.cs:38-41`) does `Contract.ThrowIfTrue(_serviceBrokerContainerTask.Task.IsCompleted)` --
+  so a second daemon connection doesn't just get misrouted brokered-service traffic (bad enough on its own, per
+  Codex's `VSCodeSourceLinkService` example), it throws and presumably fails that connection's service-broker
+  setup outright. **Not fixed here**, same reasoning as the Razor pair and the refresh-queue instance: a correct
+  fix needs real per-connection scoping for `IServiceBrokerProvider`/`BrokeredServiceContainer` (there's no MEF
+  scoping primitive to reach for, per the root blocker established in the original #9 writeup), and
+  `BrokeredServiceContainer`/ServiceHub bridging is unfamiliar, non-trivial surface to patch without the ability
+  to exercise two real daemon connections both requesting a service broker in this sandbox. Added as new,
+  higher-severity evidence to issue #9.
 
 ## The ambient-token ordering bug
 

@@ -55,10 +55,17 @@ subscribe to — a `workspace/featureProviders/_vs_refresh` notification meant f
 refresh queues of every other connection sharing the daemon, causing unrelated editors to recompute
 semantic tokens/diagnostics/code lenses/inlay hints/project context. Not a content-disclosure bug like the
 Razor pair (no data crosses connections, just spurious recomputation), but the same "no per-connection
-routing for a shared MEF singleton" gap.
+routing for a shared MEF singleton" gap. A fourth, more severe instance: `ServiceBrokerProvider`
+(`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/BrokeredServices/ServiceBrokerProvider.cs`) is an
+`[ExportWorkspaceService(...), Shared]` part, which resolves to the same singleton for every
+`Workspace`/connection sharing the daemon's `ExportProvider` (confirmed via `MefWorkspaceServices`'s
+constructor). `ServiceBrokerFactory.CreateAsync` calls `SetContainer` on it once per connection; the second
+call trips `Contract.ThrowIfTrue(_serviceBrokerContainerTask.Task.IsCompleted)` — so a second daemon
+connection's service-broker setup throws outright, not just misroutes brokered-service traffic to the wrong
+editor.
 **Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution,
-the Razor leaks, and the `FeatureProviderRefresher` cross-connection refresh fan-out have no workaround and
-aren't going to get one without further work; all tracked as
+the Razor leaks, the `FeatureProviderRefresher` cross-connection refresh fan-out, and the `ServiceBrokerProvider`
+crash have no workaround and aren't going to get one without further work; all tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
 history, and the "Decisions" section explaining why telemetry is out of scope:
 `docs/ide/specs/daemon-per-connection-isolation.md`.

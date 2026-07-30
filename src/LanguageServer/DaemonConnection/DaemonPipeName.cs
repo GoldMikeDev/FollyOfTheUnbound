@@ -111,7 +111,7 @@ internal static class DaemonPipeName
     /// invocation it makes on behalf of any connection, regardless of which client is currently connected --
     /// see the remarks on <see cref="GetPipeName(string, bool, string, IReadOnlyList{string})"/>.
     /// </summary>
-    private static readonly string[] s_dotnetEnvironmentVariablesForPipeKey = ["PATH", "NUGET_PACKAGES", "DOTNET_CLI_HOME"];
+    private static readonly string[] s_dotnetEnvironmentVariablesForPipeKey = ["PATH", "NUGET_PACKAGES", "DOTNET_CLI_HOME", "MSBuildSDKsPath", "DOTNET_MSBUILD_SDK_RESOLVER_SDKS_DIR"];
 
     /// <summary>
     /// Computes the pipe name from the user identity, a tool identifier, and the daemon-global startup

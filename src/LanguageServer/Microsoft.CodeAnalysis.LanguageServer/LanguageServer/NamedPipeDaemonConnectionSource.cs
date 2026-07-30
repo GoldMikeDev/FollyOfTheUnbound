@@ -101,9 +101,17 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
             }
             catch (OperationCanceledException) when (timeoutToken.IsCancellationRequested)
             {
-                await pipeStream.DisposeAsync().ConfigureAwait(false);
-                _idleTimeout.CommitTimeout();
-                yield break;
+                // The idle timeout and a real client connecting can race: the OS-level connection can complete
+                // just before the token's cancellation callback aborts the pending I/O, in which case
+                // WaitForConnectionAsync can still surface OperationCanceledException even though the pipe is
+                // actually connected now. Don't discard an accepted client on that race -- fall through to treat
+                // this the same as a successful connection instead of committing to shutdown.
+                if (!pipeStream.IsConnected)
+                {
+                    await pipeStream.DisposeAsync().ConfigureAwait(false);
+                    _idleTimeout.CommitTimeout();
+                    yield break;
+                }
             }
             catch (Exception ex)
             {
