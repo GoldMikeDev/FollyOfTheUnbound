@@ -4481,7 +4481,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                         unionType.GetMemberProviderInterfaceForDefinition() is null &&
                         NamedTypeSymbol.IsSuitableUnionConstructor(constructor))
                     {
-                        valueProperty = Binder.GetUnionTypeValuePropertyNoUseSiteDiagnostics(unionType);
+                        valueProperty = unionType.UnionValuePropertyNoUseSiteDiagnostics();
                         return valueProperty is { };
                     }
 
@@ -8057,10 +8057,10 @@ namespace Microsoft.CodeAnalysis.CSharp
                         applyMemberPostConditions(receiverSlot, type, notNullWhenFalseMembers, ref StateWhenFalse);
                     }
 
-                    if (Binder.HasTryGetValueSignature(method) &&
+                    if (NamedTypeSymbol.HasTryGetValueSignature(method) &&
                         receiverType is NamedTypeSymbol { IsUnionType: true } unionType &&
-                        Binder.IsUnionTypeTryGetValueMethod(unionType, method) &&
-                        Binder.GetUnionTypeValuePropertyNoUseSiteDiagnostics(unionType) is { } unionValue)
+                        unionType.IsUnionTypeTryGetValueMethod(method) &&
+                        unionType.UnionValuePropertyNoUseSiteDiagnostics() is { } unionValue)
                     {
                         Split();
                         markMemberAsNotNull(receiverSlot, ref StateWhenTrue, unionValue);
@@ -8547,9 +8547,9 @@ namespace Microsoft.CodeAnalysis.CSharp
             {
                 if (refKind == RefKind.Out &&
                     parameter.ContainingSymbol is MethodSymbol method &&
-                    Binder.HasTryGetValueSignature(method) &&
+                    NamedTypeSymbol.HasTryGetValueSignature(method) &&
                     receiverType is NamedTypeSymbol { IsUnionType: true } unionType &&
-                    Binder.IsUnionTypeTryGetValueMethod(unionType, method))
+                    unionType.IsUnionTypeTryGetValueMethod(method))
                 {
                     return true;
                 }
@@ -10761,7 +10761,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             if (trackMembers && (conversionOpt is { } || targetInstanceSlotOpt > 0) &&
                 targetTypeWithNullability.Type.StrippedType() is NamedTypeSymbol { IsUnionType: true } unionType &&
-                Binder.GetUnionTypeValuePropertyNoUseSiteDiagnostics(unionType) is { } valueProperty)
+                unionType.UnionValuePropertyNoUseSiteDiagnostics() is { } valueProperty)
             {
                 // When a union constructor is called through a union conversion, the new union's Value gets the null state of the incoming value.
                 Debug.Assert(conversionOperand != null);
@@ -12365,7 +12365,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     receiverType.Type is NamedTypeSymbol { IsUnionType: true } unionType &&
                     Binder.IsUnionTypeHasValueProperty(unionType, property))
                 {
-                    unionValue = Binder.GetUnionTypeValuePropertyNoUseSiteDiagnostics(unionType);
+                    unionValue = unionType.UnionValuePropertyNoUseSiteDiagnostics();
                 }
 
                 // https://github.com/dotnet/roslyn/issues/30598: For l-values, mark receiver as not null
