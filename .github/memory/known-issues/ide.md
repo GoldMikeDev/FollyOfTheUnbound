@@ -37,8 +37,19 @@ singleton with no way for two instances (one per connection) to coexist without 
 redesign that's out of scope, and telemetry answers "how is this tool used in aggregate," not "what did this
 workspace do," so misattributing it across a shared daemon's connections isn't a correctness/privacy problem
 the way the option/log gaps were.
-**Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution has
-no workaround and isn't going to get one; tracked as
+**Still open, genuinely unresolved (not by design):** two Razor cohosting MEF singletons have the same
+"last connection to initialize wins" shape as the original `IGlobalOptionService` gap, but haven't been
+fixed: `RazorClientServerManagerProvider` (`src/Razor/.../Services/RazorClientServerManagerProvider.cs`)
+caches one `IClientLanguageServerManager` overwritten by whichever connection's Razor cohost startup ran
+last, so `HtmlDocumentPublisher`/`HtmlRequestInvoker` can send one connection's generated HTML or forward
+its HTML requests to a *different* connection's editor — a cross-client content-disclosure bug, not just
+wrong behavior. `CohostConfigurationChangedService`'s shared `IClientSettingsManager` has the same shape for
+Razor settings (e.g. `razor.advanced.show_all_c_sharp_code_actions`), read by `CSharpCodeActionProvider`
+regardless of which connection is being served. Root cause is identical to the option/log gaps above
+(`Microsoft.VisualStudio.Composition` has no per-connection sharing boundary), just not yet patched with the
+same ambient-token-based workaround.
+**Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution and
+the Razor leaks have no workaround and aren't going to get one without further work; all tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
 history, and the "Decisions" section explaining why telemetry is out of scope:
 `docs/ide/specs/daemon-per-connection-isolation.md`.
