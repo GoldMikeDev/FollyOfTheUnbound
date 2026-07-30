@@ -54,6 +54,16 @@
   <ItemGroup Condition="'$(TargetFramework)' == '$(NetRoslyn)'">
     <ProjectReference Include="..\..\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Microsoft.CodeAnalysis.LanguageServer.UnitTests.csproj" />
     <ProjectReference Include="..\..\LanguageServer\Protocol.TestUtilities\Microsoft.CodeAnalysis.LanguageServer.Protocol.Test.Utilities.csproj" />
+
+    <!-- Microsoft.CodeAnalysis.LanguageServer.UnitTests references Microsoft.CodeAnalysis.CSharp.Analyzer.Testing,
+         whose own transitive dependency on Microsoft.CodeAnalysis.CSharp.Workspaces resolves to the real released
+         package (pinned to 4.12.0 in eng/Packages.props, deliberately: analyzer-testing infrastructure needs a
+         fixed, stable Roslyn to host analyzers under test, independent of this repo's own in-progress build).
+         That collides with this project's own ProjectReference above to Workspaces\CSharp\Portable's local build
+         (renamed assembly identity, but the same public types, e.g. CSharpSyntaxFormattingOptions/NewLinePlacement),
+         producing CS0433 ambiguous type errors. This project only needs the local build (already referenced), so exclude the
+         NuGet one from compile for this TFM. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" ExcludeAssets="compile" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
