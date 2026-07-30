@@ -47,9 +47,18 @@ wrong behavior. `CohostConfigurationChangedService`'s shared `IClientSettingsMan
 Razor settings (e.g. `razor.advanced.show_all_c_sharp_code_actions`), read by `CSharpCodeActionProvider`
 regardless of which connection is being served. Root cause is identical to the option/log gaps above
 (`Microsoft.VisualStudio.Composition` has no per-connection sharing boundary), just not yet patched with the
-same ambient-token-based workaround.
-**Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution and
-the Razor leaks have no workaround and aren't going to get one without further work; all tracked as
+same ambient-token-based workaround. A third instance of the same shape: `FeatureProviderRefresher`
+(`src/LanguageServer/Protocol/Handler/FeatureProviderRefresher.cs`) is a process-wide `[Shared]` event
+source that every connection's `AbstractRefreshQueue`-derived queues (`SemanticTokensRefreshQueue`,
+`DiagnosticsRefreshQueue`, `CodeLensRefreshQueue`, `InlayHintRefreshQueue`, `ProjectContextRefreshQueue`)
+subscribe to — a `workspace/featureProviders/_vs_refresh` notification meant for one connection fires the
+refresh queues of every other connection sharing the daemon, causing unrelated editors to recompute
+semantic tokens/diagnostics/code lenses/inlay hints/project context. Not a content-disclosure bug like the
+Razor pair (no data crosses connections, just spurious recomputation), but the same "no per-connection
+routing for a shared MEF singleton" gap.
+**Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution,
+the Razor leaks, and the `FeatureProviderRefresher` cross-connection refresh fan-out have no workaround and
+aren't going to get one without further work; all tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
 history, and the "Decisions" section explaining why telemetry is out of scope:
 `docs/ide/specs/daemon-per-connection-isolation.md`.

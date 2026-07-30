@@ -666,6 +666,21 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
     the ability to spin up and verify two isolated Razor sessions in this sandbox, would be rushed and risk
     introducing further leaks rather than fixing the root cause. Added as new evidence to issue #9 rather than
     attempted as a standalone fix.
+- **`FeatureProviderRefresher` (`src/LanguageServer/Protocol/Handler/FeatureProviderRefresher.cs`) is the same
+  shape again, found by Codex reviewing merge commit `347f7d2dd`.** It's a `[Shared]` process-wide MEF event
+  source; `AbstractRefreshQueue`'s constructor unconditionally subscribes `EnqueueRefreshNotification` to its
+  `ProviderRefreshRequested` event with no ambient-token filtering (confirmed by direct inspection -- unlike
+  `AbstractTextDocumentContentRefreshQueue`'s ambient-token capture/restore fix above, this base class does
+  nothing of the kind). So a `workspace/featureProviders/_vs_refresh` notification meant for one connection
+  fires every other connection's `SemanticTokensRefreshQueue`/`DiagnosticsRefreshQueue`/`CodeLensRefreshQueue`/
+  `InlayHintRefreshQueue`/`ProjectContextRefreshQueue` too, making unrelated editors recompute semantic
+  tokens/diagnostics/code lenses/inlay hints/project context. Lower severity than the Razor pair -- no data
+  crosses connections, just wasted recomputation and a spurious refresh flicker in editors that didn't ask for
+  one -- but the same root cause and **not fixed here**, for the same reason: a correct fix means giving
+  `AbstractRefreshQueue`'s subscription the same per-connection filtering `AbstractTextDocumentContentRefreshQueue`
+  already has (or plumbing a per-connection routing key through `FeatureProviderRefresher` itself), and doing
+  that safely across five refresh-queue subclasses without the ability to run two isolated daemon connections
+  side-by-side in this sandbox risks a rushed, unverified change. Added as new evidence to issue #9.
 
 ## The ambient-token ordering bug
 
