@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO.Pipes;
+using Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
@@ -81,7 +82,7 @@ internal static class DaemonClient
         using (clientMutex)
         {
             var launchedDaemon = false;
-            Process? bootstrapProcess = null;
+            ILaunchedProcess? bootstrapProcess = null;
             if (!DaemonServerMutex.IsRunning(pipeName))
             {
                 bootstrapProcess = LaunchDaemon(pipeName, serverArguments);
@@ -110,7 +111,7 @@ internal static class DaemonClient
         }
     }
 
-    private static Stream ConnectPipe(string pipeName, bool launchedDaemon, Process? bootstrapProcess, IReadOnlyList<string> serverArguments)
+    private static Stream ConnectPipe(string pipeName, bool launchedDaemon, ILaunchedProcess? bootstrapProcess, IReadOnlyList<string> serverArguments)
     {
         var pipeClient = NamedPipeUtil.CreateClient(serverName: ".", pipeName, PipeDirection.InOut, PipeOptions.Asynchronous);
         try
@@ -155,7 +156,7 @@ internal static class DaemonClient
             : pipeNameOverride;
     }
 
-    private static Process LaunchDaemon(
+    private static ILaunchedProcess LaunchDaemon(
         string pipeName,
         IReadOnlyList<string> serverArguments)
     {
@@ -196,8 +197,8 @@ internal static class DaemonClient
         // Drain the bootstrap's stdout so it never blocks on a full pipe, and forward its stderr onto ours (never our
         // stdout, which carries LSP in stdio mode). Both end on their own once the bootstrap exits, shortly after it has
         // launched the daemon. The daemon then logs to its own files.
-        _ = ProcessUtilities.ForwardStreamAsync(process.StandardOutput.BaseStream, Stream.Null, CancellationToken.None);
-        _ = ForwardAndDisposeStandardErrorAsync(process.StandardError.BaseStream);
+        _ = ProcessUtilities.ForwardStreamAsync(process.StandardOutput, Stream.Null, CancellationToken.None);
+        _ = ForwardAndDisposeStandardErrorAsync(process.StandardError);
         Console.Error.WriteLine($"Started language server daemon bootstrap (pid {process.Id})");
 
         return process;
@@ -213,7 +214,7 @@ internal static class DaemonClient
     /// seconds and reported it on this same bootstrap process's exit code -- the editor would appear hung for
     /// up to a minute for a failure that was already known.
     /// </summary>
-    private static void ConnectWithBootstrapFailureDetection(NamedPipeClientStream pipeClient, Process bootstrapProcess, TimeSpan connectTimeout)
+    private static void ConnectWithBootstrapFailureDetection(NamedPipeClientStream pipeClient, ILaunchedProcess bootstrapProcess, TimeSpan connectTimeout)
     {
         var pollInterval = TimeSpan.FromMilliseconds(100);
         var stopwatch = Stopwatch.StartNew();

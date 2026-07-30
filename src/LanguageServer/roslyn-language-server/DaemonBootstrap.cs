@@ -4,6 +4,7 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
@@ -86,8 +87,8 @@ internal static class DaemonBootstrap
         // until the daemon is ready also means it isn't writing to a closed stream while it still logs to the console
         // during startup; once it's ready it logs to its files instead.
         using var forwardingCancellation = new CancellationTokenSource();
-        var drainStandardOutput = ProcessUtilities.CopyStreamAsync(daemonProcess.StandardOutput.BaseStream, Stream.Null, forwardingCancellation.Token);
-        var forwardStandardError = ProcessUtilities.CopyStreamAsync(daemonProcess.StandardError.BaseStream, Console.OpenStandardError(), forwardingCancellation.Token);
+        var drainStandardOutput = ProcessUtilities.CopyStreamAsync(daemonProcess.StandardOutput, Stream.Null, forwardingCancellation.Token);
+        var forwardStandardError = ProcessUtilities.CopyStreamAsync(daemonProcess.StandardError, Console.OpenStandardError(), forwardingCancellation.Token);
 
         var readyTimeout = Array.IndexOf(daemonArguments, DebugArgument) >= 0 ? DebugReadyTimeout : ReadyTimeout;
         var readiness = await WaitForReadyOrExitAsync(daemonProcess, pipeName, readyTimeout).ConfigureAwait(false);
@@ -122,7 +123,7 @@ internal static class DaemonBootstrap
     /// <summary>
     /// Polls until the daemon signals readiness by acquiring its server mutex, exits, or the ready timeout elapses.
     /// </summary>
-    private static async Task<DaemonReadinessResult> WaitForReadyOrExitAsync(Process daemonProcess, string pipeName, TimeSpan readyTimeout)
+    private static async Task<DaemonReadinessResult> WaitForReadyOrExitAsync(ILaunchedProcess daemonProcess, string pipeName, TimeSpan readyTimeout)
     {
         var stopwatch = Stopwatch.StartNew();
         while (true)
@@ -142,7 +143,7 @@ internal static class DaemonBootstrap
         }
     }
 
-    private static async Task TerminateDaemonAsync(Process daemonProcess)
+    private static async Task TerminateDaemonAsync(ILaunchedProcess daemonProcess)
     {
         try
         {

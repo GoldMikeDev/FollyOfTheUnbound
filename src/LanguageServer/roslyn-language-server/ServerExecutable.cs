@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
 using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
@@ -59,7 +60,7 @@ internal sealed class ServerExecutable
     }
 
     /// <summary>Starts this executable with all standard streams redirected.</summary>
-    public Process Start(IReadOnlyList<string> arguments)
+    public ILaunchedProcess Start(IReadOnlyList<string> arguments)
         => Start(arguments, suppressStandardHandleInheritance: false);
 
     /// <summary>
@@ -67,10 +68,10 @@ internal sealed class ServerExecutable
     /// from being inherited. Used for both stages of the daemon launch so the daemon cannot retain the editor's LSP
     /// stdio pipes.
     /// </summary>
-    public Process StartWithStandardHandleInheritanceSuppressed(IReadOnlyList<string> arguments)
+    public ILaunchedProcess StartWithStandardHandleInheritanceSuppressed(IReadOnlyList<string> arguments)
         => Start(arguments, suppressStandardHandleInheritance: true);
 
-    private Process Start(IReadOnlyList<string> arguments, bool suppressStandardHandleInheritance)
+    private ILaunchedProcess Start(IReadOnlyList<string> arguments, bool suppressStandardHandleInheritance)
     {
         var startInfo = new ProcessStartInfo
         {
@@ -119,8 +120,24 @@ internal sealed class ServerExecutable
             DaemonHandleInheritance.SetStandardHandlesInheritable(true);
         }
 
-        Process StartCore()
-            => Process.Start(startInfo)
+        ILaunchedProcess StartCore()
+        {
+            // Escape any Windows Job Object the current process belongs to (e.g. an editor's kill-on-close job
+            // around its whole process tree) so this child survives that editor closing -- see
+            // https://github.com/GoldMikeDev/roslyn/issues/11. Only attempted when actually in a job (the
+            // common case, no job at all, isn't worth the extra complexity), and TryStart itself falls back to
+            // returning false on any failure, including a job that simply doesn't permit breakaway -- so the
+            // normal ProcessStartInfo-based path below always remains the working fallback.
+            if (OperatingSystem.IsWindows() && Win32BreakawayProcessLauncher.IsCurrentProcessInJob())
+            {
+                var environment = startInfo.Environment.Select(static kvp => new KeyValuePair<string, string?>(kvp.Key, kvp.Value));
+                if (Win32BreakawayProcessLauncher.TryStart(FileName, arguments, environment, out var breakawayProcess))
+                    return breakawayProcess!;
+            }
+
+            var process = Process.Start(startInfo)
                 ?? throw new InvalidOperationException($"Failed to start '{FileName}'.");
+            return new ManagedLaunchedProcess(process);
+        }
     }
 }

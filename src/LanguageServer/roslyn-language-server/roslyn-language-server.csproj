@@ -35,6 +35,13 @@
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <ItemGroup Label="Windows Job Object breakaway (see Interop\Win32BreakawayProcessLauncher.cs, issue #11)">
+    <!-- Source-generated, dependency-light bindings for the raw CreateProcess/Job Object APIs this thin
+         client needs on Windows: no managed API exists for CREATE_BREAKAWAY_FROM_JOB. Already used
+         elsewhere in the repo (src/VisualStudio/IntegrationTest/Harness), same PrivateAssets pattern. -->
+    <PackageReference Include="Microsoft.Windows.CsWin32" PrivateAssets="all" />
+  </ItemGroup>
+
   <ItemGroup Label="Shared daemon connection files">
     <!-- Source-shared (linked) with Microsoft.CodeAnalysis.LanguageServer so both compute identical
          pipe/mutex names and use the same pipe options. Keep these dependency-light and AOT/trim-safe. -->

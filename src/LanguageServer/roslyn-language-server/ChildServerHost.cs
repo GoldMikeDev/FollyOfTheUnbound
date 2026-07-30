@@ -2,8 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
-using System.Diagnostics;
 using System.Globalization;
+using Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
 
@@ -57,8 +57,8 @@ internal static class ChildServerHost
         // or the editor's pipe (pipe transport). Our stdin -> the server's stdin carries the editor's LSP requests
         // in stdio mode; the server's stdout/stderr -> ours carries LSP responses (stdio mode) and diagnostics.
         _ = ForwardEditorInputAsync(process, forwardingCancellationSource.Token);
-        var stdoutTask = ProcessUtilities.ForwardStreamAsync(process.StandardOutput.BaseStream, Console.OpenStandardOutput(), CancellationToken.None);
-        var stderrTask = ProcessUtilities.ForwardStreamAsync(process.StandardError.BaseStream, Console.OpenStandardError(), CancellationToken.None);
+        var stdoutTask = ProcessUtilities.ForwardStreamAsync(process.StandardOutput, Console.OpenStandardOutput(), CancellationToken.None);
+        var stderrTask = ProcessUtilities.ForwardStreamAsync(process.StandardError, Console.OpenStandardError(), CancellationToken.None);
 
         await process.WaitForExitAsync().ConfigureAwait(false);
 
@@ -74,9 +74,9 @@ internal static class ChildServerHost
     /// Forwards the editor's input (our stdin) to the server's stdin, then closes the server's stdin once ours ends
     /// so a stdio-mode server sees EOF and shuts down. A pipe-mode server ignores its stdin, so this is harmless there.
     /// </summary>
-    private static async Task ForwardEditorInputAsync(Process process, CancellationToken cancellationToken)
+    private static async Task ForwardEditorInputAsync(ILaunchedProcess process, CancellationToken cancellationToken)
     {
-        await ProcessUtilities.ForwardStreamAsync(Console.OpenStandardInput(), process.StandardInput.BaseStream, cancellationToken).ConfigureAwait(false);
+        await ProcessUtilities.ForwardStreamAsync(Console.OpenStandardInput(), process.StandardInput, cancellationToken).ConfigureAwait(false);
 
         try
         {
@@ -88,7 +88,7 @@ internal static class ChildServerHost
         }
     }
 
-    private static int InterpretExit(Process process)
+    private static int InterpretExit(ILaunchedProcess process)
     {
         // A clean child exit (code 0) means the session shut down gracefully (e.g. the editor sent `exit`,
         // or the server shut itself down). Surface success so the editor doesn't treat it as a crash.
