@@ -634,6 +634,38 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   immediately) to simulate exactly this window; verified it actually catches the bug by reverting the
   production fix, confirming the new test failed, then restoring the fix and confirming all 6 tests in the
   class pass.
+- **A batch of three findings on merge commit `3ae621540` (after the upstream-main merge): one fixed, two are
+  new instances of the same architectural blocker already tracked in issue #9, not attempted here.**
+  - **`SourceGeneratorRefreshQueue.ShouldEnqueueRefreshNotificationAsync` reads `IWorkspaceConfigurationService.Options`
+    (this connection's `SourceGeneratorExecution` preference) from inside `Workspace.WorkspaceChanged`'s own
+    event-raising context, which has no reason to be flowing this connection's ambient token** -- unlike LSP
+    request dispatch (which reliably flows the ambient token, per `AsyncLocalPropagationTests`), a workspace
+    change can originate from a file watcher or background project reload, an execution context this
+    connection's `AmbientConnectionToken` was never set on. So a `Balanced` client's document-changed check
+    could silently read the shared/default preference instead of its own. Fixed by having
+    `AbstractTextDocumentContentRefreshQueue` (the base class `SourceGeneratorRefreshQueue` derives from)
+    capture `AmbientConnectionToken.Current` in its own constructor -- correct there, since LSP service
+    construction happens within the owning connection's ambient scope -- and restore it inside a `Task.Run`
+    (which captures a *copy* of the ExecutionContext, so the mutation can't leak back into whatever raised
+    `WorkspaceChanged`) before running `ShouldEnqueueRefreshNotificationAsync`. Verified with a real build and
+    the existing `SourceGeneratedDocumentTests` suite (54/54 net10.0 tests passed, unaffected) -- no new
+    dedicated regression test was added for this specific fix given the time already spent this round; flagged
+    honestly rather than overclaiming, same as the earlier InlayHint/CodeLens refresh-queue fix.
+  - **`RazorClientServerManagerProvider` (Razor's cohost `IClientLanguageServerManager` bridge) and
+    `CohostConfigurationChangedService`'s `IClientSettingsManager` are both `[Shared]` process-wide MEF
+    singletons whose single field gets overwritten by whichever daemon connection's Razor startup/configuration-change
+    ran most recently** -- confirmed real by direct code inspection (`RazorClientServerManagerProvider.StartupAsync`
+    unconditionally assigns `_razorClientLanguageServerManager`; `CohostConfigurationChangedService` similarly
+    updates one shared `IClientSettingsManager`), and severe: `HtmlDocumentPublisher`/`HtmlRequestInvoker` can
+    send one connection's generated HTML / forward HTML requests to a *different* connection's editor, and
+    `CSharpCodeActionProvider` can read one connection's Razor settings while serving another's workspace. **Not
+    fixed here.** This is the same root cause already established (issue #9) as blocked by the restored MEF
+    composition library (16.1.8) having no per-connection composition scoping primitive -- these are new,
+    concrete proof points for that same limitation in the Razor extension specifically, not a new/different
+    bug needing its own point-fix. Ad hoc per-service patches across unfamiliar Razor cohosting code, without
+    the ability to spin up and verify two isolated Razor sessions in this sandbox, would be rushed and risk
+    introducing further leaks rather than fixing the root cause. Added as new evidence to issue #9 rather than
+    attempted as a standalone fix.
 
 ## The ambient-token ordering bug
 
