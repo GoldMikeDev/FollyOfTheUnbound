@@ -62,10 +62,19 @@ routing for a shared MEF singleton" gap. A fourth, more severe instance: `Servic
 constructor). `ServiceBrokerFactory.CreateAsync` calls `SetContainer` on it once per connection; the second
 call trips `Contract.ThrowIfTrue(_serviceBrokerContainerTask.Task.IsCompleted)` — so a second daemon
 connection's service-broker setup throws outright, not just misroutes brokered-service traffic to the wrong
-editor.
+editor. Three more Razor cohosting MEF singletons, same "classic `System.ComponentModel.Composition`
+`[Export]` defaults to process-wide shared" shape as the original pair: `VSCodeWorkspaceProvider`
+(`WorkspaceProviderInitializer`'s `SetWorkspace`) is overwritten by whichever connection's Razor cohost
+initialized most recently, so `RemoteFindAllReferencesService`/`RemoteGoToDefinitionService` can navigate
+using a different connection's workspace; `RazorCohostClientCapabilitiesService.SetCapabilities` has the
+same "last write wins" shape for client capabilities, affecting completion/code-action/diagnostics/
+semantic-token/remote-service responses; `CohostCompletionListCache`'s ten-entry circular buffer is shared
+process-wide, so one client's completions can evict another's still-pending one before
+`completionItem/resolve` runs, silently losing delegated/snippet resolution context.
 **Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution,
-the Razor leaks, the `FeatureProviderRefresher` cross-connection refresh fan-out, and the `ServiceBrokerProvider`
-crash have no workaround and aren't going to get one without further work; all tracked as
+the Razor leaks (five, now), the `FeatureProviderRefresher` cross-connection refresh fan-out, and the
+`ServiceBrokerProvider` crash have no workaround and aren't going to get one without further work; all
+tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
 history, and the "Decisions" section explaining why telemetry is out of scope:
 `docs/ide/specs/daemon-per-connection-isolation.md`.

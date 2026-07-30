@@ -698,6 +698,30 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   `BrokeredServiceContainer`/ServiceHub bridging is unfamiliar, non-trivial surface to patch without the ability
   to exercise two real daemon connections both requesting a service broker in this sandbox. Added as new,
   higher-severity evidence to issue #9.
+- **Three more Razor cohosting MEF singletons found by Codex reviewing commit `bbf4fd151`, all the same
+  "classic `System.ComponentModel.Composition` `[Export]` without `[PartCreationPolicy(NonShared)]` defaults
+  to process-wide shared" shape already established for `RazorClientServerManagerProvider`/
+  `CohostConfigurationChangedService` above. Not fixed here for the same reason: unfamiliar Razor cohosting
+  surface, no per-connection MEF scoping primitive to build a real fix on, and no way to exercise two
+  isolated Razor cohost sessions side-by-side in this sandbox to verify a patch.**
+  - `VSCodeWorkspaceProvider` (`Services/VSCodeWorkspaceProvider.cs`, `[Shared]`/`[Export(typeof(IWorkspaceProvider))]`):
+    `WorkspaceProviderInitializer.StartupAsync` calls `SetWorkspace`, overwriting the single field on every
+    connection's Razor cohost startup. `RemoteFindAllReferencesService`/`RemoteGoToDefinitionService` (and
+    anything else resolving `IWorkspaceProvider.GetWorkspace()`) can consequently navigate against whichever
+    connection's workspace initialized most recently, not their own -- wrong-solution results, not just an
+    error.
+  - `RazorCohostClientCapabilitiesService` (`RazorCohostClientCapabilitiesService.cs`, classic-MEF `[Export]`,
+    shared by default): `StartupAsync` calls `SetCapabilities`, so completion/code-action/diagnostics/
+    semantic-token/remote-service code paths that consult client capabilities can see a different connection's
+    advertised capabilities (unsupported VS extensions surfacing, or supported behavior omitted).
+  - `CohostCompletionListCache` (`Completion/CohostCompletionListCache.cs`, classic-MEF `[Export]`, shared by
+    default): its underlying `CompletionListCache`'s ten-entry circular buffer is one process-wide buffer: ten
+    completion lists from one client can evict another client's still-pending list before
+    `completionItem/resolve` arrives for it, silently dropping delegated/snippet resolution context and
+    falling through to the wrong (OOP) resolver.
+  
+  Added as three more evidence points for issue #9, alongside the original Razor pair, `FeatureProviderRefresher`,
+  and `ServiceBrokerProvider`.
 
 ## The ambient-token ordering bug
 

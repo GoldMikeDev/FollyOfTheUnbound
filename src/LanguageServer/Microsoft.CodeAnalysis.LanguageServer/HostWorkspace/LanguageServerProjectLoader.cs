@@ -58,6 +58,19 @@ internal abstract class LanguageServerProjectLoader : IDisposable
     private readonly Dictionary<string, ProjectLoadState> _loadedProjects = [];
 
     /// <summary>
+    /// This connection's ambient token, captured here because this instance is itself constructed within that
+    /// connection's own ambient scope (LSP service construction happens under the same connection-scoped
+    /// <see cref="AmbientConnectionToken"/> as the request that triggers it) -- unlike <see cref="ReloadProjectsAsync"/>,
+    /// which <see cref="_projectsToReload"/> can invoke from a batch whose <c>AddWork</c> calls came from a file-watcher
+    /// callback (<see cref="IFileChangeWatcher"/>, no ambient token at all) as much as from an LSP request. Without
+    /// restoring it, this loader's connection-scoped option reads (<see cref="LanguageServerProjectSystemOptionsStorage.EnableAutomaticRestore"/>,
+    /// and the <see cref="IBinLogPathProvider"/>/file-based-program option reads inside <see cref="ReloadProjectAsync"/>)
+    /// would silently fall back to shared/default values for reload batches triggered by a background file change,
+    /// same shape as the fix in <see cref="Handler.TextDocumentContent.AbstractTextDocumentContentRefreshQueue"/>.
+    /// </summary>
+    private readonly object? _connectionToken = AmbientConnectionToken.Current;
+
+    /// <summary>
     /// State transitions:
     /// <see cref="Primordial"/> -> <see cref="LoadedTargets"/>
     /// Any state -> unloaded (which is denoted by removing the <see cref="_loadedProjects"/> entry for the project)
@@ -182,6 +195,13 @@ internal abstract class LanguageServerProjectLoader : IDisposable
 
     private async ValueTask ReloadProjectsAsync(ImmutableSegmentedList<ProjectToLoad> projectsToLoadOrReload, CancellationToken cancellationToken)
     {
+        // Restore this loader's own connection's ambient token -- see _connectionToken's remarks. AddWork can be
+        // called from contexts with no ambient token (or a different connection's), but this loader instance and
+        // its work queue are never shared across connections, so it's always correct to make this batch's
+        // processing look like it's running under this loader's own connection again.
+        if (_connectionToken is not null)
+            AmbientConnectionToken.SetCurrent(_connectionToken);
+
         var stopwatch = Stopwatch.StartNew();
 
         // TODO: support configuration switching
