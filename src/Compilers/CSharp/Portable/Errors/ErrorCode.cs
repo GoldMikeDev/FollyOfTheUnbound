@@ -2496,7 +2496,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         ERR_MissingUnionValueProperty = 9386,
         ERR_MemberProviderInUnionDeclaration = 9387,
 
-        ERR_SafeModifierUnsupportedTarget = 9388,
+        ERR_SafeModifierCannotBeUsedWithUnsafe = 9388,
         ERR_ExternMemberRequiresUnsafeOrSafe = 9389,
         ERR_PartialMemberSafeDifference = 9390,
         ERR_AbstractBaseRecordImplementation = 9391,
@@ -2514,6 +2514,9 @@ namespace Microsoft.CodeAnalysis.CSharp
         ERR_RootNamespaceQualifierRequiresRootNamespace = 9399,
 
         ERR_VoidCoalesceRequiresReferenceTypeReceiver = 9400,
+
+        ERR_InvalidPropertyUnsafeMods = 9401,
+        ERR_SamePropertyUnsafeAccessorMods = 9402,
 
         // Note: you will need to do the following after adding errors:
         //  1) Update ErrorFacts.IsBuildOnlyDiagnostic (src/Compilers/CSharp/Portable/Errors/ErrorFacts.cs)
