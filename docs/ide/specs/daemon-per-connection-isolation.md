@@ -762,6 +762,17 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
     is a load the user's editor is actively watching progress for (`WorkDoneProgressManager`), so leaving it
     running to a clean finish (and disposal) rather than aborting mid-load on disconnect is the considered
     choice, not an oversight.
+- **`DecompilationMetadataAsSourceFileProvider` (`src/Features/Core/Portable/MetadataAsSource/DecompilationMetadataAsSourceFileProvider.cs`),
+  found by the same Codex round on commit `ab477ad25`.** `[ExportMetadataAsSourceFileProvider(...), Shared]`,
+  and its `GetGeneratedFileAsync` unconditionally calls `metadataWorkspace.OnSolutionFallbackAnalyzerOptionsChanged`
+  with the *calling* connection's `FallbackAnalyzerOptions` on every navigation-to-metadata, mutating the one
+  process-wide `MetadataAsSourceWorkspace`'s fallback options -- so a later connection's navigation can silently
+  change the analyzer/brace-completion settings in effect for an earlier connection's already-open metadata
+  document. Same root cause as everything else in this list, but a layering wrinkle on top: this file lives in
+  `src/Features/Core/Portable`, a layer below `LanguageServer.Protocol` (home of `GetConnectionScopedOption`),
+  and is shared cross-host infrastructure (Visual Studio uses this same provider, not just the daemon) --
+  structurally out of reach of the LSP-specific facade even if a per-connection value existed to route through
+  it. Not fixed here. Added as evidence for issue #9.
 
 ## The ambient-token ordering bug
 
