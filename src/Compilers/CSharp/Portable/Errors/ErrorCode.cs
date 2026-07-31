@@ -2506,17 +2506,24 @@ namespace Microsoft.CodeAnalysis.CSharp
         ERR_NoContinueId = 9394,
         ERR_ClosedBadDerivedTypesProperty = 9395,
 
-        ERR_IfBlockConditionRequiresCatch = 9396,
+        ERR_InvalidPropertyUnsafeMods = 9396,
+        ERR_SamePropertyUnsafeAccessorMods = 9397,
 
-        ERR_InvalidMutation = 9397,
-        WRN_MutationMayFail = 9398,
+        // This fork's own error/warning codes live in a dedicated 10000+ block, well clear of upstream
+        // dotnet/roslyn's own sequential numbering (still in the high 9300s as of this writing) -- so
+        // merging a new upstream commit that adds error codes can never again collide with one of ours
+        // the way ERR_InvalidPropertyUnsafeMods/ERR_SamePropertyUnsafeAccessorMods just above did with two
+        // of these (both originally 9396/9397 too), without needing to renumber either side's codes (which
+        // just churns comments/messages for no reason -- see .github/memory/known-issues/compiler.md if
+        // this ever needs revisiting).
+        ERR_IfBlockConditionRequiresCatch = 10000,
 
-        ERR_RootNamespaceQualifierRequiresRootNamespace = 9399,
+        ERR_InvalidMutation = 10001,
+        WRN_MutationMayFail = 10002,
 
-        ERR_VoidCoalesceRequiresReferenceTypeReceiver = 9400,
+        ERR_RootNamespaceQualifierRequiresRootNamespace = 10003,
 
-        ERR_InvalidPropertyUnsafeMods = 9401,
-        ERR_SamePropertyUnsafeAccessorMods = 9402,
+        ERR_VoidCoalesceRequiresReferenceTypeReceiver = 10004,
 
         // Note: you will need to do the following after adding errors:
         //  1) Update ErrorFacts.IsBuildOnlyDiagnostic (src/Compilers/CSharp/Portable/Errors/ErrorFacts.cs)
