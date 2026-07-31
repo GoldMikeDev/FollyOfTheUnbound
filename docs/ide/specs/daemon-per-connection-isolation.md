@@ -722,6 +722,46 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   
   Added as three more evidence points for issue #9, alongside the original Razor pair, `FeatureProviderRefresher`,
   and `ServiceBrokerProvider`.
+- **Two more Razor cohosting MEF singletons, same shape, found by Codex reviewing commit `ab477ad25`. Not fixed
+  here for the same reason as the rest of this list.**
+  - `SemanticTokensRefreshNotifier` (`LanguageClient/Cohost/SemanticTokensRefreshNotifier.cs`, `[Export(typeof(IRazorCohostStartupService))]`,
+    shared by default): every connection's `StartupAsync` overwrites its single `IClientLanguageServerManager`
+    field *and* adds another settings-changed event handler to the same instance without ever removing a
+    previous one, so a color-background change fires duplicate refresh notifications, and only to whichever
+    connection initialized most recently -- earlier connections are left with stale semantic tokens.
+  - `HtmlDocumentSynchronizer` (`HtmlDocumentServices/HtmlDocumentSynchronizer.cs`, `[Export(typeof(IHtmlDocumentSynchronizer))]`,
+    shared by default): its `_synchronizationRequests` dictionary is keyed only by URI, not by connection, so
+    two connections with the same Razor URI open compare workspace versions across unrelated solutions, and
+    `razor/documentClosed` from either connection can cancel/remove the other's in-flight synchronization
+    request -- can suppress or abort HTML synchronization and break delegated Razor features for the connection
+    that didn't close anything.
+
+  Added as two more evidence points for issue #9.
+- **Two findings on background discovery/load tasks outliving their connection, from the same Codex round on
+  commit `ab477ad25`; one fixed, one confirmed as already-deliberate design.**
+  - **Fixed:** `FileBasedProgramsEntryPointDiscovery.OnInitializedAsync` started its `Task.Run` scan with the
+    triggering LSP request's own `CancellationToken`, not one scoped to the connection -- that token only
+    prevented the scan from starting at all if already cancelled by the time `Task.Run` got around to it, and
+    did nothing to stop it mid-scan once running (the request it came from is long since complete by then). A
+    client that disconnected while discovery was still walking the workspace left it (and the project loads it
+    triggers) running to completion regardless. Fixed by giving the class its own `IDisposable`-driven
+    `CancellationTokenSource` (`LspServices` disposes any `ILspService` that's also `IDisposable` on connection
+    teardown, same mechanism several other per-connection fixes in this doc rely on), threaded into
+    `FindAndLoadEntryPointsAsync` and checked between workspace folders and before each discovered app's load
+    (the load call itself, `TryBeginLoadingFileBasedAppAsync`, has no cancellation parameter -- shared with
+    other, request-driven callers where that wouldn't make sense -- so an already-started load still can't be
+    aborted mid-call, but no *further* one starts once the connection is gone). Verified: a broad sweep of
+    `FileBasedProgramsEntryPointDiscoveryTests`/`FileBasedProgramsWorkspaceTests` (91 tests) shows the exact
+    same 52 pre-existing failures with and without this change (confirmed via `git checkout` back to HEAD and
+    rerunning) -- this sandbox's file-watch-release-tracking flakiness in that test class, unrelated, not
+    something this fix caused or fixed.
+  - **Confirmed already-deliberate, not a gap:** `AutoLoadProjectsInitializer.OnInitializedAsync`'s own
+    `Task.Run` for the actual project/solution load explicitly passes `CancellationToken.None`, with an
+    existing comment explaining why: "we'll fire-and-forget for the actual loading. Pass CancellationToken.None
+    since we want to ensure the progressReporter is always disposed." Unlike the file-based-programs case, this
+    is a load the user's editor is actively watching progress for (`WorkDoneProgressManager`), so leaving it
+    running to a clean finish (and disposal) rather than aborting mid-load on disconnect is the considered
+    choice, not an oversight.
 
 ## The ambient-token ordering bug
 

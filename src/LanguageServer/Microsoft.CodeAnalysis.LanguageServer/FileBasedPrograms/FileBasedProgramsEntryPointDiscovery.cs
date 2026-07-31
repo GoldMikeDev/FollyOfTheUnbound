@@ -49,7 +49,7 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
     IAsynchronousOperationListener listener,
     IFileBasedProgramService fileBasedProgramService,
     ILoggerFactory loggerFactory,
-    LspServices lspServices) : ILspService, IOnInitialized
+    LspServices lspServices) : ILspService, IOnInitialized, IDisposable
 {
     private static readonly StringComparer s_pathComparer = StringComparer.OrdinalIgnoreCase;
 
@@ -65,6 +65,19 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
     private readonly ILogger _logger = loggerFactory.CreateLogger<FileBasedProgramsEntryPointDiscovery>();
     private ImmutableArray<string> _workspaceFolders;
 
+    /// <summary>
+    /// This instance's own lifetime token, cancelled from <see cref="Dispose"/> (which <c>LspServices</c> calls
+    /// when this connection's logical server is torn down -- <see cref="ILspService"/> implementations that are
+    /// also <see cref="IDisposable"/> are disposed automatically). The <see cref="CancellationToken"/>
+    /// <see cref="OnInitializedAsync"/> receives is scoped to the triggering LSP request/notification, not this
+    /// connection's lifetime, and only prevents the background task that runs
+    /// <see cref="FindAndLoadEntryPointsAsync"/> from starting at all if already cancelled by the time it would
+    /// run -- it does nothing to stop the scan once started, since that request is long since complete. Without
+    /// a token scoped to the connection itself, a client that disconnects mid-scan leaves this background
+    /// discovery (and the project loads it triggers) running to completion regardless.
+    /// </summary>
+    private readonly CancellationTokenSource _disposalTokenSource = new();
+
     public Task OnInitializedAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken)
     {
         var initializeManager = context.GetRequiredService<IInitializeManager>();
@@ -74,18 +87,28 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
             try
             {
                 using var token = listener.BeginAsyncOperation(nameof(FindAndLoadEntryPointsAsync));
-                await FindAndLoadEntryPointsAsync();
+                await FindAndLoadEntryPointsAsync(_disposalTokenSource.Token);
+            }
+            catch (OperationCanceledException) when (_disposalTokenSource.IsCancellationRequested)
+            {
+                // This connection was torn down while discovery was still running; expected, not a fault.
             }
             catch (Exception ex) when (FatalError.ReportAndCatch(ex))
             {
                 throw ExceptionUtilities.Unreachable();
             }
-        }, cancellationToken);
+        }, _disposalTokenSource.Token);
 
         return Task.CompletedTask;
     }
 
-    internal async Task FindAndLoadEntryPointsAsync()
+    public void Dispose()
+    {
+        _disposalTokenSource.Cancel();
+        _disposalTokenSource.Dispose();
+    }
+
+    internal async Task FindAndLoadEntryPointsAsync(CancellationToken cancellationToken = default)
     {
         Contract.ThrowIfTrue(_workspaceFolders.IsDefault, $"{nameof(OnInitializedAsync)} must be called before {nameof(FindAndLoadEntryPointsAsync)}.");
 
@@ -114,8 +137,15 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
         // For simplicity we orient our search around one workspace folder at a time.
         foreach (var workspaceFolder in _workspaceFolders)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             foreach (var fileBasedAppPath in FindEntryPoints(workspaceFolder))
             {
+                // TryBeginLoadingFileBasedAppAsync itself doesn't accept a token (shared by other, request-driven
+                // callers where that wouldn't make sense), so an already-started load can't be aborted mid-call --
+                // but checking here at least stops this background scan from starting further loads once the
+                // connection it's running on behalf of is gone.
+                cancellationToken.ThrowIfCancellationRequested();
                 await fileBasedProgramsProjectSystem.TryBeginLoadingFileBasedAppAsync(fileBasedAppPath);
             }
         }

@@ -70,9 +70,13 @@ using a different connection's workspace; `RazorCohostClientCapabilitiesService.
 same "last write wins" shape for client capabilities, affecting completion/code-action/diagnostics/
 semantic-token/remote-service responses; `CohostCompletionListCache`'s ten-entry circular buffer is shared
 process-wide, so one client's completions can evict another's still-pending one before
-`completionItem/resolve` runs, silently losing delegated/snippet resolution context.
+`completionItem/resolve` runs, silently losing delegated/snippet resolution context. Two more: shared
+`SemanticTokensRefreshNotifier` sends duplicate semantic-token refreshes only to whichever connection
+initialized most recently (earlier connections get stale tokens), and shared `HtmlDocumentSynchronizer`'s
+`_synchronizationRequests` is keyed only by URI, so `razor/documentClosed` from one connection can cancel
+another connection's in-flight HTML sync for the same URI.
 **Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution,
-the Razor leaks (five, now), the `FeatureProviderRefresher` cross-connection refresh fan-out, and the
+the Razor leaks (seven, now), the `FeatureProviderRefresher` cross-connection refresh fan-out, and the
 `ServiceBrokerProvider` crash have no workaround and aren't going to get one without further work; all
 tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
