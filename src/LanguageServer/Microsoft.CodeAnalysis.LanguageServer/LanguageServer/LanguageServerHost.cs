@@ -28,7 +28,8 @@ internal sealed class LanguageServerHost
         Stream inputStream,
         Stream outputStream,
         ExportProvider exportProvider,
-        AbstractTypeRefResolver typeRefResolver)
+        AbstractTypeRefResolver typeRefResolver,
+        bool isDaemonConnection = false)
     {
         _outputStream = outputStream;
 
@@ -57,8 +58,12 @@ internal sealed class LanguageServerHost
             // See CleanExitSentinel's remarks: on a genuine client-requested exit (not a JsonRpc-disconnect-triggered
             // one), write a final out-of-band byte to the raw transport before it's torn down, distinguishing this
             // from an ungraceful disconnect for anything downstream reading the raw byte stream (the daemon relay
-            // in the roslyn-language-server thin client -- see LspRelay and issue #10's third race window).
-            _roslynLanguageServer.OnClientRequestedExitAsync = WriteCleanExitSentinelAsync;
+            // in the roslyn-language-server thin client -- see LspRelay and issue #10's third race window). Only
+            // meaningful for a daemon connection: single-server (dedicated process) mode connects this stream
+            // directly to the editor with no LspRelay in between to strip the sentinel, so writing it there would
+            // hand the editor's own LSP client an unframed stray byte after `exit` instead.
+            if (isDaemonConnection)
+                _roslynLanguageServer.OnClientRequestedExitAsync = WriteCleanExitSentinelAsync;
 
             GlobalLogger = _roslynLanguageServer.GetLspServices().GetRequiredService<ILoggerFactory>().CreateLogger("Global");
         }

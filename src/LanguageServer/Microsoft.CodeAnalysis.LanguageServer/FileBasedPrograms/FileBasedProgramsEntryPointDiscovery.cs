@@ -82,14 +82,22 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
     {
         var initializeManager = context.GetRequiredService<IInitializeManager>();
         _workspaceFolders = initializeManager.GetRequiredWorkspaceFolderPaths();
+
+        // Captured once, before scheduling, rather than read from _disposalTokenSource.Token/.IsCancellationRequested
+        // inside the delegate or its exception filter below: if Dispose() races in after Task.Run schedules this
+        // delegate but before it (or its exception filter) reads _disposalTokenSource, those would throw
+        // ObjectDisposedException instead -- CancellationTokenSource.Token/.IsCancellationRequested aren't safe
+        // to read post-disposal, but a CancellationToken struct already captured from it remains perfectly valid
+        // to read (including after the source that produced it is disposed).
+        var disposalToken = _disposalTokenSource.Token;
         Task.Run(async () =>
         {
             try
             {
                 using var token = listener.BeginAsyncOperation(nameof(FindAndLoadEntryPointsAsync));
-                await FindAndLoadEntryPointsAsync(_disposalTokenSource.Token);
+                await FindAndLoadEntryPointsAsync(disposalToken);
             }
-            catch (OperationCanceledException) when (_disposalTokenSource.IsCancellationRequested)
+            catch (OperationCanceledException) when (disposalToken.IsCancellationRequested)
             {
                 // This connection was torn down while discovery was still running; expected, not a fault.
             }
@@ -97,7 +105,7 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
             {
                 throw ExceptionUtilities.Unreachable();
             }
-        }, _disposalTokenSource.Token);
+        }, disposalToken);
 
         return Task.CompletedTask;
     }

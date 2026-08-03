@@ -49,7 +49,6 @@ internal static class Program
                     using var editorConnection = await EditorConnection.CreateAsync(thinClientArguments);
                     return await RelayDaemonAsync(
                         daemonResult.NamedPipeStream,
-                        daemonResult.PipeName,
                         editorConnection);
                 }
 
@@ -71,23 +70,24 @@ internal static class Program
 
     private static async Task<int> RelayDaemonAsync(
         Stream daemonStream,
-        string pipeName,
         EditorConnection editorConnection)
     {
+        // LspRelay's CleanShutdown classification is grounded in CleanExitSentinel (see LspRelay.RelayAsync's
+        // remarks and GoldMikeDev/roslyn#10): it's only ever returned when the daemon actually wrote that
+        // out-of-band byte immediately before tearing down this connection's JsonRpc, which only happens when
+        // the client's own 'exit' notification was received and processed. That's a conclusive, per-connection
+        // signal on its own -- unlike the previous "any graceful server-side closure" heuristic this replaced,
+        // it does not need corroborating with whether the daemon process itself is still alive afterward
+        // (checking DaemonServerMutex.IsRunning here used to disambiguate that heuristic from "the whole daemon
+        // just died," but doing so now would wrongly downgrade a genuinely clean per-connection shutdown to
+        // ServerConnectionLost whenever the daemon happens to exit immediately after, e.g. the last client with
+        // --daemonKeepAlive 0 -- the daemon dying afterward doesn't retroactively make this connection's own
+        // clean exit not have happened).
         var relayCompletionKind = await LspRelay.RelayAsync(
             editorConnection.Input,
             editorConnection.Output,
             daemonStream,
             daemonStream);
-
-        // A CleanShutdown classification from LspRelay is necessary but not sufficient: the daemon process
-        // being killed closes its pipe handle the same way a graceful Dispose() after processing 'exit' does,
-        // so the relay's byte-level signal alone can't tell "this connection ended cleanly" apart from "the
-        // whole daemon just died." Disambiguate with a signal LspRelay doesn't have access to: whether the
-        // daemon still holds its server mutex. A per-connection clean shutdown leaves the daemon (and its
-        // mutex) alive for other clients; the daemon dying releases it.
-        if (relayCompletionKind == RelayCompletionKind.CleanShutdown && !DaemonServerMutex.IsRunning(pipeName))
-            relayCompletionKind = RelayCompletionKind.ServerConnectionLost;
 
         switch (relayCompletionKind)
         {

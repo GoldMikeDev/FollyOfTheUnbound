@@ -21,6 +21,7 @@ public sealed class LspRelayTests
     {
         private readonly Pipe _editorSource = new();
         private readonly Pipe _serverSource = new();
+        private readonly Pipe _editorSink = new();
 
         public PipeWriter EditorWriter => _editorSource.Writer;
         public PipeWriter ServerWriter => _serverSource.Writer;
@@ -28,10 +29,32 @@ public sealed class LspRelayTests
         /// <summary>Writes <see cref="CleanExitSentinel"/>, as a real daemon does immediately before a genuine client-requested exit.</summary>
         public async Task WriteServerCleanExitSentinelAsync() => await ServerWriter.WriteAsync(CleanExitSentinel.Bytes);
 
+        /// <summary>
+        /// Writes <paramref name="payload"/> as if it were the server's side of the connection, and reads it back
+        /// from what the relay forwarded to the editor -- with a short timeout, so a regression that withholds
+        /// bytes (waiting to see if more data or EOF follows before forwarding, rather than forwarding
+        /// immediately) shows up as this test hanging/timing out rather than silently passing. Does not close
+        /// either transport, so this only proves forwarding happened promptly while the connection is still
+        /// open -- exactly the case (an idle connection sitting between messages) the regression this guards
+        /// against would otherwise deadlock.
+        /// </summary>
+        public async Task AssertServerPayloadForwardedPromptlyAsync(byte[] payload)
+        {
+            await ServerWriter.WriteAsync(payload);
+
+            var buffer = new byte[payload.Length];
+            var readTask = _editorSink.Reader.AsStream().ReadExactlyAsync(buffer).AsTask();
+            var completedTask = await Task.WhenAny(readTask, Task.Delay(TimeSpan.FromSeconds(10)));
+            Assert.True(completedTask == readTask, "Timed out waiting for the relay to forward the server's payload to the editor -- it may be withholding bytes instead of forwarding them immediately.");
+            await readTask;
+
+            Assert.Equal(payload, buffer);
+        }
+
         public Task<RelayCompletionKind> RelayAsync()
             => LspRelay.RelayAsync(
                 fromEditor: _editorSource.Reader.AsStream(),
-                toEditor: new MemoryStream(),
+                toEditor: _editorSink.Writer.AsStream(),
                 fromServer: _serverSource.Reader.AsStream(),
                 toServer: new MemoryStream());
     }
@@ -114,6 +137,37 @@ public sealed class LspRelayTests
         var result = await harness.RelayAsync();
 
         Assert.Equal(RelayCompletionKind.EditorConnectionLost, result);
+    }
+
+    [Fact]
+    public async Task ServerPayloadIsForwardedPromptlyWhileConnectionStaysOpen()
+    {
+        // Regression guard for the deadlock in an earlier version of the sentinel-detection copy loop: it
+        // withheld the single most-recently-read byte from every read, forwarding it only once a subsequent
+        // read proved it wasn't the stream's last byte -- so a response's own final byte sat unforwarded for
+        // as long as the connection stayed open afterward (i.e. until the daemon's next message, or forever if
+        // the session just goes idle after a reply). AssertServerPayloadForwardedPromptlyAsync times out rather
+        // than hanging if that regression reappears.
+        var harness = new RelayHarness();
+        var relayTask = harness.RelayAsync();
+
+        try
+        {
+            var payload = "Content-Length: 2\r\n\r\n{}"u8.ToArray();
+            await harness.AssertServerPayloadForwardedPromptlyAsync(payload);
+
+            // A second payload, to also prove forwarding remains prompt across multiple messages, not just the
+            // first one.
+            await harness.AssertServerPayloadForwardedPromptlyAsync("Content-Length: 4\r\n\r\n{\"a\":1}"u8.ToArray());
+        }
+        finally
+        {
+            // Let RelayAsync's own tasks unwind rather than leaving them running past this test.
+            harness.EditorWriter.Complete();
+            await harness.WriteServerCleanExitSentinelAsync();
+            harness.ServerWriter.Complete();
+            await relayTask;
+        }
     }
 
     [Fact]

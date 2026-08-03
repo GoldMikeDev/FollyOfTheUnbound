@@ -89,7 +89,7 @@ internal static class LspRelay
         CancellationToken cancellationToken)
     {
         var (result, sentinelSeen) = detectCleanExitSentinel
-            ? await CopyStreamDetectingTrailingSentinelAsync(input, output, cancellationToken).ConfigureAwait(false)
+            ? await CopyStreamDetectingSentinelAsync(input, output, cancellationToken).ConfigureAwait(false)
             : (await ProcessUtilities.CopyStreamAsync(input, output, cancellationToken).ConfigureAwait(false), false);
 
         return result switch
@@ -102,27 +102,21 @@ internal static class LspRelay
     }
 
     /// <summary>
-    /// Like <see cref="ProcessUtilities.CopyStreamAsync"/>, but recognizes <see cref="CleanExitSentinel"/> as a
-    /// trailing, out-of-band marker rather than forwarding it: since data arrives in arbitrarily-sized chunks,
-    /// whether a given byte is "the last one" is only knowable once <see cref="Stream.ReadAsync(Memory{byte}, CancellationToken)"/>
-    /// returns 0 (EOF) with no more bytes following it. This holds back exactly the single most-recently-read
-    /// byte (forwarding everything else immediately, same as the non-detecting copy), and only decides whether
-    /// it was real content or the sentinel once EOF confirms nothing else follows it. A sentinel-valued byte
-    /// that isn't actually the last one (vanishingly unlikely in a real LSP byte stream, but not otherwise
-    /// impossible to construct) is therefore still forwarded correctly, since more data arriving after it
-    /// proves it wasn't the trailing marker.
+    /// Like <see cref="ProcessUtilities.CopyStreamAsync"/>, but recognizes <see cref="CleanExitSentinel"/> as an
+    /// out-of-band marker rather than forwarding it. Unlike a positional "last byte" scheme, this needs no
+    /// lookahead or EOF confirmation: the sentinel's byte value can never legitimately appear in real LSP
+    /// content (which is `Content-Length`-framed, printable-header-plus-UTF8-JSON traffic), so each read chunk
+    /// is scanned for that value and it is stripped in place, immediately, as soon as it's seen. Everything else
+    /// is forwarded without delay -- there is no byte withheld pending a later read, so an idle connection after
+    /// a response never blocks a byte from reaching the editor.
     /// </summary>
-    private static async Task<(StreamCopyCompletion Completion, bool SentinelSeen)> CopyStreamDetectingTrailingSentinelAsync(
+    private static async Task<(StreamCopyCompletion Completion, bool SentinelSeen)> CopyStreamDetectingSentinelAsync(
         Stream source,
         Stream destination,
         CancellationToken cancellationToken)
     {
         const int BufferSize = 64 * 1024;
         var buffer = new byte[BufferSize];
-
-        // The single byte withheld from the previous read, not yet known to be real content or the trailing
-        // sentinel. Written to `destination` as soon as a subsequent read proves it wasn't the last byte.
-        byte? pendingByte = null;
 
         try
         {
@@ -139,46 +133,35 @@ internal static class LspRelay
                 }
 
                 if (bytesRead == 0)
-                {
-                    // True EOF: no more bytes are ever coming, so any withheld byte's fate is now decided.
-                    if (pendingByte is { } finalByte)
-                    {
-                        if (finalByte == CleanExitSentinel.Value)
-                            return (StreamCopyCompletion.SourceClosed, SentinelSeen: true);
-
-                        try
-                        {
-                            await destination.WriteAsync(new[] { finalByte }.AsMemory(), cancellationToken).ConfigureAwait(false);
-                            await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
-                        }
-                        catch (Exception ex) when (ex is IOException or ObjectDisposedException)
-                        {
-                            return (StreamCopyCompletion.DestinationException, SentinelSeen: false);
-                        }
-                    }
-
                     return (StreamCopyCompletion.SourceClosed, SentinelSeen: false);
-                }
+
+                var sentinelIndex = Array.IndexOf(buffer, CleanExitSentinel.Value, 0, bytesRead);
 
                 try
                 {
-                    // Forward the previously-withheld byte first (proven not to be the last one, since more
-                    // data just arrived), then this read's bytes minus its own last byte, which becomes the
-                    // newly withheld one.
-                    if (pendingByte is { } previousByte)
-                        await destination.WriteAsync(new[] { previousByte }.AsMemory(), cancellationToken).ConfigureAwait(false);
+                    if (sentinelIndex < 0)
+                    {
+                        await destination.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+                        await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        // Forward everything up to (but not including) the sentinel, then treat it as the end
+                        // of this connection's traffic -- the daemon writes it immediately before tearing down
+                        // its JsonRpc connection, so nothing meaningful follows it in the same stream.
+                        if (sentinelIndex > 0)
+                        {
+                            await destination.WriteAsync(buffer.AsMemory(0, sentinelIndex), cancellationToken).ConfigureAwait(false);
+                            await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
+                        }
 
-                    if (bytesRead > 1)
-                        await destination.WriteAsync(buffer.AsMemory(0, bytesRead - 1), cancellationToken).ConfigureAwait(false);
-
-                    await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
+                        return (StreamCopyCompletion.SourceClosed, SentinelSeen: true);
+                    }
                 }
                 catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                 {
                     return (StreamCopyCompletion.DestinationException, SentinelSeen: false);
                 }
-
-                pendingByte = buffer[bytesRead - 1];
             }
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)

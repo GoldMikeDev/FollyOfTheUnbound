@@ -142,7 +142,7 @@ internal sealed class LanguageServerConnectionManager
             LanguageServerHost server;
             try
             {
-                server = new LanguageServerHost(connection.InputStream, connection.OutputStream, exportProvider, typeRefResolver);
+                server = new LanguageServerHost(connection.InputStream, connection.OutputStream, exportProvider, typeRefResolver, isDaemonConnection: isolateFaults);
             }
             catch
             {
