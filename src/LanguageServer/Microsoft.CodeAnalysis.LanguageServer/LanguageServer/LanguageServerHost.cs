@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CommonLanguageServerProtocol.Framework;
@@ -17,6 +18,7 @@ internal sealed class LanguageServerHost
 {
     private readonly AbstractLanguageServer<RequestContext> _roslynLanguageServer;
     private readonly JsonRpc _jsonRpc;
+    private readonly Stream _outputStream;
     private volatile bool _hasStarted;
 
     internal ILogger GlobalLogger { get; }
@@ -28,6 +30,8 @@ internal sealed class LanguageServerHost
         ExportProvider exportProvider,
         AbstractTypeRefResolver typeRefResolver)
     {
+        _outputStream = outputStream;
+
         var messageFormatter = RoslynLanguageServer.CreateJsonMessageFormatter();
 
         var handler = new HeaderDelimitedMessageHandler(outputStream, inputStream, messageFormatter);
@@ -50,6 +54,12 @@ internal sealed class LanguageServerHost
                 hostServices,
                 typeRefResolver);
 
+            // See CleanExitSentinel's remarks: on a genuine client-requested exit (not a JsonRpc-disconnect-triggered
+            // one), write a final out-of-band byte to the raw transport before it's torn down, distinguishing this
+            // from an ungraceful disconnect for anything downstream reading the raw byte stream (the daemon relay
+            // in the roslyn-language-server thin client -- see LspRelay and issue #10's third race window).
+            _roslynLanguageServer.OnClientRequestedExitAsync = WriteCleanExitSentinelAsync;
+
             GlobalLogger = _roslynLanguageServer.GetLspServices().GetRequiredService<ILoggerFactory>().CreateLogger("Global");
         }
         catch
@@ -57,6 +67,12 @@ internal sealed class LanguageServerHost
             _jsonRpc.Dispose();
             throw;
         }
+    }
+
+    private async Task WriteCleanExitSentinelAsync()
+    {
+        await _outputStream.WriteAsync(CleanExitSentinel.Bytes).ConfigureAwait(false);
+        await _outputStream.FlushAsync().ConfigureAwait(false);
     }
 
     public void Start()
