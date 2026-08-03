@@ -79,9 +79,12 @@ another connection's in-flight HTML sync for the same URI. A non-Razor instance:
 shared `MetadataAsSourceWorkspace`'s fallback analyzer options on every navigation-to-metadata, so a later
 connection's navigation can change settings in effect for an earlier connection's already-open metadata
 document -- and it's below `LanguageServer.Protocol` in the dependency graph, so it's structurally out of
-reach of `GetConnectionScopedOption` even in principle.
+reach of `GetConnectionScopedOption` even in principle. One more Razor instance: `CohostDocumentSymbolEndpoint`'s
+`_useHierarchicalSymbols` field is overwritten by whichever connection's dynamic-registration handshake ran
+most recently, so `textDocument/documentSymbol` can return the wrong result shape (flat vs. hierarchical) for
+a connection whose client capabilities didn't match whichever one wrote that field last.
 **Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution,
-the Razor leaks (seven, now), the `FeatureProviderRefresher` cross-connection refresh fan-out, the
+the Razor leaks (eight, now), the `FeatureProviderRefresher` cross-connection refresh fan-out, the
 `ServiceBrokerProvider` crash, and the `DecompilationMetadataAsSourceFileProvider` fallback-options leak have
 no workaround and aren't going to get one without further work; all tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase

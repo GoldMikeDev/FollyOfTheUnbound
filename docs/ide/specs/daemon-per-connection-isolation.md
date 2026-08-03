@@ -773,6 +773,14 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   and is shared cross-host infrastructure (Visual Studio uses this same provider, not just the daemon) --
   structurally out of reach of the LSP-specific facade even if a per-connection value existed to route through
   it. Not fixed here. Added as evidence for issue #9.
+- **`CohostDocumentSymbolEndpoint` (`src/Razor/src/Razor/src/Microsoft.CodeAnalysis.Razor.CohostingShared/DocumentSymbol/CohostDocumentSymbolEndpoint.cs`),
+  found by Codex reviewing commit `8239e606d`, another instance of the same Razor cohosting shape.** `[Shared]`,
+  and `GetRegistrations` overwrites its single `_useHierarchicalSymbols` field from whichever connection's
+  dynamic-registration handshake ran most recently; `HandleRequestAsync` then reads that same field for every
+  connection's `textDocument/documentSymbol` requests. Two clients with different
+  `hierarchicalDocumentSymbolSupport` capabilities can therefore get the wrong shape back -- one receiving
+  nested `DocumentSymbol[]` it never advertised support for, or losing hierarchy it does support. Not fixed
+  here, same reasoning as the rest of this list. Added as evidence for issue #9.
 
 ## The ambient-token ordering bug
 
