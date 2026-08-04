@@ -41,8 +41,9 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
 
     /// <summary>
     /// Extracts the subset of a thin client's own <c>serverArguments</c> that a daemon connection's handshake
-    /// carries, recognizing both the two-token (<c>--flag value</c>) and inline (<c>--flag=value</c>) forms
-    /// System.CommandLine accepts on the daemon side for the same flags.
+    /// carries, recognizing the two-token (<c>--flag value</c>) and both inline (<c>--flag=value</c>,
+    /// <c>--flag:value</c>) forms System.CommandLine accepts on the daemon side for the same flags -- see
+    /// https://learn.microsoft.com/en-us/dotnet/standard/commandline/syntax#option-argument-delimiters.
     /// </summary>
     public static ConnectionHandshake FromServerArguments(IReadOnlyList<string> serverArguments)
     {
@@ -64,13 +65,14 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
 
             if (TryReadOption(serverArguments, ref i, "--sourceGeneratorExecutionPreference", out var sourceGeneratorPreference))
             {
-                // An empty value (only reachable via the inline "--sourceGeneratorExecutionPreference=" form --
-                // the bare-flag form is already rejected above) is not a valid SourceGeneratorExecutionPreference
-                // enum literal, so a cold daemon launch's System.CommandLine parsing would reject it the same
-                // way it rejects "not-a-real-value". WriteStringAsync/ReadStringAsync collapse an empty string
-                // to the same zero-length wire frame as "field absent" (see their remarks), so without this
-                // check the empty value would silently become "not specified" once it crosses the wire, falling
-                // back to Automatic instead of failing consistently with a cold launch.
+                // An empty value (only reachable via the inline "--sourceGeneratorExecutionPreference=" or
+                // "--sourceGeneratorExecutionPreference:" forms -- the bare-flag form is already rejected below)
+                // is not a valid SourceGeneratorExecutionPreference enum literal, so a cold daemon launch's
+                // System.CommandLine parsing would reject it the same way it rejects "not-a-real-value".
+                // WriteStringAsync/ReadStringAsync collapse an empty string to the same zero-length wire frame
+                // as "field absent" (see their remarks), so without this check the empty value would silently
+                // become "not specified" once it crosses the wire, falling back to Automatic instead of failing
+                // consistently with a cold launch.
                 if (string.IsNullOrEmpty(sourceGeneratorPreference))
                     throw new InvalidOperationException("'--sourceGeneratorExecutionPreference' requires a value.");
 
@@ -85,7 +87,8 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
         {
             var arg = args[index];
 
-            if (arg.StartsWith(optionName + "=", StringComparison.Ordinal))
+            if (arg.StartsWith(optionName + "=", StringComparison.Ordinal) ||
+                arg.StartsWith(optionName + ":", StringComparison.Ordinal))
             {
                 value = arg[(optionName.Length + 1)..];
                 return true;

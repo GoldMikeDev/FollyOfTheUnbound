@@ -205,7 +205,8 @@ internal static class DaemonPipeName
     /// Filters <paramref name="serverArguments"/> down to the subset that should still distinguish which
     /// daemon a client connects to, dropping any <see cref="s_perConnectionRoutedOptions"/> or
     /// <see cref="s_pipeKeyIrrelevantOptions"/> occurrence (and its value, whether given as a separate token or
-    /// inline <c>--option=value</c>) since neither category needs to split clients into separate daemons.
+    /// inline <c>--option=value</c>/<c>--option:value</c>) since neither category needs to split clients into
+    /// separate daemons.
     /// </summary>
     private static IEnumerable<string> GetServerArgumentsForPipeKey(IReadOnlyList<string> serverArguments)
     {
@@ -254,7 +255,9 @@ internal static class DaemonPipeName
         }
 
         static bool IsOptionOrInlineValue(string argument, string optionName)
-            => argument == optionName || argument.StartsWith(optionName + "=", StringComparison.Ordinal);
+            => argument == optionName ||
+               argument.StartsWith(optionName + "=", StringComparison.Ordinal) ||
+               argument.StartsWith(optionName + ":", StringComparison.Ordinal);
     }
 
     /// <summary>

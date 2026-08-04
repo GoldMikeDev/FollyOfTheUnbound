@@ -100,6 +100,45 @@ public sealed class DaemonPipeNameTests
         Assert.Equal(first, none);
     }
 
+    [Theory]
+    [InlineData("--extensionLogDirectory")]
+    [InlineData("--sourceGeneratorExecutionPreference")]
+    public void PipeName_IgnoresPerConnectionRoutedOptions_ColonForm(string option)
+    {
+        // System.CommandLine also accepts ':' as an inline option-value delimiter, not just '='.
+        var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [$"{option}:/tmp/a"]);
+        var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [$"{option}:/tmp/b"]);
+        var none = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+        Assert.Equal(first, second);
+        Assert.Equal(first, none);
+    }
+
+    [Fact]
+    public void PipeName_DiffersForSameRelativePathArgumentColonForm_DifferentWorkingDirectories()
+    {
+        // The colon-delimited inline form of a path-valued option must also be canonicalized, not just '='.
+        var originalDirectory = Environment.CurrentDirectory;
+        var firstDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        var secondDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        try
+        {
+            Environment.CurrentDirectory = firstDirectory;
+            var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: ["--devKitDependencyPath:foo.dll"]);
+
+            Environment.CurrentDirectory = secondDirectory;
+            var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: ["--devKitDependencyPath:foo.dll"]);
+
+            Assert.NotEqual(first, second);
+        }
+        finally
+        {
+            Environment.CurrentDirectory = originalDirectory;
+            System.IO.Directory.Delete(firstDirectory, recursive: true);
+            System.IO.Directory.Delete(secondDirectory, recursive: true);
+        }
+    }
+
     [Fact]
     public void PipeName_StillDiffersByOtherArgumentsAroundPerConnectionRoutedOptions()
     {

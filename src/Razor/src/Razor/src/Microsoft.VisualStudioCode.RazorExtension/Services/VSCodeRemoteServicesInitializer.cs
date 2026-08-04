@@ -1,4 +1,4 @@
-﻿// Licensed to the .NET Foundation under one or more agreements.
+// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
@@ -30,7 +30,10 @@ namespace Microsoft.VisualStudioCode.RazorExtension.Services;
 /// whichever service the *last* connection happened to create) for every single settings change, with that
 /// count only growing. Keyed per <see cref="AmbientConnectionToken.Current"/> instead, one subscription per
 /// connection, cleaned up via <see cref="IRazorCohostConnectionScopedCleanup.ConnectionEnded"/> -- same pattern
-/// as <c>SemanticTokensRefreshNotifier</c>.
+/// as <c>SemanticTokensRefreshNotifier</c>, including that type's re-establish-the-connection's-own-token step
+/// before reading settings inside the shared event handler (see <see cref="ClientSettingsManager_ClientSettingsChanged"/>),
+/// since <see cref="IClientSettingsManager.GetClientSettings"/> is itself ambient-token-scoped and the handler
+/// otherwise runs under whichever connection's change happened to trigger the broadcast, not its own.
 /// </summary>
 [Shared]
 [Export(typeof(IRazorCohostStartupService))]
@@ -45,6 +48,7 @@ internal sealed class VSCodeRemoteServicesInitializer(
     {
         public IRemoteClientSettingsService? ClientSettingsService;
         public EventHandler<EventArgs>? Handler;
+        public object? Token;
         public readonly object Lock = new();
         public bool Ended;
     }
@@ -99,8 +103,9 @@ internal sealed class VSCodeRemoteServicesInitializer(
 
             if (state.Handler is null)
             {
+                state.Token = AmbientConnectionToken.Current;
                 // Client settings are initialized after this service, so there is no point updating settings at startup.
-                state.Handler = (sender, e) => UpdateClientSettingsAsync(state, CancellationToken.None).Forget();
+                state.Handler = (sender, e) => ClientSettingsManager_ClientSettingsChanged(state);
                 _clientSettingsManager.ClientSettingsChanged += state.Handler;
             }
         }
@@ -118,6 +123,9 @@ internal sealed class VSCodeRemoteServicesInitializer(
             return;
         }
 
+        // GetOrCreateValue, not TryGetValue: see SemanticTokensRefreshNotifier.ConnectionEnded's remarks for why
+        // this must create (and permanently mark Ended on) the same state object GetState would hand back to a
+        // StartupAsync call that hasn't run yet for this connection.
         var state = _stateByConnection.GetOrCreateValue(token);
 
         lock (state.Lock)
@@ -139,8 +147,23 @@ internal sealed class VSCodeRemoteServicesInitializer(
         }
     }
 
+    private void ClientSettingsManager_ClientSettingsChanged(ConnectionState state)
+    {
+        // Task.Run so the AmbientConnectionToken.SetCurrent inside UpdateClientSettingsAsync is scoped to that
+        // background task's own copy of the ExecutionContext -- it must not leak into whichever connection's
+        // context happened to be ambient when ClientSettingsChanged fired (which triggers every connection's
+        // handler synchronously, in that firing connection's own context) or into any sibling handler invoked
+        // afterward in that same synchronous dispatch. Same pattern as SemanticTokensRefreshNotifier.
+        _ = Task.Run(() => UpdateClientSettingsAsync(state, CancellationToken.None));
+    }
+
     private Task UpdateClientSettingsAsync(ConnectionState state, CancellationToken cancellationToken)
     {
+        if (state.Token is { } token)
+        {
+            AmbientConnectionToken.SetCurrent(token);
+        }
+
         if (state.ClientSettingsService is not { } clientSettingsService)
         {
             throw new InvalidOperationException($"{nameof(VSCodeRemoteServicesInitializer)} has not been started.");

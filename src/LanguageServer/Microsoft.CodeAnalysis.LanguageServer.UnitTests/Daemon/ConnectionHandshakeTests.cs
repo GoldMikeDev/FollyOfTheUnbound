@@ -51,4 +51,25 @@ public sealed class ConnectionHandshakeTests
         // fail purely depending on daemon reuse happenstance.
         Assert.Throws<InvalidOperationException>(() => ConnectionHandshake.FromServerArguments([option]));
     }
+
+    [Fact]
+    public void FromServerArguments_ExtractsBothOptions_ColonForm()
+    {
+        // System.CommandLine also accepts ':' as an inline option-value delimiter, not just '='.
+        var handshake = ConnectionHandshake.FromServerArguments(
+            ["--extensionLogDirectory:/tmp/logs", "--sourceGeneratorExecutionPreference:Balanced"]);
+
+        Assert.Equal("/tmp/logs", handshake.ExtensionLogDirectory);
+        Assert.Equal("Balanced", handshake.SourceGeneratorExecutionPreference);
+    }
+
+    [Fact]
+    public void FromServerArguments_EmptyInlinePreferenceValue_Throws()
+    {
+        // "--sourceGeneratorExecutionPreference=" (or ':') is not a valid enum literal, so a cold daemon launch
+        // would reject it the same way it rejects a nonsense string -- it must not silently collapse to "not
+        // specified" the way an omitted option would.
+        Assert.Throws<InvalidOperationException>(() => ConnectionHandshake.FromServerArguments(["--sourceGeneratorExecutionPreference="]));
+        Assert.Throws<InvalidOperationException>(() => ConnectionHandshake.FromServerArguments(["--sourceGeneratorExecutionPreference:"]));
+    }
 }
