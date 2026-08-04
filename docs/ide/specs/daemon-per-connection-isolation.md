@@ -658,13 +658,37 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
     unconditionally assigns `_razorClientLanguageServerManager`; `CohostConfigurationChangedService` similarly
     updates one shared `IClientSettingsManager`), and severe: `HtmlDocumentPublisher`/`HtmlRequestInvoker` can
     send one connection's generated HTML / forward HTML requests to a *different* connection's editor, and
-    `CSharpCodeActionProvider` can read one connection's Razor settings while serving another's workspace. **Not
-    fixed here.** This is the same root cause already established (issue #9) as blocked by the restored MEF
-    composition library (16.1.8) having no per-connection composition scoping primitive -- these are new,
-    concrete proof points for that same limitation in the Razor extension specifically, not a new/different
-    bug needing its own point-fix. Ad hoc per-service patches across unfamiliar Razor cohosting code, without
-    the ability to spin up and verify two isolated Razor sessions in this sandbox, would be rushed and risk
-    introducing further leaks rather than fixing the root cause. Added as new evidence to issue #9 rather than
+    `CSharpCodeActionProvider` can read one connection's Razor settings while serving another's workspace.
+    **Fixed.** The "no per-connection MEF composition scoping primitive" blocker cited when this was originally
+    documented is real for a true MEF-level scope, but doesn't apply here the same way it did for
+    `IGlobalOptionService`: both types are Razor's *own* MEF exports (not exports from the restored
+    `Microsoft.VisualStudio.Composition` package itself), and the daemon's `AmbientConnectionToken` -- already
+    proven to flow correctly through real request dispatch by `AsyncLocalPropagationTests` -- is reachable from
+    the Razor extension project (`Microsoft.VisualStudioCode.RazorExtension` already references
+    `Microsoft.CodeAnalysis.Remote.Razor`, which already references `Microsoft.CodeAnalysis.LanguageServer.Protocol`,
+    home of `AmbientConnectionToken`, and `InternalsVisibleTo` for the Razor extension assembly was already
+    granted there). Both types now key their state (`_managersByConnection`/`_settingsByConnection`, both
+    `ConditionalWeakTable<object, T>`) by `AmbientConnectionToken.Current`'s identity, mirroring
+    `ConnectionScopedOptionOverrides`'s own pattern exactly -- including its fallback: a genuinely
+    connection-less caller (no ambient token at all, e.g. a test driving either type directly) reads and writes
+    a single shared slot instead of having writes silently dropped, which is what the *existing*
+    `CohostConfigurationChangedServiceTest`/`RemoteClientSettingsServiceTest` tests needed (they call
+    `ClientSettingsManager.Update`/read `GetClientSettings()` directly, outside real request dispatch, so
+    without that fallback they'd have gone from "read/write one shared value" to "silently no-op" and started
+    failing). Verified with a new `RazorPerConnectionIsolationTests` (simulating two connections directly via
+    `AmbientConnectionToken.SetCurrent`, the same technique `ConnectionScopedOptionOverridesTests` uses on the
+    Roslyn LSP side -- confirmed to fail to even *compile* against the pre-fix types, since the fix's test hook
+    doesn't exist on them) plus the full pre-existing `CohostConfigurationChangedServiceTest`/
+    `RemoteClientSettingsServiceTest`/`MEFCompositionTest` suite (9/9 passed). This also corrects the earlier
+    "no way to exercise two isolated Razor cohost sessions side-by-side in this sandbox" framing: verifying the
+    *ambient-token isolation itself* never actually needed a full two-session cohost harness (`CohostTestBase`
+    building an isolated MEF composition per test instance, confirmed separately, would support that too if a
+    fix ever needs it) -- it only needed to prove these two singletons route through the ambient token
+    correctly, which a much cheaper direct unit test already does.
+
+    `HtmlDocumentPublisher`/`HtmlRequestInvoker`/`LspLogger`/`LoggerProvider` (all downstream consumers of
+    `RazorClientServerManagerProvider.ClientLanguageServerManager`) needed no changes -- they already read the
+    property fresh on each call rather than caching it, so they pick up per-connection routing automatically.
     attempted as a standalone fix.
 - **`FeatureProviderRefresher` (`src/LanguageServer/Protocol/Handler/FeatureProviderRefresher.cs`) is the same
   shape again, found by Codex reviewing merge commit `347f7d2dd`.** It's a `[Shared]` process-wide MEF event
