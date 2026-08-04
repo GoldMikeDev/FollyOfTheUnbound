@@ -117,6 +117,10 @@ internal static class Program
         }
     }
 
+    /// <summary>Bound on how long a detected editor-process exit waits for <see cref="Main"/>'s own conclusive
+    /// result before force-exiting over it; see <see cref="StartClientProcessMonitorAsync"/>'s remarks.</summary>
+    private static readonly TimeSpan s_editorExitForceExitGracePeriod = TimeSpan.FromSeconds(5);
+
     /// <summary>
     /// Force-exits if the monitored editor process disappears out from under us -- the normal signal for "the
     /// editor crashed or was killed outright, with no chance to go through its own LSP shutdown/exit sequence".
@@ -128,6 +132,17 @@ internal static class Program
     /// <paramref name="cancellationToken"/> is cancelled by <see cref="Main"/> once it has that conclusive
     /// result, closing that window: a cancellation observed here means the session already ended on its own
     /// terms, so this must not force a different exit code over it.
+    /// <para>
+    /// That cancellation only happens once <see cref="RelayDaemonAsync"/>/<see cref="ChildServerHost.RunAsync"/>
+    /// actually *returns*, though -- and the normal interleaving is the editor's own process exiting shortly
+    /// after it sends <c>exit</c>, while the relay is still mid-flight processing the daemon's response to it
+    /// (e.g. writing the clean-exit sentinel through to the editor). <see cref="Process.WaitForExitAsync"/>
+    /// observes the real OS-level process exit independently of relay progress, so without a grace window this
+    /// could <see cref="Environment.Exit"/> out from under a session that was seconds away from concluding
+    /// cleanly on its own, both clobbering its exit code and hard-killing the relay mid-write. Instead of
+    /// exiting immediately, give <see cref="Main"/>'s own conclusion a short, bounded window
+    /// (<see cref="s_editorExitForceExitGracePeriod"/>) to land first.
+    /// </para>
     /// </remarks>
     private static Task StartClientProcessMonitorAsync(int? processId, CancellationToken cancellationToken)
     {
@@ -150,6 +165,20 @@ internal static class Program
             catch (Exception ex)
             {
                 Console.Error.WriteLine($"Error monitoring editor process: {ex}");
+            }
+
+            // The editor process just exited (or we failed to monitor it), but Main may already be seconds away
+            // from its own conclusive result -- give it a bounded grace window to get there before overriding it.
+            var deadline = DateTime.UtcNow + s_editorExitForceExitGracePeriod;
+            while (!cancellationToken.IsCancellationRequested && DateTime.UtcNow < deadline)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(50), CancellationToken.None);
+            }
+
+            if (cancellationToken.IsCancellationRequested)
+            {
+                // Main concluded on its own during the grace window; nothing to force.
+                return;
             }
 
             Environment.Exit(ExitCodes.EditorConnectionLost);

@@ -23,6 +23,11 @@ namespace Microsoft.AspNetCore.Razor.LanguageServer;
 /// <c>_lastColorBackground</c> used to be plain fields, so a later connection's <see cref="StartupAsync"/> could
 /// silently repoint an earlier, unrelated connection's refresh notifications at the wrong LSP manager. Keyed per
 /// <see cref="AmbientConnectionToken.Current"/> instead, same pattern as <c>ClientSettingsManager</c>.
+/// <see cref="IClientSettingsManager.ClientSettingsChanged"/> still fires every connection's handler on every
+/// connection's settings change (it's not itself per-connection routed -- the same lower-severity gap already
+/// tracked for <c>FeatureProviderRefresher</c> before that was fixed); each handler re-establishes its own
+/// connection's <see cref="AmbientConnectionToken"/> before reading settings so it only ever reacts to its own
+/// connection's actual value, not whichever connection's change happened to trigger the broadcast.
 /// </summary>
 [Export(typeof(IRazorCohostStartupService))]
 [method: ImportingConstructor]
@@ -33,6 +38,7 @@ internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clien
         public IClientLanguageServerManager? RazorClientLanguageServerManager;
         public bool LastColorBackground;
         public EventHandler<EventArgs>? Handler;
+        public object? Token;
     }
 
     private readonly IClientSettingsManager _clientSettingsManager = clientSettingsManager;
@@ -58,7 +64,13 @@ internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clien
 
             if (state.Handler is null)
             {
-                state.Handler = (sender, e) => OnClientSettingsChanged(state);
+                state.Token = AmbientConnectionToken.Current;
+                // Task.Run so the AmbientConnectionToken.SetCurrent inside OnClientSettingsChanged is scoped to
+                // that background task's own copy of the ExecutionContext -- it must not leak into whichever
+                // connection's context happened to be ambient when ClientSettingsChanged fired (which triggers
+                // every connection's handler synchronously, in that firing connection's own context) or into
+                // any other handler invoked afterward in that same synchronous dispatch.
+                state.Handler = (sender, e) => _ = Task.Run(() => OnClientSettingsChanged(state));
                 _clientSettingsManager.ClientSettingsChanged += state.Handler;
 
                 lock (_allStatesLock)
@@ -73,6 +85,11 @@ internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clien
 
     private void OnClientSettingsChanged(ConnectionState state)
     {
+        if (state.Token is { } token)
+        {
+            AmbientConnectionToken.SetCurrent(token);
+        }
+
         var colorBackground = _clientSettingsManager.GetClientSettings().AdvancedSettings.ColorBackground;
         if (colorBackground == state.LastColorBackground)
         {

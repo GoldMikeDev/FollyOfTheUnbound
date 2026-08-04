@@ -253,6 +253,91 @@ public sealed class DaemonPipeNameTests
         }
     }
 
+    [Theory]
+    [InlineData("--extension")]
+    [InlineData("--devKitDependencyPath")]
+    [InlineData("--csharpDesignTimePath")]
+    public void PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(string option)
+    {
+        // Two clients launched from different working directories with the same *relative* path argument (e.g.
+        // both pass "--extension foo.dll") must not collide onto one daemon: the daemon only ever gets one
+        // client's working directory to resolve that relative path against (whichever client happened to launch
+        // it), so the second client would silently have its path resolved against the wrong directory.
+        var originalDirectory = Environment.CurrentDirectory;
+        var firstDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        var secondDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        try
+        {
+            Environment.CurrentDirectory = firstDirectory;
+            var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [option, "foo.dll"]);
+
+            Environment.CurrentDirectory = secondDirectory;
+            var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: [option, "foo.dll"]);
+
+            Assert.NotEqual(first, second);
+        }
+        finally
+        {
+            Environment.CurrentDirectory = originalDirectory;
+            System.IO.Directory.Delete(firstDirectory, recursive: true);
+            System.IO.Directory.Delete(secondDirectory, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void PipeName_SameAbsolutePathArgumentStillCollides()
+    {
+        // Sanity check for the fix above: an already-absolute path argument (the common case -- these options'
+        // help text says "full paths") must still produce the same key regardless of working directory, since
+        // canonicalization is a no-op for it.
+        var absolutePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "foo.dll");
+        var originalDirectory = Environment.CurrentDirectory;
+        var firstDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        var secondDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        try
+        {
+            Environment.CurrentDirectory = firstDirectory;
+            var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: ["--extension", absolutePath]);
+
+            Environment.CurrentDirectory = secondDirectory;
+            var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: ["--extension", absolutePath]);
+
+            Assert.Equal(first, second);
+        }
+        finally
+        {
+            Environment.CurrentDirectory = originalDirectory;
+            System.IO.Directory.Delete(firstDirectory, recursive: true);
+            System.IO.Directory.Delete(secondDirectory, recursive: true);
+        }
+    }
+
+    [Fact]
+    public void PipeName_MultipleExtensionValuesAllCanonicalized()
+    {
+        // --extension has array arity (one-or-more following value tokens); all of them must be canonicalized,
+        // not just the first, and a trailing unrelated option must still be recognized correctly afterward.
+        var originalDirectory = Environment.CurrentDirectory;
+        var firstDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        var secondDirectory = System.IO.Directory.CreateTempSubdirectory().FullName;
+        try
+        {
+            Environment.CurrentDirectory = firstDirectory;
+            var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: ["--extension", "a.dll", "b.dll"]);
+
+            Environment.CurrentDirectory = secondDirectory;
+            var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: ["--extension", "a.dll", "b.dll"]);
+
+            Assert.NotEqual(first, second);
+        }
+        finally
+        {
+            Environment.CurrentDirectory = originalDirectory;
+            System.IO.Directory.Delete(firstDirectory, recursive: true);
+            System.IO.Directory.Delete(secondDirectory, recursive: true);
+        }
+    }
+
     [Fact]
     public void PipeName_IsFileSystemAndUrlSafe()
     {

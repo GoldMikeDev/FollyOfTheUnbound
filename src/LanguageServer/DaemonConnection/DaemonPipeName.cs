@@ -106,6 +106,21 @@ internal static class DaemonPipeName
     private static readonly string[] s_pipeKeyIrrelevantOptions = ["--sessionId"];
 
     /// <summary>
+    /// Path-valued <c>serverArguments</c> options whose values are resolved relative to the launching client's
+    /// working directory downstream (<c>--extension</c> by <c>ExtensionAssemblyManager</c>,
+    /// <c>--devKitDependencyPath</c>/<c>--csharpDesignTimePath</c> similarly) but only ever get *one* client's
+    /// working directory to resolve against -- the daemon process's own, inherited from whichever client
+    /// happened to launch it. Two clients launched from different working directories with the same relative
+    /// argument (e.g. both pass <c>--extension foo.dll</c>) would otherwise hash to the identical pipe key and
+    /// share one daemon, silently resolving the second client's path using the first client's directory instead
+    /// of its own. Canonicalized to an absolute path (relative to *this* process's own working directory, i.e.
+    /// the client currently computing the key) before folding into the hash, so two such clients get distinct
+    /// keys -- and therefore separate daemons -- whenever their relative arguments actually resolve to different
+    /// files.
+    /// </summary>
+    private static readonly string[] s_pathValuedOptions = ["--extension", "--devKitDependencyPath", "--csharpDesignTimePath"];
+
+    /// <summary>
     /// Environment variables folded into <c>GetPipeName</c>'s hash input alongside <c>PATH</c> because
     /// <c>DotnetCliHelper.Run</c> inherits the daemon process's own environment into every dotnet CLI
     /// invocation it makes on behalf of any connection, regardless of which client is currently connected --
@@ -193,20 +208,63 @@ internal static class DaemonPipeName
                 Array.Find(s_perConnectionRoutedOptions, option => IsOptionOrInlineValue(argument, option)) ??
                 Array.Find(s_pipeKeyIrrelevantOptions, option => IsOptionOrInlineValue(argument, option));
 
-            if (matchedOption is null)
+            if (matchedOption is not null)
             {
-                yield return argument;
+                // Only the two-token form ("--option value") has a separate value token to also skip; the inline
+                // form ("--option=value") is entirely contained in the one token already excluded above.
+                if (argument == matchedOption && i + 1 < serverArguments.Count)
+                    i++;
+
                 continue;
             }
 
-            // Only the two-token form ("--option value") has a separate value token to also skip; the inline
-            // form ("--option=value") is entirely contained in the one token already excluded above.
-            if (argument == matchedOption && i + 1 < serverArguments.Count)
-                i++;
+            var pathOption = Array.Find(s_pathValuedOptions, option => IsOptionOrInlineValue(argument, option));
+            if (pathOption is not null)
+            {
+                if (argument != pathOption)
+                {
+                    // Inline "--option=value" form: canonicalize just the value portion.
+                    yield return $"{pathOption}={CanonicalizePathValue(argument[(pathOption.Length + 1)..])}";
+                    continue;
+                }
+
+                yield return argument;
+
+                // Two-token form. --extension takes one-or-more following values (its arity); the single-value
+                // path options take exactly one. Canonicalize every value token that follows, up to the next
+                // option-looking ("--"-prefixed) token or the end of the arguments.
+                while (i + 1 < serverArguments.Count && !serverArguments[i + 1].StartsWith("--", StringComparison.Ordinal))
+                {
+                    i++;
+                    yield return CanonicalizePathValue(serverArguments[i]);
+                }
+
+                continue;
+            }
+
+            yield return argument;
         }
 
         static bool IsOptionOrInlineValue(string argument, string optionName)
             => argument == optionName || argument.StartsWith(optionName + "=", StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// Resolves <paramref name="value"/> to an absolute path relative to this process's own working directory,
+    /// falling back to the raw value if it isn't a valid path (e.g. empty, or contains characters invalid for
+    /// the current platform) -- the pipe key just needs a value that's stable and distinguishes genuinely
+    /// different paths, not a guarantee the path exists or is well-formed.
+    /// </summary>
+    private static string CanonicalizePathValue(string value)
+    {
+        try
+        {
+            return System.IO.Path.GetFullPath(value);
+        }
+        catch (ArgumentException)
+        {
+            return value;
+        }
     }
 
     private static string GetEffectiveKeepAliveForPipeKey(IReadOnlyList<string> serverArguments)
