@@ -39,7 +39,28 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
     /// are called under a lock in <see cref="MetadataAsSourceFileService"/>.  So this is safe as a plain
     /// dictionary.
     /// </summary>
-    private readonly Dictionary<UniqueDocumentKey, MetadataAsSourceGeneratedFileInfo> _keyToInformation = [];
+    /// <remarks>
+    /// Keyed by <see cref="Workspace"/> identity (reference equality, the default for <see cref="Workspace"/>) in
+    /// addition to <see cref="UniqueDocumentKey"/> (see GoldMikeDev/roslyn#9): this provider is a <c>[Shared]</c>
+    /// MEF singleton serving every daemon connection through one shared <c>MetadataAsSourceWorkspace</c>, but
+    /// <c>sourceWorkspace</c> in <see cref="GetGeneratedFileAsync"/> is each connection's own distinct
+    /// Host <see cref="Workspace"/> instance -- LSP daemon-mode connections don't share one. Without the source
+    /// workspace in the key, two connections navigating to the same assembly/symbol (extremely common for BCL
+    /// types) would collide on one cache entry: the second connection would silently be handed back the first
+    /// connection's already-generated document, whose <see cref="MetadataAsSourceGeneratedFileInfo.Workspace"/>
+    /// then makes <see cref="MapDocument(Document)"/> resolve to the *first* connection's source project for the
+    /// *second* connection's generated file -- misdirecting navigation/find-references back into the wrong
+    /// connection's solution entirely, not merely a stale-options gap. Since
+    /// <see cref="MetadataAsSourceGeneratedFileInfo"/>'s <see cref="MetadataAsSourceGeneratedFileInfo.TemporaryFilePath"/>
+    /// already embeds a fresh <see cref="Guid"/> per instance, giving each connection its own cache entry for the
+    /// same symbol also means its own distinct on-disk file -- no collision there either. This still doesn't
+    /// fully isolate connections (the single shared <see cref="MetadataAsSourceWorkspace"/>'s solution-wide
+    /// <c>FallbackAnalyzerOptions</c>, touched in the block below, remains one value for every connection -- that
+    /// piece needs Workspace-level per-connection scoping that doesn't exist today to fix properly), but it fixes
+    /// the more severe half of this gap: a generated file is now only ever mapped back to the connection that
+    /// actually generated it.
+    /// </remarks>
+    private readonly Dictionary<(Workspace SourceWorkspace, UniqueDocumentKey Key), MetadataAsSourceGeneratedFileInfo> _keyToInformation = [];
 
     /// <summary>
     /// Accessed both in <see cref="GetGeneratedFileAsync"/> and in UI thread operations.  Those should not
@@ -89,7 +110,7 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
 
         var infoKey = await GetUniqueDocumentKeyAsync(sourceProject, topLevelNamedType, signaturesOnly: !useDecompiler, cancellationToken).ConfigureAwait(false);
 
-        var fileInfo = _keyToInformation.GetOrAdd(infoKey,
+        var fileInfo = _keyToInformation.GetOrAdd((sourceWorkspace, infoKey),
             _ => new MetadataAsSourceGeneratedFileInfo(tempPath, sourceWorkspace, sourceProject, topLevelNamedType, signaturesOnly: !useDecompiler));
 
         DocumentId generatedDocumentId;
@@ -102,11 +123,15 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
             // doesn't add projects to the MAS workspace, so it might remain empty and not receive fallback
             // options automatically, but doing this unconditionally on every call would let a later
             // connection's navigation silently overwrite the options in effect for an earlier connection's
-            // still-open document every time it's revisited, not just once at creation. This doesn't fully
-            // isolate connections from each other (the MAS workspace and this cache are still genuinely shared
-            // by design -- see LanguageServerLspWorkspaceRegistrationEventListener's own doc comment -- so the
-            // very first connection to generate a given document still wins for as long as it stays cached),
-            // but it shrinks the window from "every navigation" to "first generation only".
+            // still-open document every time it's revisited, not just once at creation. Now that
+            // <see cref="_keyToInformation"/> is keyed per <paramref name="sourceWorkspace"/> too (see its own
+            // remarks), "generating a new document" happens once per (connection, symbol) rather than once per
+            // symbol process-wide, so this now reflects each connection's own fallback options as of its own
+            // first navigation to a given symbol -- still one shared value on the single MAS workspace, so a
+            // later connection's first navigation to a *different* symbol still overwrites it for everyone
+            // (the MAS workspace's <c>FallbackAnalyzerOptions</c> has no per-project/per-connection scoping to
+            // fix that properly), but no longer permanently pinned to whichever connection happened to be first
+            // ever to touch a given symbol.
             metadataWorkspace.OnSolutionFallbackAnalyzerOptionsChanged(sourceWorkspace.CurrentSolution.FallbackAnalyzerOptions);
 
             // We don't have this file in the workspace.  We need to create a project to put it in.
