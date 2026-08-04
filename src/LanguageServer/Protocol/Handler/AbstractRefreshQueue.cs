@@ -79,7 +79,7 @@ internal abstract class AbstractRefreshQueue :
         _lspWorkspaceManager = lspWorkspaceManager;
         _notificationManager = notificationManager;
         _providerRefresher = providerRefresher;
-        _providerRefresher.ProviderRefreshRequested += EnqueueRefreshNotification;
+        _providerRefresher.Subscribe(EnqueueRefreshNotification);
     }
 
     public async Task OnInitializedAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken)
@@ -165,7 +165,7 @@ internal abstract class AbstractRefreshQueue :
 
     public virtual void Dispose()
     {
-        _providerRefresher.ProviderRefreshRequested -= EnqueueRefreshNotification;
+        _providerRefresher.Unsubscribe(EnqueueRefreshNotification);
         _lspWorkspaceRegistrationService.LspSolutionChanged -= OnLspSolutionChanged;
         _disposalTokenSource.Cancel();
         _disposalTokenSource.Dispose();

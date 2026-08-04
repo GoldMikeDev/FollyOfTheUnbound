@@ -61,10 +61,6 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
         TelemetryMessage? telemetryMessage,
         CancellationToken cancellationToken)
     {
-        // Use the current fallback analyzer config options from the source workspace.
-        // Decompilation does not add projects to the MAS workspace, hence the workspace might remain empty and not receive fallback options automatically.
-        metadataWorkspace.OnSolutionFallbackAnalyzerOptionsChanged(sourceWorkspace.CurrentSolution.FallbackAnalyzerOptions);
-
         var topLevelNamedType = MetadataAsSourceHelpers.GetTopLevelContainingNamedType(symbol);
         var symbolId = SymbolKey.Create(symbol, cancellationToken);
         var compilation = await sourceProject.GetRequiredCompilationAsync(cancellationToken).ConfigureAwait(false);
@@ -100,6 +96,19 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
         Location navigateLocation;
         if (!_generatedFilenameToInformation.TryGetValue(fileInfo.TemporaryFilePath, out var existingDocumentId))
         {
+            // Only push the source workspace's current fallback analyzer config options into the (single,
+            // process-wide-shared -- see GoldMikeDev/roslyn#9) MAS workspace when we're actually generating a
+            // new document for it, not on every re-navigation to one that's already cached: decompilation
+            // doesn't add projects to the MAS workspace, so it might remain empty and not receive fallback
+            // options automatically, but doing this unconditionally on every call would let a later
+            // connection's navigation silently overwrite the options in effect for an earlier connection's
+            // still-open document every time it's revisited, not just once at creation. This doesn't fully
+            // isolate connections from each other (the MAS workspace and this cache are still genuinely shared
+            // by design -- see LanguageServerLspWorkspaceRegistrationEventListener's own doc comment -- so the
+            // very first connection to generate a given document still wins for as long as it stays cached),
+            // but it shrinks the window from "every navigation" to "first generation only".
+            metadataWorkspace.OnSolutionFallbackAnalyzerOptionsChanged(sourceWorkspace.CurrentSolution.FallbackAnalyzerOptions);
+
             // We don't have this file in the workspace.  We need to create a project to put it in.
             var (temporaryProjectInfo, temporaryDocumentId) = GenerateProjectAndDocumentInfo(fileInfo, metadataWorkspace.CurrentSolution.Services, sourceProject, topLevelNamedType);
             var temporarySolution = metadataWorkspace.CurrentSolution.AddProject(temporaryProjectInfo);
