@@ -2,7 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.LanguageServer;
@@ -13,44 +15,95 @@ using Microsoft.VisualStudio.Threading;
 
 namespace Microsoft.AspNetCore.Razor.LanguageServer;
 
+/// <summary>
+/// This part is effectively a singleton for the lifetime of a daemon's MEF composition (see GoldMikeDev/roslyn#9):
+/// the importing <c>RazorStartupServiceFactory</c> is <c>[Shared]</c> and only imports its
+/// <c>IEnumerable&lt;Lazy&lt;IRazorCohostStartupService&gt;&gt;</c> once, so each <see cref="Lazy{T}"/>'s
+/// <c>.Value</c> memoizes to one instance shared by every connection. <c>_razorClientLanguageServerManager</c> and
+/// <c>_lastColorBackground</c> used to be plain fields, so a later connection's <see cref="StartupAsync"/> could
+/// silently repoint an earlier, unrelated connection's refresh notifications at the wrong LSP manager. Keyed per
+/// <see cref="AmbientConnectionToken.Current"/> instead, same pattern as <c>ClientSettingsManager</c>.
+/// </summary>
 [Export(typeof(IRazorCohostStartupService))]
 [method: ImportingConstructor]
 internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clientSettingsManager) : IRazorCohostStartupService, IDisposable
 {
+    private sealed class ConnectionState
+    {
+        public IClientLanguageServerManager? RazorClientLanguageServerManager;
+        public bool LastColorBackground;
+        public EventHandler<EventArgs>? Handler;
+    }
+
     private readonly IClientSettingsManager _clientSettingsManager = clientSettingsManager;
 
-    private IClientLanguageServerManager? _razorClientLanguageServerManager;
-    private bool _lastColorBackground;
+    private readonly ConditionalWeakTable<object, ConnectionState> _stateByConnection = new();
+    private readonly ConnectionState _stateWithNoAmbientConnection = new();
+
+    // Tracked separately since ConditionalWeakTable isn't enumerable on every target this project builds for;
+    // used only to unsubscribe every connection's event handler on Dispose.
+    private readonly object _allStatesLock = new();
+    private readonly List<ConnectionState> _allStates = [];
 
     public int Order => WellKnownStartupOrder.Default;
 
     public Task StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken)
     {
-        _razorClientLanguageServerManager = requestContext.GetRequiredService<IClientLanguageServerManager>();
+        var state = GetState();
+        state.RazorClientLanguageServerManager = requestContext.GetRequiredService<IClientLanguageServerManager>();
 
         if (clientCapabilities.Workspace?.SemanticTokens?.RefreshSupport ?? false)
         {
-            _lastColorBackground = _clientSettingsManager.GetClientSettings().AdvancedSettings.ColorBackground;
-            _clientSettingsManager.ClientSettingsChanged += ClientSettingsManager_ClientSettingsChanged;
+            state.LastColorBackground = _clientSettingsManager.GetClientSettings().AdvancedSettings.ColorBackground;
+
+            if (state.Handler is null)
+            {
+                state.Handler = (sender, e) => OnClientSettingsChanged(state);
+                _clientSettingsManager.ClientSettingsChanged += state.Handler;
+
+                lock (_allStatesLock)
+                {
+                    _allStates.Add(state);
+                }
+            }
         }
 
         return Task.CompletedTask;
     }
 
-    private void ClientSettingsManager_ClientSettingsChanged(object sender, EventArgs e)
+    private void OnClientSettingsChanged(ConnectionState state)
     {
         var colorBackground = _clientSettingsManager.GetClientSettings().AdvancedSettings.ColorBackground;
-        if (colorBackground == _lastColorBackground)
+        if (colorBackground == state.LastColorBackground)
         {
             return;
         }
 
-        _lastColorBackground = colorBackground;
-        _razorClientLanguageServerManager.AssumeNotNull().SendNotificationAsync(Methods.WorkspaceSemanticTokensRefreshName, CancellationToken.None).Forget();
+        state.LastColorBackground = colorBackground;
+        state.RazorClientLanguageServerManager.AssumeNotNull().SendNotificationAsync(Methods.WorkspaceSemanticTokensRefreshName, CancellationToken.None).Forget();
     }
+
+    private ConnectionState GetState()
+        => AmbientConnectionToken.Current is { } token
+            ? _stateByConnection.GetOrCreateValue(token)
+            : _stateWithNoAmbientConnection;
 
     public void Dispose()
     {
-        _clientSettingsManager.ClientSettingsChanged -= ClientSettingsManager_ClientSettingsChanged;
+        if (_stateWithNoAmbientConnection.Handler is { } handler)
+        {
+            _clientSettingsManager.ClientSettingsChanged -= handler;
+        }
+
+        lock (_allStatesLock)
+        {
+            foreach (var state in _allStates)
+            {
+                if (state.Handler is { } connectionHandler)
+                {
+                    _clientSettingsManager.ClientSettingsChanged -= connectionHandler;
+                }
+            }
+        }
     }
 }

@@ -3,16 +3,25 @@
 
 using System.Collections.Immutable;
 using System.Composition;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Razor.CohostingShared;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.Razor.Cohost;
 using Microsoft.CodeAnalysis.Razor.Remote;
 
 namespace Microsoft.VisualStudio.Razor.LanguageClient.Cohost;
 
+/// <summary>
+/// This is a <c>[Shared]</c> MEF part -- every daemon connection resolves the same instance (see
+/// GoldMikeDev/roslyn#9). <c>_useHierarchicalSymbols</c> used to be a plain field, so a later connection's
+/// <see cref="GetRegistrations"/> call (driven by that connection's client capabilities) could silently change
+/// the hierarchical-symbols behavior of an earlier, unrelated connection's document symbol requests. Keyed per
+/// <see cref="AmbientConnectionToken.Current"/> instead, same pattern as <c>ClientSettingsManager</c>.
+/// </summary>
 #pragma warning disable RS0030 // Do not use banned APIs
 [Shared]
 [CohostEndpoint(Methods.TextDocumentDocumentSymbolName)]
@@ -24,7 +33,9 @@ internal sealed class CohostDocumentSymbolEndpoint(IIncompatibleProjectService i
     : AbstractCohostDocumentEndpoint<DocumentSymbolParams, SumType<DocumentSymbol[], SymbolInformation[]>?>(incompatibleProjectService), IDynamicRegistrationProvider
 {
     private readonly IRemoteServiceInvoker _remoteServiceInvoker = remoteServiceInvoker;
-    private bool _useHierarchicalSymbols;
+
+    private readonly ConditionalWeakTable<object, StrongBox<bool>> _useHierarchicalSymbolsByConnection = new();
+    private readonly StrongBox<bool> _useHierarchicalSymbolsWithNoAmbientConnection = new(false);
 
     protected override bool MutatesSolutionState => false;
 
@@ -34,7 +45,7 @@ internal sealed class CohostDocumentSymbolEndpoint(IIncompatibleProjectService i
     {
         if (clientCapabilities.TextDocument?.DocumentSymbol?.DynamicRegistration == true)
         {
-            _useHierarchicalSymbols = clientCapabilities.TextDocument.DocumentSymbol.HierarchicalDocumentSymbolSupport;
+            GetUseHierarchicalSymbolsBox().Value = clientCapabilities.TextDocument.DocumentSymbol.HierarchicalDocumentSymbolSupport;
 
             return [new Registration
             {
@@ -46,11 +57,16 @@ internal sealed class CohostDocumentSymbolEndpoint(IIncompatibleProjectService i
         return [];
     }
 
+    private StrongBox<bool> GetUseHierarchicalSymbolsBox()
+        => AmbientConnectionToken.Current is { } token
+            ? _useHierarchicalSymbolsByConnection.GetOrCreateValue(token)
+            : _useHierarchicalSymbolsWithNoAmbientConnection;
+
     protected override TextDocumentIdentifier? GetRazorTextDocumentIdentifier(DocumentSymbolParams request)
         => request.TextDocument;
 
     protected override Task<SumType<DocumentSymbol[], SymbolInformation[]>?> HandleRequestAsync(DocumentSymbolParams request, TextDocument razorDocument, CancellationToken cancellationToken)
-        => HandleRequestAsync(razorDocument, _useHierarchicalSymbols, cancellationToken);
+        => HandleRequestAsync(razorDocument, GetUseHierarchicalSymbolsBox().Value, cancellationToken);
 
     private async Task<SumType<DocumentSymbol[], SymbolInformation[]>?> HandleRequestAsync(TextDocument razorDocument, bool useHierarchicalSymbols, CancellationToken cancellationToken)
     {

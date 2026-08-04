@@ -80,6 +80,16 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     private static readonly TimeSpan s_disposalDrainTimeout = TimeSpan.FromSeconds(5);
 
     /// <summary>
+    /// Every non-mutating request's fire-and-forget task (see <see cref="ProcessQueueCoreAsync{TRequest, TResponse}"/>),
+    /// tracked unconditionally -- unlike <c>concurrentlyExecutingTasks</c> in <see cref="ProcessQueueAsync"/>, which
+    /// is only populated when <see cref="CancelInProgressWorkUponMutatingRequest"/> is set. <see cref="_queueProcessingTask"/>
+    /// completing only means the dequeue loop has stopped picking up new work; it says nothing about whether a
+    /// still-running non-mutating handler has finished writing its response. <see cref="DisposeAsync"/> drains this
+    /// too so the clean-exit sentinel write can't race an in-flight response.
+    /// </summary>
+    private readonly ConcurrentDictionary<Task, byte> _outstandingNonMutatingTasks = new();
+
+    /// <summary>
     /// Map of method to the handler info for each language.
     /// The handler info is created lazily to avoid instantiating any types or handlers until a request is received for
     /// that particular method and language.
@@ -380,6 +390,13 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
             // blocking the request queue for longer periods of time (it enforces parallelizability).
             var currentWorkTask = WrapStartRequestTaskAsync(Task.Run(() => work.StartRequestAsync<TRequest, TResponse>(deserializedRequest, context, handler, cancellationToken), cancellationToken), rethrowExceptions: false);
 
+            _outstandingNonMutatingTasks.TryAdd(currentWorkTask, 0);
+            _ = currentWorkTask.ContinueWith(
+                t => _outstandingNonMutatingTasks.TryRemove(t, out _),
+                CancellationToken.None,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Default);
+
             if (CancelInProgressWorkUponMutatingRequest)
             {
                 if (currentWorkCts is null)
@@ -466,6 +483,15 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         if (_queueProcessingTask is { } processingTask)
         {
             await Task.WhenAny(processingTask, Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
+        }
+
+        // The processing loop stopping only means no more work is being dequeued -- it says nothing about
+        // fire-and-forget non-mutating request tasks still writing their responses. Drain those too, within
+        // the same overall bound, before returning (see remarks above and on _outstandingNonMutatingTasks).
+        var outstanding = _outstandingNonMutatingTasks.Keys.Where(t => !t.IsCompleted).ToArray();
+        if (outstanding.Length > 0)
+        {
+            await Task.WhenAny(Task.WhenAll(outstanding), Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
         }
     }
 
