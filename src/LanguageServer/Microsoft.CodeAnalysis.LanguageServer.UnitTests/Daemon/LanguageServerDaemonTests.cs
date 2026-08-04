@@ -8,6 +8,7 @@ using System.IO.Pipes;
 using System.Threading;
 using Microsoft.CodeAnalysis.BrokeredServices;
 using Microsoft.CodeAnalysis.LanguageServer.BrokeredServices;
+using Microsoft.CodeAnalysis.LanguageServer.BrokeredServices.Services.BrokeredServiceBridgeManifest;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.Text;
@@ -153,10 +154,30 @@ public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper
         var factory1 = first.GetRequiredLspService<LanguageServerWorkspaceFactory>();
         var factory2 = second.GetRequiredLspService<LanguageServerWorkspaceFactory>();
 
+        // IServiceBrokerProvider is keyed by AmbientConnectionToken.Current, established for the duration of
+        // real request dispatch -- not present on this thread by default, so establish each connection's real
+        // token (the same one its own request dispatch loop actually saw) before resolving from its
+        // workspaces, the same way ConnectionScopedOptionOverridesTests verifies the equivalent Roslyn-LSP-side
+        // facade.
+        var token1 = DaemonConnectionContext.GetAmbientTokenForTesting(first.DaemonServer);
+        var token2 = DaemonConnectionContext.GetAmbientTokenForTesting(second.DaemonServer);
+
+        AmbientConnectionToken.SetCurrent(token1!);
         var provider1 = factory1.HostWorkspace.Services.GetRequiredService<IServiceBrokerProvider>();
+
+        // ...but a single connection's *other* workspaces (MiscellaneousFiles, alongside Host) must resolve
+        // to that same connection's provider, not a separate uninitialized one: serviceBroker/connect only
+        // ever calls SetContainer once, on requestContext.Workspace (the Host workspace) -- resolving
+        // IServiceBrokerProvider from the MiscellaneousFiles workspace (e.g. loose-file navigation reaching
+        // PdbSourceDocumentMetadataAsSourceFileProvider's ISourceLinkService lookup) must see the same
+        // completed container rather than hang forever on a never-completed one.
+        var miscProvider1 = factory1.MiscellaneousFilesWorkspaceProjectFactory.Workspace.Services.GetRequiredService<IServiceBrokerProvider>();
+        Assert.Same(provider1, miscProvider1);
+
+        AmbientConnectionToken.SetCurrent(token2!);
         var provider2 = factory2.HostWorkspace.Services.GetRequiredService<IServiceBrokerProvider>();
 
-        // Each connection's workspace must get its own provider instance...
+        // Each connection's workspace must get its own provider instance.
         Assert.NotSame(provider1, provider2);
 
         // ...so setting up the service broker for both connections' workspaces, in the order a real daemon
@@ -165,10 +186,20 @@ public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper
         var serviceBrokerFactory1 = first.GetRequiredLspService<ServiceBrokerFactory>();
         var serviceBrokerFactory2 = second.GetRequiredLspService<ServiceBrokerFactory>();
 
+        AmbientConnectionToken.SetCurrent(token1!);
         var container1 = await serviceBrokerFactory1.CreateAsync(factory1.HostWorkspace);
+
+        AmbientConnectionToken.SetCurrent(token2!);
         var container2 = await serviceBrokerFactory2.CreateAsync(factory2.HostWorkspace);
 
         Assert.NotSame(container1, container2);
+
+        // Connecting via the Host workspace also satisfies the MiscellaneousFiles workspace's own
+        // IServiceBroker (proving they really do share one provider, not just one that happens to look alike).
+        AmbientConnectionToken.SetCurrent(token1!);
+        var miscServiceBroker = await miscProvider1.ServiceBroker.GetProxyAsync<IBrokeredServiceBridgeManifest>(
+            BrokeredServiceBridgeManifest.ServiceDescriptor, cancellationToken: CancellationToken.None).AsTask().WaitAsync(TimeSpan.FromSeconds(10));
+        Assert.NotNull(miscServiceBroker);
     }
 
     // If one client's server faults (e.g. the client process crashes and abruptly drops its connection), the daemon

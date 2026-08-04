@@ -269,10 +269,21 @@ internal sealed class LanguageServerConnectionManager
             }
             catch (Exception ex) when (isolateFaults)
             {
+                // AbstractLanguageServer.ExitAsync disposes this server's LSP services (including its
+                // GlobalLogger) before WaitForExitAsync's task above actually completes/faults, so this
+                // connection's entry must come out of _servers before logging -- otherwise
+                // GlobalLogMessageLogger's ambient-token routing still resolves to this (now-disposed) server,
+                // the log call throws ObjectDisposedException internally, and the daemon's only record of this
+                // fault is silently dropped instead of falling through to the fallback logger.
+                lock (_gate)
+                    _servers = _servers.Remove(entry);
+
                 logger.LogError(ex, "Language server connection faulted; tearing down that connection.");
             }
             finally
             {
+                // Idempotent: already removed above on the fault path; ImmutableArray.Remove no-ops if the
+                // entry isn't present.
                 lock (_gate)
                     _servers = _servers.Remove(entry);
 

@@ -3,17 +3,36 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Composition;
+using System.Runtime.CompilerServices;
 using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.BrokeredServices;
 using Microsoft.ServiceHub.Framework;
 using Microsoft.VisualStudio.Shell.ServiceBroker;
 
 namespace Microsoft.CodeAnalysis.BrokeredServices;
 
+/// <summary>
+/// A single connection registers more than one <see cref="Workspace"/> (Host, MiscellaneousFiles), all of
+/// which must resolve to the *same* <see cref="ServiceBrokerProvider"/> instance -- <c>serviceBroker/connect</c>
+/// only ever calls <see cref="ServiceBrokerProvider.SetContainer"/> on one of them (<c>requestContext.Workspace</c>,
+/// see <c>ServiceBrokerConnectHandler</c>), so code resolving <see cref="IServiceBrokerProvider"/> from any
+/// other of that connection's workspaces (e.g. <c>PdbSourceDocumentMetadataAsSourceFileProvider</c> resolving
+/// <c>ISourceLinkService</c> from the miscellaneous-files workspace for a loose-file navigation) needs to see
+/// the same completed container, not hang forever on a separate, never-completed one. Keyed by
+/// <see cref="AmbientConnectionToken.Current"/> instead of by workspace for that reason -- reusing one
+/// provider across every workspace belonging to the same connection, while still giving different connections
+/// (all built from the same process-wide daemon-mode <c>ExportProvider</c>, see GoldMikeDev/roslyn#9) their
+/// own instance, so <see cref="ServiceBrokerProvider.SetContainer"/>'s guard against being called twice
+/// doesn't throw for every connection after the first.
+/// </summary>
 [ExportWorkspaceServiceFactory(typeof(IServiceBrokerProvider), ServiceLayer.Host), Shared]
 internal sealed class ServiceBrokerProviderFactory : IWorkspaceServiceFactory
 {
+    private readonly ConditionalWeakTable<object, ServiceBrokerProvider> _providersByConnection = new();
+    private ServiceBrokerProvider? _providerWithNoAmbientConnection;
+
     [ImportingConstructor]
     [Obsolete(MefConstruction.ImportingConstructorMessage, error: true)]
     public ServiceBrokerProviderFactory()
@@ -21,22 +40,14 @@ internal sealed class ServiceBrokerProviderFactory : IWorkspaceServiceFactory
     }
 
     public IWorkspaceService CreateService(HostWorkspaceServices workspaceServices)
-        => new ServiceBrokerProvider();
+        => AmbientConnectionToken.Current is { } token
+            ? _providersByConnection.GetOrCreateValue(token)
+            : _providerWithNoAmbientConnection ??= new ServiceBrokerProvider();
 }
 
 /// <summary>
 /// Workspace service that can be used to fetch a service broker instance from a workspace.
 /// </summary>
-/// <remarks>
-/// Exported as a per-workspace factory, not a <see cref="Shared"/> service: in daemon mode every
-/// connection's <see cref="Workspace"/> is built from the same process-wide <c>ExportProvider</c>
-/// (see GoldMikeDev/roslyn#9), so a directly-<see cref="Shared"/> export here would resolve to the same
-/// singleton instance for every connection. <see cref="SetContainer"/>'s guard against being called twice
-/// would then throw for every connection after the first, crashing that
-/// connection's service-broker setup instead of merely misrouting brokered-service traffic like the other
-/// per-connection state leaks tracked in that issue. <see cref="ServiceBrokerProviderFactory"/> gives each
-/// workspace (i.e. each connection) its own instance instead.
-/// </remarks>
 internal sealed class ServiceBrokerProvider() : IServiceBrokerProvider
 {
     private readonly TaskCompletionSource<IBrokeredServiceContainer> _serviceBrokerContainerTask = new();

@@ -37,56 +37,55 @@ singleton with no way for two instances (one per connection) to coexist without 
 redesign that's out of scope, and telemetry answers "how is this tool used in aggregate," not "what did this
 workspace do," so misattributing it across a shared daemon's connections isn't a correctness/privacy problem
 the way the option/log gaps were.
-**Still open, genuinely unresolved (not by design):** two Razor cohosting MEF singletons have the same
-"last connection to initialize wins" shape as the original `IGlobalOptionService` gap, but haven't been
-fixed: `RazorClientServerManagerProvider` (`src/Razor/.../Services/RazorClientServerManagerProvider.cs`)
-caches one `IClientLanguageServerManager` overwritten by whichever connection's Razor cohost startup ran
-last, so `HtmlDocumentPublisher`/`HtmlRequestInvoker` can send one connection's generated HTML or forward
-its HTML requests to a *different* connection's editor — a cross-client content-disclosure bug, not just
-wrong behavior. `CohostConfigurationChangedService`'s shared `IClientSettingsManager` has the same shape for
-Razor settings (e.g. `razor.advanced.show_all_c_sharp_code_actions`), read by `CSharpCodeActionProvider`
-regardless of which connection is being served. Root cause is identical to the option/log gaps above
-(`Microsoft.VisualStudio.Composition` has no per-connection sharing boundary), just not yet patched with the
-same ambient-token-based workaround. A third instance of the same shape: `FeatureProviderRefresher`
+**Fixed since the above was written:** `RazorClientServerManagerProvider`
+(`src/Razor/.../Services/RazorClientServerManagerProvider.cs`) and `CohostConfigurationChangedService`'s
+`IClientSettingsManager` (`src/Razor/.../Services/ClientSettingsManager.cs`) both used to cache one value
+overwritten by whichever connection's Razor cohost startup/configuration-change ran last — now keyed by
+`AmbientConnectionToken.Current` (`ConditionalWeakTable<object, T>` per connection), the same ambient-token
+pattern `ConnectionScopedOptionOverrides` already used on the Roslyn LSP side, verified by
+`RazorPerConnectionIsolationTests`. `ServiceBrokerProvider`
+(`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/BrokeredServices/ServiceBrokerProvider.cs`), which
+used to be an `[ExportWorkspaceService(...), Shared]` part crashing the second daemon connection's
+`ServiceBrokerFactory.CreateAsync` outright (`Contract.ThrowIfTrue` tripping on the shared singleton's
+already-completed container task), is now an `[ExportWorkspaceServiceFactory(...), Shared]`
+(`ServiceBrokerProviderFactory`) keyed the same way — one provider shared across all of a *single*
+connection's workspaces (Host and MiscellaneousFiles both need the same completed container, since
+`serviceBroker/connect` only calls `SetContainer` on one of them), but a fresh instance per connection.
+Verified by `Daemon_EachServerGetsItsOwnServiceBrokerProvider`.
+**Still open, genuinely unresolved (not by design):** `FeatureProviderRefresher`
 (`src/LanguageServer/Protocol/Handler/FeatureProviderRefresher.cs`) is a process-wide `[Shared]` event
 source that every connection's `AbstractRefreshQueue`-derived queues (`SemanticTokensRefreshQueue`,
 `DiagnosticsRefreshQueue`, `CodeLensRefreshQueue`, `InlayHintRefreshQueue`, `ProjectContextRefreshQueue`)
 subscribe to — a `workspace/featureProviders/_vs_refresh` notification meant for one connection fires the
 refresh queues of every other connection sharing the daemon, causing unrelated editors to recompute
-semantic tokens/diagnostics/code lenses/inlay hints/project context. Not a content-disclosure bug like the
-Razor pair (no data crosses connections, just spurious recomputation), but the same "no per-connection
-routing for a shared MEF singleton" gap. A fourth, more severe instance: `ServiceBrokerProvider`
-(`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/BrokeredServices/ServiceBrokerProvider.cs`) is an
-`[ExportWorkspaceService(...), Shared]` part, which resolves to the same singleton for every
-`Workspace`/connection sharing the daemon's `ExportProvider` (confirmed via `MefWorkspaceServices`'s
-constructor). `ServiceBrokerFactory.CreateAsync` calls `SetContainer` on it once per connection; the second
-call trips `Contract.ThrowIfTrue(_serviceBrokerContainerTask.Task.IsCompleted)` — so a second daemon
-connection's service-broker setup throws outright, not just misroutes brokered-service traffic to the wrong
-editor. Three more Razor cohosting MEF singletons, same "classic `System.ComponentModel.Composition`
-`[Export]` defaults to process-wide shared" shape as the original pair: `VSCodeWorkspaceProvider`
-(`WorkspaceProviderInitializer`'s `SetWorkspace`) is overwritten by whichever connection's Razor cohost
-initialized most recently, so `RemoteFindAllReferencesService`/`RemoteGoToDefinitionService` can navigate
-using a different connection's workspace; `RazorCohostClientCapabilitiesService.SetCapabilities` has the
-same "last write wins" shape for client capabilities, affecting completion/code-action/diagnostics/
-semantic-token/remote-service responses; `CohostCompletionListCache`'s ten-entry circular buffer is shared
-process-wide, so one client's completions can evict another's still-pending one before
-`completionItem/resolve` runs, silently losing delegated/snippet resolution context. Two more: shared
-`SemanticTokensRefreshNotifier` sends duplicate semantic-token refreshes only to whichever connection
-initialized most recently (earlier connections get stale tokens), and shared `HtmlDocumentSynchronizer`'s
-`_synchronizationRequests` is keyed only by URI, so `razor/documentClosed` from one connection can cancel
-another connection's in-flight HTML sync for the same URI. A non-Razor instance:
-`DecompilationMetadataAsSourceFileProvider` (`src/Features/Core/Portable/MetadataAsSource/`) mutates the one
-shared `MetadataAsSourceWorkspace`'s fallback analyzer options on every navigation-to-metadata, so a later
-connection's navigation can change settings in effect for an earlier connection's already-open metadata
-document -- and it's below `LanguageServer.Protocol` in the dependency graph, so it's structurally out of
-reach of `GetConnectionScopedOption` even in principle. One more Razor instance: `CohostDocumentSymbolEndpoint`'s
-`_useHierarchicalSymbols` field is overwritten by whichever connection's dynamic-registration handshake ran
-most recently, so `textDocument/documentSymbol` can return the wrong result shape (flat vs. hierarchical) for
-a connection whose client capabilities didn't match whichever one wrote that field last.
-**Workaround:** None needed for the option/log/handshake-routed config anymore. Telemetry misattribution,
-the Razor leaks (eight, now), the `FeatureProviderRefresher` cross-connection refresh fan-out, the
-`ServiceBrokerProvider` crash, and the `DecompilationMetadataAsSourceFileProvider` fallback-options leak have
-no workaround and aren't going to get one without further work; all tracked as
+semantic tokens/diagnostics/code lenses/inlay hints/project context. Not a content-disclosure bug (no data
+crosses connections, just spurious recomputation), but the same "no per-connection routing for a shared MEF
+singleton" gap the fixed items above had. Six Razor cohosting MEF singletons, same "classic
+`System.ComponentModel.Composition` `[Export]` defaults to process-wide shared" shape:
+`VSCodeWorkspaceProvider` (`WorkspaceProviderInitializer`'s `SetWorkspace`) is overwritten by whichever
+connection's Razor cohost initialized most recently, so `RemoteFindAllReferencesService`/
+`RemoteGoToDefinitionService` can navigate using a different connection's workspace;
+`RazorCohostClientCapabilitiesService.SetCapabilities` has the same "last write wins" shape for client
+capabilities, affecting completion/code-action/diagnostics/semantic-token/remote-service responses;
+`CohostCompletionListCache`'s ten-entry circular buffer is shared process-wide, so one client's completions
+can evict another's still-pending one before `completionItem/resolve` runs, silently losing
+delegated/snippet resolution context; shared `SemanticTokensRefreshNotifier` sends duplicate semantic-token
+refreshes only to whichever connection initialized most recently (earlier connections get stale tokens);
+shared `HtmlDocumentSynchronizer`'s `_synchronizationRequests` is keyed only by URI, so
+`razor/documentClosed` from one connection can cancel another connection's in-flight HTML sync for the same
+URI; `CohostDocumentSymbolEndpoint`'s `_useHierarchicalSymbols` field is overwritten by whichever
+connection's dynamic-registration handshake ran most recently, so `textDocument/documentSymbol` can return
+the wrong result shape (flat vs. hierarchical) for a connection whose client capabilities didn't match
+whichever one wrote that field last. A non-Razor instance: `DecompilationMetadataAsSourceFileProvider`
+(`src/Features/Core/Portable/MetadataAsSource/`) mutates the one shared `MetadataAsSourceWorkspace`'s
+fallback analyzer options on every navigation-to-metadata, so a later connection's navigation can change
+settings in effect for an earlier connection's already-open metadata document -- and it's below
+`LanguageServer.Protocol` in the dependency graph, so it's structurally out of reach of
+`GetConnectionScopedOption` even in principle.
+**Workaround:** None needed for the option/log/handshake-routed config, the two fixed Razor singletons, or
+`ServiceBrokerProvider` anymore. Telemetry misattribution, the remaining six Razor leaks, the
+`FeatureProviderRefresher` cross-connection refresh fan-out, and the `DecompilationMetadataAsSourceFileProvider`
+fallback-options leak have no workaround and aren't going to get one without further work; all tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
 history, and the "Decisions" section explaining why telemetry is out of scope:
 `docs/ide/specs/daemon-per-connection-isolation.md`.
