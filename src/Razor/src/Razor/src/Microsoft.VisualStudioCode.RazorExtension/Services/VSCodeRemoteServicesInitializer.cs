@@ -4,8 +4,10 @@
 using System;
 using System.Composition;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.Razor.Logging;
 using Microsoft.CodeAnalysis.Razor.Remote;
@@ -18,6 +20,18 @@ using Microsoft.VisualStudio.Threading;
 
 namespace Microsoft.VisualStudioCode.RazorExtension.Services;
 
+/// <summary>
+/// This is a <c>[Shared]</c> MEF part -- every daemon connection resolves the same instance (see
+/// GoldMikeDev/roslyn#9). <c>_clientSettingsService</c> used to be a plain field overwritten by whichever
+/// connection's <see cref="StartupAsync"/> ran last, and <c>ClientSettingsChanged</c> was subscribed with the
+/// same method-group delegate on every call -- since C# doesn't deduplicate identical target+method
+/// subscriptions, each new connection appended another copy to the invocation list instead of replacing it, so
+/// a long-lived daemon serving N connections would run <see cref="UpdateClientSettingsAsync"/> N times (against
+/// whichever service the *last* connection happened to create) for every single settings change, with that
+/// count only growing. Keyed per <see cref="AmbientConnectionToken.Current"/> instead, one subscription per
+/// connection, cleaned up via <see cref="IRazorCohostConnectionScopedCleanup.ConnectionEnded"/> -- same pattern
+/// as <c>SemanticTokensRefreshNotifier</c>.
+/// </summary>
 [Shared]
 [Export(typeof(IRazorCohostStartupService))]
 [method: ImportingConstructor]
@@ -25,19 +39,33 @@ internal sealed class VSCodeRemoteServicesInitializer(
     ISemanticTokensLegendService semanticTokensLegendService,
     IWorkspaceProvider workspaceProvider,
     IClientSettingsManager clientSettingsManager,
-    ILoggerFactory loggerFactory) : IRazorCohostStartupService, IDisposable
+    ILoggerFactory loggerFactory) : IRazorCohostStartupService, IRazorCohostConnectionScopedCleanup, IDisposable
 {
+    private sealed class ConnectionState
+    {
+        public IRemoteClientSettingsService? ClientSettingsService;
+        public EventHandler<EventArgs>? Handler;
+        public readonly object Lock = new();
+        public bool Ended;
+    }
+
     private readonly ISemanticTokensLegendService _semanticTokensLegendService = semanticTokensLegendService;
     private readonly IWorkspaceProvider _workspaceProvider = workspaceProvider;
     private readonly IClientSettingsManager _clientSettingsManager = clientSettingsManager;
     private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
-    private IRemoteClientSettingsService? _clientSettingsService;
+    private readonly ConditionalWeakTable<object, ConnectionState> _stateByConnection = new();
+    private readonly ConnectionState _stateWithNoAmbientConnection = new();
 
     public int Order => WellKnownStartupOrder.RemoteServices;
 
     public async Task StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken)
     {
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return;
+        }
+
         // Normal remote service invoker logic requires a solution, but we don't have one here. Fortunately we don't need one, and since
         // we know this is VS Code specific, its all just smoke and mirrors anyway. We can avoid the smoke :)
         var serviceInterceptor = new VSCodeBrokeredServiceInterceptor();
@@ -57,24 +85,63 @@ internal sealed class VSCodeRemoteServicesInitializer(
             TokenModifiers = _semanticTokensLegendService.TokenModifiers.All,
         }, cancellationToken).ConfigureAwait(false);
 
-        _clientSettingsService = await InProcServiceFactory.CreateServiceAsync<IRemoteClientSettingsService>(serviceInterceptor, _workspaceProvider, _loggerFactory).ConfigureAwait(false);
-        // Client settings are initialized after this service, so there is no point updating settings at startup.
-        _clientSettingsManager.ClientSettingsChanged += ClientSettingsManager_ClientSettingsChanged;
+        var clientSettingsService = await InProcServiceFactory.CreateServiceAsync<IRemoteClientSettingsService>(serviceInterceptor, _workspaceProvider, _loggerFactory).ConfigureAwait(false);
+
+        var state = GetState();
+        lock (state.Lock)
+        {
+            if (state.Ended)
+            {
+                return;
+            }
+
+            state.ClientSettingsService = clientSettingsService;
+
+            if (state.Handler is null)
+            {
+                // Client settings are initialized after this service, so there is no point updating settings at startup.
+                state.Handler = (sender, e) => UpdateClientSettingsAsync(state, CancellationToken.None).Forget();
+                _clientSettingsManager.ClientSettingsChanged += state.Handler;
+            }
+        }
+    }
+
+    private ConnectionState GetState()
+        => AmbientConnectionToken.Current is { } token
+            ? _stateByConnection.GetOrCreateValue(token)
+            : _stateWithNoAmbientConnection;
+
+    public void ConnectionEnded()
+    {
+        if (AmbientConnectionToken.Current is not { } token)
+        {
+            return;
+        }
+
+        var state = _stateByConnection.GetOrCreateValue(token);
+
+        lock (state.Lock)
+        {
+            state.Ended = true;
+
+            if (state.Handler is { } handler)
+            {
+                _clientSettingsManager.ClientSettingsChanged -= handler;
+            }
+        }
     }
 
     public void Dispose()
     {
-        _clientSettingsManager?.ClientSettingsChanged -= ClientSettingsManager_ClientSettingsChanged;
+        if (_stateWithNoAmbientConnection.Handler is { } handler)
+        {
+            _clientSettingsManager.ClientSettingsChanged -= handler;
+        }
     }
 
-    private void ClientSettingsManager_ClientSettingsChanged(object? sender, EventArgs e)
+    private Task UpdateClientSettingsAsync(ConnectionState state, CancellationToken cancellationToken)
     {
-        UpdateClientSettingsAsync(CancellationToken.None).Forget();
-    }
-
-    private Task UpdateClientSettingsAsync(CancellationToken cancellationToken)
-    {
-        if (_clientSettingsService is not { } clientSettingsService)
+        if (state.ClientSettingsService is not { } clientSettingsService)
         {
             throw new InvalidOperationException($"{nameof(VSCodeRemoteServicesInitializer)} has not been started.");
         }

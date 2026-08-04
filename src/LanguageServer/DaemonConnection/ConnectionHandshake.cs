@@ -64,6 +64,16 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
 
             if (TryReadOption(serverArguments, ref i, "--sourceGeneratorExecutionPreference", out var sourceGeneratorPreference))
             {
+                // An empty value (only reachable via the inline "--sourceGeneratorExecutionPreference=" form --
+                // the bare-flag form is already rejected above) is not a valid SourceGeneratorExecutionPreference
+                // enum literal, so a cold daemon launch's System.CommandLine parsing would reject it the same
+                // way it rejects "not-a-real-value". WriteStringAsync/ReadStringAsync collapse an empty string
+                // to the same zero-length wire frame as "field absent" (see their remarks), so without this
+                // check the empty value would silently become "not specified" once it crosses the wire, falling
+                // back to Automatic instead of failing consistently with a cold launch.
+                if (string.IsNullOrEmpty(sourceGeneratorPreference))
+                    throw new InvalidOperationException("'--sourceGeneratorExecutionPreference' requires a value.");
+
                 sourceGeneratorExecutionPreference = sourceGeneratorPreference;
                 continue;
             }
