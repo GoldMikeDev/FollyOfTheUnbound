@@ -54,6 +54,15 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
         {
             if (TryReadOption(serverArguments, ref i, "--extensionLogDirectory", out var logDirectory))
             {
+                // An empty value (only reachable via an inline "--extensionLogDirectory=" or
+                // "--extensionLogDirectory:" form -- the bare-flag form is already rejected below) is not a
+                // valid path: a cold daemon launch's Directory.CreateDirectory(ExtensionLogDirectory) call
+                // would throw on it, so this must fail here too rather than silently canonicalizing an empty
+                // string to *this* connecting client's own current directory and forwarding that as if it were
+                // a genuine (if unlikely) request to log there.
+                if (string.IsNullOrEmpty(logDirectory))
+                    throw new InvalidOperationException("'--extensionLogDirectory' requires a value.");
+
                 // Resolve against *this* (the connecting client's) current directory before it ever leaves the
                 // client. The daemon inherits its working directory from whichever client happened to launch
                 // it, not from this connection -- so a relative value would otherwise be resolved (via

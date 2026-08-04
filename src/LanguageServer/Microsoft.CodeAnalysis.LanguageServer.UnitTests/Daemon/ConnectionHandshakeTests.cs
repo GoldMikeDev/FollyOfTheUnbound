@@ -53,6 +53,16 @@ public sealed class ConnectionHandshakeTests
     }
 
     [Fact]
+    public void FromServerArguments_EmptyInlineExtensionLogDirectoryValue_Throws()
+    {
+        // "--extensionLogDirectory=" (or ':') is not a valid path -- a cold daemon launch's
+        // Directory.CreateDirectory(ExtensionLogDirectory) call would throw on it, so this must fail the same
+        // way instead of canonicalizing the empty string to the connecting client's own current directory.
+        Assert.Throws<InvalidOperationException>(() => ConnectionHandshake.FromServerArguments(["--extensionLogDirectory="]));
+        Assert.Throws<InvalidOperationException>(() => ConnectionHandshake.FromServerArguments(["--extensionLogDirectory:"]));
+    }
+
+    [Fact]
     public void FromServerArguments_ExtractsBothOptions_ColonForm()
     {
         // System.CommandLine also accepts ':' as an inline option-value delimiter, not just '='.
