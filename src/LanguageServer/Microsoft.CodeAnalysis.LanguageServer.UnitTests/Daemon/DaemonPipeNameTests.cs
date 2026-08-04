@@ -177,6 +177,32 @@ public sealed class DaemonPipeNameTests
     }
 
     [Fact]
+    public void PipeName_OutOfRangeKeepAliveEnvironmentValue_DoesNotCollideWithDefault()
+    {
+        // Unlike a non-numeric value (which LanguageServerCommandLine's DefaultValueFactory also silently
+        // falls back to the default for, no AddError), a value that parses but is out of range (< -1) is one
+        // LanguageServerCommandLine rejects outright via AddError, refusing to launch a daemon over it.
+        // Collapsing it to the same pipe key as a genuinely-valid default would let a client with this invalid
+        // setting silently reuse an already-running default-keyed daemon instead of consistently hitting that
+        // same launch failure -- so it must resolve to a different pipe name than the default, not the same one.
+        var original = Environment.GetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable);
+        try
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, null);
+            var unset = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, "-2");
+            var outOfRange = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Assert.NotEqual(unset, outOfRange);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(DaemonPipeName.DaemonKeepAliveEnvironmentVariable, original);
+        }
+    }
+
+    [Fact]
     public void PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit()
     {
         // An explicit --daemonKeepAlive argument already dominates the environment variable in

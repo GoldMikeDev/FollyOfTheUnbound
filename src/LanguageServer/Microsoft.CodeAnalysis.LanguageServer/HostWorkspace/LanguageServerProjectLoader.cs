@@ -576,7 +576,26 @@ internal abstract class LanguageServerProjectLoader : IDisposable
                 if (loadState is ProjectLoadState.LoadedTargets(var loadedProjectTargets))
                 {
                     foreach (var loadedProject in loadedProjectTargets)
-                        loadedProject.Dispose();
+                    {
+                        try
+                        {
+                            loadedProject.Dispose();
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            // LoadedProject.Dispose() releases its file watches first and only then calls
+                            // RemoveFromWorkspace(), which throws if the project is no longer in the
+                            // workspace's current solution -- reachable here (not just for an already-unloaded
+                            // project) if this loader's owning connection's Workspace was disposed before this
+                            // loader, since Workspace.Dispose() clears the solution out from under every
+                            // project still registered in it. That ordering isn't guaranteed relative to this
+                            // Dispose() (both are independent ILspServices torn down together), so this must
+                            // not abort the loop and leave every *remaining* project's file watches leaked for
+                            // the rest of the daemon's lifetime over one project hitting it first -- the file
+                            // watches for this project are already released by the time this is caught.
+                            _logger.LogDebug(ex, "Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released.");
+                        }
+                    }
                 }
             }
 

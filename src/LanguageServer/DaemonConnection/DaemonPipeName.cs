@@ -136,8 +136,11 @@ internal static class DaemonPipeName
     /// on an explicit keepalive shouldn't be split into separate daemons just because they inherited different,
     /// moot environment values. When there's no explicit argument, the raw environment value is normalized to
     /// the effective seconds it resolves to (matching <c>LanguageServerCommandLine</c>'s own fallback), so an
-    /// unset variable, one equal to the default, and an invalid one that also falls back to the default don't
-    /// get split into unnecessary separate daemons either.
+    /// unset variable and one equal to the default don't get split into unnecessary separate daemons either --
+    /// but an out-of-range value (which <c>LanguageServerCommandLine</c> rejects outright, refusing to launch a
+    /// daemon over it) is deliberately kept distinct rather than also collapsed to the default, so a client
+    /// with an invalid setting can't silently reuse an already-running default-keyed daemon and skip that
+    /// validation depending on what else happens to be running.
     /// </para>
     /// </summary>
     public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier, IReadOnlyList<string> serverArguments)
@@ -218,11 +221,22 @@ internal static class DaemonPipeName
         }
 
         var rawValue = Environment.GetEnvironmentVariable(DaemonKeepAliveEnvironmentVariable);
-        var effectiveSeconds = int.TryParse(rawValue, out var value) && value >= -1
-            ? value
-            : DefaultDaemonKeepAliveSeconds;
+        if (!int.TryParse(rawValue, out var value))
+            return DefaultDaemonKeepAliveSeconds.ToString(CultureInfo.InvariantCulture);
 
-        return effectiveSeconds.ToString(CultureInfo.InvariantCulture);
+        if (value >= -1)
+            return value.ToString(CultureInfo.InvariantCulture);
+
+        // An out-of-range value (< -1) is invalid -- LanguageServerCommandLine.AddError rejects it and refuses
+        // to launch a daemon over it, falling back to DefaultDaemonKeepAliveSeconds only as the *reported*
+        // value for that failed parse, not as something that should actually take effect. Collapsing it to
+        // the same pipe key as a genuinely-valid default here would let a client with this invalid setting
+        // silently reuse an already-running default-keyed daemon (skipping validation entirely) instead of
+        // consistently hitting the same launch failure a fresh daemon start would -- whether it fails or
+        // "succeeds" would depend on pure happenstance of what else is running. Keep it distinct instead (its
+        // own literal, invalid value, which no valid setting can ever collide with) so this client is always
+        // routed to the same never-created daemon and always hits that same launch failure.
+        return $"invalid:{rawValue}";
     }
 
     /// <summary>

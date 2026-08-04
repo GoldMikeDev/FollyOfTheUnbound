@@ -76,6 +76,9 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     protected readonly AsyncQueue<(QueueItem<TRequestContext> queueItem, Guid ActivityId, CancellationToken cancellationToken)> _queue = new();
     private readonly CancellationTokenSource _cancelSource = new();
 
+    /// <summary>Bound on how long <see cref="DisposeAsync"/> waits for in-flight work to actually finish; see its remarks.</summary>
+    private static readonly TimeSpan s_disposalDrainTimeout = TimeSpan.FromSeconds(5);
+
     /// <summary>
     /// Map of method to the handler info for each language.
     /// The handler info is created lazily to avoid instantiating any types or handlers until a request is received for
@@ -84,8 +87,8 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     private readonly FrozenDictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata Metadata, IMethodHandler Handler, ProcessQueueCoreAsyncDelegate ProcessQueueCoreAsync)>>> _handlerInfoMap;
 
     /// <summary>
-    /// For test purposes only.
-    /// A task that completes when the queue processing stops.
+    /// A task that completes when the queue processing stops. Used by tests (<see cref="TestAccessor.WaitForProcessingToStopAsync"/>)
+    /// and by <see cref="DisposeAsync"/> itself, to give in-flight work a bounded window to finish.
     /// </summary>
     protected Task? _queueProcessingTask;
 
@@ -439,7 +442,18 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     /// <summary>
     /// Shuts down the queue, stops accepting new messages, and cancels any in-progress or queued tasks.
     /// </summary>
-    public ValueTask DisposeAsync()
+    /// <remarks>
+    /// Waits (briefly, and best-effort) for the queue's own processing loop to actually finish before
+    /// returning, not just for cancellation to be signaled. Callers that treat "disposed" as "quiesced" --
+    /// e.g. <c>LanguageServerHost</c>'s clean-exit sentinel, written directly to the raw transport
+    /// immediately after this is awaited during exit, deliberately bypassing StreamJsonRpc's own serialized
+    /// writer (see <c>CleanExitSentinel</c>'s remarks) -- would otherwise be racing whatever in-flight
+    /// response write cancellation hadn't yet unwound, corrupting LSP framing if the sentinel interleaves with
+    /// it. Bounded by <see cref="s_disposalDrainTimeout"/> so a handler that doesn't observe cancellation
+    /// promptly can't hang shutdown indefinitely; that handler's own work still completes on its own schedule
+    /// in the background even if this wait times out first.
+    /// </remarks>
+    public async ValueTask DisposeAsync()
     {
         _cancelSource.Cancel();
 
@@ -449,7 +463,10 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         // 2.  Their cancellation tokens are linked to the queue's _cancelSource so are also cancelled.
         _queue.Complete();
 
-        return new ValueTask();
+        if (_queueProcessingTask is { } processingTask)
+        {
+            await Task.WhenAny(processingTask, Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
+        }
     }
 
     #region Test Accessor
