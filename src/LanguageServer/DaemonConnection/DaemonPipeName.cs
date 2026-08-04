@@ -125,8 +125,16 @@ internal static class DaemonPipeName
     /// <c>DotnetCliHelper.Run</c> inherits the daemon process's own environment into every dotnet CLI
     /// invocation it makes on behalf of any connection, regardless of which client is currently connected --
     /// see the remarks on <see cref="GetPipeName(string, bool, string, IReadOnlyList{string})"/>.
+    /// <c>DOTNET_HOST_PATH</c>/<c>DOTNET_EXPERIMENTAL_HOST_PATH</c> are folded in for a related but distinct
+    /// reason: <c>RuntimeHostInfo.GetToolDotNetRoot</c> (via <c>GetDotNetPathOrDefault</c>) prioritizes those two
+    /// over scanning <c>PATH</c>, and <c>ServerExecutable.Start</c> uses the result to set the bundled server
+    /// process's own <c>DOTNET_ROOT</c> -- a daemon-launch-time decision made once, from whichever client
+    /// happened to launch it. Two clients that agree on <c>PATH</c> but differ in either of these would
+    /// otherwise silently share a daemon running on the wrong client's selected .NET installation, which can
+    /// change runtime roll-forward and dependency resolution behavior.
     /// </summary>
-    private static readonly string[] s_dotnetEnvironmentVariablesForPipeKey = ["PATH", "NUGET_PACKAGES", "DOTNET_CLI_HOME", "MSBuildSDKsPath", "DOTNET_MSBUILD_SDK_RESOLVER_SDKS_DIR"];
+    private static readonly string[] s_dotnetEnvironmentVariablesForPipeKey =
+        ["PATH", "NUGET_PACKAGES", "DOTNET_CLI_HOME", "MSBuildSDKsPath", "DOTNET_MSBUILD_SDK_RESOLVER_SDKS_DIR", "DOTNET_HOST_PATH", "DOTNET_EXPERIMENTAL_HOST_PATH"];
 
     /// <summary>
     /// Computes the pipe name from the user identity, a tool identifier, and the daemon-global startup

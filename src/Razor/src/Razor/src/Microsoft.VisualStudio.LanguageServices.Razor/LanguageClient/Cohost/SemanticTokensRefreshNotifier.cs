@@ -67,6 +67,19 @@ internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clien
 
     public Task StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken)
     {
+        // RazorStartupServiceFactory realizes every IRazorCohostStartupService's Lazy<T> up front (to sort by
+        // Order) before calling StartupAsync on any of them, so RazorStartupService.Dispose()'s ConnectionEnded
+        // sweep (which iterates that same already-realized set) can race ahead of this call for a connection
+        // that's torn down immediately after being created: Dispose() cancels this same cancellationToken (see
+        // its doc comment) and runs its ConnectionEnded sweep before this method ever gets a chance to create a
+        // ConnectionState -- so that sweep finds nothing to clean up here, and if this call then went on to
+        // subscribe anyway, the resulting state and its ClientSettingsChanged subscription would never be
+        // cleaned up again. Bail out before creating any state once that's already happened.
+        if (cancellationToken.IsCancellationRequested)
+        {
+            return Task.CompletedTask;
+        }
+
         var state = GetState();
         state.RazorClientLanguageServerManager = requestContext.GetRequiredService<IClientLanguageServerManager>();
 

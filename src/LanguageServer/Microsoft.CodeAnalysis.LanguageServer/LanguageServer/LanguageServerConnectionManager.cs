@@ -177,17 +177,35 @@ internal sealed class LanguageServerConnectionManager
                     // (lowercase editorconfig values like "automatic"/"balanced") for a different purpose.
                     //
                     // Always installs an override for a daemon connection, even when its handshake omitted
-                    // this or passed something unparseable -- falling through to the shared IGlobalOptionService
-                    // in that case would leak whichever value the client that happened to launch the daemon
-                    // explicitly requested (Program.cs writes it there once, from that client's command line),
-                    // not the actual command-line default. --sourceGeneratorExecutionPreference no longer
-                    // splits clients into separate daemons (see DaemonPipeName's pipe-key exclusion), so this
-                    // is a real, not just theoretical, cross-connection leak.
-                    var preference =
-                        handshake.SourceGeneratorExecutionPreference is { } rawPreference &&
-                        Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var parsedPreference)
-                            ? parsedPreference
-                            : SourceGeneratorExecutionPreference.Automatic; // LanguageServerCommandLine's own default.
+                    // this -- falling through to the shared IGlobalOptionService in that case would leak
+                    // whichever value the client that happened to launch the daemon explicitly requested
+                    // (Program.cs writes it there once, from that client's command line), not the actual
+                    // command-line default. --sourceGeneratorExecutionPreference no longer splits clients into
+                    // separate daemons (see DaemonPipeName's pipe-key exclusion), so this is a real, not just
+                    // theoretical, cross-connection leak.
+                    //
+                    // A rawPreference that's present but doesn't parse is deliberately NOT treated the same as
+                    // "omitted" (silently falling back to Automatic): System.CommandLine's own enum parsing for
+                    // Option<SourceGeneratorExecutionPreference> rejects an invalid value outright on a cold
+                    // daemon launch (a genuine parse failure, not a soft default), so accepting it here instead
+                    // would make the identical invalid invocation succeed or fail purely depending on whether a
+                    // compatible daemon happened to already be running -- the same inconsistency
+                    // DaemonPipeName's keepalive handling avoids for the analogous "parses on the daemon but
+                    // rejected here" case. Throw instead so this connection attempt fails consistently with
+                    // what a fresh daemon launch would have done.
+                    SourceGeneratorExecutionPreference preference;
+                    if (handshake.SourceGeneratorExecutionPreference is not { } rawPreference)
+                    {
+                        preference = SourceGeneratorExecutionPreference.Automatic; // LanguageServerCommandLine's own default.
+                    }
+                    else if (Enum.TryParse<SourceGeneratorExecutionPreference>(rawPreference, ignoreCase: true, out var parsedPreference))
+                    {
+                        preference = parsedPreference;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException($"Invalid {nameof(handshake.SourceGeneratorExecutionPreference)} value '{rawPreference}'.");
+                    }
 
                     var globalOptionService = exportProvider.GetExportedValue<IGlobalOptionService>();
                     ConnectionScopedOptionOverrides.SetOverrides(

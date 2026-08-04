@@ -119,6 +119,33 @@ public sealed class DaemonPipeNameTests
         Assert.NotEqual(first, differentExtensions);
     }
 
+    [Theory]
+    [InlineData("DOTNET_HOST_PATH")]
+    [InlineData("DOTNET_EXPERIMENTAL_HOST_PATH")]
+    public void PipeName_DiffersByDotNetHostPathEnvironmentVariable(string variableName)
+    {
+        // RuntimeHostInfo.GetToolDotNetRoot prioritizes these two over scanning PATH, and ServerExecutable.Start
+        // uses the result for the bundled server process's own DOTNET_ROOT -- a daemon-launch-time decision made
+        // once, from whichever client happened to launch it. Two clients that agree on PATH but differ in
+        // either of these must not share a daemon, or the second would silently run on the wrong .NET
+        // installation.
+        var original = Environment.GetEnvironmentVariable(variableName);
+        try
+        {
+            Environment.SetEnvironmentVariable(variableName, "/fake/dotnet/one");
+            var first = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Environment.SetEnvironmentVariable(variableName, "/fake/dotnet/two");
+            var second = DaemonPipeName.GetPipeName("user", isAdmin: false, ToolIdentifier, serverArguments: []);
+
+            Assert.NotEqual(first, second);
+        }
+        finally
+        {
+            Environment.SetEnvironmentVariable(variableName, original);
+        }
+    }
+
     [Fact]
     public void PipeName_DiffersByKeepAliveEnvironmentVariable()
     {
