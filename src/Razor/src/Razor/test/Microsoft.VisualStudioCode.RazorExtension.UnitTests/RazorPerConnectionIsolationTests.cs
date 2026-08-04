@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Razor.Settings;
+using Microsoft.CodeAnalysis.Remote.Razor;
 using Microsoft.VisualStudio.Razor.LanguageClient.Cohost;
 using Microsoft.VisualStudioCode.RazorExtension.Configuration;
 using Xunit;
@@ -51,6 +52,39 @@ public sealed class RazorPerConnectionIsolationTests
         // Mirrors ConnectionScopedOptionOverrides's fallback: a genuinely connection-less caller (e.g. a test
         // driving this type directly) must still see its own writes, not have them silently dropped.
         var manager = new ClientSettingsManager();
+
+        manager.Update(ClientAdvancedSettings.Default with { CodeBlockBraceOnNextLine = true });
+
+        Assert.True(manager.GetClientSettings().AdvancedSettings.CodeBlockBraceOnNextLine);
+    }
+
+    [Fact]
+    public void RemoteClientSettingsManager_TwoConnections_DoNotShareUpdates()
+    {
+        // RemoteClientSettingsManager is a separate [Shared] singleton from ClientSettingsManager above --
+        // lives in the "remote"/OOP MEF composition (in-process for VS Code, via InProcServiceFactory) rather
+        // than the daemon's main composition -- so it needed the same fix independently.
+        var connectionA = new object();
+        var connectionB = new object();
+        var manager = new RemoteClientSettingsManager();
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        manager.Update(ClientAdvancedSettings.Default with { CodeBlockBraceOnNextLine = true });
+
+        AmbientConnectionToken.SetCurrent(connectionB);
+        manager.Update(ClientAdvancedSettings.Default with { CodeBlockBraceOnNextLine = false });
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        Assert.True(manager.GetClientSettings().AdvancedSettings.CodeBlockBraceOnNextLine);
+
+        AmbientConnectionToken.SetCurrent(connectionB);
+        Assert.False(manager.GetClientSettings().AdvancedSettings.CodeBlockBraceOnNextLine);
+    }
+
+    [Fact]
+    public void RemoteClientSettingsManager_NoAmbientConnection_FallsBackToSharedSlot()
+    {
+        var manager = new RemoteClientSettingsManager();
 
         manager.Update(ClientAdvancedSettings.Default with { CodeBlockBraceOnNextLine = true });
 

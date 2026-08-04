@@ -30,7 +30,11 @@ internal static class Program
             return ExitCodes.BadArguments;
         }
 
-        _ = StartClientProcessMonitorAsync(thinClientArguments.ClientProcessId);
+        // Cancelled once this method has its own conclusive exit code (success path below, or an exception here),
+        // so a normal post-shutdown editor process exit racing that result doesn't let the monitor's
+        // Environment.Exit(EditorConnectionLost) below clobber it -- see the monitor's own remarks.
+        using var clientMonitorCancellation = new CancellationTokenSource();
+        _ = StartClientProcessMonitorAsync(thinClientArguments.ClientProcessId, clientMonitorCancellation.Token);
 
         try
         {
@@ -47,9 +51,11 @@ internal static class Program
                     // The daemon hosts the server for every client, so the thin client must bridge the editor's
                     // transport to the daemon's pipe (it connects to both and relays between them).
                     using var editorConnection = await EditorConnection.CreateAsync(thinClientArguments);
-                    return await RelayDaemonAsync(
+                    var relayExitCode = await RelayDaemonAsync(
                         daemonResult.NamedPipeStream,
                         editorConnection);
+                    clientMonitorCancellation.Cancel();
+                    return relayExitCode;
                 }
 
                 Console.Error.WriteLine("Running language server in non-daemon fallback mode.");
@@ -57,12 +63,15 @@ internal static class Program
 
             // Single-server mode: launch a dedicated server on the editor's own transport. In pipe mode the server
             // connects to the editor's pipe directly, so the thin client stays out of the LSP message path.
-            return await ChildServerHost.RunAsync(
+            var childExitCode = await ChildServerHost.RunAsync(
                 executable,
                 thinClientArguments);
+            clientMonitorCancellation.Cancel();
+            return childExitCode;
         }
         catch (Exception ex) when (ex is FileNotFoundException or IOException or InvalidOperationException or TimeoutException)
         {
+            clientMonitorCancellation.Cancel();
             Console.Error.WriteLine(ex);
             return ExitCodes.ServerLaunchOrConnectFailure;
         }
@@ -108,7 +117,19 @@ internal static class Program
         }
     }
 
-    private static Task StartClientProcessMonitorAsync(int? processId)
+    /// <summary>
+    /// Force-exits if the monitored editor process disappears out from under us -- the normal signal for "the
+    /// editor crashed or was killed outright, with no chance to go through its own LSP shutdown/exit sequence".
+    /// </summary>
+    /// <remarks>
+    /// A well-behaved editor's own process can legitimately exit at roughly the same time its LSP session ends
+    /// cleanly (send <c>exit</c>, then tear down its own process shortly after) -- racing
+    /// <see cref="Main"/>'s own conclusive exit code from <see cref="RelayDaemonAsync"/>/<see cref="ChildServerHost.RunAsync"/>.
+    /// <paramref name="cancellationToken"/> is cancelled by <see cref="Main"/> once it has that conclusive
+    /// result, closing that window: a cancellation observed here means the session already ended on its own
+    /// terms, so this must not force a different exit code over it.
+    /// </remarks>
+    private static Task StartClientProcessMonitorAsync(int? processId, CancellationToken cancellationToken)
     {
         if (processId is null)
             return Task.CompletedTask;
@@ -118,17 +139,20 @@ internal static class Program
             try
             {
                 using var process = Process.GetProcessById(processId.Value);
-                await process.WaitForExitAsync();
+                await process.WaitForExitAsync(cancellationToken);
                 Console.Error.WriteLine("Monitored editor process exited.");
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                // Main already has its own conclusive exit code; nothing to force here.
+                return;
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine($"Error monitoring editor process: {ex}");
             }
-            finally
-            {
-                Environment.Exit(ExitCodes.EditorConnectionLost);
-            }
+
+            Environment.Exit(ExitCodes.EditorConnectionLost);
         }, CancellationToken.None);
     }
 }
