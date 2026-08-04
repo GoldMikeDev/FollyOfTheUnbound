@@ -6,6 +6,8 @@ using System;
 using System.IO;
 using System.IO.Pipes;
 using System.Threading;
+using Microsoft.CodeAnalysis.BrokeredServices;
+using Microsoft.CodeAnalysis.LanguageServer.BrokeredServices;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.Text;
@@ -133,6 +135,40 @@ public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper
         Assert.DoesNotContain(factory2.HostWorkspace, registrations1);
         Assert.Contains(factory2.HostWorkspace, registrations2);
         Assert.DoesNotContain(factory1.HostWorkspace, registrations2);
+    }
+
+    // Regression coverage for GoldMikeDev/roslyn#9: IServiceBrokerProvider used to be exported as a directly
+    // [Shared] IWorkspaceService, so every daemon connection's Workspace (all built from the same process-wide
+    // ExportProvider) resolved the exact same singleton instance. ServiceBrokerFactory.CreateAsync calls
+    // SetContainer on it once per connection, and SetContainer throws if already completed -- so the second
+    // connection's own service-broker setup crashed outright, not just misrouted brokered-service traffic.
+    // ServiceBrokerProviderFactory now hands out a fresh instance per Workspace instead.
+    [Fact]
+    public async Task Daemon_EachServerGetsItsOwnServiceBrokerProvider()
+    {
+        await using var daemon = await CreateDaemonServerAsync();
+        await using var first = await daemon.CreateClientAsync();
+        await using var second = await daemon.CreateClientAsync();
+
+        var factory1 = first.GetRequiredLspService<LanguageServerWorkspaceFactory>();
+        var factory2 = second.GetRequiredLspService<LanguageServerWorkspaceFactory>();
+
+        var provider1 = factory1.HostWorkspace.Services.GetRequiredService<IServiceBrokerProvider>();
+        var provider2 = factory2.HostWorkspace.Services.GetRequiredService<IServiceBrokerProvider>();
+
+        // Each connection's workspace must get its own provider instance...
+        Assert.NotSame(provider1, provider2);
+
+        // ...so setting up the service broker for both connections' workspaces, in the order a real daemon
+        // would (each connection's ServiceBrokerFactory.CreateAsync runs independently), does not throw for
+        // the second connection the way it would if both resolved the same shared instance.
+        var serviceBrokerFactory1 = first.GetRequiredLspService<ServiceBrokerFactory>();
+        var serviceBrokerFactory2 = second.GetRequiredLspService<ServiceBrokerFactory>();
+
+        var container1 = await serviceBrokerFactory1.CreateAsync(factory1.HostWorkspace);
+        var container2 = await serviceBrokerFactory2.CreateAsync(factory2.HostWorkspace);
+
+        Assert.NotSame(container1, container2);
     }
 
     // If one client's server faults (e.g. the client process crashes and abruptly drops its connection), the daemon

@@ -682,22 +682,34 @@ Six more real findings across three Codex review rounds on the phase 7 commits, 
   that safely across five refresh-queue subclasses without the ability to run two isolated daemon connections
   side-by-side in this sandbox risks a rushed, unverified change. Added as new evidence to issue #9.
 - **`ServiceBrokerProvider` (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/BrokeredServices/ServiceBrokerProvider.cs`)
-  is the same shape yet again, found by Codex reviewing doc-only commit `5f2f9bb02`, but more severe than the
-  refresh-queue instance: it crashes rather than just misrouting.** It's `[ExportWorkspaceService(...), Shared]`,
+  was the same shape yet again, found by Codex reviewing doc-only commit `5f2f9bb02`, but more severe than the
+  refresh-queue instance: it crashes rather than just misrouting.** It was `[ExportWorkspaceService(...), Shared]`,
   and confirmed by tracing `MefWorkspaceServices`'s constructor (`host.GetExports<IWorkspaceService,
   WorkspaceServiceMetadata>()`, where `host` wraps the one daemon-wide `ExportProvider`): a `[Shared]` MEF part
   resolves to the same singleton instance for every `Workspace`/connection built from that shared provider, the
   same way `IGlobalOptionService` does. `ServiceBrokerFactory.CreateAsync` (`ServiceBrokerFactory.cs:58-59`)
   calls `provider.SetContainer(container)` once per connection's workspace; `ServiceBrokerProvider.SetContainer`
-  (`ServiceBrokerProvider.cs:38-41`) does `Contract.ThrowIfTrue(_serviceBrokerContainerTask.Task.IsCompleted)` --
-  so a second daemon connection doesn't just get misrouted brokered-service traffic (bad enough on its own, per
-  Codex's `VSCodeSourceLinkService` example), it throws and presumably fails that connection's service-broker
-  setup outright. **Not fixed here**, same reasoning as the Razor pair and the refresh-queue instance: a correct
-  fix needs real per-connection scoping for `IServiceBrokerProvider`/`BrokeredServiceContainer` (there's no MEF
-  scoping primitive to reach for, per the root blocker established in the original #9 writeup), and
-  `BrokeredServiceContainer`/ServiceHub bridging is unfamiliar, non-trivial surface to patch without the ability
-  to exercise two real daemon connections both requesting a service broker in this sandbox. Added as new,
-  higher-severity evidence to issue #9.
+  did `Contract.ThrowIfTrue(_serviceBrokerContainerTask.Task.IsCompleted)` -- so a second daemon connection
+  didn't just get misrouted brokered-service traffic (bad enough on its own, per Codex's `VSCodeSourceLinkService`
+  example), it threw and failed that connection's service-broker setup outright. **Fixed**, unlike the
+  Razor/refresh-queue instances this was originally grouped with: `IWorkspaceService`/`IWorkspaceServiceFactory`
+  turned out to have exactly the per-workspace scoping primitive this needed, already used elsewhere in the
+  codebase (e.g. `SemanticModelReuseWorkspaceServiceFactory`) -- switching `ServiceBrokerProvider` from a direct
+  `[Shared]` `IWorkspaceService` export to a `[Shared]` `IWorkspaceServiceFactory`
+  (`ServiceBrokerProviderFactory.CreateService`) whose `CreateService` returns a fresh, non-shared
+  `ServiceBrokerProvider` per `HostWorkspaceServices` call gives each connection's own `Workspace` its own
+  provider instance, with no MEF-composition-level scoping needed at all -- `[Shared]` on the *factory* just
+  means one factory instance process-wide, which is fine since the factory itself holds no per-connection
+  state. Verified by a new two-connection test, `Daemon_EachServerGetsItsOwnServiceBrokerProvider`
+  (`LanguageServerDaemonTests.cs`), using the real multi-client daemon test harness (`CreateDaemonServerAsync`/
+  `daemon.CreateClientAsync()`, which shares one real daemon composition across connections, unlike
+  `AbstractLanguageServerMefHost`-based tests such as `ServiceBrokerFactoryIsManagedPerServerAsync`, which build
+  a separate composition per server and so never actually exercised this leak) -- confirmed to fail (the second
+  connection's `ServiceBrokerFactory.CreateAsync` throwing) against the pre-fix code and pass against the fix.
+  This also corrected an earlier claim in this doc, and answered to the user directly: there is no genuine
+  sandbox limitation preventing two-connection verification here (`CohostTestBase` for the Razor entries below
+  builds an isolated composition per test instance too, so the same two-instance pattern applies there as
+  well) -- the real gap was that nobody had written the test yet, not that it couldn't be written.
 - **Three more Razor cohosting MEF singletons found by Codex reviewing commit `bbf4fd151`, all the same
   "classic `System.ComponentModel.Composition` `[Export]` without `[PartCreationPolicy(NonShared)]` defaults
   to process-wide shared" shape already established for `RazorClientServerManagerProvider`/
