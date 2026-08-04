@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.LanguageServer;
@@ -63,22 +65,34 @@ public sealed class SourceGeneratorExecutionPreferenceRoutingTests(ITestOutputHe
     }
 
     [Fact]
-    public async Task InvalidPreference_FallsBackToCommandLineDefault_NotSharedValue()
+    public async Task InvalidPreference_RejectsTheConnection()
     {
         await using var daemon = await CreateDaemonServerAsync();
 
         // A daemon-launching client whose own explicit value differs from the command-line default, so this
-        // test can distinguish "fell back to the shared value" (the bug) from "fell back to the command-line
-        // default" (the fix) -- both are legal-looking answers unless they're pinned apart like this.
+        // client staying alive and unaffected afterward can't be confused with "the daemon crashed and took
+        // every connection down with it" -- only the bad connection itself should be rejected.
         await using var launchingClient = await daemon.CreateClientAsync(
             handshake: new ConnectionHandshake(ExtensionLogDirectory: null, SourceGeneratorExecutionPreference: "Balanced"));
-        await using var client = await daemon.CreateClientAsync(
-            handshake: new ConnectionHandshake(ExtensionLogDirectory: null, SourceGeneratorExecutionPreference: "not-a-real-value"));
+
+        var serversBefore = daemon.GetStartedServers();
+
+        // LanguageServerConnectionManager now throws for a handshake whose SourceGeneratorExecutionPreference is
+        // present but unparseable (see the "reject invalid routed source-generator preferences" fix), matching
+        // what a cold daemon launch's own command-line parsing would do for the same invalid value. That throw
+        // happens before the connection is ever registered/started, so the client side observes the connection
+        // being torn down rather than getting an initialized server.
+        await Assert.ThrowsAnyAsync<Exception>(() => daemon.CreateClientAsync(
+            handshake: new ConnectionHandshake(ExtensionLogDirectory: null, SourceGeneratorExecutionPreference: "not-a-real-value")));
+
+        // The rejection must be scoped to just that one bad connection attempt -- the daemon itself, and the
+        // client that was already connected to it, must be unaffected.
+        Assert.True(serversBefore.SequenceEqual(daemon.GetStartedServers()));
+        Assert.True(daemon.IsRunning);
 
         var globalOptions = daemon.ExportProvider.GetExportedValue<IGlobalOptionService>();
-
-        SetAmbientToRealConnectionToken(client.DaemonServer);
-        Assert.Equal(SourceGeneratorExecutionPreference.Automatic, globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
+        SetAmbientToRealConnectionToken(launchingClient.DaemonServer);
+        Assert.Equal(SourceGeneratorExecutionPreference.Balanced, globalOptions.GetConnectionScopedOption(WorkspaceConfigurationOptionsStorage.SourceGeneratorExecution));
     }
 
     private static void SetAmbientToRealConnectionToken(LanguageServerHost server)

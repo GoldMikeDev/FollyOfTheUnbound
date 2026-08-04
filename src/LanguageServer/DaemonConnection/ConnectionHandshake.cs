@@ -81,8 +81,21 @@ internal sealed record ConnectionHandshake(string? ExtensionLogDirectory, string
                 return true;
             }
 
-            if (arg == optionName && index + 1 < args.Count)
+            if (arg == optionName)
             {
+                if (index + 1 >= args.Count)
+                {
+                    // A bare flag with no following value token. System.CommandLine requires a value for both
+                    // of these options (ArgumentArity.ExactlyOne by default), so a cold daemon launch would
+                    // reject this outright via LanguageServerCommandLine's own parsing. Silently treating it the
+                    // same as "the option was never passed" here -- which is what returning false used to do,
+                    // since the caller's loop just moves on to the next token -- would let the identical
+                    // malformed invocation succeed when a compatible daemon happens to already be running
+                    // instead of consistently failing the way a cold launch would. Throw here, on the
+                    // connecting client, before this ever reaches the daemon.
+                    throw new InvalidOperationException($"'{optionName}' requires a value.");
+                }
+
                 index++;
                 value = args[index];
                 return true;
