@@ -28,10 +28,22 @@ namespace Microsoft.AspNetCore.Razor.LanguageServer;
 /// tracked for <c>FeatureProviderRefresher</c> before that was fixed); each handler re-establishes its own
 /// connection's <see cref="AmbientConnectionToken"/> before reading settings so it only ever reacts to its own
 /// connection's actual value, not whichever connection's change happened to trigger the broadcast.
+/// <para>
+/// A per-connection <see cref="ConnectionState"/> and its <see cref="IClientSettingsManager.ClientSettingsChanged"/>
+/// subscription would otherwise outlive that connection for as long as the daemon runs: the subscription is a
+/// strong reference held by <c>_clientSettingsManager</c> itself, independent of whether the connection's own
+/// <see cref="AmbientConnectionToken"/> object (the <see cref="ConditionalWeakTable{TKey, TValue}"/> key) is
+/// still reachable, so it -- and everything the handler closes over, including the connection's
+/// <see cref="IClientLanguageServerManager"/> -- would leak for every past connection a long-lived daemon ever
+/// served. <see cref="IRazorCohostConnectionScopedCleanup.ConnectionEnded"/> is called by
+/// <c>RazorStartupServiceFactory</c> as part of that connection's own teardown, so state actually gets released
+/// per-connection instead of only at process-wide <see cref="IDisposable.Dispose"/> (daemon/composition exit).
+/// </para>
 /// </summary>
 [Export(typeof(IRazorCohostStartupService))]
 [method: ImportingConstructor]
-internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clientSettingsManager) : IRazorCohostStartupService, IDisposable
+internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clientSettingsManager)
+    : IRazorCohostStartupService, IRazorCohostConnectionScopedCleanup, IDisposable
 {
     private sealed class ConnectionState
     {
@@ -104,6 +116,39 @@ internal sealed class SemanticTokensRefreshNotifier(IClientSettingsManager clien
         => AmbientConnectionToken.Current is { } token
             ? _stateByConnection.GetOrCreateValue(token)
             : _stateWithNoAmbientConnection;
+
+    /// <summary>
+    /// Called once for the currently-ending connection (identified by <see cref="AmbientConnectionToken.Current"/>,
+    /// still ambient at this point -- see <see cref="IRazorCohostConnectionScopedCleanup"/>'s remarks). Releases
+    /// that connection's <see cref="ConnectionState"/> and, critically, unsubscribes its handler from
+    /// <see cref="IClientSettingsManager.ClientSettingsChanged"/> so it stops being invoked (and stops keeping
+    /// the state, including that connection's <see cref="IClientLanguageServerManager"/>, alive) once the
+    /// connection is gone.
+    /// </summary>
+    public void ConnectionEnded()
+    {
+        if (AmbientConnectionToken.Current is not { } token)
+        {
+            return;
+        }
+
+        if (!_stateByConnection.TryGetValue(token, out var state))
+        {
+            return;
+        }
+
+        _stateByConnection.Remove(token);
+
+        if (state.Handler is { } handler)
+        {
+            _clientSettingsManager.ClientSettingsChanged -= handler;
+        }
+
+        lock (_allStatesLock)
+        {
+            _allStates.Remove(state);
+        }
+    }
 
     public void Dispose()
     {

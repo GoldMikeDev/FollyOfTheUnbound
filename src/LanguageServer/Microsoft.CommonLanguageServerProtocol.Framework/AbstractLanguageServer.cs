@@ -353,11 +353,18 @@ internal abstract class AbstractLanguageServer<TRequestContext>
                     await hook.ExitAsync().ConfigureAwait(false);
                 }
 
-                await ShutdownRequestExecutionQueueAsync().ConfigureAwait(false);
+                var queueFullyDrained = await ShutdownRequestExecutionQueueAsync().ConfigureAwait(false);
 
                 lspServices.Dispose();
 
-                if (requestedByClient && OnClientRequestedExitAsync is { } onClientRequestedExitAsync)
+                // Only invoke this if the request execution queue actually finished draining -- e.g.
+                // LanguageServerHost's clean-exit sentinel, written directly to the raw transport bypassing
+                // StreamJsonRpc's own serialized writer (see CleanExitSentinel's remarks), would otherwise be
+                // racing whatever in-flight response write the queue gave up waiting for, corrupting LSP
+                // framing if the sentinel interleaves with it. If the drain timed out with work still
+                // outstanding, skip the courtesy signal entirely rather than risk that race -- that work still
+                // completes on its own schedule in the background regardless.
+                if (requestedByClient && queueFullyDrained && OnClientRequestedExitAsync is { } onClientRequestedExitAsync)
                 {
                     try
                     {
@@ -393,10 +400,10 @@ internal abstract class AbstractLanguageServer<TRequestContext>
         }
     }
 
-    private ValueTask ShutdownRequestExecutionQueueAsync()
+    private ValueTask<bool> ShutdownRequestExecutionQueueAsync()
     {
         var queue = GetRequestExecutionQueue();
-        return queue.DisposeAsync();
+        return queue.DrainAndDisposeAsync();
     }
 
     /// <summary>

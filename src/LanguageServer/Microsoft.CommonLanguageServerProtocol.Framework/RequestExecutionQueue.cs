@@ -460,17 +460,20 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     /// Shuts down the queue, stops accepting new messages, and cancels any in-progress or queued tasks.
     /// </summary>
     /// <remarks>
-    /// Waits (briefly, and best-effort) for the queue's own processing loop to actually finish before
-    /// returning, not just for cancellation to be signaled. Callers that treat "disposed" as "quiesced" --
-    /// e.g. <c>LanguageServerHost</c>'s clean-exit sentinel, written directly to the raw transport
-    /// immediately after this is awaited during exit, deliberately bypassing StreamJsonRpc's own serialized
-    /// writer (see <c>CleanExitSentinel</c>'s remarks) -- would otherwise be racing whatever in-flight
-    /// response write cancellation hadn't yet unwound, corrupting LSP framing if the sentinel interleaves with
-    /// it. Bounded by <see cref="s_disposalDrainTimeout"/> so a handler that doesn't observe cancellation
-    /// promptly can't hang shutdown indefinitely; that handler's own work still completes on its own schedule
-    /// in the background even if this wait times out first.
+    /// Waits (briefly, and best-effort) for the queue's own processing loop -- and any outstanding
+    /// non-mutating request tasks -- to actually finish before returning, not just for cancellation to be
+    /// signaled. See <see cref="IRequestExecutionQueue{TRequestContext}.DrainAndDisposeAsync"/> for why
+    /// callers that need to know whether that draining actually completed (as opposed to timing out) should
+    /// call that instead of this: this <c>IAsyncDisposable.DisposeAsync</c> implementation exists for
+    /// generic disposal call sites and simply discards that result.
     /// </remarks>
     public async ValueTask DisposeAsync()
+    {
+        await DrainAndDisposeAsync().ConfigureAwait(false);
+    }
+
+    /// <inheritdoc cref="IRequestExecutionQueue{TRequestContext}.DrainAndDisposeAsync"/>
+    public async ValueTask<bool> DrainAndDisposeAsync()
     {
         _cancelSource.Cancel();
 
@@ -480,9 +483,12 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         // 2.  Their cancellation tokens are linked to the queue's _cancelSource so are also cancelled.
         _queue.Complete();
 
+        var fullyDrained = true;
+
         if (_queueProcessingTask is { } processingTask)
         {
             await Task.WhenAny(processingTask, Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
+            fullyDrained &= processingTask.IsCompleted;
         }
 
         // The processing loop stopping only means no more work is being dequeued -- it says nothing about
@@ -492,7 +498,10 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         if (outstanding.Length > 0)
         {
             await Task.WhenAny(Task.WhenAll(outstanding), Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
+            fullyDrained &= outstanding.All(t => t.IsCompleted);
         }
+
+        return fullyDrained;
     }
 
     #region Test Accessor
