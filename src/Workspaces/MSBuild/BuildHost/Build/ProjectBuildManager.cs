@@ -170,9 +170,27 @@ internal sealed class ProjectBuildManager : IDisposable
                 | MSB.Evaluation.ProjectLoadSettings.DoNotEvaluateElementsWithFalseCondition
                 | MSB.Evaluation.ProjectLoadSettings.FailOnUnresolvedSdk;
 
+            // When explicit global properties are supplied (e.g. the run-file globals for a file-based app),
+            // MSBuild's Project constructor uses them verbatim instead of falling back to the ProjectCollection's
+            // own global properties (which carry workspace-level overrides like Configuration/TargetFramework).
+            // Merge the two so that the workspace-level globals are still honored, with the caller-supplied
+            // globals taking precedence on conflicting keys -- matching the merge already done in
+            // LoadProjectInstance below.
+            IDictionary<string, string>? mergedGlobalProperties = globalProperties;
+            if (globalProperties != null)
+            {
+                var merged = new Dictionary<string, string>(_projectCollection.GlobalProperties, StringComparer.OrdinalIgnoreCase);
+                foreach (var pair in globalProperties)
+                {
+                    merged[pair.Key] = pair.Value;
+                }
+
+                mergedGlobalProperties = merged;
+            }
+
             var project = new MSB.Evaluation.Project(
                 xml,
-                globalProperties,
+                mergedGlobalProperties,
                 toolsVersion: null,
                 _projectCollection,
                 projectLoadSettings);
