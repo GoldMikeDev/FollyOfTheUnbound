@@ -283,14 +283,20 @@ public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper
         {
             var clientTask = daemon.CreateClientAsync();
             connectionAccepted.Wait();
+
+            // By the time OnConnectionAccepted's callback runs, the connection has already been recorded as
+            // active (ConnectionIdleTimeout.OpenConnection runs immediately after WaitForConnectionAsync
+            // succeeds, before elevation/handshake validation -- see NamedPipeDaemonConnectionSource's
+            // "stay one accept ahead" background accept loop). So triggering the timeout here races against an
+            // *already-open* connection, not merely an *accepted-but-not-yet-open* one: it must not cause the
+            // daemon to shut down while this connection is still mid-handshake, even though the raw timeout
+            // token this triggers does get cancelled.
             sourceAccessor.TriggerTimeout();
-            Assert.True(sourceAccessor.HasTimedOut);
 
             releaseConnection.Set();
             await using (var client = await clientTask)
             {
                 Assert.NotNull(client.ServerCapabilities);
-                Assert.False(sourceAccessor.HasTimedOut);
                 Assert.False(daemon.DaemonExitTask.IsCompleted);
             }
 
@@ -385,6 +391,33 @@ public sealed class LanguageServerDaemonTests(ITestOutputHelper testOutputHelper
             daemon.GetConnectionManagerTestAccessor().OnBeforeStartServer = null;
             releaseFirstStart.Set();
         }
+    }
+
+    // Regression coverage for a Codex finding on PR #3: AcceptConnectionsAsync used to be fully sequential --
+    // it created one listening pipe instance, accepted a client on it, then (still holding that same instance,
+    // before creating the *next* listening instance) ran the elevation check and handshake read for that client.
+    // A client that connects but withholds its handshake bytes (stalled, slow, or malicious) used to block every
+    // other client from connecting until that read finished or timed out. The fix keeps a listening instance
+    // available essentially at all times by starting the next accept in the background as soon as the current
+    // one completes, before doing the current connection's elevation check/handshake read.
+    [Fact]
+    public async Task Daemon_SlowClientHandshake_DoesNotBlockAcceptingNextConnection()
+    {
+        await using var daemon = await CreateDaemonServerAsync();
+
+        // Connect a client but never send its handshake -- simulates a stalled/slow/malicious client that has
+        // connected but is withholding (or trickling) its handshake bytes.
+        using var stalledClient = NamedPipeUtil.CreateClient(
+            serverName: ".",
+            daemon.PipeName,
+            PipeDirection.InOut,
+            PipeOptions.Asynchronous);
+        await stalledClient.ConnectAsync(timeout: 30_000);
+
+        // A second, well-behaved client must still be able to connect and complete its handshake promptly,
+        // without waiting for the stalled client's handshake read to time out (s_handshakeTimeout is 10 seconds).
+        await using var second = await daemon.CreateClientAsync().WaitAsync(TimeSpan.FromSeconds(5));
+        Assert.NotNull(second.ServerCapabilities);
     }
 
     private static void LoadProject(LanguageServerWorkspaceFactory workspaceFactory, string projectName)

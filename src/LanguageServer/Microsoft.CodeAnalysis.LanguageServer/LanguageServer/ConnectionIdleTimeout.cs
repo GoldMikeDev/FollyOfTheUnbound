@@ -11,7 +11,7 @@ namespace Microsoft.CodeAnalysis.LanguageServer;
 /// <summary>
 /// Tracks accepted connections and cancels the current <see cref="TimeoutToken"/> when the initial-connection
 /// timeout or keepalive elapses with no active connections. Timeout cancellation is tentative until
-/// <see cref="CommitTimeout"/> is called: a concurrently accepted connection can still open and advance to a fresh
+/// <see cref="TryCommitTimeout"/> is called: a concurrently accepted connection can still open and advance to a fresh
 /// timeout generation.
 /// </summary>
 internal sealed class ConnectionIdleTimeout : IDisposable
@@ -69,17 +69,27 @@ internal sealed class ConnectionIdleTimeout : IDisposable
     }
 
     /// <summary>
-    /// Commits shutdown after the current pipe wait observes timeout cancellation.
+    /// Attempts to commit shutdown after a pipe wait observes timeout cancellation. With more than one listening
+    /// pipe instance possibly outstanding at once (see <see cref="NamedPipeDaemonConnectionSource"/>'s
+    /// "stay one accept ahead" background accept), the specific wait that observed cancellation might be a
+    /// superseded/stale one -- its generation could have been cancelled (e.g. by <see cref="TestAccessor.TriggerTimeout"/>)
+    /// while a *different*, concurrently-processing connection is still active, or a fresh connection could have
+    /// opened in between. Committing in that case would violate the invariant that shutdown only happens with zero
+    /// active connections. Returns <see langword="false"/> (does nothing) rather than committing when that's not
+    /// actually true right now; the caller should treat that the same as a spurious cancellation and keep accepting.
     /// </summary>
-    public void CommitTimeout()
+    public bool TryCommitTimeout()
     {
         TimeoutGeneration generation;
         bool isInitialConnectionTimeout;
         lock (_gate)
         {
-            Debug.Assert(!_stopped);
-            Debug.Assert(_activeConnections == 0);
-            Debug.Assert(_currentGeneration is not null && _currentGeneration.Token.IsCancellationRequested);
+            if (_stopped)
+                return false;
+
+            Debug.Assert(_currentGeneration is not null);
+            if (_activeConnections != 0 || !_currentGeneration.Token.IsCancellationRequested)
+                return false;
 
             _stopped = true;
             generation = _currentGeneration;
@@ -92,6 +102,7 @@ internal sealed class ConnectionIdleTimeout : IDisposable
             isInitialConnectionTimeout
                 ? "Initial connection timeout elapsed; shutting down."
                 : "Keepalive elapsed with no active connections; shutting down.");
+        return true;
     }
 
     /// <summary>

@@ -7,6 +7,7 @@ extern alias MSBuildWorkspaces;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Channels;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.Extensions.Logging;
 using RoslynLog = Microsoft.CodeAnalysis.Internal.Log;
@@ -78,102 +79,200 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
         return true;
     }
 
+    /// <summary>
+    /// Accepts client connections. The raw accept loop (<see cref="RunAcceptLoopAsync"/>) only ever does
+    /// <see cref="NamedPipeUtil.CreateServer"/> + <c>WaitForConnectionAsync</c> in a tight loop and never blocks on
+    /// a single client -- each accepted connection's elevation check and (up to <see cref="s_handshakeTimeout"/>)
+    /// handshake read run independently in <see cref="ProcessAcceptedConnectionAsync"/>, handed off via a channel.
+    /// This is necessary, not just an optimization: an <see cref="IAsyncEnumerable{T}"/>'s <c>yield return</c> is
+    /// consumed one <c>MoveNextAsync</c> at a time, so if accept-and-validate were a single sequential loop body
+    /// (even one that pre-creates the *next* listening pipe instance before validating the current one), a client
+    /// that connects but withholds its handshake would still keep that MoveNextAsync call from ever completing --
+    /// blocking every other already-accepted client from being yielded until it times out. Routing validated
+    /// connections through a channel lets many validations run concurrently while the enumerator just drains
+    /// whichever ones finish, in whatever order they finish.
+    /// </summary>
     public async IAsyncEnumerable<LanguageServerConnection> AcceptConnectionsAsync([EnumeratorCancellation] CancellationToken cancellationToken)
     {
-        while (true)
+        var channel = Channel.CreateUnbounded<LanguageServerConnection>(new UnboundedChannelOptions
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            SingleReader = true,
+            SingleWriter = false,
+        });
 
-            var timeoutToken = _idleTimeout.TimeoutToken;
-            var pipeStream = NamedPipeUtil.CreateServer(_pipeName);
+        // Fire-and-forget: this task's own life cycle is expressed entirely through the channel it writes to
+        // (completed normally, or with the loop's terminating exception, from every one of its exit paths).
+        _ = RunAcceptLoopAsync(channel.Writer, cancellationToken);
 
-            // Wait for a client (outside any 'yield return', which C# disallows inside a try/catch). On success
-            // the stream's ownership passes to the yielded connection; on failure we dispose it here.
-            try
+        await foreach (var connection in channel.Reader.ReadAllAsync(cancellationToken).ConfigureAwait(false))
+        {
+            yield return connection;
+        }
+    }
+
+    /// <summary>
+    /// Never blocks on a single client: creates a listening pipe instance, waits for a connection, and as soon as
+    /// one arrives hands it off to <see cref="ProcessAcceptedConnectionAsync"/> (not awaited) before immediately
+    /// looping back to listen again. Terminates by completing <paramref name="writer"/> -- normally on
+    /// cancellation or a committed idle timeout, or with an exception if something unexpected escapes the loop
+    /// (surfaced to <see cref="AcceptConnectionsAsync"/>'s <c>await foreach</c> the same way an exception thrown
+    /// directly from the old single-loop-body implementation used to propagate).
+    /// </summary>
+    private async Task RunAcceptLoopAsync(ChannelWriter<LanguageServerConnection> writer, CancellationToken cancellationToken)
+    {
+        try
+        {
+            while (true)
             {
-                using var acceptCancellationSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutToken);
-                await pipeStream.WaitForConnectionAsync(acceptCancellationSource.Token).ConfigureAwait(false);
-            }
-            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-            {
-                await pipeStream.DisposeAsync().ConfigureAwait(false);
-                throw;
-            }
-            catch (OperationCanceledException) when (timeoutToken.IsCancellationRequested)
-            {
-                // The idle timeout and a real client connecting can race: the OS-level connection can complete
-                // just before the token's cancellation callback aborts the pending I/O, in which case
-                // WaitForConnectionAsync can still surface OperationCanceledException even though the pipe is
-                // actually connected now. Don't discard an accepted client on that race -- fall through to treat
-                // this the same as a successful connection instead of committing to shutdown.
-                if (!pipeStream.IsConnected)
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var timeoutToken = _idleTimeout.TimeoutToken;
+                var pipeStream = NamedPipeUtil.CreateServer(_pipeName);
+
+                try
+                {
+                    using var acceptCancellationSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutToken);
+                    await pipeStream.WaitForConnectionAsync(acceptCancellationSource.Token).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
                 {
                     await pipeStream.DisposeAsync().ConfigureAwait(false);
-                    _idleTimeout.CommitTimeout();
-                    yield break;
+
+                    // Let ReadAllAsync's own cancellationToken observe this the same way the old implementation's
+                    // 'throw;' propagated OperationCanceledException out of the enumerator.
+                    writer.TryComplete();
+                    return;
                 }
-            }
-            catch (Exception ex)
-            {
-                // Failing to accept one connection shouldn't take down the daemon; log and try again.
-                _logger.LogError(ex, "Daemon encountered an error while waiting for a client connection.");
-                await pipeStream.DisposeAsync().ConfigureAwait(false);
-                continue;
-            }
+                catch (OperationCanceledException) when (timeoutToken.IsCancellationRequested)
+                {
+                    // The idle timeout and a real client connecting can race: the OS-level connection can complete
+                    // just before the token's cancellation callback aborts the pending I/O, in which case
+                    // WaitForConnectionAsync can still surface OperationCanceledException even though the pipe is
+                    // actually connected now. Don't discard an accepted client on that race -- fall through to
+                    // treat this the same as a successful connection instead of committing to shutdown.
+                    if (!pipeStream.IsConnected)
+                    {
+                        await pipeStream.DisposeAsync().ConfigureAwait(false);
 
-            // CurrentUserOnly (used by both client and server) already guarantees matching identity, but not
-            // matching elevation -- without this check an unelevated process running as the same user could
-            // derive an elevated daemon's pipe name and submit LSP requests with the daemon's privileges.
-            // A client that disconnects immediately after WaitForConnectionAsync succeeds (e.g. it gave up
-            // waiting) can make this check itself throw -- treat that the same as any other single-connection
-            // failure (log and move on to the next client) rather than let it escape the loop and take the
-            // whole daemon down with it.
-            bool elevationMatches;
-            try
-            {
-                elevationMatches = NamedPipeUtil.CheckClientElevationMatches(pipeStream);
-            }
-            catch (Exception ex) when (ex is IOException or ObjectDisposedException)
-            {
-                _logger.LogWarning(ex, "Daemon failed to verify a client connection's elevation; treating it as rejected.");
-                await pipeStream.DisposeAsync().ConfigureAwait(false);
-                continue;
-            }
+                        // This wait's generation might be stale (superseded by a connection accepted since this
+                        // wait started, and concurrently being validated in ProcessAcceptedConnectionAsync) rather
+                        // than a genuine "idle with zero connections" shutdown -- see TryCommitTimeout. Only
+                        // actually shut down when it confirms that; otherwise this was a spurious cancellation and
+                        // accepting should just continue.
+                        if (_idleTimeout.TryCommitTimeout())
+                        {
+                            writer.TryComplete();
+                            return;
+                        }
 
-            if (!elevationMatches)
-            {
-                _logger.LogWarning("Daemon rejected a client connection whose elevation did not match the daemon's.");
-                await pipeStream.DisposeAsync().ConfigureAwait(false);
-                continue;
-            }
+                        continue;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Failing to accept one connection shouldn't take down the daemon; log and try again.
+                    _logger.LogError(ex, "Daemon encountered an error while waiting for a client connection.");
+                    await pipeStream.DisposeAsync().ConfigureAwait(false);
+                    continue;
+                }
 
-            // Read the connecting client's own per-connection configuration before this stream becomes the
-            // raw LSP JSON-RPC channel -- see ConnectionHandshake and docs/ide/specs/daemon-per-connection-isolation.md's
-            // phase 5. Bounded so a client that connects but never completes the handshake (or an
-            // incompatible/garbled one) can't hang this accept loop; treated the same as any other
-            // single-connection failure (log and move on), not a reason to take the whole daemon down.
-            ConnectionHandshake handshake;
-            try
-            {
-                using var handshakeTimeoutSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                handshakeTimeoutSource.CancelAfter(s_handshakeTimeout);
-                handshake = await ConnectionHandshake.ReadAsync(pipeStream, handshakeTimeoutSource.Token).ConfigureAwait(false);
-            }
-            catch (Exception ex) when (ex is IOException or ObjectDisposedException or OperationCanceledException or InvalidOperationException)
-            {
-                _logger.LogWarning(ex, "Daemon failed to read a client connection's handshake; treating it as rejected.");
-                await pipeStream.DisposeAsync().ConfigureAwait(false);
-                continue;
-            }
+                // 'pipeStream' has now genuinely accepted a client. Record it with the idle timeout immediately,
+                // *before* handing it off for independent validation below and looping back to listen again:
+                // OpenConnection advances to a fresh timeout generation, so this loop's next iteration -- which
+                // snapshots the (then-current) generation's token for its own timeout-vs-cancellation race
+                // handling above -- only ever observes a generation that already accounts for this connection.
+                // Doing this after handing off (or not at all until validation succeeds) would let the idle
+                // timeout elapse and race the next accept while this connection is still uncounted, violating
+                // ConnectionIdleTimeout's invariant that a real commit only happens with zero active connections.
+                //
+                // This does mean a connection that fails its elevation check or handshake still counts as "opened"
+                // for idle-timeout purposes for that brief window; ProcessAcceptedConnectionAsync's rejection paths
+                // call CloseConnection to balance it out, the same as a real connection's ConnectionResource.Dispose
+                // would.
+                _idleTimeout.OpenConnection();
 
-            _onConnectionAccepted?.Invoke();
-            _idleTimeout.OpenConnection();
-            _logger.LogInformation("Daemon accepted a new client connection.");
-            RoslynLog.Logger.Log(RoslynLog.FunctionId.VSCode_LanguageServer_Daemon_Client_Connected, logLevel: RoslynLog.LogLevel.Information);
-
-            // The accepted stream is both input and output, and is disposed when its language server exits.
-            yield return new LanguageServerConnection(pipeStream, pipeStream, new ConnectionResource(pipeStream, this), handshake);
+                _ = ProcessAcceptedConnectionAsync(pipeStream, writer, cancellationToken);
+            }
         }
+        catch (Exception ex)
+        {
+            // Surface anything unexpected that escaped the loop's own per-connection handling the same way it
+            // would have propagated out of the old single-loop-body implementation's 'await foreach'.
+            writer.TryComplete(ex);
+        }
+    }
+
+    /// <summary>
+    /// Validates one already-accepted connection (elevation check, then handshake read) independently of the
+    /// accept loop and every other in-flight connection's validation, and -- on success -- writes it to
+    /// <paramref name="writer"/> so <see cref="AcceptConnectionsAsync"/> can yield it. A connection that fails
+    /// validation is logged, disposed, and its <see cref="ConnectionIdleTimeout.OpenConnection"/> count balanced
+    /// via <see cref="ConnectionIdleTimeout.CloseConnection"/> -- never allowed to take down the daemon or block
+    /// any other connection (accepted before, concurrently, or after it).
+    /// </summary>
+    private async Task ProcessAcceptedConnectionAsync(
+        System.IO.Pipes.NamedPipeServerStream pipeStream,
+        ChannelWriter<LanguageServerConnection> writer,
+        CancellationToken cancellationToken)
+    {
+        // CurrentUserOnly (used by both client and server) already guarantees matching identity, but not matching
+        // elevation -- without this check an unelevated process running as the same user could derive an elevated
+        // daemon's pipe name and submit LSP requests with the daemon's privileges. A client that disconnects
+        // immediately after WaitForConnectionAsync succeeds (e.g. it gave up waiting) can make this check itself
+        // throw -- treat that the same as any other single-connection failure (log and move on) rather than let
+        // it escape and take the whole daemon down with it.
+        bool elevationMatches;
+        try
+        {
+            elevationMatches = NamedPipeUtil.CheckClientElevationMatches(pipeStream);
+        }
+        catch (Exception ex) when (ex is IOException or ObjectDisposedException)
+        {
+            _logger.LogWarning(ex, "Daemon failed to verify a client connection's elevation; treating it as rejected.");
+            await pipeStream.DisposeAsync().ConfigureAwait(false);
+            _idleTimeout.CloseConnection();
+            return;
+        }
+
+        if (!elevationMatches)
+        {
+            _logger.LogWarning("Daemon rejected a client connection whose elevation did not match the daemon's.");
+            await pipeStream.DisposeAsync().ConfigureAwait(false);
+            _idleTimeout.CloseConnection();
+            return;
+        }
+
+        // Read the connecting client's own per-connection configuration before this stream becomes the raw LSP
+        // JSON-RPC channel -- see ConnectionHandshake and docs/ide/specs/daemon-per-connection-isolation.md's
+        // phase 5. Bounded so a client that connects but never completes the handshake (or an
+        // incompatible/garbled one) can't hang this validation forever; treated the same as any other
+        // single-connection failure (log and move on), not a reason to take the whole daemon down -- and, unlike
+        // the old sequential implementation, this bound no longer needs to also protect *other* clients from
+        // being blocked, since this validation runs independently of theirs.
+        ConnectionHandshake handshake;
+        try
+        {
+            using var handshakeTimeoutSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            handshakeTimeoutSource.CancelAfter(s_handshakeTimeout);
+            handshake = await ConnectionHandshake.ReadAsync(pipeStream, handshakeTimeoutSource.Token).ConfigureAwait(false);
+        }
+        catch (Exception ex) when (ex is IOException or ObjectDisposedException or OperationCanceledException or InvalidOperationException)
+        {
+            _logger.LogWarning(ex, "Daemon failed to read a client connection's handshake; treating it as rejected.");
+            await pipeStream.DisposeAsync().ConfigureAwait(false);
+            _idleTimeout.CloseConnection();
+            return;
+        }
+
+        _onConnectionAccepted?.Invoke();
+        _logger.LogInformation("Daemon accepted a new client connection.");
+        RoslynLog.Logger.Log(RoslynLog.FunctionId.VSCode_LanguageServer_Daemon_Client_Connected, logLevel: RoslynLog.LogLevel.Information);
+
+        // The accepted stream is both input and output, and is disposed when its language server exits.
+        var connection = new LanguageServerConnection(pipeStream, pipeStream, new ConnectionResource(pipeStream, this), handshake);
+
+        // Unbounded channel: TryWrite always succeeds (never actually awaits), matching the unbounded capacity.
+        writer.TryWrite(connection);
     }
 
     internal TestAccessor GetTestAccessor() => new(this);
