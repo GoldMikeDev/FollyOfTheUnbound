@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using Microsoft.AspNetCore.Razor.Test.Common;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -121,5 +122,54 @@ public class CompletionListCacheTest(ITestOutputHelper testOutput) : ToolingTest
         Assert.False(result);
         Assert.Null(cachedCompletionList);
         Assert.Null(context);
+    }
+
+    // Regression coverage for GoldMikeDev/roslyn#9: CohostCompletionListCache subclasses this type and is
+    // resolved from a [Shared] MEF part shared by every daemon connection, so without per-connection keying
+    // one connection's completion entries could evict, or be resolved against, another connection's. Simulates
+    // two connections directly (same technique as RazorPerConnectionIsolationTests) since the leak lives
+    // entirely within this type's cache lookup and doesn't need real request dispatch to reproduce.
+    //
+    // Against the pre-fix single shared circular buffer, this test fails: connection B's Add calls would land
+    // in the *same* buffer as connection A's, so by the time connection A looks its entry up, connection B's
+    // fill loop has evicted it -- TryGetOriginalRequestData would return false instead of finding connection
+    // A's own completion list.
+    [Fact]
+    public void TryGet_TwoConnections_DoNotShareOrEvictEachOthersEntries()
+    {
+        var connectionA = new object();
+        var connectionB = new object();
+        var cache = new CompletionListCache();
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        var completionListA = new RazorVSInternalCompletionList()
+        {
+            Items = [new VSInternalCompletionItem()]
+        };
+        var resultIdA = cache.Add(completionListA, _context);
+        completionListA.SetResultId(resultIdA, clientCapabilities: new());
+
+        // Connection B fills its own cache to its max size -- enough to evict connection A's entry from a
+        // *shared* buffer, but not from B's own isolated one.
+        AmbientConnectionToken.SetCurrent(connectionB);
+        for (var i = 0; i < CompletionListCache.MaxCacheSize; i++)
+        {
+            cache.Add(new VSInternalCompletionList() { Items = [] }, _context);
+        }
+
+        // Connection A can still resolve its own entry.
+        AmbientConnectionToken.SetCurrent(connectionA);
+        var resultA = cache.TryGetOriginalRequestData((VSInternalCompletionItem)completionListA.Items[0], out var cachedListA, out var contextA);
+        Assert.True(resultA);
+        Assert.Same(completionListA, cachedListA);
+        Assert.Same(_context, contextA);
+
+        // Connection B still on its own cache: looking up connection A's item under B's ambient token never
+        // resolves to connection A's actual completion list object (isolation is symmetric, not just A being
+        // protected from B) -- a coincidental id collision (both connections start numbering ids at 0) may
+        // still "find" one of B's own slots, but it can never be A's list instance.
+        AmbientConnectionToken.SetCurrent(connectionB);
+        cache.TryGetOriginalRequestData((VSInternalCompletionItem)completionListA.Items[0], out var cachedListFromB, out _);
+        Assert.NotSame(completionListA, cachedListFromB);
     }
 }
