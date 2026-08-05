@@ -85,5 +85,7 @@ internal sealed class CohostDocumentSymbolEndpoint(IIncompatibleProjectService i
     {
         public Task<SumType<DocumentSymbol[], SymbolInformation[]>?> HandleRequestAsync(TextDocument razorDocument, bool useHierarchicalSymbols, CancellationToken cancellationToken)
             => instance.HandleRequestAsync(razorDocument, useHierarchicalSymbols, cancellationToken);
+
+        public bool UseHierarchicalSymbols => instance.GetUseHierarchicalSymbolsBox().Value;
     }
 }

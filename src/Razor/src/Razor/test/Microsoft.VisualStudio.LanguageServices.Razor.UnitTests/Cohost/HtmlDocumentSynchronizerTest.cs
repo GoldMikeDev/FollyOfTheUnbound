@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Razor;
 using Microsoft.AspNetCore.Razor.Test.Common.VisualStudio;
 using Microsoft.AspNetCore.Razor.Threading;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Razor;
 using Microsoft.CodeAnalysis.Razor.Remote;
 using Microsoft.CodeAnalysis.Text;
@@ -354,6 +355,50 @@ public class HtmlDocumentSynchronizerTest(ITestOutputHelper testOutput) : Visual
                 Assert.Equal(_documentId, i.Document.Id);
                 Assert.Equal("<div></div>", i.Text);
             });
+    }
+
+    [Fact]
+    public async Task TrySynchronize_TwoConnections_DoNotShareSynchronizationRequests()
+    {
+        // Regression coverage for GoldMikeDev/roslyn#9: HtmlDocumentSynchronizer is a MEF-default-shared part,
+        // so a real daemon resolves the same instance for every connection. _synchronizationRequests used to be
+        // a single dictionary keyed only by document Uri, so connection B's DocumentRemoved for a Uri could
+        // clear out connection A's completed, cached synchronization request for that same Uri, forcing a
+        // needless re-generation (extra remote invocation) on connection A's next request. With the fix
+        // (ConditionalWeakTable keyed by AmbientConnectionToken.Current), connection B's DocumentRemoved must
+        // have no effect on connection A's state.
+        var document = Workspace.CurrentSolution.GetAdditionalDocument(_documentId).AssumeNotNull();
+        var documentUri = document.CreateSystemUri();
+
+        var publisher = new TestHtmlDocumentPublisher();
+        var remoteInvocations = 0;
+        var remoteServiceInvoker = new RemoteServiceInvoker(document, () =>
+        {
+            remoteInvocations++;
+            return Task.CompletedTask;
+        });
+        var synchronizer = new HtmlDocumentSynchronizer(remoteServiceInvoker, publisher, LoggerFactory);
+
+        var connectionA = new object();
+        var connectionB = new object();
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        var resultA1 = await synchronizer.TrySynchronizeAsync(document, DisposalToken);
+        Assert.True(resultA1.Synchronized);
+        Assert.Equal(1, remoteInvocations);
+
+        // Connection B removes the "same" document Uri. If the two connections shared one dictionary, this
+        // would evict connection A's cached, completed request for that Uri.
+        AmbientConnectionToken.SetCurrent(connectionB);
+        synchronizer.DocumentRemoved(documentUri, DisposalToken);
+
+        // Back on connection A: requesting the same version again should be served from A's still-intact
+        // cached request (no new remote invocation), proving B's removal didn't touch A's state.
+        AmbientConnectionToken.SetCurrent(connectionA);
+        var resultA2 = await synchronizer.TrySynchronizeAsync(document, DisposalToken);
+        Assert.True(resultA2.Synchronized);
+        Assert.Equal(resultA1.Checksum, resultA2.Checksum);
+        Assert.Equal(1, remoteInvocations);
     }
 
     private class RemoteServiceInvoker(TextDocument document, Func<Task>? generateTask = null) : IRemoteServiceInvoker

@@ -4,11 +4,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.LanguageServer;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Razor.Settings;
 using Microsoft.CodeAnalysis.Remote.Razor;
 using Microsoft.VisualStudio.Razor.LanguageClient.Cohost;
 using Microsoft.VisualStudioCode.RazorExtension.Configuration;
+using Microsoft.VisualStudioCode.RazorExtension.Services;
 using Xunit;
 
 namespace Microsoft.VisualStudioCode.RazorExtension.Test;
@@ -122,6 +124,40 @@ public sealed class RazorPerConnectionIsolationTests
         provider.GetTestAccessor().SetManagerForCurrentConnection(manager);
 
         Assert.Same(manager, provider.ClientLanguageServerManager);
+    }
+
+    [Fact]
+    public void VSCodeWorkspaceProvider_TwoConnections_DoNotShareWorkspace()
+    {
+        var connectionA = new object();
+        var connectionB = new object();
+        var provider = new VSCodeWorkspaceProvider();
+
+        using var workspaceA = new AdhocWorkspace();
+        using var workspaceB = new AdhocWorkspace();
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        provider.SetWorkspace(workspaceA);
+
+        AmbientConnectionToken.SetCurrent(connectionB);
+        provider.SetWorkspace(workspaceB);
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        Assert.Same(workspaceA, provider.GetWorkspace());
+
+        AmbientConnectionToken.SetCurrent(connectionB);
+        Assert.Same(workspaceB, provider.GetWorkspace());
+    }
+
+    [Fact]
+    public void VSCodeWorkspaceProvider_NoAmbientConnection_FallsBackToSharedSlot()
+    {
+        var provider = new VSCodeWorkspaceProvider();
+
+        using var workspace = new AdhocWorkspace();
+        provider.SetWorkspace(workspace);
+
+        Assert.Same(workspace, provider.GetWorkspace());
     }
 
     private sealed class FakeClientLanguageServerManager : IClientLanguageServerManager
