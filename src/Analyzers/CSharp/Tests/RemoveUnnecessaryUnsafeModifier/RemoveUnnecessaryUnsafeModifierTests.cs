@@ -190,17 +190,13 @@ public sealed class RemoveUnnecessaryUnsafeModifierTests
     public Task KeepWhenItMarksCallerUnsafe()
         => new VerifyCS.Test
         {
-            // https://github.com/dotnet/roslyn/issues/82546: this `unsafe` marks the member as caller-unsafe, it should not be removed
+            // https://github.com/dotnet/roslyn/issues/82546: this `unsafe` marks the member as caller-unsafe (it
+            // has no unsafe operations in its body, but the modifier still causes RequiresUnsafeAttribute to be
+            // emitted). Removing it would change the member's public contract, so no diagnostic should be reported.
             TestCode = """
                 class C
                 {
-                    public [|unsafe|] void M() { }
-                }
-                """,
-            FixedCode = """
-                class C
-                {
-                    public void M() { }
+                    public unsafe void M() { }
                 }
                 """,
             SolutionTransforms =
