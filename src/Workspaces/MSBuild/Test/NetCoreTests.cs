@@ -675,6 +675,41 @@ public sealed class NetCoreTests : MSBuildWorkspaceTestBase
     [ConditionalFact(typeof(DotNetSdkMSBuildInstalled))]
     [Trait(Traits.Feature, Traits.Features.MSBuildWorkspace)]
     [Trait(Traits.Feature, Traits.Features.NetCore)]
+    public async Task TestOpenProject_FileBasedApp_WorkspaceConfigurationOverride()
+    {
+        // Regression test: the final design-time load of a file-based app must merge the file-based-app's own
+        // run-file global properties with the workspace's own global properties (e.g. Configuration), rather than
+        // dropping the latter. If the workspace-level "Configuration=Release" override is lost, the project would
+        // still be evaluated as the file-based app's default "Debug" configuration and the compilation would define
+        // the DEBUG constant instead of leaving it undefined.
+        var sourceText = """
+            Console.WriteLine("Hello World!");
+            """;
+
+        CreateFiles(new FileSet(("Program.cs", sourceText)));
+
+        var sourceFilePath = GetSolutionFileName("Program.cs");
+
+        using var workspace = CreateMSBuildWorkspace(("Configuration", "Release"));
+        var project = await workspace.OpenProjectAsync(sourceFilePath);
+
+        Assert.Empty(workspace.Diagnostics);
+
+        // Assert that there is a single project loaded.
+        Assert.Single(workspace.CurrentSolution.ProjectIds);
+
+        // Assert that there are no compilation errors.
+        var compilation = await project.GetCompilationAsync();
+        compilation.GetDiagnostics().Where(d => d.Severity > DiagnosticSeverity.Hidden).Verify();
+
+        // The workspace's "Configuration=Release" override must have been honored by the final load, so DEBUG
+        // should not be defined (it is only defined for the file-based app's own default "Debug" configuration).
+        Assert.DoesNotContain("DEBUG", compilation.SyntaxTrees.First().Options.PreprocessorSymbolNames);
+    }
+
+    [ConditionalFact(typeof(DotNetSdkMSBuildInstalled))]
+    [Trait(Traits.Feature, Traits.Features.MSBuildWorkspace)]
+    [Trait(Traits.Feature, Traits.Features.NetCore)]
     public async Task TestOpenProject_FileBasedApp_NoExtension()
     {
         var sourceText = """
@@ -990,16 +1025,23 @@ public sealed class NetCoreTests : MSBuildWorkspaceTestBase
         Assert.Empty(programProject.ProjectReferences);
 
         var solution = programProject.AddProjectReference(new ProjectReference(utilProject.Id)).Solution;
-        Assert.True(workspace.TryApplyChanges(solution));
+        workspace.TryApplyChanges(solution);
 
-        Assert.Empty(workspace.Diagnostics);
+        // Project-file-level changes (like adding a project reference) can't be persisted for file-based apps: doing so
+        // would write to the transient, generated virtual project file rather than to the entry point file's '#:'
+        // directives, and the change would be silently lost the next time the file-based app is reloaded. So the change
+        // must be rejected (reported as a diagnostic) rather than silently applied-and-lost.
+        var diagnostic = Assert.Single(workspace.Diagnostics);
+        Assert.Equal(WorkspaceDiagnosticKind.Failure, diagnostic.Kind);
+        Assert.Contains("file-based", diagnostic.Message);
+
         Assert.Equal(["Program", "Util"], workspace.CurrentSolution.Projects.Select(p => p.Name).Order());
 
         programProject = workspace.CurrentSolution.Projects.Single(p => p.Name == "Program");
-        var projRef = Assert.Single(programProject.ProjectReferences);
-        Assert.Equal(projRef.ProjectId, workspace.CurrentSolution.Projects.Single(p => p.Name == "Util").Id);
+        Assert.Empty(programProject.ProjectReferences);
 
-        Assert.Empty((await programProject.GetCompilationAsync()).GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error && d.GetMessage().Contains("Util")));
+        var diag2 = Assert.Single((await programProject.GetCompilationAsync()).GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error && d.GetMessage().Contains("Util")));
+        Assert.Equal("CS0103", diag2.Id); // The name 'Util' does not exist in the current context
     }
 
     [ConditionalFact(typeof(DotNetSdkMSBuildInstalled))]

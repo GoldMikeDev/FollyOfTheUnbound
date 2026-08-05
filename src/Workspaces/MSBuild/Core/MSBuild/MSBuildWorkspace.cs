@@ -13,7 +13,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Microsoft.CodeAnalysis.FileBasedPrograms;
 using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.Host.Mef;
 using Microsoft.CodeAnalysis.Shared.Extensions;
@@ -357,27 +356,25 @@ public sealed class MSBuildWorkspace : Workspace
 
                 if (_loader.ProjectFileExtensionRegistry.TryGetLanguageNameFromProjectPath(projectPath, DiagnosticReportingMode.Log, out var languageName, out var isFileBasedApp))
                 {
+                    // File-based apps don't have a real project file on disk; TryGetLanguageNameFromProjectPath synthesizes
+                    // a virtual project (e.g. "Program.cs.csproj") from the source file's '#:' directives. Saving edits to
+                    // that virtual project would appear to work, but the edit is silently lost the next time the app is
+                    // reloaded, since the virtual project is regenerated from the (unchanged) source directives. Rather than
+                    // lose the edit silently, reject it here.
+                    if (isFileBasedApp)
+                    {
+                        Reporter.Report(new ProjectDiagnostic(WorkspaceDiagnosticKind.Failure,
+                                                               string.Format(WorkspaceMSBuildResources.Cannot_apply_project_file_changes_to_file_based_program_0, projectPath),
+                                                               projectChanges.ProjectId));
+                        return;
+                    }
+
                     try
                     {
-                        var preferredBuildHostKind = isFileBasedApp
-                            ? BuildHostProcessKind.NetCore
-                            : BuildHostProcessManager.GetKindForProject(projectPath);
+                        var preferredBuildHostKind = BuildHostProcessManager.GetKindForProject(projectPath);
                         var (buildHost, _) = _applyChangesBuildHostProcessManager.GetBuildHostWithFallbackAsync(preferredBuildHostKind, projectPath, CancellationToken.None).Result;
 
-                        if (isFileBasedApp)
-                        {
-                            var fileBasedProgramService = this.Services.GetRequiredService<IFileBasedProgramService>();
-                            _applyChangesProjectFile = FileBasedProgramsProjectLoader.LoadFileBasedAppProjectAsync(
-                                buildHost,
-                                fileBasedProgramService,
-                                projectPath,
-                                (error) => Reporter.Report(new WorkspaceDiagnostic(WorkspaceDiagnosticKind.Failure, error)),
-                                CancellationToken.None).Result;
-                        }
-                        else
-                        {
-                            _applyChangesProjectFile = buildHost.LoadProjectFileAsync(projectPath, languageName, CancellationToken.None).Result;
-                        }
+                        _applyChangesProjectFile = buildHost.LoadProjectFileAsync(projectPath, languageName, CancellationToken.None).Result;
                     }
                     catch (IOException exception)
                     {
