@@ -5086,6 +5086,26 @@ class C { }
                 Diagnostic(ErrorCode.ERR_SwitchArmSubsumed, "B or C").WithLocation(8, 5));
         }
 
+        [Fact]
+        public void RedundantPattern_BinaryPattern_PragmaRestoreBeforeRedundantNode_Investigation()
+        {
+            var source = """
+object o = null;
+#pragma warning disable CS9336
+_ = o is not A or (
+#pragma warning restore CS9336
+B or C);
+
+class A { }
+class B { }
+class C { }
+""";
+            var comp = CreateCompilation(source);
+            comp.VerifyEmitDiagnostics(
+                Diagnostic(ErrorCode.WRN_RedundantPattern, "B").WithLocation(5, 1),
+                Diagnostic(ErrorCode.WRN_RedundantPattern, "C").WithLocation(5, 6));
+        }
+
         [Fact, WorkItem("https://github.com/dotnet/roslyn/issues/75506")]
         public void RedundantPattern_BinaryPattern_NotNullOrBPattern()
         {

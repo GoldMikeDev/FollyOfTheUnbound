@@ -92,20 +92,60 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         /// <summary>
         /// Detect if 'patternSyntax' contains a 'not A or B'/'not A and B' syntactic form,
-        /// and that <see cref="ErrorCode.WRN_RedundantPattern"/> is enabled at its location.
+        /// and that <see cref="ErrorCode.WRN_RedundantPattern"/> is enabled somewhere within
+        /// <c>binary.Right</c>'s span.
         /// </summary>
         /// <remarks>
         /// This and <see cref="ShouldWarn"/> methods are sensitive to parens.
         /// So, for example, they will return false for '(not A) or B' as well as 'not (A or B)'.
         /// These forms are thought to not be hazardous and to not warrant warnings.
+        ///
+        /// Note: this is only a cheap pre-filter meant to let us skip the (relatively expensive)
+        /// reachability analysis when we can prove it cannot produce any reportable diagnostic.
+        /// The actual diagnostics we report later (<see cref="ReportRedundant"/>) go through the
+        /// normal diagnostic-filtering pipeline and are independently suppressed at their own
+        /// (precise) location, so this method must never return false for a pattern that could
+        /// legitimately produce an unsuppressed warning. In particular, `binary.Right`'s span may
+        /// contain a `#pragma warning restore CS9336` that re-enables the warning partway through,
+        /// for a nested redundant pattern located after the restore -- checking only the start of
+        /// `binary.Right` would miss that case and cause us to skip analysis (and hence the
+        /// diagnostic) entirely. So when directives are present in the span we check every token,
+        /// not just the first one.
         /// </remarks>
         private static bool ShouldAnalyze(CSharpCompilation compilation, SyntaxNode patternSyntax)
         {
             var hasWarningSeveritySyntaxForm = patternSyntax.DescendantNodesAndSelf().Any(
-                node => node is BinaryPatternSyntax binary && FindNotInBinary(binary.Left) && isRedundantPatternWarningEnabled(compilation, binary.Right));
+                node => node is BinaryPatternSyntax binary && FindNotInBinary(binary.Left) && isRedundantPatternWarningEnabledAnywhereIn(compilation, binary.Right));
             return hasWarningSeveritySyntaxForm;
 
-            static bool isRedundantPatternWarningEnabled(CSharpCompilation compilation, SyntaxNode syntax)
+            static bool isRedundantPatternWarningEnabledAnywhereIn(CSharpCompilation compilation, SyntaxNode syntax)
+            {
+                if (isRedundantPatternWarningEnabled(compilation, syntax.GetLocation()))
+                {
+                    return true;
+                }
+
+                // The fast path above only checked the start of `syntax`. If `syntax` contains no
+                // directives at all, suppression state cannot change within its span, so the fast
+                // path result is conclusive. Otherwise, a pragma restore could re-enable the
+                // warning partway through -- check every token to be sure.
+                if (!syntax.ContainsDirectives)
+                {
+                    return false;
+                }
+
+                foreach (SyntaxToken token in syntax.DescendantTokens())
+                {
+                    if (isRedundantPatternWarningEnabled(compilation, token.GetLocation()))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            static bool isRedundantPatternWarningEnabled(CSharpCompilation compilation, Location location)
             {
                 const ErrorCode code = ErrorCode.WRN_RedundantPattern;
                 var options = compilation.Options;
@@ -115,7 +155,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                     (int)code,
                     MessageProvider.Instance.GetIdForErrorCode((int)code),
                     ErrorFacts.GetWarningLevel(code),
-                    syntax.Location,
+                    location,
                     customTags: [],
                     options.WarningLevel,
                     options.NullableContextOptions,
