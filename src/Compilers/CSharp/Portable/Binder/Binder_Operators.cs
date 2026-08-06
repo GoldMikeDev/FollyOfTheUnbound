@@ -5697,7 +5697,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             // Scope restriction: only reference-type receivers are supported. Nullable value-type receivers
             // would require replicating BoundLoweredConditionalAccess's HasValue-based null test (a codegen-level
             // concern), which this shorthand does not attempt.
-            TypeSymbol? receiverType = conditionalAccess.Receiver.Type;
+            TypeSymbol receiverType = conditionalAccess.Receiver.Type;
             if (receiverType is null || !receiverType.IsReferenceType)
             {
                 if (!hasErrors)

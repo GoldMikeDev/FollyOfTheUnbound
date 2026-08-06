@@ -80,13 +80,13 @@
   <Target Name="_GetFilesToPackage">
     <ItemGroup>
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.AnalyzerUtilities\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.EditorFeatures\$(Configuration)\net472\Microsoft.CodeAnalysis.CSharp.EditorFeatures.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.Features\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.CSharp.Features.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.EditorFeatures\$(Configuration)\net472\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.EditorFeatures.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.Features\$(Configuration)\netstandard2.0\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.Scripting\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.Workspaces\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp.Workspaces\$(Configuration)\netstandard2.0\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Workspaces.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.CSharp\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.CSharp.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.EditorFeatures.Text\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.EditorFeatures.Text.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.EditorFeatures\$(Configuration)\net472\Microsoft.CodeAnalysis.EditorFeatures.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.EditorFeatures.Text\$(Configuration)\netstandard2.0\FollyOfTheUnbound.CodeAnalysis.EditorFeatures.Text.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.EditorFeatures\$(Configuration)\net472\FollyOfTheUnbound.CodeAnalysis.EditorFeatures.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.ExternalAccess.Apex\$(Configuration)\net472\Microsoft.CodeAnalysis.ExternalAccess.Apex.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.ExternalAccess.AspNetCore\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.ExternalAccess.AspNetCore.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.ExternalAccess.Debugger\$(Configuration)\net472\Microsoft.CodeAnalysis.ExternalAccess.Debugger.dll" TargetDir="" />
@@ -96,7 +96,7 @@
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Features.ExternalAccess\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.Features.ExternalAccess.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.ExternalAccess.FSharp\$(Configuration)\net472\Microsoft.CodeAnalysis.ExternalAccess.FSharp.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.LanguageServer.ExternalAccess\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.LanguageServer.ExternalAccess.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Features\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.Features.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Features\$(Configuration)\netstandard2.0\FollyOfTheUnbound.CodeAnalysis.Features.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.InteractiveHost\$(Configuration)\net472\Microsoft.CodeAnalysis.InteractiveHost.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.LanguageServer.Protocol\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.LanguageServer.Protocol.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Remote.ServiceHub\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.Remote.ServiceHub.dll" TargetDir="" />
@@ -110,14 +110,14 @@
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost\$(Configuration)\net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.exe" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts\$(Configuration)\net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Workspaces.MSBuild\$(Configuration)\net472\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Workspaces\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.Workspaces.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.Workspaces\$(Configuration)\netstandard2.0\FollyOfTheUnbound.CodeAnalysis.Workspaces.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.CSharp\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.CSharp.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.Implementation\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.Implementation.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.CSharp\$(Configuration)\net472\FollyOfTheUnbound.LanguageServices.CSharpUnbound.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.Implementation\$(Configuration)\net472\FollyOfTheUnbound.LanguageServices.Implementation.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.LiveShare\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.VisualBasic\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.VisualBasic.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.Xaml\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.Xaml.dll" TargetDir="" />
-      <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.dll" TargetDir="" />
+      <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices\$(Configuration)\net472\FollyOfTheUnbound.LanguageServices.dll" TargetDir="" />
       <_File Include="$(ArtifactsBinDir)Microsoft.VisualStudio.LanguageServices.ExternalAccess\$(Configuration)\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.dll" TargetDir="" />
 
       <_File Include="$(ArtifactsBinDir)Microsoft.CodeAnalysis.ResultProvider\$(Configuration)\netstandard2.0\Microsoft.CodeAnalysis.ExpressionEvaluator.ResultProvider.dll" TargetDir="" />
