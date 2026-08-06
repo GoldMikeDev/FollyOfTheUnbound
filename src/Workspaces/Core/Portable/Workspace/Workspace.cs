@@ -1014,6 +1014,16 @@ public abstract partial class Workspace : IDisposable
         => SetCurrentSolution(oldSolution => oldSolution.WithFallbackAnalyzerOptions(options), WorkspaceChangeKind.SolutionChanged);
 
     /// <summary>
+    /// Call this method to set the fallback analyzer options for a single project, without affecting the
+    /// solution-wide, language-keyed fallback options used by every other project (see <see
+    /// cref="Solution.WithProjectFallbackAnalyzerOptions"/>). Unlike <see
+    /// cref="OnSolutionFallbackAnalyzerOptionsChanged"/>, this does not clobber fallback options already in effect
+    /// for other projects of the same language in this workspace's solution.
+    /// </summary>
+    internal void OnProjectFallbackAnalyzerOptionsChanged(ProjectId projectId, StructuredAnalyzerConfigOptions options)
+        => SetCurrentSolution(oldSolution => oldSolution.WithProjectFallbackAnalyzerOptions(projectId, options), WorkspaceChangeKind.ProjectChanged, projectId);
+
+    /// <summary>
     /// Call this method when status of project has changed to incomplete.
     /// See <see cref="ProjectInfo.HasAllInformation"/> for more information.
     /// </summary>

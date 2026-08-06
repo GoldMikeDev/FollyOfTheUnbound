@@ -53,12 +53,13 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
     /// connection's solution entirely, not merely a stale-options gap. Since
     /// <see cref="MetadataAsSourceGeneratedFileInfo"/>'s <see cref="MetadataAsSourceGeneratedFileInfo.TemporaryFilePath"/>
     /// already embeds a fresh <see cref="Guid"/> per instance, giving each connection its own cache entry for the
-    /// same symbol also means its own distinct on-disk file -- no collision there either. This still doesn't
-    /// fully isolate connections (the single shared <see cref="MetadataAsSourceWorkspace"/>'s solution-wide
-    /// <c>FallbackAnalyzerOptions</c>, touched in the block below, remains one value for every connection -- that
-    /// piece needs Workspace-level per-connection scoping that doesn't exist today to fix properly), but it fixes
-    /// the more severe half of this gap: a generated file is now only ever mapped back to the connection that
-    /// actually generated it.
+    /// same symbol also means its own distinct on-disk file -- no collision there either. Combined with the
+    /// per-project fallback analyzer options override used in the block below (see
+    /// <see cref="Solution.WithProjectFallbackAnalyzerOptions"/>) instead of the solution-wide
+    /// <c>FallbackAnalyzerOptions</c>, connections are now fully isolated: a generated file is only ever mapped
+    /// back to the connection that actually generated it, and its fallback analyzer options are scoped to just
+    /// its own temporary project in the single shared <see cref="MetadataAsSourceWorkspace"/>, unaffected by any
+    /// other connection's navigations.
     /// </remarks>
     private readonly Dictionary<(Workspace SourceWorkspace, UniqueDocumentKey Key), MetadataAsSourceGeneratedFileInfo> _keyToInformation = [];
 
@@ -117,26 +118,22 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
         Location navigateLocation;
         if (!_generatedFilenameToInformation.TryGetValue(fileInfo.TemporaryFilePath, out var existingDocumentId))
         {
-            // Only push the source workspace's current fallback analyzer config options into the (single,
-            // process-wide-shared -- see GoldMikeDev/roslyn#9) MAS workspace when we're actually generating a
-            // new document for it, not on every re-navigation to one that's already cached: decompilation
-            // doesn't add projects to the MAS workspace, so it might remain empty and not receive fallback
-            // options automatically, but doing this unconditionally on every call would let a later
-            // connection's navigation silently overwrite the options in effect for an earlier connection's
-            // still-open document every time it's revisited, not just once at creation. Now that
-            // <see cref="_keyToInformation"/> is keyed per <paramref name="sourceWorkspace"/> too (see its own
-            // remarks), "generating a new document" happens once per (connection, symbol) rather than once per
-            // symbol process-wide, so this now reflects each connection's own fallback options as of its own
-            // first navigation to a given symbol -- still one shared value on the single MAS workspace, so a
-            // later connection's first navigation to a *different* symbol still overwrites it for everyone
-            // (the MAS workspace's <c>FallbackAnalyzerOptions</c> has no per-project/per-connection scoping to
-            // fix that properly), but no longer permanently pinned to whichever connection happened to be first
-            // ever to touch a given symbol.
-            metadataWorkspace.OnSolutionFallbackAnalyzerOptionsChanged(sourceWorkspace.CurrentSolution.FallbackAnalyzerOptions);
-
             // We don't have this file in the workspace.  We need to create a project to put it in.
             var (temporaryProjectInfo, temporaryDocumentId) = GenerateProjectAndDocumentInfo(fileInfo, metadataWorkspace.CurrentSolution.Services, sourceProject, topLevelNamedType);
             var temporarySolution = metadataWorkspace.CurrentSolution.AddProject(temporaryProjectInfo);
+
+            // Push the source workspace's current fallback analyzer config options onto just the project we
+            // created above, scoped to that single project via a per-project override, rather than onto the
+            // (single, process-wide-shared -- see GoldMikeDev/roslyn#9) MAS workspace's solution-wide,
+            // language-keyed fallback options. The solution-wide API would clobber the options in effect for
+            // every other already-open metadata document of the same language in this shared MAS workspace,
+            // including ones belonging to other connections; the per-project override affects only the project
+            // just added here, so an earlier connection's still-open document keeps seeing its own fallback
+            // options no matter how many later connections/navigations touch this workspace afterwards.
+            metadataWorkspace.OnProjectFallbackAnalyzerOptionsChanged(
+                temporaryProjectInfo.Id,
+                sourceProject.GetFallbackAnalyzerOptions());
+            temporarySolution = metadataWorkspace.CurrentSolution;
 
             var temporaryDocument = temporarySolution
                 .GetRequiredDocument(temporaryDocumentId);

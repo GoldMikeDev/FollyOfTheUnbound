@@ -520,6 +520,19 @@ public partial class Solution
         => WithCompilationState(CompilationState.WithFallbackAnalyzerOptions(options));
 
     /// <summary>
+    /// Create a new solution instance updated to use the specified <paramref name="options"/> as the fallback
+    /// analyzer options for just the project identified by <paramref name="projectId"/>, without affecting the
+    /// solution-wide, language-keyed <see cref="FallbackAnalyzerOptions"/> or any other project's fallback
+    /// options. Once set, <see cref="Project.GetFallbackAnalyzerOptions"/> for this project will return
+    /// <paramref name="options"/> instead of falling back to the solution-wide value, until this project's
+    /// override is cleared or overwritten, or the solution-wide value is changed for this project's language via
+    /// <see cref="WithFallbackAnalyzerOptions"/> (which resets every project's fallback options for that
+    /// language, including any per-project override).
+    /// </summary>
+    internal Solution WithProjectFallbackAnalyzerOptions(ProjectId projectId, StructuredAnalyzerConfigOptions options)
+        => WithCompilationState(CompilationState.WithProjectFallbackAnalyzerOptions(projectId, options));
+
+    /// <summary>
     /// Forks this solution to ensure that its <see cref="FallbackAnalyzerOptions"/> are updated with the latest values
     /// from the host, provided via <see cref="IFallbackAnalyzerConfigOptionsProvider"/>, using <paramref
     /// name="oldSolution"/> as the baseline solution that this solution was forked from.  Specifically, this will

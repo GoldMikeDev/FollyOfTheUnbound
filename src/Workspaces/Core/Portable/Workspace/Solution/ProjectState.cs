@@ -814,6 +814,14 @@ internal sealed partial class ProjectState : IComparable<ProjectState>
         return CreateNewStateForChangedAnalyzerConfig(AnalyzerConfigDocumentStates, options);
     }
 
+    /// <summary>
+    /// The fallback analyzer options currently in effect for this project, whether inherited from the
+    /// solution-wide, language-keyed value or set as a per-project override via <see
+    /// cref="WithFallbackAnalyzerOptions"/>.
+    /// </summary>
+    public StructuredAnalyzerConfigOptions FallbackAnalyzerOptions
+        => _analyzerConfigOptionsCache.FallbackOptions;
+
     public static bool IsSameLanguage(ProjectState project1, ProjectState project2)
         => project1.LanguageServices == project2.LanguageServices;
 

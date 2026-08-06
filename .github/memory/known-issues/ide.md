@@ -66,20 +66,24 @@ ambient-token-keyed pattern: `VSCodeWorkspaceProvider`, `AbstractClientCapabilit
 (state *and* its `ClientSettingsChanged` subscription/handler are now per-connection), `HtmlDocumentSynchronizer`
 (`_synchronizationRequests` is now a dictionary-per-connection), and `CohostDocumentSymbolEndpoint`
 (`_useHierarchicalSymbols` is now boxed per-connection).
-**Still open, genuinely unresolved (not by design):** A non-Razor instance:
-`DecompilationMetadataAsSourceFileProvider` (`src/Features/Core/Portable/MetadataAsSource/`) mutates the one
-shared `MetadataAsSourceWorkspace`'s fallback analyzer options, so a later connection's navigation-to-metadata
-can still change settings in effect for an earlier connection's already-open metadata document — narrowed
-(the mutation now only happens on first generation of a given metadata document, not on every re-navigation)
-but not eliminated, because `MapDocument`/`ShouldCollapseOnOpen` (the `IMetadataAsSourceFileProvider`
-call sites) have no connection/session identity available today, and it's below `LanguageServer.Protocol` in
-the dependency graph, so it's structurally out of reach of `GetConnectionScopedOption` even in principle —
-a full fix needs new plumbing from the LSP `RequestContext` down through `MetadataAsSourceFileService`/
-`AbstractLanguageService`/`AbstractStructureTaggerProvider`.
-**Workaround:** None needed for the option/log/handshake-routed config, `ServiceBrokerProvider`,
-`FeatureProviderRefresher`, or any of the six Razor singletons anymore. Telemetry misattribution and the
-`DecompilationMetadataAsSourceFileProvider` fallback-options leak have no workaround and aren't going to get
-one without further work; both tracked as
+**Fixed:** `DecompilationMetadataAsSourceFileProvider` (`src/Features/Core/Portable/MetadataAsSource/`) used to
+mutate the one shared `MetadataAsSourceWorkspace`'s *solution-wide*, language-keyed
+`Solution.FallbackAnalyzerOptions` on every new metadata document generation, so a later connection's
+navigation-to-metadata could silently change settings in effect for an earlier connection's already-open
+metadata document. Fixed via a genuine per-project fallback-options override:
+`Solution.WithProjectFallbackAnalyzerOptions(ProjectId, StructuredAnalyzerConfigOptions)` /
+`Workspace.OnProjectFallbackAnalyzerOptionsChanged` set the fallback options for just the one temporary
+project the provider creates for that navigation (via the pre-existing but previously solution-only-reachable
+per-project state on `ProjectState`/`AnalyzerConfigOptionsCache`), leaving every other project's — and every
+other connection's — fallback options untouched. `Project.GetFallbackAnalyzerOptions()` now reads this
+per-project state directly (`State.FallbackAnalyzerOptions`) instead of the solution-wide dictionary, so the
+per-project override is honored transparently by every consumer (formatting, diagnostics, brace completion,
+etc.) with zero behavior change for any project that never sets one. Verified by
+`SolutionTests.WithProjectFallbackAnalyzerOptions_DoesNotAffectOtherProjects` (Workspaces-layer round-trip)
+and `MetadataAsSourceTests.TestFallbackAnalyzerOptionsIsolatedPerConnection` (two-connection regression through
+the shared provider/workspace).
+**Workaround:** None needed anywhere in this daemon-per-connection-isolation effort anymore. Telemetry
+misattribution remains open by design (see above); both were tracked as
 [GoldMikeDev/roslyn#9](https://github.com/GoldMikeDev/roslyn/issues/9). Full design write-up, phase-by-phase
 history, and the "Decisions" section explaining why telemetry is out of scope:
 `docs/ide/specs/daemon-per-connection-isolation.md`.

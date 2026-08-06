@@ -978,6 +978,10 @@ internal sealed partial class SolutionCompilationState
     public SolutionCompilationState WithFallbackAnalyzerOptions(ImmutableDictionary<string, StructuredAnalyzerConfigOptions> options)
         => Branch(SolutionState.WithFallbackAnalyzerOptions(options));
 
+    /// <inheritdoc cref="SolutionState.WithProjectFallbackAnalyzerOptions(ProjectId, StructuredAnalyzerConfigOptions)"/>
+    public SolutionCompilationState WithProjectFallbackAnalyzerOptions(ProjectId projectId, StructuredAnalyzerConfigOptions options)
+        => UpdateAnalyzerConfigDocumentState(this.SolutionState.WithProjectFallbackAnalyzerOptions(projectId, options));
+
     /// <inheritdoc cref="SolutionState.WithDocumentText(DocumentId, TextAndVersion, PreservationMode)"/>
     public SolutionCompilationState WithDocumentText(
         DocumentId documentId, TextAndVersion textAndVersion, PreservationMode mode)

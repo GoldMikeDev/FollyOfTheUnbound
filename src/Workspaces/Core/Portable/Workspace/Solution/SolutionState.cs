@@ -965,6 +965,23 @@ internal sealed partial class SolutionState
     }
 
     /// <summary>
+    /// Creates a new solution instance with the fallback analyzer options for a single project updated, without
+    /// affecting the solution-wide, language-keyed <see cref="FallbackAnalyzerOptions"/> or any other project's
+    /// fallback options.
+    /// </summary>
+    public StateChange WithProjectFallbackAnalyzerOptions(ProjectId projectId, StructuredAnalyzerConfigOptions options)
+    {
+        var oldProject = GetRequiredProjectState(projectId);
+        var newProject = oldProject.WithFallbackAnalyzerOptions(options);
+        if (oldProject == newProject)
+        {
+            return new(this, oldProject, newProject);
+        }
+
+        return ForkProject(oldProject, newProject);
+    }
+
+    /// <summary>
     /// Creates a new solution instance with an attribute of the document updated, if its value has changed.
     /// </summary>
     public StateChange WithDocumentAttributes<TArg>(
