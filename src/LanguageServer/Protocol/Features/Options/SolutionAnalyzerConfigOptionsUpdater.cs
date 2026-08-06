@@ -14,6 +14,7 @@ using Microsoft.CodeAnalysis.ErrorReporting;
 using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.Host.Mef;
 using Microsoft.CodeAnalysis.Shared.Collections;
+using Microsoft.CodeAnalysis.Shared.Extensions;
 using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.Options;
@@ -40,67 +41,81 @@ internal sealed class SolutionAnalyzerConfigOptionsUpdater(IGlobalOptionService 
 
         try
         {
-            // only editorconfig options are stored in Solution.FallbackAnalyzerOptions:
-            if (!args.ChangedOptions.Any(static o => o.key.Option.Definition.IsEditorConfigOption))
-            {
-                return;
-            }
-
-            _ = ((Workspace)target).SetCurrentSolution(UpdateOptions, changeKind: WorkspaceChangeKind.SolutionChanged);
-
-            Solution UpdateOptions(Solution oldSolution)
-            {
-                var oldFallbackOptions = oldSolution.FallbackAnalyzerOptions;
-                var newFallbackOptions = oldFallbackOptions;
-
-                foreach (var (language, languageOptions) in oldFallbackOptions)
-                {
-                    ImmutableDictionary<string, string>.Builder? lazyBuilder = null;
-
-                    foreach (var (key, value) in args.ChangedOptions)
-                    {
-                        if (!key.Option.Definition.IsEditorConfigOption)
-                        {
-                            continue;
-                        }
-
-                        if (key.Language != null && key.Language != language)
-                        {
-                            continue;
-                        }
-
-                        if (lazyBuilder == null)
-                        {
-                            lazyBuilder = ImmutableDictionary.CreateBuilder<string, string>(AnalyzerConfigOptions.KeyComparer);
-
-                            // copy existing option values:
-                            foreach (var oldKey in languageOptions.Keys)
-                            {
-                                if (languageOptions.TryGetValue(oldKey, out var oldValue))
-                                {
-                                    lazyBuilder.Add(oldKey, oldValue);
-                                }
-                            }
-                        }
-
-                        // update changed value:
-                        EditorConfigValueSerializer.Serialize(lazyBuilder, key.Option, language, value);
-                    }
-
-                    if (lazyBuilder != null)
-                    {
-                        newFallbackOptions = newFallbackOptions.SetItem(
-                            language,
-                            StructuredAnalyzerConfigOptions.Create(new DictionaryAnalyzerConfigOptions(lazyBuilder.ToImmutable())));
-                    }
-                }
-
-                return oldSolution.WithFallbackAnalyzerOptions(newFallbackOptions);
-            }
+            ApplyChangedOptionsIfRelevant((Workspace)target, args.ChangedOptions.SelectAsArray(static o => KeyValuePair.Create(o.key, o.newValue)));
         }
         catch (Exception e) when (FatalError.ReportAndPropagate(e, ErrorSeverity.Diagnostic))
         {
             throw ExceptionUtilities.Unreachable();
+        }
+    }
+
+    /// <summary>
+    /// Applies <paramref name="changedOptions"/> to <paramref name="workspace"/>'s <see cref="Solution.FallbackAnalyzerOptions"/>,
+    /// the same transform <see cref="GlobalOptionsChanged"/> applies in response to a real
+    /// <see cref="IGlobalOptionService"/> change event. Exposed so callers that change options through a path
+    /// other than <see cref="IGlobalOptionService"/> (e.g. daemon-mode connection-scoped overrides -- see
+    /// docs/ide/specs/daemon-per-connection-isolation.md -- which intentionally never touch the shared
+    /// <see cref="IGlobalOptionService"/>, and so never raise the event this type normally listens for) can
+    /// still keep a workspace's fallback options in sync without duplicating this logic.
+    /// </summary>
+    public static void ApplyChangedOptionsIfRelevant(Workspace workspace, IReadOnlyList<KeyValuePair<OptionKey2, object?>> changedOptions)
+    {
+        // only editorconfig options are stored in Solution.FallbackAnalyzerOptions:
+        if (!changedOptions.Any(static o => o.Key.Option.Definition.IsEditorConfigOption))
+        {
+            return;
+        }
+
+        _ = workspace.SetCurrentSolution(UpdateOptions, changeKind: WorkspaceChangeKind.SolutionChanged);
+
+        Solution UpdateOptions(Solution oldSolution)
+        {
+            var oldFallbackOptions = oldSolution.FallbackAnalyzerOptions;
+            var newFallbackOptions = oldFallbackOptions;
+
+            foreach (var (language, languageOptions) in oldFallbackOptions)
+            {
+                ImmutableDictionary<string, string>.Builder? lazyBuilder = null;
+
+                foreach (var (key, value) in changedOptions)
+                {
+                    if (!key.Option.Definition.IsEditorConfigOption)
+                    {
+                        continue;
+                    }
+
+                    if (key.Language != null && key.Language != language)
+                    {
+                        continue;
+                    }
+
+                    if (lazyBuilder == null)
+                    {
+                        lazyBuilder = ImmutableDictionary.CreateBuilder<string, string>(AnalyzerConfigOptions.KeyComparer);
+
+                        // copy existing option values:
+                        foreach (var oldKey in languageOptions.Keys)
+                        {
+                            if (languageOptions.TryGetValue(oldKey, out var oldValue))
+                            {
+                                lazyBuilder.Add(oldKey, oldValue);
+                            }
+                        }
+                    }
+
+                    // update changed value:
+                    EditorConfigValueSerializer.Serialize(lazyBuilder, key.Option, language, value);
+                }
+
+                if (lazyBuilder != null)
+                {
+                    newFallbackOptions = newFallbackOptions.SetItem(
+                        language,
+                        StructuredAnalyzerConfigOptions.Create(new DictionaryAnalyzerConfigOptions(lazyBuilder.ToImmutable())));
+                }
+            }
+
+            return oldSolution.WithFallbackAnalyzerOptions(newFallbackOptions);
         }
     }
 }

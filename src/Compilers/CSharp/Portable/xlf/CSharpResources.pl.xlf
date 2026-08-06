@@ -1532,6 +1532,11 @@
         <target state="new">Cannot mutate '{0}' to type '{1}': no valid conversion exists from '{2}'.</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_InvalidPropertyUnsafeMods">
+        <source>Cannot specify 'unsafe' or 'safe' modifiers on both property or indexer '{0}' and its accessor. Remove one of them.</source>
+        <target state="translated">Nie można określić modyfikatorów „readonly” jednocześnie dla właściwości lub indeksatora „{0}” i jego metody dostępu. Usuń jeden z nich.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_MemberProviderInUnionDeclaration">
         <source>A 'union' declaration cannot use a union member provider interface.</source>
         <target state="translated">Deklaracja typu „union” nie może wykorzystywać interfejsu dostawcy elementów składowych typu union.</target>
@@ -2532,10 +2537,15 @@
         <target state="translated">Docelowe środowisko uruchomieniowe nie obsługuje rozszerzalnych ani domyślnych dla środowiska uruchomieniowego konwencji wywoływania.</target>
         <note />
       </trans-unit>
-      <trans-unit id="ERR_SafeModifierUnsupportedTarget">
-        <source>The 'safe' modifier may only be used on members that are not marked 'unsafe' and are either 'extern', or field-like in types with explicit or extended layout.</source>
-        <target state="translated">Modyfikator „safe” można stosować tylko do składowych, które nie są oznaczone jako „unsafe” i są albo „extern”, albo przypominają pole w typach z układem jawnym lub rozszerzonym.</target>
-        <note>'safe', 'extern', and 'unsafe' should not be localized.</note>
+      <trans-unit id="ERR_SafeModifierCannotBeUsedWithUnsafe">
+        <source>The 'safe' and 'unsafe' modifiers cannot be used together.</source>
+        <target state="translated">Modyfikatory „safe” i „unsafe” nie mogą być używane razem.</target>
+        <note>'safe' and 'unsafe' should not be localized.</note>
+      </trans-unit>
+      <trans-unit id="ERR_SamePropertyUnsafeAccessorMods">
+        <source>Cannot specify the same 'unsafe' or 'safe' modifier on all accessors of property or indexer '{0}'. Instead, put that modifier on the property itself.</source>
+        <target state="translated">Nie można określić tego samego modyfikatora „unsafe” lub „safe” we wszystkich metodach dostępu właściwości lub indeksatora „{0}”. Zamiast tego umieść ten modyfikator w samej właściwości.</target>
+        <note />
       </trans-unit>
       <trans-unit id="ERR_ScopedAfterInOutRefReadonly">
         <source>The 'scoped' modifier cannot come after an 'in', 'out', 'ref' or 'readonly' modifier.</source>
@@ -2937,6 +2947,11 @@
         <target state="translated">W wersji językowej {0}, „field” jest słowem kluczowym w akcesorze właściwości. Zmień nazwę zmiennej lub użyj zamiast niej identyfikatora „@field”.</target>
         <note />
       </trans-unit>
+      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
+        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
+        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
+        <note />
+      </trans-unit>
       <trans-unit id="ERR_WrongArityAsyncReturn">
         <source>A generic task-like return type was expected, but the type '{0}' found in 'AsyncMethodBuilder' attribute was not suitable. It must be an unbound generic type of arity one, and its containing type (if any) must be non-generic.</source>
         <target state="translated">Oczekiwano zwracanego typu podobnego do zadania ogólnego, ale typ "{0}" znaleziony w atrybucie "AsyncMethodBuilder" był nieodpowiedni. Musi to być niepowiązany typ ogólny jednego argumentu, a zawarty w nim typ (jeśli występuje), nie może być ogólny.</target>
@@ -2957,11 +2972,6 @@
         <target state="translated">Dyrektywa użycia pojawiła się wcześniej jako użycie globalne</target>
         <note />
       </trans-unit>
-      <trans-unit id="HDN_RedundantPattern">
-        <source>The pattern is redundant.</source>
-        <target state="translated">Wzorzec jest zbędny.</target>
-        <note />
-      </trans-unit>
       <trans-unit id="HDN_RedundantPatternStackGuard">
         <source>The pattern is too complex to analyze for redundancy.</source>
         <target state="translated">Wzorzec jest zbyt złożony, aby można go było przeanalizować pod kątem nadmiarowości.</target>
@@ -2970,11 +2980,6 @@
       <trans-unit id="HDN_RedundantPatternStackGuard_Title">
         <source>The pattern is too complex to analyze for redundancy.</source>
         <target state="translated">Wzorzec jest zbyt złożony, aby można go było przeanalizować pod kątem nadmiarowości.</target>
-        <note />
-      </trans-unit>
-      <trans-unit id="HDN_RedundantPattern_Title">
-        <source>The pattern is redundant.</source>
-        <target state="translated">Wzorzec jest zbędny.</target>
         <note />
       </trans-unit>
       <trans-unit id="IDS_ArrayAccess">
@@ -7243,11 +7248,6 @@
       <trans-unit id="ERR_VoidError">
         <source>The operation in question is undefined on void pointers</source>
         <target state="translated">Rozpatrywana operacja jest niezdefiniowana we wskaźnikach void</target>
-        <note />
-      </trans-unit>
-      <trans-unit id="ERR_VoidCoalesceRequiresReferenceTypeReceiver">
-        <source>The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</source>
-        <target state="new">The 'expr?.Member(...) ?? fallback' void-coalescing shorthand requires the receiver of '?.' to be a reference type.</target>
         <note />
       </trans-unit>
       <trans-unit id="ERR_ConditionalOnOverride">

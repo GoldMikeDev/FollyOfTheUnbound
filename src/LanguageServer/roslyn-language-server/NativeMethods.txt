@@ -1,0 +1,11 @@
+CreateProcessW
+CreatePipe
+SetHandleInformation
+GetCurrentProcess
+IsProcessInJob
+CreateJobObjectW
+AssignProcessToJobObject
+TerminateJobObject
+ResumeThread
+GetExitCodeProcess
+TerminateProcess

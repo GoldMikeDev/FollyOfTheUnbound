@@ -141,7 +141,7 @@ internal sealed class ProjectBuildManager : IDisposable
             // is the default if we call the overload with just a stream.
             await stream.CopyToAsync(readStream, bufferSize: 81920, cancellationToken).ConfigureAwait(false);
             readStream.Position = 0;
-            return LoadProjectCore(path, readStream, log);
+            return LoadProjectCore(path, readStream, globalProperties: null, log);
         }
         catch (Exception e)
         {
@@ -151,7 +151,7 @@ internal sealed class ProjectBuildManager : IDisposable
     }
 
     private (MSB.Evaluation.Project? project, DiagnosticLog log) LoadProjectCore(
-        string path, Stream readStream, DiagnosticLog log)
+        string path, Stream readStream, IDictionary<string, string>? globalProperties, DiagnosticLog log)
     {
         try
         {
@@ -170,9 +170,27 @@ internal sealed class ProjectBuildManager : IDisposable
                 | MSB.Evaluation.ProjectLoadSettings.DoNotEvaluateElementsWithFalseCondition
                 | MSB.Evaluation.ProjectLoadSettings.FailOnUnresolvedSdk;
 
+            // When explicit global properties are supplied (e.g. the run-file globals for a file-based app),
+            // MSBuild's Project constructor uses them verbatim instead of falling back to the ProjectCollection's
+            // own global properties (which carry workspace-level overrides like Configuration/TargetFramework).
+            // Merge the two so that the workspace-level globals are still honored, with the caller-supplied
+            // globals taking precedence on conflicting keys -- matching the merge already done in
+            // LoadProjectInstance below.
+            IDictionary<string, string>? mergedGlobalProperties = globalProperties;
+            if (globalProperties != null)
+            {
+                var merged = new Dictionary<string, string>(_projectCollection.GlobalProperties, StringComparer.OrdinalIgnoreCase);
+                foreach (var pair in globalProperties)
+                {
+                    merged[pair.Key] = pair.Value;
+                }
+
+                mergedGlobalProperties = merged;
+            }
+
             var project = new MSB.Evaluation.Project(
                 xml,
-                globalProperties: null,
+                mergedGlobalProperties,
                 toolsVersion: null,
                 _projectCollection,
                 projectLoadSettings);
@@ -186,19 +204,55 @@ internal sealed class ProjectBuildManager : IDisposable
         }
     }
 
-    public (MSB.Evaluation.Project? project, DiagnosticLog log) LoadProject(string path, Stream readStream)
+    public (MSB.Evaluation.Project? project, DiagnosticLog log) LoadProject(string path, Stream readStream, IDictionary<string, string>? globalProperties)
     {
         Contract.ThrowIfTrue(_disposed);
 
         var log = new DiagnosticLog();
         try
         {
-            return LoadProjectCore(path, readStream, log);
+            return LoadProjectCore(path, readStream, globalProperties, log);
         }
         catch (Exception e)
         {
             log.Add(e, path);
             return (project: null, log);
+        }
+    }
+
+    public (MSB.Execution.ProjectInstance? projectInstance, DiagnosticLog log) LoadProjectInstance(string path, TextReader content, IDictionary<string, string>? additionalGlobalProperties)
+    {
+        Contract.ThrowIfTrue(_disposed);
+
+        var log = new DiagnosticLog();
+        try
+        {
+            using var xmlReader = XmlReader.Create(content, s_xmlReaderSettings);
+            var projectRootElement = MSB.Construction.ProjectRootElement.Create(xmlReader, _projectCollection);
+            projectRootElement.FullPath = path;
+
+            var mergedGlobalProperties = new Dictionary<string, string>(_projectCollection.GlobalProperties, StringComparer.OrdinalIgnoreCase);
+
+            if (additionalGlobalProperties != null)
+            {
+                foreach (var pair in additionalGlobalProperties)
+                {
+                    mergedGlobalProperties[pair.Key] = pair.Value;
+                }
+            }
+
+            var projectInstance = MSB.Execution.ProjectInstance.FromProjectRootElement(projectRootElement, new MSB.Definition.ProjectOptions
+            {
+                ProjectCollection = _projectCollection,
+                GlobalProperties = mergedGlobalProperties,
+            });
+
+            return (projectInstance, log);
+        }
+        catch (Exception e)
+        {
+            log.Add(e, path);
+            return (projectInstance: null, log);
         }
     }
 

@@ -6,12 +6,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.ErrorReporting;
 using Microsoft.CodeAnalysis.Features.Workspaces;
+using Microsoft.CodeAnalysis.FileBasedPrograms;
 using Microsoft.CodeAnalysis.Host;
+using Microsoft.CodeAnalysis.LanguageServer;
+using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
-using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.ProjectTelemetry;
 using Microsoft.CodeAnalysis.Options;
-using Microsoft.CodeAnalysis.ProjectSystem;
-using Microsoft.CodeAnalysis.Shared.Extensions;
 using Microsoft.CodeAnalysis.Shared.TestHooks;
 using Microsoft.CodeAnalysis.Shared.Utilities;
 using Microsoft.CodeAnalysis.Text;
@@ -24,13 +24,18 @@ using Roslyn.Utilities;
 namespace Microsoft.CodeAnalysis.LanguageServer.FileBasedPrograms;
 
 /// <summary>Handles loading both miscellaneous files and file-based program projects.</summary>
-internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoader, ILspMiscellaneousFilesWorkspaceProvider
+internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoader, ILspMiscellaneousFilesWorkspaceProvider, IOnConfigurationChanged
 {
     private readonly ILspServices _lspServices;
     private readonly ILogger<FileBasedProgramsProjectSystem> _logger;
-    private readonly VirtualProjectXmlProvider _projectXmlProvider;
     private readonly CanonicalMiscellaneousFilesProjectProvider _canonicalProjectProvider;
-    private readonly DotnetCliHelper _dotnetCliHelper;
+
+    /// <summary>
+    /// The last value of <see cref="LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms"/> this
+    /// connection observed, used by <see cref="OnConfigurationChangedAsync"/> to detect an actual change (that
+    /// method is called on every configuration change notification, not just ones affecting this option).
+    /// </summary>
+    private bool _lastKnownEnableFileBasedPrograms;
 
     /// <summary>
     /// Virtual (in-memory) projects don't exist on disk, so MSBuild worker nodes
@@ -40,7 +45,6 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
 
     public FileBasedProgramsProjectSystem(
         ILspServices lspServices,
-        VirtualProjectXmlProvider projectXmlProvider,
         IGlobalOptionService globalOptionService,
         ILoggerFactory loggerFactory,
         IAsynchronousOperationListenerProvider listenerProvider,
@@ -58,11 +62,32 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
     {
         _lspServices = lspServices;
         _logger = loggerFactory.CreateLogger<FileBasedProgramsProjectSystem>();
-        _projectXmlProvider = projectXmlProvider;
         _canonicalProjectProvider = new CanonicalMiscellaneousFilesProjectProvider(lspServices.GetRequiredService<IHostWorkspaceProvider>(), loggerFactory);
-        _dotnetCliHelper = dotnetCliHelper;
+        _lastKnownEnableFileBasedPrograms = globalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
 
         globalOptionService.AddOptionChangedHandler(this, OnGlobalOptionChanged);
+    }
+
+    /// <summary>
+    /// Connection-scoped counterpart to <see cref="OnGlobalOptionChanged"/>: <c>ConnectionScopedOptionOverrides.SetOverrides</c>
+    /// deliberately never raises the shared <see cref="IGlobalOptionService"/>'s option-changed event for a daemon
+    /// connection's own option changes (see docs/ide/specs/daemon-per-connection-isolation.md), so a client
+    /// toggling <c>dotnet.projects.enableFileBasedPrograms</c> via <c>workspace/didChangeConfiguration</c> would
+    /// otherwise never trigger this transition. <c>DidChangeConfigurationNotificationHandler</c> invokes
+    /// every connection-scoped <see cref="IOnConfigurationChanged"/> after every configuration change (not just
+    /// ones affecting this option), so this compares against <see cref="_lastKnownEnableFileBasedPrograms"/> to
+    /// detect an actual change rather than unloading projects unconditionally on every call.
+    /// </summary>
+    public Task OnConfigurationChangedAsync(RequestContext context, CancellationToken cancellationToken)
+    {
+        var currentValue = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+        if (currentValue != _lastKnownEnableFileBasedPrograms)
+        {
+            _lastKnownEnableFileBasedPrograms = currentValue;
+            OnEnableFileBasedProgramsChanged(currentValue);
+        }
+
+        return Task.CompletedTask;
     }
 
     public override void Dispose()
@@ -77,12 +102,26 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         {
             if (key.Option.Equals(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms))
             {
-                // This event handler can't be async, so we ignore the resulting task here,
-                // and take care that the ignored call doesn't throw an exception
-                _ = HandleEnableFileBasedProgramsChangedAsync((bool)value!);
+                OnEnableFileBasedProgramsChanged((bool)value!);
                 break;
             }
         }
+    }
+
+    /// <summary>
+    /// Connection-scoped counterpart to <see cref="OnGlobalOptionChanged"/>: <c>ConnectionScopedOptionOverrides.SetOverrides</c>
+    /// deliberately never raises the shared <see cref="IGlobalOptionService"/>'s option-changed event for a daemon
+    /// connection's own option changes (see docs/ide/specs/daemon-per-connection-isolation.md), so a client
+    /// toggling <c>dotnet.projects.enableFileBasedPrograms</c> via <c>workspace/didChangeConfiguration</c> would
+    /// otherwise never trigger this transition. This instance is itself connection-scoped (constructed per
+    /// connection by <see cref="FileBasedProgramsWorkspaceProviderFactory"/>), so the caller only needs to invoke
+    /// this on its own connection's instance.
+    /// </summary>
+    public void OnEnableFileBasedProgramsChanged(bool value)
+    {
+        // This can't be awaited by callers that must stay synchronous (the OptionChanged event handler above),
+        // so we ignore the resulting task here, and take care that the ignored call doesn't throw an exception.
+        _ = HandleEnableFileBasedProgramsChangedAsync(value);
 
         async Task HandleEnableFileBasedProgramsChangedAsync(bool value)
         {
@@ -106,7 +145,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         // 2. Is `enableFileBasedPrograms` enabled?
         //    - No → Classify as Miscellaneous File With No References
         //    - Yes → Continue to next check
-        var enableFileBasedPrograms = GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+        var enableFileBasedPrograms = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
         if (!enableFileBasedPrograms)
         {
             return true;
@@ -193,7 +232,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         // - No → Classify as Miscellaneous File With Standard References
         // - Yes → Continue to heuristic detection
 
-        if (!GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableSemanticErrorsInMiscellaneousFiles))
+        if (!GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableSemanticErrorsInMiscellaneousFiles))
         {
             return LooseDocumentKind.MiscellaneousFileWithStandardReferences;
         }
@@ -278,7 +317,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
 
         ProjectInfo CreatePrimordialProjectInfo(ProjectSystemProjectFactory projectFactory)
         {
-            var enableFileBasedPrograms = GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+            var enableFileBasedPrograms = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
             return MiscellaneousFileUtilities.CreateMiscellaneousProjectInfoForDocument(
                 projectFactory.Workspace, documentFilePath, textLoader, languageInformation, checksumAlgorithm, projectFactory.Workspace.Services.SolutionServices, [], enableFileBasedPrograms);
         }
@@ -328,7 +367,8 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
             // For telemetry purposes, we will consider this file a file-based app, if we see that build artifacts exist for it in the default location.
             // This implies that the user used a command like `dotnet run app.cs` with it recently.
             var isFileBasedProgram = PathUtilities.IsAbsolute(documentPath)
-                && Directory.Exists(VirtualProjectXmlProvider.GetArtifactsPath(documentPath));
+                && _workspaceFactory.HostWorkspace.Services.GetService<IFileBasedProgramService>() is { } fileBasedProgramService
+                && Directory.Exists(fileBasedProgramService.GetArtifactsPath(documentPath));
 
             return new RemoteProjectLoadResult
             {
@@ -349,22 +389,14 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         // Fall through to ordinary file-based app handling.
         Contract.ThrowIfFalse(documentKind is LooseDocumentKind.FileBasedApp);
 
-        var content = await _projectXmlProvider.GetVirtualProjectContentAsync(documentPath, _dotnetCliHelper, _logger, localizeOutput: true, cancellationToken);
-        if (content is not var (virtualProjectContent, virtualProjectPath, diagnostics))
-        {
-            _logger.LogError("Failed to obtain virtual project for '{documentPath}' using dotnet run-api.", documentPath);
-            return null;
-        }
-
-        foreach (var diagnostic in diagnostics)
-        {
-            _logger.LogError($"{diagnostic.Location.Path}{diagnostic.Location.Span.Start}: {diagnostic.Message}");
-        }
-
-        virtualProjectPath ??= VirtualProjectXmlProvider.GetFallbackVirtualProjectPath(documentPath);
         const BuildHostProcessKind buildHostKind = BuildHostProcessKind.NetCore;
-        var buildHost = await buildHostProcessManager.GetBuildHostAsync(buildHostKind, virtualProjectPath, dotnetPath: null, cancellationToken);
-        var loadedFile = await buildHost.LoadProjectAsync(virtualProjectPath, virtualProjectContent, languageName: LanguageNames.CSharp, cancellationToken);
+        var buildHost = await buildHostProcessManager.GetBuildHostAsync(buildHostKind, documentPath, dotnetPath: null, cancellationToken);
+        var loadedFile = await FileBasedProgramsProjectLoader.LoadFileBasedAppProjectAsync(
+            buildHost,
+            _workspaceFactory.HostWorkspace.Services.GetRequiredService<IFileBasedProgramService>(),
+            documentPath,
+            (error) => _logger.LogError(error),
+            cancellationToken);
 
         return new RemoteProjectLoadResult
         {

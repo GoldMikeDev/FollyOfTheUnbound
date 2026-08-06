@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.Collections;
 using Microsoft.CodeAnalysis.Host;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.ProjectTelemetry;
 using Microsoft.CodeAnalysis.Options;
@@ -55,6 +56,19 @@ internal abstract class LanguageServerProjectLoader : IDisposable
     /// <see cref="_gate"/> must be held when modifying the dictionary or objects contained in it.
     /// </summary>
     private readonly Dictionary<string, ProjectLoadState> _loadedProjects = [];
+
+    /// <summary>
+    /// This connection's ambient token, captured here because this instance is itself constructed within that
+    /// connection's own ambient scope (LSP service construction happens under the same connection-scoped
+    /// <see cref="AmbientConnectionToken"/> as the request that triggers it) -- unlike <see cref="ReloadProjectsAsync"/>,
+    /// which <see cref="_projectsToReload"/> can invoke from a batch whose <c>AddWork</c> calls came from a file-watcher
+    /// callback (<see cref="IFileChangeWatcher"/>, no ambient token at all) as much as from an LSP request. Without
+    /// restoring it, this loader's connection-scoped option reads (<see cref="LanguageServerProjectSystemOptionsStorage.EnableAutomaticRestore"/>,
+    /// and the <see cref="IBinLogPathProvider"/>/file-based-program option reads inside <see cref="ReloadProjectAsync"/>)
+    /// would silently fall back to shared/default values for reload batches triggered by a background file change,
+    /// same shape as the fix in <see cref="Handler.TextDocumentContent.AbstractTextDocumentContentRefreshQueue"/>.
+    /// </summary>
+    private readonly object? _connectionToken = AmbientConnectionToken.Current;
 
     /// <summary>
     /// State transitions:
@@ -139,8 +153,7 @@ internal abstract class LanguageServerProjectLoader : IDisposable
             TimeSpan.FromMilliseconds(100),
             ReloadProjectsAsync,
             ProjectToLoad.Comparer,
-            Listener,
-            CancellationToken.None); // TODO: do we need to introduce a shutdown cancellation token for this?
+            Listener);
     }
 
     private static ImmutableDictionary<string, string> BuildAdditionalProperties(ServerConfiguration? serverConfiguration)
@@ -179,6 +192,13 @@ internal abstract class LanguageServerProjectLoader : IDisposable
 
     private async ValueTask ReloadProjectsAsync(ImmutableSegmentedList<ProjectToLoad> projectsToLoadOrReload, CancellationToken cancellationToken)
     {
+        // Restore this loader's own connection's ambient token -- see _connectionToken's remarks. AddWork can be
+        // called from contexts with no ambient token (or a different connection's), but this loader instance and
+        // its work queue are never shared across connections, so it's always correct to make this batch's
+        // processing look like it's running under this loader's own connection again.
+        if (_connectionToken is not null)
+            AmbientConnectionToken.SetCurrent(_connectionToken);
+
         var stopwatch = Stopwatch.StartNew();
 
         // TODO: support configuration switching
@@ -220,7 +240,7 @@ internal abstract class LanguageServerProjectLoader : IDisposable
                     cancellationToken).ConfigureAwait(false);
             }
 
-            if (GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableAutomaticRestore) && projectsThatNeedRestore.Any())
+            if (GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableAutomaticRestore) && projectsThatNeedRestore.Any())
             {
                 var pathsToRestore = await GetPathsToRestoreAsync(projectsThatNeedRestore, cancellationToken);
 
@@ -387,7 +407,7 @@ internal abstract class LanguageServerProjectLoader : IDisposable
 
             return projectRestorePath;
         }
-        catch (Exception e)
+        catch (Exception e) when (!ExceptionUtilities.IsCurrentOperationBeingCancelled(e, cancellationToken)) // Cancellation is only expected when we're shutting down, in which case there's no reason to do a report.
         {
             // Since our LogDiagnosticsAsync helper takes DiagnosticLogItems, let's just make one for this
             var message = string.Format(LanguageServerResources.Exception_thrown_0, e);
@@ -553,7 +573,26 @@ internal abstract class LanguageServerProjectLoader : IDisposable
                 if (loadState is ProjectLoadState.LoadedTargets(var loadedProjectTargets))
                 {
                     foreach (var loadedProject in loadedProjectTargets)
-                        loadedProject.Dispose();
+                    {
+                        try
+                        {
+                            loadedProject.Dispose();
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            // LoadedProject.Dispose() releases its file watches first and only then calls
+                            // RemoveFromWorkspace(), which throws if the project is no longer in the
+                            // workspace's current solution -- reachable here (not just for an already-unloaded
+                            // project) if this loader's owning connection's Workspace was disposed before this
+                            // loader, since Workspace.Dispose() clears the solution out from under every
+                            // project still registered in it. That ordering isn't guaranteed relative to this
+                            // Dispose() (both are independent ILspServices torn down together), so this must
+                            // not abort the loop and leave every *remaining* project's file watches leaked for
+                            // the rest of the daemon's lifetime over one project hitting it first -- the file
+                            // watches for this project are already released by the time this is caught.
+                            _logger.LogDebug(ex, "Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released.");
+                        }
+                    }
                 }
             }
 
@@ -650,8 +689,13 @@ internal abstract class LanguageServerProjectLoader : IDisposable
             _progressQueue = new AsyncBatchingWorkQueue(
                 TimeSpan.Zero,
                 ReportProgressAsync,
-                listener ?? AsynchronousOperationListenerProvider.NullListener,
-                CancellationToken.None);
+                listener ?? AsynchronousOperationListenerProvider.NullListener);
+
+            reporter.Report(new LSP.WorkDoneProgressReport
+            {
+                Message = string.Format(LanguageServerResources.Loading_0_projects, totalItems),
+                Percentage = 0,
+            });
         }
 
         public void OnItemProcessed()

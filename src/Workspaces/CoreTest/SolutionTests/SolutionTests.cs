@@ -2416,6 +2416,56 @@ public sealed class SolutionTests : TestBase
     }
 
     [Fact]
+    public void WithProjectFallbackAnalyzerOptions_DoesNotAffectOtherProjects()
+    {
+        using var workspace = CreateWorkspaceWithProjectAndLinkedDocuments("public class C { }");
+
+        var solution = workspace.CurrentSolution;
+        var projects = solution.Projects.ToImmutableArray();
+        Assert.Equal(2, projects.Length);
+        var project1 = projects[0];
+        var project2 = projects[1];
+
+        Assert.False(project1.GetFallbackAnalyzerOptions().TryGetValue("optionA", out _));
+        Assert.False(project2.GetFallbackAnalyzerOptions().TryGetValue("optionA", out _));
+
+        var options1 = StructuredAnalyzerConfigOptions.Create(new DictionaryAnalyzerConfigOptions(ImmutableDictionary<string, string>.Empty
+            .Add("optionA", "project1Value")));
+
+        // Set a per-project override for project1 only.
+        var solution2 = solution.WithProjectFallbackAnalyzerOptions(project1.Id, options1);
+
+        Assert.True(solution2.GetProject(project1.Id)!.GetFallbackAnalyzerOptions().TryGetValue("optionA", out var value1));
+        Assert.Equal("project1Value", value1);
+        // project2 is untouched.
+        Assert.False(solution2.GetProject(project2.Id)!.GetFallbackAnalyzerOptions().TryGetValue("optionA", out _));
+        // The solution-wide, language-keyed dictionary is untouched by the per-project API.
+        Assert.True(solution2.FallbackAnalyzerOptions.IsEmpty);
+
+        // Now set a DIFFERENT per-project override for project2; project1's override must be unaffected.
+        var options2 = StructuredAnalyzerConfigOptions.Create(new DictionaryAnalyzerConfigOptions(ImmutableDictionary<string, string>.Empty
+            .Add("optionA", "project2Value")));
+        var solution3 = solution2.WithProjectFallbackAnalyzerOptions(project2.Id, options2);
+
+        Assert.True(solution3.GetProject(project1.Id)!.GetFallbackAnalyzerOptions().TryGetValue("optionA", out var value2));
+        Assert.Equal("project1Value", value2);
+        Assert.True(solution3.GetProject(project2.Id)!.GetFallbackAnalyzerOptions().TryGetValue("optionA", out var value3));
+        Assert.Equal("project2Value", value3);
+
+        // A subsequent solution-wide WithFallbackAnalyzerOptions call for the same language resets every
+        // project's fallback options, including per-project overrides.
+        var solutionWideOptions = ImmutableDictionary<string, StructuredAnalyzerConfigOptions>.Empty
+            .Add(LanguageNames.CSharp, StructuredAnalyzerConfigOptions.Create(new DictionaryAnalyzerConfigOptions(ImmutableDictionary<string, string>.Empty
+                .Add("optionA", "solutionWideValue"))));
+        var solution4 = solution3.WithFallbackAnalyzerOptions(solutionWideOptions);
+
+        Assert.True(solution4.GetProject(project1.Id)!.GetFallbackAnalyzerOptions().TryGetValue("optionA", out var value4));
+        Assert.Equal("solutionWideValue", value4);
+        Assert.True(solution4.GetProject(project2.Id)!.GetFallbackAnalyzerOptions().TryGetValue("optionA", out var value5));
+        Assert.Equal("solutionWideValue", value5);
+    }
+
+    [Fact]
     public void AddDocument_Loader()
     {
         var projectId = ProjectId.CreateNewId();

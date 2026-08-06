@@ -115,6 +115,17 @@ internal static class UnnecessaryUnsafeModifierUtilities
             if (ContainsError(updatedDiagnostics))
                 continue;
 
+            // Removing 'unsafe' is not just a syntactic cleanup if doing so would change whether the member is
+            // caller-unsafe (i.e. it would stop emitting RequiresUnsafeAttribute).  That is a change to the
+            // member's public contract, not merely removal of redundant syntax, so we must not report/fix it.
+            var originalSymbol = semanticModel.GetDeclaredSymbol(originalNode, cancellationToken);
+            var updatedSymbol = updatedSemanticModel.GetDeclaredSymbol(newNode, cancellationToken);
+            if (originalSymbol != null && updatedSymbol != null &&
+                originalSymbol.RequiresUnsafe && !updatedSymbol.RequiresUnsafe)
+            {
+                continue;
+            }
+
             result.Add(originalNode);
         }
     }

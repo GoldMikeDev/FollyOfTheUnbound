@@ -4,6 +4,7 @@
 
 using Microsoft.CodeAnalysis.Completion.Providers;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.Completion;
 
@@ -12,30 +13,30 @@ internal static class CompletionOptionsStorage
     public static CompletionOptions GetCompletionOptions(this IGlobalOptionService options, string language)
         => new()
         {
-            TriggerOnTyping = options.GetOption(TriggerOnTyping, language),
-            TriggerOnTypingLetters = options.GetOption(TriggerOnTypingLetters, language),
+            TriggerOnTyping = options.GetConnectionScopedOption(TriggerOnTyping, language),
+            TriggerOnTypingLetters = options.GetConnectionScopedOption(TriggerOnTypingLetters, language),
             TriggerOnDeletion = language switch
             {
-                LanguageNames.CSharp => options.GetOption(TriggerOnTypingLetters, language) && options.GetOption(TriggerOnDeletion, language) is true,
+                LanguageNames.CSharp => options.GetConnectionScopedOption(TriggerOnTypingLetters, language) && options.GetConnectionScopedOption(TriggerOnDeletion, language) is true,
                 // If the option is null (i.e. default) or 'true', then we want to trigger completion.
                 // Only if the option is false do we not want to trigger.
-                LanguageNames.VisualBasic => options.GetOption(TriggerOnDeletion, language) is not false,
+                LanguageNames.VisualBasic => options.GetConnectionScopedOption(TriggerOnDeletion, language) is not false,
                 // Other languages might want to get completion options, like Razor, just forward the call to option service when it happens.
-                _ => options.GetOption(TriggerOnDeletion, language),
+                _ => options.GetConnectionScopedOption(TriggerOnDeletion, language),
             },
-            TriggerInArgumentLists = options.GetOption(TriggerInArgumentLists, language),
-            EnterKeyBehavior = options.GetOption(EnterKeyBehavior, language),
-            SnippetsBehavior = options.GetOption(SnippetsBehavior, language),
+            TriggerInArgumentLists = options.GetConnectionScopedOption(TriggerInArgumentLists, language),
+            EnterKeyBehavior = options.GetConnectionScopedOption(EnterKeyBehavior, language),
+            SnippetsBehavior = options.GetConnectionScopedOption(SnippetsBehavior, language),
             MemberDisplayOptions = options.GetMemberDisplayOptions(language),
-            ShowNameSuggestions = options.GetOption(ShowNameSuggestions, language),
-            ShowItemsFromUnimportedNamespaces = options.GetOption(ShowItemsFromUnimportedNamespaces, language),
-            ImportCompletionCommitBehavior = options.GetOption(ImportCompletionCommitBehavior, language),
-            UnnamedSymbolCompletionDisabled = options.GetOption(UnnamedSymbolCompletionDisabledFeatureFlag),
-            ProvideDateAndTimeCompletions = options.GetOption(ProvideDateAndTimeCompletions, language),
-            ProvideRegexCompletions = options.GetOption(ProvideRegexCompletions, language),
-            ForceExpandedCompletionIndexCreation = options.GetOption(ForceExpandedCompletionIndexCreation),
-            ShowNewSnippetExperienceUserOption = options.GetOption(ShowNewSnippetExperienceUserOption, language),
-            ShowNewSnippetExperienceFeatureFlag = options.GetOption(ShowNewSnippetExperienceFeatureFlag)
+            ShowNameSuggestions = options.GetConnectionScopedOption(ShowNameSuggestions, language),
+            ShowItemsFromUnimportedNamespaces = options.GetConnectionScopedOption(ShowItemsFromUnimportedNamespaces, language),
+            ImportCompletionCommitBehavior = options.GetConnectionScopedOption(ImportCompletionCommitBehavior, language),
+            UnnamedSymbolCompletionDisabled = options.GetConnectionScopedOption(UnnamedSymbolCompletionDisabledFeatureFlag),
+            ProvideDateAndTimeCompletions = options.GetConnectionScopedOption(ProvideDateAndTimeCompletions, language),
+            ProvideRegexCompletions = options.GetConnectionScopedOption(ProvideRegexCompletions, language),
+            ForceExpandedCompletionIndexCreation = options.GetConnectionScopedOption(ForceExpandedCompletionIndexCreation),
+            ShowNewSnippetExperienceUserOption = options.GetConnectionScopedOption(ShowNewSnippetExperienceUserOption, language),
+            ShowNewSnippetExperienceFeatureFlag = options.GetConnectionScopedOption(ShowNewSnippetExperienceFeatureFlag)
         };
 
     private static readonly OptionGroup s_completionOptionGroup = new(name: "completion", description: "");

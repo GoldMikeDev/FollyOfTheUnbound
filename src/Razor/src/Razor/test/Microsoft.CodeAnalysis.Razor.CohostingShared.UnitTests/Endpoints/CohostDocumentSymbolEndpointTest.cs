@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.AspNetCore.Razor.Test.Common;
 using Microsoft.AspNetCore.Razor.Utilities;
+using Microsoft.CodeAnalysis.LanguageServer;
+using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.Razor.Protocol;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
@@ -318,6 +320,57 @@ public class CohostDocumentSymbolEndpointTest(ITestOutputHelper testOutput) : Co
         Assert.Equal("ObjToString(object) : string", objToString.Name);
         Assert.Equal(SymbolKind.Method, objToString.Kind);
         Assert.Equal(sourceText.GetRange(Assert.Single(input.NamedSpans["ObjToString"])), objToString.SelectionRange);
+    }
+
+    [Fact]
+    public void GetRegistrations_TwoConnections_DoNotShareHierarchicalSymbolsSetting()
+    {
+        // Regression coverage for GoldMikeDev/roslyn#9: CohostDocumentSymbolEndpoint is a [Shared] MEF part, so
+        // a real daemon resolves the same instance for every connection. _useHierarchicalSymbols used to be a
+        // plain field, so connection B's GetRegistrations call (driven by its own client capabilities) could
+        // silently flip the hierarchical-symbols setting that connection A's document symbol requests rely on.
+        // With the fix (ConditionalWeakTable keyed by AmbientConnectionToken.Current), each connection's
+        // GetRegistrations call must only affect that connection's own setting.
+        var endpoint = new CohostDocumentSymbolEndpoint(IncompatibleProjectService, RemoteServiceInvoker);
+
+        var connectionA = new object();
+        var connectionB = new object();
+
+        var hierarchicalCapabilities = new VSInternalClientCapabilities
+        {
+            TextDocument = new()
+            {
+                DocumentSymbol = new()
+                {
+                    DynamicRegistration = true,
+                    HierarchicalDocumentSymbolSupport = true
+                }
+            }
+        };
+
+        var flatCapabilities = new VSInternalClientCapabilities
+        {
+            TextDocument = new()
+            {
+                DocumentSymbol = new()
+                {
+                    DynamicRegistration = true,
+                    HierarchicalDocumentSymbolSupport = false
+                }
+            }
+        };
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        Assert.NotEmpty(endpoint.GetRegistrations(hierarchicalCapabilities, requestContext: new()));
+
+        AmbientConnectionToken.SetCurrent(connectionB);
+        Assert.NotEmpty(endpoint.GetRegistrations(flatCapabilities, requestContext: new()));
+
+        AmbientConnectionToken.SetCurrent(connectionA);
+        Assert.True(endpoint.GetTestAccessor().UseHierarchicalSymbols);
+
+        AmbientConnectionToken.SetCurrent(connectionB);
+        Assert.False(endpoint.GetTestAccessor().UseHierarchicalSymbols);
     }
 
     private async Task VerifySymbolInformationsAsync(string input, bool miscellaneousFile = false, RazorFileKind? fileKind = null)

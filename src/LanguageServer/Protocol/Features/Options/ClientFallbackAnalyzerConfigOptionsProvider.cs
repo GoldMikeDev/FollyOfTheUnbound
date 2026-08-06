@@ -8,6 +8,7 @@ using System.Composition;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.Options;
 
@@ -32,7 +33,7 @@ internal sealed class ClientFallbackAnalyzerConfigOptionsProvider(EditorConfigOp
         {
             foreach (var option in options)
             {
-                var value = globalOptions.GetOption<object>(new OptionKey2(option, option.IsPerLanguage ? language : null));
+                var value = globalOptions.GetConnectionScopedOption<object>(new OptionKey2(option, option.IsPerLanguage ? language : null));
                 EditorConfigValueSerializer.Serialize(builder, option, language, value);
             }
         }

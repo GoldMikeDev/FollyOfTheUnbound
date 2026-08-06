@@ -34,24 +34,26 @@ internal sealed class InlayHintRefreshQueue : AbstractRefreshQueue
 
     private void OnOptionChanged(object sender, object target, OptionChangedEventArgs e)
     {
-        if (e.HasOption(static option =>
-                option.Equals(InlineHintsOptionsStorage.EnabledForParameters) ||
-                option.Equals(InlineHintsOptionsStorage.ForIndexerParameters) ||
-                option.Equals(InlineHintsOptionsStorage.ForLiteralParameters) ||
-                option.Equals(InlineHintsOptionsStorage.ForOtherParameters) ||
-                option.Equals(InlineHintsOptionsStorage.ForObjectCreationParameters) ||
-                option.Equals(InlineHintsOptionsStorage.SuppressForParametersThatDifferOnlyBySuffix) ||
-                option.Equals(InlineHintsOptionsStorage.SuppressForParametersThatMatchArgumentName) ||
-                option.Equals(InlineHintsOptionsStorage.SuppressForParametersThatMatchMethodIntent) ||
-                option.Equals(InlineHintsOptionsStorage.EnabledForTypes) ||
-                option.Equals(InlineHintsOptionsStorage.ForImplicitVariableTypes) ||
-                option.Equals(InlineHintsOptionsStorage.ForLambdaParameterTypes) ||
-                option.Equals(InlineHintsOptionsStorage.ForImplicitObjectCreation) ||
-                option.Equals(InlineHintsOptionsStorage.ForCollectionExpressions)))
+        if (e.HasOption(IsRefreshRelevantOption))
         {
             EnqueueRefreshNotification(documentUri: null);
         }
     }
+
+    protected override bool IsRefreshRelevantOption(IOption2 option)
+        => option.Equals(InlineHintsOptionsStorage.EnabledForParameters) ||
+           option.Equals(InlineHintsOptionsStorage.ForIndexerParameters) ||
+           option.Equals(InlineHintsOptionsStorage.ForLiteralParameters) ||
+           option.Equals(InlineHintsOptionsStorage.ForOtherParameters) ||
+           option.Equals(InlineHintsOptionsStorage.ForObjectCreationParameters) ||
+           option.Equals(InlineHintsOptionsStorage.SuppressForParametersThatDifferOnlyBySuffix) ||
+           option.Equals(InlineHintsOptionsStorage.SuppressForParametersThatMatchArgumentName) ||
+           option.Equals(InlineHintsOptionsStorage.SuppressForParametersThatMatchMethodIntent) ||
+           option.Equals(InlineHintsOptionsStorage.EnabledForTypes) ||
+           option.Equals(InlineHintsOptionsStorage.ForImplicitVariableTypes) ||
+           option.Equals(InlineHintsOptionsStorage.ForLambdaParameterTypes) ||
+           option.Equals(InlineHintsOptionsStorage.ForImplicitObjectCreation) ||
+           option.Equals(InlineHintsOptionsStorage.ForCollectionExpressions);
 
     protected override string GetFeatureAttribute()
         => FeatureAttribute.InlineHints;

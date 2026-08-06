@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.Indentation;
 
@@ -18,7 +19,7 @@ internal static class IndentationOptionsStorage
         return new IndentationOptions(formattingOptions)
         {
             AutoFormattingOptions = globalOptions.GetAutoFormattingOptions(document.Project.Language),
-            IndentStyle = globalOptions.GetOption(SmartIndent, document.Project.Language)
+            IndentStyle = globalOptions.GetConnectionScopedOption(SmartIndent, document.Project.Language)
         };
     }
 

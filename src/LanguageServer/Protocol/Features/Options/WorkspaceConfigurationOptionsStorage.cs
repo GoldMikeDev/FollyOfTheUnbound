@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.Host;
 
@@ -10,8 +11,8 @@ internal static class WorkspaceConfigurationOptionsStorage
 {
     public static WorkspaceConfigurationOptions GetWorkspaceConfigurationOptions(this IGlobalOptionService globalOptions)
         => new(
-            SourceGeneratorExecution: globalOptions.GetOption(SourceGeneratorExecution),
-            ValidateCompilationTrackerStates: globalOptions.GetOption(ValidateCompilationTrackerStates));
+            SourceGeneratorExecution: globalOptions.GetConnectionScopedOption(SourceGeneratorExecution),
+            ValidateCompilationTrackerStates: globalOptions.GetConnectionScopedOption(ValidateCompilationTrackerStates));
 
     public static readonly Option2<bool> ValidateCompilationTrackerStates = new(
         "dotnet_validate_compilation_tracker_states", WorkspaceConfigurationOptions.Default.ValidateCompilationTrackerStates);

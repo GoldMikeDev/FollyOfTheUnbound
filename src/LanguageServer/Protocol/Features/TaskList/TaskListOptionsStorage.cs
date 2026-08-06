@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Immutable;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Options;
 
 namespace Microsoft.CodeAnalysis.TaskList;
@@ -15,7 +16,7 @@ internal static class TaskListOptionsStorage
     public static TaskListOptions GetTaskListOptions(this IGlobalOptionService globalOptions)
         => new()
         {
-            Descriptors = globalOptions.GetOption(Descriptors),
-            ComputeForClosedFiles = globalOptions.GetOption(ComputeTaskListItemsForClosedFiles)
+            Descriptors = globalOptions.GetConnectionScopedOption(Descriptors),
+            ComputeForClosedFiles = globalOptions.GetConnectionScopedOption(ComputeTaskListItemsForClosedFiles)
         };
 }

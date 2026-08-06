@@ -826,10 +826,13 @@ public partial class Project
         => State.GetAnalyzerConfigOptions();
 
     /// <summary>
-    /// Retrieves fallback analyzer options for this project's language.
+    /// Retrieves the fallback analyzer options in effect for this project: a per-project override if one has been
+    /// set via <see cref="Solution.WithProjectFallbackAnalyzerOptions"/>, otherwise the solution-wide value for
+    /// this project's language (<see cref="Solution.FallbackAnalyzerOptions"/>). <see cref="ProjectState"/> keeps
+    /// these in sync as the single source of truth, so reading from it here covers both cases.
     /// </summary>
     internal StructuredAnalyzerConfigOptions GetFallbackAnalyzerOptions()
-        => Solution.FallbackAnalyzerOptions.GetValueOrDefault(Language, StructuredAnalyzerConfigOptions.Empty);
+        => State.FallbackAnalyzerOptions;
 
     private string GetDebuggerDisplay()
         => this.Name;

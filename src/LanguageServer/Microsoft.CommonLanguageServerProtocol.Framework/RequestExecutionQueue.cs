@@ -54,6 +54,14 @@ namespace Microsoft.CommonLanguageServerProtocol.Framework;
 /// </remarks>
 internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<TRequestContext>
 {
+    private delegate Task ProcessQueueCoreAsyncDelegate(
+        QueueItem<TRequestContext> work,
+        IMethodHandler handler,
+        RequestHandlerMetadata metadata,
+        ConcurrentDictionary<Task, CancellationTokenSource> concurrentlyExecutingTasks,
+        CancellationTokenSource? currentWorkCts,
+        CancellationToken cancellationToken);
+
     private static readonly MethodInfo s_processQueueCoreAsync = typeof(RequestExecutionQueue<TRequestContext>)
         .GetMethod(nameof(RequestExecutionQueue<>.ProcessQueueCoreAsync), BindingFlags.NonPublic | BindingFlags.Instance)!;
 
@@ -68,16 +76,29 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     protected readonly AsyncQueue<(QueueItem<TRequestContext> queueItem, Guid ActivityId, CancellationToken cancellationToken)> _queue = new();
     private readonly CancellationTokenSource _cancelSource = new();
 
-    /// <summary>
-    /// Map of method to the handler info for each language.
-    /// The handler info is created lazily to avoid instantiating any types or handlers until a request is recieved for
-    /// that particular method and language.
-    /// </summary>
-    private readonly FrozenDictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata Metadata, IMethodHandler Handler, MethodInfo MethodInfo)>>> _handlerInfoMap;
+    /// <summary>Bound on how long <see cref="DisposeAsync"/> waits for in-flight work to actually finish; see its remarks.</summary>
+    private static readonly TimeSpan s_disposalDrainTimeout = TimeSpan.FromSeconds(5);
 
     /// <summary>
-    /// For test purposes only.
-    /// A task that completes when the queue processing stops.
+    /// Every non-mutating request's fire-and-forget task (see <see cref="ProcessQueueCoreAsync{TRequest, TResponse}"/>),
+    /// tracked unconditionally -- unlike <c>concurrentlyExecutingTasks</c> in <see cref="ProcessQueueAsync"/>, which
+    /// is only populated when <see cref="CancelInProgressWorkUponMutatingRequest"/> is set. <see cref="_queueProcessingTask"/>
+    /// completing only means the dequeue loop has stopped picking up new work; it says nothing about whether a
+    /// still-running non-mutating handler has finished writing its response. <see cref="DisposeAsync"/> drains this
+    /// too so the clean-exit sentinel write can't race an in-flight response.
+    /// </summary>
+    private readonly ConcurrentDictionary<Task, byte> _outstandingNonMutatingTasks = new();
+
+    /// <summary>
+    /// Map of method to the handler info for each language.
+    /// The handler info is created lazily to avoid instantiating any types or handlers until a request is received for
+    /// that particular method and language.
+    /// </summary>
+    private readonly FrozenDictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata Metadata, IMethodHandler Handler, ProcessQueueCoreAsyncDelegate ProcessQueueCoreAsync)>>> _handlerInfoMap;
+
+    /// <summary>
+    /// A task that completes when the queue processing stops. Used by tests (<see cref="TestAccessor.WaitForProcessingToStopAsync"/>)
+    /// and by <see cref="DisposeAsync"/> itself, to give in-flight work a bounded window to finish.
     /// </summary>
     protected Task? _queueProcessingTask;
 
@@ -91,16 +112,16 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         _handlerInfoMap = BuildHandlerMap(handlerProvider, languageServer.TypeRefResolver);
     }
 
-    private static FrozenDictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata, IMethodHandler, MethodInfo)>>> BuildHandlerMap(AbstractHandlerProvider handlerProvider, AbstractTypeRefResolver typeRefResolver)
+    private FrozenDictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata, IMethodHandler, ProcessQueueCoreAsyncDelegate)>>> BuildHandlerMap(AbstractHandlerProvider handlerProvider, AbstractTypeRefResolver typeRefResolver)
     {
-        var genericMethodMap = new Dictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata, IMethodHandler, MethodInfo)>>>();
+        var genericMethodMap = new Dictionary<string, FrozenDictionary<string, Lazy<(RequestHandlerMetadata, IMethodHandler, ProcessQueueCoreAsyncDelegate)>>>();
         var noValueType = NoValue.Instance.GetType();
         // Get unique set of methods from the handler provider for the default language.
         foreach (var methodGroup in handlerProvider
             .GetRegisteredMethods()
             .GroupBy(m => m.MethodName))
         {
-            var languages = new Dictionary<string, Lazy<(RequestHandlerMetadata, IMethodHandler, MethodInfo)>>();
+            var languages = new Dictionary<string, Lazy<(RequestHandlerMetadata, IMethodHandler, ProcessQueueCoreAsyncDelegate)>>();
             foreach (var metadata in methodGroup)
             {
                 languages.Add(metadata.Language, new(() =>
@@ -113,8 +134,9 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
                             : noValueType;
 
                     var method = s_processQueueCoreAsync.MakeGenericMethod(requestType, responseType);
+                    var processQueueCoreAsync = (ProcessQueueCoreAsyncDelegate)method.CreateDelegate(typeof(ProcessQueueCoreAsyncDelegate), this);
                     var handler = handlerProvider.GetMethodHandler(metadata.MethodName, metadata.RequestTypeRef, metadata.ResponseTypeRef, metadata.Language);
-                    return (metadata, handler, method);
+                    return (metadata, handler, processQueueCoreAsync);
                 }));
             }
 
@@ -262,7 +284,7 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
                         continue;
                     }
 
-                    var (metadata, handler, methodInfo) = handlerResult;
+                    var (metadata, handler, processQueueCoreAsync) = handlerResult;
 
                     // We had an issue determining the language.  Generally this is very rare and only occurs
                     // when a client sends us requests for files where we haven't saved the languageId.
@@ -285,7 +307,7 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
                     }
 
                     // We now have the actual handler and language, so we can process the work item using the concrete types defined by the metadata.
-                    await InvokeProcessCoreAsync(work, metadata, handler, methodInfo, concurrentlyExecutingTasks, currentWorkCts, cancellationToken).ConfigureAwait(false);
+                    await processQueueCoreAsync(work, handler, metadata, concurrentlyExecutingTasks, currentWorkCts, cancellationToken).ConfigureAwait(false);
                 }
                 catch (OperationCanceledException)
                 {
@@ -311,29 +333,6 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
             await DisposeAsync().ConfigureAwait(false);
             return;
         }
-    }
-
-    /// <summary>
-    /// Reflection invokes <see cref="ProcessQueueCoreAsync{TRequest, TResponse}(QueueItem{TRequestContext}, IMethodHandler, RequestHandlerMetadata, ConcurrentDictionary{Task, CancellationTokenSource}, CancellationTokenSource?, CancellationToken)"/>
-    /// using the concrete types defined by the handler's metadata.
-    /// </summary>
-    private async Task InvokeProcessCoreAsync(
-        QueueItem<TRequestContext> work,
-        RequestHandlerMetadata metadata,
-        IMethodHandler handler,
-        MethodInfo methodInfo,
-        ConcurrentDictionary<Task, CancellationTokenSource> concurrentlyExecutingTasks,
-        CancellationTokenSource? currentWorkCts,
-        CancellationToken cancellationToken)
-    {
-        var result = methodInfo.Invoke(this, [work, handler, metadata, concurrentlyExecutingTasks, currentWorkCts, cancellationToken]);
-        if (result is null)
-        {
-            throw new InvalidOperationException($"ProcessQueueCoreAsync result task cannot be null");
-        }
-
-        var task = (Task)result;
-        await task.ConfigureAwait(false);
     }
 
     /// <summary>
@@ -391,6 +390,13 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
             // blocking the request queue for longer periods of time (it enforces parallelizability).
             var currentWorkTask = WrapStartRequestTaskAsync(Task.Run(() => work.StartRequestAsync<TRequest, TResponse>(deserializedRequest, context, handler, cancellationToken), cancellationToken), rethrowExceptions: false);
 
+            _outstandingNonMutatingTasks.TryAdd(currentWorkTask, 0);
+            _ = currentWorkTask.ContinueWith(
+                t => _outstandingNonMutatingTasks.TryRemove(t, out _),
+                CancellationToken.None,
+                TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Default);
+
             if (CancelInProgressWorkUponMutatingRequest)
             {
                 if (currentWorkCts is null)
@@ -424,7 +430,7 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         return;
     }
 
-    private bool TryGetHandlerForRequest(QueueItem<TRequestContext> work, string language, out (RequestHandlerMetadata Metadata, IMethodHandler Handler, MethodInfo MethodInfo) result)
+    private bool TryGetHandlerForRequest(QueueItem<TRequestContext> work, string language, out (RequestHandlerMetadata Metadata, IMethodHandler Handler, ProcessQueueCoreAsyncDelegate ProcessQueueCoreAsync) result)
     {
         var handlersForMethod = _handlerInfoMap[work.MethodName];
         if (handlersForMethod.TryGetValue(language, out var lazyData) ||
@@ -453,7 +459,21 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
     /// <summary>
     /// Shuts down the queue, stops accepting new messages, and cancels any in-progress or queued tasks.
     /// </summary>
-    public ValueTask DisposeAsync()
+    /// <remarks>
+    /// Waits (briefly, and best-effort) for the queue's own processing loop -- and any outstanding
+    /// non-mutating request tasks -- to actually finish before returning, not just for cancellation to be
+    /// signaled. See <see cref="IRequestExecutionQueue{TRequestContext}.DrainAndDisposeAsync"/> for why
+    /// callers that need to know whether that draining actually completed (as opposed to timing out) should
+    /// call that instead of this: this <c>IAsyncDisposable.DisposeAsync</c> implementation exists for
+    /// generic disposal call sites and simply discards that result.
+    /// </remarks>
+    public async ValueTask DisposeAsync()
+    {
+        await DrainAndDisposeAsync().ConfigureAwait(false);
+    }
+
+    /// <inheritdoc cref="IRequestExecutionQueue{TRequestContext}.DrainAndDisposeAsync"/>
+    public async ValueTask<bool> DrainAndDisposeAsync()
     {
         _cancelSource.Cancel();
 
@@ -463,7 +483,25 @@ internal class RequestExecutionQueue<TRequestContext> : IRequestExecutionQueue<T
         // 2.  Their cancellation tokens are linked to the queue's _cancelSource so are also cancelled.
         _queue.Complete();
 
-        return new ValueTask();
+        var fullyDrained = true;
+
+        if (_queueProcessingTask is { } processingTask)
+        {
+            await Task.WhenAny(processingTask, Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
+            fullyDrained &= processingTask.IsCompleted;
+        }
+
+        // The processing loop stopping only means no more work is being dequeued -- it says nothing about
+        // fire-and-forget non-mutating request tasks still writing their responses. Drain those too, within
+        // the same overall bound, before returning (see remarks above and on _outstandingNonMutatingTasks).
+        var outstanding = _outstandingNonMutatingTasks.Keys.Where(t => !t.IsCompleted).ToArray();
+        if (outstanding.Length > 0)
+        {
+            await Task.WhenAny(Task.WhenAll(outstanding), Task.Delay(s_disposalDrainTimeout)).ConfigureAwait(false);
+            fullyDrained &= outstanding.All(t => t.IsCompleted);
+        }
+
+        return fullyDrained;
     }
 
     #region Test Accessor

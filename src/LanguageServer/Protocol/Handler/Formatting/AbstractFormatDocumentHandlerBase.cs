@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Collections;
 using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.OrganizeImports;
 using Microsoft.CodeAnalysis.Shared.Extensions;
@@ -44,7 +45,7 @@ internal abstract class AbstractFormatDocumentHandlerBase<RequestType, ResponseT
 
         // We only organize the imports when formatting the entire document. This means we can stop
         // if we are provided a range or sorting imports is disabled/
-        if (range is not null || !globalOptions.GetOption(LspOptionsStorage.LspOrganizeImportsOnFormat, document.Project.Language))
+        if (range is not null || !globalOptions.GetConnectionScopedOption(LspOptionsStorage.LspOrganizeImportsOnFormat, document.Project.Language))
         {
             return [.. formattingChanges.Select(change => ProtocolConversions.TextChangeToTextEdit(change, text))];
         }

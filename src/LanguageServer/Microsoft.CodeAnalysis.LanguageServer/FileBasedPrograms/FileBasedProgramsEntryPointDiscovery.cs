@@ -5,22 +5,22 @@
 using System.Buffers;
 using System.Collections.Immutable;
 using System.Composition;
-using System.Diagnostics;
 using System.IO.Enumeration;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.CodeAnalysis.Collections;
 using Microsoft.CodeAnalysis.ErrorReporting;
-using Microsoft.CodeAnalysis.Features.Workspaces;
+using Microsoft.CodeAnalysis.FileBasedPrograms;
+using Microsoft.CodeAnalysis.Host;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.PooledObjects;
 using Microsoft.CodeAnalysis.Shared.TestHooks;
 using Microsoft.CodeAnalysis.Shared.Utilities;
-using Microsoft.CodeAnalysis.Text;
 using Microsoft.Extensions.Logging;
 using Roslyn.LanguageServer.Protocol;
 using Roslyn.Utilities;
@@ -35,12 +35,21 @@ internal sealed class FileBasedProgramsEntryPointDiscoveryFactory(IGlobalOptionS
 {
     public ILspService CreateILspService(LspServices lspServices, WellKnownLspServerKinds serverKind)
     {
-        return new FileBasedProgramsEntryPointDiscovery(globalOptionService, listenerProvider.GetListener(FeatureAttribute.Workspace), lspServices.GetRequiredService<ILoggerFactory>(), lspServices);
+        return new FileBasedProgramsEntryPointDiscovery(
+            globalOptionService,
+            listenerProvider.GetListener(FeatureAttribute.Workspace),
+            lspServices.GetRequiredService<IHostWorkspaceProvider>().Workspace.Services.GetRequiredService<IFileBasedProgramService>(),
+            lspServices.GetRequiredService<ILoggerFactory>(),
+            lspServices);
     }
 }
 
 internal sealed partial class FileBasedProgramsEntryPointDiscovery(
-    IGlobalOptionService globalOptionService, IAsynchronousOperationListener listener, ILoggerFactory loggerFactory, LspServices lspServices) : ILspService, IOnInitialized
+    IGlobalOptionService globalOptionService,
+    IAsynchronousOperationListener listener,
+    IFileBasedProgramService fileBasedProgramService,
+    ILoggerFactory loggerFactory,
+    LspServices lspServices) : ILspService, IOnInitialized, IDisposable
 {
     private static readonly StringComparer s_pathComparer = StringComparer.OrdinalIgnoreCase;
 
@@ -56,27 +65,58 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
     private readonly ILogger _logger = loggerFactory.CreateLogger<FileBasedProgramsEntryPointDiscovery>();
     private ImmutableArray<string> _workspaceFolders;
 
+    /// <summary>
+    /// This instance's own lifetime token, cancelled from <see cref="Dispose"/> (which <c>LspServices</c> calls
+    /// when this connection's logical server is torn down -- <see cref="ILspService"/> implementations that are
+    /// also <see cref="IDisposable"/> are disposed automatically). The <see cref="CancellationToken"/>
+    /// <see cref="OnInitializedAsync"/> receives is scoped to the triggering LSP request/notification, not this
+    /// connection's lifetime, and only prevents the background task that runs
+    /// <see cref="FindAndLoadEntryPointsAsync"/> from starting at all if already cancelled by the time it would
+    /// run -- it does nothing to stop the scan once started, since that request is long since complete. Without
+    /// a token scoped to the connection itself, a client that disconnects mid-scan leaves this background
+    /// discovery (and the project loads it triggers) running to completion regardless.
+    /// </summary>
+    private readonly CancellationTokenSource _disposalTokenSource = new();
+
     public Task OnInitializedAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken)
     {
         var initializeManager = context.GetRequiredService<IInitializeManager>();
         _workspaceFolders = initializeManager.GetRequiredWorkspaceFolderPaths();
+
+        // Captured once, before scheduling, rather than read from _disposalTokenSource.Token/.IsCancellationRequested
+        // inside the delegate or its exception filter below: if Dispose() races in after Task.Run schedules this
+        // delegate but before it (or its exception filter) reads _disposalTokenSource, those would throw
+        // ObjectDisposedException instead -- CancellationTokenSource.Token/.IsCancellationRequested aren't safe
+        // to read post-disposal, but a CancellationToken struct already captured from it remains perfectly valid
+        // to read (including after the source that produced it is disposed).
+        var disposalToken = _disposalTokenSource.Token;
         Task.Run(async () =>
         {
             try
             {
                 using var token = listener.BeginAsyncOperation(nameof(FindAndLoadEntryPointsAsync));
-                await FindAndLoadEntryPointsAsync();
+                await FindAndLoadEntryPointsAsync(disposalToken);
+            }
+            catch (OperationCanceledException) when (disposalToken.IsCancellationRequested)
+            {
+                // This connection was torn down while discovery was still running; expected, not a fault.
             }
             catch (Exception ex) when (FatalError.ReportAndCatch(ex))
             {
                 throw ExceptionUtilities.Unreachable();
             }
-        }, cancellationToken);
+        }, disposalToken);
 
         return Task.CompletedTask;
     }
 
-    internal async Task FindAndLoadEntryPointsAsync()
+    public void Dispose()
+    {
+        _disposalTokenSource.Cancel();
+        _disposalTokenSource.Dispose();
+    }
+
+    internal async Task FindAndLoadEntryPointsAsync(CancellationToken cancellationToken = default)
     {
         Contract.ThrowIfTrue(_workspaceFolders.IsDefault, $"{nameof(OnInitializedAsync)} must be called before {nameof(FindAndLoadEntryPointsAsync)}.");
 
@@ -86,7 +126,7 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
             return;
         }
 
-        if (!globalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms))
+        if (!globalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms))
         {
             _logger.LogTrace(@"""dotnet.projects.enableFileBasedPrograms"" is false. Not discovering entry points.");
             return;
@@ -105,8 +145,15 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
         // For simplicity we orient our search around one workspace folder at a time.
         foreach (var workspaceFolder in _workspaceFolders)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             foreach (var fileBasedAppPath in FindEntryPoints(workspaceFolder))
             {
+                // TryBeginLoadingFileBasedAppAsync itself doesn't accept a token (shared by other, request-driven
+                // callers where that wouldn't make sense), so an already-started load can't be aborted mid-call --
+                // but checking here at least stops this background scan from starting further loads once the
+                // connection it's running on behalf of is gone.
+                cancellationToken.ThrowIfCancellationRequested();
                 await fileBasedProgramsProjectSystem.TryBeginLoadingFileBasedAppAsync(fileBasedAppPath);
             }
         }
@@ -114,7 +161,7 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
         // Discovery pass done. Find and delete old caches.
         IOUtilities.PerformIO(() =>
         {
-            using var enumerator = new OldCacheEnumerator();
+            using var enumerator = new OldCacheEnumerator(fileBasedProgramService);
             while (enumerator.MoveNext())
             {
                 IOUtilities.PerformIO(() => Directory.Delete(enumerator.Current, recursive: true));
@@ -122,8 +169,8 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
         });
     }
 
-    private sealed class OldCacheEnumerator() : FileSystemEnumerator<string>(
-        directory: VirtualProjectXmlProvider.GetDiscoveryCacheRootDirectory(),
+    private sealed class OldCacheEnumerator(IFileBasedProgramService fileBasedProgramService) : FileSystemEnumerator<string>(
+        directory: fileBasedProgramService.GetDiscoveryCacheRootDirectory(),
         options: new() { RecurseSubdirectories = false })
     {
         // Yield cache directories that have not been modified in 30 days (indicates they are stale and should be deleted)
@@ -140,7 +187,7 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
     internal ImmutableArray<string> FindEntryPoints(string workspaceFolder)
     {
         var stopwatch = SharedStopwatch.StartNew();
-        var cacheDirectory = VirtualProjectXmlProvider.GetDiscoveryCacheDirectory(workspaceFolder);
+        var cacheDirectory = fileBasedProgramService.GetDiscoveryCacheDirectory(workspaceFolder);
         var cacheFilePath = Path.Join(cacheDirectory, "cache.json");
         Cache? cache = null;
         try

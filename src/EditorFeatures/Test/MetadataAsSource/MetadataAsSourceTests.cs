@@ -3,14 +3,19 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CodeGeneration;
 using Microsoft.CodeAnalysis.CSharp.Formatting;
 using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.MetadataAsSource;
 using Microsoft.CodeAnalysis.Shared.Extensions;
 using Microsoft.CodeAnalysis.Test.Utilities;
 using Roslyn.Test.Utilities;
+using Roslyn.Utilities;
 using Xunit;
 using CS = Microsoft.CodeAnalysis.CSharp;
 using VB = Microsoft.CodeAnalysis.VisualBasic;
@@ -1871,6 +1876,70 @@ public sealed partial class MetadataAsSourceTests : AbstractMetadataAsSourceTest
         var a = await context.GenerateSourceAsync(project: context.DefaultProject);
         var b = await context.GenerateSourceAsync(project: project);
         TestContext.VerifyDocumentNotReused(a, b);
+    }
+
+    [WpfFact]
+    public async Task TestFallbackAnalyzerOptionsIsolatedPerConnection()
+    {
+        // Regression test for GoldMikeDev/roslyn#9: multiple "connections" (each with their own source Workspace)
+        // navigate metadata symbols through one shared MetadataAsSourceWorkspace/DecompilationMetadataAsSourceFileProvider
+        // (as happens in daemon mode, where the provider is a MEF [Shared] singleton). Each connection's
+        // already-open metadata document must keep seeing its own connection's fallback analyzer options, even
+        // after a later connection navigates to a different symbol of the same language through the shared
+        // provider. Before the fix, the second connection's navigation would silently overwrite the *solution-wide*
+        // FallbackAnalyzerOptions on the single shared MetadataAsSourceWorkspace, clobbering the first connection's
+        // already-generated document's options too.
+
+        using var context1 = TestContext.Create(metadataSources: ["public class C1 {}"]);
+        using var context2 = TestContext.Create(metadataSources: ["public class C2 {}"]);
+
+        // Use context1's properly MEF-composed IMetadataAsSourceFileService (which owns a [Shared]
+        // DecompilationMetadataAsSourceFileProvider and lazily creates a single shared MetadataAsSourceWorkspace)
+        // to service BOTH connections' navigations below -- exactly as happens in daemon mode, where one process,
+        // one MEF composition, and thus one shared provider/workspace serve every connection.
+        var service = context1.Workspace.GetService<IMetadataAsSourceFileService>();
+
+        context1.Workspace.SetAnalyzerFallbackOptions(LanguageNames.CSharp, ("test_option", "connection1value"));
+        context2.Workspace.SetAnalyzerFallbackOptions(LanguageNames.CSharp, ("test_option", "connection2value"));
+
+        var symbol1 = await context1.ResolveSymbolAsync("C1");
+        var symbol2 = await context2.ResolveSymbolAsync("C2");
+        Contract.ThrowIfNull(symbol1);
+        Contract.ThrowIfNull(symbol2);
+
+        var file1 = await service.GetGeneratedFileAsync(
+            context1.Workspace, context1.DefaultProject, symbol1, signaturesOnly: true, MetadataAsSourceOptions.Default, CancellationToken.None);
+
+        var metadataWorkspace = GetMetadataAsSourceWorkspace(service);
+        var documentId1 = metadataWorkspace.CurrentSolution.GetDocumentIdsWithFilePath(file1.FilePath).Single();
+
+        // Connection 1's document reflects connection 1's fallback options right after generation.
+        Assert.True(metadataWorkspace.CurrentSolution.GetRequiredDocument(documentId1).Project.GetFallbackAnalyzerOptions().TryGetValue("test_option", out var value1BeforeConnection2));
+        Assert.Equal("connection1value", value1BeforeConnection2);
+
+        // Connection 2 now navigates to a different symbol, through the same shared provider/workspace.
+        var file2 = await service.GetGeneratedFileAsync(
+            context2.Workspace, context2.DefaultProject, symbol2, signaturesOnly: true, MetadataAsSourceOptions.Default, CancellationToken.None);
+
+        metadataWorkspace = GetMetadataAsSourceWorkspace(service);
+
+        // Connection 1's already-open document must be UNCHANGED: still connection 1's fallback options.
+        Assert.True(metadataWorkspace.CurrentSolution.GetRequiredDocument(documentId1).Project.GetFallbackAnalyzerOptions().TryGetValue("test_option", out var value1AfterConnection2));
+        Assert.Equal("connection1value", value1AfterConnection2);
+
+        // Connection 2's document has its own fallback options.
+        var documentId2 = metadataWorkspace.CurrentSolution.GetDocumentIdsWithFilePath(file2.FilePath).Single();
+        Assert.True(metadataWorkspace.CurrentSolution.GetRequiredDocument(documentId2).Project.GetFallbackAnalyzerOptions().TryGetValue("test_option", out var value2));
+        Assert.Equal("connection2value", value2);
+
+        static MetadataAsSourceWorkspace GetMetadataAsSourceWorkspace(IMetadataAsSourceFileService service)
+        {
+            var field = typeof(MetadataAsSourceFileService).GetField("_workspace", BindingFlags.NonPublic | BindingFlags.Instance);
+            Contract.ThrowIfNull(field);
+            var workspace = (MetadataAsSourceWorkspace?)field.GetValue(service);
+            Contract.ThrowIfNull(workspace);
+            return workspace;
+        }
     }
 
     [WpfFact, WorkItem("http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/546311")]

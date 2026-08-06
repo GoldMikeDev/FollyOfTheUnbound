@@ -4,11 +4,12 @@
 
 using Microsoft.CodeAnalysis.Diagnostics.Analyzers.NamingStyles;
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.CodeStyle;
 
 internal static class NamingStyleOptionsStorage
 {
     public static NamingStylePreferences GetNamingStylePreferences(this IGlobalOptionService globalOptions, string language)
-        => globalOptions.GetOption(NamingStyleOptions.NamingPreferences, language);
+        => globalOptions.GetConnectionScopedOption(NamingStyleOptions.NamingPreferences, language);
 }

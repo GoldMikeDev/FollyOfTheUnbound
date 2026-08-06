@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CommonLanguageServerProtocol.Framework;
@@ -17,6 +18,7 @@ internal sealed class LanguageServerHost
 {
     private readonly AbstractLanguageServer<RequestContext> _roslynLanguageServer;
     private readonly JsonRpc _jsonRpc;
+    private readonly Stream _outputStream;
     private volatile bool _hasStarted;
 
     internal ILogger GlobalLogger { get; }
@@ -26,8 +28,11 @@ internal sealed class LanguageServerHost
         Stream inputStream,
         Stream outputStream,
         ExportProvider exportProvider,
-        AbstractTypeRefResolver typeRefResolver)
+        AbstractTypeRefResolver typeRefResolver,
+        bool isDaemonConnection = false)
     {
+        _outputStream = outputStream;
+
         var messageFormatter = RoslynLanguageServer.CreateJsonMessageFormatter();
 
         var handler = new HeaderDelimitedMessageHandler(outputStream, inputStream, messageFormatter);
@@ -38,17 +43,41 @@ internal sealed class LanguageServerHost
             ExceptionStrategy = ExceptionProcessing.CommonErrorData,
         };
 
-        var roslynLspFactory = exportProvider.GetExportedValue<CSharpVisualBasicLanguageServerFactory>();
+        try
+        {
+            var roslynLspFactory = exportProvider.GetExportedValue<CSharpVisualBasicLanguageServerFactory>();
 
-        var hostServices = exportProvider.GetExportedValue<HostServicesProvider>().HostServices;
-        _roslynLanguageServer = roslynLspFactory.Create(
-            _jsonRpc,
-            messageFormatter.JsonSerializerOptions,
-            WellKnownLspServerKinds.CSharpVisualBasicLspServer,
-            hostServices,
-            typeRefResolver);
+            var hostServices = exportProvider.GetExportedValue<HostServicesProvider>().HostServices;
+            _roslynLanguageServer = roslynLspFactory.Create(
+                _jsonRpc,
+                messageFormatter.JsonSerializerOptions,
+                WellKnownLspServerKinds.CSharpVisualBasicLspServer,
+                hostServices,
+                typeRefResolver);
 
-        GlobalLogger = _roslynLanguageServer.GetLspServices().GetRequiredService<ILoggerFactory>().CreateLogger("Global");
+            // See CleanExitSentinel's remarks: on a genuine client-requested exit (not a JsonRpc-disconnect-triggered
+            // one), write a final out-of-band byte to the raw transport before it's torn down, distinguishing this
+            // from an ungraceful disconnect for anything downstream reading the raw byte stream (the daemon relay
+            // in the roslyn-language-server thin client -- see LspRelay and issue #10's third race window). Only
+            // meaningful for a daemon connection: single-server (dedicated process) mode connects this stream
+            // directly to the editor with no LspRelay in between to strip the sentinel, so writing it there would
+            // hand the editor's own LSP client an unframed stray byte after `exit` instead.
+            if (isDaemonConnection)
+                _roslynLanguageServer.OnClientRequestedExitAsync = WriteCleanExitSentinelAsync;
+
+            GlobalLogger = _roslynLanguageServer.GetLspServices().GetRequiredService<ILoggerFactory>().CreateLogger("Global");
+        }
+        catch
+        {
+            _jsonRpc.Dispose();
+            throw;
+        }
+    }
+
+    private async Task WriteCleanExitSentinelAsync()
+    {
+        await _outputStream.WriteAsync(CleanExitSentinel.Bytes).ConfigureAwait(false);
+        await _outputStream.FlushAsync().ConfigureAwait(false);
     }
 
     public void Start()
@@ -76,6 +105,24 @@ internal sealed class LanguageServerHost
         //       even if the `_jsonRpc` instance has been disposed of (due to a synchronous read syscall that does not observe disposal).  The server
         //       should still shutdown regardless - we've been told to exit, so exit.
         return _roslynLanguageServer.WaitForExitAsync();
+    }
+
+    public async Task AbortAsync()
+    {
+        Exception? shutdownException = null;
+        try
+        {
+            await _roslynLanguageServer.ShutdownAsync("Aborting language server startup").ConfigureAwait(false);
+        }
+        catch (Exception ex)
+        {
+            shutdownException = ex;
+        }
+
+        await _roslynLanguageServer.ExitAsync().ConfigureAwait(false);
+
+        if (shutdownException is not null)
+            throw new InvalidOperationException("Language server cleanup failed during startup abort.", shutdownException);
     }
 
     public ILspServices GetLspServices()

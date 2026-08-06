@@ -4,10 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Razor.Threading;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.Razor;
 using Microsoft.CodeAnalysis.Razor.Logging;
 using Microsoft.CodeAnalysis.Razor.Remote;
@@ -15,6 +17,14 @@ using Microsoft.CodeAnalysis.Razor.Threading;
 
 namespace Microsoft.VisualStudio.Razor.LanguageClient.Cohost;
 
+/// <summary>
+/// This is a <c>[Export]</c>-default-shared MEF part -- every daemon connection resolves the same instance (see
+/// GoldMikeDev/roslyn#9). <c>_synchronizationRequests</c> used to be a single dictionary keyed only by document
+/// <see cref="Uri"/>, so two connections with the same Razor document open (e.g. the same file open in two VS
+/// Code windows talking to one daemon) would share, and could stomp, each other's in-flight Html synchronization
+/// state. Keyed per <see cref="AmbientConnectionToken.Current"/> instead, same pattern as
+/// <c>ClientSettingsManager</c>.
+/// </summary>
 [Export(typeof(IHtmlDocumentSynchronizer))]
 [method: ImportingConstructor]
 internal sealed partial class HtmlDocumentSynchronizer(
@@ -27,21 +37,28 @@ internal sealed partial class HtmlDocumentSynchronizer(
     private readonly IHtmlDocumentPublisher _htmlDocumentPublisher = htmlDocumentPublisher;
     private readonly ILogger _logger = loggerFactory.GetOrCreateLogger<HtmlDocumentSynchronizer>();
 
-    private readonly Dictionary<Uri, SynchronizationRequest> _synchronizationRequests = [];
-    // Semaphore to lock access to the dictionary above
+    private readonly ConditionalWeakTable<object, Dictionary<Uri, SynchronizationRequest>> _synchronizationRequestsByConnection = new();
+    private readonly Dictionary<Uri, SynchronizationRequest> _synchronizationRequestsWithNoAmbientConnection = [];
+    // Semaphore to lock access to the dictionaries above
 #pragma warning disable RS0030 // Do not use banned APIs
     private readonly SemaphoreSlim _semaphore = new(initialCount: 1);
 #pragma warning restore RS0030 // Do not use banned APIs
+
+    private Dictionary<Uri, SynchronizationRequest> GetSynchronizationRequests()
+        => AmbientConnectionToken.Current is { } token
+            ? _synchronizationRequestsByConnection.GetOrCreateValue(token)
+            : _synchronizationRequestsWithNoAmbientConnection;
 
     public void DocumentRemoved(Uri razorFileUri, CancellationToken cancellationToken)
     {
         using var _ = _semaphore.DisposableWait(cancellationToken);
 
-        if (_synchronizationRequests.TryGetValue(razorFileUri, out var request))
+        var synchronizationRequests = GetSynchronizationRequests();
+        if (synchronizationRequests.TryGetValue(razorFileUri, out var request))
         {
             _logger.LogDebug($"Document {razorFileUri} removed, so we're disposing and clearing out the sync request for it");
             request.Dispose();
-            _synchronizationRequests.Remove(razorFileUri);
+            synchronizationRequests.Remove(razorFileUri);
         }
     }
 
@@ -58,7 +75,7 @@ internal sealed partial class HtmlDocumentSynchronizer(
     /// Returns a task that will complete when the html document for the Razor document has been made available
     /// </summary>
     /// <remarks>
-    /// Whilst this is a task-returning method, really its not is to manage the <see cref="_synchronizationRequests" /> dictionary.
+    /// Whilst this is a task-returning method, really its not is to manage the connection's synchronization-requests dictionary.
     /// When this method is called, one of 3 things could happen:
     /// <list type="number">
     /// <item>Nobody has asked for that document before, or they asked but the task failed, so a new task is started and returned</item>
@@ -85,8 +102,9 @@ internal sealed partial class HtmlDocumentSynchronizer(
 
         Task<SynchronizationResult> GetOrAddResultTask_CallUnderLockAsync()
         {
+            var synchronizationRequests = GetSynchronizationRequests();
             var documentUri = document.CreateSystemUri();
-            if (_synchronizationRequests.TryGetValue(documentUri, out var request))
+            if (synchronizationRequests.TryGetValue(documentUri, out var request))
             {
                 if (requestedVersion.Checksum.Equals(request.RequestedVersion.Checksum))
                 {
@@ -128,7 +146,7 @@ internal sealed partial class HtmlDocumentSynchronizer(
             _logger.LogDebug($"Going to start working on Html for {document.FilePath} as at {requestedVersion}");
 
             var newRequest = SynchronizationRequest.CreateAndStart(document, requestedVersion, PublishHtmlDocumentAsync, cancellationToken);
-            _synchronizationRequests[documentUri] = newRequest;
+            synchronizationRequests[documentUri] = newRequest;
             return newRequest.Task;
         }
     }

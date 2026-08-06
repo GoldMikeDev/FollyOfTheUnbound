@@ -57,7 +57,7 @@ internal static partial class ProtocolConversions
         if (FadingOptions.TryGetFadingOptionForDiagnostic(diagnosticData.Id, out var fadingOption))
         {
             Contract.ThrowIfNull(diagnosticData.Language, $"diagnostic {diagnosticData.Id} is missing a language");
-            if (!globalOptionService.GetOption(fadingOption, diagnosticData.Language))
+            if (!globalOptionService.GetConnectionScopedOption(fadingOption, diagnosticData.Language))
                 return [diagnostic];
         }
 

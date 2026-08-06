@@ -8,6 +8,13 @@
 
     <IsPackable>false</IsPackable>
 
+    <!-- CS0436: this project both source-links CleanExitSentinel.cs directly (see the ItemGroup below, needed
+         because LspRelay.cs is also source-linked rather than referenced as a project, to avoid depending on
+         the AOT/trim-sensitive thin client project) and references Microsoft.CodeAnalysis.LanguageServer.csproj,
+         which compiles the same source file into its own assembly: the two internal types don't collide (each
+         assembly gets its own private copy), just the harmless "shadows an imported type" warning. -->
+    <NoWarn>$(NoWarn);CS0436</NoWarn>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,13 +22,34 @@
     <ProjectReference Include="..\Microsoft.CodeAnalysis.LanguageServer\Microsoft.CodeAnalysis.LanguageServer.csproj" />
     <ProjectReference Include="..\Protocol.TestUtilities\Microsoft.CodeAnalysis.LanguageServer.Protocol.Test.Utilities.csproj" />
     <ProjectReference Include="..\Protocol\Microsoft.CodeAnalysis.LanguageServer.Protocol.csproj" />
-    <ProjectReference Include="..\ExternalAccess\TestDiscovery\Microsoft.CodeAnalysis.ExternalAccess.TestDiscovery.csproj" />
-
     <ProjectReference Include="..\..\VisualStudio\DevKit\Impl\Microsoft.VisualStudio.LanguageServices.DevKit.csproj" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Basic.Reference.Assemblies.Net100" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="IdeCoreBenchmarks" />
+  </ItemGroup>
+
+  <ItemGroup Label="Shared named-pipe helper for daemon client tests">
+    <!-- Tests connect to the daemon as a client using the same compiler-server pipe helper the thin client
+         uses, so the test's client stream agrees with the daemon's server stream on pipe path -->
+    <Compile Include="..\..\Compilers\Shared\NamedPipeUtil.cs" Link="Daemon\NamedPipeUtil.cs" />
+  </ItemGroup>
+
+  <ItemGroup Label="Thin client relay logic under test">
+    <!-- LspRelay has no dependency on the daemon/workspace layer, so it's simplest to link it (and its stream-copy
+         helper) directly into this test project rather than adding a ProjectReference to the AOT/trim-sensitive
+         thin client project. -->
+    <Compile Include="..\roslyn-language-server\LspRelay.cs" Link="Client\LspRelay.cs" />
+    <Compile Include="..\roslyn-language-server\ProcessUtilities.cs" Link="Client\ProcessUtilities.cs" />
+    <!-- LspRelay now also depends on CleanExitSentinel (shared with the daemon side, see LanguageServerHost),
+         which this project doesn't otherwise reference directly (it references the daemon project as a whole
+         for its own tests, but not the source-shared DaemonConnection folder specifically). -->
+    <Compile Include="..\DaemonConnection\CleanExitSentinel.cs" Link="Client\CleanExitSentinel.cs" />
   </ItemGroup>
 
   <!--
@@ -56,4 +84,3 @@
     </ItemGroup>
   </Target>
 </Project>
-

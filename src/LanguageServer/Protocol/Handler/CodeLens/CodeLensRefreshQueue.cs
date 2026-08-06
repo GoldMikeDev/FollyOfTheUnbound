@@ -40,11 +40,14 @@ internal sealed class CodeLensRefreshQueue : AbstractRefreshQueue
 
     private void OnOptionChanged(object sender, object target, OptionChangedEventArgs e)
     {
-        if (e.HasOption(static option => option.Equals(LspOptionsStorage.LspEnableReferencesCodeLens) || option.Equals(LspOptionsStorage.LspEnableTestsCodeLens)))
+        if (e.HasOption(IsRefreshRelevantOption))
         {
             EnqueueRefreshNotification(documentUri: null);
         }
     }
+
+    protected override bool IsRefreshRelevantOption(IOption2 option)
+        => option.Equals(LspOptionsStorage.LspEnableReferencesCodeLens) || option.Equals(LspOptionsStorage.LspEnableTestsCodeLens);
 
     public override void Dispose()
     {

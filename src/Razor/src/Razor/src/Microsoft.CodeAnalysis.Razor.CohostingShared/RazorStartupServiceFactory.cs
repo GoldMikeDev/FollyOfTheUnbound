@@ -45,6 +45,20 @@ internal sealed class RazorStartupServiceFactory(
             _cohostActivation?.Dispose();
             _cohostActivation = null;
             _disposalTokenSource.Cancel();
+
+            // This ILspService instance -- and therefore this Dispose() call -- is per-connection (see the
+            // remarks on InitializeRazorAsync), unlike the IRazorCohostStartupService singletons it started.
+            // Give any of them that implement IRazorCohostConnectionScopedCleanup a chance to release
+            // per-connection state now, while AmbientConnectionToken.Current is still this connection's own.
+            // Skip services StartupAsync was never actually called on (Lazy<T> not yet realized) -- nothing to
+            // clean up for those.
+            foreach (var lazyStartupService in _lazyStartupServices)
+            {
+                if (lazyStartupService.IsValueCreated && lazyStartupService.Value is IRazorCohostConnectionScopedCleanup cleanup)
+                {
+                    cleanup.ConnectionEnded();
+                }
+            }
         }
 
         public Task OnInitializedAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken)

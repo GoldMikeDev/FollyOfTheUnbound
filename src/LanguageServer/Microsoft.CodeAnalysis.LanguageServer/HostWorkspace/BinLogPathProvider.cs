@@ -4,6 +4,7 @@
 
 using System.Composition;
 using Microsoft.CodeAnalysis.Host.Mef;
+using Microsoft.CodeAnalysis.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Handler;
 using Microsoft.CodeAnalysis.Options;
 using Microsoft.Extensions.Logging;
@@ -42,7 +43,7 @@ internal sealed class BinLogPathProvider : IBinLogPathProvider, ILspService
 
     public string? GetNewLogPath()
     {
-        if (_globalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.BinaryLogPath) is not string binaryLogDirectory)
+        if (_globalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.BinaryLogPath) is not string binaryLogDirectory)
             return null;
 
         var numericSuffix = Interlocked.Increment(ref _binaryLogNumericSuffix);

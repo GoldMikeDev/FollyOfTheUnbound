@@ -21,8 +21,9 @@ Repo-wide entry points and the formal public-API tracking rules. Layer-specific 
 | `dotnet run --file eng/generate-compiler-code.cs` | Regenerate Syntax/BoundNodes code. |
 | `pwsh eng/validate-benchmarks.ps1 -configuration Release -ci` | Validate benchmark projects with BenchmarkDotNet Dry jobs; custom multi-job Razor harnesses use their explicit validation mode. Used by the correctness artifacts CI job. |
 | `dotnet msbuild <proj> /t:UpdateXlf` | Refresh `.xlf` after `.resx` changes. |
+| `folly.ps1 <attune\|weave\|bind> [Debug\|Release]` (Windows) / `folly.sh <attune\|weave\|bind> [Debug\|Release]` (Linux/macOS) | This fork's wrapper around `eng/build.ps1`/`eng/build.sh` for `FollyOfTheUnbound.slnx`: `attune` restores, `weave` restores+builds, `bind` restores+builds+packs (via the real Arcade toolset, not a bare `dotnet build`/`pack`, which bypasses this repo's SDK bootstrap). `bind` also copies the produced nupkgs to `../.nupkg/FotU/<Configuration>`. |
 
-Solution filters: `Roslyn.slnx` (full), `Compilers.slnf`, `Ide.slnf`, `Razor.slnf`.
+Solution filters: `Roslyn.slnx` (full), `Compilers.slnf`, `Ide.slnf`, `Razor.slnf`, `FollyOfTheUnbound.slnx` (this fork's Compilers+IDE+Razor filter, excluding most of `RoslynAnalyzers`).
 
 ## Public API Tracking
 

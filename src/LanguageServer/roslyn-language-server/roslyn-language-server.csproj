@@ -1,0 +1,75 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>$(NetVSCode)</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>roslyn-language-server</AssemblyName>
+    <RootNamespace>Microsoft.CodeAnalysis.LanguageServer.Client</RootNamespace>
+
+    <!-- The thin client must stay dependency-light and AOT/trim-ready. We don't enable PublishAot yet
+         (the .NET tool packaging model produces a framework-dependent apphost), but we keep the code
+         AOT/trim-clean via the analyzers so flipping it on later is mechanical. -->
+    <IsAotCompatible>true</IsAotCompatible>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+
+    <!-- .NET Tool configuration. The thin client is the dotnet-tool entry point that discovers/launches
+         (or, in non-daemon mode, directly hosts) and relays to the bundled language server. It replaces
+         Microsoft.CodeAnalysis.LanguageServer as the tool entry point while keeping the same package id. -->
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <PackageId>roslyn-language-server</PackageId>
+    <ToolCommandName>roslyn-language-server</ToolCommandName>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+
+    <!-- The packaged tool must bundle the language server (see PublishBundledLanguageServer below), which is
+         wired up as an AfterTargets="Publish" step. Pack does not otherwise depend on Publish, so make sure
+         Publish (and therefore the bundling step) runs before Pack when the two are invoked independently,
+         e.g. via this repo's build wrapper (`-pack`) or `folly.sh bind`, which do not run `dotnet publish` first. -->
+    <PackDependsOn>Publish;$(PackDependsOn)</PackDependsOn>
+  </PropertyGroup>
+
+  <Import Project="..\LanguageServerPublish.props" />
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup Label="Windows Job Object breakaway (see Interop\Win32BreakawayProcessLauncher.cs, issue #11)">
+    <!-- Source-generated, dependency-light bindings for the raw CreateProcess/Job Object APIs this thin
+         client needs on Windows: no managed API exists for CREATE_BREAKAWAY_FROM_JOB. Already used
+         elsewhere in the repo (src/VisualStudio/IntegrationTest/Harness), same PrivateAssets pattern. -->
+    <PackageReference Include="Microsoft.Windows.CsWin32" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Label="Shared daemon connection files">
+    <!-- Source-shared (linked) with Microsoft.CodeAnalysis.LanguageServer so both compute identical
+         pipe/mutex names and use the same pipe options. Keep these dependency-light and AOT/trim-safe. -->
+    <Compile Include="..\DaemonConnection\*.cs" LinkBase="DaemonConnection" />
+
+    <!-- Share the compiler server's named-pipe helper (and its only dependency) so the thin client and the
+         daemon agree on pipe path/options. This thin client has no other copy of these types, so linking
+         them here is unambiguous and stays dependency-light (BCL-only, AOT/trim-safe). The language server
+         instead reuses the copy already compiled into Microsoft.CodeAnalysis.Workspaces.MSBuild via an alias. -->
+    <Compile Include="..\..\Compilers\Shared\NamedPipeUtil.cs" LinkBase="DaemonConnection" />
+    <Compile Include="..\..\Compilers\Core\Portable\InternalUtilities\PlatformInformation.cs" LinkBase="DaemonConnection" />
+  </ItemGroup>
+
+  <ItemGroup Label="Shared runtime host helper">
+    <Compile Include="..\..\Compilers\Shared\RuntimeHostInfo.cs" LinkBase="Shared" />
+    <Compile Include="..\..\Workspaces\Core\Portable\Utilities\ProcessStartInfoExtensions.cs" LinkBase="Shared" />
+  </ItemGroup>
+
+  <!--
+    Bundle the language server's full published output (apphost, *.dll, *.deps.json, *.runtimeconfig.json,
+    native SQLite, RoslynVersion.txt, etc.) into this thin client's publish directory so the thin client can
+    launch it side-by-side. Each app keeps its own uniquely-named deps.json/runtimeconfig.json, so merging the
+    two publishes into one directory is safe. We deliberately avoid a compile-time ProjectReference to keep the
+    thin client free of Roslyn/MEF dependencies and AOT-ready; the server is built and published on demand here.
+  -->
+  <Target Name="PublishBundledLanguageServer" AfterTargets="Publish">
+    <MSBuild Projects="..\Microsoft.CodeAnalysis.LanguageServer\Microsoft.CodeAnalysis.LanguageServer.csproj"
+             Targets="Publish"
+             Properties="Configuration=$(Configuration);TargetFramework=$(TargetFramework);RuntimeIdentifier=$(RuntimeIdentifier);SelfContained=$(SelfContained);PublishDir=$(PublishDir)" />
+  </Target>
+</Project>

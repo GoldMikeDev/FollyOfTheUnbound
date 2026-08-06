@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.Collections;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.CodeAnalysis.Shared.Extensions;
 using Microsoft.CodeAnalysis.Shared.TestHooks;
 using Microsoft.CodeAnalysis.Threading;
@@ -27,13 +28,42 @@ internal abstract class AbstractRefreshQueue :
     private readonly IClientLanguageServerManager _notificationManager;
 
     private readonly IAsynchronousOperationListener _asyncListener;
-    private readonly CancellationTokenSource _disposalTokenSource;
     private readonly LspWorkspaceRegistrationService _lspWorkspaceRegistrationService;
     private readonly FeatureProviderRefresher _providerRefresher;
 
     protected abstract string GetFeatureAttribute();
     protected abstract bool? GetRefreshSupport(ClientCapabilities clientCapabilities);
     protected abstract string GetWorkspaceRefreshName();
+
+    /// <summary>
+    /// Whether a change to <paramref name="option"/> should trigger a refresh notification. Only overridden by
+    /// subclasses that listen for option changes at all (see <see cref="RefreshIfOptionsChanged"/>); the base
+    /// implementation says no option ever triggers a refresh, for subclasses driven purely by workspace/solution
+    /// changes instead.
+    /// </summary>
+    protected virtual bool IsRefreshRelevantOption(IOption2 option) => false;
+
+    /// <summary>
+    /// Connection-scoped counterpart to the <see cref="IGlobalOptionService"/> option-changed-event-driven refresh
+    /// that subclasses wire up in their constructors. <c>ConnectionScopedOptionOverrides.SetOverrides</c>
+    /// deliberately never raises that event for a daemon connection's own option changes (writing directly to the
+    /// shared <see cref="IGlobalOptionService"/> would leak one connection's values into every other connection --
+    /// see docs/ide/specs/daemon-per-connection-isolation.md) -- so a client that changes, say, an inlay-hint option
+    /// via <c>workspace/didChangeConfiguration</c> would otherwise never get a refresh notification for it here.
+    /// This instance is itself connection-scoped (<see cref="AbstractRefreshQueue"/> is an <see cref="ILspService"/>,
+    /// one instance per connection), so the caller only needs to invoke this on its own connection's instance.
+    /// </summary>
+    public void RefreshIfOptionsChanged(IReadOnlyList<KeyValuePair<OptionKey2, object?>> changedOptions)
+    {
+        foreach (var (key, _) in changedOptions)
+        {
+            if (IsRefreshRelevantOption(key.Option))
+            {
+                EnqueueRefreshNotification(documentUri: null);
+                return;
+            }
+        }
+    }
 
     public AbstractRefreshQueue(
         IAsynchronousOperationListenerProvider asynchronousOperationListenerProvider,
@@ -44,11 +74,10 @@ internal abstract class AbstractRefreshQueue :
     {
         _asyncListener = asynchronousOperationListenerProvider.GetListener(GetFeatureAttribute());
         _lspWorkspaceRegistrationService = lspWorkspaceRegistrationService;
-        _disposalTokenSource = new();
         _lspWorkspaceManager = lspWorkspaceManager;
         _notificationManager = notificationManager;
         _providerRefresher = providerRefresher;
-        _providerRefresher.ProviderRefreshRequested += EnqueueRefreshNotification;
+        _providerRefresher.Subscribe(EnqueueRefreshNotification);
     }
 
     public async Task OnInitializedAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken)
@@ -69,8 +98,7 @@ internal abstract class AbstractRefreshQueue :
                 processBatchAsync: (documentUris, cancellationToken)
                     => FilterLspTrackedDocumentsAsync(_lspWorkspaceManager, _notificationManager, documentUris, cancellationToken),
                 equalityComparer: EqualityComparer<DocumentUri?>.Default,
-                asyncListener: _asyncListener,
-                _disposalTokenSource.Token);
+                asyncListener: _asyncListener);
             _lspWorkspaceRegistrationService.LspSolutionChanged += OnLspSolutionChanged;
         }
     }
@@ -134,9 +162,8 @@ internal abstract class AbstractRefreshQueue :
 
     public virtual void Dispose()
     {
-        _providerRefresher.ProviderRefreshRequested -= EnqueueRefreshNotification;
+        _providerRefresher.Unsubscribe(EnqueueRefreshNotification);
         _lspWorkspaceRegistrationService.LspSolutionChanged -= OnLspSolutionChanged;
-        _disposalTokenSource.Cancel();
-        _disposalTokenSource.Dispose();
+        _refreshQueue?.Dispose();
     }
 }

@@ -358,9 +358,9 @@ namespace System
             }
 
             if (fromEnd)
-                _value = ~value;
+            { _value = ~value; }
             else
-                _value = value;
+            { _value = value; }
         }
 
         // The following private constructors mainly created for perf reason to avoid the checks
@@ -403,9 +403,9 @@ namespace System
             get
             {
                 if (_value < 0)
-                    return ~_value;
+                { return ~_value; }
                 else
-                    return _value;
+                { return _value; }
             }
         }
 
@@ -417,9 +417,9 @@ namespace System
             int offset;
 
             if (IsFromEnd)
-                offset = length - (~_value);
+            { offset = length - (~_value); }
             else
-                offset = _value;
+            { offset = _value; }
 
             return offset;
         }

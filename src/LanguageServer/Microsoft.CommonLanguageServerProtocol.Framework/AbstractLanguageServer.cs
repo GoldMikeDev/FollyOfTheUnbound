@@ -61,6 +61,20 @@ internal abstract class AbstractLanguageServer<TRequestContext>
 
     public AbstractTypeRefResolver TypeRefResolver { get; }
 
+    /// <summary>
+    /// Invoked once, synchronously awaited immediately before the <see cref="JsonRpc"/> connection is torn down
+    /// in <see cref="ExitAsync"/> -- but only when exit was requested by the client itself (an <c>exit</c>
+    /// notification actually being processed), not when <see cref="ExitAsync"/> is instead reached via
+    /// <see cref="JsonRpc_Disconnected"/> reacting to a lost/broken connection. Both paths can otherwise look
+    /// identical from outside this class (e.g. to a raw byte-stream copier sitting on top of the same
+    /// transport): a graceful close is a graceful close either way once the underlying stream is disposed. A
+    /// caller that owns the raw transport can use this hook to write a final, out-of-band signal distinguishing
+    /// "the client asked us to exit and we're doing so cleanly" from "the connection just broke and we're
+    /// cleaning up in reaction" before that distinction disappears into an ordinary stream closure. Optional;
+    /// a server that doesn't need this distinction (most) can leave it unset.
+    /// </summary>
+    public Func<Task>? OnClientRequestedExitAsync { get; set; }
+
     protected AbstractLanguageServer(
         JsonRpc jsonRpc,
         AbstractTypeRefResolver? typeRefResolver)
@@ -164,7 +178,7 @@ internal abstract class AbstractLanguageServer<TRequestContext>
     public Task HandleShutdownRequestAsync(CancellationToken _) => ShutdownAsync();
 
     [JsonRpcMethod("exit")]
-    public Task HandleExitNotificationAsync(CancellationToken _) => ExitAsync();
+    public Task HandleExitNotificationAsync(CancellationToken _) => ExitAsync(requestedByClient: true);
 
     public virtual void OnInitialized()
     {
@@ -299,7 +313,11 @@ internal abstract class AbstractLanguageServer<TRequestContext>
     /// </summary>
     /// <param name="shutdownException">Optional exception that caused the server to shutdown.
     /// When provided, <see cref="WaitForExitAsync"/> will throw this exception so callers can observe the error.</param>
-    public Task ExitAsync(Exception? shutdownException = null)
+    /// <param name="requestedByClient">Whether this call is reached because the client's own <c>exit</c>
+    /// notification was received and processed (<see cref="HandleExitNotificationAsync"/>), as opposed to
+    /// <see cref="JsonRpc_Disconnected"/> reacting to a lost/broken connection. See
+    /// <see cref="OnClientRequestedExitAsync"/>.</param>
+    public Task ExitAsync(Exception? shutdownException = null, bool requestedByClient = false)
     {
         Task exitTask;
         lock (_lifeCycleLock)
@@ -309,7 +327,10 @@ internal abstract class AbstractLanguageServer<TRequestContext>
                 throw new ServerNotShutDownException("The language server has not yet been asked to shutdown or has not finished shutting down.");
             }
 
-            // Run exit or return the already running exit request.
+            // Run exit or return the already running exit request. Note: if JsonRpc_Disconnected's call races
+            // this one and wins, requestedByClient below is lost -- that's fine, since it means the connection
+            // broke before the client's own exit notification actually finished being processed, so treating it
+            // as not-client-requested is correct.
             _exitNotificationTask ??= Exit_NoLockAsync();
             exitTask = _exitNotificationTask;
             return exitTask;
@@ -332,9 +353,30 @@ internal abstract class AbstractLanguageServer<TRequestContext>
                     await hook.ExitAsync().ConfigureAwait(false);
                 }
 
-                await ShutdownRequestExecutionQueueAsync().ConfigureAwait(false);
+                var queueFullyDrained = await ShutdownRequestExecutionQueueAsync().ConfigureAwait(false);
 
                 lspServices.Dispose();
+
+                // Only invoke this if the request execution queue actually finished draining -- e.g.
+                // LanguageServerHost's clean-exit sentinel, written directly to the raw transport bypassing
+                // StreamJsonRpc's own serialized writer (see CleanExitSentinel's remarks), would otherwise be
+                // racing whatever in-flight response write the queue gave up waiting for, corrupting LSP
+                // framing if the sentinel interleaves with it. If the drain timed out with work still
+                // outstanding, skip the courtesy signal entirely rather than risk that race -- that work still
+                // completes on its own schedule in the background regardless.
+                if (requestedByClient && queueFullyDrained && OnClientRequestedExitAsync is { } onClientRequestedExitAsync)
+                {
+                    try
+                    {
+                        // Best-effort: this is a courtesy signal on top of a shutdown that's happening either
+                        // way, so a failure here (e.g. the transport already broke for an unrelated reason)
+                        // must not prevent the JsonRpc teardown below.
+                        await onClientRequestedExitAsync().ConfigureAwait(false);
+                    }
+                    catch
+                    {
+                    }
+                }
 
                 _jsonRpc.Disconnected -= JsonRpc_Disconnected;
                 _jsonRpc.Dispose();
@@ -358,10 +400,10 @@ internal abstract class AbstractLanguageServer<TRequestContext>
         }
     }
 
-    private ValueTask ShutdownRequestExecutionQueueAsync()
+    private ValueTask<bool> ShutdownRequestExecutionQueueAsync()
     {
         var queue = GetRequestExecutionQueue();
-        return queue.DisposeAsync();
+        return queue.DrainAndDisposeAsync();
     }
 
     /// <summary>

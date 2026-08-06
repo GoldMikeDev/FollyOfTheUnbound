@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Microsoft.CodeAnalysis.Options;
+using Microsoft.CodeAnalysis.LanguageServer;
 
 namespace Microsoft.CodeAnalysis.MetadataAsSource;
 
@@ -11,9 +12,9 @@ internal static class MetadataAsSourceOptionsStorage
     public static MetadataAsSourceOptions GetMetadataAsSourceOptions(this IGlobalOptionService globalOptions)
         => new()
         {
-            NavigateToDecompiledSources = globalOptions.GetOption(NavigateToDecompiledSources),
-            AlwaysUseDefaultSymbolServers = globalOptions.GetOption(AlwaysUseDefaultSymbolServers),
-            NavigateToSourceLinkAndEmbeddedSources = globalOptions.GetOption(NavigateToSourceLinkAndEmbeddedSources),
+            NavigateToDecompiledSources = globalOptions.GetConnectionScopedOption(NavigateToDecompiledSources),
+            AlwaysUseDefaultSymbolServers = globalOptions.GetConnectionScopedOption(AlwaysUseDefaultSymbolServers),
+            NavigateToSourceLinkAndEmbeddedSources = globalOptions.GetConnectionScopedOption(NavigateToSourceLinkAndEmbeddedSources),
         };
 
     private static readonly OptionGroup s_navigationOptionGroup = new(name: "navigation", description: "");

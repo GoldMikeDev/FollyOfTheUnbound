@@ -55,9 +55,9 @@ internal abstract partial class AbstractPullDiagnosticHandler<TDiagnosticsParams
 
             // Ensure that if fading options change that we recompute the checksum as it will produce different data
             // that we would report to the client.
-            var option1 = _globalOptions.GetOption(FadingOptions.FadeOutUnreachableCode, language);
-            var option2 = _globalOptions.GetOption(FadingOptions.FadeOutUnusedImports, language);
-            var option3 = _globalOptions.GetOption(FadingOptions.FadeOutUnusedMembers, language);
+            var option1 = _globalOptions.GetConnectionScopedOption(FadingOptions.FadeOutUnreachableCode, language);
+            var option2 = _globalOptions.GetConnectionScopedOption(FadingOptions.FadeOutUnusedImports, language);
+            var option3 = _globalOptions.GetConnectionScopedOption(FadingOptions.FadeOutUnusedMembers, language);
 
             var value =
                 (option1 ? (1 << 2) : 0) |

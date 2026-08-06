@@ -12,7 +12,7 @@ Roslyn uses a **layered service architecture** built on MEF (Managed Extensibili
 - **Features** (`src/Features/`): Language-agnostic IDE features (refactoring, navigation, completion)
 - **Analyzers** (`src/Analyzers/`): IDE diagnostic analyzers and code fixes (IDE0xxx diagnostics)
 - **CodeStyle** (`src/CodeStyle/`): Code-style analyzer packaging shared with the command-line
-- **LanguageServer** (`src/LanguageServer/`): Shared LSP protocol implementation and Roslyn LSP executable (`roslyn-language-server`)
+- **LanguageServer** (`src/LanguageServer/`): Shared LSP protocol implementation and Roslyn LSP executable (`roslyn-language-server`). This fork's `roslyn-language-server` is split into three processes: a dependency-light **thin client** (`src/LanguageServer/roslyn-language-server/`, entry point `ServerExecutable.ResolveSelf`/`ResolveLanguageServer`) that editors launch directly and that relays stdio LSP traffic over a named pipe (`LspRelay`); a short-lived **bootstrap** (`DaemonBootstrap`, re-launched copy of the thin client) that starts the long-lived daemon and exits so the daemon is orphaned out of the editor's process tree; and the **daemon** itself (`Microsoft.CodeAnalysis.LanguageServer`, the full MEF/Roslyn workspace host), shared across client connections and keyed by pipe name (`DaemonPipeName.GetPipeName`, derived from user/elevation/tool path/server arguments so incompatible clients never share a daemon). See `src/LanguageServer/roslyn-language-server/DaemonClient.cs` for the connect/launch flow.
 - **EditorFeatures** (`src/EditorFeatures/`): VS Editor integration and text manipulation
 - **VisualStudio** (`src/VisualStudio/`): Visual Studio-specific implementations
 
