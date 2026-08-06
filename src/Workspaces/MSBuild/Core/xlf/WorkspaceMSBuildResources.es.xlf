@@ -2,10 +2,10 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
   <file datatype="xml" source-language="en" target-language="es" original="../WorkspaceMSBuildResources.resx">
     <body>
-      <trans-unit id="Cannot_apply_project_file_changes_to_file_based_program_0">
-        <source>Project-file-level changes (such as adding a reference) are not supported for file-based apps and were not applied to '{0}'. Editing the generated virtual project file would be silently lost the next time the app is reloaded; instead, add the appropriate '#:' directive (such as '#:project' or '#:package') directly in the entry point file.</source>
-        <target state="new">Project-file-level changes (such as adding a reference) are not supported for file-based apps and were not applied to '{0}'. Editing the generated virtual project file would be silently lost the next time the app is reloaded; instead, add the appropriate '#:' directive (such as '#:project' or '#:package') directly in the entry point file.</target>
-        <note />
+      <trans-unit id="Applying_updates_to_file_based_apps_is_not_supported_0">
+        <source>Applying updates to file-based apps is not supported: {0}</source>
+        <target state="new">Applying updates to file-based apps is not supported: {0}</target>
+        <note>{0} is path to the file-based app</note>
       </trans-unit>
       <trans-unit id="Failed_to_load_solution_0">
         <source>Failed to load solution: '{0}'</source>
