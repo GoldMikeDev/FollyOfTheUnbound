@@ -1,0 +1,700 @@
+VSTest version 18.6.0 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\InteractiveHost.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_0_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_0_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (22780).
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests.SearchPaths1 [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests.AddReference_AssemblyAlreadyLoaded [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_InfiniteLoop [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_SourceKind [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncContinueOnDifferentThread [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_NonExistingFile [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_AlreadyLoadedDependencies [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Workaround7976 [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ScriptAndArguments [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+[xUnit.net 00:00:16.34]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.UserDefinedAssemblyResolve_InfiniteLoop [SKIP]
+[xUnit.net 00:00:16.34]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWeakVersioning [SKIP]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Dependencies_DllExe [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_FullName [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Dependencies_Versions [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.UserDefinedAssemblyResolve_InfiniteLoop [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.MissingReferencesReuse [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWeakVersioning [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.OutputRedirection [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.SubmissionResult_PrintingVoid [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Script_NoHostNamespaces [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+[xUnit.net 00:00:16.36]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.StackOverflow [SKIP]
+[xUnit.net 00:00:16.40]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_LoadUpdatedReference [SKIP]
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.StackOverflow [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.MultiModuleAssembly [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_ScriptFileWithBuildErrors [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ReferencePathsRsp_Error [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_PartialName_LatestVersion [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_PartialName [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Exception [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ExecuteSequentially [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_LoadUpdatedReference [1 ms]
+[xUnit.net 00:00:16.42]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_ShadowCopy [SKIP]
+[xUnit.net 00:00:16.43]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWithSameWeakIdentity [SKIP]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Path [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.PreservingDeclarationsOnException [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_ShadowCopy [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Culture [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.OutputRedirection2 [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWithSameWeakIdentity [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.SubmissionResult_PrintingNull [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Bitness [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+[xUnit.net 00:00:16.46]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_HangingForegroundThreads [SKIP]
+[xUnit.net 00:00:16.47]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_VersionUnification1 [SKIP]
+[xUnit.net 00:00:16.49]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreTests.StackOverflow [SKIP]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_InvalidFileContent [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ReferencePathsRsp [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_HangingForegroundThreads [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ExecutesOnStaThread [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.DefaultUsings [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_VersionUnification1 [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_InfiniteLoop [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.InitialScript_Error [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreTests.StackOverflow [1 ms]
+Data collector 'Blame' message: procdump64.exe could not be found, please make sure that the executable is available on PATH. Alternatively set PROCDUMP_PATH environment variable to a directory that contains procdump64.exe executable.
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.DefaultReferencesAndImports [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.InteractiveHostImplAssemblies [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.SearchPaths1 [1 ms]
+  Error Message:
+   System.TypeInitializationException : The type initializer for 'Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests' threw an exception.
+---- Assert.NotNull() Failure: Value is null
+  Stack Trace:
+     at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.RuntimeType.CreateInstanceImpl(BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes, StackCrawlMark& stackMark)
+   at System.Activator.CreateInstance(Type type, BindingFlags bindingAttr, Binder binder, Object[] args, CultureInfo culture, Object[] activationAttributes)
+   at System.Activator.CreateInstance(Type type, Object[] args)
+   at ReflectionAbstractionExtensions.<>c__DisplayClass0_0.<CreateTestClass>b__0() in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+   at ReflectionAbstractionExtensions.CreateTestClass(ITest test, Type testClassType, Object[] constructorArguments, IMessageBus messageBus, ExecutionTimer timer, CancellationTokenSource cancellationTokenSource) in /_/src/xunit.execution/Extensions/ReflectionAbstractionExtensions.cs:line 42
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+----- Inner Stack Trace -----
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests..cctor() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 56
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_0_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_0_x64_test_results.html
+
+Failed!  - Failed:    39, Passed:     1, Skipped:     9, Total:    49, Duration: 17 s - InteractiveHost.UnitTests.dll (net472)

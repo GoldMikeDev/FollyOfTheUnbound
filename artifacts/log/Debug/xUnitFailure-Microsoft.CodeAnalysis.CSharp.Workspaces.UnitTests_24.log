@@ -1,0 +1,45 @@
+VSTest version 18.6.0 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_24_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_24_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (15272).
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.Formatting.FormattingEngineTriviaTests.FormatInvalidCode_1 [12 ms]
+  Error Message:
+   Actual and expected values differ. Expected shown in baseline of diff:
+-> Roslyn.Utilities.dll!   Basic
++> Roslyn.Utilities.dll! Basic
+
+  Stack Trace:
+     at Roslyn.Test.Utilities.AssertEx.EqualOrDiff(String expected, String actual, String message) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\AssertEx.cs:line 309
+   at Microsoft.CodeAnalysis.UnitTests.Formatting.FormattingTestBase.AssertResult(String expected, SourceText sourceText, IList`1 result) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Workspaces\CoreTestUtilities\Formatting\FormattingTestBase.cs:line 130
+   at Microsoft.CodeAnalysis.UnitTests.Formatting.FormattingTestBase.<AssertFormatAsync>d__4.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Workspaces\CoreTestUtilities\Formatting\FormattingTestBase.cs:line 87
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Microsoft.CodeAnalysis.UnitTests.Formatting.FormattingTestBase.<AssertFormatAsync>d__1.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Workspaces\CoreTestUtilities\Formatting\FormattingTestBase.cs:line 58
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+[xUnit.net 00:00:41.33]     Microsoft.CodeAnalysis.CSharp.UnitTests.Formatting.FormattingEngineElasticTriviaTests.FormatElasticTrivia [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Formatting.FormattingEngineElasticTriviaTests.FormatElasticTrivia [1 ms]
+Data collector 'Blame' message: procdump64.exe could not be found, please make sure that the executable is available on PATH. Alternatively set PROCDUMP_PATH environment variable to a directory that contains procdump64.exe executable.
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_24_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_24_x64_test_results.html
+
+Failed!  - Failed:     1, Passed:  1227, Skipped:     1, Total:  1229, Duration: 42 s - Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests.dll (net472)

@@ -1,0 +1,141 @@
+<assemblies timestamp="08/10/2026 10:53:56">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Scripting.Desktop.UnitTests.dll" run-date="2026-08-10" run-time="10:53:56" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Scripting.Desktop.UnitTests.dll.config" total="42" passed="40" failed="0" skipped="2" time="157.827" errors="0">
+    <errors />
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" time="41.428">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests.LineNumber_Information_On_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" method="LineNumber_Information_On_Exception" time="10.6500000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests.ReferenceSearchPaths_LIB" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" method="ReferenceSearchPaths_LIB" time="2.1620000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests.DefaultUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" method="DefaultUsings" time="7.5360000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests.ReferenceSearchPaths_Sdk" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" method="ReferenceSearchPaths_Sdk" time="6.6050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests.CurrentWorkingDirectory_Change" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" method="CurrentWorkingDirectory_Change" time="8.3970000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests.CurrentWorkingDirectory1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.CsiTests" method="CurrentWorkingDirectory1" time="6.0780000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="3.521">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Hashtable" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Hashtable" time="0.0370000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.VBBackingFields_DebuggerBrowsable" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="VBBackingFields_DebuggerBrowsable" time="3.4780000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Queue" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Queue" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Stack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Stack" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ArrayList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ArrayList" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedList" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="30" passed="28" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" time="91.126">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References1" time="16.7470000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_SameVersion_Weak_DifferentContent" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_SameVersion_Weak_DifferentContent" time="10.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_FxUnification2" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_FxUnification2" time="0.0010000" result="Skip">
+        <reason><![CDATA[https://github.com/dotnet/roslyn/issues/79923]]></reason>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.HostObjectInInMemoryAssembly" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="HostObjectInInMemoryAssembly" time="0.1480000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.HostObjectBinding_DuplicateReferences" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="HostObjectBinding_DuplicateReferences" time="3.0340000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.MissingRefrencesAutoResolution" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="MissingRefrencesAutoResolution" time="0.1050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SearchPaths_RemoveDefault" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SearchPaths_RemoveDefault" time="2.4500000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_DifferentVersion_Weak" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_DifferentVersion_Weak" time="7.3960000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_Identical_Strong" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_Identical_Strong" time="7.1010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_SameVersion_Strong_DifferentContent" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_SameVersion_Strong_DifferentContent" time="5.8820000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.CompilationChain_UsingRebinding_AddReference" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="CompilationChain_UsingRebinding_AddReference" time="0.4210000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.MissingReferencesReuse" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="MissingReferencesReuse" time="1.2680000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6457" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_WeakNames2" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_WeakNames2" time="1.9060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_DifferentVersion_Strong" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_DifferentVersion_Strong" time="8.2520000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.CompilationChain_SubmissionSlots" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="CompilationChain_SubmissionSlots" time="0.5820000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.CompilationChain_GlobalImportsRebinding" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="CompilationChain_GlobalImportsRebinding" time="0.0910000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_FxUnification1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_FxUnification1" time="0.0010000" result="Skip">
+        <reason><![CDATA[https://github.com/dotnet/roslyn/issues/79923]]></reason>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SearchPaths1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SearchPaths1" time="0.2890000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_WeakNames3" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_WeakNames3" time="0.8900000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_StrongNames1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_StrongNames1" time="0.5920000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SearchPaths_BaseDirectory" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SearchPaths_BaseDirectory" time="0.8940000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_SameVersion_StrongWeak_DifferentContent" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_SameVersion_StrongWeak_DifferentContent" time="9.1710000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.CompilationChain_UsingRebinding_Directive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="CompilationChain_UsingRebinding_Directive" time="0.1750000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_StrongNames2" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_StrongNames2" time="0.2390000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.ReferenceToInvalidType" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="ReferenceToInvalidType" time="0.0680000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.AssemblyResolution" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="AssemblyResolution" time="0.6990000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_Identical_Weak" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_Identical_Weak" time="5.1650000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.SharedLibCopy_SameVersion_StrongDifferentPKT_DifferentContent" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="SharedLibCopy_SameVersion_StrongDifferentPKT_DifferentContent" time="6.3870000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References2" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References2" time="0.3620000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.References_Versioning_WeakNames1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="References_Versioning_WeakNames1" time="0.8040000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>
