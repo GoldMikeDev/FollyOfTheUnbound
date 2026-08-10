@@ -13,10 +13,7 @@
 .vscode/settings.json
 
 # Build results
-[Aa]rtifacts/
 BenchmarkDotNet.Artifacts/
-[Dd]ebug/
-[Rr]elease/
 [Bb]inaries/
 [Bb]in/
 [Oo]bj/
@@ -27,6 +24,11 @@ BenchmarkDotNet.Artifacts/
 .complog/
 /MSBuild_Logs/
 BenchmarkDotNet.Artifacts/
+OptProf/
+tmp/
+toolset/
+VSSetup/
+VSSetup.obj/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
