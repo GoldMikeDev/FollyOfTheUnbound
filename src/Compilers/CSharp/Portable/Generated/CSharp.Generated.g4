@@ -553,7 +553,7 @@ if_catch_statement
   ;
 
 if_catch_arm
-  : 'else'? 'if' '('? expression? ')'? block? block
+  : 'else'? 'if' '('? expression? ')'? block? statement
   ;
 
 else_clause
