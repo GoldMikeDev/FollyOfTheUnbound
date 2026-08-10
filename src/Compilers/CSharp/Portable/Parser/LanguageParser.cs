@@ -1228,6 +1228,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 
             var openParen = this.EatToken(SyntaxKind.OpenParenToken);
 
+            _inlineDeclarationSuppressionDepth++;
             var argNodes = this.ParseCommaSeparatedSyntaxList(
                 ref openParen,
                 SyntaxKind.CloseParenToken,
@@ -1238,6 +1239,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 allowTrailingSeparator: false,
                 requireOneElement: false,
                 allowSemicolonAsSeparator: false);
+            _inlineDeclarationSuppressionDepth--;
 
             return _syntaxFactory.AttributeArgumentList(
                 openParen,
@@ -7940,6 +7942,7 @@ done:
 
             var omittedArraySizeExpressionInstance = _syntaxFactory.OmittedArraySizeExpression(SyntaxFactory.Token(SyntaxKind.OmittedArraySizeExpressionToken));
             int lastTokenPosition = -1;
+            _inlineDeclarationSuppressionDepth++;
             while (IsMakingProgress(ref lastTokenPosition) && this.CurrentToken.Kind != SyntaxKind.CloseBracketToken)
             {
                 if (this.CurrentToken.Kind == SyntaxKind.CommaToken)
@@ -7965,6 +7968,7 @@ done:
                     break;
                 }
             }
+            _inlineDeclarationSuppressionDepth--;
 
             // Don't end on a comma.
             // If the omitted size would be the only element, then skip it unless sizes were expected.
@@ -11744,7 +11748,11 @@ done:
 
             // Check for trailing inline expression declaration: <expr> <identifier>
             // where <identifier> is followed by a terminating token (comma, close-paren, etc.)
-            if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && IsInlineDeclarationContext())
+            // Skip this if the left-hand expression is already erroneous (e.g. `int` used where an
+            // expression was expected, as in the legacy `Test(int x1)` diagnostic-recovery grammar) --
+            // extending a broken parse into a new construct would swallow the recovery diagnostics that
+            // the broken left expression was already supposed to produce.
+            if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && !currentExpression.ContainsDiagnostics && IsInlineDeclarationContext())
             {
                 var identToken = this.EatToken(SyntaxKind.IdentifierToken);
                 currentExpression = _syntaxFactory.InlineExpressionDeclaration(currentExpression, identToken);
@@ -12695,6 +12703,7 @@ done:
                 if (isIndexer)
                 {
                     // An indexer always expects at least one value.
+                    _inlineDeclarationSuppressionDepth++;
                     arguments = ParseCommaSeparatedSyntaxList(
                         ref openToken,
                         SyntaxKind.CloseBracketToken,
@@ -12704,6 +12713,7 @@ done:
                         allowTrailingSeparator: false,
                         requireOneElement: false,
                         allowSemicolonAsSeparator: false);
+                    _inlineDeclarationSuppressionDepth--;
                 }
                 else
                 {
@@ -13650,8 +13660,20 @@ done:
 
 #nullable enable
 
+        // Suppresses IsInlineDeclarationContext() while parsing syntactic positions where an adjacent
+        // `identifier identifier` pair already has pre-existing grammar meaning (e.g. `out var x` inside an
+        // attribute-argument list, an array-rank/fixed-buffer-size list, or an indexer's bracketed-argument
+        // list) so those positions keep reporting the same diagnostics as vanilla C# instead of being
+        // silently reinterpreted as an inline expression declaration. Ordinary parenthesized argument lists
+        // (regular method-call arguments) are intentionally NOT suppressed, since inline declarations are
+        // expected to appear there.
+        private int _inlineDeclarationSuppressionDepth;
+
         private bool IsInlineDeclarationContext()
         {
+            if (_inlineDeclarationSuppressionDepth > 0)
+                return false;
+
             // A word that's also a contextual keyword elsewhere in the language (e.g. the query-ordering
             // "descending"/"ascending", or pattern-matching's "when"/"and"/"or"/"not") must not be treated as
             // an inline-declared name -- otherwise `orderby x descending, y ascending` would have its

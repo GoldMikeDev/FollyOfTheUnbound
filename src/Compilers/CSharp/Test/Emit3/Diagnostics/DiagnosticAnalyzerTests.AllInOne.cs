@@ -33,7 +33,16 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             CreateCompilationWithMscorlib461(source).VerifyAnalyzerDiagnostics(new[] { analyzer }, options);
             analyzer.VerifyAllAnalyzerMembersWereCalled();
             analyzer.VerifyAnalyzeSymbolCalledForAllSymbolKinds();
-            analyzer.VerifyAnalyzeNodeCalledForAllSyntaxKinds([]);
+            // AllInOneCSharpCode doesn't exercise this fork's experimental constructs (do/until, mutate,
+            // inline expression declaration, if/catch chains), so their SyntaxKinds are never produced.
+            analyzer.VerifyAnalyzeNodeCalledForAllSyntaxKinds(new HashSet<SyntaxKind>
+            {
+                SyntaxKind.DoUntilStatement,
+                SyntaxKind.InlineExpressionDeclaration,
+                SyntaxKind.MutateStatement,
+                SyntaxKind.IfCatchStatement,
+                SyntaxKind.IfCatchArm,
+            });
             analyzer.VerifyOnCodeBlockCalledForAllSymbolAndMethodKinds(symbolKindsWithNoCodeBlocks);
         }
 
