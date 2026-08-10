@@ -26,16 +26,16 @@ public sealed partial class TestComposition
     public static readonly TestComposition RoslynFeatures = Empty
         .AddAssemblies(MefHostServices.DefaultAssemblies)
         .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.dll"))
-        .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.CSharp.Features.dll"))
-        .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.Features.dll"))
+        .AddAssemblies(Assembly.LoadFrom("FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll"))
+        .AddAssemblies(Assembly.LoadFrom("FollyOfTheUnbound.CodeAnalysis.Features.dll"))
         .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.LanguageServer.Protocol.dll"));
 
 #if NETFRAMEWORK
     public static readonly TestComposition Roslyn = Empty
         .AddAssemblies(MefHostServices.DefaultAssemblies)
         .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.dll"))
-        .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.CSharp.EditorFeatures.dll"))
-        .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.EditorFeatures.dll"))
+        .AddAssemblies(Assembly.LoadFrom("FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.EditorFeatures.dll"))
+        .AddAssemblies(Assembly.LoadFrom("FollyOfTheUnbound.CodeAnalysis.EditorFeatures.dll"))
         .AddAssemblies(Assembly.LoadFrom("Microsoft.CodeAnalysis.LanguageServer.Protocol.dll"));
 
     public static readonly TestComposition Editor = Empty

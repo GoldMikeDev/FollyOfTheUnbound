@@ -39,7 +39,7 @@ internal sealed class LanguageServerWorkspaceFactory : ILspService, IHostWorkspa
         // Before we can create the workspace, let's figure out the solution-level analyzers; we'll pull in analyzers from our own binaries
         // as well as anything coming from extensions.
         _solutionLevelAnalyzerPaths = new DirectoryInfo(AppContext.BaseDirectory).GetFiles("*.dll")
-            .Where(f => f.Name.StartsWith("Microsoft.CodeAnalysis.", StringComparison.Ordinal) && !f.Name.Contains("LanguageServer", StringComparison.Ordinal))
+            .Where(f => (f.Name.StartsWith("Microsoft.CodeAnalysis.", StringComparison.Ordinal) || f.Name.StartsWith("FollyOfTheUnbound.CodeAnalysis.", StringComparison.Ordinal)) && !f.Name.Contains("LanguageServer", StringComparison.Ordinal))
             .Select(f => f.FullName)
             .Concat(extensionManager.ExtensionAssemblyPaths)
             .ToImmutableArray();

@@ -147,6 +147,8 @@ internal static class IntegrationTestAssemblyResolver
         return assemblyName == "Microsoft.CodeAnalysis"
             || assemblyName == "Microsoft.VisualStudio.LanguageServices"
             || assemblyName.StartsWith("Microsoft.CodeAnalysis.", StringComparison.Ordinal)
-            || assemblyName.StartsWith("Microsoft.VisualStudio.LanguageServices.", StringComparison.Ordinal);
+            || assemblyName.StartsWith("Microsoft.VisualStudio.LanguageServices.", StringComparison.Ordinal)
+            || assemblyName.StartsWith("FollyOfTheUnbound.CodeAnalysis.", StringComparison.Ordinal)
+            || assemblyName.StartsWith("FollyOfTheUnbound.LanguageServices", StringComparison.Ordinal);
     }
 }

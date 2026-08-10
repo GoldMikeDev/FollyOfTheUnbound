@@ -97,8 +97,8 @@ internal static partial class Extensions
     {
         var fileNameSpan = reference.FullPath.AsSpan(FileNameUtilities.IndexOfFileName(reference.FullPath));
         return
-          fileNameSpan.Equals("Microsoft.CodeAnalysis.Features.dll".AsSpan(), StringComparison.OrdinalIgnoreCase) ||
-          fileNameSpan.Equals("Microsoft.CodeAnalysis.CSharp.Features.dll".AsSpan(), StringComparison.OrdinalIgnoreCase) ||
+          fileNameSpan.Equals("FollyOfTheUnbound.CodeAnalysis.Features.dll".AsSpan(), StringComparison.OrdinalIgnoreCase) ||
+          fileNameSpan.Equals("FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll".AsSpan(), StringComparison.OrdinalIgnoreCase) ||
           fileNameSpan.Equals("Microsoft.CodeAnalysis.VisualBasic.Features.dll".AsSpan(), StringComparison.OrdinalIgnoreCase);
     }
 
