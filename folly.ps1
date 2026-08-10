@@ -5,16 +5,34 @@ param
 )
 try {
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-    [Console]::CursorVisible = $false
+    try { [Console]::CursorVisible = $false } catch {}
     $ErrorActionPreference = "Stop"
     $solution = "FollyOfTheUnbound.slnx"
     $buildScript = Join-Path $PSScriptRoot "eng\build.ps1"
     $nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
-    if ([string]::IsNullOrEmpty($config) -or $config -eq "Research") {
+    if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
+        Write-Host "folly.ps1 <action> [config]"
+        Write-Host ""
+        Write-Host "Actions:"
+        Write-Host "  attune    Restore only [config]"
+        Write-Host "  weave     Restore + build [config]"
+        Write-Host "  reweave   Restore + rebuild [config]"
+        Write-Host "  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)"
+        Write-Host "  scry      Restore + build + run Desktop unit tests [config]"
+        Write-Host "  cleanse   Delete artifacts/ (ignores config)"
+        Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
+        Write-Host ""
+        Write-Host "[config] (optional, defaults to Research):"
+        Write-Host "  research  Debug"
+        Write-Host "  truth     Release"
+        Write-Host ""
+        exit 0
+    }
+    if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
         $configuration = "Debug"
         $nupkgDir = Join-Path $nupkgRoot "Debug"
     }
-    elseif ($config -eq "Truth") {
+    elseif ($config -eq "truth") {
         $configuration = "Release"
         $nupkgDir = Join-Path $nupkgRoot "Release"
     }
@@ -43,7 +61,7 @@ try {
         exit 0
     }
     else {
-        Write-Host "Unrecognized action '$action'. Expected 'attune', 'weave', 'reweave', 'bind', 'scry', or 'cleanse'." -ForegroundColor Red
+        Write-Host "Unrecognized action '$action'. Expected 'attune', 'weave', 'reweave', 'bind', 'scry', 'cleanse', or 'grimoire'." -ForegroundColor Red
         exit 1
     }
     $buildExitCode = $LASTEXITCODE
@@ -67,5 +85,5 @@ try {
     exit 0
 }
 finally {
-    [Console]::CursorVisible = $true
+    try { [Console]::CursorVisible = $true } catch {}
 }
