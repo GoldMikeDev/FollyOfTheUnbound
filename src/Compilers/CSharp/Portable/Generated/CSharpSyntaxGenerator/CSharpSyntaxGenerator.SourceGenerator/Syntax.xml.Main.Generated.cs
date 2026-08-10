@@ -2023,7 +2023,7 @@ public partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<SyntaxNode?>
         => node.Update(VisitList(node.AttributeLists), VisitList(node.Arms), (ElseClauseSyntax?)Visit(node.Else), VisitList(node.Catches), (FinallyClauseSyntax?)Visit(node.Finally));
 
     public override SyntaxNode? VisitIfCatchArm(IfCatchArmSyntax node)
-        => node.Update(VisitToken(node.ElseKeyword), VisitToken(node.IfKeyword), VisitToken(node.OpenParenToken), (ExpressionSyntax?)Visit(node.Condition), VisitToken(node.CloseParenToken), (BlockSyntax?)Visit(node.ConditionBlock), (BlockSyntax?)Visit(node.Consequence) ?? throw new ArgumentNullException("consequence"));
+        => node.Update(VisitToken(node.ElseKeyword), VisitToken(node.IfKeyword), VisitToken(node.OpenParenToken), (ExpressionSyntax?)Visit(node.Condition), VisitToken(node.CloseParenToken), (BlockSyntax?)Visit(node.ConditionBlock), (StatementSyntax?)Visit(node.Consequence) ?? throw new ArgumentNullException("consequence"));
 
     public override SyntaxNode? VisitCatchClause(CatchClauseSyntax node)
         => node.Update(VisitToken(node.CatchKeyword), (CatchDeclarationSyntax?)Visit(node.Declaration), (CatchFilterClauseSyntax?)Visit(node.Filter), (BlockSyntax?)Visit(node.Block) ?? throw new ArgumentNullException("block"));
@@ -4874,7 +4874,7 @@ public static partial class SyntaxFactory
         => SyntaxFactory.IfCatchStatement(default, default, default, default, default);
 
     /// <summary>Creates a new IfCatchArmSyntax instance.</summary>
-    public static IfCatchArmSyntax IfCatchArm(SyntaxToken elseKeyword, SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax? condition, SyntaxToken closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    public static IfCatchArmSyntax IfCatchArm(SyntaxToken elseKeyword, SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax? condition, SyntaxToken closeParenToken, BlockSyntax? conditionBlock, StatementSyntax consequence)
     {
         switch (elseKeyword.Kind())
         {
@@ -4896,16 +4896,16 @@ public static partial class SyntaxFactory
             default: throw new ArgumentException(nameof(closeParenToken));
         }
         if (consequence == null) throw new ArgumentNullException(nameof(consequence));
-        return (IfCatchArmSyntax)Syntax.InternalSyntax.SyntaxFactory.IfCatchArm((Syntax.InternalSyntax.SyntaxToken?)elseKeyword.Node, (Syntax.InternalSyntax.SyntaxToken)ifKeyword.Node!, (Syntax.InternalSyntax.SyntaxToken?)openParenToken.Node, condition == null ? null : (Syntax.InternalSyntax.ExpressionSyntax)condition.Green, (Syntax.InternalSyntax.SyntaxToken?)closeParenToken.Node, conditionBlock == null ? null : (Syntax.InternalSyntax.BlockSyntax)conditionBlock.Green, (Syntax.InternalSyntax.BlockSyntax)consequence.Green).CreateRed();
+        return (IfCatchArmSyntax)Syntax.InternalSyntax.SyntaxFactory.IfCatchArm((Syntax.InternalSyntax.SyntaxToken?)elseKeyword.Node, (Syntax.InternalSyntax.SyntaxToken)ifKeyword.Node!, (Syntax.InternalSyntax.SyntaxToken?)openParenToken.Node, condition == null ? null : (Syntax.InternalSyntax.ExpressionSyntax)condition.Green, (Syntax.InternalSyntax.SyntaxToken?)closeParenToken.Node, conditionBlock == null ? null : (Syntax.InternalSyntax.BlockSyntax)conditionBlock.Green, (Syntax.InternalSyntax.StatementSyntax)consequence.Green).CreateRed();
     }
 
     /// <summary>Creates a new IfCatchArmSyntax instance.</summary>
-    public static IfCatchArmSyntax IfCatchArm(ExpressionSyntax? condition, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    public static IfCatchArmSyntax IfCatchArm(ExpressionSyntax? condition, BlockSyntax? conditionBlock, StatementSyntax consequence)
         => SyntaxFactory.IfCatchArm(default, SyntaxFactory.Token(SyntaxKind.IfKeyword), default, condition, default, conditionBlock, consequence);
 
     /// <summary>Creates a new IfCatchArmSyntax instance.</summary>
-    public static IfCatchArmSyntax IfCatchArm()
-        => SyntaxFactory.IfCatchArm(default, SyntaxFactory.Token(SyntaxKind.IfKeyword), default, default, default, default, SyntaxFactory.Block());
+    public static IfCatchArmSyntax IfCatchArm(StatementSyntax consequence)
+        => SyntaxFactory.IfCatchArm(default, SyntaxFactory.Token(SyntaxKind.IfKeyword), default, default, default, default, consequence);
 
     /// <summary>Creates a new CatchClauseSyntax instance.</summary>
     public static CatchClauseSyntax CatchClause(SyntaxToken catchKeyword, CatchDeclarationSyntax? declaration, CatchFilterClauseSyntax? filter, BlockSyntax block)
