@@ -49,7 +49,17 @@ internal static class MefHostServicesHelpers
         }
         catch (Exception)
         {
-            return null;
+            // The "nearby" assembly may not share this assembly's strong-name key (e.g. it wasn't
+            // re-keyed alongside this one) -- fall back to loading by simple name so version/key
+            // pinning doesn't block an otherwise-loadable, co-located assembly.
+            try
+            {
+                return Assembly.Load(new AssemblyName(assemblySimpleName));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 
