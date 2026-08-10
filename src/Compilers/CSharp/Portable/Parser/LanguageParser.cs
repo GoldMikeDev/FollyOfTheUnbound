@@ -10152,9 +10152,11 @@ done:
                 ExpressionSyntax condition = null;
                 SyntaxToken closeParen = null;
                 BlockSyntax conditionBlock = null;
+                bool armHasBlockCondition = false;
 
                 if (this.CurrentToken.Kind == SyntaxKind.OpenBraceToken)
                 {
+                    armHasBlockCondition = true;
                     anyBlockCondition = true;
                     conditionBlock = this.ParseBlock(default);
                 }
@@ -10165,9 +10167,12 @@ done:
                     closeParen = this.EatToken(SyntaxKind.CloseParenToken);
                 }
 
-                // Always require an actual block for the consequence -- this is a simplification over the
-                // classic `if` statement (which allows any embedded statement).
-                var consequence = this.ParseBlock(default);
+                // Block-condition arms require an actual block for the consequence (matches the
+                // try-like semantics of that variant). Classic parenthesized-condition arms keep the
+                // classic `if` statement's ability to take any embedded statement as the consequence.
+                StatementSyntax consequence = armHasBlockCondition
+                    ? this.ParseBlock(default)
+                    : this.ParseEmbeddedStatement();
 
                 arms.Add(_syntaxFactory.IfCatchArm(pendingArmElseKeyword, ifKeyword, openParen, condition, closeParen, conditionBlock, consequence));
                 pendingArmElseKeyword = null;
@@ -10187,9 +10192,9 @@ done:
                     continue;
                 }
 
-                // Trailing 'else { ... }'
-                var elseBlock = this.ParseBlock(default);
-                elseClause = _syntaxFactory.ElseClause(elseKeyword, elseBlock);
+                // Trailing 'else' -- matches classic `if/else`, so any embedded statement is allowed.
+                var elseStatement = this.ParseEmbeddedStatement();
+                elseClause = _syntaxFactory.ElseClause(elseKeyword, elseStatement);
                 break;
             }
 
