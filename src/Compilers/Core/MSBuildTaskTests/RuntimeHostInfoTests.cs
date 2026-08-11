@@ -86,7 +86,7 @@ public sealed class RuntimeHostInfoTests(ITestOutputHelper output) : TestBase
         {
             File.CreateSymbolicLink(path: symlinkPath, pathToTarget: globalDotNetExe.Path);
         }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception)
         {
             throw new IOException(
                 "Failed to create a symbolic link for this test. On Windows, creating symlinks without " +
