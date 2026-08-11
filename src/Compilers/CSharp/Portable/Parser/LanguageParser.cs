@@ -11746,13 +11746,19 @@ done:
             if (this.CurrentToken.Kind == SyntaxKind.QuestionToken && precedence <= Precedence.Conditional)
                 return consumeConditionalExpression(currentExpression);
 
-            // Check for trailing inline expression declaration: <expr> <identifier>
+            // Check for trailing inline expression declaration: <new-expression> <identifier>
             // where <identifier> is followed by a terminating token (comma, close-paren, etc.)
-            // Skip this if the left-hand expression is already erroneous (e.g. `int` used where an
-            // expression was expected, as in the legacy `Test(int x1)` diagnostic-recovery grammar) --
-            // extending a broken parse into a new construct would swallow the recovery diagnostics that
-            // the broken left expression was already supposed to produce.
-            if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && !currentExpression.ContainsDiagnostics && IsInlineDeclarationContext())
+            // The feature is specifically for giving a name to an object-creation result so it
+            // survives past the end of the expression (e.g. `new Widget() w` instead of
+            // `var w = new Widget();`) -- it is intentionally NOT a general `<expr> <identifier>`
+            // production. Restricting the left operand to an object-creation expression is also what
+            // keeps this from colliding with unrelated existing grammar that happens to have an
+            // identifier trailing some other kind of expression (numeric/string literal suffixes,
+            // `is`/`as`-pattern names, attribute arguments, fixed-buffer sizes, indexer arguments,
+            // diagnostic-recovery text after an already-broken expression, etc).
+            if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken &&
+                currentExpression is ObjectCreationExpressionSyntax or ImplicitObjectCreationExpressionSyntax &&
+                IsInlineDeclarationContext())
             {
                 var identToken = this.EatToken(SyntaxKind.IdentifierToken);
                 currentExpression = _syntaxFactory.InlineExpressionDeclaration(currentExpression, identToken);
