@@ -34,18 +34,25 @@ public sealed class Win32BreakawayLauncherTests
     [ConditionalFact(typeof(WindowsOnly))]
     public async Task DaemonLaunchBreaksAwayFromKillOnCloseJobObject()
     {
-        var thinClientExePath = Path.Combine(TestPaths.GetLanguageServerDirectory(), "roslyn-language-server.exe");
-        Assert.True(File.Exists(thinClientExePath), $"Expected the thin client apphost at '{thinClientExePath}'.");
+        var thinClientDllPath = TestPaths.GetThinClientPath();
+        Assert.True(File.Exists(thinClientDllPath), $"Expected the thin client at '{thinClientDllPath}'.");
 
+        // Launch through "dotnet <dll>" rather than the apphost directly, the same way the other process-host
+        // tests' CreateThinClientStartInfo does: the apphost only resolves the .NET runtime via
+        // DOTNET_ROOT[_<arch>], a registered install location, or the default install location -- never PATH --
+        // so launching it directly would fail to start in an environment whose only .NET install is reachable
+        // via PATH. "dotnet" itself has none of that trouble.
         var startInfo = new ProcessStartInfo
         {
-            FileName = thinClientExePath,
+            FileName = "dotnet.exe",
             UseShellExecute = false,
             RedirectStandardInput = true,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             CreateNoWindow = true,
         };
+        startInfo.Environment["DOTNET_ROLL_FORWARD_TO_PRERELEASE"] = "1";
+        startInfo.ArgumentList.Add(thinClientDllPath);
         startInfo.ArgumentList.Add("--breakaway-self-test");
 
         using var helper = Process.Start(startInfo)

@@ -62,6 +62,17 @@ internal static class BreakawaySelfTest
         try
         {
             var child = ServerExecutable.ResolveSelf().Start([ChildArgument]);
+
+            // Wait for the child's own "I'm alive" line before reporting success: the harness terminates this
+            // helper's job the moment it sees STARTED, which closes this process's (and, if breakaway failed,
+            // the child's too) end of the child's redirected stdout pipe -- reporting success any earlier could
+            // race the child's one write to CHILD-READY with that teardown and turn a working breakaway into a
+            // spurious broken-pipe failure.
+            using var childOutputReader = new StreamReader(child.StandardOutput);
+            var childReady = childOutputReader.ReadLine();
+            if (childReady != "CHILD-READY")
+                throw new InvalidOperationException($"Expected 'CHILD-READY' from the escaped child, got '{childReady ?? "<eof>"}'.");
+
             Console.WriteLine($"STARTED:True:{child.Id}");
         }
         catch (Exception ex) when (ex is InvalidOperationException or FileNotFoundException)
