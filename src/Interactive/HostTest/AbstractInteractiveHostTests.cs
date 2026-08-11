@@ -6,6 +6,7 @@ extern alias InteractiveHost;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -44,12 +45,28 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
         {
             if (Environment.GetEnvironmentVariable("DOTNET_ROOT") == null)
             {
-                var dir = RuntimeEnvironment.GetRuntimeDirectory();
+                // Prefer asking the OS what actually launched this process. When a
+                // framework-dependent app (like this test host) is launched through the `dotnet`
+                // muxer, the current process's main module *is* that dotnet(.exe)'s own path -- no
+                // assumptions about install layout required.
+                var dotnetProcessPath = Process.GetCurrentProcess().MainModule?.FileName;
+                var dir = dotnetProcessPath != null &&
+                    string.Equals(Path.GetFileNameWithoutExtension(dotnetProcessPath), "dotnet", StringComparison.OrdinalIgnoreCase)
+                        ? Path.GetDirectoryName(dotnetProcessPath)
+                        : null;
 
-                // find directory above runtime dir that contains dotnet.exe
-                while (dir != null && !File.Exists(Path.Combine(dir, "dotnet.exe")))
+                if (dir == null)
                 {
-                    dir = Path.GetDirectoryName(dir);
+                    // Fallback: walk up from the shared-framework directory looking for a sibling
+                    // dotnet.exe. This assumes the standard SDK install layout
+                    // (dotnet\shared\Microsoft.NETCore.App\<version>\), which doesn't hold for every
+                    // runtime layout (e.g. a private testhost copy of the runtime) -- hence trying
+                    // the current process's main module first.
+                    dir = RuntimeEnvironment.GetRuntimeDirectory();
+                    while (dir != null && !File.Exists(Path.Combine(dir, "dotnet.exe")))
+                    {
+                        dir = Path.GetDirectoryName(dir);
+                    }
                 }
 
                 // dotnet.exe not found
