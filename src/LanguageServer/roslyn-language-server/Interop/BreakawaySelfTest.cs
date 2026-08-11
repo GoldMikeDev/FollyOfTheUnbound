@@ -55,14 +55,21 @@ internal static class BreakawaySelfTest
         Console.WriteLine($"INJOB:{inJob}");
         Console.Out.Flush();
 
-        var selfPath = Environment.ProcessPath
-            ?? throw new InvalidOperationException("Could not determine this process's own executable path.");
-        var environment = Environment.GetEnvironmentVariables()
-            .Cast<System.Collections.DictionaryEntry>()
-            .Select(static entry => new KeyValuePair<string, string?>((string)entry.Key, (string?)entry.Value));
+        // Go through ServerExecutable.ResolveSelf().Start -- the same production entry point
+        // DaemonBootstrap/Program use to launch the daemon/bootstrap -- rather than calling
+        // Win32BreakawayProcessLauncher.TryStart directly, so this test also covers ServerExecutable's own
+        // decision of *whether* to attempt breakaway, not just the launcher in isolation.
+        try
+        {
+            var child = ServerExecutable.ResolveSelf().Start([ChildArgument]);
+            Console.WriteLine($"STARTED:True:{child.Id}");
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or FileNotFoundException)
+        {
+            Console.WriteLine("STARTED:False:0");
+            Console.Error.WriteLine(ex);
+        }
 
-        var started = Win32BreakawayProcessLauncher.TryStart(selfPath, [ChildArgument], environment, out var child);
-        Console.WriteLine(started && child is not null ? $"STARTED:True:{child.Id}" : "STARTED:False:0");
         Console.Out.Flush();
 
         // Stay alive (and a job member) until the harness terminates the job; that's the whole point of this

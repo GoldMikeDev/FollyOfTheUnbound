@@ -51,66 +51,84 @@ public sealed class Win32BreakawayLauncherTests
         using var helper = Process.Start(startInfo)
             ?? throw new InvalidOperationException("Failed to start the breakaway self-test helper.");
 
-        Assert.Equal("READY", await ReadLineWithTimeoutAsync(helper));
-
-        // A job configured the way an editor like VS Code configures the job around its own process tree: every
-        // member goes down the moment the job itself is torn down. Assign the *helper*, not this test process,
-        // to it -- TerminateJobObject below must not take down the test host.
-        var job = NativeMethods.CreateJobObjectW(IntPtr.Zero, lpName: null);
-        Assert.NotEqual(IntPtr.Zero, job);
+        // From here on, the helper must always be torn down on the way out -- including if an assertion or a
+        // Win32 call below throws before the job is even created -- since its own test hook otherwise waits on
+        // stdin/blocks forever and would leak, along with anything it manages to launch.
         try
         {
-            var limitInfo = new NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION
+            Assert.Equal("READY", await ReadLineWithTimeoutAsync(helper));
+
+            // A job configured the way an editor like VS Code configures the job around its own process tree:
+            // every member goes down the moment the job itself is torn down. JOB_OBJECT_LIMIT_BREAKAWAY_OK (not
+            // the silent variant) is also required for CREATE_BREAKAWAY_FROM_JOB to succeed at all -- without it
+            // the production launcher's CreateProcess call itself would fail and this test would only be
+            // checking that failure path, never the survival behavior the issue is about. Assign the *helper*,
+            // not this test process, to the job -- TerminateJobObject below must not take down the test host.
+            var job = NativeMethods.CreateJobObjectW(IntPtr.Zero, lpName: null);
+            Assert.NotEqual(IntPtr.Zero, job);
+            try
             {
-                BasicLimitInformation = new NativeMethods.JOBOBJECT_BASIC_LIMIT_INFORMATION
+                var limitInfo = new NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION
                 {
-                    LimitFlags = NativeMethods.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE,
-                },
-            };
+                    BasicLimitInformation = new NativeMethods.JOBOBJECT_BASIC_LIMIT_INFORMATION
+                    {
+                        LimitFlags = NativeMethods.JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE | NativeMethods.JOB_OBJECT_LIMIT_BREAKAWAY_OK,
+                    },
+                };
 
-            Assert.True(NativeMethods.SetInformationJobObject(
-                job,
-                NativeMethods.JobObjectExtendedLimitInformation,
-                ref limitInfo,
-                (uint)Marshal.SizeOf<NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION>()));
+                Assert.True(NativeMethods.SetInformationJobObject(
+                    job,
+                    NativeMethods.JobObjectExtendedLimitInformation,
+                    ref limitInfo,
+                    (uint)Marshal.SizeOf<NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION>()));
 
-            Assert.True(NativeMethods.AssignProcessToJobObject(job, helper.SafeHandle.DangerousGetHandle()));
+                Assert.True(NativeMethods.AssignProcessToJobObject(job, helper.SafeHandle.DangerousGetHandle()));
 
-            // Only now (after the helper is a job member) tell it to proceed and attempt to break away.
-            await helper.StandardInput.WriteLineAsync("GO");
-            await helper.StandardInput.FlushAsync();
+                // Only now (after the helper is a job member) tell it to proceed and attempt to break away.
+                await helper.StandardInput.WriteLineAsync("GO");
+                await helper.StandardInput.FlushAsync();
 
-            Assert.Equal("INJOB:True", await ReadLineWithTimeoutAsync(helper));
+                Assert.Equal("INJOB:True", await ReadLineWithTimeoutAsync(helper));
 
-            var startedLine = await ReadLineWithTimeoutAsync(helper);
-            Assert.StartsWith("STARTED:True:", startedLine);
-            var childProcessId = int.Parse(startedLine!.Split(':')[2]);
+                var startedLine = await ReadLineWithTimeoutAsync(helper);
+                Assert.StartsWith("STARTED:True:", startedLine);
+                var childProcessId = int.Parse(startedLine!.Split(':')[2]);
 
-            using var child = Process.GetProcessById(childProcessId);
-            Assert.False(child.HasExited);
+                using var child = Process.GetProcessById(childProcessId);
+                try
+                {
+                    Assert.False(child.HasExited);
 
-            // Simulate the editor closing: tear down the whole job. If GoldMikeDev/roslyn#11 regresses (the
-            // launch path stops requesting breakaway), the escaped child would still be a member of this job
-            // and would be killed here along with the helper.
-            Assert.True(NativeMethods.TerminateJobObject(job, uExitCode: 1));
+                    // Simulate the editor closing: tear down the whole job. If GoldMikeDev/roslyn#11 regresses
+                    // (the launch path stops requesting breakaway), the escaped child would still be a member of
+                    // this job and would be killed here along with the helper.
+                    Assert.True(NativeMethods.TerminateJobObject(job, uExitCode: 1));
 
-            await helper.WaitForExitAsync().WaitAsync(s_stepTimeout);
-            Assert.True(helper.HasExited);
+                    await helper.WaitForExitAsync().WaitAsync(s_stepTimeout);
+                    Assert.True(helper.HasExited);
 
-            // The actual assertion this issue is about: the escaped child outlives the job it broke away from.
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            child.Refresh();
-            Assert.False(child.HasExited);
+                    // The actual assertion this issue is about: the escaped child outlives the job it broke away from.
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    child.Refresh();
+                    Assert.False(child.HasExited);
+                }
+                finally
+                {
+                    if (!child.HasExited)
+                        child.Kill(entireProcessTree: true);
 
-            child.Kill(entireProcessTree: true);
-            await child.WaitForExitAsync().WaitAsync(s_stepTimeout);
+                    await child.WaitForExitAsync().WaitAsync(s_stepTimeout);
+                }
+            }
+            finally
+            {
+                NativeMethods.CloseHandle(job);
+            }
         }
         finally
         {
             if (!helper.HasExited)
                 helper.Kill(entireProcessTree: true);
-
-            NativeMethods.CloseHandle(job);
         }
     }
 
@@ -128,6 +146,7 @@ public sealed class Win32BreakawayLauncherTests
     private static class NativeMethods
     {
         public const uint JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE = 0x00002000;
+        public const uint JOB_OBJECT_LIMIT_BREAKAWAY_OK = 0x00000800;
         public const int JobObjectExtendedLimitInformation = 9;
 
         [StructLayout(LayoutKind.Sequential)]
