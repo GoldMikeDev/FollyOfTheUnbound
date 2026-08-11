@@ -6,7 +6,6 @@ extern alias InteractiveHost;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -45,15 +44,18 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
         {
             if (Environment.GetEnvironmentVariable("DOTNET_ROOT") == null)
             {
-                // Prefer asking the OS what actually launched this process. When a
-                // framework-dependent app (like this test host) is launched through the `dotnet`
-                // muxer, the current process's main module *is* that dotnet(.exe)'s own path -- no
-                // assumptions about install layout required.
-                var dotnetProcessPath = Process.GetCurrentProcess().MainModule?.FileName;
-                var dir = dotnetProcessPath != null &&
-                    string.Equals(Path.GetFileNameWithoutExtension(dotnetProcessPath), "dotnet", StringComparison.OrdinalIgnoreCase)
-                        ? Path.GetDirectoryName(dotnetProcessPath)
-                        : null;
+                // This test project targets net472, so this static constructor always runs inside a
+                // .NET Framework test-runner process (e.g. testhost.exe), never one launched through
+                // the `dotnet` muxer itself -- so the current process's own executable tells us
+                // nothing about where the .NET (Core) SDK/runtime used to run the InteractiveHost
+                // child process lives. Search PATH instead: that's how `dotnet` would actually be
+                // resolved from a shell on this machine, and doesn't depend on any assumption about
+                // install layout relative to this process's runtime directory.
+                var dir = (Environment.GetEnvironmentVariable("PATH") ?? "")
+                    .Split(Path.PathSeparator)
+                    .Select(p => p.Trim())
+                    .Where(p => p.Length > 0)
+                    .FirstOrDefault(p => File.Exists(Path.Combine(p, "dotnet.exe")));
 
                 if (dir == null)
                 {
@@ -61,7 +63,7 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
                     // dotnet.exe. This assumes the standard SDK install layout
                     // (dotnet\shared\Microsoft.NETCore.App\<version>\), which doesn't hold for every
                     // runtime layout (e.g. a private testhost copy of the runtime) -- hence trying
-                    // the current process's main module first.
+                    // PATH first.
                     dir = RuntimeEnvironment.GetRuntimeDirectory();
                     while (dir != null && !File.Exists(Path.Combine(dir, "dotnet.exe")))
                     {

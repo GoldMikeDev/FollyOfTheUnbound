@@ -11757,7 +11757,7 @@ done:
             // `is`/`as`-pattern names, attribute arguments, fixed-buffer sizes, indexer arguments,
             // diagnostic-recovery text after an already-broken expression, etc).
             if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken &&
-                currentExpression is ObjectCreationExpressionSyntax or ImplicitObjectCreationExpressionSyntax &&
+                currentExpression is ObjectCreationExpressionSyntax or ImplicitObjectCreationExpressionSyntax or AnonymousObjectCreationExpressionSyntax &&
                 IsInlineDeclarationContext())
             {
                 var identToken = this.EatToken(SyntaxKind.IdentifierToken);
@@ -12723,6 +12723,15 @@ done:
                 }
                 else
                 {
+                    // An ordinary parenthesized argument list is never itself suppressed (see
+                    // IsInlineDeclarationContext), even when nested inside an attribute-argument
+                    // list, array-rank/fixed-buffer-size list, or indexer argument list that IS
+                    // suppressed -- e.g. `items[M(new Widget() w)]` should still let `w` be an
+                    // inline declaration inside M's ordinary call arguments. Reset (and later
+                    // restore) the suppression depth around it so it doesn't inherit an enclosing
+                    // suppression it isn't part of.
+                    var saveInlineDeclarationSuppressionDepth = _inlineDeclarationSuppressionDepth;
+                    _inlineDeclarationSuppressionDepth = 0;
                     arguments = ParseCommaSeparatedSyntaxList(
                         ref openToken,
                         SyntaxKind.CloseParenToken,
@@ -12732,6 +12741,7 @@ done:
                         allowTrailingSeparator: false,
                         requireOneElement: false,
                         allowSemicolonAsSeparator: false);
+                    _inlineDeclarationSuppressionDepth = saveInlineDeclarationSuppressionDepth;
                 }
             }
             else if (isIndexer && this.CurrentToken.Kind == closeKind)
