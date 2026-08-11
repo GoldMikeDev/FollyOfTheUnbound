@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp.Completion.KeywordRecommenders;
 // a real SyntaxKind for SyntaxFacts.GetText.
 internal sealed class MutateKeywordRecommender() : IKeywordRecommender<CSharpSyntaxContext>
 {
-    private static readonly ImmutableArray<RecommendedKeyword> s_keywords = [new RecommendedKeyword("mutate")];
+    private static readonly ImmutableArray<RecommendedKeyword> s_keywords = [new RecommendedKeyword("mutate", matchPriority: MatchPriority.Default - 1)];
 
     public ImmutableArray<RecommendedKeyword> RecommendKeywords(int position, CSharpSyntaxContext context, CancellationToken cancellationToken)
     {
