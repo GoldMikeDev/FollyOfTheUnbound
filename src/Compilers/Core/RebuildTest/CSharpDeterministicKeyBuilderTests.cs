@@ -58,7 +58,7 @@ namespace Microsoft.CodeAnalysis.Rebuild.UnitTests
             verifyCount<ParseOptions>(11);
             verifyCount<CSharpParseOptions>(13);
             verifyCount<CompilationOptions>(63);
-            verifyCount<CSharpCompilationOptions>(12);
+            verifyCount<CSharpCompilationOptions>(14);
 
             static void verifyCount<T>(int expected)
             {
@@ -110,6 +110,7 @@ namespace Microsoft.CodeAnalysis.Rebuild.UnitTests
       ""unsafe"": false,
       ""memorySafetyRules"": 0,
       ""topLevelBinderFlags"": ""None"",
+      ""rootNamespace"": null,
       ""usings"": []
     },
     ""parseOptions"": [
@@ -258,6 +259,7 @@ namespace Microsoft.CodeAnalysis.Rebuild.UnitTests
       ""unsafe"": false,
       ""memorySafetyRules"": 0,
       ""topLevelBinderFlags"": ""None"",
+      ""rootNamespace"": null,
       ""usings"": []
     }}
   }},
@@ -482,6 +484,7 @@ namespace Microsoft.CodeAnalysis.Rebuild.UnitTests
       ""unsafe"": false,
       ""memorySafetyRules"": 0,
       ""topLevelBinderFlags"": ""None"",
+      ""rootNamespace"": null,
       ""usings"": []
     },
     ""parseOptions"": [
@@ -558,6 +561,7 @@ namespace Microsoft.CodeAnalysis.Rebuild.UnitTests
       "unsafe": false,
       "memorySafetyRules": 0,
       "topLevelBinderFlags": "None",
+      "rootNamespace": null,
       "usings": []
     },
     "parseOptions": [

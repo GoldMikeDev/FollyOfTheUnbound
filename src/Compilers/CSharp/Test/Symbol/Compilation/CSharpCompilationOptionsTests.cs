@@ -365,6 +365,7 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             ReflectionAssert.AssertPublicAndInternalFieldsAndProperties(
                 typeof(CSharpCompilationOptions),
                 "Language",
+                "RootNamespace",
                 "AllowUnsafe",
                 "MemorySafetyRules",
                 "Usings",
