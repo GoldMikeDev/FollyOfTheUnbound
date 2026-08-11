@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.CodeAnalysis.CommandLine;
@@ -81,7 +82,18 @@ public sealed class RuntimeHostInfoTests(ITestOutputHelper output) : TestBase
         var symlinkPath = Path.Combine(binDir.Path, $"dotnet{PlatformInformation.ExeExtension}");
 
         // Create symlink from binDir to the actual dotnet executable
-        File.CreateSymbolicLink(path: symlinkPath, pathToTarget: globalDotNetExe.Path);
+        try
+        {
+            File.CreateSymbolicLink(path: symlinkPath, pathToTarget: globalDotNetExe.Path);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception)
+        {
+            throw new IOException(
+                "Failed to create a symbolic link for this test. On Windows, creating symlinks without " +
+                "elevation requires Developer Mode to be enabled (Settings > Update & Security > For developers); " +
+                "on Unix, the test process needs permission to create symlinks in the temp directory.",
+                ex);
+        }
 
         var result = ApplyEnvironmentVariables(
         [
