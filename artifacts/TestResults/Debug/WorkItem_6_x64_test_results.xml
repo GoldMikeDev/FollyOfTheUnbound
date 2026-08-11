@@ -1,5 +1,5 @@
-<assemblies timestamp="08/10/2026 10:57:24">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests\Debug\net472\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll" run-date="2026-08-10" run-time="10:57:24" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests\Debug\net472\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll.config" total="1294" passed="1291" failed="0" skipped="3" time="33.799" errors="0">
+<assemblies timestamp="08/11/2026 11:56:55">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests\Debug\net472\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll" run-date="2026-08-11" run-time="11:56:55" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests\Debug\net472\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll.config" total="1294" passed="1291" failed="0" skipped="3" time="25.977" errors="0">
     <errors />
     <collection total="43" passed="43" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ArgHelperTests" time="0.043">
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ArgHelperTests.ThrowIfZero(v: -1, exceptionType: null)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ArgHelperTests" method="ThrowIfZero(v: -1, exceptionType: null)" time="0.0010000" result="Pass">
@@ -132,11 +132,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="20" passed="20" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" time="0.252">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_0(), Target = &lt;&gt;c { } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_0(), Target = &lt;&gt;c { } })" time="0.2030000" result="Pass">
+    <collection total="20" passed="20" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" time="0.040">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_0(), Target = &lt;&gt;c { } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_0(), Target = &lt;&gt;c { } })" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_1(), Target = &lt;&gt;c { } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_1(), Target = &lt;&gt;c { } })" time="0.0060000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_1(), Target = &lt;&gt;c { } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_1(), Target = &lt;&gt;c { } })" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: False, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_1(), Target = &lt;&gt;c { } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_2(), Target = &lt;&gt;c { } })" time="0.0030000" result="Pass">
@@ -145,7 +145,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_2(), Target = &lt;&gt;c { } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;.cctor&gt;b__12_2(), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;CreateInt32&gt;b__0(), Target = &lt;&gt;c__DisplayClass5_0 { value = 0 } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;CreateInt32&gt;b__0(), Target = &lt;&gt;c__DisplayClass5_0 { value = 0 } })" time="0.0230000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;CreateInt32&gt;b__0(), Target = &lt;&gt;c__DisplayClass5_0 { value = 0 } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;CreateInt32&gt;b__0(), Target = &lt;&gt;c__DisplayClass5_0 { value = 0 } })" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: True, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;CreateInt32&gt;b__0(), Target = &lt;&gt;c__DisplayClass5_0 { value = 2147483647 } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;CreateInt32&gt;b__0(), Target = &lt;&gt;c__DisplayClass5_0 { value = 2147483647 } })" time="0.0010000" result="Pass">
@@ -190,12 +190,12 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestEquality" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestEquality(areEqual: False, producer1: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;Combine&gt;b__0(), Target = &lt;&gt;c__DisplayClass8_0 { producers = [···] } }, producer2: Func`1 { Method = Microsoft.AspNetCore.Razor.Utilities.Checksum &lt;Combine&gt;b__0(), Target = &lt;&gt;c__DisplayClass8_0 { producers = [···] } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestLargeString" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestLargeString" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests.TestLargeString" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ChecksumTests" method="TestLargeString" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" time="0.014">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.CopyTo_HashSet" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="CopyTo_HashSet" time="0.0050000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" time="0.012">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.CopyTo_HashSet" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="CopyTo_HashSet" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.SelectAsArray_Index" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="SelectAsArray_Index" time="0.0010000" result="Pass">
@@ -213,7 +213,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.CopyTo_Array" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="CopyTo_Array" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.CopyTo_ImmutableArrayBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="CopyTo_ImmutableArrayBuilder" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.CopyTo_ImmutableArrayBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="CopyTo_ImmutableArrayBuilder" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests.CopyTo_CustomEnumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableExtensionsTests" method="CopyTo_CustomEnumerable" time="0.0010000" result="Pass">
@@ -223,11 +223,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="84" passed="84" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" time="0.114">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderByAsArray_Comparer_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderByAsArray_Comparer_IsStable" time="0.0160000" result="Pass">
+    <collection total="84" passed="84" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" time="0.086">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderByAsArray_Comparer_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderByAsArray_Comparer_IsStable" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0100000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -242,7 +242,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [10, 9, 8, 7, 6, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -257,7 +257,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [6, 10, 4, 7, 9, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderAsArray_OddBeforeEven(data: [10, 9, 8, 7, 6, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0010000" result="Pass">
@@ -425,7 +425,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderAsArray(data: [6, 10, 4, 7, 9, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderByDescendingAsArray_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderByDescendingAsArray_IsStable" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.OrderByDescendingAsArray_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="OrderByDescendingAsArray_IsStable" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests.SelectAndOrderByDescendingAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumerableOrderingTests" method="SelectAndOrderByDescendingAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -477,42 +477,42 @@
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" time="0.046">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestUInt32SizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestUInt32SizedEnum" time="0.0120000" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" time="0.057">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestUInt32SizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestUInt32SizedEnum" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestByteSizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestByteSizedEnum" time="0.0110000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestByteSizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestByteSizedEnum" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestUInt16SizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestUInt16SizedEnum" time="0.0110000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestUInt16SizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestUInt16SizedEnum" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestUInt64SizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestUInt64SizedEnum" time="0.0120000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.HashSetExtensionsTests" time="0.001">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.HashSetExtensionsTests.CopyTo" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.HashSetExtensionsTests" method="CopyTo" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests.TestUInt64SizedEnum" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.EnumExtensionsTests" method="TestUInt64SizedEnum" time="0.0150000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="34" passed="34" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" time="0.047">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.SelectAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="SelectAsArray_ReadOnlyList" time="0.0020000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.HashSetExtensionsTests" time="0.002">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.HashSetExtensionsTests.CopyTo" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.HashSetExtensionsTests" method="CopyTo" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_MultipleItems_InsertsCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_MultipleItems_InsertsCorrectly" time="0.0010000" result="Pass">
+    </collection>
+    <collection total="34" passed="34" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" time="0.064">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.SelectAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="SelectAsArray_ReadOnlyList" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_FirstItemDoesNotMatch" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_FirstItemDoesNotMatch" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_MultipleItems_InsertsCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_MultipleItems_InsertsCorrectly" time="0.0120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_FirstItemDoesNotMatch" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_FirstItemDoesNotMatch" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.SelectAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="SelectAsArray" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_WithIndex_All" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_WithIndex_All" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_WithIndex_All" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_WithIndex_All" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_WithReferenceTypes_InsertsCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_WithReferenceTypes_InsertsCorrectly" time="0.0070000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_WithReferenceTypes_InsertsCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_WithReferenceTypes_InsertsCorrectly" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.SelectAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="SelectAsArray_Enumerable" time="0.0010000" result="Pass">
@@ -527,10 +527,10 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_AtEndOfBuilder_AppendsItems" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_AtEndOfBuilder_AppendsItems" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_WithArgAndIndex_None" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_WithArgAndIndex_None" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_WithArgAndIndex_None" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_WithArgAndIndex_None" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_NegativeIndex_ThrowsArgumentException" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_NegativeIndex_ThrowsArgumentException" time="0.0010000" result="Pass">
@@ -581,7 +581,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.WhereAsArray_ImmutableArray_WithArg_None" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="WhereAsArray_ImmutableArray_WithArg_None" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.SelectAsArray_Index_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="SelectAsArray_Index_ReadOnlyList" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.SelectAsArray_Index_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="SelectAsArray_Index_ReadOnlyList" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests.InsertRange_IndexGreaterThanCount_ThrowsArgumentException" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayExtensionsTests" method="InsertRange_IndexGreaterThanCount_ThrowsArgumentException" time="0.0010000" result="Pass">
@@ -600,7 +600,7 @@
         <traits />
       </test>
     </collection>
-    <collection total="376" passed="376" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" time="0.379">
+    <collection total="376" passed="376" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" time="0.381">
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_ReadOnlyList_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_ReadOnlyList_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
@@ -616,7 +616,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_ReadOnlyList_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_ReadOnlyList_OddBeforeEven(data: [6, 10, 4, 7, 9, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderByDescendingAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderByDescendingAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderByDescendingAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderByDescendingAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderByDescendingAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderByDescendingAsArray(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -769,7 +769,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.UnsafeOrderByDescending_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="UnsafeOrderByDescending_OddBeforeEven(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderAsArray_Enumerable(data: [1, 2, 3, 4, 5, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderAsArray_Enumerable(data: [1, 2, 3, 4, 5, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderAsArray_Enumerable(data: [10, 9, 8, 7, 6, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
@@ -1866,8 +1866,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="35" passed="35" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" time="0.046">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.TryPop_WithNullableReferenceTypes_WorksCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="TryPop_WithNullableReferenceTypes_WorksCorrectly" time="0.0010000" result="Pass">
+    <collection total="35" passed="35" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" time="0.040">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.TryPop_WithNullableReferenceTypes_WorksCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="TryPop_WithNullableReferenceTypes_WorksCorrectly" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.StartWithNew" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="StartWithNew" time="0.0010000" result="Pass">
@@ -1888,7 +1888,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.TryPop_UntilEmpty_WorksCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="TryPop_UntilEmpty_WorksCorrectly" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.CreateString_MixedChunkTypes_ConcatenatesCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="CreateString_MixedChunkTypes_ConcatenatesCorrectly" time="0.0090000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.CreateString_MixedChunkTypes_ConcatenatesCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="CreateString_MixedChunkTypes_ConcatenatesCorrectly" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.StartWithInitialArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="StartWithInitialArray" time="0.0010000" result="Pass">
@@ -1921,7 +1921,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.CreateString_SingleCharacterChunks_ConcatenatesCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="CreateString_SingleCharacterChunks_ConcatenatesCorrectly" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.CreateString_LargeNumberOfChunks_ConcatenatesCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="CreateString_LargeNumberOfChunks_ConcatenatesCorrectly" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.CreateString_LargeNumberOfChunks_ConcatenatesCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="CreateString_LargeNumberOfChunks_ConcatenatesCorrectly" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.StartWithDefault" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="StartWithDefault" time="0.0010000" result="Pass">
@@ -1951,7 +1951,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.Peek_AfterMultiplePushes_ReturnsCorrectItem" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="Peek_AfterMultiplePushes_ReturnsCorrectItem" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.AppendChunks" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="AppendChunks" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.AppendChunks" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="AppendChunks" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests.CreateString_SingleChunk_ReturnsCorrectString" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.MemoryBuilderTests" method="CreateString_SingleChunk_ReturnsCorrectString" time="0.0010000" result="Pass">
@@ -1973,8 +1973,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="91" passed="88" failed="0" skipped="3" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" time="0.097">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetExtension(path: &quot;file. &quot;, expected: &quot;. &quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetExtension(path: &quot;file. &quot;, expected: &quot;. &quot;)" time="0.0060000" result="Pass">
+    <collection total="91" passed="88" failed="0" skipped="3" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" time="0.098">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetExtension(path: &quot;file. &quot;, expected: &quot;. &quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetExtension(path: &quot;file. &quot;, expected: &quot;. &quot;)" time="0.0070000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetExtension(path: &quot; file. &quot;, expected: &quot;. &quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetExtension(path: &quot; file. &quot;, expected: &quot;. &quot;)" time="0.0010000" result="Pass">
@@ -2251,8 +2251,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" time="0.010">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests.FillBufferWriter(arraySize: 42)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" method="FillBufferWriter(arraySize: 42)" time="0.0060000" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" time="0.012">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests.FillBufferWriter(arraySize: 42)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" method="FillBufferWriter(arraySize: 42)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests.FillBufferWriter(arraySize: 1024)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" method="FillBufferWriter(arraySize: 1024)" time="0.0010000" result="Pass">
@@ -2268,8 +2268,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="80" passed="80" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" time="0.110">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescending_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescending_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0280000" result="Pass">
+    <collection total="80" passed="80" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" time="0.086">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescending_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescending_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescending_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescending_OddBeforeEven(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0010000" result="Pass">
@@ -2284,7 +2284,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescending_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescending_OddBeforeEven(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescendingAndClear_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescendingAndClear_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescendingAndClear_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescendingAndClear_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedByDescendingAndClear_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedByDescendingAndClear_OddBeforeEven(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0010000" result="Pass">
@@ -2344,10 +2344,10 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrderedBy" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrderedBy(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered(data: [1, 2, 3, 4, 5, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered(data: [1, 2, 3, 4, 5, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered(data: [10, 9, 8, 7, 6, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered(data: [10, 9, 8, 7, 6, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered(data: [1, 3, 5, 7, 9, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
@@ -2510,8 +2510,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="115" passed="115" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" time="0.139">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_StructList_EmptyBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_StructList_EmptyBuilder" time="0.0080000" result="Pass">
+    <collection total="115" passed="115" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" time="0.132">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_StructList_EmptyBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_StructList_EmptyBuilder" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_EmptyCollection" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_EmptyCollection" time="0.0020000" result="Pass">
@@ -2520,7 +2520,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_ReadOnlySpan_AtEnd" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_ReadOnlySpan_AtEnd" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_StructList_AlreadyUsingBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_StructList_AlreadyUsingBuilder" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_StructList_AlreadyUsingBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_StructList_AlreadyUsingBuilder" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.Add_ReferenceType" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="Add_ReferenceType" time="0.0010000" result="Pass">
@@ -2715,7 +2715,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_ReadOnlySpan_AtMiddle" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_ReadOnlySpan_AtMiddle" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_Array(count: 1)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_Array(count: 1)" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_Array(count: 1)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_Array(count: 1)" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_Array(count: 4)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_Array(count: 4)" time="0.0010000" result="Pass">
@@ -2742,7 +2742,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_ReadOnlySpan_InlineStorage" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_ReadOnlySpan_InlineStorage" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_ReadOnlySpan_AlreadyUsingBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_ReadOnlySpan_AlreadyUsingBuilder" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_ReadOnlySpan_AlreadyUsingBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_ReadOnlySpan_AlreadyUsingBuilder" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.InsertRange_StructList_SimpleOverload_LargeCollection" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="InsertRange_StructList_SimpleOverload_LargeCollection" time="0.0010000" result="Pass">
@@ -2760,7 +2760,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.FirstAndLast" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="FirstAndLast" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_IEnumerable_TransitionToBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_IEnumerable_TransitionToBuilder" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_IEnumerable_TransitionToBuilder" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_IEnumerable_TransitionToBuilder" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests.AddRange_WithExplicitCapacity" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderTests" method="AddRange_WithExplicitCapacity" time="0.0010000" result="Pass">
@@ -2857,14 +2857,14 @@
         <traits />
       </test>
     </collection>
-    <collection total="54" passed="54" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" time="0.069">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Constructor_WithPoolAndCapacity_CreatesEmptySet" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Constructor_WithPoolAndCapacity_CreatesEmptySet" time="0.0030000" result="Pass">
+    <collection total="54" passed="54" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" time="0.073">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Constructor_WithPoolAndCapacity_CreatesEmptySet" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Constructor_WithPoolAndCapacity_CreatesEmptySet" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Add_WithCustomComparer_UsesSameComparerForSingleItem" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Add_WithCustomComparer_UsesSameComparerForSingleItem" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Capacity_Constructor_DoesNotAffectFunctionality(capacity: 1)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Capacity_Constructor_DoesNotAffectFunctionality(capacity: 1)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Capacity_Constructor_DoesNotAffectFunctionality(capacity: 1)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Capacity_Constructor_DoesNotAffectFunctionality(capacity: 1)" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Capacity_Constructor_DoesNotAffectFunctionality(capacity: 0)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Capacity_Constructor_DoesNotAffectFunctionality(capacity: 0)" time="0.0010000" result="Pass">
@@ -2942,7 +2942,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Contains_HashSet_Exists_ReturnsTrue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Contains_HashSet_Exists_ReturnsTrue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.OrderByAsArray_SingleItem_ReturnsImmutableArrayWithSingleItem" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="OrderByAsArray_SingleItem_ReturnsImmutableArrayWithSingleItem" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.OrderByAsArray_SingleItem_ReturnsImmutableArrayWithSingleItem" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="OrderByAsArray_SingleItem_ReturnsImmutableArrayWithSingleItem" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.Constructor_WithComparerAndCapacity_CreatesEmptySet" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="Constructor_WithComparerAndCapacity_CreatesEmptySet" time="0.0010000" result="Pass">
@@ -2951,7 +2951,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.UnionWith_ReadOnlyList_Null_NoChange" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="UnionWith_ReadOnlyList_Null_NoChange" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.MultipleOperations_WorkCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="MultipleOperations_WorkCorrectly" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.MultipleOperations_WorkCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="MultipleOperations_WorkCorrectly" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.ToArray_EmptySet_ReturnsEmptyArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="ToArray_EmptySet_ReturnsEmptyArray" time="0.0010000" result="Pass">
@@ -3011,7 +3011,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.StringComparer_OrdinalIgnoreCase_WorksCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="StringComparer_OrdinalIgnoreCase_WorksCorrectly" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.OrderByAsArray_MultipleItems_ReturnsOrderedImmutableArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="OrderByAsArray_MultipleItems_ReturnsOrderedImmutableArray" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.OrderByAsArray_MultipleItems_ReturnsOrderedImmutableArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="OrderByAsArray_MultipleItems_ReturnsOrderedImmutableArray" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests.UnionWith_ImmutableArray_Empty_NoChange" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledHashSetTests" method="UnionWith_ImmutableArray_Empty_NoChange" time="0.0010000" result="Pass">
@@ -3021,7 +3021,7 @@
         <traits />
       </test>
     </collection>
-    <collection total="43" passed="43" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" time="0.047">
+    <collection total="43" passed="43" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" time="0.046">
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest.AsEnumerable_Reversed_WithRange" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" method="AsEnumerable_Reversed_WithRange" time="0.0020000" result="Pass">
         <traits />
       </test>
@@ -3031,7 +3031,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest.SelectAsArray_Index_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" method="SelectAsArray_Index_Enumerable" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest.AsEnumerable_WithRange_FromEnd" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" method="AsEnumerable_WithRange_FromEnd" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest.AsEnumerable_WithRange_FromEnd" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" method="AsEnumerable_WithRange_FromEnd" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest.Any" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListExtensionsTest" method="Any" time="0.0010000" result="Pass">
@@ -3152,8 +3152,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="164" passed="164" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" time="0.164">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderDescendingAsArray_Enumerable(data: [1, 2, 3, 4, 5, ···], expected: [10, 9, 8, 7, 6, ···])" time="0.0010000" result="Pass">
+    <collection total="164" passed="164" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" time="0.454">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderDescendingAsArray_Enumerable(data: [1, 2, 3, 4, 5, ···], expected: [10, 9, 8, 7, 6, ···])" time="0.2480000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderDescendingAsArray_Enumerable(data: [10, 9, 8, 7, 6, ···], expected: [10, 9, 8, 7, 6, ···])" time="0.0010000" result="Pass">
@@ -3183,7 +3183,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderAsArray_OddBeforeEven(data: [6, 10, 4, 7, 9, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByDescendingAsArray_Enumerable(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByDescendingAsArray_Enumerable(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0180000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByDescendingAsArray_Enumerable(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ValueHolder { Value = 5 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_2(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -3213,7 +3213,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderAsArray_Enumerable(data: [6, 10, 4, 7, 9, ···], expected: [1, 2, 3, 4, 5, ···])" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderDescendingAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderDescendingAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [&quot;8&quot;, &quot;6&quot;, &quot;4&quot;, &quot;2&quot;, &quot;10&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_3(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderDescendingAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderDescendingAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [&quot;8&quot;, &quot;6&quot;, &quot;4&quot;, &quot;2&quot;, &quot;10&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_3(Int32), Target = &lt;&gt;c { } })" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderDescendingAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderDescendingAsArray_OddBeforeEven(data: [10, 9, 8, 7, 6, ···], expected: [&quot;8&quot;, &quot;6&quot;, &quot;4&quot;, &quot;2&quot;, &quot;10&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_3(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -3228,7 +3228,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderDescendingAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderDescendingAsArray_OddBeforeEven(data: [6, 10, 4, 7, 9, ···], expected: [&quot;8&quot;, &quot;6&quot;, &quot;4&quot;, &quot;2&quot;, &quot;10&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_3(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_Enumerable_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_Enumerable_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_Enumerable_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_Enumerable_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0070000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_Enumerable_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_Enumerable_OddBeforeEven(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0010000" result="Pass">
@@ -3258,7 +3258,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderDescendingAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderDescendingAsArray_Enumerable(data: [6, 10, 4, 7, 9, ···], expected: [&quot;9&quot;, &quot;8&quot;, &quot;7&quot;, &quot;6&quot;, &quot;5&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_2(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByAsArray(data: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -3303,7 +3303,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByAsArray_Enumerable(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 10 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_0(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_IsStable" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_IsStable" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderDescendingAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderDescendingAsArray(data: [1, 2, 3, 4, 5, ···], expected: [&quot;9&quot;, &quot;8&quot;, &quot;7&quot;, &quot;6&quot;, &quot;5&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_2(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -3336,7 +3336,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderAsArray_Enumerable(data: [6, 10, 4, 7, 9, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByAsArray_Comparer_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByAsArray_Comparer_IsStable" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByAsArray_Comparer_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByAsArray_Comparer_IsStable" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [1, 2, 3, 4, 5, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -3489,7 +3489,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderAsArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderAsArray(data: [6, 10, 4, 7, 9, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_Comparer_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_Comparer_IsStable" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.OrderByDescendingAsArray_Comparer_IsStable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="OrderByDescendingAsArray_Comparer_IsStable" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests.SelectAndOrderByAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ReadOnlyListOrderingTests" method="SelectAndOrderByAsArray_OddBeforeEven(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ValueHolder { Value = 5 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], selector: Func`2 { Method = Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.String] &lt;AddCase&gt;b__33_1(Microsoft.AspNetCore.Razor.Utilities.Shared.Test.TestData.ValueHolder`1[System.Int32]), Target = &lt;&gt;c { } })" time="0.0010000" result="Pass">
@@ -3646,14 +3646,14 @@
         <traits />
       </test>
     </collection>
-    <collection total="24" passed="24" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" time="0.048">
+    <collection total="24" passed="24" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" time="0.050">
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_MultipleEnumerators_Independent" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_MultipleEnumerators_Independent" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_Span_EmptySpan_NoIteration" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_Span_EmptySpan_NoIteration" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_ManualEnumerator_Usage" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_ManualEnumerator_Usage" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_ManualEnumerator_Usage" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_ManualEnumerator_Usage" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_Enumerator_Reset_SingleElement" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_Enumerator_Reset_SingleElement" time="0.0010000" result="Pass">
@@ -3701,7 +3701,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_Enumerator_Reset_EmptySpan" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_Enumerator_Reset_EmptySpan" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_ValueTypes_StructElements" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_ValueTypes_StructElements" time="0.0150000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_ValueTypes_StructElements" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_ValueTypes_StructElements" time="0.0160000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests.Reversed_ReadOnlySpan_EmptySpan_NoIteration" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.SpanExtensionsTests" method="Reversed_ReadOnlySpan_EmptySpan_NoIteration" time="0.0010000" result="Pass">
@@ -3720,8 +3720,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="20" passed="20" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" time="0.020">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.TryBuild_ConditionalLogic_WorksCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="TryBuild_ConditionalLogic_WorksCorrectly" time="0.0010000" result="Pass">
+    <collection total="20" passed="20" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" time="0.031">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.TryBuild_ConditionalLogic_WorksCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="TryBuild_ConditionalLogic_WorksCorrectly" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.Build_EmptyBuilder_ReturnsEmptyString" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="Build_EmptyBuilder_ReturnsEmptyString" time="0.0010000" result="Pass">
@@ -3763,7 +3763,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.Build_WithState_PassesStateCorrectly" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="Build_WithState_PassesStateCorrectly" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.TryBuild_LargeContentOnFailure_ReturnsNull" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="TryBuild_LargeContentOnFailure_ReturnsNull" time="0.0010000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.TryBuild_LargeContentOnFailure_ReturnsNull" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="TryBuild_LargeContentOnFailure_ReturnsNull" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests.TryBuild_EmptyBuilderOnSuccess_ReturnsEmptyString" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.StringExtensionsTests" method="TryBuild_EmptyBuilderOnSuccess_ReturnsEmptyString" time="0.0010000" result="Pass">
@@ -3782,8 +3782,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" time="0.153">
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.GetOrAdd_WithFactory_ExistingKey_ReturnsExistingValueWithoutCallingFactory" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="GetOrAdd_WithFactory_ExistingKey_ReturnsExistingValueWithoutCallingFactory" time="0.0020000" result="Pass">
+    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" time="0.183">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.GetOrAdd_WithFactory_ExistingKey_ReturnsExistingValueWithoutCallingFactory" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="GetOrAdd_WithFactory_ExistingKey_ReturnsExistingValueWithoutCallingFactory" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.TryAdd_ExistingKey_ReturnsFalse" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="TryAdd_ExistingKey_ReturnsFalse" time="0.0010000" result="Pass">
@@ -3810,7 +3810,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_HandlesNullValues" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_HandlesNullValues" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_ReplacesGarbageCollectedValue_WithNewValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_ReplacesGarbageCollectedValue_WithNewValue" time="0.0230000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_ReplacesGarbageCollectedValue_WithNewValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_ReplacesGarbageCollectedValue_WithNewValue" time="0.0170000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.GetOrAdd_FactoryWithArg_ExceptionInFactory_PropagatesException" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="GetOrAdd_FactoryWithArg_ExceptionInFactory_PropagatesException" time="0.0010000" result="Pass">
@@ -3822,7 +3822,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.TryGet_ExistingKey_ReturnsTrueAndValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="TryGet_ExistingKey_ReturnsTrueAndValue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_ThreadSafety_ConcurrentAccess" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_ThreadSafety_ConcurrentAccess" time="0.0070000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_ThreadSafety_ConcurrentAccess" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_ThreadSafety_ConcurrentAccess" time="0.0250000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_HandlesNullKeys_ThrowsException" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_HandlesNullKeys_ThrowsException" time="0.0010000" result="Pass">
@@ -3834,10 +3834,10 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.GetOrAdd_WithArgAndFactory_NewKey_ReturnsFactoryCreatedValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="GetOrAdd_WithArgAndFactory_NewKey_ReturnsFactoryCreatedValue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_PerformsCleanupAtThreshold" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_PerformsCleanupAtThreshold" time="0.0430000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_PerformsCleanupAtThreshold" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_PerformsCleanupAtThreshold" time="0.0250000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_HandlesGarbageCollectedValues" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_HandlesGarbageCollectedValues" time="0.0250000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_HandlesGarbageCollectedValues" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_HandlesGarbageCollectedValues" time="0.0280000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.GetOrAdd_Factory_ExceptionInFactory_PropagatesException" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="GetOrAdd_Factory_ExceptionInFactory_PropagatesException" time="0.0010000" result="Pass">
@@ -3846,7 +3846,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.TryGet_NonExistentKey_ReturnsFalseAndNull" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="TryGet_NonExistentKey_ReturnsFalseAndNull" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_LargeNumberOfItems_PerformsWell" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_LargeNumberOfItems_PerformsWell" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_LargeNumberOfItems_PerformsWell" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_LargeNumberOfItems_PerformsWell" time="0.0070000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.GetOrAdd_WithFactory_NewKey_ReturnsFactoryCreatedValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="GetOrAdd_WithFactory_NewKey_ReturnsFactoryCreatedValue" time="0.0010000" result="Pass">
@@ -3855,18 +3855,18 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.TryAdd_NewKey_ReturnsTrue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="TryAdd_NewKey_ReturnsTrue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_ThreadSafety_ConcurrentFactoryExecution" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_ThreadSafety_ConcurrentFactoryExecution" time="0.0290000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests.Cache_ThreadSafety_ConcurrentFactoryExecution" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.CleanableWeakCacheTests" method="Cache_ThreadSafety_ConcurrentFactoryExecution" time="0.0590000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="23" passed="23" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" time="0.171">
+    <collection total="23" passed="23" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" time="0.164">
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_StaticMethodFactory_AvoidsClosure" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_StaticMethodFactory_AvoidsClosure" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_GetValue_ExceptionDoesNotCacheValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_GetValue_ExceptionDoesNotCacheValue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_ConcurrentAccess_CallsFactoryOnce" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_ConcurrentAccess_CallsFactoryOnce" time="0.0760000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_ConcurrentAccess_CallsFactoryOnce" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_ConcurrentAccess_CallsFactoryOnce" time="0.0910000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_GetValue_WorksWithNullValues" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_GetValue_WorksWithNullValues" time="0.0010000" result="Pass">
@@ -3890,7 +3890,7 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_GetValue_PropagatesFactoryException" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_GetValue_PropagatesFactoryException" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_ConcurrentAccess_CallsFactoryOnce" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_ConcurrentAccess_CallsFactoryOnce" time="0.0660000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_ConcurrentAccess_CallsFactoryOnce" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_ConcurrentAccess_CallsFactoryOnce" time="0.0480000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_GetValue_WorksWithNullArg" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_GetValue_WorksWithNullArg" time="0.0010000" result="Pass">
@@ -3899,10 +3899,10 @@
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_GetValue_CallsFactoryOnce" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_GetValue_CallsFactoryOnce" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_StressTest_MaintainsConsistency" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_StressTest_MaintainsConsistency" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_StressTest_MaintainsConsistency" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_StressTest_MaintainsConsistency" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_StressTest_MaintainsConsistency" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_StressTest_MaintainsConsistency" time="0.0080000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValue_StressTest_MaintainsConsistency" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValue_StressTest_MaintainsConsistency" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_GetValue_WorksWithNullResult" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_GetValue_WorksWithNullResult" time="0.0010000" result="Pass">

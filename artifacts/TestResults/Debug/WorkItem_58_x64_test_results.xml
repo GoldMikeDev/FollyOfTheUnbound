@@ -1,11 +1,11 @@
-<assemblies timestamp="08/10/2026 10:50:34">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\SemanticSearch.BuildTask.UnitTests\Debug\net472\SemanticSearch.BuildTask.UnitTests.dll" run-date="2026-08-10" run-time="10:50:34" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\SemanticSearch.BuildTask.UnitTests\Debug\net472\SemanticSearch.BuildTask.UnitTests.dll.config" total="33" passed="33" failed="0" skipped="0" time="39.610" errors="0">
+<assemblies timestamp="08/11/2026 11:50:51">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\SemanticSearch.BuildTask.UnitTests\Debug\net472\SemanticSearch.BuildTask.UnitTests.dll" run-date="2026-08-11" run-time="11:50:51" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\SemanticSearch.BuildTask.UnitTests\Debug\net472\SemanticSearch.BuildTask.UnitTests.dll.config" total="33" passed="33" failed="0" skipped="0" time="39.086" errors="0">
     <errors />
-    <collection total="33" passed="33" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" time="20.698">
-      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;%&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;%&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;%&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;%&quot;)" time="3.4920000" result="Pass">
+    <collection total="33" passed="33" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" time="20.228">
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;%&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;%&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;%&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;%&quot;)" time="4.0730000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;- System.IO.* *&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*\\ .*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;- System.IO.* *&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*\\ .*&quot;)" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;- System.IO.* *&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*\\ .*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;- System.IO.* *&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*\\ .*&quot;)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;?&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;\\?&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;?&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;\\?&quot;)" time="0.0010000" result="Pass">
@@ -53,7 +53,7 @@
       <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;+M: System.IO&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;System\\.IO&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;+M: System.IO&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;System\\.IO&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Property" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Property" time="16.4230000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Property" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Property" time="15.5450000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;&quot;)" time="0.0020000" result="Pass">
@@ -95,10 +95,10 @@
       <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_ExpectedMetadataName(value: &quot;-&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_ExpectedMetadataName(value: &quot;-&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Types" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Types" time="0.6220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Types" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Types" time="0.3260000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Interface" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Interface" time="0.1250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Interface" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Interface" time="0.2490000" result="Pass">
         <traits />
       </test>
     </collection>
