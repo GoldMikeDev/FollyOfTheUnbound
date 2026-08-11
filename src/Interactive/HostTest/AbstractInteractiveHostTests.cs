@@ -44,22 +44,36 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
         {
             if (Environment.GetEnvironmentVariable("DOTNET_ROOT") == null)
             {
-                // This test project targets net472, so this static constructor always runs inside a
-                // .NET Framework test-runner process (e.g. testhost.exe), never one launched through
-                // the `dotnet` muxer itself -- so the current process's own executable tells us
-                // nothing about where the .NET (Core) SDK/runtime used to run the InteractiveHost
-                // child process lives. Search PATH instead: that's how `dotnet` would actually be
-                // resolved from a shell on this machine, and doesn't depend on any assumption about
-                // install layout relative to this process's runtime directory. A directory merely
-                // containing a file named dotnet.exe isn't sufficient -- package-manager shims and
-                // forwarding executables (e.g. Windows App Execution Aliases) can have that name
-                // without being a real SDK/runtime root, so also require the host\fxr\<version>\
-                // layout that actually holds hostfxr.dll.
-                var dir = (Environment.GetEnvironmentVariable("PATH") ?? "")
-                    .Split(Path.PathSeparator)
-                    .Select(p => p.Trim())
-                    .Where(p => p.Length > 0 && File.Exists(Path.Combine(p, "dotnet.exe")))
-                    .FirstOrDefault(HasHostFxr);
+                // DOTNET_HOST_PATH / DOTNET_EXPERIMENTAL_HOST_PATH are the SDK/test-host-provided
+                // pointers to the exact dotnet muxer that launched the current test run (`dotnet
+                // test` sets these for child processes precisely so they resolve the same runtime,
+                // not an unrelated one that also happens to be on PATH) -- prefer them over guessing.
+                // See RuntimeHostInfo.GetDotNetPathOrDefault in src/Compilers/Shared for the same
+                // priority used elsewhere in this repo for tool resolution.
+                var dir =
+                    Environment.GetEnvironmentVariable("DOTNET_HOST_PATH") is { Length: > 0 } hostPath ? Path.GetDirectoryName(hostPath) :
+                    Environment.GetEnvironmentVariable("DOTNET_EXPERIMENTAL_HOST_PATH") is { Length: > 0 } experimentalHostPath ? Path.GetDirectoryName(experimentalHostPath) :
+                    null;
+
+                if (dir == null || !HasHostFxr(dir))
+                {
+                    // This test project targets net472, so this static constructor always runs inside
+                    // a .NET Framework test-runner process (e.g. testhost.exe), never one launched
+                    // through the `dotnet` muxer itself -- so the current process's own executable
+                    // tells us nothing about where the .NET (Core) SDK/runtime used to run the
+                    // InteractiveHost child process lives. Search PATH instead: that's how `dotnet`
+                    // would actually be resolved from a shell on this machine, and doesn't depend on
+                    // any assumption about install layout relative to this process's runtime
+                    // directory. A directory merely containing a file named dotnet.exe isn't
+                    // sufficient -- package-manager shims and forwarding executables (e.g. Windows App
+                    // Execution Aliases) can have that name without being a real SDK/runtime root, so
+                    // also require the host\fxr\<version>\ layout that actually holds hostfxr.dll.
+                    dir = (Environment.GetEnvironmentVariable("PATH") ?? "")
+                        .Split(Path.PathSeparator)
+                        .Select(p => p.Trim())
+                        .Where(p => p.Length > 0 && File.Exists(Path.Combine(p, "dotnet.exe")))
+                        .FirstOrDefault(HasHostFxr);
+                }
 
                 if (dir == null)
                 {
