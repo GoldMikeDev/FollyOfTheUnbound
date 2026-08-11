@@ -11755,9 +11755,15 @@ done:
             // keeps this from colliding with unrelated existing grammar that happens to have an
             // identifier trailing some other kind of expression (numeric/string literal suffixes,
             // `is`/`as`-pattern names, attribute arguments, fixed-buffer sizes, indexer arguments,
-            // diagnostic-recovery text after an already-broken expression, etc).
+            // diagnostic-recovery text after an already-broken expression, etc). Also skip this when
+            // the creation expression is already erroneous (e.g. `new Widget` missing its argument
+            // list) -- extending a broken parse into a new construct would swallow the recovery
+            // diagnostics the broken expression was already supposed to produce. Array creation
+            // (`new T[...]`/`new[] { ... }`) counts as a "new expression" here too.
             if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken &&
-                currentExpression is ObjectCreationExpressionSyntax or ImplicitObjectCreationExpressionSyntax or AnonymousObjectCreationExpressionSyntax &&
+                !currentExpression.ContainsDiagnostics &&
+                currentExpression is ObjectCreationExpressionSyntax or ImplicitObjectCreationExpressionSyntax or AnonymousObjectCreationExpressionSyntax
+                    or ArrayCreationExpressionSyntax or ImplicitArrayCreationExpressionSyntax &&
                 IsInlineDeclarationContext())
             {
                 var identToken = this.EatToken(SyntaxKind.IdentifierToken);
