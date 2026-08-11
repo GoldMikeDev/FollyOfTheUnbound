@@ -490,6 +490,9 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static Syntax.InternalSyntax.UsingDirectiveSyntax GenerateUsingDirective()
             => InternalSyntaxFactory.UsingDirective(null, InternalSyntaxFactory.Token(SyntaxKind.UsingKeyword), null, null, null, GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
+        private static Syntax.InternalSyntax.RootNamespaceQualifierSyntax GenerateRootNamespaceQualifier()
+            => InternalSyntaxFactory.RootNamespaceQualifier(InternalSyntaxFactory.Token(SyntaxKind.AsteriskToken), InternalSyntaxFactory.Token(SyntaxKind.DotToken));
+
         private static Syntax.InternalSyntax.NamespaceDeclarationSyntax GenerateNamespaceDeclaration()
             => InternalSyntaxFactory.NamespaceDeclaration(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.SyntaxToken>(), InternalSyntaxFactory.Token(SyntaxKind.NamespaceKeyword), null, GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.OpenBraceToken), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.ExternAliasDirectiveSyntax>(), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.UsingDirectiveSyntax>(), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.MemberDeclarationSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.CloseBraceToken), null);
 
@@ -2760,6 +2763,17 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestRootNamespaceQualifierFactoryAndProperties()
+        {
+            var node = GenerateRootNamespaceQualifier();
+
+            Assert.Equal(SyntaxKind.AsteriskToken, node.AsteriskToken.Kind);
+            Assert.Equal(SyntaxKind.DotToken, node.DotToken.Kind);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
         public void TestNamespaceDeclarationFactoryAndProperties()
         {
             var node = GenerateNamespaceDeclaration();
@@ -2767,6 +2781,7 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.Equal(default, node.AttributeLists);
             Assert.Equal(default, node.Modifiers);
             Assert.Equal(SyntaxKind.NamespaceKeyword, node.NamespaceKeyword.Kind);
+            Assert.Null(node.RootNamespaceQualifier);
             Assert.NotNull(node.Name);
             Assert.Equal(SyntaxKind.OpenBraceToken, node.OpenBraceToken.Kind);
             Assert.Equal(default, node.Externs);
@@ -2786,6 +2801,7 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.Equal(default, node.AttributeLists);
             Assert.Equal(default, node.Modifiers);
             Assert.Equal(SyntaxKind.NamespaceKeyword, node.NamespaceKeyword.Kind);
+            Assert.Null(node.RootNamespaceQualifier);
             Assert.NotNull(node.Name);
             Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind);
             Assert.Equal(default, node.Externs);
@@ -8238,6 +8254,32 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestRootNamespaceQualifierTokenDeleteRewriter()
+        {
+            var oldNode = GenerateRootNamespaceQualifier();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestRootNamespaceQualifierIdentityRewriter()
+        {
+            var oldNode = GenerateRootNamespaceQualifier();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
         public void TestNamespaceDeclarationTokenDeleteRewriter()
         {
             var oldNode = GenerateNamespaceDeclaration();
@@ -11192,6 +11234,9 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static UsingDirectiveSyntax GenerateUsingDirective()
             => SyntaxFactory.UsingDirective(default(SyntaxToken), SyntaxFactory.Token(SyntaxKind.UsingKeyword), default(SyntaxToken), default(SyntaxToken), default(NameEqualsSyntax), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
+        private static RootNamespaceQualifierSyntax GenerateRootNamespaceQualifier()
+            => SyntaxFactory.RootNamespaceQualifier(SyntaxFactory.Token(SyntaxKind.AsteriskToken), SyntaxFactory.Token(SyntaxKind.DotToken));
+
         private static NamespaceDeclarationSyntax GenerateNamespaceDeclaration()
             => SyntaxFactory.NamespaceDeclaration(new SyntaxList<AttributeListSyntax>(), new SyntaxTokenList(), SyntaxFactory.Token(SyntaxKind.NamespaceKeyword), default(RootNamespaceQualifierSyntax), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.OpenBraceToken), new SyntaxList<ExternAliasDirectiveSyntax>(), new SyntaxList<UsingDirectiveSyntax>(), new SyntaxList<MemberDeclarationSyntax>(), SyntaxFactory.Token(SyntaxKind.CloseBraceToken), default(SyntaxToken));
 
@@ -13462,6 +13507,17 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestRootNamespaceQualifierFactoryAndProperties()
+        {
+            var node = GenerateRootNamespaceQualifier();
+
+            Assert.Equal(SyntaxKind.AsteriskToken, node.AsteriskToken.Kind());
+            Assert.Equal(SyntaxKind.DotToken, node.DotToken.Kind());
+            var newNode = node.WithAsteriskToken(node.AsteriskToken).WithDotToken(node.DotToken);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
         public void TestNamespaceDeclarationFactoryAndProperties()
         {
             var node = GenerateNamespaceDeclaration();
@@ -13469,6 +13525,7 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.Equal(default, node.AttributeLists);
             Assert.Equal(default, node.Modifiers);
             Assert.Equal(SyntaxKind.NamespaceKeyword, node.NamespaceKeyword.Kind());
+            Assert.Null(node.RootNamespaceQualifier);
             Assert.NotNull(node.Name);
             Assert.Equal(SyntaxKind.OpenBraceToken, node.OpenBraceToken.Kind());
             Assert.Equal(default, node.Externs);
@@ -13476,7 +13533,7 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.Equal(default, node.Members);
             Assert.Equal(SyntaxKind.CloseBraceToken, node.CloseBraceToken.Kind());
             Assert.Equal(SyntaxKind.None, node.SemicolonToken.Kind());
-            var newNode = node.WithAttributeLists(node.AttributeLists).WithModifiers(node.Modifiers).WithNamespaceKeyword(node.NamespaceKeyword).WithName(node.Name).WithOpenBraceToken(node.OpenBraceToken).WithExterns(node.Externs).WithUsings(node.Usings).WithMembers(node.Members).WithCloseBraceToken(node.CloseBraceToken).WithSemicolonToken(node.SemicolonToken);
+            var newNode = node.WithAttributeLists(node.AttributeLists).WithModifiers(node.Modifiers).WithNamespaceKeyword(node.NamespaceKeyword).WithRootNamespaceQualifier(node.RootNamespaceQualifier).WithName(node.Name).WithOpenBraceToken(node.OpenBraceToken).WithExterns(node.Externs).WithUsings(node.Usings).WithMembers(node.Members).WithCloseBraceToken(node.CloseBraceToken).WithSemicolonToken(node.SemicolonToken);
             Assert.Equal(node, newNode);
         }
 
@@ -13488,12 +13545,13 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.Equal(default, node.AttributeLists);
             Assert.Equal(default, node.Modifiers);
             Assert.Equal(SyntaxKind.NamespaceKeyword, node.NamespaceKeyword.Kind());
+            Assert.Null(node.RootNamespaceQualifier);
             Assert.NotNull(node.Name);
             Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind());
             Assert.Equal(default, node.Externs);
             Assert.Equal(default, node.Usings);
             Assert.Equal(default, node.Members);
-            var newNode = node.WithAttributeLists(node.AttributeLists).WithModifiers(node.Modifiers).WithNamespaceKeyword(node.NamespaceKeyword).WithName(node.Name).WithSemicolonToken(node.SemicolonToken).WithExterns(node.Externs).WithUsings(node.Usings).WithMembers(node.Members);
+            var newNode = node.WithAttributeLists(node.AttributeLists).WithModifiers(node.Modifiers).WithNamespaceKeyword(node.NamespaceKeyword).WithRootNamespaceQualifier(node.RootNamespaceQualifier).WithName(node.Name).WithSemicolonToken(node.SemicolonToken).WithExterns(node.Externs).WithUsings(node.Usings).WithMembers(node.Members);
             Assert.Equal(node, newNode);
         }
 
@@ -18933,6 +18991,32 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         public void TestUsingDirectiveIdentityRewriter()
         {
             var oldNode = GenerateUsingDirective();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestRootNamespaceQualifierTokenDeleteRewriter()
+        {
+            var oldNode = GenerateRootNamespaceQualifier();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestRootNamespaceQualifierIdentityRewriter()
+        {
+            var oldNode = GenerateRootNamespaceQualifier();
             var rewriter = new IdentityRewriter();
             var newNode = rewriter.Visit(oldNode);
 

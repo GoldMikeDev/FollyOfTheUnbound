@@ -105,6 +105,7 @@ internal sealed class LanguageServerExportProviderBuilder : ExportProviderBuilde
         {
             var fileName = Path.GetFileName(file);
             if ((fileName.StartsWith("Microsoft.CodeAnalysis", StringComparison.OrdinalIgnoreCase) ||
+                 fileName.StartsWith("FollyOfTheUnbound.CodeAnalysis", StringComparison.OrdinalIgnoreCase) ||
                  fileName.StartsWith("Microsoft.ServiceHub", StringComparison.OrdinalIgnoreCase) ||
                  s_dllsToIncludeInMef.Contains(fileName)) &&
                 !s_dllsToExcludeFromMef.Contains(fileName))

@@ -107,7 +107,7 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
                     if (arm.ConditionBlock is { IsMissing: false } conditionBlock)
                         subHeadings.Add((GetTextSpan(conditionBlock), GetHintSpan(conditionBlock), BlockTypes.Conditional));
 
-                    if (arm.Consequence is { IsMissing: false } consequence)
+                    if (arm.Consequence is BlockSyntax { IsMissing: false } consequence)
                         subHeadings.Add((GetTextSpan(consequence), GetHintSpan(consequence), BlockTypes.Conditional));
                 }
 

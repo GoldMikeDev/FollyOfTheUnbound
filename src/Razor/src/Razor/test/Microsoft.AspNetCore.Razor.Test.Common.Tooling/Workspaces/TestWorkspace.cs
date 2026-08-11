@@ -53,7 +53,7 @@ public static class TestWorkspace
         var analyzerLoader = TestAnalyzerAssemblyLoader.LoadFromFile;
 
         var analyzerPaths = new DirectoryInfo(AppContext.BaseDirectory).GetFiles("*.dll")
-            .Where(f => f.Name.StartsWith("Microsoft.CodeAnalysis.", StringComparison.Ordinal) && !f.Name.Contains("LanguageServer") && !f.Name.Contains("Test.Utilities"))
+            .Where(f => (f.Name.StartsWith("Microsoft.CodeAnalysis.", StringComparison.Ordinal) || f.Name.StartsWith("FollyOfTheUnbound.CodeAnalysis.", StringComparison.Ordinal)) && !f.Name.Contains("LanguageServer") && !f.Name.Contains("Test.Utilities"))
             .Select(f => f.FullName)
             .ToImmutableArray();
         var references = new List<AnalyzerFileReference>();

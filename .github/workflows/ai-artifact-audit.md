@@ -8,14 +8,14 @@ on:
 
 strict: true
 
+engine: copilot
+model: gpt-5-mini
+
 permissions:
   contents: read
 
 network:
   allowed: [defaults]
-
-engine: copilot
-model: gpt-5-mini
 
 safe-outputs:
   mentions: false

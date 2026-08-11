@@ -10152,9 +10152,11 @@ done:
                 ExpressionSyntax condition = null;
                 SyntaxToken closeParen = null;
                 BlockSyntax conditionBlock = null;
+                bool armHasBlockCondition = false;
 
                 if (this.CurrentToken.Kind == SyntaxKind.OpenBraceToken)
                 {
+                    armHasBlockCondition = true;
                     anyBlockCondition = true;
                     conditionBlock = this.ParseBlock(default);
                 }
@@ -10165,9 +10167,12 @@ done:
                     closeParen = this.EatToken(SyntaxKind.CloseParenToken);
                 }
 
-                // Always require an actual block for the consequence -- this is a simplification over the
-                // classic `if` statement (which allows any embedded statement).
-                var consequence = this.ParseBlock(default);
+                // Block-condition arms require an actual block for the consequence (matches the
+                // try-like semantics of that variant). Classic parenthesized-condition arms keep the
+                // classic `if` statement's ability to take any embedded statement as the consequence.
+                StatementSyntax consequence = armHasBlockCondition
+                    ? this.ParseBlock(default)
+                    : this.ParseEmbeddedStatement();
 
                 arms.Add(_syntaxFactory.IfCatchArm(pendingArmElseKeyword, ifKeyword, openParen, condition, closeParen, conditionBlock, consequence));
                 pendingArmElseKeyword = null;
@@ -10187,9 +10192,9 @@ done:
                     continue;
                 }
 
-                // Trailing 'else { ... }'
-                var elseBlock = this.ParseBlock(default);
-                elseClause = _syntaxFactory.ElseClause(elseKeyword, elseBlock);
+                // Trailing 'else' -- matches classic `if/else`, so any embedded statement is allowed.
+                var elseStatement = this.ParseEmbeddedStatement();
+                elseClause = _syntaxFactory.ElseClause(elseKeyword, elseStatement);
                 break;
             }
 
@@ -13647,6 +13652,16 @@ done:
 
         private bool IsInlineDeclarationContext()
         {
+            // A word that's also a contextual keyword elsewhere in the language (e.g. the query-ordering
+            // "descending"/"ascending", or pattern-matching's "when"/"and"/"or"/"not") must not be treated as
+            // an inline-declared name -- otherwise `orderby x descending, y ascending` would have its
+            // "descending" (immediately followed by the comma below) swallowed as `InlineExpressionDeclaration(x,
+            // descending)` before the query parser ever gets a chance to recognize it as the sort-direction
+            // keyword. Escaping with '@' (e.g. "@descending") still opts back into a genuine inline declaration,
+            // since SyntaxFacts.GetContextualKeywordKind only matches unescaped text.
+            if (SyntaxFacts.GetContextualKeywordKind(this.CurrentToken.Text) != SyntaxKind.None)
+                return false;
+
             // The token after the identifier must be a statement/expression terminator
             // to avoid ambiguity with binary operators, member access, etc.
             var after = this.PeekToken(1);

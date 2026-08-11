@@ -9,10 +9,30 @@ scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
-if [[ -z "$config" || "$config" == "Research" ]]; then
+if [[ -z "$action" || "$action" == "grimoire" ]]; then
+  cat <<'EOF'
+folly.sh <action> [config]
+
+Actions:
+  attune    Restore only [config]
+  weave     Restore + build [config]
+  reweave   Restore + rebuild [config]
+  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
+  scry      Restore + build + run CoreCLR unit tests [config]
+  cleanse   Delete artifacts/ (ignores config)
+  grimoire  Show this text (default when no action is given; ignores config)
+
+[config] (optional, defaults to Research):
+  research  Debug
+  truth     Release
+
+EOF
+  exit 0
+fi
+if [[ -z "$config" || "$config" == "research" ]]; then
   configuration="Debug"
   nupkg_dir="$nupkg_root/Debug"
-elif [[ "$config" == "Truth" ]]; then
+elif [[ "$config" == "truth" ]]; then
   configuration="Release"
   nupkg_dir="$nupkg_root/Release"
 else
@@ -40,7 +60,7 @@ case "$action" in
     exit 0
     ;;
   *)
-    echo "Unrecognized action '$action'. Expected 'attune', 'weave', 'reweave', 'bind', 'scry', or 'cleanse'." >&2
+    echo "Unrecognized action '$action'. Expected 'attune', 'weave', 'reweave', 'bind', 'scry', 'cleanse', or 'grimoire'." >&2
     exit 1
     ;;
 esac

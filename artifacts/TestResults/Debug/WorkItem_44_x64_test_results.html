@@ -1,0 +1,343 @@
+﻿<html xmlns:tp="http://schemas.datacontract.org/2004/07/Microsoft.VisualStudio.TestPlatform.Extensions.HtmlLogger.ObjectModel" xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:msxsl="urn:schemas-microsoft-com:xslt">
+  <body>
+    <h1>Test run details</h1>
+    <div class="summary">
+      <div class="block"><span>Total tests</span><div class="total-tests">37</div><br></div>
+      <div class="block"><span>Passed  : </span><span class="passedTests">33</span><br><span>Failed  : </span><span class="failedTests">1</span><br><span>Skipped : </span><span class="skippedTests">3</span><br></div>
+      <div class="block"><span>Pass percentage</span><div class="pass-percentage">89 %</div><br></div>
+      <div class="block"><span>Run duration</span><div class="test-run-time">43s 888ms</div><br></div><br></div>
+    <h2>Failed Results</h2><details open=""><summary>C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll</summary><div class="inner-row" Id="-791090645-failedResult">
+        <div class="leaf-division">
+          <div><span class="fail">✘</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1​</span><div class="duration"><span>430ms</span><br></div>
+          </div>
+          <div class="error-info">
+    Error: <span class="error-message"><pre>Expected:
+Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
+Copyright (C) Microsoft Corporation. All rights reserved.
+Type "#help" for more information.
+&gt; Imports System.Globalization
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+&gt; ? System.Math.PI
+3.1415926535897931
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")
+&gt; ? System.Math.PI
+3,1415926535897931
+... truncated ...
+Actual:
+Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
+Copyright (C) Microsoft Corporation. All rights reserved.
+Type "#help" for more information.
+&gt; Imports System.Globalization
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+&gt; ? System.Math.PI
+3.1415926535897931
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")
+&gt; ? System.Math.PI
+3.1415926535897931
+&gt; 
+Differences:
+    Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
+    Copyright (C) Microsoft Corporation. All rights reserved.
+    Type "#help" for more information.
+    &gt; Imports System.Globalization
+    &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+    &gt; ? System.Math.PI
+    3.1415926535897931
+    &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")
+    &gt; ? System.Math.PI
+++&gt; 3.1415926535897931
+++&gt; &gt; 
+--&gt; 3,1415926535897931
+--&gt; &gt;
+</pre></span><br>
+    Stack trace: <span class="error-stack-trace"><pre>   at Roslyn.Test.Utilities.AssertEx.AssertEqualToleratingWhitespaceDifferences(String expected, String actual, String message, Boolean escapeQuotes, String expectedValueSourcePath, Int32 expectedValueSourceLine) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\AssertEx.cs:line 568
+   at Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Scripting\VisualBasicTest\CommandLineRunnerTests.vb:line 109</pre></span><br></div>
+        </div>
+      </div></details><h2>All Results</h2><details><summary>C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll</summary><div class="inner-row" Id="-791090645">
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Accessibility​</span><div class="duration"><span>8s 985ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions​</span><div class="duration"><span>786ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions2​</span><div class="duration"><span>805ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.IfStatement​</span><div class="duration"><span>581ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_IntLiteral​</span><div class="duration"><span>544ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_Nothing​</span><div class="duration"><span>663ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_LineContinuation​</span><div class="duration"><span>334ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.Fields​</span><div class="duration"><span>699ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestCreateAndRunScript​</span><div class="duration"><span>3s 434ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunVoidScript​</span><div class="duration"><span>680ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestDefaultNamespaces​</span><div class="duration"><span>3ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunScriptWithSpecifiedReturnType​</span><div class="duration"><span>294ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestEvalScript​</span><div class="duration"><span>362ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestGetCompilation​</span><div class="duration"><span>2ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunScript​</span><div class="duration"><span>180ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestCreateScript​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.EscapeWithoutQuotes​</span><div class="duration"><span>2ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info">
+    Error: <span class="error-message"><pre>IDK</pre></span><br></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.ArrayMethodParameters​</span><div class="duration"><span>3ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.Objects​</span><div class="duration"><span>27ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.InlineCharacters​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.NullOptions​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidNumberRadix​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMaximumOutputLength​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMaximumOutputLength​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info">
+    Error: <span class="error-message"><pre>https://github.com/dotnet/roslyn/issues/8241</pre></span><br></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEscapeNonPrintableCharacters​</span><div class="duration"><span>3ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMemberDisplayFormat​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidNumberRadix​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestPrint​</span><div class="duration"><span>1s 588ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture2​</span><div class="duration"><span>505ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.Version​</span><div class="duration"><span>5ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestImportArgument​</span><div class="duration"><span>25ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirectiveWhenReferenceMissing​</span><div class="duration"><span>386ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info">
+    Error: <span class="error-message"><pre>https://github.com/dotnet/roslyn/issues/46720</pre></span><br></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="fail">✘</span><span> Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1​</span><div class="duration"><span>430ms</span><br></div>
+          </div>
+          <div class="error-info">
+    Error: <span class="error-message"><pre>Expected:
+Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
+Copyright (C) Microsoft Corporation. All rights reserved.
+Type "#help" for more information.
+&gt; Imports System.Globalization
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+&gt; ? System.Math.PI
+3.1415926535897931
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")
+&gt; ? System.Math.PI
+3,1415926535897931
+... truncated ...
+Actual:
+Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
+Copyright (C) Microsoft Corporation. All rights reserved.
+Type "#help" for more information.
+&gt; Imports System.Globalization
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+&gt; ? System.Math.PI
+3.1415926535897931
+&gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")
+&gt; ? System.Math.PI
+3.1415926535897931
+&gt; 
+Differences:
+    Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
+    Copyright (C) Microsoft Corporation. All rights reserved.
+    Type "#help" for more information.
+    &gt; Imports System.Globalization
+    &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")
+    &gt; ? System.Math.PI
+    3.1415926535897931
+    &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")
+    &gt; ? System.Math.PI
+++&gt; 3.1415926535897931
+++&gt; &gt; 
+--&gt; 3,1415926535897931
+--&gt; &gt;
+</pre></span><br>
+    Stack trace: <span class="error-stack-trace"><pre>   at Roslyn.Test.Utilities.AssertEx.AssertEqualToleratingWhitespaceDifferences(String expected, String actual, String message, Boolean escapeQuotes, String expectedValueSourcePath, Int32 expectedValueSourceLine) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\AssertEx.cs:line 568
+   at Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Scripting\VisualBasicTest\CommandLineRunnerTests.vb:line 109</pre></span><br></div>
+        </div>
+      </div></details><div>
+      <h2>Informational messages</h2><span>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.3+b1b99bdeb3 (64-bit .NET Framework 4.8.9337.0)</span><br><span>[xUnit.net 00:00:10.22]   Discovering: Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests</span><br><span>[xUnit.net 00:00:14.67]   Discovered:  Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests</span><br><span>[xUnit.net 00:00:15.13]   Starting:    Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests</span><br><span>0</span><br><span>[xUnit.net 00:00:34.12]       IDK</span><br><span>[xUnit.net 00:00:34.21]       https://github.com/dotnet/roslyn/issues/8241</span><br><span>[xUnit.net 00:00:36.78]       https://github.com/dotnet/roslyn/issues/46720</span><br><span>[xUnit.net 00:00:37.36]       Expected:</span><br><span>[xUnit.net 00:00:37.36]       Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()</span><br><span>[xUnit.net 00:00:37.36]       Copyright (C) Microsoft Corporation. All rights reserved.</span><br><span>[xUnit.net 00:00:37.36]       Type "#help" for more information.</span><br><span>[xUnit.net 00:00:37.36]       &gt; Imports System.Globalization</span><br><span>[xUnit.net 00:00:37.36]       &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")</span><br><span>[xUnit.net 00:00:37.36]       &gt; ? System.Math.PI</span><br><span>[xUnit.net 00:00:37.36]       3.1415926535897931</span><br><span>[xUnit.net 00:00:37.36]       &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")</span><br><span>[xUnit.net 00:00:37.36]       &gt; ? System.Math.PI</span><br><span>[xUnit.net 00:00:37.36]       3,1415926535897931</span><br><span>[xUnit.net 00:00:37.36]       ... truncated ...</span><br><span>[xUnit.net 00:00:37.36]       Actual:</span><br><span>[xUnit.net 00:00:37.36]       Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()</span><br><span>[xUnit.net 00:00:37.36]       Copyright (C) Microsoft Corporation. All rights reserved.</span><br><span>[xUnit.net 00:00:37.36]       Type "#help" for more information.</span><br><span>[xUnit.net 00:00:37.36]       &gt; Imports System.Globalization</span><br><span>[xUnit.net 00:00:37.36]       &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")</span><br><span>[xUnit.net 00:00:37.36]       &gt; ? System.Math.PI</span><br><span>[xUnit.net 00:00:37.36]       3.1415926535897931</span><br><span>[xUnit.net 00:00:37.36]       &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")</span><br><span>[xUnit.net 00:00:37.36]       &gt; ? System.Math.PI</span><br><span>[xUnit.net 00:00:37.36]       3.1415926535897931</span><br><span>[xUnit.net 00:00:37.36]       &gt; </span><br><span>[xUnit.net 00:00:37.36]       Differences:</span><br><span>[xUnit.net 00:00:37.36]           Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()</span><br><span>[xUnit.net 00:00:37.36]           Copyright (C) Microsoft Corporation. All rights reserved.</span><br><span>[xUnit.net 00:00:37.36]           Type "#help" for more information.</span><br><span>[xUnit.net 00:00:37.36]           &gt; Imports System.Globalization</span><br><span>[xUnit.net 00:00:37.36]           &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("en-GB")</span><br><span>[xUnit.net 00:00:37.36]           &gt; ? System.Math.PI</span><br><span>[xUnit.net 00:00:37.36]           3.1415926535897931</span><br><span>[xUnit.net 00:00:37.36]           &gt; System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = System.Globalization.CultureInfo.GetCultureInfo("de-DE")</span><br><span>[xUnit.net 00:00:37.36]           &gt; ? System.Math.PI</span><br><span>[xUnit.net 00:00:37.36]       ++&gt; 3.1415926535897931</span><br><span>[xUnit.net 00:00:37.36]       ++&gt; &gt; </span><br><span>[xUnit.net 00:00:37.36]       --&gt; 3,1415926535897931</span><br><span>[xUnit.net 00:00:37.36]       --&gt; &gt;</span><br><span>[xUnit.net 00:00:37.36]       </span><br><span>[xUnit.net 00:00:37.37]       Stack Trace:</span><br><span>[xUnit.net 00:00:37.37]         src\Compilers\Test\Core\Assert\AssertEx.cs(568,0): at Roslyn.Test.Utilities.AssertEx.AssertEqualToleratingWhitespaceDifferences(String expected, String actual, String message, Boolean escapeQuotes, String expectedValueSourcePath, Int32 expectedValueSourceLine)</span><br><span>[xUnit.net 00:00:37.37]         src\Scripting\VisualBasicTest\CommandLineRunnerTests.vb(109,0): at Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1()</span><br><span>[xUnit.net 00:00:37.37]   Finished:    Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests</span><br></div>
+    <div>
+      <h2>Error and Warning messages</h2><span>[xUnit.net 00:00:34.12]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [SKIP]</span><br><span>[xUnit.net 00:00:34.21]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [SKIP]</span><br><span>[xUnit.net 00:00:36.78]     Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [SKIP]</span><br><span>[xUnit.net 00:00:37.36]     Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [FAIL]</span><br><span>Data collector 'Blame' message: procdump64.exe could not be found, please make sure that the executable is available on PATH. Alternatively set PROCDUMP_PATH environment variable to a directory that contains procdump64.exe executable.</span><br><span>Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.</span><br></div>
+  </body>
+  <style>
+        body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }
+        h2 {
+        margin-top: 15px;
+        margin-bottom:10px;
+        }
+        pre {
+        white-space: pre-wrap;
+        }
+        .summary {font-family:monospace;
+        display: -webkit-flex; /* Safari */
+        -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+        display: flex;
+        flex-wrap: wrap;
+        }
+        .row {
+        border: 2px solid #ffffff;
+        width:100%;
+        cursor:pointer;
+        background-color:#d7e9fa;
+        }
+        .list-row {
+        border: 2px solid #ffffff;
+        width:100%;
+        cursor:pointer;
+        background-color:#ffffff;
+        }
+        .inner-row{
+        border: 2px solid #ffffff;
+        padding-left:1%;
+        margin-left:1%;
+        background-color:#ffffff;
+        }
+        .block{
+        width : 150px;
+        }
+        .leaf-division{
+        border: 2px solid #ffffff;
+        background-color:#e6eff7;
+        }
+        .pass { color: #0c0; }
+        .fail { color: #c00; }
+        .error-message { color : brown; }
+        .error-stack-trace { color: brown; }
+        .duration {float:right;padding-right:1%;}
+        .total-tests { font-size : 30px}
+        .test-run-time { font-size : 30px}
+        .pass-percentage { font-size : 30px}
+        .error-info{
+        margin-left:16px;
+        }
+      </style>
+</html>

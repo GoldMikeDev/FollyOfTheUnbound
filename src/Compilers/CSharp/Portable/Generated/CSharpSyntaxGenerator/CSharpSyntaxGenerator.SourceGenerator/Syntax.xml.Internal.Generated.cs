@@ -15224,9 +15224,9 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     internal readonly ExpressionSyntax? condition;
     internal readonly SyntaxToken? closeParenToken;
     internal readonly BlockSyntax? conditionBlock;
-    internal readonly BlockSyntax consequence;
+    internal readonly StatementSyntax consequence;
 
-    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, StatementSyntax consequence, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
       : base(kind, diagnostics, annotations)
     {
         this.SlotCount = 7;
@@ -15261,7 +15261,7 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
         this.consequence = consequence;
     }
 
-    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence, SyntaxFactoryContext context)
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, StatementSyntax consequence, SyntaxFactoryContext context)
       : base(kind)
     {
         this.SetFactoryContext(context);
@@ -15297,7 +15297,7 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
         this.consequence = consequence;
     }
 
-    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    internal IfCatchArmSyntax(SyntaxKind kind, SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, StatementSyntax consequence)
       : base(kind)
     {
         this.SlotCount = 7;
@@ -15338,7 +15338,7 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     public ExpressionSyntax? Condition => this.condition;
     public SyntaxToken? CloseParenToken => this.closeParenToken;
     public BlockSyntax? ConditionBlock => this.conditionBlock;
-    public BlockSyntax Consequence => this.consequence;
+    public StatementSyntax Consequence => this.consequence;
 
     internal override GreenNode? GetSlot(int index)
         => index switch
@@ -15358,7 +15358,7 @@ internal sealed partial class IfCatchArmSyntax : CSharpSyntaxNode
     public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitIfCatchArm(this);
     public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitIfCatchArm(this);
 
-    public IfCatchArmSyntax Update(SyntaxToken elseKeyword, SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, BlockSyntax conditionBlock, BlockSyntax consequence)
+    public IfCatchArmSyntax Update(SyntaxToken elseKeyword, SyntaxToken ifKeyword, SyntaxToken openParenToken, ExpressionSyntax condition, SyntaxToken closeParenToken, BlockSyntax conditionBlock, StatementSyntax consequence)
     {
         if (elseKeyword != this.ElseKeyword || ifKeyword != this.IfKeyword || openParenToken != this.OpenParenToken || condition != this.Condition || closeParenToken != this.CloseParenToken || conditionBlock != this.ConditionBlock || consequence != this.Consequence)
         {
@@ -29156,7 +29156,7 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
         => node.Update(VisitList(node.AttributeLists), VisitList(node.Arms), (ElseClauseSyntax)Visit(node.Else), VisitList(node.Catches), (FinallyClauseSyntax)Visit(node.Finally));
 
     public override CSharpSyntaxNode VisitIfCatchArm(IfCatchArmSyntax node)
-        => node.Update((SyntaxToken)Visit(node.ElseKeyword), (SyntaxToken)Visit(node.IfKeyword), (SyntaxToken)Visit(node.OpenParenToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.CloseParenToken), (BlockSyntax)Visit(node.ConditionBlock), (BlockSyntax)Visit(node.Consequence));
+        => node.Update((SyntaxToken)Visit(node.ElseKeyword), (SyntaxToken)Visit(node.IfKeyword), (SyntaxToken)Visit(node.OpenParenToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.CloseParenToken), (BlockSyntax)Visit(node.ConditionBlock), (StatementSyntax)Visit(node.Consequence));
 
     public override CSharpSyntaxNode VisitCatchClause(CatchClauseSyntax node)
         => node.Update((SyntaxToken)Visit(node.CatchKeyword), (CatchDeclarationSyntax)Visit(node.Declaration), (CatchFilterClauseSyntax)Visit(node.Filter), (BlockSyntax)Visit(node.Block));
@@ -32688,7 +32688,7 @@ internal partial class ContextAwareSyntax
         return new IfCatchStatementSyntax(SyntaxKind.IfCatchStatement, attributeLists.Node, arms.Node, @else, catches.Node, @finally, this.context);
     }
 
-    public IfCatchArmSyntax IfCatchArm(SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    public IfCatchArmSyntax IfCatchArm(SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, StatementSyntax consequence)
     {
 #if DEBUG
         if (elseKeyword != null)
@@ -38235,7 +38235,7 @@ internal static partial class SyntaxFactory
         return new IfCatchStatementSyntax(SyntaxKind.IfCatchStatement, attributeLists.Node, arms.Node, @else, catches.Node, @finally);
     }
 
-    public static IfCatchArmSyntax IfCatchArm(SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, BlockSyntax consequence)
+    public static IfCatchArmSyntax IfCatchArm(SyntaxToken? elseKeyword, SyntaxToken ifKeyword, SyntaxToken? openParenToken, ExpressionSyntax? condition, SyntaxToken? closeParenToken, BlockSyntax? conditionBlock, StatementSyntax consequence)
     {
 #if DEBUG
         if (elseKeyword != null)

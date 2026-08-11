@@ -1,0 +1,19 @@
+<assemblies timestamp="08/10/2026 10:52:28">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.dll" run-date="2026-08-10" run-time="10:52:28" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.dll.config" total="4" passed="4" failed="0" skipped="0" time="26.720" errors="0">
+    <errors />
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests" time="2.076">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests.AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.NavigateTo.NavigateToMatchKind), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.NavigateTo.OmniSharpNavigateToMatchKind))" type="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests" method="AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.NavigateTo.NavigateToMatchKind), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.NavigateTo.OmniSharpNavigateToMatchKind))" time="2.0730000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests.AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.ImplementType.ImplementTypeInsertionBehavior), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.ImplementType.OmniSharpImplementTypeInsertionBehavior))" type="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests" method="AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.ImplementType.ImplementTypeInsertionBehavior), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.ImplementType.OmniSharpImplementTypeInsertionBehavior))" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests.AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.ImplementType.ImplementTypePropertyGenerationBehavior), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.ImplementType.OmniSharpImplementTypePropertyGenerationBehavior))" type="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests" method="AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.ImplementType.ImplementTypePropertyGenerationBehavior), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.ImplementType.OmniSharpImplementTypePropertyGenerationBehavior))" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests.AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.ExtractInterface.ExtractInterfaceOptionsResult+ExtractLocation), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.ExtractInterface.OmniSharpExtractInterfaceOptionsResult+OmniSharpExtractLocation))" type="Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.UnitTests.EnumTests" method="AssertEnumsInSync(internalType: typeof(Microsoft.CodeAnalysis.ExtractInterface.ExtractInterfaceOptionsResult+ExtractLocation), externalType: typeof(Microsoft.CodeAnalysis.ExternalAccess.OmniSharp.ExtractInterface.OmniSharpExtractInterfaceOptionsResult+OmniSharpExtractLocation))" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

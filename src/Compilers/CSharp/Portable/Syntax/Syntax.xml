@@ -3125,7 +3125,7 @@
       <Kind Name="CloseParenToken"/>
     </Field>
     <Field Name="ConditionBlock" Type="BlockSyntax" Optional="true"/>
-    <Field Name="Consequence" Type="BlockSyntax"/>
+    <Field Name="Consequence" Type="StatementSyntax"/>
   </Node>
   <Node Name="CatchClauseSyntax" Base="CSharpSyntaxNode">
     <Kind Name="CatchClause"/>

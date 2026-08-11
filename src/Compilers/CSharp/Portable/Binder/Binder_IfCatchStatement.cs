@@ -63,7 +63,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
                     BoundExpression ifoutValue = MakeIfOutValueAccess(arm.ConditionBlock, ifoutLocal, diagnostics);
 
-                    BoundBlock consequence = this.BindEmbeddedBlock(arm.Consequence, diagnostics);
+                    BoundStatement consequence = this.BindPossibleEmbeddedStatement(arm.Consequence, diagnostics);
 
                     BoundStatement inner = new BoundIfStatement(arm, ifoutValue, consequence, alternative);
 
@@ -78,7 +78,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 else
                 {
                     BoundExpression condition = this.BindBooleanExpression(arm.Condition!, diagnostics);
-                    BoundBlock consequence = this.BindEmbeddedBlock(arm.Consequence, diagnostics);
+                    BoundStatement consequence = this.BindPossibleEmbeddedStatement(arm.Consequence, diagnostics);
                     alternative = new BoundIfStatement(arm, condition, consequence, alternative);
                 }
             }

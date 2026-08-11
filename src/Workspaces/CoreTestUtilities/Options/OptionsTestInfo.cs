@@ -27,7 +27,8 @@ internal readonly record struct OptionsTestInfo(IOption2 Option, ImmutableList<(
         foreach (var file in Directory.EnumerateFiles(directory, "*.dll", SearchOption.TopDirectoryOnly))
         {
             var fileName = Path.GetFileNameWithoutExtension(file);
-            if ((fileName.StartsWith("Microsoft.CodeAnalysis") || fileName.StartsWith("Microsoft.VisualStudio.LanguageServices")) &&
+            if ((fileName.StartsWith("Microsoft.CodeAnalysis") || fileName.StartsWith("Microsoft.VisualStudio.LanguageServices") ||
+                 fileName.StartsWith("FollyOfTheUnbound.CodeAnalysis") || fileName.StartsWith("FollyOfTheUnbound.LanguageServices")) &&
                 !fileName.Contains("Test"))
             {
                 Type[] types;

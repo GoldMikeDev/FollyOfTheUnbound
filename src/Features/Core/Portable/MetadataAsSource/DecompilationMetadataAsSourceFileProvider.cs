@@ -120,20 +120,11 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
         {
             // We don't have this file in the workspace.  We need to create a project to put it in.
             var (temporaryProjectInfo, temporaryDocumentId) = GenerateProjectAndDocumentInfo(fileInfo, metadataWorkspace.CurrentSolution.Services, sourceProject, topLevelNamedType);
-            var temporarySolution = metadataWorkspace.CurrentSolution.AddProject(temporaryProjectInfo);
 
-            // Push the source workspace's current fallback analyzer config options onto just the project we
-            // created above, scoped to that single project via a per-project override, rather than onto the
-            // (single, process-wide-shared -- see GoldMikeDev/roslyn#9) MAS workspace's solution-wide,
-            // language-keyed fallback options. The solution-wide API would clobber the options in effect for
-            // every other already-open metadata document of the same language in this shared MAS workspace,
-            // including ones belonging to other connections; the per-project override affects only the project
-            // just added here, so an earlier connection's still-open document keeps seeing its own fallback
-            // options no matter how many later connections/navigations touch this workspace afterwards.
-            metadataWorkspace.OnProjectFallbackAnalyzerOptionsChanged(
-                temporaryProjectInfo.Id,
-                sourceProject.GetFallbackAnalyzerOptions());
-            temporarySolution = metadataWorkspace.CurrentSolution;
+            // This is a local, uncommitted view used only to generate content below -- the project isn't
+            // actually added to metadataWorkspace until MutateWorkspace runs, once the generated file exists
+            // on disk (see the comment there).
+            var temporarySolution = metadataWorkspace.CurrentSolution.AddProject(temporaryProjectInfo);
 
             var temporaryDocument = temporarySolution
                 .GetRequiredDocument(temporaryDocumentId);
@@ -233,7 +224,7 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
             // Now that we've finished the work to produce the file, add the project and document to the workspace.
             // This should not be cancelled, or we'll leave the workspace in a bad state.
             cancellationToken = default;
-            MutateWorkspace(temporaryDocument.Id, fileInfo, temporaryProjectInfo, metadataWorkspace);
+            MutateWorkspace(temporaryDocument.Id, fileInfo, temporaryProjectInfo, metadataWorkspace, sourceProject);
             generatedDocumentId = temporaryDocument.Id;
         }
         else
@@ -255,13 +246,25 @@ internal sealed class DecompilationMetadataAsSourceFileProvider(IImplementationA
         return new MetadataAsSourceFile(fileInfo.TemporaryFilePath, navigateLocation, documentName, documentTooltip);
     }
 
-    private void MutateWorkspace(DocumentId temporaryDocumentId, MetadataAsSourceGeneratedFileInfo fileInfo, ProjectInfo temporaryProjectInfo, Workspace metadataWorkspace)
+    private void MutateWorkspace(DocumentId temporaryDocumentId, MetadataAsSourceGeneratedFileInfo fileInfo, ProjectInfo temporaryProjectInfo, Workspace metadataWorkspace, Project sourceProject)
     {
         // This method should run to completion and not be cancelled to prevent invalid workspace state.
         var newLoader = new WorkspaceFileTextLoader(metadataWorkspace.CurrentSolution.Services, fileInfo.TemporaryFilePath, MetadataAsSourceGeneratedFileInfo.Encoding);
         var updatedDocuments = temporaryProjectInfo.Documents.Select(d => d.Id == temporaryDocumentId ? d.WithTextLoader(newLoader) : d);
         temporaryProjectInfo = temporaryProjectInfo.WithDocuments(updatedDocuments);
         metadataWorkspace.OnProjectAdded(temporaryProjectInfo);
+
+        // Push the source workspace's current fallback analyzer config options onto just the project we just
+        // added, scoped to that single project via a per-project override, rather than onto the (single,
+        // process-wide-shared -- see GoldMikeDev/roslyn#9) MAS workspace's solution-wide, language-keyed
+        // fallback options. The solution-wide API would clobber the options in effect for every other
+        // already-open metadata document of the same language in this shared MAS workspace, including ones
+        // belonging to other connections; the per-project override affects only the project just added here,
+        // so an earlier connection's still-open document keeps seeing its own fallback options no matter how
+        // many later connections/navigations touch this workspace afterwards. This must run after
+        // OnProjectAdded above -- the project has to already exist in metadataWorkspace.CurrentSolution before
+        // its fallback options can be set.
+        metadataWorkspace.OnProjectFallbackAnalyzerOptionsChanged(temporaryProjectInfo.Id, sourceProject.GetFallbackAnalyzerOptions());
 
         _generatedFilenameToInformation.Add(fileInfo.TemporaryFilePath, (fileInfo, temporaryDocumentId));
     }

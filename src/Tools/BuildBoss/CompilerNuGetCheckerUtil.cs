@@ -408,7 +408,7 @@ namespace BuildBoss
                 // heuristic for finding assemblies that we build. Can be expanded in the future if we find more assemblies that
                 // are worth validating here.
                 var neededDllNames = neededDllNameSet
-                    .Where(x => x.StartsWith("Microsoft.CodeAnalysis"))
+                    .Where(x => x.StartsWith("Microsoft.CodeAnalysis") || x.StartsWith("FollyOfTheUnbound.CodeAnalysis"))
                     .OrderBy(x => x, PathComparer);
                 foreach (var name in neededDllNames)
                 {

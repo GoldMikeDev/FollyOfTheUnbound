@@ -256,11 +256,15 @@ base_namespace_declaration
   ;
 
 file_scoped_namespace_declaration
-  : attribute_list* modifier* 'namespace' name ';' extern_alias_directive* using_directive* member_declaration*
+  : attribute_list* modifier* 'namespace' root_namespace_qualifier? name ';' extern_alias_directive* using_directive* member_declaration*
+  ;
+
+root_namespace_qualifier
+  : '*' '.'
   ;
 
 namespace_declaration
-  : attribute_list* modifier* 'namespace' name '{' extern_alias_directive* using_directive* member_declaration* '}' ';'?
+  : attribute_list* modifier* 'namespace' root_namespace_qualifier? name '{' extern_alias_directive* using_directive* member_declaration* '}' ';'?
   ;
 
 base_property_declaration
@@ -549,7 +553,7 @@ if_catch_statement
   ;
 
 if_catch_arm
-  : 'else'? 'if' '('? expression? ')'? block? block
+  : 'else'? 'if' '('? expression? ')'? block? statement
   ;
 
 else_clause
