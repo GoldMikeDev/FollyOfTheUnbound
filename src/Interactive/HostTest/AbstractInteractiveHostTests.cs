@@ -36,7 +36,7 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
 
         // DOTNET_ROOT must be set in order to run host process on .NET Core on machines (like CI)
         // that do not have the required version of the runtime installed globally.
-        // 
+        //
         // If it was not set the process would fail with exit code -2147450749:
         // "A fatal error occurred. The required library hostfxr.dll could not be found."
         //
@@ -45,15 +45,25 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
         {
             if (Environment.GetEnvironmentVariable("DOTNET_ROOT") == null)
             {
-                // Prefer asking the OS what actually launched this process. When a
-                // framework-dependent app (like this test host) is launched through the `dotnet`
-                // muxer, the current process's main module *is* that dotnet(.exe)'s own path -- no
-                // assumptions about install layout required.
-                var dotnetProcessPath = Process.GetCurrentProcess().MainModule?.FileName;
-                var dir = dotnetProcessPath != null &&
-                    string.Equals(Path.GetFileNameWithoutExtension(dotnetProcessPath), "dotnet", StringComparison.OrdinalIgnoreCase)
-                        ? Path.GetDirectoryName(dotnetProcessPath)
-                        : null;
+                // ROSLYN_TEST_DOTNET_ROOT lets a developer pin the value explicitly (e.g. when
+                // running multiple SDKs side by side and auto-detection picks the wrong one)
+                // without having to set the machine/session-wide DOTNET_ROOT, which would affect
+                // hostfxr resolution for every other .NET app on the machine, not just this test
+                // host process.
+                var dir = Environment.GetEnvironmentVariable("ROSLYN_TEST_DOTNET_ROOT");
+
+                if (dir == null)
+                {
+                    // Prefer asking the OS what actually launched this process. When a
+                    // framework-dependent app (like this test host) is launched through the `dotnet`
+                    // muxer, the current process's main module *is* that dotnet(.exe)'s own path -- no
+                    // assumptions about install layout required.
+                    var dotnetProcessPath = Process.GetCurrentProcess().MainModule?.FileName;
+                    dir = dotnetProcessPath != null &&
+                        string.Equals(Path.GetFileNameWithoutExtension(dotnetProcessPath), "dotnet", StringComparison.OrdinalIgnoreCase)
+                            ? Path.GetDirectoryName(dotnetProcessPath)
+                            : null;
+                }
 
                 if (dir == null)
                 {
