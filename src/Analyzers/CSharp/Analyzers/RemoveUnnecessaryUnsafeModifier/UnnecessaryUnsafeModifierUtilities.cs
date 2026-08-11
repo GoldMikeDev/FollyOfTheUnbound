@@ -121,7 +121,7 @@ internal static class UnnecessaryUnsafeModifierUtilities
             var originalSymbol = semanticModel.GetDeclaredSymbol(originalNode, cancellationToken);
             var updatedSymbol = updatedSemanticModel.GetDeclaredSymbol(newNode, cancellationToken);
             if (originalSymbol != null && updatedSymbol != null &&
-                originalSymbol.RequiresUnsafe && !updatedSymbol.RequiresUnsafe)
+                originalSymbol.RequiresUnsafeContext && !updatedSymbol.RequiresUnsafeContext)
             {
                 continue;
             }

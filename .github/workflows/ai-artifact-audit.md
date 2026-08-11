@@ -13,7 +13,6 @@ model: gpt-5-mini
 
 permissions:
   contents: read
-  copilot-requests: write
 
 network:
   allowed: [defaults]
