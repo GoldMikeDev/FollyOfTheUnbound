@@ -50,22 +50,26 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
                 // nothing about where the .NET (Core) SDK/runtime used to run the InteractiveHost
                 // child process lives. Search PATH instead: that's how `dotnet` would actually be
                 // resolved from a shell on this machine, and doesn't depend on any assumption about
-                // install layout relative to this process's runtime directory.
+                // install layout relative to this process's runtime directory. A directory merely
+                // containing a file named dotnet.exe isn't sufficient -- package-manager shims and
+                // forwarding executables (e.g. Windows App Execution Aliases) can have that name
+                // without being a real SDK/runtime root, so also require the host\fxr\<version>\
+                // layout that actually holds hostfxr.dll.
                 var dir = (Environment.GetEnvironmentVariable("PATH") ?? "")
                     .Split(Path.PathSeparator)
                     .Select(p => p.Trim())
-                    .Where(p => p.Length > 0)
-                    .FirstOrDefault(p => File.Exists(Path.Combine(p, "dotnet.exe")));
+                    .Where(p => p.Length > 0 && File.Exists(Path.Combine(p, "dotnet.exe")))
+                    .FirstOrDefault(HasHostFxr);
 
                 if (dir == null)
                 {
                     // Fallback: walk up from the shared-framework directory looking for a sibling
-                    // dotnet.exe. This assumes the standard SDK install layout
-                    // (dotnet\shared\Microsoft.NETCore.App\<version>\), which doesn't hold for every
-                    // runtime layout (e.g. a private testhost copy of the runtime) -- hence trying
-                    // PATH first.
+                    // dotnet.exe with a real host\fxr\ layout. This assumes the standard SDK install
+                    // layout (dotnet\shared\Microsoft.NETCore.App\<version>\), which doesn't hold for
+                    // every runtime layout (e.g. a private testhost copy of the runtime) -- hence
+                    // trying PATH first.
                     dir = RuntimeEnvironment.GetRuntimeDirectory();
-                    while (dir != null && !File.Exists(Path.Combine(dir, "dotnet.exe")))
+                    while (dir != null && !(File.Exists(Path.Combine(dir, "dotnet.exe")) && HasHostFxr(dir)))
                     {
                         dir = Path.GetDirectoryName(dir);
                     }
@@ -75,6 +79,13 @@ namespace Microsoft.CodeAnalysis.UnitTests.Interactive
                 Assert.NotNull(dir);
 
                 Environment.SetEnvironmentVariable("DOTNET_ROOT", dir);
+            }
+
+            static bool HasHostFxr(string dotnetRoot)
+            {
+                var fxrDir = Path.Combine(dotnetRoot, "host", "fxr");
+                return Directory.Exists(fxrDir) &&
+                    Directory.EnumerateDirectories(fxrDir).Any(v => File.Exists(Path.Combine(v, "hostfxr.dll")));
             }
         }
 

@@ -1228,7 +1228,6 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
 
             var openParen = this.EatToken(SyntaxKind.OpenParenToken);
 
-            _inlineDeclarationSuppressionDepth++;
             var argNodes = this.ParseCommaSeparatedSyntaxList(
                 ref openParen,
                 SyntaxKind.CloseParenToken,
@@ -1239,7 +1238,6 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax.InternalSyntax
                 allowTrailingSeparator: false,
                 requireOneElement: false,
                 allowSemicolonAsSeparator: false);
-            _inlineDeclarationSuppressionDepth--;
 
             return _syntaxFactory.AttributeArgumentList(
                 openParen,
@@ -7942,7 +7940,6 @@ done:
 
             var omittedArraySizeExpressionInstance = _syntaxFactory.OmittedArraySizeExpression(SyntaxFactory.Token(SyntaxKind.OmittedArraySizeExpressionToken));
             int lastTokenPosition = -1;
-            _inlineDeclarationSuppressionDepth++;
             while (IsMakingProgress(ref lastTokenPosition) && this.CurrentToken.Kind != SyntaxKind.CloseBracketToken)
             {
                 if (this.CurrentToken.Kind == SyntaxKind.CommaToken)
@@ -7968,7 +7965,6 @@ done:
                     break;
                 }
             }
-            _inlineDeclarationSuppressionDepth--;
 
             // Don't end on a comma.
             // If the omitted size would be the only element, then skip it unless sizes were expected.
@@ -12715,7 +12711,6 @@ done:
                 if (isIndexer)
                 {
                     // An indexer always expects at least one value.
-                    _inlineDeclarationSuppressionDepth++;
                     arguments = ParseCommaSeparatedSyntaxList(
                         ref openToken,
                         SyntaxKind.CloseBracketToken,
@@ -12725,19 +12720,9 @@ done:
                         allowTrailingSeparator: false,
                         requireOneElement: false,
                         allowSemicolonAsSeparator: false);
-                    _inlineDeclarationSuppressionDepth--;
                 }
                 else
                 {
-                    // An ordinary parenthesized argument list is never itself suppressed (see
-                    // IsInlineDeclarationContext), even when nested inside an attribute-argument
-                    // list, array-rank/fixed-buffer-size list, or indexer argument list that IS
-                    // suppressed -- e.g. `items[M(new Widget() w)]` should still let `w` be an
-                    // inline declaration inside M's ordinary call arguments. Reset (and later
-                    // restore) the suppression depth around it so it doesn't inherit an enclosing
-                    // suppression it isn't part of.
-                    var saveInlineDeclarationSuppressionDepth = _inlineDeclarationSuppressionDepth;
-                    _inlineDeclarationSuppressionDepth = 0;
                     arguments = ParseCommaSeparatedSyntaxList(
                         ref openToken,
                         SyntaxKind.CloseParenToken,
@@ -12747,7 +12732,6 @@ done:
                         allowTrailingSeparator: false,
                         requireOneElement: false,
                         allowSemicolonAsSeparator: false);
-                    _inlineDeclarationSuppressionDepth = saveInlineDeclarationSuppressionDepth;
                 }
             }
             else if (isIndexer && this.CurrentToken.Kind == closeKind)
@@ -13682,20 +13666,8 @@ done:
 
 #nullable enable
 
-        // Suppresses IsInlineDeclarationContext() while parsing syntactic positions where an adjacent
-        // `identifier identifier` pair already has pre-existing grammar meaning (e.g. `out var x` inside an
-        // attribute-argument list, an array-rank/fixed-buffer-size list, or an indexer's bracketed-argument
-        // list) so those positions keep reporting the same diagnostics as vanilla C# instead of being
-        // silently reinterpreted as an inline expression declaration. Ordinary parenthesized argument lists
-        // (regular method-call arguments) are intentionally NOT suppressed, since inline declarations are
-        // expected to appear there.
-        private int _inlineDeclarationSuppressionDepth;
-
         private bool IsInlineDeclarationContext()
         {
-            if (_inlineDeclarationSuppressionDepth > 0)
-                return false;
-
             // A word that's also a contextual keyword elsewhere in the language (e.g. the query-ordering
             // "descending"/"ascending", or pattern-matching's "when"/"and"/"or"/"not") must not be treated as
             // an inline-declared name -- otherwise `orderby x descending, y ascending` would have its
