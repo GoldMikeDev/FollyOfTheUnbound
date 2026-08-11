@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
@@ -11,6 +12,19 @@ internal static class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        // Hidden hook for Win32BreakawayLauncherTests (see BreakawaySelfTest's remarks) to verify
+        // GoldMikeDev/roslyn#11 against a real Windows Job Object; checked before normal argument parsing the
+        // same way the daemon bootstrap marker below is.
+        if (BreakawaySelfTest.IsParentRequested(args))
+        {
+            return BreakawaySelfTest.RunParent();
+        }
+
+        if (BreakawaySelfTest.IsChildRequested(args))
+        {
+            return BreakawaySelfTest.RunChild();
+        }
+
         // When a client needs a shared daemon it launches a second copy of this thin client as a short-lived bootstrap
         // (see DaemonClient.LaunchDaemon / DaemonBootstrap). In that mode we just launch the real daemon detached and
         // exit - we are not an editor's client, so skip normal client argument parsing and process monitoring.
