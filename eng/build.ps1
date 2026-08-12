@@ -836,8 +836,15 @@ try {
   {
     if ($ci) {
       Write-LogIssue -Type "error" -Message "(NETCORE_ENGINEERING_TELEMETRY=Test) Tests failed"
+      throw $_
     }
-    throw $_
+
+    # Locally, a non-zero exit from RunTests almost always just means some test suites had
+    # failures (not that the build tooling itself broke), so skip the full exception dump and
+    # report it concisely instead. The HTML/xUnit failure logs under artifacts/log/$configuration
+    # already have the actual details.
+    Write-Host "Not all test suites succeeded. See artifacts\TestResults\$configuration and artifacts\log\$configuration for details." -ForegroundColor Red
+    ExitWithExitCode 1
   }
 
   if ($launch) {
