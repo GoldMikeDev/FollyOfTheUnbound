@@ -1,0 +1,27 @@
+<assemblies timestamp="08/11/2026 15:17:25">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.dll" run-date="2026-08-11" run-time="15:17:25" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.dll.config" total="2" passed="2" failed="0" skipped="0" time="54.212" errors="0">
+    <errors />
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" time="32.044">
+      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests.TestProjectsAsync(mutatingLspWorkspace: False)" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" method="TestProjectsAsync(mutatingLspWorkspace: False)" time="31.2430000" result="Pass">
+        <output>[03:18:16.350][Debug]Starting request handler
+[03:18:17.153][Debug]Request handler completed successfully.
+[03:18:17.164][Debug]Starting request handler
+[03:18:17.517][Debug]Request handler completed successfully.
+[03:18:17.902][Info]Shutting down
+
+</output>
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests.TestProjectsAsync(mutatingLspWorkspace: True)" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" method="TestProjectsAsync(mutatingLspWorkspace: True)" time="0.8010000" result="Pass">
+        <output>[03:18:18.920][Debug]Starting request handler
+[03:18:18.948][Debug]Request handler completed successfully.
+[03:18:18.950][Debug]Starting request handler
+[03:18:18.952][Debug]Request handler completed successfully.
+[03:18:18.955][Info]Shutting down
+
+</output>
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

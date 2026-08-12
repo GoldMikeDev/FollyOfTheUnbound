@@ -1,0 +1,45 @@
+<assemblies timestamp="08/11/2026 15:17:32">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests.dll" run-date="2026-08-11" run-time="15:17:32" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests.dll.config" total="12" passed="12" failed="0" skipped="0" time="37.930" errors="0">
+    <errors />
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" time="19.181">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.XmlDocComments_SpecificCulture" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="XmlDocComments_SpecificCulture" time="5.2470000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy1" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy1" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy_ShadowCopyDirectory" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy_ShadowCopyDirectory" time="2.0730000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Errors" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Errors" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.GetMetadata" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="GetMetadata" time="2.9440000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy_Framework" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy_Framework" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Modules" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Modules" time="5.5120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Copy" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Copy" time="1.4010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.DisposalOnFailure" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="DisposalOnFailure" time="1.9790000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" time="3.437">
+      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.GetFacadeAssemblyIdentities" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="GetFacadeAssemblyIdentities" time="1.5080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.GetAssemblyIdentities" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="GetAssemblyIdentities" time="0.0920000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.AssemblyAndGacLocation" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="AssemblyAndGacLocation" time="1.8370000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

@@ -1,0 +1,10 @@
+<assemblies timestamp="08/11/2026 15:18:25">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll" run-date="2026-08-11" run-time="15:18:25" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll.config" total="1" passed="1" failed="0" skipped="0" time="33.481" errors="0">
+    <errors />
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" time="13.642">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests.Added" type="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" method="Added" time="13.6420000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>
