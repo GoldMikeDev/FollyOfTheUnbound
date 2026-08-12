@@ -10,10 +10,15 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost.net472 (36748).
-[xUnit.net 00:00:30.01]     Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [SKIP]
+Blame: Attaching crash dump utility to process testhost.net472 (35052).
+[xUnit.net 00:00:11.47]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [1 ms]
+[xUnit.net 00:00:28.20]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [1 ms]
+[xUnit.net 00:00:32.26]     Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [1 ms]
-  Failed Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [948 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+  Failed Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [923 ms]
   Error Message:
    Expected:
 Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
@@ -57,11 +62,6 @@ Differences:
   Stack Trace:
      at Roslyn.Test.Utilities.AssertEx.AssertEqualToleratingWhitespaceDifferences(String expected, String actual, String message, Boolean escapeQuotes, String expectedValueSourcePath, Int32 expectedValueSourceLine) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\AssertEx.cs:line 568
    at Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Scripting\VisualBasicTest\CommandLineRunnerTests.vb:line 109
-[xUnit.net 00:00:31.25]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [1 ms]
-[xUnit.net 00:00:31.32]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [SKIP]
-Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
-  Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [1 ms]
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_44_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_44_x64_test_results.html
 
