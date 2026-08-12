@@ -10,15 +10,15 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost.net472 (35052).
-[xUnit.net 00:00:11.47]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [1 ms]
-[xUnit.net 00:00:28.20]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [SKIP]
+Blame: Attaching crash dump utility to process testhost.net472 (51820).
+[xUnit.net 00:00:15.24]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat [1 ms]
-[xUnit.net 00:00:32.26]     Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [SKIP]
+[xUnit.net 00:00:15.31]     Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings [1 ms]
+[xUnit.net 00:00:21.27]     Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
-  Failed Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [923 ms]
+  Failed Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [535 ms]
   Error Message:
    Expected:
 Microsoft (R) Visual Basic Interactive Compiler version 5.11.0-dev ()
@@ -65,4 +65,4 @@ Differences:
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_44_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_44_x64_test_results.html
 
-Failed!  - Failed:     1, Passed:    33, Skipped:     3, Total:    37, Duration: 23 s - Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll (net472)
+Failed!  - Failed:     1, Passed:    33, Skipped:     3, Total:    37, Duration: 16 s - Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll (net472)

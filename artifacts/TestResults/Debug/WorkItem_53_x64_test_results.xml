@@ -1,30 +1,28 @@
-<assemblies timestamp="08/12/2026 11:30:58">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.dll" run-date="2026-08-12" run-time="11:30:58" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.dll.config" total="3" passed="3" failed="0" skipped="0" time="65.492" errors="0">
+<assemblies timestamp="08/12/2026 12:53:40">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.dll" run-date="2026-08-12" run-time="12:53:40" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.dll.config" total="3" passed="3" failed="0" skipped="0" time="75.714" errors="0">
     <errors />
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" time="34.938">
-      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests.TestProjectsAsync(mutatingLspWorkspace: False)" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" method="TestProjectsAsync(mutatingLspWorkspace: False)" time="33.5920000" result="Pass">
-        <output>[11:31:53.190][Debug]Starting request handler
-[11:31:53.891][Debug]Request handler completed successfully.
-[11:31:53.908][Debug]Starting request handler
-[11:31:54.282][Debug]Request handler completed successfully.
-[11:31:55.584][Info]Shutting down
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" time="36.507">
+      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests.TestProjectsAsync(mutatingLspWorkspace: False)" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" method="TestProjectsAsync(mutatingLspWorkspace: False)" time="34.7850000" result="Pass">
+        <output>[12:54:44.603][Debug]Starting request handler
+[12:54:45.285][Debug]Request handler completed successfully.
+[12:54:45.291][Debug]Starting request handler
+[12:54:45.488][Debug]Request handler completed successfully.
+[12:54:46.275][Info]Shutting down
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests.TestProjectsAsync(mutatingLspWorkspace: True)" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" method="TestProjectsAsync(mutatingLspWorkspace: True)" time="1.3460000" result="Pass">
-        <output>[11:31:57.095][Debug]Starting request handler
-[11:31:57.160][Debug]Request handler completed successfully.
-[11:31:57.163][Debug]Starting request handler
-[11:31:57.505][Debug]Request handler completed successfully.
-[11:31:57.506][Info]Shutting down
+      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests.TestProjectsAsync(mutatingLspWorkspace: True)" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.ProjectsHandlerTests" method="TestProjectsAsync(mutatingLspWorkspace: True)" time="1.7220000" result="Pass">
+        <output>[12:54:47.768][Debug]Starting request handler
+[12:54:47.884][Debug]Request handler completed successfully.
+[12:54:47.886][Debug]Starting request handler
 
 </output>
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.TestHostKeepAliveTests" time="2.050">
-      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.TestHostKeepAliveTests.KeepTestHostAliveBriefly" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.TestHostKeepAliveTests" method="KeepTestHostAliveBriefly" time="2.0500000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.TestHostKeepAliveTests" time="2.251">
+      <test name="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.TestHostKeepAliveTests.KeepTestHostAliveBriefly" type="Microsoft.VisualStudio.LanguageServices.LiveShare.UnitTests.TestHostKeepAliveTests" method="KeepTestHostAliveBriefly" time="2.2510000" result="Pass">
         <traits />
       </test>
     </collection>

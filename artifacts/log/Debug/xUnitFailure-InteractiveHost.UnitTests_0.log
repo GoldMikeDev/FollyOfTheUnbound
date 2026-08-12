@@ -10,108 +10,28 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost.net472 (49640).
-  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.DefaultReferencesAndImports [1 ms]
-  Error Message:
-   
-Remote service unavailable
-STDERR: Failed to launch 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\Host\Core\InteractiveHost64.exe' process (exit code: -2147450749) with output: 
-潙⁵畭瑳椠獮慴汬⸠䕎⁔潴爠湵琠楨⁳灡汰捩瑡潩⹮਍਍灁㩰䌠尺獕牥屳桭汯履潳牵散牜灥獯䙜汯祬晏桔啥扮畯摮慜瑲晩捡獴扜湩䥜瑮牥捡楴敶潈瑳售楮呴獥獴䑜扥杵湜瑥㜴尲潈瑳䍜牯履湉整慲瑣癩䡥獯㙴⸴硥൥䄊捲楨整瑣牵㩥砠㐶਍灁⁰潨瑳瘠牥楳湯›〱〮㤮਍丮呅氠捯瑡潩㩮丠瑯映畯摮਍਍桔⁥潦汬睯湩⁧潬慣楴湯⁳敷敲猠慥捲敨㩤਍†灁汰捩瑡潩⁮楤敲瑣牯㩹਍††㩃啜敳獲浜潨敬獜畯捲履敲潰屳潆汬佹呦敨湕潢湵層牡楴慦瑣屳楢屮湉整慲瑣癩䡥獯⹴湕瑩敔瑳屳敄畢屧敮㑴㈷䡜獯屴潃敲൜ 䔠癮物湯敭瑮瘠牡慩汢㩥਍††佄乔呅剟住⁔‽㩃啜敳獲浜潨敬獜畯捲履敲潰屳潆汬佹呦敨湕潢湵層搮瑯敮屴潤湴瑥攮數਍਍敌牡⁮潭敲ഺ栊瑴獰⼺愯慫洮⽳潤湴瑥愯灰氭畡据⵨慦汩摥਍਍潄湷潬摡琠敨⸠䕎⁔畲瑮浩㩥਍瑨灴㩳⼯歡⹡獭搯瑯敮⵴潣敲愭灰慬湵档洿獩楳杮牟湵楴敭琽畲♥牡档砽㐶爦摩眽湩砭㐶漦㵳楷ㅮ☰灡桰獯彴敶獲潩㵮〱〮㤮਍
-
-STDOUT: 
-
-  Stack Trace:
-     at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<ReadOutputToEnd>d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<InitializeAsync>d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-  Standard Output Messages:
- Host process terminated unexpectedly. Exit code: -2147450749
- The operation was canceled. Exit code: -2147450749
-
-
-  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.InteractiveHostImplAssemblies [1 ms]
-  Error Message:
-   
-Remote service unavailable
-STDERR: Failed to launch 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\Host\Core\InteractiveHost64.exe' process (exit code: -2147450749) with output: 
-潙⁵畭瑳椠獮慴汬⸠䕎⁔潴爠湵琠楨⁳灡汰捩瑡潩⹮਍਍灁㩰䌠尺獕牥屳桭汯履潳牵散牜灥獯䙜汯祬晏桔啥扮畯摮慜瑲晩捡獴扜湩䥜瑮牥捡楴敶潈瑳售楮呴獥獴䑜扥杵湜瑥㜴尲潈瑳䍜牯履湉整慲瑣癩䡥獯㙴⸴硥൥䄊捲楨整瑣牵㩥砠㐶਍灁⁰潨瑳瘠牥楳湯›〱〮㤮਍丮呅氠捯瑡潩㩮丠瑯映畯摮਍਍桔⁥潦汬睯湩⁧潬慣楴湯⁳敷敲猠慥捲敨㩤਍†灁汰捩瑡潩⁮楤敲瑣牯㩹਍††㩃啜敳獲浜潨敬獜畯捲履敲潰屳潆汬佹呦敨湕潢湵層牡楴慦瑣屳楢屮湉整慲瑣癩䡥獯⹴湕瑩敔瑳屳敄畢屧敮㑴㈷䡜獯屴潃敲൜ 䔠癮物湯敭瑮瘠牡慩汢㩥਍††佄乔呅剟住⁔‽㩃啜敳獲浜潨敬獜畯捲履敲潰屳潆汬佹呦敨湕潢湵層搮瑯敮屴潤湴瑥攮數਍਍敌牡⁮潭敲ഺ栊瑴獰⼺愯慫洮⽳潤湴瑥愯灰氭畡据⵨慦汩摥਍਍潄湷潬摡琠敨⸠䕎⁔畲瑮浩㩥਍瑨灴㩳⼯歡⹡獭搯瑯敮⵴潣敲愭灰慬湵档洿獩楳杮牟湵楴敭琽畲♥牡档砽㐶爦摩眽湩砭㐶漦㵳楷ㅮ☰灡桰獯彴敶獲潩㵮〱〮㤮਍
-
-STDOUT: 
-
-  Stack Trace:
-     at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<ReadOutputToEnd>d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<InitializeAsync>d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-  Standard Output Messages:
- Host process terminated unexpectedly. Exit code: -2147450749
- The operation was canceled. Exit code: -2147450749
-
-
-  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.SearchPaths1 [1 ms]
-  Error Message:
-   
-Remote service unavailable
-STDERR: 
-STDOUT: 
-
-  Stack Trace:
-     at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<ReadOutputToEnd>d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<InitializeAsync>d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-  Standard Output Messages:
- Host process terminated unexpectedly. Exit code: -2147450749
-
-
-[xUnit.net 00:02:44.70]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.UserDefinedAssemblyResolve_InfiniteLoop [SKIP]
+Blame: Attaching crash dump utility to process testhost.net472 (49416).
+[xUnit.net 00:02:01.46]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.UserDefinedAssemblyResolve_InfiniteLoop [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.UserDefinedAssemblyResolve_InfiniteLoop [1 ms]
-[xUnit.net 00:02:51.82]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWeakVersioning [SKIP]
+[xUnit.net 00:02:08.14]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWeakVersioning [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWeakVersioning [1 ms]
-[xUnit.net 00:03:07.00]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.StackOverflow [SKIP]
+[xUnit.net 00:02:25.41]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.StackOverflow [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.StackOverflow [1 ms]
-[xUnit.net 00:03:45.54]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_LoadUpdatedReference [SKIP]
+[xUnit.net 00:03:03.12]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_LoadUpdatedReference [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_LoadUpdatedReference [1 ms]
-[xUnit.net 00:03:55.18]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_ShadowCopy [SKIP]
+[xUnit.net 00:03:13.75]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_ShadowCopy [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_ShadowCopy [1 ms]
-[xUnit.net 00:04:06.55]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWithSameWeakIdentity [SKIP]
+[xUnit.net 00:03:24.26]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWithSameWeakIdentity [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_MultipleReferencesWithSameWeakIdentity [1 ms]
   Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Bitness [9 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
 ---- 
 Remote service unavailable
-STDERR: ￿ece47446-0291-4a9b-a762-0f5a0d421f03￿147349d8-5c6f-41b2-9877-a3c590302c4f￿bc9f86eb-cc5c-463b-85e9-55cbb616c266Failed to launch 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\Host\Core\InteractiveHost64.exe' process (exit code: -2147450749) with output: 
-潙⁵畭瑳椠獮慴汬⸠䕎⁔潴爠湵琠楨⁳灡汰捩瑡潩⹮਍਍灁㩰䌠尺獕牥屳桭汯履潳牵散牜灥獯䙜汯祬晏桔啥扮畯摮慜瑲晩捡獴扜湩䥜瑮牥捡楴敶潈瑳售楮呴獥獴䑜扥杵湜瑥㜴尲潈瑳䍜牯履湉整慲瑣癩䡥獯㙴⸴硥൥䄊捲楨整瑣牵㩥砠㐶਍灁⁰潨瑳瘠牥楳湯›〱〮㤮਍丮呅氠捯瑡潩㩮丠瑯映畯摮਍਍桔⁥潦汬睯湩⁧潬慣楴湯⁳敷敲猠慥捲敨㩤਍†灁汰捩瑡潩⁮楤敲瑣牯㩹਍††㩃啜敳獲浜潨敬獜畯捲履敲潰屳潆汬佹呦敨湕潢湵層牡楴慦瑣屳楢屮湉整慲瑣癩䡥獯⹴湕瑩敔瑳屳敄畢屧敮㑴㈷䡜獯屴潃敲൜ 䔠癮物湯敭瑮瘠牡慩汢㩥਍††佄乔呅剟住⁔‽㩃啜敳獲浜潨敬獜畯捲履敲潰屳潆汬佹呦敨湕潢湵層搮瑯敮屴潤湴瑥攮數਍਍敌牡⁮潭敲ഺ栊瑴獰⼺愯慫洮⽳潤湴瑥愯灰氭畡据⵨慦汩摥਍਍潄湷潬摡琠敨⸠䕎⁔畲瑮浩㩥਍瑨灴㩳⼯歡⹡獭搯瑯敮⵴潣敲愭灰慬湵档洿獩楳杮牟湵楴敭琽畲♥牡档砽㐶爦摩眽湩砭㐶漦㵳楷ㅮ☰灡桰獯彴敶獲潩㵮〱〮㤮਍
-
+STDERR: ￿6baac249-3eb4-4a75-b961-18a7896c7cea￿eacc43c0-f7f4-4f66-bde1-eac6f77e7273￿b0729e87-35e5-48eb-8490-58fbcdb30d11
 STDOUT: 8
-￿73b5c25e-587e-4d25-87ab-f105b7fba9fd￿2765d285-4bc0-4acd-9973-1bb68592988c4
-￿dfdca304-4b3f-479e-acdd-70359d9c83f5
+￿97c79bae-2500-4adb-9691-89e982821add￿45109586-a990-4e19-b982-78eaa5240cb34
+￿588b9f30-d4d7-4802-aac4-c590ab53e30e
 
 ---- Assert.NotNull() Failure: Value is null
   Stack Trace:
@@ -142,13 +62,86 @@ STDOUT: 8
  The operation was canceled. Exit code: -2147450749
 
 
-[xUnit.net 00:04:39.62]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_HangingForegroundThreads [SKIP]
+[xUnit.net 00:03:54.66]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_HangingForegroundThreads [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_HangingForegroundThreads [1 ms]
-[xUnit.net 00:04:52.07]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_VersionUnification1 [SKIP]
+[xUnit.net 00:04:07.64]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_VersionUnification1 [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_VersionUnification1 [1 ms]
-[xUnit.net 00:05:15.78]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreTests.StackOverflow [SKIP]
+[xUnit.net 00:04:34.03]     Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreTests.StackOverflow [SKIP]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
   Skipped Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreTests.StackOverflow [1 ms]
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.DefaultReferencesAndImports [1 ms]
+  Error Message:
+   
+Remote service unavailable
+STDERR: 
+STDOUT: 
+
+  Stack Trace:
+     at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<ReadOutputToEnd>d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<InitializeAsync>d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  Standard Output Messages:
+ Host process terminated unexpectedly. Exit code: -2147450749
+ The operation was canceled. Exit code: -2147450749
+
+
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.InteractiveHostImplAssemblies [1 ms]
+  Error Message:
+   
+Remote service unavailable
+STDERR: 
+STDOUT: 
+
+  Stack Trace:
+     at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<ReadOutputToEnd>d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<InitializeAsync>d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  Standard Output Messages:
+ Host process terminated unexpectedly. Exit code: -2147450749
+
+
+  Failed Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.SearchPaths1 [1 ms]
+  Error Message:
+   
+Remote service unavailable
+STDERR: 
+STDOUT: 
+
+  Stack Trace:
+     at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<ReadOutputToEnd>d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
+   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.<InitializeAsync>d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+  Standard Output Messages:
+ Host process terminated unexpectedly. Exit code: -2147450749
+
+
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_0_x64_test_results.xml
 
-Failed!  - Failed:     4, Passed:    36, Skipped:     9, Total:    49, Duration: 5 m 1 s - InteractiveHost.UnitTests.dll (net472)
+Failed!  - Failed:     4, Passed:    36, Skipped:     9, Total:    49, Duration: 4 m 19 s - InteractiveHost.UnitTests.dll (net472)

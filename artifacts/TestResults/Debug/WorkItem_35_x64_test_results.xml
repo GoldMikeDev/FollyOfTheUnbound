@@ -1,11 +1,11 @@
-<assemblies timestamp="08/12/2026 11:31:30">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-08-12" run-time="11:31:30" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll.config" total="10" passed="10" failed="0" skipped="0" time="33.113" errors="0">
+<assemblies timestamp="08/12/2026 12:54:12">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-08-12" run-time="12:54:12" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll.config" total="10" passed="10" failed="0" skipped="0" time="38.348" errors="0">
     <errors />
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" time="6.272">
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Debug)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Debug)" time="2.8720000" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" time="4.484">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Debug)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Debug)" time="2.1840000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Warning)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Warning)" time="1.3160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Warning)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Warning)" time="1.2450000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Information)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Information)" time="0.0010000" result="Pass">
@@ -23,10 +23,10 @@
       <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Error)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Error)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.EventWithProperties" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="EventWithProperties" time="2.0700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.EventWithProperties" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="EventWithProperties" time="1.0390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: False)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: False)" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: False)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: False)" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: True)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: True)" time="0.0010000" result="Pass">
