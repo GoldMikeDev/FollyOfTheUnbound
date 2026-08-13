@@ -525,7 +525,12 @@ function TestUsingRunTests() {
 
   try {
     Write-Host "$runTests $args"
-    Exec-Command $dotnetExe "$runTests $args"
+    # Let RunTests inherit the real console (rather than the default of piping its stdout back through
+    # Write-Output) outside CI, where there's an actual interactive terminal to inherit -- RunTests' live
+    # per-work-item progress table only engages when its own Console.IsOutputRedirected is false, which is
+    # never true through a piped Write-Output relay regardless of whether this session itself is interactive.
+    # CI keeps today's piped/relayed behavior unconditionally: there's no real console to hand it there anyway.
+    Exec-Command $dotnetExe "$runTests $args" -useConsole:(-not $ci)
   } finally {
     Get-Process "xunit*" -ErrorAction SilentlyContinue | Stop-Process
     if ($ci) {
