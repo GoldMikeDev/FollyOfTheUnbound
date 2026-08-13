@@ -75,18 +75,22 @@ try {
         $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
         $coreClrTestResultsDir = "$testResultsDir-CoreClr"
         $coreClrLogDir = "$logDir-CoreClr"
+        # Also clear any stale -CoreClr archive from a previous run up front (not just when this run produces a
+        # replacement below): if this pass fails before RunTests even creates $testResultsDir/$logDir (e.g. test
+        # discovery finding no assemblies), leaving the old archive in place would misrepresent a prior run's
+        # results as diagnostics for the current failure.
         Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
 
         & $buildScript -testCoreClr -solution $solution -configuration $configuration
         $coreClrExitCode = $LASTEXITCODE
 
         if (Test-Path -LiteralPath $testResultsDir) {
-            Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
             Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
         }
         if (Test-Path -LiteralPath $logDir) {
-            Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
             Move-Item -Path $logDir -Destination $coreClrLogDir
         }
 
