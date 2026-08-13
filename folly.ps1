@@ -67,8 +67,29 @@ try {
         & $buildScript -testCoreClr -solution $solution -configuration $configuration
         $coreClrExitCode = $LASTEXITCODE
 
+        # RunTests names each pass's result/log files by partition index and architecture alone, truncating
+        # (not appending to) whatever is already there -- so without moving the CoreCLR pass's results out of the
+        # way first, the Desktop pass below would silently overwrite them, including on a CoreCLR failure, right
+        # when a developer most needs to see what failed.
+        $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
+        $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
+        $coreClrTestResultsDir = "$testResultsDir-CoreClr"
+        $coreClrLogDir = "$logDir-CoreClr"
+        if (Test-Path -LiteralPath $testResultsDir) {
+            Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
+            Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
+        }
+        if (Test-Path -LiteralPath $logDir) {
+            Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
+            Move-Item -Path $logDir -Destination $coreClrLogDir
+        }
+
         & $buildScript -testDesktop -solution $solution -configuration $configuration
         $desktopExitCode = $LASTEXITCODE
+
+        Write-Host ""
+        Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
+        Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
 
         if ($coreClrExitCode -ne 0) {
             exit $coreClrExitCode
