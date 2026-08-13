@@ -415,6 +415,18 @@ if [[ "$test_core_clr" == true ]]; then
   if [[ "$ci" != true ]]; then
     runtests_args="$runtests_args --html"
   fi
-  dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs ${log_dir} --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+
+  if [[ "$ci" == true ]]; then
+    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs ${log_dir} --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+  else
+    # Locally, a non-zero exit from RunTests almost always just means some test suites had
+    # failures (not that the build tooling itself broke), so report it concisely instead of
+    # letting `set -e` exit silently. The HTML/xUnit failure logs under $log_dir already have
+    # the actual details. Matches the equivalent local-only summary in build.ps1.
+    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs ${log_dir} --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+      echo "Not all test suites succeeded. See $artifacts_dir/TestResults/$configuration and $log_dir for details."
+      exit 1
+    fi
+  fi
 fi
 ExitWithExitCode 0
