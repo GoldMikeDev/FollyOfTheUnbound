@@ -64,17 +64,23 @@ try {
             exit $buildExitCode
         }
 
-        & $buildScript -testCoreClr -solution $solution -configuration $configuration
-        $coreClrExitCode = $LASTEXITCODE
-
         # RunTests names each pass's result/log files by partition index and architecture alone, truncating
-        # (not appending to) whatever is already there -- so without moving the CoreCLR pass's results out of the
-        # way first, the Desktop pass below would silently overwrite them, including on a CoreCLR failure, right
-        # when a developer most needs to see what failed.
+        # (not appending to) whatever is already there, and never removes stale files (e.g. old
+        # xUnitFailure-* logs) it doesn't happen to overwrite. Without clearing these directories before the
+        # CoreCLR pass even starts, a rerun of scry (without cleanse first) could carry a *previous* run's
+        # Desktop-pass leftovers into this run's CoreCLR archive below, and without moving the CoreCLR pass's
+        # own results out of the way before the Desktop pass, that pass would then silently overwrite them --
+        # including on a CoreCLR failure, right when a developer most needs to see what failed.
         $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
         $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
         $coreClrTestResultsDir = "$testResultsDir-CoreClr"
         $coreClrLogDir = "$logDir-CoreClr"
+        Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
+
+        & $buildScript -testCoreClr -solution $solution -configuration $configuration
+        $coreClrExitCode = $LASTEXITCODE
+
         if (Test-Path -LiteralPath $testResultsDir) {
             Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
             Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
