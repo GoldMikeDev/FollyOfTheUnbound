@@ -427,10 +427,8 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>Represents <see langword="extension"/>.</summary>
         ExtensionKeyword = 8451,
         /// <summary>Represents <see langword="union"/>.</summary>
-        [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82567")]
         UnionKeyword = 8452,
         /// <summary>Represents <see langword="closed"/>.</summary>
-        [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/83717")]
         ClosedKeyword = 8453,
         /// <summary>Represents <see langword="safe"/>.</summary>
         [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82789")]
@@ -951,10 +949,8 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         IgnoredDirectiveTrivia = 9080,
 
-        [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82210")]
         WithElement = 9081,
 
-        [Experimental("RSEXPERIMENTAL006", UrlFormat = "https://github.com/dotnet/roslyn/issues/82567")]
         UnionDeclaration = 9082,
 
         /// <summary>Represents a <c>do...until</c> statement.</summary>
