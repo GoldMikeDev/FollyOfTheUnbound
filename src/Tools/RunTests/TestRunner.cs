@@ -103,6 +103,20 @@ namespace RunTests
                             {
                                 failures++;
                                 liveDisplay?.PrepareForExtraOutput();
+
+                                // Printed here (rather than from inside ProcessTestExecutor.RunTestAsync, where
+                                // it's detected) so it lands after the PrepareForExtraOutput call above -- that
+                                // executor code can run concurrently with other still-running work items, and
+                                // printing directly from there would race the live table's own redraws.
+                                if (testResult.CrashDiagnostics.ErrorMessage is string crashErrorMessage)
+                                {
+                                    ConsoleUtil.Error(crashErrorMessage);
+                                    foreach (var dump in testResult.CrashDiagnostics.DumpPaths)
+                                    {
+                                        ConsoleUtil.WriteLine(ConsoleColor.Red, $"  Dump: {dump}");
+                                    }
+                                }
+
                                 if (testResult.ResultsDisplayFilePath is string resultsPath)
                                 {
                                     ConsoleUtil.WriteLine(ConsoleColor.Red, resultsPath);
@@ -123,6 +137,10 @@ namespace RunTests
                         }
                         catch (Exception ex)
                         {
+                            // The work item never got a normal completion (e.g. the response file or test process
+                            // itself couldn't be created), so it's still marked RUNNING in the live table with an
+                            // ever-climbing timer unless explicitly resolved here.
+                            liveDisplay?.MarkFailed(workItem);
                             liveDisplay?.PrepareForExtraOutput();
                             ConsoleUtil.WriteLine(ConsoleColor.Red, $"Error: {ex.Message}");
                             failures++;
@@ -146,7 +164,7 @@ namespace RunTests
 
                 if (liveDisplay is not null)
                 {
-                    liveDisplay.Redraw(running.Count, waiting.Count, completed.Count, failures);
+                    liveDisplay.Redraw();
                 }
                 else
                 {

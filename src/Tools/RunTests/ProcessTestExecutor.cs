@@ -180,9 +180,10 @@ namespace RunTests
 
                 var exitCode = xunitProcessResult.ExitCode;
                 var isTimeout = false;
+                var crashDiagnostics = CrashDiagnostics.None;
                 if (exitCode != 0)
                 {
-                    isTimeout = CheckForCrashes(resultsFilePath, workItemInfo.DisplayName, options.TestResultsDirectory);
+                    (isTimeout, crashDiagnostics) = CheckForCrashes(resultsFilePath, workItemInfo.DisplayName, options.TestResultsDirectory, sinceUtc: start);
                 }
 
                 var testResultInfo = new TestResultInfo(
@@ -192,7 +193,8 @@ namespace RunTests
                     elapsed: span,
                     standardOutput: standardOutput,
                     errorOutput: errorOutput,
-                    isTimeout: isTimeout);
+                    isTimeout: isTimeout,
+                    crashDiagnostics: crashDiagnostics);
 
                 return new TestResult(
                     workItemInfo,
@@ -223,38 +225,38 @@ namespace RunTests
         /// When vstest detects a test host crash or hang (via the /Blame option), it collects
         /// a dump file but the test runner may not produce a clear failure in the xunit results
         /// XML. This means AzDO's PublishTestResults task won't surface the crash as a failed
-        /// test. This method scans for dump files, logs the crash info to the console, and
+        /// test. This method scans for dump files, builds the crash diagnostics for the caller to print, and
         /// writes a standalone synthetic xunit results XML so the failure is visible in AzDO.
         /// </summary>
+        /// <param name="sinceUtc">
+        /// Only dump files created at or after this time are attributed to this work item. All work items share
+        /// the same <paramref name="testResultsDirectory"/> (and dumps are never cleaned up between runs or
+        /// between work items within a run, and multiple work items can be running concurrently), so without this
+        /// bound, a dump from an unrelated earlier work item -- or left over from a previous <c>RunTests</c>
+        /// invocation entirely -- would otherwise get attributed to every subsequent ordinary (non-hang) failure
+        /// that happens to scan the directory afterward.
+        /// </param>
         /// <returns>
-        /// <see langword="true"/> if a hang dump (as opposed to a crash dump, or no dump at all) was found for
-        /// this work item, so callers can distinguish a detected hang from an ordinary failure.
+        /// Whether a hang dump (as opposed to a crash dump, or no dump at all) was found for this work item, so
+        /// callers can distinguish a detected hang from an ordinary failure, plus the console diagnostics the
+        /// caller should print (deferred rather than printed here -- see <see cref="RunTests.CrashDiagnostics"/>).
         /// </returns>
-        private static bool CheckForCrashes(string? resultsFilePath, string displayName, string testResultsDirectory)
+        private static (bool IsTimeout, CrashDiagnostics Diagnostics) CheckForCrashes(string? resultsFilePath, string displayName, string testResultsDirectory, DateTime sinceUtc)
         {
             var (dumpFiles, sequenceFiles, crashingTest, isHang) = detectDumpFiles();
             if (dumpFiles.Length == 0)
             {
-                return false;
+                return (false, CrashDiagnostics.None);
             }
 
             Logger.Log($"Detected dump files for {displayName}: {string.Join(", ", dumpFiles)}");
 
             // Emit as AzDO timeline errors so they display prominently in the build results
             var failureType = isHang ? "timeout" : "crash";
-            if (crashingTest is string test)
-            {
-                ConsoleUtil.Error($"Test host {failureType} detected for {displayName}. Test running at time of {failureType}: {test}");
-            }
-            else
-            {
-                ConsoleUtil.Error($"Test host {failureType} detected for {displayName}");
-            }
-
-            foreach (var dump in dumpFiles)
-            {
-                ConsoleUtil.WriteLine(ConsoleColor.Red, $"  Dump: {dump}");
-            }
+            var errorMessage = crashingTest is string test
+                ? $"Test host {failureType} detected for {displayName}. Test running at time of {failureType}: {test}"
+                : $"Test host {failureType} detected for {displayName}";
+            var diagnostics = new CrashDiagnostics(errorMessage, ImmutableArray.CreateRange(dumpFiles));
 
             // Copy sequence files to the test results directory so they are included in artifacts
             copySequenceFilesToArtifacts(sequenceFiles, testResultsDirectory);
@@ -264,7 +266,7 @@ namespace RunTests
                 writeSyntheticFailure(resultsFilePath, dumpFiles, crashingTest, isHang);
             }
 
-            return isHang;
+            return (isHang, diagnostics);
 
             (string[] DumpFiles, string[] SequenceFiles, string? CrashingTest, bool IsHang) detectDumpFiles()
             {
@@ -273,7 +275,13 @@ namespace RunTests
                     return ([], [], null, false);
                 }
 
-                var dumpFiles = Directory.GetFiles(testResultsDirectory, "*.dmp", SearchOption.AllDirectories);
+                // A couple of seconds of slack for filesystem timestamp granularity/clock resolution -- sinceUtc
+                // itself is captured immediately before this work item's process is started, so a dump can never
+                // legitimately predate it by more than that.
+                var earliestAllowedUtc = sinceUtc - TimeSpan.FromSeconds(2);
+                var dumpFiles = Directory.GetFiles(testResultsDirectory, "*.dmp", SearchOption.AllDirectories)
+                    .Where(f => File.GetCreationTimeUtc(f) >= earliestAllowedUtc)
+                    .ToArray();
                 if (dumpFiles.Length == 0)
                 {
                     return ([], [], null, false);
