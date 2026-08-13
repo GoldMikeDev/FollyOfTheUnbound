@@ -7,7 +7,7 @@ Microsoft.CodeAnalysis.ClosedDerivedTypeInfo.IsComplete.get -> bool
 Microsoft.CodeAnalysis.ITypeSymbol.GetClosedDerivedTypeInfo(System.Threading.CancellationToken cancellationToken) -> Microsoft.CodeAnalysis.ClosedDerivedTypeInfo
 Microsoft.CodeAnalysis.ITypeSymbol.IsClosed.get -> bool
 [RSEXPERIMENTAL006]Microsoft.CodeAnalysis.ISymbol.RequiresUnsafeContext.get -> bool
-Microsoft.CodeAnalysis.OperationKind.CollectionExpressionElementsPlaceholder = 129 -> Microsoft.CodeAnalysis.OperationKind
+Microsoft.CodeAnalysis.OperationKind.CollectionExpressionElementsPlaceholder = 130 -> Microsoft.CodeAnalysis.OperationKind
 Microsoft.CodeAnalysis.Operations.ICollectionExpressionOperation.ConstructArguments.get -> System.Collections.Immutable.ImmutableArray<Microsoft.CodeAnalysis.IOperation!>
 Microsoft.CodeAnalysis.Operations.ICollectionExpressionElementsPlaceholderOperation
 virtual Microsoft.CodeAnalysis.Operations.OperationVisitor.VisitCollectionExpressionElementsPlaceholder(Microsoft.CodeAnalysis.Operations.ICollectionExpressionElementsPlaceholderOperation! operation) -> void
