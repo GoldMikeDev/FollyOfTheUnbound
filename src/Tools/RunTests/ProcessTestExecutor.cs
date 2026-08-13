@@ -179,9 +179,10 @@ namespace RunTests
                 var errorOutput = string.Join(Environment.NewLine, xunitProcessResult.ErrorLines) ?? "";
 
                 var exitCode = xunitProcessResult.ExitCode;
+                var isTimeout = false;
                 if (exitCode != 0)
                 {
-                    CheckForCrashes(resultsFilePath, workItemInfo.DisplayName, options.TestResultsDirectory);
+                    isTimeout = CheckForCrashes(resultsFilePath, workItemInfo.DisplayName, options.TestResultsDirectory);
                 }
 
                 var testResultInfo = new TestResultInfo(
@@ -190,7 +191,8 @@ namespace RunTests
                     htmlResultsFilePath: htmlResultsFilePath,
                     elapsed: span,
                     standardOutput: standardOutput,
-                    errorOutput: errorOutput);
+                    errorOutput: errorOutput,
+                    isTimeout: isTimeout);
 
                 return new TestResult(
                     workItemInfo,
@@ -224,12 +226,16 @@ namespace RunTests
         /// test. This method scans for dump files, logs the crash info to the console, and
         /// writes a standalone synthetic xunit results XML so the failure is visible in AzDO.
         /// </summary>
-        private static void CheckForCrashes(string? resultsFilePath, string displayName, string testResultsDirectory)
+        /// <returns>
+        /// <see langword="true"/> if a hang dump (as opposed to a crash dump, or no dump at all) was found for
+        /// this work item, so callers can distinguish a detected hang from an ordinary failure.
+        /// </returns>
+        private static bool CheckForCrashes(string? resultsFilePath, string displayName, string testResultsDirectory)
         {
             var (dumpFiles, sequenceFiles, crashingTest, isHang) = detectDumpFiles();
             if (dumpFiles.Length == 0)
             {
-                return;
+                return false;
             }
 
             Logger.Log($"Detected dump files for {displayName}: {string.Join(", ", dumpFiles)}");
@@ -257,6 +263,8 @@ namespace RunTests
             {
                 writeSyntheticFailure(resultsFilePath, dumpFiles, crashingTest, isHang);
             }
+
+            return isHang;
 
             (string[] DumpFiles, string[] SequenceFiles, string? CrashingTest, bool IsHang) detectDumpFiles()
             {

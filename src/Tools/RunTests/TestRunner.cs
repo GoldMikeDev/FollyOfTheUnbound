@@ -77,9 +77,12 @@ namespace RunTests
             var max = _options.Sequential ? 1 : (int)(Environment.ProcessorCount * 1.5);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
-            var running = new List<Task<TestResult>>();
+            var running = new List<(WorkItemInfo WorkItem, Task<TestResult> Task)>();
             var completed = new List<TestResult>();
             var failures = 0;
+
+            var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
+            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems);
 
             do
             {
@@ -88,15 +91,18 @@ namespace RunTests
                 var i = 0;
                 while (i < running.Count)
                 {
-                    var task = running[i];
+                    var (workItem, task) = running[i];
                     if (task.IsCompleted)
                     {
                         try
                         {
                             var testResult = await task.ConfigureAwait(false);
+                            liveDisplay?.MarkCompleted(workItem, testResult.Elapsed, testResult.Succeeded, testResult.IsTimeout);
+
                             if (!testResult.Succeeded)
                             {
                                 failures++;
+                                liveDisplay?.PrepareForExtraOutput();
                                 if (testResult.ResultsDisplayFilePath is string resultsPath)
                                 {
                                     ConsoleUtil.WriteLine(ConsoleColor.Red, resultsPath);
@@ -117,6 +123,7 @@ namespace RunTests
                         }
                         catch (Exception ex)
                         {
+                            liveDisplay?.PrepareForExtraOutput();
                             ConsoleUtil.WriteLine(ConsoleColor.Red, $"Error: {ex.Message}");
                             failures++;
                         }
@@ -131,22 +138,43 @@ namespace RunTests
 
                 while (running.Count < max && waiting.Count > 0)
                 {
-                    var task = _testExecutor.RunTestAsync(waiting.Pop(), _options, cancellationToken);
-                    running.Add(task);
+                    var workItem = waiting.Pop();
+                    liveDisplay?.MarkRunning(workItem);
+                    var task = _testExecutor.RunTestAsync(workItem, _options, cancellationToken);
+                    running.Add((workItem, task));
                 }
 
-                // Display the current status of the TestRunner.
-                // Note: The { ... , 2 } is to right align the values, thus aligns sections into columns.
-                ConsoleUtil.Write($"  {running.Count,2} running, {waiting.Count,2} queued, {completed.Count,2} completed");
-                if (failures > 0)
+                if (liveDisplay is not null)
                 {
-                    ConsoleUtil.Write($", {failures,2} failures");
+                    liveDisplay.Redraw(running.Count, waiting.Count, completed.Count, failures);
                 }
-                ConsoleUtil.WriteLine();
+                else
+                {
+                    // Display the current status of the TestRunner.
+                    // Note: The { ... , 2 } is to right align the values, thus aligns sections into columns.
+                    ConsoleUtil.Write($"  {running.Count,2} running, {waiting.Count,2} queued, {completed.Count,2} completed");
+                    if (failures > 0)
+                    {
+                        ConsoleUtil.Write($", {failures,2} failures");
+                    }
+                    ConsoleUtil.WriteLine();
+                }
 
                 if (running.Count > 0)
                 {
-                    await Task.WhenAny(running.ToArray());
+                    if (liveDisplay is not null)
+                    {
+                        // Wake at least once a second even if nothing completes, purely so the live table's
+                        // elapsed-time column visibly ticks for still-running rows; CI's line-based fallback above
+                        // has no such need and keeps its original wake-only-on-completion behavior (waking on a
+                        // timer there would just spam the log with an unchanged line every second).
+                        var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
+                        await Task.WhenAny(tasks);
+                    }
+                    else
+                    {
+                        await Task.WhenAny(running.Select(static r => r.Task).ToArray());
+                    }
                 }
             } while (running.Count > 0);
 
@@ -177,7 +205,7 @@ namespace RunTests
                 line.Length = 0;
                 var color = testResult.Succeeded ? Console.ForegroundColor : ConsoleColor.Red;
                 line.Append($"{testResult.DisplayName,-75}");
-                line.Append($" {(testResult.Succeeded ? "PASSED" : "FAILED")}");
+                line.Append($" {(testResult.Succeeded ? "PASSED" : testResult.IsTimeout ? "TIMEOUT" : "FAILED")}");
                 line.Append($" {testResult.Elapsed}");
                 line.Append($" {(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "")}");
 
