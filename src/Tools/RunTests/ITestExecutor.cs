@@ -52,7 +52,16 @@ namespace RunTests
         /// </summary>
         internal string? HtmlResultsFilePath { get; }
 
-        internal TestResultInfo(int exitCode, string? resultsFilePath, string? htmlResultsFilePath, TimeSpan elapsed, string standardOutput, string errorOutput)
+        /// <summary>
+        /// Whether vstest's <c>/Blame</c> hang detection collected a hang dump for this work item (see
+        /// <see cref="ProcessTestExecutor"/>'s <c>CheckForCrashes</c>). Only ever true when dump collection is
+        /// enabled and actually caught a hung test host -- a test killed by <c>RunTests</c>' own separate,
+        /// whole-run <c>--timeout</c> watchdog has no such signal and is indistinguishable from an ordinary
+        /// failure here.
+        /// </summary>
+        internal bool IsTimeout { get; }
+
+        internal TestResultInfo(int exitCode, string? resultsFilePath, string? htmlResultsFilePath, TimeSpan elapsed, string standardOutput, string errorOutput, bool isTimeout = false)
         {
             ExitCode = exitCode;
             ResultsFilePath = resultsFilePath;
@@ -60,6 +69,7 @@ namespace RunTests
             Elapsed = elapsed;
             StandardOutput = standardOutput;
             ErrorOutput = errorOutput;
+            IsTimeout = isTimeout;
         }
     }
 
@@ -77,6 +87,7 @@ namespace RunTests
 
         internal string DisplayName => WorkItemInfo.DisplayName;
         internal bool Succeeded => ExitCode == 0;
+        internal bool IsTimeout => TestResultInfo.IsTimeout;
         internal int ExitCode => TestResultInfo.ExitCode;
         internal TimeSpan Elapsed => TestResultInfo.Elapsed;
         internal string StandardOutput => TestResultInfo.StandardOutput;
