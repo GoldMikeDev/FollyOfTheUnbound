@@ -18,7 +18,7 @@ try {
         Write-Host "  weave     Restore + build [config]"
         Write-Host "  reweave   Restore + rebuild [config]"
         Write-Host "  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)"
-        Write-Host "  scry      Restore + build + run Desktop unit tests [config]"
+        Write-Host "  scry      Restore + build + run CoreCLR and Desktop unit tests [config]"
         Write-Host "  cleanse   Delete artifacts/ (ignores config)"
         Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
         Write-Host ""
@@ -53,7 +53,61 @@ try {
         & $buildScript -restore -build -pack -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
-        & $buildScript -restore -build -testDesktop -solution $solution -configuration $configuration
+        # Windows is the only platform that can run Desktop/.NET Framework tests at all (there's no net472
+        # runtime on Linux/macOS, which is why folly.sh's scry only ever runs CoreCLR tests) -- so here, where
+        # both are available, run both rather than picking one and silently dropping the other's coverage.
+        # Build once, then two test-only passes against the same build (see build.ps1's own remarks on
+        # `-build -testDesktop` followed by repeated test-only calls being safe without rebuilding).
+        & $buildScript -restore -build -solution $solution -configuration $configuration
+        $buildExitCode = $LASTEXITCODE
+        if ($buildExitCode -ne 0) {
+            exit $buildExitCode
+        }
+
+        # RunTests names each pass's result/log files by partition index and architecture alone, truncating
+        # (not appending to) whatever is already there, and never removes stale files (e.g. old
+        # xUnitFailure-* logs) it doesn't happen to overwrite. Without clearing these directories before the
+        # CoreCLR pass even starts, a rerun of scry (without cleanse first) could carry a *previous* run's
+        # Desktop-pass leftovers into this run's CoreCLR archive below, and without moving the CoreCLR pass's
+        # own results out of the way before the Desktop pass, that pass would then silently overwrite them --
+        # including on a CoreCLR failure, right when a developer most needs to see what failed.
+        $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
+        $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
+        $coreClrTestResultsDir = "$testResultsDir-CoreClr"
+        $coreClrLogDir = "$logDir-CoreClr"
+        # Also clear any stale -CoreClr archive from a previous run up front (not just when this run produces a
+        # replacement below): if this pass fails before RunTests even creates $testResultsDir/$logDir (e.g. test
+        # discovery finding no assemblies), leaving the old archive in place would misrepresent a prior run's
+        # results as diagnostics for the current failure.
+        Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
+
+        & $buildScript -testCoreClr -solution $solution -configuration $configuration
+        $coreClrExitCode = $LASTEXITCODE
+
+        if (Test-Path -LiteralPath $testResultsDir) {
+            Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
+        }
+        if (Test-Path -LiteralPath $logDir) {
+            Move-Item -Path $logDir -Destination $coreClrLogDir
+        }
+
+        & $buildScript -testDesktop -solution $solution -configuration $configuration
+        $desktopExitCode = $LASTEXITCODE
+
+        Write-Host ""
+        Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
+        Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
+
+        if ($coreClrExitCode -ne 0) {
+            exit $coreClrExitCode
+        }
+        if ($desktopExitCode -ne 0) {
+            exit $desktopExitCode
+        }
+        exit 0
     }
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
