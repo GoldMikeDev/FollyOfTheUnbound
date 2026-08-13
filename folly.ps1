@@ -84,7 +84,11 @@ try {
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
 
-        & $buildScript -testCoreClr -solution $solution -configuration $configuration
+        # -testInteractiveConsole: scry is a known-interactive, human-invoked entry point (unlike a bare
+        # eng/build.ps1 call, which might be piped by some other caller), so it's safe to let RunTests inherit
+        # the real console here -- that's what lets its live progress table engage. See build.ps1's own remarks
+        # on why this can't just be auto-detected.
+        & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
         $coreClrExitCode = $LASTEXITCODE
 
         if (Test-Path -LiteralPath $testResultsDir) {
@@ -94,7 +98,7 @@ try {
             Move-Item -Path $logDir -Destination $coreClrLogDir
         }
 
-        & $buildScript -testDesktop -solution $solution -configuration $configuration
+        & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
         $desktopExitCode = $LASTEXITCODE
 
         Write-Host ""

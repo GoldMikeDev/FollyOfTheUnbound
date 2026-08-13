@@ -241,6 +241,16 @@ namespace RunTests
             {
                 var width = Math.Max(Console.WindowWidth - 1, 1);
                 var height = Console.WindowHeight > 0 ? Console.WindowHeight : DefaultWindowHeight;
+
+                if (height <= FixedFrameLines)
+                {
+                    // Too short to safely show even the fixed header block with a spare bottom row -- stop
+                    // updating rather than risk writing past the viewport, which would scroll the terminal and
+                    // invalidate every cursor-position assumption this redraw depends on from then on.
+                    _disabled = true;
+                    return;
+                }
+
                 var lines = BuildFrameLines(width, height);
 
                 if (_lastFrameHeight > 0)
@@ -252,6 +262,22 @@ namespace RunTests
                 foreach (var line in lines)
                 {
                     Console.WriteLine(line);
+                }
+
+                // If this frame is shorter than the last one, the leftover lines below it are now stale (e.g. a
+                // RUNNING row that just completed and dropped out of the body-row budget) and would otherwise
+                // never get cleared, since _lastFrameHeight is about to shrink to only cover the new, smaller
+                // frame. Blank them out, then move back up so the cursor still ends up right after the new
+                // frame's actual content.
+                if (lines.Count < _lastFrameHeight)
+                {
+                    var blank = new string(' ', width);
+                    var extraLines = _lastFrameHeight - lines.Count;
+                    for (var i = 0; i < extraLines; i++)
+                    {
+                        Console.WriteLine(blank);
+                    }
+                    Console.SetCursorPosition(0, Console.CursorTop - extraLines);
                 }
 
                 _lastFrameHeight = lines.Count;
@@ -269,7 +295,11 @@ namespace RunTests
             var queuedCount = _rows.Count(static r => r.Status == LiveRowStatus.Queued);
             var passedCount = _rows.Count(static r => r.Status == LiveRowStatus.Passed);
 
-            var maxBodyRows = Math.Max(windowHeight - FixedFrameLines - ReservedTrailingLines, 1);
+            // 0, not floored to at least 1: Redraw already refuses to draw anything at all once the window is too
+            // short for the fixed frame alone, but between that point and a genuinely comfortable height, a short
+            // window should still be allowed to show zero individual rows (just the summary line) rather than
+            // forcing one in and risking exceeding the viewport anyway.
+            var maxBodyRows = Math.Max(windowHeight - FixedFrameLines - ReservedTrailingLines, 0);
 
             var bodyRows = new List<Row>(Math.Min(runningRows.Count + attentionRows.Count, maxBodyRows));
             bodyRows.AddRange(runningRows.Take(maxBodyRows));

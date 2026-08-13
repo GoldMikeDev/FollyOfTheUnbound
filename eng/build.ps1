@@ -75,6 +75,7 @@ param (
   [switch]$helix,
   [string]$helixQueueName = "",
   [string]$helixApiAccessToken = "",
+  [switch]$testInteractiveConsole,
 
   [parameter(ValueFromRemainingArguments=$true)][string[]]$properties)
 
@@ -115,6 +116,11 @@ function Print-Usage() {
   Write-Host "  -testIOperation           Run extra checks to validate IOperations"
   Write-Host "  -testUsedAssemblies       Run extra checks to validate used assemblies feature (see ROSLYN_TEST_USEDASSEMBLIES in codebase)"
   Write-Host "  -testRuntimeAsync         Run tests with runtime async validation enabled (see DOTNET_RuntimeAsync in codebase)"
+  Write-Host "  -testInteractiveConsole   Let RunTests inherit the real console (needed for its live progress table) instead of"
+  Write-Host "                            piping its output back through this script -- only pass this when you know this"
+  Write-Host "                            script's own stdout isn't itself being consumed by something else (e.g. piped to"
+  Write-Host "                            Tee-Object/a file): PowerShell's object pipeline doesn't mark Console.Out as"
+  Write-Host "                            redirected the way OS-level redirection does, so that can't be auto-detected here"
   Write-Host "  -skipCustomRoslynDeploy   Skip custom Roslyn deployment when running integration tests (uses Roslyn from the VS)"
   Write-Host ""
   Write-Host "Advanced settings:"
@@ -526,15 +532,15 @@ function TestUsingRunTests() {
   try {
     Write-Host "$runTests $args"
     # Let RunTests inherit the real console (rather than the default of piping its stdout back through
-    # Write-Output) when there's an actual interactive terminal to inherit -- RunTests' live per-work-item
-    # progress table only engages when its own Console.IsOutputRedirected is false, which is never true through
-    # a piped Write-Output relay regardless of whether this session itself is interactive. Two cases keep
-    # today's piped/relayed behavior instead: CI (there's no real console to hand it there anyway), and this
-    # PowerShell session's own stdout already being redirected/piped locally (e.g.
-    # `eng/build.ps1 -testCoreClr | Tee-Object tests.log`) -- console mode would make RunTests write straight to
-    # the real console, bypassing that pipeline entirely, so whatever's consuming this script's own output would
-    # never see RunTests' output at all.
-    Exec-Command $dotnetExe "$runTests $args" -useConsole:(-not $ci -and -not [Console]::IsOutputRedirected)
+    # Write-Output) only when explicitly requested via -testInteractiveConsole -- that's what lets RunTests' live
+    # per-work-item progress table engage (it only draws when its own Console.IsOutputRedirected is false, which
+    # is never true through a piped Write-Output relay). This can't be auto-detected safely: PowerShell's object
+    # pipeline (e.g. `eng/build.ps1 -testCoreClr | Tee-Object tests.log`) doesn't mark [Console]::IsOutputRedirected
+    # true even though console mode would make RunTests write straight to the real console, bypassing that
+    # pipeline entirely -- so a caller who wants the live table has to say so explicitly, rather than risk a false
+    # positive silently swallowing another caller's piped output. folly.ps1's scry passes this for exactly that
+    # reason: it's a known-interactive, human-invoked entry point.
+    Exec-Command $dotnetExe "$runTests $args" -useConsole:(-not $ci -and $testInteractiveConsole)
   } finally {
     Get-Process "xunit*" -ErrorAction SilentlyContinue | Stop-Process
     if ($ci) {

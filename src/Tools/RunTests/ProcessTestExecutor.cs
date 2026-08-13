@@ -51,7 +51,11 @@ namespace RunTests
             fileContentsBuilder.AppendLine($"/Blame:{blameOption};TestTimeout={timeout};DumpType=full");
 
             // Specifies the results directory - this is where dumps from the blame options will get published.
-            fileContentsBuilder.AppendLine($"/ResultsDirectory:{options.TestResultsDirectory}");
+            // A per-work-item subdirectory (not the shared options.TestResultsDirectory) so CheckForCrashes can
+            // scope its dump scan to exactly this work item's own output -- a timestamp-only filter still can't
+            // rule out a dump from a work item that happens to be running concurrently, since dumps aren't
+            // otherwise correlated with which work item produced them.
+            fileContentsBuilder.AppendLine($"/ResultsDirectory:{GetDumpResultsDirectory(workItem, options)}");
 
             // Build the filter string
             var filterStringBuilder = new StringBuilder();
@@ -104,6 +108,15 @@ namespace RunTests
             return Path.Combine(options.TestResultsDirectory, fileName);
         }
 
+        /// <summary>
+        /// Where this work item's vstest <c>/Blame</c> dumps (and their sequence files) get published --
+        /// isolated per work item so <see cref="CheckForCrashes"/> can scope its scan to exactly this work
+        /// item's own output, rather than the shared <see cref="Options.TestResultsDirectory"/> where a dump
+        /// from a concurrently-running or earlier work item could otherwise get misattributed.
+        /// </summary>
+        public static string GetDumpResultsDirectory(WorkItemInfo workItemInfo, Options options)
+            => Path.Combine(options.TestResultsDirectory, "dumps", workItemInfo.PartitionIndex.ToString());
+
         public async Task<TestResult> RunTestAsync(WorkItemInfo workItemInfo, Options options, CancellationToken cancellationToken)
         {
             try
@@ -123,6 +136,7 @@ namespace RunTests
 
                 // NOTE: xUnit doesn't always create the log directory
                 Directory.CreateDirectory(resultsDir!);
+                Directory.CreateDirectory(GetDumpResultsDirectory(workItemInfo, options));
 
                 // Define environment variables for processes started via ProcessRunner.
                 var environmentVariables = new Dictionary<string, string>();
@@ -183,7 +197,12 @@ namespace RunTests
                 var crashDiagnostics = CrashDiagnostics.None;
                 if (exitCode != 0)
                 {
-                    (isTimeout, crashDiagnostics) = CheckForCrashes(resultsFilePath, workItemInfo.DisplayName, options.TestResultsDirectory, sinceUtc: start);
+                    (isTimeout, crashDiagnostics) = CheckForCrashes(
+                        resultsFilePath,
+                        workItemInfo.DisplayName,
+                        dumpScanDirectory: GetDumpResultsDirectory(workItemInfo, options),
+                        artifactsDirectory: options.TestResultsDirectory,
+                        sinceUtc: start);
                 }
 
                 var testResultInfo = new TestResultInfo(
@@ -228,20 +247,25 @@ namespace RunTests
         /// test. This method scans for dump files, builds the crash diagnostics for the caller to print, and
         /// writes a standalone synthetic xunit results XML so the failure is visible in AzDO.
         /// </summary>
+        /// <param name="dumpScanDirectory">
+        /// This work item's own <see cref="GetDumpResultsDirectory"/> -- vstest is pointed at this isolated
+        /// per-work-item directory (rather than the shared <paramref name="artifactsDirectory"/>) via
+        /// <c>/ResultsDirectory</c> in <see cref="BuildRspFileContents"/>, so a dump can only ever be found here
+        /// if it belongs to this work item. A directory-wide scan can't offer that guarantee on its own: two
+        /// work items can be running concurrently, so even a "created after this work item started" timestamp
+        /// filter can't rule out attributing a dump to the wrong one of them.
+        /// </param>
         /// <param name="sinceUtc">
-        /// Only dump files created at or after this time are attributed to this work item. All work items share
-        /// the same <paramref name="testResultsDirectory"/> (and dumps are never cleaned up between runs or
-        /// between work items within a run, and multiple work items can be running concurrently), so without this
-        /// bound, a dump from an unrelated earlier work item -- or left over from a previous <c>RunTests</c>
-        /// invocation entirely -- would otherwise get attributed to every subsequent ordinary (non-hang) failure
-        /// that happens to scan the directory afterward.
+        /// Secondary safety net: only dump files created at or after this time are attributed to this work item.
+        /// Directory isolation alone doesn't rule out a stale dump left over in the same per-partition-index
+        /// directory from an earlier <c>RunTests</c> invocation that was never cleaned up.
         /// </param>
         /// <returns>
         /// Whether a hang dump (as opposed to a crash dump, or no dump at all) was found for this work item, so
         /// callers can distinguish a detected hang from an ordinary failure, plus the console diagnostics the
         /// caller should print (deferred rather than printed here -- see <see cref="RunTests.CrashDiagnostics"/>).
         /// </returns>
-        private static (bool IsTimeout, CrashDiagnostics Diagnostics) CheckForCrashes(string? resultsFilePath, string displayName, string testResultsDirectory, DateTime sinceUtc)
+        private static (bool IsTimeout, CrashDiagnostics Diagnostics) CheckForCrashes(string? resultsFilePath, string displayName, string dumpScanDirectory, string artifactsDirectory, DateTime sinceUtc)
         {
             var (dumpFiles, sequenceFiles, crashingTest, isHang) = detectDumpFiles();
             if (dumpFiles.Length == 0)
@@ -258,8 +282,9 @@ namespace RunTests
                 : $"Test host {failureType} detected for {displayName}";
             var diagnostics = new CrashDiagnostics(errorMessage, ImmutableArray.CreateRange(dumpFiles));
 
-            // Copy sequence files to the test results directory so they are included in artifacts
-            copySequenceFilesToArtifacts(sequenceFiles, testResultsDirectory);
+            // Copy sequence files to the shared artifacts directory so they're collected alongside the rest of
+            // this run's results, rather than left behind in the per-work-item scan directory.
+            copySequenceFilesToArtifacts(sequenceFiles, artifactsDirectory);
 
             if (resultsFilePath != null)
             {
@@ -270,7 +295,7 @@ namespace RunTests
 
             (string[] DumpFiles, string[] SequenceFiles, string? CrashingTest, bool IsHang) detectDumpFiles()
             {
-                if (!Directory.Exists(testResultsDirectory))
+                if (!Directory.Exists(dumpScanDirectory))
                 {
                     return ([], [], null, false);
                 }
@@ -279,7 +304,7 @@ namespace RunTests
                 // itself is captured immediately before this work item's process is started, so a dump can never
                 // legitimately predate it by more than that.
                 var earliestAllowedUtc = sinceUtc - TimeSpan.FromSeconds(2);
-                var dumpFiles = Directory.GetFiles(testResultsDirectory, "*.dmp", SearchOption.AllDirectories)
+                var dumpFiles = Directory.GetFiles(dumpScanDirectory, "*.dmp", SearchOption.AllDirectories)
                     .Where(f => File.GetCreationTimeUtc(f) >= earliestAllowedUtc)
                     .ToArray();
                 if (dumpFiles.Length == 0)
