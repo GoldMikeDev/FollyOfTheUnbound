@@ -1,85 +1,18 @@
-<assemblies timestamp="08/12/2026 13:04:12">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\InteractiveHost.UnitTests.dll" run-date="2026-08-12" run-time="13:04:12" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\InteractiveHost.UnitTests.dll.config" total="49" passed="36" failed="4" skipped="9" time="296.668" errors="0">
+<assemblies timestamp="08/13/2026 11:25:39">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\InteractiveHost.UnitTests.dll" run-date="2026-08-13" run-time="11:25:39" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\InteractiveHost.UnitTests\Debug\net472\InteractiveHost.UnitTests.dll.config" total="49" passed="40" failed="0" skipped="9" time="393.761" errors="0">
     <errors />
-    <collection total="3" passed="0" failed="3" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" time="0.003">
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.DefaultReferencesAndImports" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" method="DefaultReferencesAndImports" time="0.0010000" result="Fail">
-        <output>Host process terminated unexpectedly. Exit code: -2147450749
-The operation was canceled. Exit code: -2147450749
-
-</output>
-        <failure>
-          <message>
-Remote service unavailable
-STDERR: 
-STDOUT: 
-</message>
-          <stack-trace>   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;ReadOutputToEnd&gt;d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;InitializeAsync&gt;d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)</stack-trace>
-        </failure>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" time="31.172">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.DefaultReferencesAndImports" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" method="DefaultReferencesAndImports" time="18.4910000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.InteractiveHostImplAssemblies" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" method="InteractiveHostImplAssemblies" time="0.0010000" result="Fail">
-        <output>Host process terminated unexpectedly. Exit code: -2147450749
-
-</output>
-        <failure>
-          <message>
-Remote service unavailable
-STDERR: 
-STDOUT: 
-</message>
-          <stack-trace>   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;ReadOutputToEnd&gt;d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;InitializeAsync&gt;d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)</stack-trace>
-        </failure>
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.InteractiveHostImplAssemblies" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" method="InteractiveHostImplAssemblies" time="1.5010000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.SearchPaths1" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" method="SearchPaths1" time="0.0010000" result="Fail">
-        <output>Host process terminated unexpectedly. Exit code: -2147450749
-
-</output>
-        <failure>
-          <message>
-Remote service unavailable
-STDERR: 
-STDOUT: 
-</message>
-          <stack-trace>   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;ReadOutputToEnd&gt;d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;InitializeAsync&gt;d__11.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 127
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)</stack-trace>
-        </failure>
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests.SearchPaths1" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostCoreInitTests" method="SearchPaths1" time="11.1800000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -93,67 +26,67 @@ STDOUT:
         </traits>
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests" time="4.718">
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests.SearchPaths1" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests" method="SearchPaths1" time="3.3620000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests" time="8.007">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests.SearchPaths1" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests" method="SearchPaths1" time="5.8780000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests.AddReference_AssemblyAlreadyLoaded" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests" method="AddReference_AssemblyAlreadyLoaded" time="1.3560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests.AddReference_AssemblyAlreadyLoaded" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopInitTests" method="AddReference_AssemblyAlreadyLoaded" time="2.1290000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
     </collection>
-    <collection total="42" passed="33" failed="1" skipped="8" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" time="165.737">
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_InfiniteLoop" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecute_InfiniteLoop" time="17.3600000" result="Pass">
+    <collection total="42" passed="34" failed="0" skipped="8" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" time="186.221">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecute_InfiniteLoop" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecute_InfiniteLoop" time="11.7230000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_SourceKind" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_SourceKind" time="0.8060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_SourceKind" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_SourceKind" time="0.6810000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncContinueOnDifferentThread" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncContinueOnDifferentThread" time="4.2390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncContinueOnDifferentThread" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncContinueOnDifferentThread" time="6.8960000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/7280" />
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_NonExistingFile" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_NonExistingFile" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_NonExistingFile" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_NonExistingFile" time="0.0150000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_AlreadyLoadedDependencies" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_AlreadyLoadedDependencies" time="14.4840000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_AlreadyLoadedDependencies" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_AlreadyLoadedDependencies" time="18.0120000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Workaround7976" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Workaround7976" time="10.1710000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Workaround7976" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Workaround7976" time="10.2350000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/7976" />
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ScriptAndArguments" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ScriptAndArguments" time="8.4220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ScriptAndArguments" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ScriptAndArguments" time="5.9390000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Dependencies_DllExe" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_Dependencies_DllExe" time="5.6530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Dependencies_DllExe" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_Dependencies_DllExe" time="9.8890000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_FullName" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_FullName" time="3.7310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_FullName" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_FullName" time="4.2580000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Dependencies_Versions" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_Dependencies_Versions" time="5.4490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Dependencies_Versions" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_Dependencies_Versions" time="4.6340000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -164,7 +97,7 @@ STDOUT:
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.MissingReferencesReuse" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="MissingReferencesReuse" time="4.4180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.MissingReferencesReuse" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="MissingReferencesReuse" time="4.6970000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6457" />
           <trait name="Feature" value="InteractiveHost" />
@@ -176,17 +109,17 @@ STDOUT:
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.OutputRedirection" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="OutputRedirection" time="3.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.OutputRedirection" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="OutputRedirection" time="4.9900000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.SubmissionResult_PrintingVoid" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="SubmissionResult_PrintingVoid" time="4.6630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.SubmissionResult_PrintingVoid" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="SubmissionResult_PrintingVoid" time="4.3980000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Script_NoHostNamespaces" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Script_NoHostNamespaces" time="2.4720000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Script_NoHostNamespaces" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Script_NoHostNamespaces" time="2.5960000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -197,37 +130,37 @@ STDOUT:
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.MultiModuleAssembly" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="MultiModuleAssembly" time="4.8070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.MultiModuleAssembly" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="MultiModuleAssembly" time="5.6980000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_ScriptFileWithBuildErrors" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_ScriptFileWithBuildErrors" time="0.4380000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_ScriptFileWithBuildErrors" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_ScriptFileWithBuildErrors" time="0.6360000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ReferencePathsRsp_Error" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ReferencePathsRsp_Error" time="3.2590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ReferencePathsRsp_Error" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ReferencePathsRsp_Error" time="4.5290000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_PartialName_LatestVersion" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_PartialName_LatestVersion" time="3.4610000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_PartialName_LatestVersion" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_PartialName_LatestVersion" time="5.4190000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_PartialName" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_PartialName" time="3.1620000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_PartialName" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_PartialName" time="4.2160000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Exception" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Exception" time="2.9020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Exception" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Exception" time="3.4990000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ExecuteSequentially" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ExecuteSequentially" time="5.4040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ExecuteSequentially" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ExecuteSequentially" time="6.7680000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -238,12 +171,12 @@ STDOUT:
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Path" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_Path" time="3.3500000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AddReference_Path" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AddReference_Path" time="4.4320000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="PreservingDeclarationsOnException" time="2.8670000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="PreservingDeclarationsOnException" time="3.9810000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/10883" />
           <trait name="Feature" value="InteractiveHost" />
@@ -255,12 +188,12 @@ STDOUT:
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Culture" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Culture" time="4.1330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Culture" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Culture" time="5.2910000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.OutputRedirection2" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="OutputRedirection2" time="2.9360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.OutputRedirection2" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="OutputRedirection2" time="3.4620000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -271,64 +204,27 @@ STDOUT:
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.SubmissionResult_PrintingNull" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="SubmissionResult_PrintingNull" time="2.6160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.SubmissionResult_PrintingNull" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="SubmissionResult_PrintingNull" time="3.0190000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Bitness" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Bitness" time="9.3030000" result="Fail">
-        <output>Host process terminated unexpectedly. Exit code: -2147450749
-The operation was canceled. Exit code: -2147450749
-
-</output>
-        <failure>
-          <message>System.AggregateException : One or more errors occurred.
----- 
-Remote service unavailable
-STDERR: \uffff6baac249-3eb4-4a75-b961-18a7896c7cea\uffffeacc43c0-f7f4-4f66-bde1-eac6f77e7273\uffffb0729e87-35e5-48eb-8490-58fbcdb30d11
-STDOUT: 8
-\uffff97c79bae-2500-4adb-9691-89e982821add\uffff45109586-a990-4e19-b982-78eaa5240cb34
-\uffff588b9f30-d4d7-4802-aac4-c590ab53e30e
-
----- Assert.NotNull() Failure: Value is null</message>
-          <stack-trace>
------ Inner Stack Trace #1 (Xunit.Sdk.FailException) -----
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;ReadOutputToEnd&gt;d__20.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 216
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
-   at System.Runtime.CompilerServices.TaskAwaiter`1.GetResult()
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.&lt;Bitness&gt;d__43.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\InteractiveHostDesktopTests.cs:line 1012
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
------ Inner Stack Trace #2 (Xunit.Sdk.NotNullException) -----
-   at Microsoft.CodeAnalysis.UnitTests.Interactive.AbstractInteractiveHostTests.&lt;DisposeAsync&gt;d__12.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Interactive\HostTest\AbstractInteractiveHostTests.cs:line 153
---- End of stack trace from previous location where exception was thrown ---
-   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
-   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)</stack-trace>
-        </failure>
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.Bitness" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="Bitness" time="12.8540000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile" time="3.1200000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile" time="4.2580000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_InvalidFileContent" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_InvalidFileContent" time="0.7310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_InvalidFileContent" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_InvalidFileContent" time="0.9800000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ReferencePathsRsp" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ReferencePathsRsp" time="6.7590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ReferencePathsRsp" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ReferencePathsRsp" time="5.7510000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -339,12 +235,12 @@ STDOUT: 8
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ExecutesOnStaThread" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ExecutesOnStaThread" time="3.7490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.ExecutesOnStaThread" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="ExecutesOnStaThread" time="3.7270000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.DefaultUsings" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="DefaultUsings" time="5.8210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.DefaultUsings" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="DefaultUsings" time="5.2640000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
@@ -355,19 +251,19 @@ STDOUT: 8
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_InfiniteLoop" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_InfiniteLoop" time="7.5750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.AsyncExecuteFile_InfiniteLoop" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="AsyncExecuteFile_InfiniteLoop" time="8.8660000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.InitialScript_Error" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="InitialScript_Error" time="4.4060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests.InitialScript_Error" type="Microsoft.CodeAnalysis.UnitTests.Interactive.InteractiveHostDesktopTests" method="InitialScript_Error" time="4.6000000" result="Pass">
         <traits>
           <trait name="Feature" value="InteractiveHost" />
         </traits>
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.StressTests" time="3.300">
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.StressTests.TestKill" type="Microsoft.CodeAnalysis.UnitTests.Interactive.StressTests" method="TestKill" time="3.3000000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.StressTests" time="8.473">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.StressTests.TestKill" type="Microsoft.CodeAnalysis.UnitTests.Interactive.StressTests" method="TestKill" time="8.4730000" result="Pass">
         <traits />
       </test>
     </collection>
