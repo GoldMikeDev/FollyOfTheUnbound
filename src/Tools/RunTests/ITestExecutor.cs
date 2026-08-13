@@ -7,6 +7,26 @@ using System.Collections.Immutable;
 
 namespace RunTests
 {
+    /// <summary>
+    /// Console diagnostics <see cref="ProcessTestExecutor"/>'s crash/hang detection wants printed for a work
+    /// item, deferred (rather than written directly from inside <c>RunTestAsync</c>, which can run concurrently
+    /// with other work items and race an in-progress console redraw) so <see cref="TestRunner"/> can print them
+    /// at the one point it already synchronizes extra console output with <see cref="LiveTestProgressDisplay"/>.
+    /// </summary>
+    internal readonly struct CrashDiagnostics
+    {
+        internal static readonly CrashDiagnostics None = new(errorMessage: null, ImmutableArray<string>.Empty);
+
+        internal string? ErrorMessage { get; }
+        internal ImmutableArray<string> DumpPaths { get; }
+
+        internal CrashDiagnostics(string? errorMessage, ImmutableArray<string> dumpPaths)
+        {
+            ErrorMessage = errorMessage;
+            DumpPaths = dumpPaths;
+        }
+    }
+
     internal readonly struct TestExecutionOptions
     {
         internal string DotnetFilePath { get; }
@@ -61,7 +81,10 @@ namespace RunTests
         /// </summary>
         internal bool IsTimeout { get; }
 
-        internal TestResultInfo(int exitCode, string? resultsFilePath, string? htmlResultsFilePath, TimeSpan elapsed, string standardOutput, string errorOutput, bool isTimeout = false)
+        /// <summary>Console diagnostics from crash/hang detection, if any, for the caller to print. See <see cref="RunTests.CrashDiagnostics"/>.</summary>
+        internal CrashDiagnostics CrashDiagnostics { get; }
+
+        internal TestResultInfo(int exitCode, string? resultsFilePath, string? htmlResultsFilePath, TimeSpan elapsed, string standardOutput, string errorOutput, bool isTimeout, CrashDiagnostics crashDiagnostics)
         {
             ExitCode = exitCode;
             ResultsFilePath = resultsFilePath;
@@ -70,6 +93,7 @@ namespace RunTests
             StandardOutput = standardOutput;
             ErrorOutput = errorOutput;
             IsTimeout = isTimeout;
+            CrashDiagnostics = crashDiagnostics;
         }
     }
 
@@ -88,6 +112,7 @@ namespace RunTests
         internal string DisplayName => WorkItemInfo.DisplayName;
         internal bool Succeeded => ExitCode == 0;
         internal bool IsTimeout => TestResultInfo.IsTimeout;
+        internal CrashDiagnostics CrashDiagnostics => TestResultInfo.CrashDiagnostics;
         internal int ExitCode => TestResultInfo.ExitCode;
         internal TimeSpan Elapsed => TestResultInfo.Elapsed;
         internal string StandardOutput => TestResultInfo.StandardOutput;
