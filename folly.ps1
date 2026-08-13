@@ -18,7 +18,7 @@ try {
         Write-Host "  weave     Restore + build [config]"
         Write-Host "  reweave   Restore + rebuild [config]"
         Write-Host "  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)"
-        Write-Host "  scry      Restore + build + run Desktop unit tests [config]"
+        Write-Host "  scry      Restore + build + run CoreCLR and Desktop unit tests [config]"
         Write-Host "  cleanse   Delete artifacts/ (ignores config)"
         Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
         Write-Host ""
@@ -53,7 +53,30 @@ try {
         & $buildScript -restore -build -pack -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
-        & $buildScript -restore -build -testDesktop -solution $solution -configuration $configuration
+        # Windows is the only platform that can run Desktop/.NET Framework tests at all (there's no net472
+        # runtime on Linux/macOS, which is why folly.sh's scry only ever runs CoreCLR tests) -- so here, where
+        # both are available, run both rather than picking one and silently dropping the other's coverage.
+        # Build once, then two test-only passes against the same build (see build.ps1's own remarks on
+        # `-build -testDesktop` followed by repeated test-only calls being safe without rebuilding).
+        & $buildScript -restore -build -solution $solution -configuration $configuration
+        $buildExitCode = $LASTEXITCODE
+        if ($buildExitCode -ne 0) {
+            exit $buildExitCode
+        }
+
+        & $buildScript -testCoreClr -solution $solution -configuration $configuration
+        $coreClrExitCode = $LASTEXITCODE
+
+        & $buildScript -testDesktop -solution $solution -configuration $configuration
+        $desktopExitCode = $LASTEXITCODE
+
+        if ($coreClrExitCode -ne 0) {
+            exit $coreClrExitCode
+        }
+        if ($desktopExitCode -ne 0) {
+            exit $desktopExitCode
+        }
+        exit 0
     }
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
