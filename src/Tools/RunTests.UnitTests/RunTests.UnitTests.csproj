@@ -4,7 +4,7 @@
     <TargetFramework>$(NetRoslyn)</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RunTests.csproj" />
-    <ProjectReference Include="..\..\..\Compilers\Test\Core\Microsoft.CodeAnalysis.Test.Utilities.csproj" />
+    <ProjectReference Include="..\RunTests\RunTests.csproj" />
+    <ProjectReference Include="..\..\Compilers\Test\Core\Microsoft.CodeAnalysis.Test.Utilities.csproj" />
   </ItemGroup>
 </Project>
