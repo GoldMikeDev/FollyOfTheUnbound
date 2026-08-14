@@ -300,9 +300,11 @@ namespace RunTests
                 FitToWidth($"{_runLabel}    {_rows.Count} total | {runningCount} running | {queuedCount} queued | {passedCount + attentionCount} done | {attentionCount} failed", width),
                 string.Empty,
                 FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}", width),
-                // The Status underline extends one dash past the word on each side; the Elapsed underline is
-                // exactly as long as the word, never longer -- both centered within their column same as the data.
-                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Status".Length + 2), TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length), TestResultDisplay.ElapsedColumnWidth)}", width),
+                // The Status underline fills its whole column (like the Test Assembly one) -- it only reads as
+                // "one dash past the word" because the centered header text is inset from the column edges. The
+                // Elapsed underline is different: exactly the word's length, never the full (wider, HH:mm:ss-sized)
+                // column, centered within it same as the data.
+                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length), TestResultDisplay.ElapsedColumnWidth)}", width),
             };
 
             var now = DateTime.UtcNow;
