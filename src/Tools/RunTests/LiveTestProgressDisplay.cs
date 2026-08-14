@@ -180,6 +180,7 @@ namespace RunTests
                 return null;
             }
 
+            var enteredAltScreen = false;
             try
             {
                 // Probe that cursor operations are actually usable here; some terminals/hosts report a non-redirected
@@ -196,10 +197,32 @@ namespace RunTests
                 // if anything downstream goes wrong.
                 Console.Out.Write(EnterAltScreen);
                 Console.Out.Flush();
+                enteredAltScreen = true;
+
+                // Verified separately (rather than folded into the probes above, before EnterAltScreen) because
+                // this specific call is the one every other codepath in this class relies on for every redraw --
+                // worth confirming it actually works in the exact state (already in the alternate screen) it'll
+                // always be called in from then on, not just that cursor queries in general don't throw.
                 Console.SetCursorPosition(0, 0);
             }
             catch
             {
+                if (enteredAltScreen)
+                {
+                    // Must not leave the user's terminal stuck showing the alternate screen with no instance
+                    // left in existence for Complete() to ever restore it -- this is the only place that can
+                    // still clean up after itself once TryCreate has decided to fail.
+                    try
+                    {
+                        Console.Out.Write(ExitAltScreen);
+                        Console.Out.Flush();
+                    }
+                    catch
+                    {
+                        // Best effort -- there's nothing more this can do if even exiting the alternate screen fails.
+                    }
+                }
+
                 return null;
             }
 
@@ -295,6 +318,20 @@ namespace RunTests
         /// alternate-screen frame <see cref="Complete"/> will just discard.
         /// </summary>
         internal void PrepareForExtraOutput() => ExitAltScreenIfActive();
+
+        /// <summary>
+        /// Permanently stops this display from drawing anything further and exits the alternate screen, unlike
+        /// <see cref="PrepareForExtraOutput"/> -- which only exits it for one caller's immediate print, and would
+        /// otherwise be undone by the very next <see cref="Redraw"/> re-entering it. Needed for diagnostics that
+        /// take longer than one redraw tick to finish printing (e.g. <c>Program.HandleTimeout</c>'s screenshot
+        /// capture and per-process dump collection, which can each take a while) and run concurrently with a
+        /// still-active run loop that keeps calling <see cref="Redraw"/> on its own one-second timer regardless --
+        /// without this, that loop could re-enter the alternate screen mid-report and hide, overwrite, or
+        /// interleave with whatever's being printed. The run is expected to be ending anyway once this is called
+        /// (there is no corresponding <c>Resume</c>), so simply not drawing again is an acceptable outcome, unlike
+        /// the failure paths <see cref="DisableAndExitAltScreen"/> handles for the same underlying reason.
+        /// </summary>
+        internal void Suspend() => DisableAndExitAltScreen();
 
         internal void Redraw()
         {
