@@ -29,9 +29,11 @@ namespace RunTests
     /// Every row is always shown, alphabetically, regardless of status -- queued and passed rows included, not
     /// just currently-running/failed ones. A full Roslyn run has far more work items than any terminal has visible
     /// rows, so on a real run most of the list is off-screen at any given moment; that's accepted here rather than
-    /// filtering rows down to what fits, so the full list -- and its alphabetical order -- stays intact and
-    /// scrollable, at the cost of the redraw occasionally scrolling the terminal instead of always updating
-    /// strictly in place.
+    /// filtering rows down to what fits, so the full list -- and its alphabetical order -- stays intact. Each
+    /// redraw still targets the table's true, fixed origin (the screen-buffer row its first line was originally
+    /// drawn on -- see <see cref="_frameTopRow"/>) rather than a position derived from wherever the previous frame
+    /// happened to leave the cursor, so it stays anchored and redraws in place even once the frame is taller than
+    /// the visible window and the terminal has to scroll to keep up.
     /// </para>
     /// <para>
     /// Column *widths* (particularly the name column) are recomputed on every redraw from the current
@@ -57,6 +59,21 @@ namespace RunTests
 
         /// <summary>Height (in lines) of the last frame drawn, or 0 if nothing has been drawn yet.</summary>
         private int _lastFrameHeight;
+
+        /// <summary>
+        /// The screen-buffer row the table's first line was originally drawn on, or <see langword="null"/> if
+        /// nothing has been drawn yet (or the last frame was cleared by <see cref="PrepareForExtraOutput"/> and
+        /// the next <see cref="Redraw"/> hasn't re-anchored yet). Recorded once, not recomputed as
+        /// <c>Console.CursorTop - _lastFrameHeight</c> on every redraw: once the table's row count exceeds the
+        /// visible window (the common case for a full run now that every work item is always shown), writing a
+        /// frame scrolls the terminal, so the cursor's position immediately after a frame no longer has a fixed
+        /// relationship to that frame's true top -- only the buffer row recorded before the very first write does.
+        /// <see cref="Console.SetCursorPosition"/> targets this absolute buffer row directly on every redraw
+        /// (the terminal scrolls back to bring it into view as needed), so the table always redraws in place from
+        /// its real origin instead of from wherever the previous frame happened to leave the cursor.
+        /// </summary>
+        private int? _frameTopRow;
+
         private bool _disabled;
 
         private sealed class Row
@@ -199,7 +216,7 @@ namespace RunTests
         /// </summary>
         internal void PrepareForExtraOutput()
         {
-            if (_disabled || _lastFrameHeight == 0)
+            if (_disabled || _frameTopRow is not { } top)
             {
                 return;
             }
@@ -207,7 +224,6 @@ namespace RunTests
             try
             {
                 var width = Math.Max(Console.WindowWidth - 1, 1);
-                var top = Math.Max(Console.CursorTop - _lastFrameHeight, 0);
                 Console.SetCursorPosition(0, top);
                 var blank = new string(' ', width);
                 for (var i = 0; i < _lastFrameHeight; i++)
@@ -222,6 +238,7 @@ namespace RunTests
             }
 
             _lastFrameHeight = 0;
+            _frameTopRow = null;
         }
 
         internal void Redraw()
@@ -247,10 +264,13 @@ namespace RunTests
 
                 var lines = BuildFrameLines(width);
 
-                if (_lastFrameHeight > 0)
+                if (_frameTopRow is { } top)
                 {
-                    var top = Math.Max(Console.CursorTop - _lastFrameHeight, 0);
                     Console.SetCursorPosition(0, top);
+                }
+                else
+                {
+                    _frameTopRow = Console.CursorTop;
                 }
 
                 foreach (var line in lines)
@@ -261,8 +281,8 @@ namespace RunTests
                 // The frame's line count is normally constant (every row is always printed, regardless of status),
                 // but this still guards the one case where it isn't: TryCreate's initial work-item count vs. this
                 // redraw's actual row count could differ if that ever changes. Blank out any leftover stale lines
-                // below the new, shorter frame, then move back up so the cursor still ends up right after its
-                // actual content.
+                // below the new, shorter frame, then move back up to the fixed top so the cursor position this
+                // frame actually used doesn't drift from _frameTopRow for the next redraw.
                 if (lines.Count < _lastFrameHeight)
                 {
                     var blank = new string(' ', width);
@@ -271,7 +291,6 @@ namespace RunTests
                     {
                         Console.WriteLine(blank);
                     }
-                    Console.SetCursorPosition(0, Console.CursorTop - extraLines);
                 }
 
                 _lastFrameHeight = lines.Count;
