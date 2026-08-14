@@ -210,6 +210,13 @@ namespace RunTests
         /// </summary>
         private static async Task HandleTimeout(Options options, CancellationToken cancellationToken)
         {
+            // The run loop this timeout interrupted is still executing (and hasn't been cancelled yet -- that
+            // happens after this method returns) and may still be redrawing the live table into the alternate
+            // screen buffer. Without this, everything printed below would land inside that fixed-size grid --
+            // invisible in real scrollback and eventually discarded once the run loop's own Complete() runs --
+            // rather than the user's actual terminal history, which is the whole point of a timeout notice.
+            LiveTestProgressDisplay.Current?.PrepareForExtraOutput();
+
             ConsoleUtil.Error("Test timeout exceeded, dumping remaining processes");
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

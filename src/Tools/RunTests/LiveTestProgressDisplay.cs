@@ -163,6 +163,16 @@ namespace RunTests
             return (baseName, string.IsNullOrEmpty(tfmTag) ? null : tfmTag);
         }
 
+        /// <summary>
+        /// The most recently created, still-live instance (if any), so code outside <see cref="TestRunner"/> --
+        /// namely <c>Program.HandleTimeout</c>, which runs concurrently with the still-active run loop and prints
+        /// its own timeout/dump diagnostics directly to the console -- can call <see cref="PrepareForExtraOutput"/>
+        /// first and have those diagnostics land in real scrollback instead of the alternate-screen frame the
+        /// still-running redraw loop would otherwise keep overwriting/eventually discarding them under. Set in
+        /// <see cref="TryCreate"/>, cleared by <see cref="Complete"/>.
+        /// </summary>
+        internal static LiveTestProgressDisplay? Current { get; private set; }
+
         internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems)
         {
             if (Console.IsOutputRedirected || workItems.Length == 0)
@@ -193,7 +203,9 @@ namespace RunTests
                 return null;
             }
 
-            return new LiveTestProgressDisplay(runLabel, workItems);
+            var display = new LiveTestProgressDisplay(runLabel, workItems);
+            Current = display;
+            return display;
         }
 
         /// <summary>
@@ -204,6 +216,23 @@ namespace RunTests
         /// Safe to call multiple times or on an already-<see langword="disabled"/> instance.
         /// </summary>
         internal void Complete()
+        {
+            ExitAltScreenIfActive();
+            if (Current == this)
+            {
+                Current = null;
+            }
+        }
+
+        /// <summary>
+        /// Exits the alternate screen buffer if it's currently active, restoring the terminal to whatever it
+        /// showed before the table started (standard alternate-screen semantics -- no manual clearing needed).
+        /// Deliberately not gated on <see cref="_disabled"/> -- every caller (<see cref="Complete"/>,
+        /// <see cref="PrepareForExtraOutput"/>, <see cref="DisableAndExitAltScreen"/>) needs the normal buffer
+        /// back regardless of whether redraws have stopped, since a disabled display can still have failure
+        /// diagnostics printed after it that must land in real scrollback, not a frame that gets discarded.
+        /// </summary>
+        private void ExitAltScreenIfActive()
         {
             if (!_inAltScreen)
             {
@@ -260,29 +289,12 @@ namespace RunTests
         /// that should persist in the user's real, normal-buffer scrollback -- the fixed-size grid the table
         /// draws into is not part of that scrollback at all, so printing "into" it here would just be lost the
         /// moment the table moves on to its next redraw. The next <see cref="Redraw"/> call re-enters the
-        /// alternate screen and draws a fresh frame there.
+        /// alternate screen and draws a fresh frame there. Works even once <see cref="_disabled"/> is set --
+        /// a work item can still fail (and need its diagnostics printed) after redraws have stopped, e.g. because
+        /// the window got too short, and those diagnostics must still reach real scrollback, not a now-frozen
+        /// alternate-screen frame <see cref="Complete"/> will just discard.
         /// </summary>
-        internal void PrepareForExtraOutput()
-        {
-            if (_disabled)
-            {
-                return;
-            }
-
-            try
-            {
-                if (_inAltScreen)
-                {
-                    Console.Out.Write(ExitAltScreen);
-                    Console.Out.Flush();
-                    _inAltScreen = false;
-                }
-            }
-            catch
-            {
-                _disabled = true;
-            }
-        }
+        internal void PrepareForExtraOutput() => ExitAltScreenIfActive();
 
         internal void Redraw()
         {
@@ -299,7 +311,7 @@ namespace RunTests
                 if (height <= FixedFrameLines)
                 {
                     // Too short to safely show even the fixed header block with a spare bottom row.
-                    _disabled = true;
+                    DisableAndExitAltScreen();
                     return;
                 }
 
@@ -317,17 +329,40 @@ namespace RunTests
                 Console.Out.Write("\x1b[H");
 
                 var lines = BuildFrameLines(width, height);
-                foreach (var line in lines)
+                for (var i = 0; i < lines.Count; i++)
                 {
-                    Console.WriteLine(line);
+                    // The very last line must not end in a newline: the alternate screen is exactly `height` rows
+                    // (0 through height-1), so writing one from the bottom row scrolls the whole grid up by one --
+                    // shifting the title/counts off the top and leaving a blank row at the bottom, defeating the
+                    // entire point of a fixed-size grid that never scrolls.
+                    if (i == lines.Count - 1)
+                    {
+                        Console.Out.Write(lines[i]);
+                    }
+                    else
+                    {
+                        Console.WriteLine(lines[i]);
+                    }
                 }
 
                 Console.Out.Flush();
             }
             catch
             {
-                _disabled = true;
+                DisableAndExitAltScreen();
             }
+        }
+
+        /// <summary>
+        /// Disables further redraws and, if the alternate screen is still active, exits it first -- so a caller
+        /// that goes on to print failure/crash diagnostics via <see cref="PrepareForExtraOutput"/> (which itself
+        /// does nothing once <see cref="_disabled"/> is set) still gets them into the user's real scrollback
+        /// instead of a now-frozen alternate-screen frame that <see cref="Complete"/> ultimately discards.
+        /// </summary>
+        private void DisableAndExitAltScreen()
+        {
+            _disabled = true;
+            ExitAltScreenIfActive();
         }
 
         /// <summary>
