@@ -115,7 +115,38 @@ try {
     }
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
-        Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+        if (Test-Path -LiteralPath $artifactsDir) {
+            function Format-ByteSize([long]$bytes) {
+                if ($bytes -ge 1GB) { return "{0:N2} GiB" -f ($bytes / 1GB) }
+                elseif ($bytes -ge 1MB) { return "{0:N2} MiB" -f ($bytes / 1MB) }
+                elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
+                else { return "$bytes B" }
+            }
+
+            $files = @(Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue)
+            $totalBytes = ($files | Measure-Object -Property Length -Sum).Sum
+            if (-not $totalBytes) { $totalBytes = 0 }
+            $totalFormatted = Format-ByteSize $totalBytes
+
+            $deletedBytes = 0L
+            $lastUpdate = Get-Date -Year 1970
+            foreach ($file in $files) {
+                $fileLength = $file.Length
+                Remove-Item -Force -LiteralPath $file.FullName -ErrorAction SilentlyContinue
+                $deletedBytes += $fileLength
+
+                $now = Get-Date
+                if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
+                    $lastUpdate = $now
+                    $percent = if ($totalBytes -gt 0) { [Math]::Min(100, [int](($deletedBytes / $totalBytes) * 100)) } else { 100 }
+                    Write-Progress -Activity "Cleansing artifacts/" -Status "$(Format-ByteSize $deletedBytes) / $totalFormatted" -PercentComplete $percent
+                }
+            }
+            Write-Progress -Activity "Cleansing artifacts/" -Completed
+
+            Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+            Write-Host "Cleansed $totalFormatted from artifacts/."
+        }
         exit 0
     }
     else {
