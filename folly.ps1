@@ -129,23 +129,35 @@ try {
             $totalFormatted = Format-ByteSize $totalBytes
 
             $deletedBytes = 0L
+            $deletedCount = 0
+            $failedCount = 0
             $lastUpdate = Get-Date -Year 1970
             foreach ($file in $files) {
-                $fileLength = $file.Length
                 Remove-Item -Force -LiteralPath $file.FullName -ErrorAction SilentlyContinue
-                $deletedBytes += $fileLength
+                if (Test-Path -LiteralPath $file.FullName) {
+                    $failedCount++
+                }
+                else {
+                    $deletedBytes += $file.Length
+                    $deletedCount++
+                }
 
                 $now = Get-Date
                 if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
                     $lastUpdate = $now
-                    $percent = if ($totalBytes -gt 0) { [Math]::Min(100, [int](($deletedBytes / $totalBytes) * 100)) } else { 100 }
+                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / $files.Count) * 100)) }
                     Write-Progress -Activity "Cleansing artifacts/" -Status "$(Format-ByteSize $deletedBytes) / $totalFormatted" -PercentComplete $percent
                 }
             }
             Write-Progress -Activity "Cleansing artifacts/" -Completed
 
             Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
-            Write-Host "Cleansed $totalFormatted from artifacts/."
+            if (Test-Path -LiteralPath $artifactsDir) {
+                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) from artifacts/; $failedCount file(s) could not be removed." -ForegroundColor Yellow
+            }
+            else {
+                Write-Host "Cleansed $totalFormatted from artifacts/."
+            }
         }
         exit 0
     }
