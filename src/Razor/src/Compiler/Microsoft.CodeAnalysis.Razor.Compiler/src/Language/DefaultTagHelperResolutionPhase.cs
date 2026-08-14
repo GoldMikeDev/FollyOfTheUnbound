@@ -176,7 +176,7 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
         var (tagHelperNode, bodyNode) = BuildTagHelperNode(elementNode, binding, tagName, prefix, usedHelpers, in context);
 
         // Resolve any body children that are still UnresolvedElementIntermediateNode.
-        ResolveBodyChildren(bodyNode, binder, prefix, usedHelpers, in context, tagHelperNode, binding);
+        ResolveBodyChildren(bodyNode, binder, prefix, usedHelpers, in context, tagHelperNode);
 
         // Replace the UnresolvedElement with the TagHelperIntermediateNode.
         parent.Children[index] = tagHelperNode;
@@ -248,17 +248,26 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                                     promotedAllowedChildrenString);
                             }
                         }
+                        else if (promotedAllowedChildrenString != null && parent.Children[j] is CSharpCodeIntermediateNode)
+                        {
+                            // A code block's own descendants may still be UnresolvedElementIntermediateNode
+                            // (e.g. `@foreach { <div></div> }`); resolving them with ResolveElements first
+                            // and only then inspecting the output would hit the same flattening problem as
+                            // above. ResolveBodyChildren validates each descendant against tagHelperParent's
+                            // allowed children as it resolves them, before identity can be lost.
+                            ResolveBodyChildren(parent.Children[j], binder, prefix, usedHelpers, in context, tagHelperParent);
+                        }
                         else
                         {
                             ResolveElements(parent.Children[j], binder, prefix, usedHelpers, in context);
 
                             if (promotedAllowedChildrenString != null)
                             {
-                                // This node was never an UnresolvedElementIntermediateNode (e.g. markup
-                                // or a code block produced directly by the parser), so it's already
-                                // safe to inspect for validation.
+                                // This node was never an UnresolvedElementIntermediateNode and isn't a
+                                // code block (e.g. markup produced directly by the parser), so it's
+                                // already safe to inspect for validation.
                                 ValidateAllowedChildNode(
-                                    parent.Children[j], tagHelperParent.TagName, in promotedAllowedNames, promotedAllowedChildrenString, prefix);
+                                    parent.Children[j], tagHelperParent.TagName, in promotedAllowedNames, promotedAllowedChildrenString, prefix, recurseIntoCodeBlocks: false);
                             }
                         }
                     }
@@ -349,11 +358,12 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
         string prefix,
         TagHelperCollection.Builder usedHelpers,
         in ResolutionContext context,
-        TagHelperIntermediateNode tagHelperParent,
-        TagHelperBinding binding)
+        TagHelperIntermediateNode tagHelperParent)
     {
+        // tagHelperParent.TagHelpers is set to the resolving binding's TagHelpers when the node is
+        // built (see BuildTagHelperNode), so it's equivalent to using the binding directly here.
         using var allowedNames = new PooledArrayBuilder<string>();
-        foreach (var tagHelper in binding.TagHelpers)
+        foreach (var tagHelper in tagHelperParent.TagHelpers)
         {
             foreach (var childTag in tagHelper.AllowedChildTags)
             {
@@ -401,7 +411,7 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
             {
                 ResolveBodyChildren(
                     child, binder, prefix, usedHelpers, in context,
-                    tagHelperParent, binding);
+                    tagHelperParent);
             }
             else
             {
