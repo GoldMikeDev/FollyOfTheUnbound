@@ -207,6 +207,17 @@ namespace RunTests
             return new RunAllResult((failures == 0), completed.ToImmutableArray(), processResults.ToImmutable());
         }
 
+        /// <summary>
+        /// Name column width for the final summary table below. Unlike <see cref="LiveTestProgressDisplay"/>'s
+        /// live table, this isn't derived from <see cref="Console.WindowWidth"/> -- this summary is always
+        /// printed (including to the log file in CI, where there's no real terminal width to read), so it needs
+        /// a width that's sensible on its own. A name longer than this is truncated (see
+        /// <see cref="TestResultDisplay.FitName"/>) rather than left to grow and push the Status/Elapsed columns
+        /// out of alignment for every row after it, which is what the previous plain <c>{DisplayName,-75}</c>
+        /// padding did for any work item name past 75 characters.
+        /// </summary>
+        private const int SummaryNameColumnWidth = 75;
+
         private void Print(List<TestResult> testResults)
         {
             testResults.Sort((x, y) => x.Elapsed.CompareTo(y.Elapsed));
@@ -222,10 +233,13 @@ namespace RunTests
             {
                 line.Length = 0;
                 var color = testResult.Succeeded ? Console.ForegroundColor : ConsoleColor.Red;
-                line.Append($"{testResult.DisplayName,-75}");
-                line.Append($" {(testResult.Succeeded ? "PASSED" : testResult.IsTimeout ? "TIMEOUT" : "FAILED")}");
-                line.Append($" {testResult.Elapsed}");
-                line.Append($" {(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "")}");
+                line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
+                line.Append(' ');
+                line.Append(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout).PadRight(TestResultDisplay.StatusColumnWidth));
+                line.Append(' ');
+                line.Append(TestResultDisplay.FormatElapsed(testResult.Elapsed).PadLeft(TestResultDisplay.ElapsedColumnWidth));
+                line.Append(' ');
+                line.Append(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "");
 
                 var message = line.ToString();
                 ConsoleUtil.WriteLine(color, message);

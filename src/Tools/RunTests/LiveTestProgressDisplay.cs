@@ -44,8 +44,6 @@ namespace RunTests
     /// </summary>
     internal sealed class LiveTestProgressDisplay
     {
-        private const int StatusColumnWidth = 9;
-        private const int ElapsedColumnWidth = 7;
         private const int MinimumNameColumnWidth = 15;
         private const string Indent = "  ";
         private const string ColumnGap = "  ";
@@ -313,7 +311,7 @@ namespace RunTests
             var hiddenRunning = runningRows.Count - shownRunning;
             var hiddenAttention = attentionRows.Count - shownAttention;
 
-            var fixedOverhead = Indent.Length + ColumnGap.Length + StatusColumnWidth + ColumnGap.Length + ElapsedColumnWidth;
+            var fixedOverhead = Indent.Length + ColumnGap.Length + TestResultDisplay.StatusColumnWidth + ColumnGap.Length + TestResultDisplay.ElapsedColumnWidth;
             var longestName = bodyRows.Count == 0
                 ? MinimumNameColumnWidth
                 : bodyRows.Max(static r => r.BaseName.Length + (r.Suffix?.Length ?? 0));
@@ -323,8 +321,8 @@ namespace RunTests
             {
                 FitToWidth($"{_runLabel}    {_rows.Count} total | {runningRows.Count} running | {queuedCount} queued | {passedCount + attentionRows.Count} done | {attentionRows.Count} failed", width),
                 string.Empty,
-                FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{"Status".PadRight(StatusColumnWidth)}{ColumnGap}{"Elapsed".PadLeft(ElapsedColumnWidth)}", width),
-                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', StatusColumnWidth)}{ColumnGap}{new string('-', ElapsedColumnWidth)}", width),
+                FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{"Status".PadRight(TestResultDisplay.StatusColumnWidth)}{ColumnGap}{"Elapsed".PadLeft(TestResultDisplay.ElapsedColumnWidth)}", width),
+                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.ElapsedColumnWidth)}", width),
             };
 
             var now = DateTime.UtcNow;
@@ -339,10 +337,10 @@ namespace RunTests
                     _ => "",
                 };
                 var elapsedText = row.Status == LiveRowStatus.Running
-                    ? FormatElapsed(now - row.StartTimeUtc!.Value)
-                    : FormatElapsed(row.FinalElapsed ?? TimeSpan.Zero);
+                    ? TestResultDisplay.FormatElapsed(now - row.StartTimeUtc!.Value)
+                    : TestResultDisplay.FormatElapsed(row.FinalElapsed ?? TimeSpan.Zero);
 
-                var line = $"{Indent}{name.PadRight(nameColumnWidth)}{ColumnGap}{statusText.PadRight(StatusColumnWidth)}{ColumnGap}{elapsedText.PadLeft(ElapsedColumnWidth)}";
+                var line = $"{Indent}{name.PadRight(nameColumnWidth)}{ColumnGap}{statusText.PadRight(TestResultDisplay.StatusColumnWidth)}{ColumnGap}{elapsedText.PadLeft(TestResultDisplay.ElapsedColumnWidth)}";
                 lines.Add(FitToWidth(line, width));
             }
 
@@ -369,18 +367,6 @@ namespace RunTests
             }
 
             return lines;
-        }
-
-        private static string FormatElapsed(TimeSpan elapsed)
-        {
-            if (elapsed < TimeSpan.Zero)
-            {
-                elapsed = TimeSpan.Zero;
-            }
-
-            return elapsed.TotalHours >= 1
-                ? $"{(int)elapsed.TotalHours}:{elapsed:mm\\:ss}"
-                : $"{elapsed:mm\\:ss}";
         }
 
         /// <summary>
