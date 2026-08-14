@@ -361,10 +361,18 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                     // [countBeforeResolve, newCount): the element at i was replaced in place (no
                     // size change), so any later siblings that already occupied higher indices are
                     // just shifted right by the insertion, not part of the promoted range.
-                    var addedCount = parent.Children.Count - countBeforeResolve;
-                    for (var j = i + 1; j < i + 1 + addedCount; j++)
+                    //
+                    // Only StartTagOnly resolution promotes siblings -- ordinary legacy flattening
+                    // (ConvertToPlainElement) can also grow parent.Children with the fragments of an
+                    // *allowed* element (e.g. its own expression/end-tag remnants), which are not new
+                    // siblings and must not be validated against the parent's allowed-children list.
+                    if (resolvedTagHelper?.TagMode == TagMode.StartTagOnly)
                     {
-                        ValidateAllowedChildNode(parent.Children[j], tagHelperParent.TagName, in allowedNames, allowedChildrenString, prefix);
+                        var addedCount = parent.Children.Count - countBeforeResolve;
+                        for (var j = i + 1; j < i + 1 + addedCount; j++)
+                        {
+                            ValidateAllowedChildNode(parent.Children[j], tagHelperParent.TagName, in allowedNames, allowedChildrenString, prefix);
+                        }
                     }
                 }
             }
@@ -580,7 +588,11 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
     {
         foreach (var child in children)
         {
-            ValidateAllowedChildNode(child, parentTagName, in allowedNames, allowedChildrenString, prefix);
+            // Don't recurse into CSharpCodeIntermediateNode here: the main resolve loop in
+            // ResolveBodyChildren separately recurses into each such block via its own
+            // ResolveBodyChildren call, which runs this same bulk validation again at its top.
+            // Recursing here too would double-report diagnostics for the block's contents.
+            ValidateAllowedChildNode(child, parentTagName, in allowedNames, allowedChildrenString, prefix, recurseIntoCodeBlocks: false);
         }
     }
 
@@ -591,12 +603,21 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
     /// <see cref="TagMode.StartTagOnly"/> element, which are resolved (and so only checkable) after
     /// the fact -- see the call site in <see cref="ResolveBodyChildren"/>.
     /// </summary>
+    /// <param name="recurseIntoCodeBlocks">
+    /// Whether to descend into a <see cref="CSharpCodeIntermediateNode"/> child's own children.
+    /// Must be <see langword="false"/> when called from <see cref="ValidateAllowedChildren"/>'s bulk
+    /// scan, since <see cref="ResolveBodyChildren"/> already validates code-block contents itself via
+    /// a recursive call. Promoted-sibling validation (the other call site) needs it <see
+    /// langword="true"/>, since a promoted code block is resolved standalone and never passed through
+    /// <see cref="ResolveBodyChildren"/> again.
+    /// </param>
     private static void ValidateAllowedChildNode(
         IntermediateNode child,
         string parentTagName,
         in PooledArrayBuilder<string> allowedNames,
         string allowedChildrenString,
-        string prefix)
+        string prefix,
+        bool recurseIntoCodeBlocks = true)
     {
         if (child is TagHelperIntermediateNode childTagHelper)
         {
@@ -643,7 +664,7 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                 RazorDiagnosticFactory.CreateTagHelper_CannotHaveNonTagContent(
                     child.Source ?? SourceSpan.Undefined, parentTagName, allowedChildrenString));
         }
-        else if (child is CSharpCodeIntermediateNode codeNode)
+        else if (recurseIntoCodeBlocks && child is CSharpCodeIntermediateNode codeNode)
         {
             // Markup nested inside a code block (e.g. `@foreach { <div></div> }`) is a direct
             // structural child of the tag helper for allowed-children purposes, so recurse.
