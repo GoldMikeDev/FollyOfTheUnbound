@@ -22,7 +22,7 @@ internal static class Program
 
         if (BreakawaySelfTest.IsChildRequested(args))
         {
-            return BreakawaySelfTest.RunChild();
+            return BreakawaySelfTest.RunChild(args);
         }
 
         // When a client needs a shared daemon it launches a second copy of this thin client as a short-lived bootstrap
