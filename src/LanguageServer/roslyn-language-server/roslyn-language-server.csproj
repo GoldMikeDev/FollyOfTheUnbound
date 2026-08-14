@@ -1,12 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <!-- This thin client alone targets net11.0 (ahead of $(NetVSCode)), to consume
-         ProcessStartInfo.InheritedHandles for DaemonHandleInheritance; see
-         https://github.com/GoldMikeDev/roslyn/issues/8. The bundled server it publishes (see
-         PublishBundledLanguageServer below) is built and published separately against its own
-         $(NetVSCode) TFM, so this does not change the server's target framework. -->
-    <TargetFramework>net11.0</TargetFramework>
+    <TargetFramework>$(NetVSCode)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AssemblyName>roslyn-language-server</AssemblyName>
@@ -73,11 +68,8 @@
     thin client free of Roslyn/MEF dependencies and AOT-ready; the server is built and published on demand here.
   -->
   <Target Name="PublishBundledLanguageServer" AfterTargets="Publish">
-    <!-- Deliberately omit TargetFramework here: the thin client now targets net11.0 (see above) while the
-         bundled server stays on $(NetVSCode), so the server project must resolve its own default TFM
-         rather than inherit this project's. -->
     <MSBuild Projects="..\Microsoft.CodeAnalysis.LanguageServer\Microsoft.CodeAnalysis.LanguageServer.csproj"
              Targets="Publish"
-             Properties="Configuration=$(Configuration);RuntimeIdentifier=$(RuntimeIdentifier);SelfContained=$(SelfContained);PublishDir=$(PublishDir)" />
+             Properties="Configuration=$(Configuration);TargetFramework=$(TargetFramework);RuntimeIdentifier=$(RuntimeIdentifier);SelfContained=$(SelfContained);PublishDir=$(PublishDir)" />
   </Target>
 </Project>
