@@ -17,5 +17,8 @@
     <PackageReference Include="Newtonsoft.Json" />
     <ProjectReference Include="..\..\Compilers\Test\Core\Microsoft.CodeAnalysis.Test.Utilities.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="RunTests.UnitTests" />
+  </ItemGroup>
   <Import Project="..\..\Dependencies\Contracts\Microsoft.CodeAnalysis.Contracts.projitems" />
 </Project>
