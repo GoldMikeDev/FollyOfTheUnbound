@@ -132,7 +132,12 @@ internal sealed class ServerExecutable
             {
                 var environment = startInfo.Environment.Select(static kvp => new KeyValuePair<string, string?>(kvp.Key, kvp.Value));
                 if (Win32BreakawayProcessLauncher.TryStart(FileName, arguments, environment, out var breakawayProcess))
+                {
+                    Console.Error.WriteLine($"[Win32BreakawayProcessLauncher] Escaped job object launching '{FileName}' (pid {breakawayProcess!.Id}).");
                     return breakawayProcess!;
+                }
+
+                Console.Error.WriteLine($"[Win32BreakawayProcessLauncher] In a job but breakaway failed launching '{FileName}'; falling back to the normal launch.");
             }
 
             var process = Process.Start(startInfo)

@@ -9,3 +9,8 @@ TerminateJobObject
 ResumeThread
 GetExitCodeProcess
 TerminateProcess
+InitializeProcThreadAttributeList
+UpdateProcThreadAttribute
+DeleteProcThreadAttributeList
+PROC_THREAD_ATTRIBUTE_HANDLE_LIST
+STARTUPINFOEXW
