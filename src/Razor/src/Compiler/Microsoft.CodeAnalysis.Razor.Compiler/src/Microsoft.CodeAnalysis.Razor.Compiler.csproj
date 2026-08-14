@@ -64,7 +64,7 @@
 
 
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(PublishReadyToRun)' == 'true' and '$(RuntimeIdentifier)' != ''">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net11.0' and '$(PublishReadyToRun)' == 'true' and '$(RuntimeIdentifier)' != ''">
     <ProjectReference Update="$(SharedSourceRoot)\Microsoft.AspNetCore.Razor.Utilities.Shared\Microsoft.AspNetCore.Razor.Utilities.Shared.csproj">
       <Private>true</Private>
     </ProjectReference>
