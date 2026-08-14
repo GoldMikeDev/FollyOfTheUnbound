@@ -30,7 +30,7 @@ namespace RunTests
     /// included, not just currently-running/failed ones. But a terminal only ever has <c>WindowHeight</c> physical
     /// rows on screen, and a full Roslyn run has far more work items than that -- there is no way to show more
     /// rows at once than the window physically has, on any terminal. What's drawn each redraw is therefore a
-    /// scrolling *window* into the full sorted list (see <see cref="ComputeScrollStart"/>) that follows whatever's
+    /// scrolling *window* into the full sorted list (see <see cref="ComputeScrollStart(int, int, int, int, int)"/>) that follows whatever's
     /// currently running so the active rows stay in view, rather than a fixed, arbitrary slice.
     /// </para>
     /// <para>
@@ -71,6 +71,16 @@ namespace RunTests
         private readonly string _runLabel;
         private readonly List<Row> _rows;
         private readonly Dictionary<int, Row> _rowsByPartitionIndex;
+
+        /// <summary>
+        /// Guards every method that touches the alternate-screen state (<see cref="_inAltScreen"/>,
+        /// <see cref="_disabled"/>) or writes to the console -- <see cref="Redraw"/> runs on the still-active run
+        /// loop's own continuation, while <see cref="Suspend"/>/<see cref="PrepareForExtraOutput"/> can be called
+        /// concurrently from unrelated code (<c>Program.HandleTimeout</c>) on a different continuation entirely.
+        /// Without this, a <see cref="Redraw"/> already past its own state checks could still re-enter the
+        /// alternate screen and paint over diagnostics a concurrent <see cref="Suspend"/> just exited it for.
+        /// </summary>
+        private readonly object _gate = new();
 
         /// <summary>
         /// Whether the alternate screen buffer is currently active. Starts <see langword="true"/> -- entered by
@@ -240,7 +250,11 @@ namespace RunTests
         /// </summary>
         internal void Complete()
         {
-            ExitAltScreenIfActive();
+            lock (_gate)
+            {
+                ExitAltScreenIfActive();
+            }
+
             if (Current == this)
             {
                 Current = null;
@@ -317,7 +331,13 @@ namespace RunTests
         /// the window got too short, and those diagnostics must still reach real scrollback, not a now-frozen
         /// alternate-screen frame <see cref="Complete"/> will just discard.
         /// </summary>
-        internal void PrepareForExtraOutput() => ExitAltScreenIfActive();
+        internal void PrepareForExtraOutput()
+        {
+            lock (_gate)
+            {
+                ExitAltScreenIfActive();
+            }
+        }
 
         /// <summary>
         /// Permanently stops this display from drawing anything further and exits the alternate screen, unlike
@@ -331,9 +351,23 @@ namespace RunTests
         /// (there is no corresponding <c>Resume</c>), so simply not drawing again is an acceptable outcome, unlike
         /// the failure paths <see cref="DisableAndExitAltScreen"/> handles for the same underlying reason.
         /// </summary>
-        internal void Suspend() => DisableAndExitAltScreen();
+        internal void Suspend()
+        {
+            lock (_gate)
+            {
+                DisableAndExitAltScreen();
+            }
+        }
 
         internal void Redraw()
+        {
+            lock (_gate)
+            {
+                RedrawCore();
+            }
+        }
+
+        private void RedrawCore()
         {
             if (_disabled)
             {
@@ -404,42 +438,51 @@ namespace RunTests
 
         /// <summary>
         /// Picks which slice of <see cref="_rows"/> (already sorted alphabetically) to show given a viewport that
-        /// can hold <paramref name="visibleRowBudget"/> rows -- the whole list from the start if it already fits,
-        /// otherwise a window centered on whatever's most worth watching right now: the first currently-running
-        /// row if there is one (so active work stays visible), else the first still-queued row (what's coming up
-        /// next), else wherever the previous redraw left off (so a run that's entirely finished doesn't suddenly
-        /// snap back to the top). Sticking to the *previous* scroll position rather than recomputing a fresh
-        /// "ideal" center every tick also avoids the window jittering up and down by a row or two as different
-        /// items finish near the current focus.
+        /// can hold <paramref name="visibleRowBudget"/> rows. Thin instance wrapper around the pure, independently
+        /// testable <see cref="ComputeScrollStart(int, int, int, int, int)"/> overload -- just finds the two focus
+        /// candidates in <see cref="_rows"/> and forwards to it.
         /// </summary>
         private int ComputeScrollStart(int visibleRowBudget)
         {
-            var maxScrollStart = Math.Max(_rows.Count - visibleRowBudget, 0);
+            var firstRunningIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Running);
+            var firstQueuedIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Queued);
+            return ComputeScrollStart(_rows.Count, visibleRowBudget, _lastScrollStart, firstRunningIndex, firstQueuedIndex);
+        }
+
+        /// <summary>
+        /// The scrolling-window state machine itself, as a pure function of its inputs (no console/instance state)
+        /// so it's directly unit-testable -- the whole list from the start if it already fits, otherwise a window
+        /// centered on whatever's most worth watching right now: <paramref name="firstRunningIndex"/> if there is
+        /// one (so active work stays visible; pass -1 if none), else <paramref name="firstQueuedIndex"/> (what's
+        /// coming up next; -1 if none), else <paramref name="previousScrollStart"/> (so a run that's entirely
+        /// finished doesn't suddenly snap back to the top). Sticking to the *previous* scroll position rather than
+        /// recomputing a fresh "ideal" center every tick also avoids the window jittering up and down by a row or
+        /// two as different items finish near the current focus.
+        /// </summary>
+        internal static int ComputeScrollStart(int rowCount, int visibleRowBudget, int previousScrollStart, int firstRunningIndex, int firstQueuedIndex)
+        {
+            var maxScrollStart = Math.Max(rowCount - visibleRowBudget, 0);
             if (maxScrollStart == 0)
             {
                 return 0;
             }
 
-            var focusIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Running);
-            if (focusIndex < 0)
-            {
-                focusIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Queued);
-            }
+            var focusIndex = firstRunningIndex >= 0 ? firstRunningIndex : firstQueuedIndex;
 
             if (focusIndex < 0)
             {
                 // Nothing running or queued (the run is effectively done) -- hold the previous position instead
                 // of snapping to a default, so the last thing the user was looking at doesn't jump around.
-                return Math.Clamp(_lastScrollStart, 0, maxScrollStart);
+                return Math.Clamp(previousScrollStart, 0, maxScrollStart);
             }
 
             // Only actually move the window if the focus row has scrolled out of the *previously shown* range --
             // otherwise every redraw would recenter on the focus row exactly, causing the window to visibly drift
             // by a row or two on every tick as the running set changes, even though the focus row was still
             // perfectly visible.
-            if (focusIndex >= _lastScrollStart && focusIndex < _lastScrollStart + visibleRowBudget)
+            if (focusIndex >= previousScrollStart && focusIndex < previousScrollStart + visibleRowBudget)
             {
-                return Math.Clamp(_lastScrollStart, 0, maxScrollStart);
+                return Math.Clamp(previousScrollStart, 0, maxScrollStart);
             }
 
             return Math.Clamp(focusIndex - visibleRowBudget / 2, 0, maxScrollStart);
