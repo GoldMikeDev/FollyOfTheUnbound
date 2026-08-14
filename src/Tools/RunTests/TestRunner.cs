@@ -222,7 +222,7 @@ namespace RunTests
 
         private void Print(List<TestResult> testResults)
         {
-            testResults.Sort((x, y) => x.Elapsed.CompareTo(y.Elapsed));
+            testResults.Sort((x, y) => string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase));
 
             foreach (var testResult in testResults.Where(x => !x.Succeeded))
             {
@@ -234,7 +234,7 @@ namespace RunTests
             foreach (var testResult in testResults)
             {
                 line.Length = 0;
-                var color = testResult.Succeeded ? Console.ForegroundColor : ConsoleColor.Red;
+                var color = testResult.Succeeded ? ConsoleColor.Green : ConsoleColor.Red;
                 line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
                 line.Append(' ');
                 line.Append(TestResultDisplay.CenterPad(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout), TestResultDisplay.StatusColumnWidth));
