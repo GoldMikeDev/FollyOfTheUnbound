@@ -337,6 +337,8 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
             var child = parent.Children[i];
             if (child is UnresolvedElementIntermediateNode elementNode)
             {
+                var countBeforeResolve = parent.Children.Count;
+
                 // Retain the unresolved node so plain HTML still has a tag name after legacy
                 // resolution flattens it into HTML content.
                 var resolvedTagHelper = ResolveElement(
@@ -350,6 +352,15 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                         resolvedTagHelper?.TagName ?? elementNode.TagName,
                         in allowedNames,
                         allowedChildrenString);
+
+                    // A StartTagOnly element promotes its parser-nested body into siblings inserted
+                    // right after it (see ResolveElement), and resolves those siblings itself. They
+                    // are only checkable now that they're resolved, so validate them here -- the
+                    // reverse walker above won't revisit these newly inserted positions.
+                    for (var j = countBeforeResolve; j < parent.Children.Count; j++)
+                    {
+                        ValidateAllowedChildNode(parent.Children[j], tagHelperParent.TagName, in allowedNames, allowedChildrenString, prefix);
+                    }
                 }
             }
             else if (allowedChildrenString != null && child is CSharpCodeIntermediateNode)
@@ -564,51 +575,68 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
     {
         foreach (var child in children)
         {
-            if (child is TagHelperIntermediateNode childTagHelper)
+            ValidateAllowedChildNode(child, parentTagName, in allowedNames, allowedChildrenString, prefix);
+        }
+    }
+
+    /// <summary>
+    /// Validates a single already-resolved node against the given <paramref name="parentTagName"/>'s
+    /// allowed child tags. Used both for the bulk pre-resolution scan in
+    /// <see cref="ValidateAllowedChildren"/> and for siblings promoted into a parent's children by a
+    /// <see cref="TagMode.StartTagOnly"/> element, which are resolved (and so only checkable) after
+    /// the fact -- see the call site in <see cref="ResolveBodyChildren"/>.
+    /// </summary>
+    private static void ValidateAllowedChildNode(
+        IntermediateNode child,
+        string parentTagName,
+        in PooledArrayBuilder<string> allowedNames,
+        string allowedChildrenString,
+        string prefix)
+    {
+        if (child is TagHelperIntermediateNode childTagHelper)
+        {
+            var childTagName = childTagHelper.TagName;
+            if (!IsAllowedChild(childTagName, in allowedNames))
             {
-                var childTagName = childTagHelper.TagName;
-                if (!IsAllowedChild(childTagName, in allowedNames))
+                childTagHelper.AddDiagnostic(
+                    RazorDiagnosticFactory.CreateTagHelper_InvalidNestedTag(
+                        child.Source ?? SourceSpan.Undefined, childTagName, parentTagName, allowedChildrenString));
+            }
+        }
+        else if (child is MarkupElementIntermediateNode markupElement)
+        {
+            var childTagName = markupElement.TagName;
+            // Strip prefix if present
+            if (prefix != null && childTagName != null && childTagName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                childTagName = childTagName.Substring(prefix.Length);
+            }
+            if (childTagName != null && !IsAllowedChild(childTagName, in allowedNames))
+            {
+                markupElement.AddDiagnostic(
+                    RazorDiagnosticFactory.CreateTagHelper_InvalidNestedTag(
+                        child.Source ?? SourceSpan.Undefined, childTagName, parentTagName, allowedChildrenString));
+            }
+        }
+        else if (child is HtmlContentIntermediateNode htmlContent)
+        {
+            // Check if content is non-whitespace
+            foreach (var token in htmlContent.Children)
+            {
+                if (token is IntermediateToken t && !string.IsNullOrWhiteSpace(t.Content))
                 {
-                    childTagHelper.AddDiagnostic(
-                        RazorDiagnosticFactory.CreateTagHelper_InvalidNestedTag(
-                            child.Source ?? SourceSpan.Undefined, childTagName, parentTagName, allowedChildrenString));
+                    htmlContent.AddDiagnostic(
+                        RazorDiagnosticFactory.CreateTagHelper_CannotHaveNonTagContent(
+                            child.Source ?? SourceSpan.Undefined, parentTagName, allowedChildrenString));
+                    break;
                 }
             }
-            else if (child is MarkupElementIntermediateNode markupElement)
-            {
-                var childTagName = markupElement.TagName;
-                // Strip prefix if present
-                if (prefix != null && childTagName != null && childTagName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                {
-                    childTagName = childTagName.Substring(prefix.Length);
-                }
-                if (childTagName != null && !IsAllowedChild(childTagName, in allowedNames))
-                {
-                    markupElement.AddDiagnostic(
-                        RazorDiagnosticFactory.CreateTagHelper_InvalidNestedTag(
-                            child.Source ?? SourceSpan.Undefined, childTagName, parentTagName, allowedChildrenString));
-                }
-            }
-            else if (child is HtmlContentIntermediateNode htmlContent)
-            {
-                // Check if content is non-whitespace
-                foreach (var token in htmlContent.Children)
-                {
-                    if (token is IntermediateToken t && !string.IsNullOrWhiteSpace(t.Content))
-                    {
-                        htmlContent.AddDiagnostic(
-                            RazorDiagnosticFactory.CreateTagHelper_CannotHaveNonTagContent(
-                                child.Source ?? SourceSpan.Undefined, parentTagName, allowedChildrenString));
-                        break;
-                    }
-                }
-            }
-            else if (child is CSharpExpressionIntermediateNode)
-            {
-                child.AddDiagnostic(
-                    RazorDiagnosticFactory.CreateTagHelper_CannotHaveNonTagContent(
-                        child.Source ?? SourceSpan.Undefined, parentTagName, allowedChildrenString));
-            }
+        }
+        else if (child is CSharpExpressionIntermediateNode)
+        {
+            child.AddDiagnostic(
+                RazorDiagnosticFactory.CreateTagHelper_CannotHaveNonTagContent(
+                    child.Source ?? SourceSpan.Undefined, parentTagName, allowedChildrenString));
         }
     }
 
