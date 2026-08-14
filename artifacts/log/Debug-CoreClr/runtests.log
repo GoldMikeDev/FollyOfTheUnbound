@@ -1,0 +1,154 @@
+RunTest command line
+--dotnet C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe --logs C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\log\Debug --configuration Debug --runtime core --include '\.UnitTests' --html --arch x64 --timeout 90
+Running 'C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe --version'..
+11.0.100-preview.6.26359.118
+
+Proc dump location: 
+Create xunit process with id 17576 for test VBCSCompiler.UnitTests_45
+Create xunit process with id 13964 for test SemanticSearch.BuildTask.UnitTests_44
+Create xunit process with id 8368 for test Roslyn.Compilers.VisualBasic.IOperation.UnitTests_43
+Create xunit process with id 22248 for test Microsoft.VisualStudioCode.RazorExtension.UnitTests_42
+Create xunit process with id 8000 for test Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests_41
+Create xunit process with id 1560 for test Microsoft.CommonLanguageServerProtocol.Framework.UnitTests_40
+Create xunit process with id 16972 for test Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests_39
+Create xunit process with id 2952 for test Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests_38
+Create xunit process with id 15632 for test Microsoft.CodeAnalysis.VisualBasic.Syntax.UnitTests_37
+Create xunit process with id 16276 for test Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests_36
+Create xunit process with id 28284 for test Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests_35
+Create xunit process with id 24288 for test Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests_34
+Create xunit process with id 17384 for test Microsoft.CodeAnalysis.UnitTests_33
+Create xunit process with id 29112 for test Microsoft.CodeAnalysis.Scripting.UnitTests_32
+Create xunit process with id 29660 for test Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests_31
+Create xunit process with id 3236 for test Microsoft.CodeAnalysis.Remote.Razor.UnitTests_30
+Create xunit process with id 4552 for test Microsoft.CodeAnalysis.Rebuild.UnitTests_29
+Create xunit process with id 13652 for test Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests_28
+Create xunit process with id 28340 for test Microsoft.CodeAnalysis.Razor.UnitTests_27
+Create xunit process with id 16852 for test Microsoft.CodeAnalysis.LanguageServer.UnitTests_26
+Create xunit process with id 21836 for test Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests_25
+Exit xunit process with id 13964 for test SemanticSearch.BuildTask.UnitTests_44 with code 0
+Command line SemanticSearch.BuildTask.UnitTests_44 completed in 38.0065895 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_44.rsp"
+Create xunit process with id 11356 for test Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests_24
+Exit xunit process with id 1560 for test Microsoft.CommonLanguageServerProtocol.Framework.UnitTests_40 with code 0
+Command line Microsoft.CommonLanguageServerProtocol.Framework.UnitTests_40 completed in 51.9588819 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_40.rsp"
+Create xunit process with id 13444 for test Microsoft.CodeAnalysis.Features.UnitTests_23
+Exit xunit process with id 15632 for test Microsoft.CodeAnalysis.VisualBasic.Syntax.UnitTests_37 with code 0
+Command line Microsoft.CodeAnalysis.VisualBasic.Syntax.UnitTests_37 completed in 123.4246269 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_37.rsp"
+Create xunit process with id 25596 for test Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests_22
+Exit xunit process with id 2952 for test Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests_38 with code 0
+Command line Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests_38 completed in 132.6643906 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_38.rsp"
+Create xunit process with id 21168 for test Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests_21
+Exit xunit process with id 8368 for test Roslyn.Compilers.VisualBasic.IOperation.UnitTests_43 with code 0
+Command line Roslyn.Compilers.VisualBasic.IOperation.UnitTests_43 completed in 145.7337735 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_43.rsp"
+Create xunit process with id 28516 for test Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests_20
+Exit xunit process with id 25596 for test Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests_22 with code 0
+Command line Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests_22 completed in 39.173683 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_22.rsp"
+Create xunit process with id 28100 for test Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests_19
+Exit xunit process with id 21168 for test Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests_21 with code 0
+Command line Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests_21 completed in 62.9324882 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_21.rsp"
+Create xunit process with id 3048 for test Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests_18
+Exit xunit process with id 8000 for test Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests_41 with code 1
+Command line Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests_41 completed in 230.7911234 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_41.rsp"
+C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_41_x64_test_results.html
+Create xunit process with id 30868 for test Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests_17
+Exit xunit process with id 28516 for test Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests_20 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests_20 completed in 120.7682967 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_20.rsp"
+Create xunit process with id 33292 for test Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests_16
+Exit xunit process with id 13444 for test Microsoft.CodeAnalysis.Features.UnitTests_23 with code 0
+Command line Microsoft.CodeAnalysis.Features.UnitTests_23 completed in 328.7124195 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_23.rsp"
+Exit xunit process with id 29660 for test Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests_31 with code 0
+Command line Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests_31 completed in 376.1567288 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_31.rsp"
+Exit xunit process with id 3236 for test Microsoft.CodeAnalysis.Remote.Razor.UnitTests_30 with code 0
+Command line Microsoft.CodeAnalysis.Remote.Razor.UnitTests_30 completed in 375.6505328 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_30.rsp"
+Exit xunit process with id 4552 for test Microsoft.CodeAnalysis.Rebuild.UnitTests_29 with code 0
+Command line Microsoft.CodeAnalysis.Rebuild.UnitTests_29 completed in 374.9343927 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_29.rsp"
+Exit xunit process with id 13652 for test Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests_28 with code 0
+Command line Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests_28 completed in 374.2505795 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_28.rsp"
+Exit xunit process with id 28340 for test Microsoft.CodeAnalysis.Razor.UnitTests_27 with code 0
+Command line Microsoft.CodeAnalysis.Razor.UnitTests_27 completed in 373.3055006 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_27.rsp"
+Exit xunit process with id 29112 for test Microsoft.CodeAnalysis.Scripting.UnitTests_32 with code 0
+Command line Microsoft.CodeAnalysis.Scripting.UnitTests_32 completed in 377.2933689 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_32.rsp"
+Create xunit process with id 30020 for test Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests_15
+Create xunit process with id 32372 for test Microsoft.CodeAnalysis.CSharp.IOperation.UnitTests_14
+Create xunit process with id 2184 for test Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests_13
+Create xunit process with id 11312 for test Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests_12
+Create xunit process with id 32168 for test Microsoft.CodeAnalysis.CSharp.Emit2.UnitTests_11
+Create xunit process with id 16624 for test Microsoft.CodeAnalysis.CSharp.Emit.UnitTests_10
+Create xunit process with id 6104 for test Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests_9
+Exit xunit process with id 33292 for test Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests_16 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests_16 completed in 178.8814736 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_16.rsp"
+Create xunit process with id 18536 for test Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests_8
+Exit xunit process with id 28100 for test Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests_19 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests_19 completed in 282.8178878 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_19.rsp"
+Exit xunit process with id 30020 for test Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests_15 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests_15 completed in 66.1681922 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_15.rsp"
+Create xunit process with id 31324 for test Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests_7
+Create xunit process with id 18868 for test Microsoft.Build.Tasks.CodeAnalysis.UnitTests_6
+Exit xunit process with id 32372 for test Microsoft.CodeAnalysis.CSharp.IOperation.UnitTests_14 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.IOperation.UnitTests_14 completed in 166.6341529 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_14.rsp"
+Create xunit process with id 32140 for test Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests_5
+Exit xunit process with id 17576 for test VBCSCompiler.UnitTests_45 with code 0
+Command line VBCSCompiler.UnitTests_45 completed in 579.9153858 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_45.rsp"
+Create xunit process with id 33364 for test Microsoft.AspNetCore.Razor.Language.UnitTests_4
+Exit xunit process with id 32140 for test Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests_5 with code 0
+Command line Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests_5 completed in 29.3325261 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_5.rsp"
+Create xunit process with id 33544 for test Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests_3
+Exit xunit process with id 33544 for test Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests_3 with code 0
+Command line Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests_3 completed in 45.7871785 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_3.rsp"
+Create xunit process with id 23748 for test Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests_2
+Exit xunit process with id 2184 for test Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests_13 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests_13 completed in 339.7082277 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_13.rsp"
+Create xunit process with id 27492 for test Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests_1
+Exit xunit process with id 23748 for test Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests_2 with code 0
+Command line Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests_2 completed in 122.5666425 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_2.rsp"
+Create xunit process with id 31852 for test Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests_0
+Exit xunit process with id 27492 for test Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests_1 with code 0
+Command line Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests_1 completed in 64.5010014 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_1.rsp"
+Exit xunit process with id 31852 for test Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests_0 with code 0
+Command line Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests_0 completed in 45.5313765 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_0.rsp"
+Exit xunit process with id 16276 for test Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests_36 with code 0
+Command line Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests_36 completed in 799.8707131 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_36.rsp"
+Exit xunit process with id 31324 for test Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests_7 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests_7 completed in 512.8705056 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_7.rsp"
+Exit xunit process with id 33364 for test Microsoft.AspNetCore.Razor.Language.UnitTests_4 with code 0
+Command line Microsoft.AspNetCore.Razor.Language.UnitTests_4 completed in 381.8978396 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_4.rsp"
+Exit xunit process with id 17384 for test Microsoft.CodeAnalysis.UnitTests_33 with code 0
+Command line Microsoft.CodeAnalysis.UnitTests_33 completed in 1000.9595757 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_33.rsp"
+Exit xunit process with id 18536 for test Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests_8 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests_8 completed in 563.0731126 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_8.rsp"
+Exit xunit process with id 6104 for test Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests_9 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests_9 completed in 780.2562112 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_9.rsp"
+Exit xunit process with id 28284 for test Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests_35 with code 0
+Command line Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests_35 completed in 1162.1875125 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_35.rsp"
+Exit xunit process with id 24288 for test Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests_34 with code 1
+Command line Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests_34 completed in 1439.1562312 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_34.rsp"
+C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_34_x64_test_results.html
+Exit xunit process with id 18868 for test Microsoft.Build.Tasks.CodeAnalysis.UnitTests_6 with code 0
+Command line Microsoft.Build.Tasks.CodeAnalysis.UnitTests_6 completed in 992.5468717 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_6.rsp"
+Exit xunit process with id 32168 for test Microsoft.CodeAnalysis.CSharp.Emit2.UnitTests_11 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Emit2.UnitTests_11 completed in 1077.0369926 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_11.rsp"
+Exit xunit process with id 22248 for test Microsoft.VisualStudioCode.RazorExtension.UnitTests_42 with code 0
+Command line Microsoft.VisualStudioCode.RazorExtension.UnitTests_42 completed in 1798.826659 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_42.rsp"
+Exit xunit process with id 16624 for test Microsoft.CodeAnalysis.CSharp.Emit.UnitTests_10 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Emit.UnitTests_10 completed in 1577.2873292 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_10.rsp"
+Exit xunit process with id 3048 for test Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests_18 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests_18 completed in 1764.5144946 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_18.rsp"
+Exit xunit process with id 30868 for test Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests_17 with code 0
+Command line Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests_17 completed in 2079.6344844 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_17.rsp"
+Exit xunit process with id 21836 for test Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests_25 with code 0
+Command line Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests_25 completed in 2325.4611271 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_25.rsp"
+Exit xunit process with id 11312 for test Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests_12 with code 1
+Command line Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests_12 completed in 2060.0561991 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_12.rsp"
+C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_12_x64_test_results.html
+Exit xunit process with id 16972 for test Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests_39 with code 0
+Command line Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests_39 completed in 2674.3289301 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_39.rsp"
+Exit xunit process with id 16852 for test Microsoft.CodeAnalysis.LanguageServer.UnitTests_26 with code 1
+Command line Microsoft.CodeAnalysis.LanguageServer.UnitTests_26 completed in 3500.8874081 seconds: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_26.rsp"
+Detected dump files for Microsoft.CodeAnalysis.LanguageServer.UnitTests_26: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\dumps\26\a4df0a04-12d6-447d-aad9-25a6597b0dfb\testhost_30436_20260814T015041_hangdump.dmp
+Copied sequence file to artifacts: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\Sequence_5b3fb62020184c9a8121f4293980b27e.xml
+ERROR: Test host timeout detected for Microsoft.CodeAnalysis.LanguageServer.UnitTests_26. Test running at time of timeout: Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon_StartupFailure_DaemonSurvivesAndContinuesAccepting
+  Dump: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\dumps\26\a4df0a04-12d6-447d-aad9-25a6597b0dfb\testhost_30436_20260814T015041_hangdump.dmp
+C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_26_x64_test_results.html
+ERROR: Test timeout exceeded, dumping remaining processes
+Taking screenshot on timeout at C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\log\Debug\timeout.png
+
+

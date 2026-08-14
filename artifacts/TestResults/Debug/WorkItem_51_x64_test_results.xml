@@ -1,14 +1,14 @@
-<assemblies timestamp="08/13/2026 11:15:54">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests.dll" run-date="2026-08-13" run-time="11:15:54" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests.dll.config" total="105" passed="105" failed="0" skipped="0" time="36.448" errors="0">
+<assemblies timestamp="08/14/2026 01:22:44">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests.dll" run-date="2026-08-14" run-time="01:22:44" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UnitTests.dll.config" total="105" passed="105" failed="0" skipped="0" time="28.225" errors="0">
     <errors />
-    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" time="0.029">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.AddOrUpdate_Updates" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="AddOrUpdate_Updates" time="0.0010000" result="Pass">
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" time="0.062">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.AddOrUpdate_Updates" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="AddOrUpdate_Updates" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.GetOrCreate_NoTextDocument_MemoizesGeneratedUri" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="GetOrCreate_NoTextDocument_MemoizesGeneratedUri" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.GetOrCreate_NoTextDocument_MemoizesGeneratedUri" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="GetOrCreate_NoTextDocument_MemoizesGeneratedUri" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.GetOrCreate_TurnsTextDocumentFilePathIntoUri" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="GetOrCreate_TurnsTextDocumentFilePathIntoUri" time="0.0180000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.GetOrCreate_TurnsTextDocumentFilePathIntoUri" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="GetOrCreate_TurnsTextDocumentFilePathIntoUri" time="0.0310000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest.TryGet_Exists_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFileUriProviderTest" method="TryGet_Exists_ReturnsTrue" time="0.0010000" result="Pass">
@@ -24,222 +24,222 @@
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFormattingOptionsProviderTest" time="0.525">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFormattingOptionsProviderTest.GetOptions_UsesIndentationManagerInformation" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFormattingOptionsProviderTest" method="GetOptions_UsesIndentationManagerInformation" time="0.5250000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFormattingOptionsProviderTest" time="0.262">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFormattingOptionsProviderTest.GetOptions_UsesIndentationManagerInformation" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultFormattingOptionsProviderTest" method="GetOptions_UsesIndentationManagerInformation" time="0.2620000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" time="0.120">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.TryRefreshVirtualDocuments_Refreshes_CreatesNewVirtualDocuments" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="TryRefreshVirtualDocuments_Refreshes_CreatesNewVirtualDocuments" time="0.0640000" result="Pass">
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" time="0.351">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.TryRefreshVirtualDocuments_Refreshes_CreatesNewVirtualDocuments" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="TryRefreshVirtualDocuments_Refreshes_CreatesNewVirtualDocuments" time="0.2530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.CreateMultiple_CreatesLSPDocumentWithVirtualDocuments" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="CreateMultiple_CreatesLSPDocumentWithVirtualDocuments" time="0.0120000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.CreateMultiple_CreatesLSPDocumentWithVirtualDocuments" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="CreateMultiple_CreatesLSPDocumentWithVirtualDocuments" time="0.0220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.Create_BuildsLSPDocumentWithTextBufferURI" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="Create_BuildsLSPDocumentWithTextBufferURI" time="0.0030000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.Create_BuildsLSPDocumentWithTextBufferURI" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="Create_BuildsLSPDocumentWithTextBufferURI" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.Create_FiltersFactoriesByContentType" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="Create_FiltersFactoriesByContentType" time="0.0090000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.Create_FiltersFactoriesByContentType" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="Create_FiltersFactoriesByContentType" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.Create_MultipleFactories_CreatesLSPDocumentWithVirtualDocuments" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="Create_MultipleFactories_CreatesLSPDocumentWithVirtualDocuments" time="0.0160000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.Create_MultipleFactories_CreatesLSPDocumentWithVirtualDocuments" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="Create_MultipleFactories_CreatesLSPDocumentWithVirtualDocuments" time="0.0290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.TryRefreshVirtualDocuments_NoRefresh_KeepsPreviousSnapshots" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="TryRefreshVirtualDocuments_NoRefresh_KeepsPreviousSnapshots" time="0.0160000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" time="0.132">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TryGetDocument_UnknownDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TryGetDocument_UnknownDocument_ReturnsFalse" time="0.0180000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_Noops_NoChangesSameVersion" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_Noops_NoChangesSameVersion" time="0.0260000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TryGetDocument_TrackedDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TryGetDocument_TrackedDocument_ReturnsTrue" time="0.0090000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_InvokesVirtualDocumentChanged" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_InvokesVirtualDocumentChanged" time="0.0130000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UntrackDocument_TriggersDocumentRemoved" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UntrackDocument_TriggersDocumentRemoved" time="0.0130000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TrackDocument_TriggersDocumentAdded" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TrackDocument_TriggersDocumentAdded" time="0.0110000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TryGetDocument_UntrackedDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TryGetDocument_UntrackedDocument_ReturnsFalse" time="0.0080000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_Noops_UnknownDocument" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_Noops_UnknownDocument" time="0.0120000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_SpecificVirtualDocument_InvokesVirtualDocumentChanged" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_SpecificVirtualDocument_InvokesVirtualDocumentChanged" time="0.0220000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest.TryRefreshVirtualDocuments_NoRefresh_KeepsPreviousSnapshots" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentFactoryTest" method="TryRefreshVirtualDocuments_NoRefresh_KeepsPreviousSnapshots" time="0.0260000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="11" passed="11" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" time="9.145">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SynchronizedDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SynchronizedDocument_ReturnsTrue" time="9.0330000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" time="0.215">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TryGetDocument_UnknownDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TryGetDocument_UnknownDocument_ReturnsFalse" time="0.0330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SimultaneousEqualSynchronizationRequests_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SimultaneousEqualSynchronizationRequests_ReturnsTrue" time="0.0060000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_Noops_NoChangesSameVersion" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_Noops_NoChangesSameVersion" time="0.0430000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SimultaneousDifferentSynchronizationRequests_CancelsFirst_ReturnsFalseThenTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SimultaneousDifferentSynchronizationRequests_CancelsFirst_ReturnsFalseThenTrue" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TryGetDocument_TrackedDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TryGetDocument_TrackedDocument_ReturnsTrue" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_NewerVersionRequested_CancelsActiveRequest" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_NewerVersionRequested_CancelsActiveRequest" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_InvokesVirtualDocumentChanged" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_InvokesVirtualDocumentChanged" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SimultaneousSynchronizationRequests_PlatformCancelsFirst_ReturnsFalseThenTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SimultaneousSynchronizationRequests_PlatformCancelsFirst_ReturnsFalseThenTrue" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UntrackDocument_TriggersDocumentRemoved" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UntrackDocument_TriggersDocumentRemoved" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_RejectOnNewerParallelRequest_NewerVersionRequested_CancelsActiveRequest" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_RejectOnNewerParallelRequest_NewerVersionRequested_CancelsActiveRequest" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TrackDocument_TriggersDocumentAdded" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TrackDocument_TriggersDocumentAdded" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_RemovedDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_RemovedDocument_ReturnsFalse" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.TryGetDocument_UntrackedDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="TryGetDocument_UntrackedDocument_ReturnsFalse" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_Timeout_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_Timeout_ReturnsFalse" time="0.0440000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_Noops_UnknownDocument" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_Noops_UnknownDocument" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SpecificDocuments_SynchronizesAfterUpdate_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SpecificDocuments_SynchronizesAfterUpdate_ReturnsTrue" time="0.0340000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_DocumentRemoved_CancelsActiveRequests" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_DocumentRemoved_CancelsActiveRequests" time="0.0040000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SynchronizesAfterUpdate_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SynchronizesAfterUpdate_ReturnsTrue" time="0.0040000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest.UpdateVirtualDocument_SpecificVirtualDocument_InvokesVirtualDocumentChanged" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentManagerTest" method="UpdateVirtualDocument_SpecificVirtualDocument_InvokesVirtualDocumentChanged" time="0.0320000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" time="0.023">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest.CurrentSnapshot_ChangesWhenTextBufferChanges" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" method="CurrentSnapshot_ChangesWhenTextBufferChanges" time="0.0100000" result="Pass">
+    <collection total="11" passed="11" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" time="3.489">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SynchronizedDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SynchronizedDocument_ReturnsTrue" time="3.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest.UpdateVirtualDocument_UpdatesProvidedVirtualDocumentWithProvidedArgs_AndRecalcsSnapshot" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" method="UpdateVirtualDocument_UpdatesProvidedVirtualDocumentWithProvidedArgs_AndRecalcsSnapshot" time="0.0110000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SimultaneousEqualSynchronizationRequests_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SimultaneousEqualSynchronizationRequests_ReturnsTrue" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest.InertTextBuffer_DoesNotCreateSnapshot" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" method="InertTextBuffer_DoesNotCreateSnapshot" time="0.0020000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SimultaneousDifferentSynchronizationRequests_CancelsFirst_ReturnsFalseThenTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SimultaneousDifferentSynchronizationRequests_CancelsFirst_ReturnsFalseThenTrue" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_NewerVersionRequested_CancelsActiveRequest" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_NewerVersionRequested_CancelsActiveRequest" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SimultaneousSynchronizationRequests_PlatformCancelsFirst_ReturnsFalseThenTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SimultaneousSynchronizationRequests_PlatformCancelsFirst_ReturnsFalseThenTrue" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_RejectOnNewerParallelRequest_NewerVersionRequested_CancelsActiveRequest" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_RejectOnNewerParallelRequest_NewerVersionRequested_CancelsActiveRequest" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_RemovedDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_RemovedDocument_ReturnsFalse" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_Timeout_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_Timeout_ReturnsFalse" time="0.0760000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SpecificDocuments_SynchronizesAfterUpdate_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SpecificDocuments_SynchronizesAfterUpdate_ReturnsTrue" time="0.3290000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_DocumentRemoved_CancelsActiveRequests" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_DocumentRemoved_CancelsActiveRequests" time="0.0250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest.TrySynchronizeVirtualDocumentAsync_SynchronizesAfterUpdate_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentSynchronizerTest" method="TrySynchronizeVirtualDocumentAsync_SynchronizesAfterUpdate_ReturnsTrue" time="0.0060000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" time="0.011">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest.TryGetVirtualCSharpDocument_CSharpDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" method="TryGetVirtualCSharpDocument_CSharpDocument_ReturnsTrue" time="0.0080000" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" time="0.042">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest.CurrentSnapshot_ChangesWhenTextBufferChanges" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" method="CurrentSnapshot_ChangesWhenTextBufferChanges" time="0.0260000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest.UpdateVirtualDocument_UpdatesProvidedVirtualDocumentWithProvidedArgs_AndRecalcsSnapshot" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" method="UpdateVirtualDocument_UpdatesProvidedVirtualDocumentWithProvidedArgs_AndRecalcsSnapshot" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest.InertTextBuffer_DoesNotCreateSnapshot" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.DefaultLSPDocumentTest" method="InertTextBuffer_DoesNotCreateSnapshot" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" time="0.009">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest.TryGetVirtualCSharpDocument_CSharpDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" method="TryGetVirtualCSharpDocument_CSharpDocument_ReturnsTrue" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest.TryGetVirtualDocument_NoCSharpDocument_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" method="TryGetVirtualDocument_NoCSharpDocument_ReturnsFalse" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest.TryGetAllVirtualDocument_SpecificDocument_CSharpDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" method="TryGetAllVirtualDocument_SpecificDocument_CSharpDocument_ReturnsTrue" time="0.0020000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest.TryGetAllVirtualDocument_SpecificDocument_CSharpDocument_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.LSPDocumentTest" method="TryGetAllVirtualDocument_SpecificDocument_CSharpDocument_ReturnsTrue" time="0.0030000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="30" passed="30" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" time="1.309">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorReturnsNull_DoesNotCallAdditionalInterceptors" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorReturnsNull_DoesNotCallAdditionalInterceptors" time="0.3610000" result="Pass">
+    <collection total="30" passed="30" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" time="1.075">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorReturnsNull_DoesNotCallAdditionalInterceptors" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorReturnsNull_DoesNotCallAdditionalInterceptors" time="0.2010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidMethodName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidMethodName_Throws(input: &quot;&quot;)" time="0.0200000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidMethodName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidMethodName_Throws(input: &quot;&quot;)" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidMethodName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidMethodName_Throws(input: null)" time="0.0020000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidMethodName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidMethodName_Throws(input: null)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: &quot;&quot;)" time="0.0330000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: &quot;&quot;)" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: null)" time="0.0100000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JToken_InvalidMethodName_Throws(input: null)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: null)" time="0.5120000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: null)" time="0.3940000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: &quot;&quot;)" time="0.0110000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InvalidMethodName_Throws(input: &quot;&quot;)" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasNoInterceptors_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasNoInterceptors_ReturnsFalse" time="0.0010000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasNoInterceptors_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasNoInterceptors_ReturnsFalse" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" time="0.0220000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" time="0.0370000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" time="0.0100000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_ReturnsDefault" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_ReturnsDefault" time="0.0830000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_ReturnsDefault" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_ReturnsDefault" time="0.1810000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasMatchingGenericInterceptor_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasMatchingGenericInterceptor_ReturnsTrue" time="0.0030000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasMatchingGenericInterceptor_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasMatchingGenericInterceptor_ReturnsTrue" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorReturnsNull_ReturnsNull" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorReturnsNull_ReturnsNull" time="0.0050000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorReturnsNull_ReturnsNull" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorReturnsNull_ReturnsNull" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: null)" time="0.0290000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: null)" time="0.0230000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: &quot;&quot;)" time="0.0330000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidSourceLanguageName_Throws(input: &quot;&quot;)" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JToken_InvalidMessage_Throws" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JToken_InvalidMessage_Throws" time="0.0100000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JToken_InvalidMessage_Throws" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JToken_InvalidMessage_Throws" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasMismatchedContentType_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasMismatchedContentType_ReturnsFalse" time="0.0070000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasMismatchedContentType_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasMismatchedContentType_ReturnsFalse" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_InvalidMessageName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_InvalidMessageName_Throws(input: null)" time="0.0070000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_InvalidMessageName_Throws(input: null)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_InvalidMessageName_Throws(input: null)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_InvalidMessageName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_InvalidMessageName_Throws(input: &quot;&quot;)" time="0.0130000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_InvalidMessageName_Throws(input: &quot;&quot;)" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_InvalidMessageName_Throws(input: &quot;&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.Ctor_NullArguments_Throws" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="Ctor_NullArguments_Throws" time="0.0160000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.Ctor_NullArguments_Throws" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="Ctor_NullArguments_Throws" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidMessage_Throws" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidMessage_Throws" time="0.0320000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InvalidMessage_Throws" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InvalidMessage_Throws" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" time="0.0180000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatches_ChangedTokenPassedToSecondInterceptor" time="0.0270000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_DoesNotCallAdditionalInterceptors" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_DoesNotCallAdditionalInterceptors" time="0.0080000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_DoesNotCallAdditionalInterceptors" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_InterceptorReturnsDefault_DoesNotCallAdditionalInterceptors" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" time="0.0110000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_NoInterceptorMatches_NoChangesMadeToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_NoInterceptorMatches_NoChangesMadeToToken" time="0.0260000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_NoInterceptorMatches_NoChangesMadeToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_NoInterceptorMatches_NoChangesMadeToToken" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_DoesNotHaveMatchingInterceptor_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_DoesNotHaveMatchingInterceptor_ReturnsFalse" time="0.0080000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_DoesNotHaveMatchingInterceptor_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_DoesNotHaveMatchingInterceptor_ReturnsFalse" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasMatchingInterceptor_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasMatchingInterceptor_ReturnsTrue" time="0.0030000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.HasInterceptor_HasMatchingInterceptor_ReturnsTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="HasInterceptor_HasMatchingInterceptor_ReturnsTrue" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" time="0.0060000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_InterceptorChangesDocumentUri_CausesAdditionalPass" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" time="0.0050000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessGenericInterceptorsAsync_JsonElement_InterceptorMatchesButDoesNotChangeDocumentUri_ChangesAppliedToToken" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_NoInterceptorMatches_NoChangesMadeToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_NoInterceptorMatches_NoChangesMadeToToken" time="0.0040000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest" time="0.102">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest.TryCreateFor_IncompatibleHostDocumentBuffer_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest" method="TryCreateFor_IncompatibleHostDocumentBuffer_ReturnsFalse" time="0.0860000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest.TryCreateFor_ReturnsLanguageVirtualDocumentAndTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest" method="TryCreateFor_ReturnsLanguageVirtualDocumentAndTrue" time="0.0160000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest.ProcessInterceptorsAsync_NoInterceptorMatches_NoChangesMadeToToken" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.MessageInterception.DefaultInterceptionManagerTest" method="ProcessInterceptorsAsync_NoInterceptorMatches_NoChangesMadeToToken" time="0.0060000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" time="0.014">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" time="0.0030000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest" time="0.092">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest.TryCreateFor_IncompatibleHostDocumentBuffer_ReturnsFalse" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest" method="TryCreateFor_IncompatibleHostDocumentBuffer_ReturnsFalse" time="0.0690000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest.GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" method="GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" time="0.0070000" result="Pass">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest.TryCreateFor_ReturnsLanguageVirtualDocumentAndTrue" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.Test.VirtualDocumentFactoryBaseTest" method="TryCreateFor_ReturnsLanguageVirtualDocumentAndTrue" time="0.0230000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" time="0.019">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest.GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" method="GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_ReturnsAbsolutePath" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_ReturnsAbsolutePath" time="0.0010000" result="Pass">
@@ -255,8 +255,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest" time="0.009">
-      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest.Update_Insert" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest" method="Update_Insert" time="0.0040000" result="Pass">
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest" time="0.010">
+      <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest.Update_Insert" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest" method="Update_Insert" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest.Update_MultipleEdits" type="Microsoft.VisualStudio.LanguageServer.ContainedLanguage.VirtualDocumentBaseTest" method="Update_MultipleEdits" time="0.0010000" result="Pass">
@@ -275,37 +275,37 @@
         <traits />
       </test>
     </collection>
-    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" time="0.183">
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.Ctor_EmptyLanguageName_Throws(languageName: null)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: null)" time="0.1610000" result="Pass">
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" time="0.024">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.Ctor_EmptyLanguageName_Throws(languageName: null)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: null)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" time="0.0020000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.CanHandle_DelegatesToInterceptionManager(value: False)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="CanHandle_DelegatesToInterceptionManager(value: False)" time="0.0020000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.CanHandle_DelegatesToInterceptionManager(value: False)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="CanHandle_DelegatesToInterceptionManager(value: False)" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.CanHandle_DelegatesToInterceptionManager(value: True)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="CanHandle_DelegatesToInterceptionManager(value: True)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.Ctor_NullInterceptorManager_Throws" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="Ctor_NullInterceptorManager_Throws" time="0.0090000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.Ctor_NullInterceptorManager_Throws" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="Ctor_NullInterceptorManager_Throws" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" time="0.0060000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" time="0.0020000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest.HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_NewtonSoftJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" time="0.0030000" result="Pass">
         <traits />
       </test>
     </collection>
     <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" time="0.053">
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" time="0.0210000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.Ctor_EmptyLanguageName_Throws(languageName: null)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: null)" time="0.0040000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.Ctor_EmptyLanguageName_Throws(languageName: null)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="Ctor_EmptyLanguageName_Throws(languageName: null)" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.Ctor_NullInterceptorManager_Throws" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="Ctor_NullInterceptorManager_Throws" time="0.0090000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.Ctor_NullInterceptorManager_Throws" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="Ctor_NullInterceptorManager_Throws" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.CanHandle_DelegatesToInterceptionManager(value: True)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="CanHandle_DelegatesToInterceptionManager(value: True)" time="0.0010000" result="Pass">
@@ -314,33 +314,33 @@
       <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.CanHandle_DelegatesToInterceptionManager(value: False)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="CanHandle_DelegatesToInterceptionManager(value: False)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.HandleNotificationAsync_IfInterceptorReturnsDefault_DoesNotSendNotification" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsDefault_DoesNotSendNotification" time="0.0060000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.HandleNotificationAsync_IfInterceptorReturnsDefault_DoesNotSendNotification" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsDefault_DoesNotSendNotification" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" time="0.0110000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest.HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.GenericInterceptionMiddleLayer_SystemTextJsonTest" method="HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" time="0.0150000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" time="0.046">
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" time="0.0040000" result="Pass">
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" time="0.495">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="HandleNotificationAsync_IfInterceptorReturnsToken_SendsNotificationWithToken" time="0.4590000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.Ctor_NullInterceptorManager_Throws" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="Ctor_NullInterceptorManager_Throws" time="0.0140000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.Ctor_NullInterceptorManager_Throws" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="Ctor_NullInterceptorManager_Throws" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.CanHandle_DelegatesToInterceptionManager(value: False)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="CanHandle_DelegatesToInterceptionManager(value: False)" time="0.0010000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.CanHandle_DelegatesToInterceptionManager(value: False)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="CanHandle_DelegatesToInterceptionManager(value: False)" time="0.0120000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.CanHandle_DelegatesToInterceptionManager(value: True)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="CanHandle_DelegatesToInterceptionManager(value: True)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" time="0.0020000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="HandleNotificationAsync_IfInterceptorReturnsNull_DoesNotSendNotification" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.Ctor_EmptyLanguageName_Throws(languageName: null)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="Ctor_EmptyLanguageName_Throws(languageName: null)" time="0.0080000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.Ctor_EmptyLanguageName_Throws(languageName: null)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="Ctor_EmptyLanguageName_Throws(languageName: null)" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" time="0.0160000" result="Pass">
+      <test name="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest.Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" type="Microsoft.WebTools.Languages.Shared.VS.Test.LanguageServer.MiddleLayerProviders.InterceptionMiddleLayerTest" method="Ctor_EmptyLanguageName_Throws(languageName: &quot;&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>

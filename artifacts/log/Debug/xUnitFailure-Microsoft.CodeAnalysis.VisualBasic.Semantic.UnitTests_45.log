@@ -1,0 +1,106 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_45_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_45_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\dumps\45
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (22280).
+[xUnit.net 00:04:25.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_07 [SKIP]
+[xUnit.net 00:04:25.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_08 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_07 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_08 [1 ms]
+[xUnit.net 00:04:25.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_01 [1 ms]
+[xUnit.net 00:04:27.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_12 [SKIP]
+[xUnit.net 00:04:27.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_10 [SKIP]
+[xUnit.net 00:04:27.97]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_06 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_12 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_10 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_06 [1 ms]
+[xUnit.net 00:04:28.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_02 [SKIP]
+[xUnit.net 00:04:28.59]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_03 [SKIP]
+[xUnit.net 00:04:28.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_09 [SKIP]
+[xUnit.net 00:04:28.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_11 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_02 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_03 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_09 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_11 [1 ms]
+[xUnit.net 00:04:28.82]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_05 [SKIP]
+[xUnit.net 00:04:28.84]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_05 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_04 [1 ms]
+[xUnit.net 00:07:15.91]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.OperationAnalyzerTests.StaticMemberReferenceVisualBasic [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.OperationAnalyzerTests.StaticMemberReferenceVisualBasic [1 ms]
+[xUnit.net 00:08:43.83]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.TestLargeStringConcatenation [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.TestLargeStringConcatenation [1 ms]
+  Failed Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MetadataDependsOnSource [953 ms]
+  Error Message:
+   System.ArgumentException : The provided IL cannot be compiled.
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ilasm.exe "C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_3e7480dd-74f5-4316-8617-082b6456c10b.il" -DLL  -out="C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_3e7480dd-74f5-4316-8617-082b6456c10b.dll"
+EXIT CODE: 1
+OUTPUT STREAM:
+
+Microsoft (R) .NET Framework IL Assembler.  Version 4.8.9221.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+Assembling 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_3e7480dd-74f5-4316-8617-082b6456c10b.il'  to DLL --> 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_3e7480dd-74f5-4316-8617-082b6456c10b.dll'
+Source file is ANSI
+
+Assembled method System.Windows.Controls.PrintDialog::Test
+Assembled method System.Windows.Controls.PrintDialog::.ctor
+Creating PE file
+Could not create output file, error code=0x8013141C
+
+***** FAILURE ***** 
+
+ERRORS:
+
+Parameter name: declarations
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Test.Utilities.IlasmUtilities.IlasmTempAssembly(String declarations, Boolean appendDefaultHeader, Boolean includePdb, Boolean autoInherit, String& assemblyPath, String& pdbPath) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Metadata\IlasmUtilities.cs:line 133
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.EmitILToArray(String ilSource, Boolean appendDefaultHeader, Boolean includePdb, ImmutableArray`1& assemblyBytes, ImmutableArray`1& pdbBytes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 220
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.CompileIL(String ilSource, Boolean prependDefaultHeader, Boolean embedInteropTypes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 245
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MetadataDependsOnSource() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Semantic\Compilation\ReferenceManagerTests.vb:line 1269
+  Failed Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MetadataDependsOnMetadataOrSource [1 s]
+  Error Message:
+   System.ArgumentException : The provided IL cannot be compiled.
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ilasm.exe "C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_177b8f93-e624-42b0-8c09-e81c2e78bfe2.il" -DLL  -out="C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_177b8f93-e624-42b0-8c09-e81c2e78bfe2.dll"
+EXIT CODE: 1
+OUTPUT STREAM:
+
+Microsoft (R) .NET Framework IL Assembler.  Version 4.8.9221.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+Assembling 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_177b8f93-e624-42b0-8c09-e81c2e78bfe2.il'  to DLL --> 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_177b8f93-e624-42b0-8c09-e81c2e78bfe2.dll'
+Source file is ANSI
+
+Assembled method System.Windows.Controls.PrintDialog::Test
+Assembled method System.Windows.Controls.PrintDialog::.ctor
+Creating PE file
+Could not create output file, error code=0x8013141C
+
+***** FAILURE ***** 
+
+ERRORS:
+
+Parameter name: declarations
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Test.Utilities.IlasmUtilities.IlasmTempAssembly(String declarations, Boolean appendDefaultHeader, Boolean includePdb, Boolean autoInherit, String& assemblyPath, String& pdbPath) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Metadata\IlasmUtilities.cs:line 133
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.EmitILToArray(String ilSource, Boolean appendDefaultHeader, Boolean includePdb, ImmutableArray`1& assemblyBytes, ImmutableArray`1& pdbBytes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 220
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.CompileIL(String ilSource, Boolean prependDefaultHeader, Boolean embedInteropTypes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 245
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MetadataDependsOnMetadataOrSource() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Semantic\Compilation\ReferenceManagerTests.vb:line 1379
+[xUnit.net 00:23:35.73]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_01 [1 ms]
+[xUnit.net 00:23:54.30]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_02 [1 ms]
+[xUnit.net 00:24:13.97]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.DiagnosticAnalyzerTests.TestParametersAnalyzer_InDelegateTypes [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.DiagnosticAnalyzerTests.TestParametersAnalyzer_InDelegateTypes [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_45_x64_test_results.xml
+Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug\WorkItem_45_x64_test_results.html
+
+Failed!  - Failed:     2, Passed:  5572, Skipped:    17, Total:  5591, Duration: 26 m 20 s - Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests.dll (net472)
