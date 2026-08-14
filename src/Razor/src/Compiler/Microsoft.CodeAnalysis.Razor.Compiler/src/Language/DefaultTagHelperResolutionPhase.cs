@@ -354,10 +354,15 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                         allowedChildrenString);
 
                     // A StartTagOnly element promotes its parser-nested body into siblings inserted
-                    // right after it (see ResolveElement), and resolves those siblings itself. They
-                    // are only checkable now that they're resolved, so validate them here -- the
-                    // reverse walker above won't revisit these newly inserted positions.
-                    for (var j = countBeforeResolve; j < parent.Children.Count; j++)
+                    // right after it, at index i + 1 (see ResolveElement), and resolves those
+                    // siblings itself. They are only checkable now that they're resolved, so
+                    // validate them here -- the reverse walker above won't revisit these newly
+                    // inserted positions. The promoted range is [i + 1, i + 1 + addedCount), not
+                    // [countBeforeResolve, newCount): the element at i was replaced in place (no
+                    // size change), so any later siblings that already occupied higher indices are
+                    // just shifted right by the insertion, not part of the promoted range.
+                    var addedCount = parent.Children.Count - countBeforeResolve;
+                    for (var j = i + 1; j < i + 1 + addedCount; j++)
                     {
                         ValidateAllowedChildNode(parent.Children[j], tagHelperParent.TagName, in allowedNames, allowedChildrenString, prefix);
                     }
@@ -637,6 +642,15 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
             child.AddDiagnostic(
                 RazorDiagnosticFactory.CreateTagHelper_CannotHaveNonTagContent(
                     child.Source ?? SourceSpan.Undefined, parentTagName, allowedChildrenString));
+        }
+        else if (child is CSharpCodeIntermediateNode codeNode)
+        {
+            // Markup nested inside a code block (e.g. `@foreach { <div></div> }`) is a direct
+            // structural child of the tag helper for allowed-children purposes, so recurse.
+            foreach (var codeChild in codeNode.Children)
+            {
+                ValidateAllowedChildNode(codeChild, parentTagName, in allowedNames, allowedChildrenString, prefix);
+            }
         }
     }
 
