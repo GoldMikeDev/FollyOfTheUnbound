@@ -152,7 +152,7 @@ try {
             Write-Progress -Activity "Cleansing artifacts/" -Completed
 
             Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
-            if ((Test-Path -LiteralPath $artifactsDir) -or $failedCount -gt 0) {
+            if (Test-Path -LiteralPath $artifactsDir) {
                 Write-Host "Cleansed $(Format-ByteSize $deletedBytes) from artifacts/; $failedCount file(s) could not be removed." -ForegroundColor Yellow
             }
             else {
