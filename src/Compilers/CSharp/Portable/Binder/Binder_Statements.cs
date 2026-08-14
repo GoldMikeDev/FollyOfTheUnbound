@@ -657,13 +657,22 @@ namespace Microsoft.CodeAnalysis.CSharp
             // a typed (non-void) left operand, so a void-returning conditional-access chain on the left is
             // otherwise a bind error. Detect that shape here and bind it as a null-conditional short-circuit
             // between two statements instead of as a value-producing `??` expression.
+            //
+            // Reference-type receivers only: this reuses BoundLoweredConditionalAccess's general receiver-null
+            // test, which is correct for reference types. Value-type (i.e. Nullable<T>) receivers are
+            // deliberately left unintercepted here so binding falls through to ordinary `??` expression binding,
+            // which reaches Binder_Operators.BindVoidCoalesceExpression and reports
+            // ERR_VoidCoalesceRequiresReferenceTypeReceiver -- that diagnostic would otherwise be unreachable,
+            // since this statement-level shorthand runs first and used to intercept unconditionally regardless
+            // of receiver type.
             if (node.Expression.Kind() == SyntaxKind.CoalesceExpression)
             {
                 var coalesce = (BinaryExpressionSyntax)node.Expression;
                 if (coalesce.Left is ConditionalAccessExpressionSyntax conditionalAccessSyntax)
                 {
                     BoundConditionalAccess speculativeAccess = BindConditionalAccessExpression(conditionalAccessSyntax, BindingDiagnosticBag.Discarded);
-                    if (!speculativeAccess.HasAnyErrors && speculativeAccess.Type.IsVoidType())
+                    if (!speculativeAccess.HasAnyErrors && speculativeAccess.Type.IsVoidType()
+                        && speculativeAccess.Receiver.Type is { IsReferenceType: true })
                     {
                         return BindConditionalCoalesceStatement(node, conditionalAccessSyntax, coalesce.Right, diagnostics);
                     }

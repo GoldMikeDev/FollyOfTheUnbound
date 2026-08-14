@@ -56,14 +56,21 @@ each taught the binder to accept this shape, at different levels, and the order 
   separately in `LocalRewriter_VoidCoalesceExpression.cs` to an `if (receiver != null) { ... } else
   { fallback; }`.
 
-**Known gap, not yet resolved:** because `Binder_Statements` intercepts the shape first and
-unconditionally (any receiver type), `BindVoidCoalesceExpression`'s own path — and in particular its
-reference-type-only restriction and CS9400 diagnostic — is likely unreachable when the coalesce
-appears directly as an expression statement, which is the only context `IsValidStatementExpression`
-allows it in. It would only be reachable if a caller binds the `CoalesceExpressionSyntax` outside
-`BindExpressionStatement`'s interception (e.g. speculative binding, or future non-statement contexts).
-If touching either feature, check the other — they compete for the same syntax shape, and the
-statement-level binder currently wins.
+**Ordering gap — resolved.** `Binder_Statements.BindExpressionStatement`'s interception now only fires
+for reference-type receivers (`speculativeAccess.Receiver.Type is { IsReferenceType: true }`), matching
+the restriction `BindVoidCoalesceExpression` already enforced. A value-type (`Nullable<T>`) receiver is
+no longer intercepted at the statement level and instead falls through to ordinary `??` expression
+binding, which reaches `BindNullCoalescingOperator` → `BindVoidCoalesceExpression` and correctly reports
+`ERR_VoidCoalesceRequiresReferenceTypeReceiver` (CS9400) — previously unreachable in the common case.
+`IsValidStatementExpression`'s existing `BoundKind.VoidCoalesceExpression` special-case (treats it as
+always statement-valid) means this fallthrough doesn't also spuriously report `ERR_IllegalStatement`.
+Reference-type receivers are unaffected — they still take the statement-level `BoundConditionalCoalesceStatement`
+path, which both features' `IOperation` results already converged on anyway (`CSharpOperationFactory`
+builds the same `VoidCoalesceOperation` either way). If touching either feature, still check the other —
+they compete for the same syntax shape, just split now by receiver type instead of one unconditionally
+shadowing the other. **Not yet verified against a real build** (no .NET SDK in the environment this fix
+was made in) — build and exercise both a reference-type and a `Nullable<T>` receiver case before trusting
+this.
 
 ## `*.` root-namespace placeholder qualifier
 
