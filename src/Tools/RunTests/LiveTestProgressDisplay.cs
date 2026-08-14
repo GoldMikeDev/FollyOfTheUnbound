@@ -19,21 +19,19 @@ namespace RunTests
     }
 
     /// <summary>
-    /// Redraws an in-place console table showing every currently-running work item (name / status / elapsed),
-    /// plus any that finished with a failure or timeout, replacing the old "N running, N queued, N completed"
-    /// line-per-tick output. Only usable when attached to a real, interactive terminal -- <see cref="TryCreate"/>
-    /// returns <see langword="null"/> (and callers fall back to the original line-based output) when output is
-    /// redirected (as it always is in CI, where a redrawn table would just spam the log file with a full-table
-    /// snapshot on every tick) or the terminal doesn't support cursor positioning at all.
+    /// Redraws an in-place console table showing every work item (name / status / elapsed), sorted alphabetically,
+    /// replacing the old "N running, N queued, N completed" line-per-tick output. Only usable when attached to a
+    /// real, interactive terminal -- <see cref="TryCreate"/> returns <see langword="null"/> (and callers fall back
+    /// to the original line-based output) when output is redirected (as it always is in CI, where a redrawn table
+    /// would just spam the log file with a full-table snapshot on every tick) or the terminal doesn't support
+    /// cursor positioning at all.
     /// <para>
-    /// Unlike a naive "one row per work item" table, the row *set* shown is bounded to what actually fits in
-    /// <see cref="Console.WindowHeight"/> every redraw -- a full Roslyn run has far more work items than any
-    /// terminal has visible rows, and writing more lines than the window can hold makes the terminal scroll out
-    /// from under the cursor-position math this depends on (the frame's "top" silently becomes unrecoverable, and
-    /// the whole table gets re-appended to scrollback every tick instead of redrawing in place). Queued and
-    /// already-passed items aren't shown individually -- they're not actionable moment to moment -- so the row
-    /// budget goes to every currently-running item (inherently bounded by <c>RunTests</c>' own concurrency limit)
-    /// plus every failed/timed-out item, with a trailing summary line accounting for anything still left over.
+    /// Every row is always shown, alphabetically, regardless of status -- queued and passed rows included, not
+    /// just currently-running/failed ones. A full Roslyn run has far more work items than any terminal has visible
+    /// rows, so on a real run most of the list is off-screen at any given moment; that's accepted here rather than
+    /// filtering rows down to what fits, so the full list -- and its alphabetical order -- stays intact and
+    /// scrollable, at the cost of the redraw occasionally scrolling the terminal instead of always updating
+    /// strictly in place.
     /// </para>
     /// <para>
     /// Column *widths* (particularly the name column) are recomputed on every redraw from the current
@@ -48,17 +46,8 @@ namespace RunTests
         private const string Indent = "  ";
         private const string ColumnGap = "  ";
 
-        /// <summary>Lines always reserved outside the row budget: title, blank, column header, separator.</summary>
+        /// <summary>Lines always printed outside the per-work-item rows: title, blank, column header, separator.</summary>
         private const int FixedFrameLines = 4;
-
-        /// <summary>
-        /// Extra lines reserved on top of <see cref="FixedFrameLines"/>: one for the optional trailing "N more /
-        /// N queued" summary line (present on nearly every redraw of a real run, so always budgeted for rather
-        /// than only when actually printed), and one spare so the frame's last line never lands exactly on the
-        /// terminal's bottom row -- writing there would itself trigger a scroll and silently invalidate every
-        /// "move cursor up by the last frame's height" redraw from then on.
-        /// </summary>
-        private const int ReservedTrailingLines = 2;
 
         private const int DefaultWindowHeight = 24;
 
@@ -109,19 +98,26 @@ namespace RunTests
                 .Select(static g => g.Key)
                 .ToHashSet();
 
-            _rows = new List<Row>(workItems.Length);
+            var unsortedRows = new List<Row>(workItems.Length);
             for (var i = 0; i < workItems.Length; i++)
             {
                 var (baseName, tfmTag) = nameParts[i];
                 var suffix = duplicateBaseNames.Contains(baseName) && tfmTag is not null ? $" ({tfmTag})" : null;
-                _rows.Add(new Row { BaseName = baseName, Suffix = suffix });
+                unsortedRows.Add(new Row { BaseName = baseName, Suffix = suffix });
             }
 
             _rowsByPartitionIndex = new Dictionary<int, Row>(workItems.Length);
             for (var i = 0; i < workItems.Length; i++)
             {
-                _rowsByPartitionIndex[workItems[i].PartitionIndex] = _rows[i];
+                _rowsByPartitionIndex[workItems[i].PartitionIndex] = unsortedRows[i];
             }
+
+            // Sorted once up front (not on every redraw): row identity never changes after construction, only
+            // status/elapsed do, so the alphabetical order established here stays valid for the whole run.
+            _rows = unsortedRows
+                .OrderBy(static r => r.BaseName, StringComparer.OrdinalIgnoreCase)
+                .ThenBy(static r => r.Suffix, StringComparer.OrdinalIgnoreCase)
+                .ToList();
         }
 
         /// <summary>
@@ -249,7 +245,7 @@ namespace RunTests
                     return;
                 }
 
-                var lines = BuildFrameLines(width, height);
+                var lines = BuildFrameLines(width);
 
                 if (_lastFrameHeight > 0)
                 {
@@ -262,11 +258,11 @@ namespace RunTests
                     Console.WriteLine(line);
                 }
 
-                // If this frame is shorter than the last one, the leftover lines below it are now stale (e.g. a
-                // RUNNING row that just completed and dropped out of the body-row budget) and would otherwise
-                // never get cleared, since _lastFrameHeight is about to shrink to only cover the new, smaller
-                // frame. Blank them out, then move back up so the cursor still ends up right after the new
-                // frame's actual content.
+                // The frame's line count is normally constant (every row is always printed, regardless of status),
+                // but this still guards the one case where it isn't: TryCreate's initial work-item count vs. this
+                // redraw's actual row count could differ if that ever changes. Blank out any leftover stale lines
+                // below the new, shorter frame, then move back up so the cursor still ends up right after its
+                // actual content.
                 if (lines.Count < _lastFrameHeight)
                 {
                     var blank = new string(' ', width);
@@ -286,84 +282,49 @@ namespace RunTests
             }
         }
 
-        private List<string> BuildFrameLines(int width, int windowHeight)
+        private List<string> BuildFrameLines(int width)
         {
-            var runningRows = _rows.Where(static r => r.Status == LiveRowStatus.Running).ToList();
-            var attentionRows = _rows.Where(static r => r.Status is LiveRowStatus.Failed or LiveRowStatus.Timeout).ToList();
+            var runningCount = _rows.Count(static r => r.Status == LiveRowStatus.Running);
             var queuedCount = _rows.Count(static r => r.Status == LiveRowStatus.Queued);
             var passedCount = _rows.Count(static r => r.Status == LiveRowStatus.Passed);
-
-            // 0, not floored to at least 1: Redraw already refuses to draw anything at all once the window is too
-            // short for the fixed frame alone, but between that point and a genuinely comfortable height, a short
-            // window should still be allowed to show zero individual rows (just the summary line) rather than
-            // forcing one in and risking exceeding the viewport anyway.
-            var maxBodyRows = Math.Max(windowHeight - FixedFrameLines - ReservedTrailingLines, 0);
-
-            var bodyRows = new List<Row>(Math.Min(runningRows.Count + attentionRows.Count, maxBodyRows));
-            bodyRows.AddRange(runningRows.Take(maxBodyRows));
-            if (bodyRows.Count < maxBodyRows)
-            {
-                bodyRows.AddRange(attentionRows.Take(maxBodyRows - bodyRows.Count));
-            }
-
-            var shownRunning = bodyRows.Count(static r => r.Status == LiveRowStatus.Running);
-            var shownAttention = bodyRows.Count - shownRunning;
-            var hiddenRunning = runningRows.Count - shownRunning;
-            var hiddenAttention = attentionRows.Count - shownAttention;
+            var attentionCount = _rows.Count(static r => r.Status is LiveRowStatus.Failed or LiveRowStatus.Timeout);
 
             var fixedOverhead = Indent.Length + ColumnGap.Length + TestResultDisplay.StatusColumnWidth + ColumnGap.Length + TestResultDisplay.ElapsedColumnWidth;
-            var longestName = bodyRows.Count == 0
+            var longestName = _rows.Count == 0
                 ? MinimumNameColumnWidth
-                : bodyRows.Max(static r => r.BaseName.Length + (r.Suffix?.Length ?? 0));
+                : _rows.Max(static r => r.BaseName.Length + (r.Suffix?.Length ?? 0));
             var nameColumnWidth = Math.Max(MinimumNameColumnWidth, Math.Min(longestName, width - fixedOverhead));
 
-            var lines = new List<string>(bodyRows.Count + FixedFrameLines + 1)
+            var lines = new List<string>(_rows.Count + FixedFrameLines)
             {
-                FitToWidth($"{_runLabel}    {_rows.Count} total | {runningRows.Count} running | {queuedCount} queued | {passedCount + attentionRows.Count} done | {attentionRows.Count} failed", width),
+                FitToWidth($"{_runLabel}    {_rows.Count} total | {runningCount} running | {queuedCount} queued | {passedCount + attentionCount} done | {attentionCount} failed", width),
                 string.Empty,
                 FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{"Status".PadRight(TestResultDisplay.StatusColumnWidth)}{ColumnGap}{"Elapsed".PadLeft(TestResultDisplay.ElapsedColumnWidth)}", width),
                 FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.ElapsedColumnWidth)}", width),
             };
 
             var now = DateTime.UtcNow;
-            foreach (var row in bodyRows)
+            foreach (var row in _rows)
             {
                 var name = row.GetDisplayName(nameColumnWidth);
                 var statusText = row.Status switch
                 {
+                    LiveRowStatus.Queued => "QUEUED",
                     LiveRowStatus.Running => "RUNNING",
+                    LiveRowStatus.Passed => "PASSED",
                     LiveRowStatus.Failed => "FAILED",
                     LiveRowStatus.Timeout => "TIMEOUT",
                     _ => "",
                 };
-                var elapsedText = row.Status == LiveRowStatus.Running
-                    ? TestResultDisplay.FormatElapsed(now - row.StartTimeUtc!.Value)
-                    : TestResultDisplay.FormatElapsed(row.FinalElapsed ?? TimeSpan.Zero);
+                var elapsedText = row.Status switch
+                {
+                    LiveRowStatus.Queued => "--:--",
+                    LiveRowStatus.Running => TestResultDisplay.FormatElapsed(now - row.StartTimeUtc!.Value),
+                    _ => TestResultDisplay.FormatElapsed(row.FinalElapsed ?? TimeSpan.Zero),
+                };
 
                 var line = $"{Indent}{name.PadRight(nameColumnWidth)}{ColumnGap}{statusText.PadRight(TestResultDisplay.StatusColumnWidth)}{ColumnGap}{elapsedText.PadLeft(TestResultDisplay.ElapsedColumnWidth)}";
                 lines.Add(FitToWidth(line, width));
-            }
-
-            // Queued items were never going to be interesting to watch individually, and anything actively
-            // running or needing attention that didn't fit the viewport is at least accounted for here instead
-            // of silently vanishing.
-            if (hiddenRunning > 0 || hiddenAttention > 0 || queuedCount > 0)
-            {
-                var parts = new List<string>();
-                if (hiddenRunning > 0)
-                {
-                    parts.Add($"{hiddenRunning} more running");
-                }
-                if (hiddenAttention > 0)
-                {
-                    parts.Add($"{hiddenAttention} more failed/timeout");
-                }
-                if (queuedCount > 0)
-                {
-                    parts.Add($"{queuedCount} queued");
-                }
-
-                lines.Add(FitToWidth($"{Indent}... {string.Join(", ", parts)}", width));
             }
 
             return lines;
