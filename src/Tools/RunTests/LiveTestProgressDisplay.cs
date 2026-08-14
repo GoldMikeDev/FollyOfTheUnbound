@@ -24,16 +24,27 @@ namespace RunTests
     /// real, interactive terminal -- <see cref="TryCreate"/> returns <see langword="null"/> (and callers fall back
     /// to the original line-based output) when output is redirected (as it always is in CI, where a redrawn table
     /// would just spam the log file with a full-table snapshot on every tick) or the terminal doesn't support
-    /// cursor positioning at all.
+    /// cursor positioning (or the alternate screen buffer, see below) at all.
     /// <para>
-    /// Every row is always shown, alphabetically, regardless of status -- queued and passed rows included, not
-    /// just currently-running/failed ones. A full Roslyn run has far more work items than any terminal has visible
-    /// rows, so on a real run most of the list is off-screen at any given moment; that's accepted here rather than
-    /// filtering rows down to what fits, so the full list -- and its alphabetical order -- stays intact. Each
-    /// redraw still targets the table's true, fixed origin (the screen-buffer row its first line was originally
-    /// drawn on -- see <see cref="_frameTopRow"/>) rather than a position derived from wherever the previous frame
-    /// happened to leave the cursor, so it stays anchored and redraws in place even once the frame is taller than
-    /// the visible window and the terminal has to scroll to keep up.
+    /// Every work item is always tracked, sorted alphabetically, regardless of status -- queued and passed rows
+    /// included, not just currently-running/failed ones. But a terminal only ever has <c>WindowHeight</c> physical
+    /// rows on screen, and a full Roslyn run has far more work items than that -- there is no way to show more
+    /// rows at once than the window physically has, on any terminal. What's drawn each redraw is therefore a
+    /// scrolling *window* into the full sorted list (see <see cref="ComputeScrollStart"/>) that follows whatever's
+    /// currently running so the active rows stay in view, rather than a fixed, arbitrary slice.
+    /// </para>
+    /// <para>
+    /// The table draws into the terminal's *alternate screen buffer* (entered in <see cref="TryCreate"/>, exited
+    /// via <see cref="Complete"/>) -- the same mechanism full-screen terminal programs like <c>vim</c> or
+    /// <c>htop</c> use: a dedicated grid of exactly <c>WindowHeight</c> rows, completely decoupled from the normal
+    /// buffer's scrollback. Every redraw homes the cursor to (0,0) and repaints that whole grid, which is reliably
+    /// addressable on every platform -- unlike writing a frame taller than the window directly into the normal
+    /// buffer, which scrolls semantics-breaking content into scrollback that classic Windows consoles can still
+    /// address by absolute row, but Unix and ConPTY-style (including current Windows Terminal) terminals cannot.
+    /// Nothing drawn while in the alternate screen is ever part of real scrollback -- entering it hides whatever
+    /// was in the normal buffer (restored automatically on exit), so <see cref="PrepareForExtraOutput"/> briefly
+    /// exits it (rather than trying to draw interleaved diagnostics inside a fixed-size grid) whenever a caller
+    /// needs to print something that should actually persist in the user's real scrollback history.
     /// </para>
     /// <para>
     /// Column *widths* (particularly the name column) are recomputed on every redraw from the current
@@ -53,26 +64,25 @@ namespace RunTests
 
         private const int DefaultWindowHeight = 24;
 
+        /// <summary>Standard xterm/VT sequences for entering and leaving the alternate screen buffer.</summary>
+        private const string EnterAltScreen = "\x1b[?1049h";
+        private const string ExitAltScreen = "\x1b[?1049l";
+
         private readonly string _runLabel;
         private readonly List<Row> _rows;
         private readonly Dictionary<int, Row> _rowsByPartitionIndex;
 
-        /// <summary>Height (in lines) of the last frame drawn, or 0 if nothing has been drawn yet.</summary>
-        private int _lastFrameHeight;
-
         /// <summary>
-        /// The screen-buffer row the table's first line was originally drawn on, or <see langword="null"/> if
-        /// nothing has been drawn yet (or the last frame was cleared by <see cref="PrepareForExtraOutput"/> and
-        /// the next <see cref="Redraw"/> hasn't re-anchored yet). Recorded once, not recomputed as
-        /// <c>Console.CursorTop - _lastFrameHeight</c> on every redraw: once the table's row count exceeds the
-        /// visible window (the common case for a full run now that every work item is always shown), writing a
-        /// frame scrolls the terminal, so the cursor's position immediately after a frame no longer has a fixed
-        /// relationship to that frame's true top -- only the buffer row recorded before the very first write does.
-        /// <see cref="Console.SetCursorPosition"/> targets this absolute buffer row directly on every redraw
-        /// (the terminal scrolls back to bring it into view as needed), so the table always redraws in place from
-        /// its real origin instead of from wherever the previous frame happened to leave the cursor.
+        /// Whether the alternate screen buffer is currently active. Starts <see langword="true"/> -- entered by
+        /// <see cref="TryCreate"/>, which only returns an instance once entering it has actually succeeded --
+        /// and toggles off/on around <see cref="PrepareForExtraOutput"/>/<see cref="Redraw"/> pairs so a caller's
+        /// interleaved diagnostics land in the user's real, persistent scrollback rather than inside the
+        /// fixed-size grid the table itself draws into.
         /// </summary>
-        private int? _frameTopRow;
+        private bool _inAltScreen = true;
+
+        /// <summary>The scroll offset (index into <see cref="_rows"/>) used by the last redraw, or 0 if none yet.</summary>
+        private int _lastScrollStart;
 
         private bool _disabled;
 
@@ -167,6 +177,16 @@ namespace RunTests
                 _ = Console.WindowWidth;
                 _ = Console.WindowHeight;
                 _ = Console.CursorTop;
+
+                // Entering the alternate screen buffer is the one step that can't be verified beyond "the write
+                // didn't throw" -- a terminal that silently ignores the escape sequence (rather than erroring)
+                // would look identical to one that honored it. That's an accepted risk here the same way the
+                // cursor-position probes above are: this only ever runs on a real, non-redirected interactive
+                // terminal in the first place, and Redraw/Complete still fail safe (falling back to _disabled)
+                // if anything downstream goes wrong.
+                Console.Out.Write(EnterAltScreen);
+                Console.Out.Flush();
+                Console.SetCursorPosition(0, 0);
             }
             catch
             {
@@ -174,6 +194,33 @@ namespace RunTests
             }
 
             return new LiveTestProgressDisplay(runLabel, workItems);
+        }
+
+        /// <summary>
+        /// Exits the alternate screen buffer, restoring the terminal to whatever it showed before the table
+        /// started (standard alternate-screen semantics -- no manual clearing needed). Must be called once the
+        /// run loop is done with this display, successful or not, or the user's terminal is left showing the
+        /// table's now-static last frame indefinitely instead of returning to their real prompt/scrollback.
+        /// Safe to call multiple times or on an already-<see langword="disabled"/> instance.
+        /// </summary>
+        internal void Complete()
+        {
+            if (!_inAltScreen)
+            {
+                return;
+            }
+
+            try
+            {
+                Console.Out.Write(ExitAltScreen);
+                Console.Out.Flush();
+            }
+            catch
+            {
+                // Best effort -- there's nothing more this can do if even exiting the alternate screen fails.
+            }
+
+            _inAltScreen = false;
         }
 
         internal void MarkRunning(WorkItemInfo workItem)
@@ -209,36 +256,32 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Clears the currently-drawn frame (if any) and leaves the cursor where it started, so a caller can
-        /// print something else (e.g. failure diagnostics) that should persist above the table's next redraw
-        /// rather than being overwritten by it. The next <see cref="Redraw"/> call draws a fresh frame
-        /// immediately below whatever was just printed.
+        /// Briefly exits the alternate screen buffer so a caller can print something (e.g. failure diagnostics)
+        /// that should persist in the user's real, normal-buffer scrollback -- the fixed-size grid the table
+        /// draws into is not part of that scrollback at all, so printing "into" it here would just be lost the
+        /// moment the table moves on to its next redraw. The next <see cref="Redraw"/> call re-enters the
+        /// alternate screen and draws a fresh frame there.
         /// </summary>
         internal void PrepareForExtraOutput()
         {
-            if (_disabled || _frameTopRow is not { } top)
+            if (_disabled)
             {
                 return;
             }
 
             try
             {
-                var width = Math.Max(Console.WindowWidth - 1, 1);
-                Console.SetCursorPosition(0, top);
-                var blank = new string(' ', width);
-                for (var i = 0; i < _lastFrameHeight; i++)
+                if (_inAltScreen)
                 {
-                    Console.WriteLine(blank);
+                    Console.Out.Write(ExitAltScreen);
+                    Console.Out.Flush();
+                    _inAltScreen = false;
                 }
-                Console.SetCursorPosition(0, top);
             }
             catch
             {
                 _disabled = true;
             }
-
-            _lastFrameHeight = 0;
-            _frameTopRow = null;
         }
 
         internal void Redraw()
@@ -255,45 +298,31 @@ namespace RunTests
 
                 if (height <= FixedFrameLines)
                 {
-                    // Too short to safely show even the fixed header block with a spare bottom row -- stop
-                    // updating rather than risk writing past the viewport, which would scroll the terminal and
-                    // invalidate every cursor-position assumption this redraw depends on from then on.
+                    // Too short to safely show even the fixed header block with a spare bottom row.
                     _disabled = true;
                     return;
                 }
 
-                var lines = BuildFrameLines(width);
-
-                if (_frameTopRow is { } top)
+                if (!_inAltScreen)
                 {
-                    Console.SetCursorPosition(0, top);
-                }
-                else
-                {
-                    _frameTopRow = Console.CursorTop;
+                    Console.Out.Write(EnterAltScreen);
+                    _inAltScreen = true;
                 }
 
+                // Always home the cursor and repaint the whole grid, rather than trying to track a "last frame
+                // height" to selectively overwrite -- the alternate screen is a fixed WindowWidth x WindowHeight
+                // grid regardless of what was drawn there before, so there's no scrolling, no off-screen origin
+                // to lose track of, and nothing stale can ever be left behind as long as every redraw fills the
+                // full grid (BuildFrameLines pads short frames with blank lines to exactly `height` for this).
+                Console.Out.Write("\x1b[H");
+
+                var lines = BuildFrameLines(width, height);
                 foreach (var line in lines)
                 {
                     Console.WriteLine(line);
                 }
 
-                // The frame's line count is normally constant (every row is always printed, regardless of status),
-                // but this still guards the one case where it isn't: TryCreate's initial work-item count vs. this
-                // redraw's actual row count could differ if that ever changes. Blank out any leftover stale lines
-                // below the new, shorter frame, then move back up to the fixed top so the cursor position this
-                // frame actually used doesn't drift from _frameTopRow for the next redraw.
-                if (lines.Count < _lastFrameHeight)
-                {
-                    var blank = new string(' ', width);
-                    var extraLines = _lastFrameHeight - lines.Count;
-                    for (var i = 0; i < extraLines; i++)
-                    {
-                        Console.WriteLine(blank);
-                    }
-                }
-
-                _lastFrameHeight = lines.Count;
+                Console.Out.Flush();
             }
             catch
             {
@@ -301,7 +330,50 @@ namespace RunTests
             }
         }
 
-        private List<string> BuildFrameLines(int width)
+        /// <summary>
+        /// Picks which slice of <see cref="_rows"/> (already sorted alphabetically) to show given a viewport that
+        /// can hold <paramref name="visibleRowBudget"/> rows -- the whole list from the start if it already fits,
+        /// otherwise a window centered on whatever's most worth watching right now: the first currently-running
+        /// row if there is one (so active work stays visible), else the first still-queued row (what's coming up
+        /// next), else wherever the previous redraw left off (so a run that's entirely finished doesn't suddenly
+        /// snap back to the top). Sticking to the *previous* scroll position rather than recomputing a fresh
+        /// "ideal" center every tick also avoids the window jittering up and down by a row or two as different
+        /// items finish near the current focus.
+        /// </summary>
+        private int ComputeScrollStart(int visibleRowBudget)
+        {
+            var maxScrollStart = Math.Max(_rows.Count - visibleRowBudget, 0);
+            if (maxScrollStart == 0)
+            {
+                return 0;
+            }
+
+            var focusIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Running);
+            if (focusIndex < 0)
+            {
+                focusIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Queued);
+            }
+
+            if (focusIndex < 0)
+            {
+                // Nothing running or queued (the run is effectively done) -- hold the previous position instead
+                // of snapping to a default, so the last thing the user was looking at doesn't jump around.
+                return Math.Clamp(_lastScrollStart, 0, maxScrollStart);
+            }
+
+            // Only actually move the window if the focus row has scrolled out of the *previously shown* range --
+            // otherwise every redraw would recenter on the focus row exactly, causing the window to visibly drift
+            // by a row or two on every tick as the running set changes, even though the focus row was still
+            // perfectly visible.
+            if (focusIndex >= _lastScrollStart && focusIndex < _lastScrollStart + visibleRowBudget)
+            {
+                return Math.Clamp(_lastScrollStart, 0, maxScrollStart);
+            }
+
+            return Math.Clamp(focusIndex - visibleRowBudget / 2, 0, maxScrollStart);
+        }
+
+        private List<string> BuildFrameLines(int width, int height)
         {
             var runningCount = _rows.Count(static r => r.Status == LiveRowStatus.Running);
             var queuedCount = _rows.Count(static r => r.Status == LiveRowStatus.Queued);
@@ -314,9 +386,20 @@ namespace RunTests
                 : _rows.Max(static r => r.BaseName.Length + (r.Suffix?.Length ?? 0));
             var nameColumnWidth = Math.Max(MinimumNameColumnWidth, Math.Min(longestName, width - fixedOverhead));
 
-            var lines = new List<string>(_rows.Count + FixedFrameLines)
+            var visibleRowBudget = Math.Max(height - FixedFrameLines, 0);
+            var scrollStart = ComputeScrollStart(visibleRowBudget);
+            _lastScrollStart = scrollStart;
+            var visibleRows = _rows.Skip(scrollStart).Take(visibleRowBudget).ToList();
+
+            var titleLine = $"{_runLabel}    {_rows.Count} total | {runningCount} running | {queuedCount} queued | {passedCount + attentionCount} done | {attentionCount} failed";
+            if (visibleRowBudget < _rows.Count)
             {
-                FitToWidth($"{_runLabel}    {_rows.Count} total | {runningCount} running | {queuedCount} queued | {passedCount + attentionCount} done | {attentionCount} failed", width),
+                titleLine += $"    (showing {scrollStart + 1}-{scrollStart + visibleRows.Count} of {_rows.Count})";
+            }
+
+            var lines = new List<string>(height)
+            {
+                FitToWidth(titleLine, width),
                 string.Empty,
                 FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}", width),
                 // The Status underline fills its whole column (like the Test Assembly one) -- it only reads as
@@ -327,7 +410,7 @@ namespace RunTests
             };
 
             var now = DateTime.UtcNow;
-            foreach (var row in _rows)
+            foreach (var row in visibleRows)
             {
                 var name = row.GetDisplayName(nameColumnWidth);
                 var statusText = row.Status switch
@@ -348,6 +431,13 @@ namespace RunTests
 
                 var line = $"{Indent}{name.PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(statusText, TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(elapsedText, TestResultDisplay.ElapsedColumnWidth)}";
                 lines.Add(FitToWidth(line, width));
+            }
+
+            // Pad to exactly `height` lines so every redraw fully overwrites the whole alternate-screen grid,
+            // even when fewer rows are visible than the budget allows (a short run) or the window just grew.
+            while (lines.Count < height)
+            {
+                lines.Add(new string(' ', width));
             }
 
             return lines;
