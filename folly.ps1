@@ -128,9 +128,11 @@ try {
             if (-not $totalBytes) { $totalBytes = 0 }
             $totalFormatted = Format-ByteSize $totalBytes
 
+            $totalCount = $files.Count
             $deletedBytes = 0L
             $deletedCount = 0
             $failedCount = 0
+            $startTime = Get-Date
             $lastUpdate = Get-Date -Year 1970
             foreach ($file in $files) {
                 Remove-Item -Force -LiteralPath $file.FullName -ErrorAction SilentlyContinue
@@ -145,8 +147,10 @@ try {
                 $now = Get-Date
                 if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
                     $lastUpdate = $now
-                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / $files.Count) * 100)) }
-                    Write-Progress -Activity "Cleansing artifacts/" -Status "$(Format-ByteSize $deletedBytes) / $totalFormatted" -PercentComplete $percent
+                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / $totalCount) * 100)) }
+                    $elapsedSeconds = ($now - $startTime).TotalSeconds
+                    $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
+                    Write-Progress -Activity "Cleansing artifacts/" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
             }
             Write-Progress -Activity "Cleansing artifacts/" -Completed
