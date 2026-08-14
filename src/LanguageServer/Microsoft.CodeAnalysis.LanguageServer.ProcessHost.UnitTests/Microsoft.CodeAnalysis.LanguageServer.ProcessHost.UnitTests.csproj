@@ -17,10 +17,14 @@
     <ProjectReference Include="..\Protocol\Microsoft.CodeAnalysis.LanguageServer.Protocol.csproj" />
 
     <!--
-      The tests launch the thin client (the dotnet-tool entry point) rather than the language server directly.
-      Reference it for build ordering only; the tests invoke it as a process and don't compile against it.
+      The thin client (the dotnet-tool entry point the tests launch as a process, never compile against) is
+      deliberately not referenced here as a ProjectReference: it targets net11.0 (see
+      ..\roslyn-language-server\roslyn-language-server.csproj), ahead of this project's own $(NetVSCode), and
+      MSBuild refuses a ProjectReference to a project targeting a newer TFM even with
+      ReferenceOutputAssembly="false". Build ordering instead comes from the explicit MSBuild-task build in
+      _CopyThinClientFiles below (via BeforeTargets="ResolveProjectReferences" so it runs before, not just
+      after, that target).
     -->
-    <ProjectReference Include="..\roslyn-language-server\roslyn-language-server.csproj" ReferenceOutputAssembly="false" Private="false" />
 
     <ProjectReference Include="..\..\VisualStudio\DevKit\Impl\Microsoft.VisualStudio.LanguageServices.DevKit.csproj" ReferenceOutputAssembly="false" Private="false" />
   </ItemGroup>
@@ -65,6 +69,9 @@
     roslyn-language-server.* outputs, so they don't collide with the server files copied above.
   -->
   <Target Name="_CopyThinClientFiles" AfterTargets="ResolveProjectReferences" Condition="'$(DesignTimeBuild)' != 'true'">
+    <!-- Not a ProjectReference (see the comment above the DevKit ProjectReference for why), so build it
+         explicitly here rather than relying on the project reference graph for build ordering. -->
+    <MSBuild Projects="..\roslyn-language-server\roslyn-language-server.csproj" Targets="Build" />
     <MSBuild Projects="..\roslyn-language-server\roslyn-language-server.csproj" Targets="GetTargetPath">
       <Output TaskParameter="TargetOutputs" ItemName="_ThinClientFilePath" />
     </MSBuild>

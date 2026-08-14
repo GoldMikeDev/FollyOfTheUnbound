@@ -107,18 +107,10 @@ internal sealed class ServerExecutable
         foreach (var argument in arguments)
             startInfo.ArgumentList.Add(argument);
 
-        if (!suppressStandardHandleInheritance)
-            return StartCore();
+        if (suppressStandardHandleInheritance)
+            DaemonHandleInheritance.SuppressHandleInheritance(startInfo);
 
-        DaemonHandleInheritance.SetStandardHandlesInheritable(false);
-        try
-        {
-            return StartCore();
-        }
-        finally
-        {
-            DaemonHandleInheritance.SetStandardHandlesInheritable(true);
-        }
+        return StartCore();
 
         ILaunchedProcess StartCore()
         {
