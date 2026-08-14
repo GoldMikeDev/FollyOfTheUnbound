@@ -19,7 +19,7 @@ try {
         Write-Host "  reweave   Restore + rebuild [config]"
         Write-Host "  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)"
         Write-Host "  scry      Restore + build + run CoreCLR and Desktop unit tests [config]"
-        Write-Host "  cleanse   Delete artifacts/ (ignores config)"
+        Write-Host "  cleanse   Delete artefacts (ignores config)"
         Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
         Write-Host ""
         Write-Host "[config] (optional, defaults to Research):"
@@ -37,7 +37,7 @@ try {
         $nupkgDir = Join-Path $nupkgRoot "Release"
     }
     else {
-        Write-Host "Unrecognized configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." -ForegroundColor Red
+        Write-Host "Unrecognised configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." -ForegroundColor Red
         exit 1
     }
     if ($action -eq "attune") {
@@ -53,58 +53,32 @@ try {
         & $buildScript -restore -build -pack -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
-        # Windows is the only platform that can run Desktop/.NET Framework tests at all (there's no net472
-        # runtime on Linux/macOS, which is why folly.sh's scry only ever runs CoreCLR tests) -- so here, where
-        # both are available, run both rather than picking one and silently dropping the other's coverage.
-        # Build once, then two test-only passes against the same build (see build.ps1's own remarks on
-        # `-build -testDesktop` followed by repeated test-only calls being safe without rebuilding).
         & $buildScript -restore -build -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
         if ($buildExitCode -ne 0) {
             exit $buildExitCode
         }
-
-        # RunTests names each pass's result/log files by partition index and architecture alone, truncating
-        # (not appending to) whatever is already there, and never removes stale files (e.g. old
-        # xUnitFailure-* logs) it doesn't happen to overwrite. Without clearing these directories before the
-        # CoreCLR pass even starts, a rerun of scry (without cleanse first) could carry a *previous* run's
-        # Desktop-pass leftovers into this run's CoreCLR archive below, and without moving the CoreCLR pass's
-        # own results out of the way before the Desktop pass, that pass would then silently overwrite them --
-        # including on a CoreCLR failure, right when a developer most needs to see what failed.
         $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
         $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
         $coreClrTestResultsDir = "$testResultsDir-CoreClr"
         $coreClrLogDir = "$logDir-CoreClr"
-        # Also clear any stale -CoreClr archive from a previous run up front (not just when this run produces a
-        # replacement below): if this pass fails before RunTests even creates $testResultsDir/$logDir (e.g. test
-        # discovery finding no assemblies), leaving the old archive in place would misrepresent a prior run's
-        # results as diagnostics for the current failure.
         Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
-
-        # -testInteractiveConsole: scry is a known-interactive, human-invoked entry point (unlike a bare
-        # eng/build.ps1 call, which might be piped by some other caller), so it's safe to let RunTests inherit
-        # the real console here -- that's what lets its live progress table engage. See build.ps1's own remarks
-        # on why this can't just be auto-detected.
         & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
         $coreClrExitCode = $LASTEXITCODE
-
         if (Test-Path -LiteralPath $testResultsDir) {
             Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
         }
         if (Test-Path -LiteralPath $logDir) {
             Move-Item -Path $logDir -Destination $coreClrLogDir
         }
-
         & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
         $desktopExitCode = $LASTEXITCODE
-
         Write-Host ""
         Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
         Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
-
         if ($coreClrExitCode -ne 0) {
             exit $coreClrExitCode
         }
@@ -122,12 +96,10 @@ try {
                 elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
                 else { return "$bytes B" }
             }
-
             $files = @(Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue)
             $totalBytes = ($files | Measure-Object -Property Length -Sum).Sum
             if (-not $totalBytes) { $totalBytes = 0 }
             $totalFormatted = Format-ByteSize $totalBytes
-
             $totalCount = $files.Count
             $deletedBytes = 0L
             $deletedCount = 0
@@ -143,24 +115,22 @@ try {
                     $deletedBytes += $file.Length
                     $deletedCount++
                 }
-
                 $now = Get-Date
                 if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
                     $lastUpdate = $now
                     $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / $totalCount) * 100)) }
                     $elapsedSeconds = ($now - $startTime).TotalSeconds
                     $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                    Write-Progress -Activity "Cleansing artifacts/" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
+                    Write-Progress -Activity "Cleansing artefacts" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
             }
-            Write-Progress -Activity "Cleansing artifacts/" -Completed
-
+            Write-Progress -Activity "Cleansing artefacts" -Completed
             Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
             if (Test-Path -LiteralPath $artifactsDir) {
-                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) from artifacts/; $failedCount file(s) could not be removed." -ForegroundColor Yellow
+                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $failedCount file(s) could not be removed." -ForegroundColor Yellow
             }
             else {
-                Write-Host "Cleansed $totalFormatted from artifacts/."
+                Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
             }
         }
         exit 0
