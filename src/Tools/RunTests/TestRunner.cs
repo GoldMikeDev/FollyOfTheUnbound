@@ -237,9 +237,9 @@ namespace RunTests
                 var color = testResult.Succeeded ? Console.ForegroundColor : ConsoleColor.Red;
                 line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
                 line.Append(' ');
-                line.Append(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout).PadRight(TestResultDisplay.StatusColumnWidth));
+                line.Append(TestResultDisplay.CenterPad(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout), TestResultDisplay.StatusColumnWidth));
                 line.Append(' ');
-                line.Append(TestResultDisplay.FormatElapsed(testResult.Elapsed).PadLeft(TestResultDisplay.ElapsedColumnWidth));
+                line.Append(TestResultDisplay.CenterPad(TestResultDisplay.FormatElapsed(testResult.Elapsed), TestResultDisplay.ElapsedColumnWidth));
                 line.Append(' ');
                 line.Append(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "");
 

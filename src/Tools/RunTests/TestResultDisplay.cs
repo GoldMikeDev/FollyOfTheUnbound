@@ -29,6 +29,26 @@ namespace RunTests
             => succeeded ? "PASSED" : isTimeout ? "TIMEOUT" : "FAILED";
 
         /// <summary>
+        /// Centers <paramref name="text"/> within <paramref name="width"/> columns, splitting any leftover
+        /// padding with the extra space on the right when it can't be split evenly. If <paramref name="text"/> is
+        /// already at least <paramref name="width"/> long, it's returned unchanged if exactly that width, or
+        /// truncated (no ellipsis -- callers only ever pass known-short labels/values here, never arbitrary
+        /// user-facing names) if longer.
+        /// </summary>
+        internal static string CenterPad(string text, int width)
+        {
+            if (text.Length >= width)
+            {
+                return text.Length == width ? text : text[..width];
+            }
+
+            var totalPad = width - text.Length;
+            var left = totalPad / 2;
+            var right = totalPad - left;
+            return new string(' ', left) + text + new string(' ', right);
+        }
+
+        /// <summary>
         /// Formats as compact <c>mm:ss</c>, or <c>HH:mm:ss</c> past an hour -- fixed-width-friendly (always at
         /// most <see cref="ElapsedColumnWidth"/> characters), unlike <see cref="TimeSpan"/>'s own default
         /// (variable-length, fractional-second) <c>ToString()</c>.
