@@ -196,6 +196,25 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                     parent.Children.Insert(insertIdx++, elementNode.Children[i]);
                 }
 
+                // Promoted siblings become direct children of tagHelperParent for allowed-children
+                // purposes (same as any other child processed by ResolveBodyChildren for that
+                // parent), so validate them against its allowed child tags, if any.
+                using var promotedAllowedNames = new PooledArrayBuilder<string>();
+                if (tagHelperParent != null)
+                {
+                    foreach (var tagHelper in tagHelperParent.TagHelpers)
+                    {
+                        foreach (var childTag in tagHelper.AllowedChildTags)
+                        {
+                            promotedAllowedNames.Add(childTag.Name);
+                        }
+                    }
+                }
+
+                var promotedAllowedChildrenString = promotedAllowedNames.Count > 0
+                    ? string.Join(", ", promotedAllowedNames.ToArray())
+                    : null;
+
                 // The promoted nodes were parsed as body children of this element because the
                 // HTML parser nests unclosed tags (e.g. `<a><b><c>` becomes a > b > c). Now that
                 // this element is bound as StartTagOnly, they are siblings that may themselves be
@@ -212,11 +231,35 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                             // container as this StartTagOnly element, so they share its parent-tag
                             // context. Dropping it would break bindings that depend on the parent
                             // (e.g. RequireParentTag or component child-content matching).
-                            ResolveElement(parent, j, promotedElement, binder, prefix, usedHelpers, in context, tagHelperParent);
+                            var resolvedPromoted = ResolveElement(parent, j, promotedElement, binder, prefix, usedHelpers, in context, tagHelperParent);
+
+                            if (promotedAllowedChildrenString != null)
+                            {
+                                // Validate using the pre-resolution node/tag name, exactly as the
+                                // primary child path does: legacy (non-tag-helper) resolution can
+                                // flatten promotedElement into HtmlContent/expression fragments that
+                                // no longer carry its original tag name, so the already-resolved
+                                // output can't be inspected directly for this check.
+                                ValidateAllowedChild(
+                                    tagHelperParent,
+                                    promotedElement,
+                                    resolvedPromoted?.TagName ?? promotedElement.TagName,
+                                    in promotedAllowedNames,
+                                    promotedAllowedChildrenString);
+                            }
                         }
                         else
                         {
                             ResolveElements(parent.Children[j], binder, prefix, usedHelpers, in context);
+
+                            if (promotedAllowedChildrenString != null)
+                            {
+                                // This node was never an UnresolvedElementIntermediateNode (e.g. markup
+                                // or a code block produced directly by the parser), so it's already
+                                // safe to inspect for validation.
+                                ValidateAllowedChildNode(
+                                    parent.Children[j], tagHelperParent.TagName, in promotedAllowedNames, promotedAllowedChildrenString, prefix);
+                            }
                         }
                     }
                 }
@@ -337,10 +380,10 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
             var child = parent.Children[i];
             if (child is UnresolvedElementIntermediateNode elementNode)
             {
-                var countBeforeResolve = parent.Children.Count;
-
                 // Retain the unresolved node so plain HTML still has a tag name after legacy
-                // resolution flattens it into HTML content.
+                // resolution flattens it into HTML content. Any StartTagOnly promotion triggered by
+                // this call validates its own promoted siblings internally (see ResolveElement),
+                // since only there is their pre-flattening identity still available.
                 var resolvedTagHelper = ResolveElement(
                     parent, i, elementNode, binder, prefix, usedHelpers, in context, tagHelperParent);
 
@@ -352,28 +395,6 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
                         resolvedTagHelper?.TagName ?? elementNode.TagName,
                         in allowedNames,
                         allowedChildrenString);
-
-                    // A StartTagOnly element promotes its parser-nested body into siblings inserted
-                    // right after it, at index i + 1 (see ResolveElement), and resolves those
-                    // siblings itself. They are only checkable now that they're resolved, so
-                    // validate them here -- the reverse walker above won't revisit these newly
-                    // inserted positions. The promoted range is [i + 1, i + 1 + addedCount), not
-                    // [countBeforeResolve, newCount): the element at i was replaced in place (no
-                    // size change), so any later siblings that already occupied higher indices are
-                    // just shifted right by the insertion, not part of the promoted range.
-                    //
-                    // Only StartTagOnly resolution promotes siblings -- ordinary legacy flattening
-                    // (ConvertToPlainElement) can also grow parent.Children with the fragments of an
-                    // *allowed* element (e.g. its own expression/end-tag remnants), which are not new
-                    // siblings and must not be validated against the parent's allowed-children list.
-                    if (resolvedTagHelper?.TagMode == TagMode.StartTagOnly)
-                    {
-                        var addedCount = parent.Children.Count - countBeforeResolve;
-                        for (var j = i + 1; j < i + 1 + addedCount; j++)
-                        {
-                            ValidateAllowedChildNode(parent.Children[j], tagHelperParent.TagName, in allowedNames, allowedChildrenString, prefix);
-                        }
-                    }
                 }
             }
             else if (allowedChildrenString != null && child is CSharpCodeIntermediateNode)
@@ -572,7 +593,7 @@ internal partial class DefaultTagHelperResolutionPhase : RazorEnginePhaseBase
         {
             diagnosticTarget.AddDiagnostic(
                 RazorDiagnosticFactory.CreateTagHelper_InvalidNestedTag(
-                    elementNode.Source ?? SourceSpan.Undefined,
+                    elementNode.StartTagNameSpan ?? elementNode.Source ?? SourceSpan.Undefined,
                     childTagName,
                     diagnosticTarget.TagName,
                     allowedChildrenString));
