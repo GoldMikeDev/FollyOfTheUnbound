@@ -6,6 +6,7 @@ using System.Runtime.Versioning;
 using Microsoft.Win32.SafeHandles;
 using Windows.Win32;
 using Windows.Win32.Foundation;
+using Windows.Win32.Storage.FileSystem;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
 
@@ -62,8 +63,13 @@ internal static class BreakawaySelfTest
         // bInheritHandles: true (no PROC_THREAD_ATTRIBUTE_HANDLE_LIST), this would leak into the child at the
         // same numeric handle value it has here, since inherited handles keep their parent-assigned value in the
         // child process. Passing this test proves the handle-list attribute is actually restricting inheritance
-        // to just the stdio pipes, not merely that the child process starts and runs.
-        using var sentinelHandle = CreateInheritableSentinelHandle();
+        // to just the stdio pipes, not merely that the child process starts and runs. The handle's value alone
+        // isn't enough to prove a leak -- if it's correctly excluded from inheritance, that same numeric value in
+        // the child's independent handle table may just happen to be some unrelated handle the child opened
+        // during its own startup -- so a unique token is written into the file and the child must read back that
+        // exact token, not merely find *a* readable handle there.
+        var sentinelToken = Guid.NewGuid().ToString("N");
+        using var sentinelHandle = CreateInheritableSentinelHandle(sentinelToken);
 
         // Go through ServerExecutable.ResolveSelf().Start -- the same production entry point
         // DaemonBootstrap/Program use to launch the daemon/bootstrap -- rather than calling
@@ -72,7 +78,7 @@ internal static class BreakawaySelfTest
         try
         {
             var sentinelHandleValue = sentinelHandle.DangerousGetHandle();
-            var child = ServerExecutable.ResolveSelf().Start([ChildArgument, sentinelHandleValue.ToString()]);
+            var child = ServerExecutable.ResolveSelf().Start([ChildArgument, sentinelHandleValue.ToString(), sentinelToken]);
 
             // Wait for the child's own "I'm alive" line before reporting success: the harness terminates this
             // helper's job the moment it sees STARTED, which closes this process's (and, if breakaway failed,
@@ -84,10 +90,11 @@ internal static class BreakawaySelfTest
             if (childReady != "CHILD-READY")
                 throw new InvalidOperationException($"Expected 'CHILD-READY' from the escaped child, got '{childReady ?? "<eof>"}'.");
 
-            // Forwarded verbatim so the harness (which never talks to the escaped child directly) can assert on
-            // it; see RunChild's sentinel probe below.
+            // The child already emits its own "SENTINEL:" prefix (see RunChild below) -- forwarded verbatim, not
+            // re-wrapped, so the harness (which never talks to the escaped child directly) sees exactly
+            // "SENTINEL:Accessible"/"SENTINEL:Inaccessible" rather than a doubled "SENTINEL:SENTINEL:...".
             var sentinelResult = childOutputReader.ReadLine();
-            Console.WriteLine($"SENTINEL:{sentinelResult ?? "<eof>"}");
+            Console.WriteLine(sentinelResult ?? "SENTINEL:<eof>");
 
             Console.WriteLine($"STARTED:True:{child.Id}");
         }
@@ -107,17 +114,22 @@ internal static class BreakawaySelfTest
     }
 
     /// <summary>
-    /// Opens a temp file with its handle marked inheritable (via <c>SetHandleInformation</c> /
-    /// <c>HANDLE_FLAG_INHERIT</c>) purely as a sentinel for the handle-list regression test above -- its content
-    /// is never used.
+    /// Opens a temp file containing <paramref name="token"/> with its handle marked inheritable (via
+    /// <c>SetHandleInformation</c> / <c>HANDLE_FLAG_INHERIT</c>) purely as a sentinel for the handle-list
+    /// regression test above.
     /// </summary>
     [SupportedOSPlatform("windows")]
-    private static SafeFileHandle CreateInheritableSentinelHandle()
+    private static SafeFileHandle CreateInheritableSentinelHandle(string token)
     {
         var path = Path.Combine(Path.GetTempPath(), $"breakaway-sentinel-{Guid.NewGuid():N}.tmp");
         var stream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, bufferSize: 1, FileOptions.DeleteOnClose);
         if (!PInvoke.SetHandleInformation(stream.SafeFileHandle, (uint)HANDLE_FLAGS.HANDLE_FLAG_INHERIT, HANDLE_FLAGS.HANDLE_FLAG_INHERIT))
             throw new InvalidOperationException("Failed to mark the sentinel handle inheritable.");
+
+        var tokenBytes = System.Text.Encoding.ASCII.GetBytes(token);
+        stream.Write(tokenBytes);
+        stream.Flush();
+        stream.Position = 0;
 
         return stream.SafeFileHandle;
     }
@@ -132,8 +144,8 @@ internal static class BreakawaySelfTest
     {
         Console.WriteLine("CHILD-READY");
 
-        Console.WriteLine(args.Length > 1 && long.TryParse(args[1], out var sentinelHandleValue)
-            ? $"SENTINEL:{ProbeSentinelHandle((nint)sentinelHandleValue)}"
+        Console.WriteLine(args.Length > 2 && long.TryParse(args[1], out var sentinelHandleValue)
+            ? $"SENTINEL:{ProbeSentinelHandle((nint)sentinelHandleValue, args[2])}"
             : "SENTINEL:<no-handle-passed>");
 
         Console.Out.Flush();
@@ -142,19 +154,37 @@ internal static class BreakawaySelfTest
     }
 
     /// <summary>
-    /// Returns <c>Accessible</c> if the raw handle value inherited (or not) from the parent still refers to a
-    /// live, readable handle in this process, <c>Inaccessible</c> otherwise. Not Windows-gated like the rest of
-    /// this file since it's only ever reached via <see cref="RunChild"/>, which is itself only ever driven by the
-    /// Windows-only <c>Win32BreakawayLauncherTests</c> (ProcessHost.UnitTests).
+    /// Returns <c>Accessible</c> only if the raw handle value inherited (or not) from the parent refers to a
+    /// disk file in this process whose content is exactly <paramref name="expectedToken"/>, <c>Inaccessible</c>
+    /// otherwise. Checking <c>GetFileType</c> first, and the exact token rather than mere readability, matters
+    /// because when the sentinel is correctly excluded from inheritance its numeric value is just a free slot in
+    /// the child's own independent handle table -- it may already refer to some unrelated handle (e.g. a pipe)
+    /// the child opened during its own startup, and blindly reading from that could report a false leak or hang
+    /// indefinitely on a pipe with no data. Not Windows-gated like the rest of this file since it's only ever
+    /// reached via <see cref="RunChild"/>, which is itself only ever driven by the Windows-only
+    /// <c>Win32BreakawayLauncherTests</c> (ProcessHost.UnitTests).
     /// </summary>
-    private static string ProbeSentinelHandle(nint handleValue)
+    private static string ProbeSentinelHandle(nint handleValue, string expectedToken)
     {
         try
         {
             using var handle = new SafeFileHandle(handleValue, ownsHandle: false);
+            if (PInvoke.GetFileType(handle) != FILE_TYPE.FILE_TYPE_DISK)
+                return "Inaccessible";
+
             using var stream = new FileStream(handle, FileAccess.Read);
-            stream.ReadByte();
-            return "Accessible";
+            var buffer = new byte[expectedToken.Length];
+            var totalRead = 0;
+            while (totalRead < buffer.Length)
+            {
+                var read = stream.Read(buffer, totalRead, buffer.Length - totalRead);
+                if (read == 0)
+                    return "Inaccessible";
+                totalRead += read;
+            }
+
+            var actualToken = System.Text.Encoding.ASCII.GetString(buffer);
+            return actualToken == expectedToken ? "Accessible" : "Inaccessible";
         }
         catch
         {

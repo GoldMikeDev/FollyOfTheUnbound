@@ -14,3 +14,4 @@ UpdateProcThreadAttribute
 DeleteProcThreadAttributeList
 PROC_THREAD_ATTRIBUTE_HANDLE_LIST
 STARTUPINFOEXW
+GetFileType
