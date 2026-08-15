@@ -170,39 +170,35 @@ try {
             return $result
         }
 
-        $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
-        $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
-        $coreClrTestResultsDir = "$testResultsDir-CoreClr"
-        $coreClrLogDir = "$logDir-CoreClr"
-        Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
+        $coreClrTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-CoreClr"
+        $coreClrLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-CoreClr"
+        $desktopTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Desktop"
+        $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $desktopLogDir -ErrorAction SilentlyContinue
 
         $coreClrExitCode = 0
         if ($runCoreClr) {
-            & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
-            $coreClrExitCode = $LASTEXITCODE
-            # Copy rather than move: RunTests fires Process.Start for each failed test's HTML
-            # result and returns immediately without waiting for the browser to actually read the
-            # file (see TestRunner.PrintFailedTestResult), so renaming the directory out from under
-            # those tabs right here would race the browser's own file read. Leaving the originals in
-            # place until just before the Desktop leg needs the directory cleared gives the browser
-            # the whole Desktop build+test duration to load them instead of a few milliseconds.
-            if (Test-Path -LiteralPath $testResultsDir) {
-                Copy-Item -Recurse -Path $testResultsDir -Destination $coreClrTestResultsDir
-            }
-            if (Test-Path -LiteralPath $logDir) {
-                Copy-Item -Recurse -Path $logDir -Destination $coreClrLogDir
+            $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
+            try {
+                & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
+                $coreClrExitCode = $LASTEXITCODE
+            } finally {
+                Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
             }
         }
 
         $desktopExitCode = 0
         if ($runDesktop) {
-            Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
-            Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
-            & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
-            $desktopExitCode = $LASTEXITCODE
+            $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
+            try {
+                & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
+                $desktopExitCode = $LASTEXITCODE
+            } finally {
+                Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
+            }
         }
 
         $summaries = @()
@@ -210,7 +206,7 @@ try {
             $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
         }
         if ($runDesktop) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
+            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
         }
 
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
@@ -243,7 +239,7 @@ try {
             Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
         }
         if ($runDesktop) {
-            Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
+            Write-Host "Desktop test results: $desktopTestResultsDir (logs: $desktopLogDir)"
         }
         if ($coreClrExitCode -ne 0) {
             exit $coreClrExitCode

@@ -442,7 +442,15 @@ function TestUsingRunTests() {
 
   $dotnetExe = Join-Path $dotnet "dotnet.exe"
   $args += " --dotnet `"$dotnetExe`""
-  $args += " --logs `"$LogDir`""
+  $testResultsSuffix = $env:FOTU_TEST_RESULTS_SUFFIX
+  if ($testResultsSuffix) {
+    $testLogDir = "$LogDir-$testResultsSuffix"
+    $testResultsOutDir = Join-Path $ArtifactsDir "TestResults\$configuration-$testResultsSuffix"
+    $args += " --out `"$testResultsOutDir`""
+    $args += " --logs `"$testLogDir`""
+  } else {
+    $args += " --logs `"$LogDir`""
+  }
   $args += " --configuration $configuration"
   $testFilters = @()
 
