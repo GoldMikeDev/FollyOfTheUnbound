@@ -30,7 +30,7 @@ Other entry points: `dotnet run --file eng/generate-compiler-code.cs` (regenerat
 
 ## Claude Code Remote session naming
 
-When running as a Claude Code Remote session (`claude.ai/code`), rename the session with `set_session_title` as soon as it creates a pull request or starts work on a specific numbered GitHub issue. Use the pattern:
+When running as a Claude Code Remote session (`claude.ai/code`), rename the session with `set_session_title` as soon as it creates a pull request, starts work on a specific numbered PR (even one it didn't open), or starts work on a specific numbered GitHub issue. Use the pattern:
 
 `FotU <Issue|PR> #<n>[-<n>|, #<n>...] [& <Issue|PR> #<n>...]`
 
@@ -39,7 +39,7 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 - Consecutive numbers of the same type collapse into a range (`#30-31`); non-consecutive numbers are comma-separated (`#21-25, #28`).
 - Join multiple groups with `&`.
 - If the session already touched other issues/PRs, merge the new number(s) into the existing title instead of overwriting it, re-collapsing into ranges where the merge makes numbers consecutive.
-- Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31 & #33`.
+- Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
 
 ## This fork's work: experimental language features
 
