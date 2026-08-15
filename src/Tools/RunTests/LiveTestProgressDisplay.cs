@@ -94,6 +94,16 @@ namespace RunTests
         /// <summary>The scroll offset (index into <see cref="_rows"/>) used by the last redraw, or 0 if none yet.</summary>
         private int _lastScrollStart;
 
+        /// <summary>
+        /// The scroll offset the user last picked with the keyboard (see <see cref="PollKeyboardInput"/>), or
+        /// <see langword="null"/> if they haven't touched navigation yet -- in which case <see cref="ComputeScrollStart(int)"/>
+        /// keeps auto-following whatever's running/queued, exactly as before this field existed. Once set, it wins
+        /// over auto-follow every redraw (rows/status keep updating live underneath, but the visible window stops
+        /// chasing them) until <c>Esc</c> clears it back to <see langword="null"/>, matching a spreadsheet's frozen
+        /// header row: the header never moves, but the body underneath scrolls exactly where the user left it.
+        /// </summary>
+        private int? _manualScrollStart;
+
         private bool _disabled;
 
         private sealed class Row
@@ -162,7 +172,7 @@ namespace RunTests
         /// <see cref="WorkItemInfo.DisplayName"/> adds for Helix work-item naming (not useful in a table where
         /// every row is already visually distinct), plus the target-framework directory name of its first
         /// assembly (e.g. <c>net472</c>, <c>net10.0</c>) -- used to disambiguate rows only when needed, since
-        /// <see cref="Options.TestRuntime.Both"/> schedules the same assembly filename as two separate work items,
+        /// <see cref="TestRuntime.Both"/> schedules the same assembly filename as two separate work items,
         /// one per framework.
         /// </summary>
         private static (string BaseName, string? TfmTag) GetNameParts(WorkItemInfo workItem)
@@ -392,6 +402,8 @@ namespace RunTests
                     _inAltScreen = true;
                 }
 
+                PollKeyboardInput(Math.Max(height - FixedFrameLines, 0));
+
                 // Always home the cursor and repaint the whole grid, rather than trying to track a "last frame
                 // height" to selectively overwrite -- the alternate screen is a fixed WindowWidth x WindowHeight
                 // grid regardless of what was drawn there before, so there's no scrolling, no off-screen origin
@@ -437,13 +449,73 @@ namespace RunTests
         }
 
         /// <summary>
+        /// Reads and applies any keystrokes the user has typed since the last redraw, so the row window can be
+        /// scrolled by hand (like freezing a spreadsheet's header row and scrolling the body underneath) instead of
+        /// only ever auto-following whichever row is running/queued. Non-blocking -- drains whatever's already
+        /// buffered via <see cref="Console.KeyAvailable"/> rather than waiting for a key -- and best-effort: a host
+        /// that doesn't support key polling (e.g. input redirected, or a probe that throws) just leaves navigation
+        /// disabled for the rest of the run rather than taking the whole display down with it.
+        /// </summary>
+        private void PollKeyboardInput(int visibleRowBudget)
+        {
+            try
+            {
+                if (Console.IsInputRedirected)
+                {
+                    return;
+                }
+
+                var maxScrollStart = Math.Max(_rows.Count - visibleRowBudget, 0);
+                while (Console.KeyAvailable)
+                {
+                    var key = Console.ReadKey(intercept: true).Key;
+                    _manualScrollStart = ApplyNavigationKey(key, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                }
+            }
+            catch
+            {
+                // Best effort -- if key polling isn't usable here, the auto-following window still works fine
+                // without it; there's nothing more useful to do than skip navigation for the rest of the run.
+            }
+        }
+
+        /// <summary>
+        /// The pure key-to-scroll-position mapping behind <see cref="PollKeyboardInput"/>, split out (like
+        /// <see cref="ComputeScrollStart(int, int, int, int, int)"/>) so it's directly unit-testable without a real
+        /// console. Returns the new <see cref="_manualScrollStart"/> value for a recognized navigation key, or the
+        /// unchanged <paramref name="previousManualScrollStart"/> for any other key.
+        /// </summary>
+        internal static int? ApplyNavigationKey(ConsoleKey key, int? previousManualScrollStart, int lastScrollStart, int visibleRowBudget, int maxScrollStart)
+        {
+            var current = previousManualScrollStart ?? lastScrollStart;
+            return key switch
+            {
+                ConsoleKey.UpArrow => Math.Clamp(current - 1, 0, maxScrollStart),
+                ConsoleKey.DownArrow => Math.Clamp(current + 1, 0, maxScrollStart),
+                ConsoleKey.PageUp => Math.Clamp(current - visibleRowBudget, 0, maxScrollStart),
+                ConsoleKey.PageDown => Math.Clamp(current + visibleRowBudget, 0, maxScrollStart),
+                ConsoleKey.Home => 0,
+                ConsoleKey.End => maxScrollStart,
+                // Hand control back to auto-follow instead of holding wherever the user last scrolled.
+                ConsoleKey.Escape => null,
+                _ => previousManualScrollStart,
+            };
+        }
+
+        /// <summary>
         /// Picks which slice of <see cref="_rows"/> (already sorted alphabetically) to show given a viewport that
-        /// can hold <paramref name="visibleRowBudget"/> rows. Thin instance wrapper around the pure, independently
-        /// testable <see cref="ComputeScrollStart(int, int, int, int, int)"/> overload -- just finds the two focus
-        /// candidates in <see cref="_rows"/> and forwards to it.
+        /// can hold <paramref name="visibleRowBudget"/> rows. Defers to <see cref="_manualScrollStart"/> if the
+        /// user has navigated (see <see cref="PollKeyboardInput"/>); otherwise a thin instance wrapper around the
+        /// pure, independently testable <see cref="ComputeScrollStart(int, int, int, int, int)"/> overload -- just
+        /// finds the two focus candidates in <see cref="_rows"/> and forwards to it.
         /// </summary>
         private int ComputeScrollStart(int visibleRowBudget)
         {
+            if (_manualScrollStart is { } manual)
+            {
+                return Math.Clamp(manual, 0, Math.Max(_rows.Count - visibleRowBudget, 0));
+            }
+
             var firstRunningIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Running);
             var firstQueuedIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Queued);
             return ComputeScrollStart(_rows.Count, visibleRowBudget, _lastScrollStart, firstRunningIndex, firstQueuedIndex);
@@ -510,6 +582,9 @@ namespace RunTests
             if (visibleRowBudget < _rows.Count)
             {
                 titleLine += $"    (showing {scrollStart + 1}-{scrollStart + visibleRows.Count} of {_rows.Count})";
+                titleLine += _manualScrollStart is not null
+                    ? "    [↑↓ PgUp/PgDn Home/End to scroll, Esc to follow]"
+                    : "    [↑↓/PgUp/PgDn to scroll]";
             }
 
             var lines = new List<string>(height)
@@ -519,9 +594,9 @@ namespace RunTests
                 FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}", width),
                 // The Status underline fills its whole column (like the Test Assembly one) -- it only reads as
                 // "one dash past the word" because the centered header text is inset from the column edges. The
-                // Elapsed underline is different: exactly the word's length, never the full (wider, HH:mm:ss-sized)
-                // column, centered within it same as the data.
-                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length), TestResultDisplay.ElapsedColumnWidth)}", width),
+                // Elapsed underline is different: the word's length plus one extra dash on each side, never the
+                // full (wider, HH:mm:ss-sized) column, centered within it same as the data.
+                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length + 2), TestResultDisplay.ElapsedColumnWidth)}", width),
             };
 
             var now = DateTime.UtcNow;

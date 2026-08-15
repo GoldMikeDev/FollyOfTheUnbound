@@ -17,13 +17,13 @@ namespace RunTests
         internal const int StatusColumnWidth = 9;
 
         /// <summary>
-        /// Wide enough for <see cref="FormatElapsed"/>'s longest possible output, <c>"99:59:59"</c> (8 chars) --
-        /// <see cref="FormatElapsed"/> itself caps displayed hours at 99 specifically so its output can never
-        /// exceed this width, even though nothing enforces an upper bound on how long a single work item can run
-        /// (the whole-run <c>--timeout</c> watchdog is optional, and per-item vstest hang detection is a much
-        /// longer 15-25 minutes).
+        /// Wide enough for <see cref="FormatElapsed"/>'s longest possible output, <c>"99:59:59"</c> (8 chars),
+        /// plus 2 extra columns of breathing room -- <see cref="FormatElapsed"/> itself caps displayed hours at 99
+        /// specifically so its output can never exceed 8 characters, even though nothing enforces an upper bound
+        /// on how long a single work item can run (the whole-run <c>--timeout</c> watchdog is optional, and
+        /// per-item vstest hang detection is a much longer 15-25 minutes).
         /// </summary>
-        internal const int ElapsedColumnWidth = 8;
+        internal const int ElapsedColumnWidth = 10;
 
         internal static string GetStatusText(bool succeeded, bool isTimeout)
             => succeeded ? "PASSED" : isTimeout ? "TIMEOUT" : "FAILED";
