@@ -1,9 +1,7 @@
 param
 (
     [string]$action,
-    [string]$config,
-    [switch]$core,
-    [switch]$desktop
+    [parameter(ValueFromRemainingArguments = $true)][string[]]$remainingArgs
 )
 try {
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -12,6 +10,29 @@ try {
     $solution = "FollyOfTheUnbound.slnx"
     $buildScript = Join-Path $PSScriptRoot "eng\build.ps1"
     $nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
+
+    # PowerShell's automatic parameter binding only recognises single-dash switches, so --core/
+    # --desktop (matching folly.sh's own --restore/--build style) and the [config] positional are
+    # parsed by hand here instead.
+    $config = ""
+    $core = $false
+    $desktop = $false
+    foreach ($arg in $remainingArgs) {
+        if ($arg -eq "--core") {
+            $core = $true
+        }
+        elseif ($arg -eq "--desktop") {
+            $desktop = $true
+        }
+        elseif ([string]::IsNullOrEmpty($config)) {
+            $config = $arg
+        }
+        else {
+            Write-Host "Unrecognised argument '$arg'." -ForegroundColor Red
+            exit 1
+        }
+    }
+
     if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
         Write-Host "folly.ps1 <action> [config]"
         Write-Host ""
@@ -29,9 +50,9 @@ try {
         Write-Host "  truth     Release"
         Write-Host ""
         Write-Host "scry-only switches:"
-        Write-Host "  -core     Run only the CoreCLR tests (skip Desktop)"
-        Write-Host "  -desktop  Run only the Desktop tests (skip CoreCLR)"
-        Write-Host "            (omit both to run both, the default)"
+        Write-Host "  --core     Run only the CoreCLR tests (skip Desktop)"
+        Write-Host "  --desktop  Run only the Desktop tests (skip CoreCLR)"
+        Write-Host "             (omit both to run both, the default)"
         Write-Host ""
         exit 0
     }
@@ -70,24 +91,20 @@ try {
             exit $buildExitCode
         }
 
-        # Prints the PASSED/FAILED/TIMEOUT summary table RunTests already wrote to runtests.log
-        # (every line it prints goes through ConsoleUtil, which logs as well as writing to the
-        # console -- see src/Tools/RunTests/ConsoleUtil.cs). Reading it back here, after both legs
-        # have fully finished, avoids relying on terminal scrollback surviving RunTests' live
-        # table's alternate-screen-buffer switches across two back-to-back invocations, which is
-        # unreliable -- particularly for CoreCLR's table, immediately buried by Desktop's own
-        # alt-screen entry right after.
-        function Show-TestSummary([string]$LogPath, [string]$Label) {
+        # RunTests already prints its own PASSED/FAILED/TIMEOUT table live (Print() runs after
+        # LiveTestProgressDisplay.Complete() exits the alternate screen, so it lands in the normal,
+        # persisted scrollback, not just the ephemeral live table) -- replaying those same rows here
+        # would just print every table a second time. What's actually missing is a single combined
+        # rollup once *both* legs are done, so this only tallies each leg's counts from the
+        # already-logged runtests.log (every line RunTests prints also goes through ConsoleUtil,
+        # which logs it -- see src/Tools/RunTests/ConsoleUtil.cs) without re-printing the rows.
+        function Get-TestSummary([string]$LogPath, [string]$Label) {
             $result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0 }
-            Write-Host ""
-            Write-Host "=== $Label ===" -ForegroundColor Cyan
             if (-not (Test-Path -LiteralPath $LogPath)) {
-                Write-Host "No log found at $LogPath" -ForegroundColor Yellow
                 return $result
             }
             $markers = Select-String -LiteralPath $LogPath -Pattern '^================$'
             if ($markers.Count -lt 2) {
-                Write-Host "Summary table not found in $LogPath" -ForegroundColor Yellow
                 return $result
             }
             $lines = Get-Content -LiteralPath $LogPath
@@ -95,21 +112,9 @@ try {
             $endLine = $markers[1].LineNumber
             for ($i = $startLine - 1; $i -le $endLine - 1; $i++) {
                 $line = $lines[$i]
-                if ($line -match '\bTIMEOUT\b') {
-                    $result.Timeout++
-                    Write-Host $line -ForegroundColor Yellow
-                }
-                elseif ($line -match '\bFAILED\b') {
-                    $result.Failed++
-                    Write-Host $line -ForegroundColor Red
-                }
-                elseif ($line -match '\bPASSED\b') {
-                    $result.Passed++
-                    Write-Host $line -ForegroundColor Green
-                }
-                else {
-                    Write-Host $line
-                }
+                if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
+                elseif ($line -match '\bFAILED\b') { $result.Failed++ }
+                elseif ($line -match '\bPASSED\b') { $result.Passed++ }
             }
             $result.Found = $true
             return $result
@@ -144,17 +149,35 @@ try {
 
         $summaries = @()
         if ($runCoreClr) {
-            $summaries += Show-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR test summary"
+            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR"
         }
         if ($runDesktop) {
-            $summaries += Show-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop test summary"
+            $summaries += Get-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop"
         }
 
+        $missingSummaries = @($summaries | Where-Object { -not $_.Found })
+        $anyLegFailedExitCode = ($runCoreClr -and $coreClrExitCode -ne 0) -or ($runDesktop -and $desktopExitCode -ne 0)
         $totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
         $totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
         $totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
+
         Write-Host ""
-        $overallColor = if ($totalFailed -gt 0 -or $totalTimeout -gt 0) { "Red" } else { "Green" }
+        Write-Host "=== Test summary ===" -ForegroundColor Cyan
+        foreach ($summary in $summaries) {
+            if ($summary.Found) {
+                $legColor = if ($summary.Failed -gt 0 -or $summary.Timeout -gt 0) { "Red" } else { "Green" }
+                Write-Host "$($summary.Label): $($summary.Passed) passed, $($summary.Failed) failed, $($summary.Timeout) timeout" -ForegroundColor $legColor
+            }
+            else {
+                Write-Host "$($summary.Label): summary unavailable (no runtests.log found)" -ForegroundColor Yellow
+            }
+        }
+        # Green requires every requested leg to have both exited 0 *and* produced a readable
+        # summary with no failures/timeouts -- any of those being off (a crash before runtests.log
+        # was written, a nonzero exit the parsed counts didn't capture, or an actual failure) must
+        # never present as green.
+        $overallSuccess = -not $anyLegFailedExitCode -and $missingSummaries.Count -eq 0 -and $totalFailed -eq 0 -and $totalTimeout -eq 0
+        $overallColor = if ($overallSuccess) { "Green" } else { "Red" }
         Write-Host "Overall: $totalPassed passed, $totalFailed failed, $totalTimeout timeout" -ForegroundColor $overallColor
 
         Write-Host ""
