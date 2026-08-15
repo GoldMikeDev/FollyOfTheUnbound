@@ -1,7 +1,9 @@
 param
 (
     [string]$action,
-    [string]$config
+    [string]$config,
+    [switch]$core,
+    [switch]$desktop
 )
 try {
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -25,6 +27,11 @@ try {
         Write-Host "[config] (optional, defaults to Research):"
         Write-Host "  research  Debug"
         Write-Host "  truth     Release"
+        Write-Host ""
+        Write-Host "scry-only switches:"
+        Write-Host "  -core     Run only the CoreCLR tests (skip Desktop)"
+        Write-Host "  -desktop  Run only the Desktop tests (skip CoreCLR)"
+        Write-Host "            (omit both to run both, the default)"
         Write-Host ""
         exit 0
     }
@@ -53,11 +60,61 @@ try {
         & $buildScript -restore -build -pack -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
+        # Default to both when neither switch is given; either switch alone runs just that one.
+        $runCoreClr = $core -or -not ($core -or $desktop)
+        $runDesktop = $desktop -or -not ($core -or $desktop)
+
         & $buildScript -restore -build -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
         if ($buildExitCode -ne 0) {
             exit $buildExitCode
         }
+
+        # Prints the PASSED/FAILED/TIMEOUT summary table RunTests already wrote to runtests.log
+        # (every line it prints goes through ConsoleUtil, which logs as well as writing to the
+        # console -- see src/Tools/RunTests/ConsoleUtil.cs). Reading it back here, after both legs
+        # have fully finished, avoids relying on terminal scrollback surviving RunTests' live
+        # table's alternate-screen-buffer switches across two back-to-back invocations, which is
+        # unreliable -- particularly for CoreCLR's table, immediately buried by Desktop's own
+        # alt-screen entry right after.
+        function Show-TestSummary([string]$LogPath, [string]$Label) {
+            $result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0 }
+            Write-Host ""
+            Write-Host "=== $Label ===" -ForegroundColor Cyan
+            if (-not (Test-Path -LiteralPath $LogPath)) {
+                Write-Host "No log found at $LogPath" -ForegroundColor Yellow
+                return $result
+            }
+            $markers = Select-String -LiteralPath $LogPath -Pattern '^================$'
+            if ($markers.Count -lt 2) {
+                Write-Host "Summary table not found in $LogPath" -ForegroundColor Yellow
+                return $result
+            }
+            $lines = Get-Content -LiteralPath $LogPath
+            $startLine = $markers[0].LineNumber
+            $endLine = $markers[1].LineNumber
+            for ($i = $startLine - 1; $i -le $endLine - 1; $i++) {
+                $line = $lines[$i]
+                if ($line -match '\bTIMEOUT\b') {
+                    $result.Timeout++
+                    Write-Host $line -ForegroundColor Yellow
+                }
+                elseif ($line -match '\bFAILED\b') {
+                    $result.Failed++
+                    Write-Host $line -ForegroundColor Red
+                }
+                elseif ($line -match '\bPASSED\b') {
+                    $result.Passed++
+                    Write-Host $line -ForegroundColor Green
+                }
+                else {
+                    Write-Host $line
+                }
+            }
+            $result.Found = $true
+            return $result
+        }
+
         $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
         $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
         $coreClrTestResultsDir = "$testResultsDir-CoreClr"
@@ -66,19 +123,47 @@ try {
         Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
-        & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
-        $coreClrExitCode = $LASTEXITCODE
-        if (Test-Path -LiteralPath $testResultsDir) {
-            Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
+
+        $coreClrExitCode = 0
+        if ($runCoreClr) {
+            & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
+            $coreClrExitCode = $LASTEXITCODE
+            if (Test-Path -LiteralPath $testResultsDir) {
+                Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
+            }
+            if (Test-Path -LiteralPath $logDir) {
+                Move-Item -Path $logDir -Destination $coreClrLogDir
+            }
         }
-        if (Test-Path -LiteralPath $logDir) {
-            Move-Item -Path $logDir -Destination $coreClrLogDir
+
+        $desktopExitCode = 0
+        if ($runDesktop) {
+            & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
+            $desktopExitCode = $LASTEXITCODE
         }
-        & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
-        $desktopExitCode = $LASTEXITCODE
+
+        $summaries = @()
+        if ($runCoreClr) {
+            $summaries += Show-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR test summary"
+        }
+        if ($runDesktop) {
+            $summaries += Show-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop test summary"
+        }
+
+        $totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
+        $totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
+        $totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
         Write-Host ""
-        Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
-        Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
+        $overallColor = if ($totalFailed -gt 0 -or $totalTimeout -gt 0) { "Red" } else { "Green" }
+        Write-Host "Overall: $totalPassed passed, $totalFailed failed, $totalTimeout timeout" -ForegroundColor $overallColor
+
+        Write-Host ""
+        if ($runCoreClr) {
+            Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
+        }
+        if ($runDesktop) {
+            Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
+        }
         if ($coreClrExitCode -ne 0) {
             exit $coreClrExitCode
         }
