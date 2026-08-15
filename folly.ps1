@@ -105,8 +105,13 @@ try {
         # rollup once *both* legs are done, so this only tallies each leg's counts from the
         # already-logged runtests.log (every line RunTests prints also goes through ConsoleUtil,
         # which logs it -- see src/Tools/RunTests/ConsoleUtil.cs) without re-printing the rows.
-        function Get-TestSummary([string]$LogPath, [string]$Label) {
-            $result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0 }
+        function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {
+            # ExitCode is carried through unchanged so a work item that threw before producing a
+            # TestResult (e.g. its response file or test process couldn't be created --
+            # TestRunner.RunAllAsync counts that as a failure but never adds it to `completed`, so
+            # it never becomes a row in the table at all) still marks this leg red even though the
+            # parsed Failed/Timeout counts alone wouldn't show it.
+            $result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode }
             if (-not (Test-Path -LiteralPath $LogPath)) {
                 return $result
             }
@@ -163,10 +168,10 @@ try {
 
         $summaries = @()
         if ($runCoreClr) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR"
+            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
         }
         if ($runDesktop) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop"
+            $summaries += Get-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
         }
 
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
@@ -179,7 +184,7 @@ try {
         Write-Host "=== Test summary ===" -ForegroundColor Cyan
         foreach ($summary in $summaries) {
             if ($summary.Found) {
-                $legColor = if ($summary.Failed -gt 0 -or $summary.Timeout -gt 0) { "Red" } else { "Green" }
+                $legColor = if ($summary.Failed -gt 0 -or $summary.Timeout -gt 0 -or $summary.ExitCode -ne 0) { "Red" } else { "Green" }
                 Write-Host "$($summary.Label): $($summary.Passed) passed, $($summary.Failed) failed, $($summary.Timeout) timeout" -ForegroundColor $legColor
             }
             else {
