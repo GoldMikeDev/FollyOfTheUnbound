@@ -210,6 +210,14 @@ namespace RunTests
         /// </summary>
         private static async Task HandleTimeout(Options options, CancellationToken cancellationToken)
         {
+            // The run loop this timeout interrupted is still executing (and hasn't been cancelled yet -- that
+            // happens after this method returns), so it's still calling Redraw on its own one-second timer for as
+            // long as this method takes to finish (screenshot capture, per-process dump collection -- can take a
+            // while). Suspend (not PrepareForExtraOutput, which only covers one immediate print before the very
+            // next Redraw would re-enter the alternate screen and undo it) so nothing printed below is ever hidden
+            // behind, overwritten by, or interleaved with that still-running loop's own redraws.
+            LiveTestProgressDisplay.Current?.Suspend();
+
             ConsoleUtil.Error("Test timeout exceeded, dumping remaining processes");
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
