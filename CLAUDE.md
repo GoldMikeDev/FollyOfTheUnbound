@@ -28,6 +28,19 @@ Full build/test (`./build.sh` / `Build.cmd`, `./test.sh` / `Test.cmd`) is for fi
 
 Other entry points: `dotnet run --file eng/generate-compiler-code.cs` (regenerate Syntax/BoundNodes code after grammar changes), `dotnet msbuild <proj> /t:UpdateXlf` (refresh `.xlf` after `.resx` edits).
 
+## Claude Code Remote session naming
+
+When running as a Claude Code Remote session (`claude.ai/code`), rename the session with `set_session_title` as soon as it creates a pull request, starts work on a specific numbered PR (even one it didn't open), or starts work on a specific numbered GitHub issue. Use the pattern:
+
+`FotU <Issue|PR> #<n>[-<n>|, #<n>...] [& <Issue|PR> #<n>...]`
+
+- Prefix with `FotU `.
+- Group issue numbers and PR numbers separately; state the `Issue`/`PR` keyword once per group.
+- Consecutive numbers of the same type collapse into a range (`#30-31`); non-consecutive numbers are comma-separated (`#21-25, #28`).
+- Join multiple groups with `&`.
+- If the session already touched other issues/PRs, merge the new number(s) into the existing title instead of overwriting it, re-collapsing into ranges where the merge makes numbers consecutive.
+- Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
+
 ## This fork's work: experimental language features
 
 Recent branch work adds new C#-like control-flow constructs (`do/until`, `mutate`, inline expression declarations, `if/catch/finally` chains with block conditions). This kind of work touches the compiler's front-to-back pipeline — parser (`src/Compilers/CSharp/Portable/Parser/`), syntax model (generated from `Syntax.xml`, requires regeneration via `eng/generate-compiler-code.cs`), binder/lowering, and often IDE features (formatting, completion, classification) that pattern-match on syntax kinds. When adding or changing a construct:
