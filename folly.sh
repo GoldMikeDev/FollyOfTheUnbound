@@ -57,6 +57,18 @@ case "$action" in
     ;;
   cleanse)
     artifacts_dir="$scriptroot/artifacts"
+    if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]] && { [[ ! -d "$artifacts_dir" ]] || [[ -L "$artifacts_dir" ]]; }; then
+      # A regular file, or a symlink (whether it points at a directory or
+      # not), doesn't need the enumeration/progress machinery below -- just
+      # remove the single entry.
+      rm -rf -- "$artifacts_dir" || true
+      if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]]; then
+        echo "Failed to remove '$artifacts_dir'." >&2
+        exit 1
+      fi
+      echo "Cleansed artefacts."
+      exit 0
+    fi
     if [[ -d "$artifacts_dir" ]]; then
       interactive=0
       [[ -t 1 ]] && interactive=1
@@ -125,8 +137,29 @@ case "$action" in
       while (( i < total_count )); do
         batch=("${files[@]:i:batch_size}")
         rm -f -- "${batch[@]}" 2>/dev/null || true
-        deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] ))
-        deleted_count=$(( deleted_count + ${#batch[@]} ))
+
+        # Verify what actually disappeared (cheap builtin checks, no
+        # subprocess) instead of assuming the whole batch succeeded --
+        # rm -f swallows per-file failures (e.g. an unwritable parent dir).
+        survivors=()
+        removed_in_batch=0
+        for f in "${batch[@]}"; do
+          if [[ -e "$f" || -L "$f" ]]; then
+            survivors+=("$f")
+          else
+            removed_in_batch=$(( removed_in_batch + 1 ))
+          fi
+        done
+        set +u
+        if (( ${#survivors[@]} == 0 )); then
+          deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] ))
+        else
+          survivor_bytes=$(stat "$stat_flag" -- "${survivors[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }')
+          deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] - survivor_bytes ))
+        fi
+        set -u
+        deleted_count=$(( deleted_count + removed_in_batch ))
+
         batch_idx=$(( batch_idx + 1 ))
         i=$(( i + batch_size ))
         if (( interactive )); then
@@ -144,6 +177,7 @@ case "$action" in
       if [[ -d "$artifacts_dir" ]]; then
         remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
         echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining file(s) could not be removed."
+        exit 1
       else
         echo "Cleansed $total_formatted from artefacts."
       fi
