@@ -45,7 +45,12 @@ $testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration"
 $logDir = Join-Path $repoRoot "artifacts\log\$configuration"
 function Write-FakeRunTestsLog([string]$LogDir) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
-    $lines = @("================", "Assembly.Fake.UnitTests_0   PASSED   00:01", "================")
+    $lines = @(
+        "================",
+        "Assembly.Fake.UnitTests_0   PASSED   00:01",
+        "================",
+        "Extra run diagnostics for logging, did not impact run results"
+    )
     Set-Content -LiteralPath (Join-Path $LogDir "runtests.log") -Value $lines
 }
 if ($testCoreClr) {
@@ -68,9 +73,11 @@ else {
 
 function New-FalseMarkerTestCase([string]$Name) {
     # A dedicated mock (rather than New-TestCase's) whose runtests.log has a failed test's
-    # captured stdout/stderr -- written before the real summary table by
-    # TestRunner.PrintFailedTestResult -- coincidentally containing its own "================"
-    # pair, to prove the summary reader locates the *last* marker pair, not the first.
+    # captured stdout/stderr -- written both before the real summary table (by
+    # TestRunner.PrintFailedTestResult) and after it (by Program.LogProcessResultDetails, which
+    # dumps every process's raw stdout/stderr post-Print()) -- coincidentally containing its own
+    # "================" pairs on both sides, to prove the summary reader anchors on the fixed
+    # footer line rather than assuming the real table is the first or last pair in the file.
     $dir = Join-Path $workRoot $Name
     Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
     New-Item -ItemType Directory -Force -Path (Join-Path $dir "eng") | Out-Null
@@ -99,7 +106,13 @@ if ($testCoreClr) {
         "Assembly.CoreClr.UnitTests_0                                                FAILED       00:34    ",
         "Assembly.CoreClr.UnitTests_1                                                PASSED       00:12    ",
         "================",
-        "Extra run diagnostics for logging, did not impact run results"
+        "Extra run diagnostics for logging, did not impact run results",
+        "### Begin logging executed process details",
+        "### Standard Output",
+        "================",
+        "raw xunit console output that also happens to contain a divider line",
+        "================",
+        "### End logging executed process details"
     )
     Set-Content -LiteralPath (Join-Path $logDir "runtests.log") -Value $lines
     exit 1

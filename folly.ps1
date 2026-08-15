@@ -119,29 +119,39 @@ try {
             if (-not (Test-Path -LiteralPath $LogPath)) {
                 return $result
             }
-            # A full scry run's runtests.log also contains every failed test's captured
-            # stdout/stderr, written before the summary table (see TestRunner.PrintFailedTestResult,
-            # called from Print() before it writes the table) -- and that captured output could
-            # itself contain a line that happens to equal "================", so the *first* two
-            # matches in the file aren't reliable delimiters. The real summary table is always the
-            # *last* such delimited block RunTests writes (nothing meaningful follows it in the log
-            # but the small "Extra run diagnostics" section), so this finds the last two marker line
-            # numbers in one streaming pass, then extracts just the lines between them in a second
-            # streaming pass -- two passes, but neither materializes the whole (potentially large)
-            # file into memory at once the way Get-Content or Select-String's match objects would.
+            # runtests.log also contains every failed test's captured stdout/stderr -- once before
+            # the summary table (TestRunner.PrintFailedTestResult, called from Print() ahead of the
+            # table) and again after it (Program.LogProcessResultDetails, called after RunAllAsync
+            # returns but before WriteLogFile persists the log -- see Program.cs) -- and that
+            # captured output could itself contain a line equal to "================" on either
+            # side, so neither the first nor the last marker pair in the file is a reliable
+            # delimiter. Print() does write one fixed, RunTests-authored line immediately after the
+            # table's real closing marker, though (see TestRunner.cs), which -- being an exact,
+            # deliberately-worded internal string -- is far less likely to occur by chance in
+            # arbitrary captured test output than a generic divider is. Anchor on the marker
+            # immediately preceding the last occurrence of that footer instead.
+            $footerText = "Extra run diagnostics for logging, did not impact run results"
             $markerLineNumbers = [System.Collections.Generic.List[int]]::new()
+            $footerLine = -1
             $lineNumber = 0
             foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
                 $lineNumber++
                 if ($line -eq "================") {
                     $markerLineNumbers.Add($lineNumber)
                 }
+                elseif ($line -eq $footerText) {
+                    $footerLine = $lineNumber
+                }
             }
-            if ($markerLineNumbers.Count -lt 2) {
+            if ($footerLine -lt 0) {
                 return $result
             }
-            $startLine = $markerLineNumbers[$markerLineNumbers.Count - 2]
-            $endLine = $markerLineNumbers[$markerLineNumbers.Count - 1]
+            $markersBeforeFooter = @($markerLineNumbers | Where-Object { $_ -lt $footerLine })
+            if ($markersBeforeFooter.Count -lt 2) {
+                return $result
+            }
+            $endLine = $markersBeforeFooter[$markersBeforeFooter.Count - 1]
+            $startLine = $markersBeforeFooter[$markersBeforeFooter.Count - 2]
 
             $lineNumber = 0
             foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
