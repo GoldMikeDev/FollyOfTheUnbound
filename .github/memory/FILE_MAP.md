@@ -18,7 +18,7 @@ This file is a **top-level map only**. For per-area directory detail, read the m
 | `Compilers/` | compiler | C#/VB compilers (`Core`, `CSharp`, `VisualBasic`, `Server`). |
 | `Dependencies/` | compiler | High-performance pooled collections & threading. |
 | `ExpressionEvaluator/` | compiler | Debugger expression evaluator. |
-| `Tools/` | compiler | Compiler tooling (BuildBoss, format tools) and benchmark harnesses. Includes `RunTests/`, the custom parallel test runner behind `eng/build.ps1`/`eng/build.sh` and this fork's `folly.ps1`/`folly.sh scry`, with a live in-place progress table on interactive terminals (tested by the sibling `RunTests.UnitTests/`). |
+| `Tools/` | compiler | Compiler tooling (BuildBoss, format tools) and benchmark harnesses. Includes `RunTests/`, the custom parallel test runner behind `eng/build.ps1`/`eng/build.sh` and this fork's `folly.ps1`/`folly.sh scry`, with a live in-place progress table (frozen header, keyboard/mouse-wheel-scrollable body) on interactive terminals -- Windows mouse-wheel support uses CsWin32-generated console-mode bindings declared in `RunTests/NativeMethods.txt` (tested by the sibling `RunTests.UnitTests/`). |
 | `Workspaces/` | ide | Solution/Project/Document model, MSBuild loading, Remote (OOP). |
 | `Features/`, `EditorFeatures/` | ide | IDE feature logic and editor integration. |
 | `Analyzers/`, `CodeStyle/` | ide | IDE0xxx code-style analyzers & fixes. |

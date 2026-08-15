@@ -197,5 +197,17 @@ namespace RunTests.UnitTests
             var recognized = LiveTestProgressDisplay.TryGetWheelDirection("garbage;12;5", out _);
             Assert.False(recognized);
         }
+
+        [Theory]
+        [InlineData("66")] // horizontal tilt/scroll left
+        [InlineData("67")] // horizontal tilt/scroll right
+        [InlineData("70")] // horizontal tilt + shift (bit 2)
+        public void TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(string buttonCode)
+        {
+            // Buttons 66/67 (plus modifier bits) also have the 0x40 wheel-class bit set, but bit 0x02 marks them
+            // as horizontal tilt/scroll -- this table only scrolls vertically, so these must not be recognized.
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection(buttonCode, out _);
+            Assert.False(recognized);
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
+using System.Threading;
 using Microsoft.Win32.SafeHandles;
 using Windows.Win32;
 using Win32Console = Windows.Win32.System.Console;
@@ -68,6 +69,14 @@ namespace RunTests
         private const int FixedFrameLines = 4;
 
         private const int DefaultWindowHeight = 24;
+
+        /// <summary>
+        /// How long <see cref="WaitForMoreInput"/> will wait for a split escape sequence's remaining bytes to
+        /// arrive before giving up. Generous relative to how fast local PTY delivery actually is (sub-millisecond)
+        /// while still cheap against this display's ~1-second redraw cadence -- this only ever blocks the one poll
+        /// that happens to catch a sequence mid-delivery, not every tick.
+        /// </summary>
+        private const int EscapeSequenceCompletionTimeoutMs = 25;
 
         /// <summary>Standard xterm/VT sequences for entering and leaving the alternate screen buffer.</summary>
         private const string EnterAltScreen = "\x1b[?1049h";
@@ -205,7 +214,16 @@ namespace RunTests
                 .ThenBy(static r => r.Suffix, StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
-            if (OperatingSystem.IsWindows())
+            if (Console.IsInputRedirected)
+            {
+                // Nothing downstream will ever be able to read the wheel reports these escapes ask for --
+                // PollKeyboardInput bails out immediately on redirected input every tick -- so turning mouse
+                // tracking on here would just hijack wheel/click gestures on whatever the real terminal is
+                // showing for the rest of the run (or, on Windows, leave GetConsoleMode/SetConsoleMode operating
+                // on a handle that isn't a real console at all) for no benefit.
+                _supportsMouseWheel = false;
+            }
+            else if (OperatingSystem.IsWindows())
             {
                 (_supportsMouseWheel, _windowsStdInHandle, _windowsOriginalConsoleMode, _windowsModifiedConsoleMode) = TryDetectWindowsConsoleInputSupport();
             }
@@ -673,16 +691,19 @@ namespace RunTests
                     continue;
                 }
 
-                // A real escape sequence arrives from the terminal in a single write(), so the rest of it is
-                // already sitting in the buffer and KeyAvailable sees it immediately -- if nothing else has shown
-                // up yet, this was just a bare Esc keypress, which resumes auto-follow same as on Windows.
-                if (!Console.KeyAvailable)
+                // A terminal almost always delivers a whole escape sequence in one write(), so the rest of it is
+                // typically sitting in the buffer already -- but a PTY is just a byte stream with no message
+                // boundaries, so a slow link or an unusually scheduled terminal process could still deliver it in
+                // pieces. WaitForMoreInput gives a split delivery a brief bounded window to catch up before this
+                // gives up and treats "nothing showed up" as a real, bare Esc keypress (which resumes auto-follow,
+                // same as on Windows).
+                if (!WaitForMoreInput())
                 {
                     _manualScrollStart = null;
                     continue;
                 }
 
-                if (Console.In.Read() != '[' || !Console.KeyAvailable)
+                if (Console.In.Read() != '[' || !WaitForMoreInput())
                 {
                     continue;
                 }
@@ -725,6 +746,37 @@ namespace RunTests
                     _manualScrollStart = ApplyNavigationKey(navigationKey, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
                 }
             }
+        }
+
+        /// <summary>
+        /// Bounded wait for more input to show up on <see cref="Console.In"/>, used by
+        /// <see cref="PollKeyboardAndMouseInputRaw"/> right after reading a byte that's only meaningful as the
+        /// start of a multi-byte escape sequence. A plain <see cref="Console.KeyAvailable"/> check alone can't
+        /// distinguish "the user pressed a bare Esc" from "the rest of the sequence just hasn't arrived on the
+        /// wire yet" -- a PTY is a byte stream with no message boundaries, so nothing guarantees a terminal's
+        /// write() lands in one piece by the time this poll runs, even though it almost always does locally.
+        /// Blocking here (rather than leaving it to the *next* redraw tick, roughly a second later) keeps a
+        /// merely-slow-to-arrive sequence from being torn in half and its second half misread as bare characters.
+        /// </summary>
+        private static bool WaitForMoreInput()
+        {
+            if (Console.KeyAvailable)
+            {
+                return true;
+            }
+
+            var deadline = Environment.TickCount64 + EscapeSequenceCompletionTimeoutMs;
+            while (Environment.TickCount64 < deadline)
+            {
+                if (Console.KeyAvailable)
+                {
+                    return true;
+                }
+
+                Thread.Sleep(1);
+            }
+
+            return Console.KeyAvailable;
         }
 
         /// <summary>Reads the rest of a <c>CSI &lt;digits&gt; ~</c> sequence (e.g. Home/End/PageUp/PageDown), given the first digit already read as <paramref name="firstDigit"/>.</summary>
@@ -780,23 +832,37 @@ namespace RunTests
         /// <summary>
         /// The pure button-code-to-direction decision behind <see cref="TryParseSgrMouseWheel"/>, split out (like
         /// <see cref="ApplyNavigationKey"/>) so it's directly unit-testable without a real console. Bit
-        /// <c>0x40</c> of the leading <c>Pb</c> field is xterm's marker for a wheel event specifically (as opposed
-        /// to an ordinary button click/drag/release, which this returns <see langword="false"/> for), with the low
-        /// bit then distinguishing up from down -- independent of whatever Shift/Meta/Ctrl modifier bits are also
-        /// folded into the same byte, which is why masking rather than an exact equality check against 64/65 is
-        /// what's tested. <paramref name="sgrParameters"/> is the raw <c>Pb;Px;Py</c> text read off the wire; only
-        /// the first (button) field is used -- coordinates are irrelevant to a wheel-only feature.
+        /// <c>0x40</c> of the leading <c>Pb</c> field is xterm's marker for a wheel-class event generally (as
+        /// opposed to an ordinary button click/drag/release, which this returns <see langword="false"/> for) --
+        /// but that class covers four directions, not two: bit <c>0x02</c> then distinguishes horizontal
+        /// tilt/scroll (buttons 66/67, from a trackpad or a tilt wheel) from the vertical wheel this table actually
+        /// scrolls with (buttons 64/65), and only once that's ruled out does the low bit distinguish up from down.
+        /// All of this is independent of whatever Shift/Meta/Ctrl modifier bits are also folded into the same
+        /// byte (they occupy separate bits from both wheel markers), which is why masking rather than an exact
+        /// equality check against 64/65 is what's tested. <paramref name="sgrParameters"/> is the raw
+        /// <c>Pb;Px;Py</c> text read off the wire; only the first (button) field is used -- coordinates are
+        /// irrelevant to a wheel-only feature.
         /// </summary>
         internal static bool TryGetWheelDirection(string sgrParameters, out bool wheelDown)
         {
             wheelDown = false;
             var buttonField = sgrParameters.Split(';')[0];
-            if (!int.TryParse(buttonField, out var buttonCode) || (buttonCode & 0x40) == 0)
+            if (!int.TryParse(buttonField, out var buttonCode))
             {
                 return false;
             }
 
-            wheelDown = (buttonCode & 1) != 0;
+            const int WheelClassBit = 0x40;
+            const int HorizontalBit = 0x02;
+            const int DirectionBit = 0x01;
+
+            if ((buttonCode & WheelClassBit) == 0 || (buttonCode & HorizontalBit) != 0)
+            {
+                // Either not a wheel event at all, or a horizontal tilt/scroll -- this table only scrolls vertically.
+                return false;
+            }
+
+            wheelDown = (buttonCode & DirectionBit) != 0;
             return true;
         }
 
