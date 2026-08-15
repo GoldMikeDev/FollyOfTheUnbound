@@ -58,6 +58,9 @@ case "$action" in
   cleanse)
     artifacts_dir="$scriptroot/artifacts"
     if [[ -d "$artifacts_dir" ]]; then
+      interactive=0
+      [[ -t 1 ]] && interactive=1
+
       format_bytes() {
         local bytes=$1
         if (( bytes >= 1073741824 )); then
@@ -70,71 +73,56 @@ case "$action" in
           printf "%d B" "$bytes"
         fi
       }
-      now_ms() {
-        local t
-        t=$(date +%s%N)
-        echo $(( t / 1000000 ))
-      }
 
+      # Enumerate filenames only (no per-file stat/wc calls, which would spawn
+      # a subprocess per artifact and make cleanup impractically slow on a
+      # large build tree). Sizing is done once in bulk via `du` below.
       spinner_frames=('|' '/' '-' '\')
       spinner_index=0
-      last_spinner_update=0
       files=()
-      sizes=()
-      total_bytes=0
+      scan_count=0
       while IFS= read -r -d '' file; do
         files+=("$file")
-        size=$(wc -c < "$file" 2>/dev/null || echo 0)
-        sizes+=("$size")
-        total_bytes=$(( total_bytes + size ))
-        now=$(now_ms)
-        if (( now - last_spinner_update >= 100 )); then
-          last_spinner_update=$now
+        scan_count=$(( scan_count + 1 ))
+        if (( interactive )) && (( scan_count % 200 == 0 )); then
           spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-          printf '\r\033[KEnumerating files %s %d file(s) found' "${spinner_frames[$spinner_index]}" "${#files[@]}"
+          printf '\r\033[KEnumerating files %s %d file(s) found' "${spinner_frames[$spinner_index]}" "$scan_count"
         fi
       done < <(find "$artifacts_dir" -type f -print0)
-      printf '\r\033[K'
+      (( interactive )) && printf '\r\033[K'
 
       total_count=${#files[@]}
+      total_bytes=$(du -sk "$artifacts_dir" 2>/dev/null | awk '{ print $1 * 1024 }')
+      [[ -z "$total_bytes" ]] && total_bytes=0
       total_formatted=$(format_bytes "$total_bytes")
-      deleted_bytes=0
+
+      # Delete in batches so cleanup spawns a handful of `rm` processes
+      # instead of one per file.
+      batch_size=500
       deleted_count=0
-      failed_count=0
-      start_time=$(now_ms)
-      last_update=0
-      for i in "${!files[@]}"; do
-        file="${files[$i]}"
-        size="${sizes[$i]}"
-        if rm -f -- "$file" 2>/dev/null; then
-          deleted_bytes=$(( deleted_bytes + size ))
-          deleted_count=$(( deleted_count + 1 ))
-        else
-          failed_count=$(( failed_count + 1 ))
-        fi
-        now=$(now_ms)
-        if (( now - last_update >= 100 )); then
-          last_update=$now
-          if (( total_bytes > 0 )); then
-            percent=$(( deleted_bytes * 100 / total_bytes ))
-          else
-            percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 0 ))
-          fi
-          (( percent > 99 )) && percent=99
-          elapsed_ms=$(( now - start_time ))
-          if (( elapsed_ms > 0 )); then
-            bytes_per_second=$(( deleted_bytes * 1000 / elapsed_ms ))
-          else
-            bytes_per_second=0
-          fi
+      start_time=$(date +%s)
+      i=0
+      while (( i < total_count )); do
+        batch=("${files[@]:i:batch_size}")
+        rm -f -- "${batch[@]}" 2>/dev/null || true
+        deleted_count=$(( deleted_count + ${#batch[@]} ))
+        i=$(( i + batch_size ))
+        if (( interactive )); then
+          percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+          now=$(date +%s)
+          elapsed=$(( now - start_time ))
+          approx_deleted_bytes=$(( total_count > 0 ? total_bytes * deleted_count / total_count : total_bytes ))
+          bytes_per_second=$(( elapsed > 0 ? approx_deleted_bytes / elapsed : 0 ))
           printf '\r\033[KCleansing artefacts: %d / %d files, %s / %s, %s/s (%d%%)' \
-            "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+            "$deleted_count" "$total_count" "$(format_bytes "$approx_deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
         fi
       done
-      printf '\r\033[K'
-      rm -rf "$artifacts_dir"
+      (( interactive )) && printf '\r\033[K'
+
+      rm -rf "$artifacts_dir" || true
       if [[ -d "$artifacts_dir" ]]; then
-        echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $failed_count file(s) could not be removed."
+        remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
+        echo "Cleansed $total_formatted of artefacts; $remaining file(s) could not be removed."
       else
         echo "Cleansed $total_formatted from artefacts."
       fi
