@@ -63,6 +63,10 @@ try {
         Write-Host ""
         exit 0
     }
+    if (($core -or $desktop) -and $action -ne "scry") {
+        Write-Host "'--core'/'--desktop' are only valid with the 'scry' action." -ForegroundColor Red
+        exit 1
+    }
     if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
         $configuration = "Debug"
         $nupkgDir = Join-Path $nupkgRoot "Debug"

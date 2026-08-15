@@ -132,6 +132,16 @@ try {
         Test-Fail "rejected argument (exit=$($result.ExitCode)): $($result.Output)"
     }
 
+    # --- --core/--desktop rejected for non-scry actions ---
+    $dir = New-TestCase "selector-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--desktop")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--desktop' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
     Write-Host ""
     Write-Host "$($script:passCount) passed, $($script:failCount) failed"
     if ($script:failCount -gt 0) {
