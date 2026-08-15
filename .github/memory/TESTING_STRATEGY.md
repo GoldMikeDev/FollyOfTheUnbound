@@ -52,3 +52,11 @@ Targeted runs are strongly preferred — the full suite is large and slow. Tests
 ## CI
 
 PR validation runs via `azure-pipelines-pr-validation.yml` (Azure DevOps + Helix). For investigating failures, use the `ci-analysis` and `integration-test-analysis` skills.
+
+## Standalone shell script tests
+
+Not every test lives in a `dotnet test` project — `folly.sh cleanse`'s file-enumeration/deletion logic has its own manual harness at `scripts/test-folly-cleanse.sh` (not wired into CI; there's no existing shell-test CI job to hook into). Run it by hand after touching `folly.sh`'s `cleanse` action:
+```bash
+./scripts/test-folly-cleanse.sh
+```
+Covers: empty `artifacts/`, a populated tree, redirected (non-TTY) output staying free of escape codes, a permission failure reporting an accurate count with a nonzero exit, a file vanishing mid-scan under a concurrent writer, and `artifacts/` existing as a non-directory.
