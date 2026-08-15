@@ -89,7 +89,8 @@ namespace RunTests
         /// actually needs. Only meaningful on non-Windows terminals: Windows consoles don't read xterm escapes off
         /// stdin at all -- <see cref="TryDetectWindowsConsoleInputSupport"/> gets the equivalent behavior there by
         /// flipping <c>ENABLE_VIRTUAL_TERMINAL_INPUT</c> (plus <c>ENABLE_MOUSE_INPUT</c>) via <c>SetConsoleMode</c>
-        /// instead, which is what actually makes Windows Terminal start emitting these same escape bytes on stdin.
+        /// instead, on Windows Terminal specifically -- see that method's doc comment for why this doesn't extend
+        /// to every Windows console host.
         /// </summary>
         private const string EnableMouseTracking = "\x1b[?1000h\x1b[?1006h";
         private const string DisableMouseTracking = "\x1b[?1000l\x1b[?1006l";
@@ -99,10 +100,11 @@ namespace RunTests
         /// compatible terminal is assumed; a terminal that doesn't understand the escapes in
         /// <see cref="EnableMouseTracking"/> just never sends anything back, so scrolling silently falls back to
         /// keyboard-only). On Windows, only true once <see cref="TryDetectWindowsConsoleInputSupport"/> has
-        /// actually verified -- by flipping the console input mode, reading it back, and reverting -- that
-        /// <c>ENABLE_VIRTUAL_TERMINAL_INPUT</c> takes effect on this console; older Windows builds that silently
-        /// ignore the flag fall back to keyboard-only too, since forcing raw-escape parsing without the OS
-        /// actually emitting escapes would just break navigation instead of adding the wheel to it.
+        /// confirmed both that this is a Windows Terminal session (see its doc comment for why that specifically,
+        /// not just any Windows console, matters) and that <c>ENABLE_VIRTUAL_TERMINAL_INPUT</c> actually takes
+        /// effect when set -- older Windows Terminal builds or restricted environments that silently ignore the
+        /// flag fall back to keyboard-only too, since forcing raw-escape parsing without the OS actually emitting
+        /// escapes would just break navigation instead of adding the wheel to it.
         /// </summary>
         private readonly bool _supportsMouseWheel;
 
@@ -257,6 +259,21 @@ namespace RunTests
         {
             try
             {
+                // ENABLE_VIRTUAL_TERMINAL_INPUT + ENABLE_MOUSE_INPUT is confirmed (github.com/microsoft/terminal
+                // issue #15296) to translate mouse/wheel events into VT sequences on stdin under Windows
+                // Terminal -- but *not* under legacy conhost (a plain cmd.exe/powershell.exe console window not
+                // hosted by Windows Terminal), which keeps delivering only native MOUSE_EVENT_RECORDs there
+                // regardless of these mode bits, and PollKeyboardAndMouseInputRaw's stdin byte parser would never
+                // see those. SetConsoleMode/GetConsoleMode round-tripping the flag below only proves the bit was
+                // accepted, not that mouse events actually get funneled into the text stream -- there's no
+                // official API to ask "will this console translate mouse to VT," so WT_SESSION (set by Windows
+                // Terminal in every process it hosts) is the practical way to avoid confidently claiming wheel
+                // support on a legacy conhost session where it would silently never fire.
+                if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WT_SESSION")))
+                {
+                    return (false, null, default, default);
+                }
+
                 var handle = PInvoke.GetStdHandle_SafeHandle(Win32Console.STD_HANDLE.STD_INPUT_HANDLE);
                 if (handle.IsInvalid || !PInvoke.GetConsoleMode(handle, out var originalMode))
                 {
@@ -749,14 +766,16 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Bounded wait for more input to show up on <see cref="Console.In"/>, used by
-        /// <see cref="PollKeyboardAndMouseInputRaw"/> right after reading a byte that's only meaningful as the
-        /// start of a multi-byte escape sequence. A plain <see cref="Console.KeyAvailable"/> check alone can't
-        /// distinguish "the user pressed a bare Esc" from "the rest of the sequence just hasn't arrived on the
-        /// wire yet" -- a PTY is a byte stream with no message boundaries, so nothing guarantees a terminal's
-        /// write() lands in one piece by the time this poll runs, even though it almost always does locally.
-        /// Blocking here (rather than leaving it to the *next* redraw tick, roughly a second later) keeps a
-        /// merely-slow-to-arrive sequence from being torn in half and its second half misread as bare characters.
+        /// Bounded wait for more input to show up on <see cref="Console.In"/>, used everywhere
+        /// <see cref="PollKeyboardAndMouseInputRaw"/> and its helpers (<see cref="ReadCsiTildeSequence"/>,
+        /// <see cref="TryParseSgrMouseWheel"/>) are partway through a multi-byte escape sequence and need to know
+        /// whether the next byte is really not coming, or just hasn't arrived on the wire yet. A plain
+        /// <see cref="Console.KeyAvailable"/> check alone can't tell those apart -- a PTY is a byte stream with no
+        /// message boundaries, so nothing guarantees a terminal's write() lands in one piece by the time a poll
+        /// runs, even though it almost always does locally. Blocking here (rather than leaving it to the *next*
+        /// redraw tick, roughly a second later) keeps a merely-slow-to-arrive sequence from being torn in half --
+        /// its already-read prefix discarded or misparsed, and its second half misread as bare characters on the
+        /// next poll -- instead of correctly waiting the extra few milliseconds for the rest to show up.
         /// </summary>
         private static bool WaitForMoreInput()
         {
@@ -783,7 +802,7 @@ namespace RunTests
         private static string ReadCsiTildeSequence(int firstDigit)
         {
             var digits = new StringBuilder().Append((char)firstDigit);
-            while (Console.KeyAvailable)
+            while (WaitForMoreInput())
             {
                 var next = Console.In.Read();
                 if (next < 0 || next == '~')
@@ -810,7 +829,7 @@ namespace RunTests
         {
             wheelDown = false;
             var buffer = new StringBuilder();
-            while (Console.KeyAvailable)
+            while (WaitForMoreInput())
             {
                 var c = Console.In.Read();
                 if (c < 0)
