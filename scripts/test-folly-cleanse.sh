@@ -72,10 +72,15 @@ for i in $(seq 1 20); do : > "$dir/artifacts/f_$i.bin"; done
 log="$work_root/redirected.log"
 (cd "$dir" && bash folly.sh cleanse > "$log" 2>&1)
 ec=$?
-if (( ec == 0 )) && ! grep -qP '\x1b|\r' "$log"; then
-  pass "redirected output has no carriage returns or escape sequences"
+# Plain fixed-string search for a literal ESC/CR byte -- the shell expands
+# $'\x1b'/$'\r' before grep ever sees them, so this needs no -P (BSD grep on
+# macOS, the documented folly.sh platform, doesn't support -P).
+if grep -qF $'\x1b' "$log" || grep -qF $'\r' "$log"; then
+  fail "redirected output contains escape sequences or carriage returns; offending bytes: $(cat -A "$log" | head -3)"
+elif (( ec != 0 )); then
+  fail "redirected output (exit=$ec)"
 else
-  fail "redirected output (exit=$ec); offending bytes: $(cat -A "$log" | head -3)"
+  pass "redirected output has no carriage returns or escape sequences"
 fi
 
 # --- permission failure: accurate count and nonzero exit -----------------
@@ -84,14 +89,17 @@ if command -v chattr >/dev/null 2>&1 && [[ "$(id -u)" == "0" ]]; then
   mkdir -p "$dir/artifacts"
   head -c 1000 /dev/urandom > "$dir/artifacts/removable.bin"
   head -c 10 /dev/urandom > "$dir/artifacts/stuck.bin"
-  chattr +i "$dir/artifacts/stuck.bin"
-  out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
-  ec=$?
-  chattr -i "$dir/artifacts/stuck.bin" 2>/dev/null || true
-  if (( ec == 1 )) && [[ "$out" == *"Cleansed 1000 B of artefacts; 1 file(s) could not be removed."* ]]; then
-    pass "permission failure reports accurate count and exits nonzero"
+  if chattr +i "$dir/artifacts/stuck.bin" 2>/dev/null; then
+    out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
+    ec=$?
+    chattr -i "$dir/artifacts/stuck.bin" 2>/dev/null || true
+    if (( ec == 1 )) && [[ "$out" == *"Cleansed 1000 B of artefacts; 1 file(s) could not be removed."* ]]; then
+      pass "permission failure reports accurate count and exits nonzero"
+    else
+      fail "permission failure (exit=$ec, output='$out')"
+    fi
   else
-    fail "permission failure (exit=$ec, output='$out')"
+    echo "SKIP: permission-failure case (chattr +i not permitted in this environment)"
   fi
 else
   echo "SKIP: permission-failure case (needs root + chattr)"
@@ -101,8 +109,9 @@ fi
 dir=$(new_case concurrent)
 mkdir -p "$dir/artifacts"
 for i in $(seq 1 50); do head -c 100 /dev/urandom > "$dir/artifacts/f_$i.bin"; done
-# Race a background deletion against cleanse's own enumeration/sizing pass;
-# whichever file "loses" the race should not abort the script.
+# Race a background deletion against cleanse's own enumeration/sizing pass.
+# A vanished file must not abort cleanse -- it should still finish
+# successfully (exit 0), regardless of who actually removed each file.
 (
   for i in $(seq 1 50); do
     rm -f "$dir/artifacts/f_$i.bin" 2>/dev/null
@@ -112,7 +121,7 @@ racer=$!
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 wait "$racer" 2>/dev/null || true
-if (( ec == 0 || ec == 1 )) && [[ ! -e "$dir/artifacts" || -z "$(find "$dir/artifacts" -type f 2>/dev/null)" ]]; then
+if (( ec == 0 )) && [[ ! -e "$dir/artifacts" ]]; then
   pass "concurrent file removal during cleanse does not abort (output='$out')"
 else
   fail "concurrent file removal (exit=$ec, output='$out')"
