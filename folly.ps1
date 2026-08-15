@@ -96,7 +96,21 @@ try {
                 elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
                 else { return "$bytes B" }
             }
-            $files = @(Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue)
+            $spinnerFrames = @('|', '/', '-', '\')
+            $spinnerIndex = 0
+            $lastSpinnerUpdate = Get-Date -Year 1970
+            $fileList = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
+            Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue | ForEach-Object {
+                $fileList.Add($_)
+                $now = Get-Date
+                if (($now - $lastSpinnerUpdate).TotalMilliseconds -ge 100) {
+                    $lastSpinnerUpdate = $now
+                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                    Write-Progress -Activity "Enumerating files" -Status "$($spinnerFrames[$spinnerIndex]) $($fileList.Count) file(s) found"
+                }
+            }
+            Write-Progress -Activity "Enumerating files" -Completed
+            $files = $fileList.ToArray()
             $totalBytes = ($files | Measure-Object -Property Length -Sum).Sum
             if (-not $totalBytes) { $totalBytes = 0 }
             $totalFormatted = Format-ByteSize $totalBytes
