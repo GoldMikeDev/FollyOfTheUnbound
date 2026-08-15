@@ -143,7 +143,10 @@ case "$action" in
         batch_starts+=("$bstart")
         batch_lens+=("$bcount")
       fi
+      # Same bash 3.2 empty-array caveat as `files` above.
+      set +u
       batch_count=${#batch_starts[@]}
+      set -u
 
       # Sizes are gathered up front (batch_sizes) so the deletion pass can
       # report exact bytes deleted without re-`stat`ing.
@@ -187,7 +190,11 @@ case "$action" in
         deleted_count=$(( deleted_count + removed_in_batch ))
 
         if (( interactive )); then
-          percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+          if (( total_bytes > 0 )); then
+            percent=$(( deleted_bytes * 100 / total_bytes ))
+          else
+            percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+          fi
           now=$(date +%s)
           elapsed=$(( now - start_time ))
           bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
@@ -199,8 +206,19 @@ case "$action" in
 
       rm -rf "$artifacts_dir" || true
       if [[ -d "$artifacts_dir" ]]; then
-        remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ') || true
-        [[ -z "$remaining" ]] && remaining="some"
+        # `find` can fail partway (e.g. an unreadable subtree) while `wc -l`
+        # still happily prints "0" for whatever it received, silently
+        # masking the failure -- so check find's own status via the `if`,
+        # which set -e exempts from triggering on a nonzero condition.
+        if remaining_list=$(find "$artifacts_dir" -type f 2>/dev/null); then
+          if [[ -z "$remaining_list" ]]; then
+            remaining=0
+          else
+            remaining=$(printf '%s\n' "$remaining_list" | wc -l | tr -d ' ')
+          fi
+        else
+          remaining="some"
+        fi
         echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining file(s) could not be removed."
         exit 1
       else
