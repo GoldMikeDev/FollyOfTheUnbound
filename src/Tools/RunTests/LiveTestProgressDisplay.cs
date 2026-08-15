@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Text;
 
 namespace RunTests
 {
@@ -67,6 +68,26 @@ namespace RunTests
         /// <summary>Standard xterm/VT sequences for entering and leaving the alternate screen buffer.</summary>
         private const string EnterAltScreen = "\x1b[?1049h";
         private const string ExitAltScreen = "\x1b[?1049l";
+
+        /// <summary>
+        /// Standard xterm sequences for enabling/disabling mouse button+wheel reporting (mode 1000) with SGR
+        /// extended coordinates (mode 1006) -- SGR is what lets the button code arrive unmodified (rather than
+        /// offset into a single byte that overflows past column/row 223), which is all <see cref="TryParseSgrMouseWheel"/>
+        /// actually needs. Scoped to non-Windows terminals only (see <see cref="_supportsMouseWheel"/>): Windows
+        /// consoles report the wheel as native <c>MOUSE_EVENT_RECORD</c>s through the Win32 console API, not as
+        /// bytes on stdin at all, so these escapes -- and the raw-stdin parsing in <see cref="PollKeyboardAndMouseInputUnix"/>
+        /// that depends on them -- would just be silently ignored there; supporting that path for real would need
+        /// P/Invoke this tool doesn't otherwise use anywhere.
+        /// </summary>
+        private const string EnableMouseTracking = "\x1b[?1000h\x1b[?1006h";
+        private const string DisableMouseTracking = "\x1b[?1000l\x1b[?1006l";
+
+        /// <summary>
+        /// Whether this run enables mouse-wheel scrolling at all -- true on every platform except Windows (see
+        /// <see cref="EnableMouseTracking"/>). Computed once since it depends only on the OS, not on any runtime
+        /// terminal probing.
+        /// </summary>
+        private readonly bool _supportsMouseWheel = !OperatingSystem.IsWindows();
 
         private readonly string _runLabel;
         private readonly List<Row> _rows;
@@ -224,6 +245,15 @@ namespace RunTests
                 // worth confirming it actually works in the exact state (already in the alternate screen) it'll
                 // always be called in from then on, not just that cursor queries in general don't throw.
                 Console.SetCursorPosition(0, 0);
+
+                if (!OperatingSystem.IsWindows())
+                {
+                    // Not independently verified beyond "the write didn't throw", same as EnterAltScreen above --
+                    // a terminal that doesn't understand mouse reporting just never sends the byte sequences
+                    // PollKeyboardInputUnix looks for, so scrolling silently falls back to keyboard-only.
+                    Console.Out.Write(EnableMouseTracking);
+                    Console.Out.Flush();
+                }
             }
             catch
             {
@@ -288,6 +318,15 @@ namespace RunTests
 
             try
             {
+                // Mouse tracking is a terminal-wide mode independent of which screen buffer is active, so it must
+                // be turned back off here too -- otherwise it would keep hijacking the wheel (and clicks) in the
+                // user's real scrollback/shell after this display is done with it, not just while the table itself
+                // was on screen.
+                if (_supportsMouseWheel)
+                {
+                    Console.Out.Write(DisableMouseTracking);
+                }
+
                 Console.Out.Write(ExitAltScreen);
                 Console.Out.Flush();
             }
@@ -399,6 +438,11 @@ namespace RunTests
                 if (!_inAltScreen)
                 {
                     Console.Out.Write(EnterAltScreen);
+                    if (_supportsMouseWheel)
+                    {
+                        Console.Out.Write(EnableMouseTracking);
+                    }
+
                     _inAltScreen = true;
                 }
 
@@ -449,12 +493,14 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Reads and applies any keystrokes the user has typed since the last redraw, so the row window can be
-        /// scrolled by hand (like freezing a spreadsheet's header row and scrolling the body underneath) instead of
-        /// only ever auto-following whichever row is running/queued. Non-blocking -- drains whatever's already
-        /// buffered via <see cref="Console.KeyAvailable"/> rather than waiting for a key -- and best-effort: a host
-        /// that doesn't support key polling (e.g. input redirected, or a probe that throws) just leaves navigation
-        /// disabled for the rest of the run rather than taking the whole display down with it.
+        /// Reads and applies any input the user has produced since the last redraw -- keystrokes on every
+        /// platform, plus mouse-wheel scroll notches wherever <see cref="_supportsMouseWheel"/> allows it -- so
+        /// the row window can be scrolled by hand (like freezing a spreadsheet's header row and scrolling the body
+        /// underneath) instead of only ever auto-following whichever row is running/queued. Non-blocking -- drains
+        /// whatever's already buffered via <see cref="Console.KeyAvailable"/> rather than waiting for input -- and
+        /// best-effort: a host that doesn't support input polling (e.g. input redirected, or a probe that throws)
+        /// just leaves navigation disabled for the rest of the run rather than taking the whole display down with
+        /// it.
         /// </summary>
         private void PollKeyboardInput(int visibleRowBudget)
         {
@@ -466,17 +512,173 @@ namespace RunTests
                 }
 
                 var maxScrollStart = Math.Max(_rows.Count - visibleRowBudget, 0);
-                while (Console.KeyAvailable)
+                if (_supportsMouseWheel)
                 {
-                    var key = Console.ReadKey(intercept: true).Key;
-                    _manualScrollStart = ApplyNavigationKey(key, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                    PollKeyboardAndMouseInputUnix(visibleRowBudget, maxScrollStart);
+                }
+                else
+                {
+                    while (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey(intercept: true).Key;
+                        _manualScrollStart = ApplyNavigationKey(key, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                    }
                 }
             }
             catch
             {
-                // Best effort -- if key polling isn't usable here, the auto-following window still works fine
+                // Best effort -- if input polling isn't usable here, the auto-following window still works fine
                 // without it; there's nothing more useful to do than skip navigation for the rest of the run.
             }
+        }
+
+        /// <summary>
+        /// Non-Windows counterpart to the plain <see cref="Console.ReadKey()"/> loop in <see cref="PollKeyboardInput"/>
+        /// -- reads raw characters straight off <see cref="Console.In"/> instead, because that's the only way to
+        /// see the xterm mouse-wheel reports <see cref="EnableMouseTracking"/> asks the terminal to send.
+        /// <see cref="Console.ReadKey()"/> only ever matches escape sequences against its own fixed table of *key*
+        /// sequences, silently discarding (or mis-decoding, one leftover character at a time) anything outside
+        /// it -- like a mouse report -- so it can never surface wheel input no matter how mouse tracking is
+        /// configured upstream. This re-implements just enough of the arrow/Home/End/PageUp/PageDown decoding
+        /// ReadKey normally provides for free, since going around it here means going around it for every key on
+        /// this platform, not only the mouse-specific bytes.
+        /// </summary>
+        private void PollKeyboardAndMouseInputUnix(int visibleRowBudget, int maxScrollStart)
+        {
+            while (Console.KeyAvailable)
+            {
+                var first = Console.In.Read();
+                if (first != 0x1b)
+                {
+                    // Not part of an escape sequence -- nothing this display reacts to is a bare character.
+                    continue;
+                }
+
+                // A real escape sequence arrives from the terminal in a single write(), so the rest of it is
+                // already sitting in the buffer and KeyAvailable sees it immediately -- if nothing else has shown
+                // up yet, this was just a bare Esc keypress, which resumes auto-follow same as on Windows.
+                if (!Console.KeyAvailable)
+                {
+                    _manualScrollStart = null;
+                    continue;
+                }
+
+                if (Console.In.Read() != '[' || !Console.KeyAvailable)
+                {
+                    continue;
+                }
+
+                var third = Console.In.Read();
+                if (third == '<')
+                {
+                    if (TryParseSgrMouseWheel(out var wheelDown))
+                    {
+                        var current = _manualScrollStart ?? _lastScrollStart;
+                        _manualScrollStart = Math.Clamp(current + (wheelDown ? 1 : -1), 0, maxScrollStart);
+                    }
+
+                    continue;
+                }
+
+                var key = third switch
+                {
+                    'A' => ConsoleKey.UpArrow,
+                    'B' => ConsoleKey.DownArrow,
+                    'H' => ConsoleKey.Home,
+                    'F' => ConsoleKey.End,
+                    _ => (ConsoleKey?)null,
+                };
+
+                if (key is null && third is >= '0' and <= '9')
+                {
+                    key = ReadCsiTildeSequence(third) switch
+                    {
+                        "1" => ConsoleKey.Home,
+                        "4" => ConsoleKey.End,
+                        "5" => ConsoleKey.PageUp,
+                        "6" => ConsoleKey.PageDown,
+                        _ => null,
+                    };
+                }
+
+                if (key is { } navigationKey)
+                {
+                    _manualScrollStart = ApplyNavigationKey(navigationKey, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                }
+            }
+        }
+
+        /// <summary>Reads the rest of a <c>CSI &lt;digits&gt; ~</c> sequence (e.g. Home/End/PageUp/PageDown), given the first digit already read as <paramref name="firstDigit"/>.</summary>
+        private static string ReadCsiTildeSequence(int firstDigit)
+        {
+            var digits = new StringBuilder().Append((char)firstDigit);
+            while (Console.KeyAvailable)
+            {
+                var next = Console.In.Read();
+                if (next < 0 || next == '~')
+                {
+                    break;
+                }
+
+                digits.Append((char)next);
+            }
+
+            return digits.ToString();
+        }
+
+        /// <summary>
+        /// Parses the remainder of an SGR mouse report (<c>Pb;Px;Py</c> followed by <c>M</c> or <c>m</c>),
+        /// positioned just past the leading <c>ESC [ &lt;</c>, extracting only what wheel scrolling needs: bit
+        /// <c>0x40</c> of the button code <c>Pb</c> is xterm's marker for a wheel event specifically (as opposed
+        /// to an ordinary button click/drag/release), with the low bit then distinguishing up from down --
+        /// independent of whatever Shift/Meta/Ctrl modifier bits are also folded into the same byte, which is why
+        /// masking rather than an exact equality check against 64/65 is what's tested. Coordinates are read past
+        /// but otherwise ignored -- nothing here is scoped to where in the terminal the wheel moved.
+        /// </summary>
+        private static bool TryParseSgrMouseWheel(out bool wheelDown)
+        {
+            wheelDown = false;
+            var buffer = new StringBuilder();
+            while (Console.KeyAvailable)
+            {
+                var c = Console.In.Read();
+                if (c < 0)
+                {
+                    return false;
+                }
+
+                if (c is 'M' or 'm')
+                {
+                    break;
+                }
+
+                buffer.Append((char)c);
+            }
+
+            return TryGetWheelDirection(buffer.ToString(), out wheelDown);
+        }
+
+        /// <summary>
+        /// The pure button-code-to-direction decision behind <see cref="TryParseSgrMouseWheel"/>, split out (like
+        /// <see cref="ApplyNavigationKey"/>) so it's directly unit-testable without a real console. Bit
+        /// <c>0x40</c> of the leading <c>Pb</c> field is xterm's marker for a wheel event specifically (as opposed
+        /// to an ordinary button click/drag/release, which this returns <see langword="false"/> for), with the low
+        /// bit then distinguishing up from down -- independent of whatever Shift/Meta/Ctrl modifier bits are also
+        /// folded into the same byte, which is why masking rather than an exact equality check against 64/65 is
+        /// what's tested. <paramref name="sgrParameters"/> is the raw <c>Pb;Px;Py</c> text read off the wire; only
+        /// the first (button) field is used -- coordinates are irrelevant to a wheel-only feature.
+        /// </summary>
+        internal static bool TryGetWheelDirection(string sgrParameters, out bool wheelDown)
+        {
+            wheelDown = false;
+            var buttonField = sgrParameters.Split(';')[0];
+            if (!int.TryParse(buttonField, out var buttonCode) || (buttonCode & 0x40) == 0)
+            {
+                return false;
+            }
+
+            wheelDown = (buttonCode & 1) != 0;
+            return true;
         }
 
         /// <summary>
@@ -582,9 +784,10 @@ namespace RunTests
             if (visibleRowBudget < _rows.Count)
             {
                 titleLine += $"    (showing {scrollStart + 1}-{scrollStart + visibleRows.Count} of {_rows.Count})";
+                var scrollHint = _supportsMouseWheel ? "scroll wheel / ↑↓/PgUp/PgDn" : "↑↓/PgUp/PgDn";
                 titleLine += _manualScrollStart is not null
-                    ? "    [↑↓ PgUp/PgDn Home/End to scroll, Esc to follow]"
-                    : "    [↑↓/PgUp/PgDn to scroll]";
+                    ? $"    [{scrollHint}/Home/End to scroll, Esc to follow]"
+                    : $"    [{scrollHint} to scroll]";
             }
 
             var lines = new List<string>(height)

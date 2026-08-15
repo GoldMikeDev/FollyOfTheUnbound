@@ -155,5 +155,47 @@ namespace RunTests.UnitTests
             // still be at least that wide to center it without truncation.
             Assert.True(TestResultDisplay.ElapsedColumnWidth >= "Elapsed".Length + 2);
         }
+
+        [Fact]
+        public void TryGetWheelDirection_ButtonCode64_IsWheelUp()
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("64;12;5", out var wheelDown);
+            Assert.True(recognized);
+            Assert.False(wheelDown);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_ButtonCode65_IsWheelDown()
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("65;12;5", out var wheelDown);
+            Assert.True(recognized);
+            Assert.True(wheelDown);
+        }
+
+        [Theory]
+        [InlineData("68")] // wheel up + shift (bit 2)
+        [InlineData("72")] // wheel up + meta (bit 3)
+        [InlineData("80")] // wheel up + ctrl (bit 4)
+        public void TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(string buttonCode)
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection(buttonCode, out var wheelDown);
+            Assert.True(recognized);
+            Assert.False(wheelDown);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_OrdinaryButtonClick_IsNotAWheelEvent()
+        {
+            // Button 0 (left click) does not have the 0x40 wheel bit set.
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("0;12;5", out _);
+            Assert.False(recognized);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_UnparsableField_IsNotAWheelEvent()
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("garbage;12;5", out _);
+            Assert.False(recognized);
+        }
     }
 }
