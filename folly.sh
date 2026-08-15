@@ -113,29 +113,55 @@ case "$action" in
       stat_flag="-c%s"
       stat -c%s "$scriptroot" >/dev/null 2>&1 || stat_flag="-f%z"
 
-      # Delete in batches so cleanup spawns a handful of `stat`/`rm` processes
-      # instead of one per file. Sizes are gathered up front (batch_sizes) so
-      # the deletion pass can report exact bytes deleted without re-`stat`ing.
-      batch_size=500
+      # Bound each batch by encoded argument size (not just file count): a
+      # fixed count like 500 can still overflow a constrained ARG_MAX on
+      # systems with long artifact paths or a lowered command-line limit.
+      arg_max=$(getconf ARG_MAX 2>/dev/null || echo 0)
+      (( arg_max > 0 )) || arg_max=131072
+      byte_budget=$(( arg_max / 4 ))
+      (( byte_budget >= 4096 )) || byte_budget=4096
+      max_batch_files=1000
+
+      batch_starts=()
+      batch_lens=()
+      if (( total_count > 0 )); then
+        bstart=0
+        bcount=0
+        bbytes=0
+        for (( idx = 0; idx < total_count; idx++ )); do
+          flen=$(( ${#files[idx]} + 1 ))
+          if (( bcount > 0 )) && (( bbytes + flen > byte_budget || bcount >= max_batch_files )); then
+            batch_starts+=("$bstart")
+            batch_lens+=("$bcount")
+            bstart=$idx
+            bcount=0
+            bbytes=0
+          fi
+          bcount=$(( bcount + 1 ))
+          bbytes=$(( bbytes + flen ))
+        done
+        batch_starts+=("$bstart")
+        batch_lens+=("$bcount")
+      fi
+      batch_count=${#batch_starts[@]}
+
+      # Sizes are gathered up front (batch_sizes) so the deletion pass can
+      # report exact bytes deleted without re-`stat`ing.
       batch_sizes=()
       total_bytes=0
-      i=0
-      while (( i < total_count )); do
-        batch=("${files[@]:i:batch_size}")
+      for (( b = 0; b < batch_count; b++ )); do
+        batch=("${files[@]:batch_starts[b]:batch_lens[b]}")
         bsize=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }')
         batch_sizes+=("$bsize")
         total_bytes=$(( total_bytes + bsize ))
-        i=$(( i + batch_size ))
       done
       total_formatted=$(format_bytes "$total_bytes")
 
       deleted_bytes=0
       deleted_count=0
       start_time=$(date +%s)
-      i=0
-      batch_idx=0
-      while (( i < total_count )); do
-        batch=("${files[@]:i:batch_size}")
+      for (( batch_idx = 0; batch_idx < batch_count; batch_idx++ )); do
+        batch=("${files[@]:batch_starts[batch_idx]:batch_lens[batch_idx]}")
         rm -f -- "${batch[@]}" 2>/dev/null || true
 
         # Verify what actually disappeared (cheap builtin checks, no
@@ -160,8 +186,6 @@ case "$action" in
         set -u
         deleted_count=$(( deleted_count + removed_in_batch ))
 
-        batch_idx=$(( batch_idx + 1 ))
-        i=$(( i + batch_size ))
         if (( interactive )); then
           percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
           now=$(date +%s)
@@ -175,7 +199,8 @@ case "$action" in
 
       rm -rf "$artifacts_dir" || true
       if [[ -d "$artifacts_dir" ]]; then
-        remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
+        remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ') || true
+        [[ -z "$remaining" ]] && remaining="some"
         echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining file(s) could not be removed."
         exit 1
       else
