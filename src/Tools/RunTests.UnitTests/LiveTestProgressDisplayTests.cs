@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System;
 using Xunit;
 
 namespace RunTests.UnitTests
@@ -89,6 +90,124 @@ namespace RunTests.UnitTests
         {
             var result = LiveTestProgressDisplay.ComputeScrollStart(rowCount: 100, visibleRowBudget: 10, previousScrollStart: 0, firstRunningIndex: 98, firstQueuedIndex: -1);
             Assert.Equal(90, result); // maxScrollStart = 100 - 10; 98 - 5 = 93 would exceed it
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_DownArrow_AdvancesOneRowFromLastScrollStart()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.DownArrow, previousManualScrollStart: null, lastScrollStart: 5, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(6, result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_UpArrow_StepsBackFromExistingManualPosition()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.UpArrow, previousManualScrollStart: 20, lastScrollStart: 5, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(19, result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_UpArrow_ClampsToZero()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.UpArrow, previousManualScrollStart: 0, lastScrollStart: 0, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_PageDown_AdvancesByFullBudget_ClampedToMax()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.PageDown, previousManualScrollStart: 45, lastScrollStart: 45, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(50, result); // 45 + 10 = 55 would exceed maxScrollStart
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_Home_JumpsToZero()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.Home, previousManualScrollStart: 30, lastScrollStart: 30, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(0, result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_End_JumpsToMaxScrollStart()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.End, previousManualScrollStart: 0, lastScrollStart: 0, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(50, result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_Escape_ReturnsToAutoFollow()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.Escape, previousManualScrollStart: 30, lastScrollStart: 30, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_UnrecognizedKey_LeavesPositionUnchanged()
+        {
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.A, previousManualScrollStart: 12, lastScrollStart: 5, visibleRowBudget: 10, maxScrollStart: 50);
+            Assert.Equal(12, result);
+        }
+
+        [Fact]
+        public void ElapsedColumnWidth_IsTwoWiderThanUnderlineWithSideDashes()
+        {
+            // The header underline is "Elapsed".Length + 2 (one extra dash each side); the column itself must
+            // still be at least that wide to center it without truncation.
+            Assert.True(TestResultDisplay.ElapsedColumnWidth >= "Elapsed".Length + 2);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_ButtonCode64_IsWheelUp()
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("64;12;5", out var wheelDown);
+            Assert.True(recognized);
+            Assert.False(wheelDown);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_ButtonCode65_IsWheelDown()
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("65;12;5", out var wheelDown);
+            Assert.True(recognized);
+            Assert.True(wheelDown);
+        }
+
+        [Theory]
+        [InlineData("68")] // wheel up + shift (bit 2)
+        [InlineData("72")] // wheel up + meta (bit 3)
+        [InlineData("80")] // wheel up + ctrl (bit 4)
+        public void TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(string buttonCode)
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection(buttonCode, out var wheelDown);
+            Assert.True(recognized);
+            Assert.False(wheelDown);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_OrdinaryButtonClick_IsNotAWheelEvent()
+        {
+            // Button 0 (left click) does not have the 0x40 wheel bit set.
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("0;12;5", out _);
+            Assert.False(recognized);
+        }
+
+        [Fact]
+        public void TryGetWheelDirection_UnparsableField_IsNotAWheelEvent()
+        {
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection("garbage;12;5", out _);
+            Assert.False(recognized);
+        }
+
+        [Theory]
+        [InlineData("66")] // horizontal tilt/scroll left
+        [InlineData("67")] // horizontal tilt/scroll right
+        [InlineData("70")] // horizontal tilt + shift (bit 2)
+        public void TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(string buttonCode)
+        {
+            // Buttons 66/67 (plus modifier bits) also have the 0x40 wheel-class bit set, but bit 0x02 marks them
+            // as horizontal tilt/scroll -- this table only scrolls vertically, so these must not be recognized.
+            var recognized = LiveTestProgressDisplay.TryGetWheelDirection(buttonCode, out _);
+            Assert.False(recognized);
         }
     }
 }

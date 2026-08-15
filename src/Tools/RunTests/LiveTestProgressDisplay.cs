@@ -6,6 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using System.Runtime.Versioning;
+using System.Text;
+using System.Threading;
+using Microsoft.Win32.SafeHandles;
+using Windows.Win32;
+using Win32Console = Windows.Win32.System.Console;
 
 namespace RunTests
 {
@@ -64,9 +70,53 @@ namespace RunTests
 
         private const int DefaultWindowHeight = 24;
 
+        /// <summary>
+        /// How long <see cref="WaitForMoreInput"/> will wait for a split escape sequence's remaining bytes to
+        /// arrive before giving up. Generous relative to how fast local PTY delivery actually is (sub-millisecond)
+        /// while still cheap against this display's ~1-second redraw cadence -- this only ever blocks the one poll
+        /// that happens to catch a sequence mid-delivery, not every tick.
+        /// </summary>
+        private const int EscapeSequenceCompletionTimeoutMs = 25;
+
         /// <summary>Standard xterm/VT sequences for entering and leaving the alternate screen buffer.</summary>
         private const string EnterAltScreen = "\x1b[?1049h";
         private const string ExitAltScreen = "\x1b[?1049l";
+
+        /// <summary>
+        /// Standard xterm sequences for enabling/disabling mouse button+wheel reporting (mode 1000) with SGR
+        /// extended coordinates (mode 1006) -- SGR is what lets the button code arrive unmodified (rather than
+        /// offset into a single byte that overflows past column/row 223), which is all <see cref="TryParseSgrMouseWheel"/>
+        /// actually needs. Only meaningful on non-Windows terminals: Windows consoles don't read xterm escapes off
+        /// stdin at all -- <see cref="TryDetectWindowsConsoleInputSupport"/> gets the equivalent behavior there by
+        /// flipping <c>ENABLE_VIRTUAL_TERMINAL_INPUT</c> (plus <c>ENABLE_MOUSE_INPUT</c>) via <c>SetConsoleMode</c>
+        /// instead, on Windows Terminal specifically -- see that method's doc comment for why this doesn't extend
+        /// to every Windows console host.
+        /// </summary>
+        private const string EnableMouseTracking = "\x1b[?1000h\x1b[?1006h";
+        private const string DisableMouseTracking = "\x1b[?1000l\x1b[?1006l";
+
+        /// <summary>
+        /// Whether this run enables mouse-wheel scrolling at all. True unconditionally on non-Windows (an xterm-
+        /// compatible terminal is assumed; a terminal that doesn't understand the escapes in
+        /// <see cref="EnableMouseTracking"/> just never sends anything back, so scrolling silently falls back to
+        /// keyboard-only). On Windows, only true once <see cref="TryDetectWindowsConsoleInputSupport"/> has
+        /// confirmed both that this is a Windows Terminal session (see its doc comment for why that specifically,
+        /// not just any Windows console, matters) and that <c>ENABLE_VIRTUAL_TERMINAL_INPUT</c> actually takes
+        /// effect when set -- older Windows Terminal builds or restricted environments that silently ignore the
+        /// flag fall back to keyboard-only too, since forcing raw-escape parsing without the OS actually emitting
+        /// escapes would just break navigation instead of adding the wheel to it.
+        /// </summary>
+        private readonly bool _supportsMouseWheel;
+
+        /// <summary>
+        /// The console's standard input handle, and its console mode before/after the tweaks
+        /// <see cref="EnableMouseSupport"/>/<see cref="DisableMouseSupport"/> toggle -- populated only when
+        /// <see cref="_supportsMouseWheel"/> is true on Windows; unused (and left default) on every other path,
+        /// since non-Windows terminals need only the xterm escapes in <see cref="EnableMouseTracking"/>.
+        /// </summary>
+        private readonly SafeFileHandle? _windowsStdInHandle;
+        private readonly Win32Console.CONSOLE_MODE _windowsOriginalConsoleMode;
+        private readonly Win32Console.CONSOLE_MODE _windowsModifiedConsoleMode;
 
         private readonly string _runLabel;
         private readonly List<Row> _rows;
@@ -93,6 +143,16 @@ namespace RunTests
 
         /// <summary>The scroll offset (index into <see cref="_rows"/>) used by the last redraw, or 0 if none yet.</summary>
         private int _lastScrollStart;
+
+        /// <summary>
+        /// The scroll offset the user last picked with the keyboard (see <see cref="PollKeyboardInput"/>), or
+        /// <see langword="null"/> if they haven't touched navigation yet -- in which case <see cref="ComputeScrollStart(int)"/>
+        /// keeps auto-following whatever's running/queued, exactly as before this field existed. Once set, it wins
+        /// over auto-follow every redraw (rows/status keep updating live underneath, but the visible window stops
+        /// chasing them) until <c>Esc</c> clears it back to <see langword="null"/>, matching a spreadsheet's frozen
+        /// header row: the header never moves, but the body underneath scrolls exactly where the user left it.
+        /// </summary>
+        private int? _manualScrollStart;
 
         private bool _disabled;
 
@@ -155,6 +215,95 @@ namespace RunTests
                 .OrderBy(static r => r.BaseName, StringComparer.OrdinalIgnoreCase)
                 .ThenBy(static r => r.Suffix, StringComparer.OrdinalIgnoreCase)
                 .ToList();
+
+            if (Console.IsInputRedirected)
+            {
+                // Nothing downstream will ever be able to read the wheel reports these escapes ask for --
+                // PollKeyboardInput bails out immediately on redirected input every tick -- so turning mouse
+                // tracking on here would just hijack wheel/click gestures on whatever the real terminal is
+                // showing for the rest of the run (or, on Windows, leave GetConsoleMode/SetConsoleMode operating
+                // on a handle that isn't a real console at all) for no benefit.
+                _supportsMouseWheel = false;
+            }
+            else if (OperatingSystem.IsWindows())
+            {
+                (_supportsMouseWheel, _windowsStdInHandle, _windowsOriginalConsoleMode, _windowsModifiedConsoleMode) = TryDetectWindowsConsoleInputSupport();
+            }
+            else
+            {
+                _supportsMouseWheel = true;
+            }
+        }
+
+        /// <summary>
+        /// Probes whether this Windows console actually honors <c>ENABLE_VIRTUAL_TERMINAL_INPUT</c> -- the mode
+        /// that makes <c>ReadFile</c>/<c>ReadConsole</c> on stdin emit the same xterm-style escape sequences
+        /// (arrow keys, mouse reports) that <see cref="PollKeyboardAndMouseInputRaw"/> already knows how to parse
+        /// for non-Windows terminals, so no separate Windows-specific input decoder is needed -- only a
+        /// Windows-specific way of getting the OS to start emitting those bytes in the first place. Actually sets
+        /// the mode, reads it back to confirm it stuck, then immediately reverts to the original mode (returned in
+        /// the tuple for the real switch to use later) rather than trusting <c>SetConsoleMode</c>'s bare
+        /// success return, because older Windows builds are documented to silently ignore unsupported mode bits
+        /// instead of failing the call -- forcing raw-escape parsing on a console that never actually emits
+        /// escapes would just break arrow-key navigation instead of adding the wheel to it. The real switch for
+        /// this display's actual lifetime happens later via <see cref="EnableMouseSupport"/>/<see cref="DisableMouseSupport"/>.
+        /// <para>
+        /// UNVERIFIED: written and compiled on a Linux sandbox with no Windows host available -- CsWin32's source
+        /// generator runs cross-platform, so this compiles cleanly here, but nothing in this method has executed
+        /// against a real Windows Terminal session. Needs a real pass on Windows before it's trusted the way
+        /// <c>Win32BreakawayProcessLauncher</c> (same caveat, same reason) eventually was.
+        /// </para>
+        /// </summary>
+        [SupportedOSPlatform("windows")]
+        private static (bool Supported, SafeFileHandle? Handle, Win32Console.CONSOLE_MODE OriginalMode, Win32Console.CONSOLE_MODE ModifiedMode) TryDetectWindowsConsoleInputSupport()
+        {
+            try
+            {
+                // ENABLE_VIRTUAL_TERMINAL_INPUT + ENABLE_MOUSE_INPUT is confirmed (github.com/microsoft/terminal
+                // issue #15296) to translate mouse/wheel events into VT sequences on stdin under Windows
+                // Terminal -- but *not* under legacy conhost (a plain cmd.exe/powershell.exe console window not
+                // hosted by Windows Terminal), which keeps delivering only native MOUSE_EVENT_RECORDs there
+                // regardless of these mode bits, and PollKeyboardAndMouseInputRaw's stdin byte parser would never
+                // see those. SetConsoleMode/GetConsoleMode round-tripping the flag below only proves the bit was
+                // accepted, not that mouse events actually get funneled into the text stream -- there's no
+                // official API to ask "will this console translate mouse to VT," so WT_SESSION (set by Windows
+                // Terminal in every process it hosts) is the practical way to avoid confidently claiming wheel
+                // support on a legacy conhost session where it would silently never fire.
+                if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("WT_SESSION")))
+                {
+                    return (false, null, default, default);
+                }
+
+                var handle = PInvoke.GetStdHandle_SafeHandle(Win32Console.STD_HANDLE.STD_INPUT_HANDLE);
+                if (handle.IsInvalid || !PInvoke.GetConsoleMode(handle, out var originalMode))
+                {
+                    return (false, null, default, default);
+                }
+
+                var addBits = Win32Console.CONSOLE_MODE.ENABLE_VIRTUAL_TERMINAL_INPUT
+                    | Win32Console.CONSOLE_MODE.ENABLE_MOUSE_INPUT
+                    | Win32Console.CONSOLE_MODE.ENABLE_EXTENDED_FLAGS;
+                var removeBits = Win32Console.CONSOLE_MODE.ENABLE_QUICK_EDIT_MODE
+                    | Win32Console.CONSOLE_MODE.ENABLE_LINE_INPUT
+                    | Win32Console.CONSOLE_MODE.ENABLE_ECHO_INPUT;
+                var modifiedMode = (originalMode | addBits) & ~removeBits;
+
+                if (!PInvoke.SetConsoleMode(handle, modifiedMode) ||
+                    !PInvoke.GetConsoleMode(handle, out var confirmedMode) ||
+                    (confirmedMode & Win32Console.CONSOLE_MODE.ENABLE_VIRTUAL_TERMINAL_INPUT) == 0)
+                {
+                    PInvoke.SetConsoleMode(handle, originalMode);
+                    return (false, null, default, default);
+                }
+
+                PInvoke.SetConsoleMode(handle, originalMode);
+                return (true, handle, originalMode, modifiedMode);
+            }
+            catch
+            {
+                // Best effort -- any failure here just means Windows keyboard-only navigation instead of a crash.
+                return (false, null, default, default);
+            }
         }
 
         /// <summary>
@@ -162,7 +311,7 @@ namespace RunTests
         /// <see cref="WorkItemInfo.DisplayName"/> adds for Helix work-item naming (not useful in a table where
         /// every row is already visually distinct), plus the target-framework directory name of its first
         /// assembly (e.g. <c>net472</c>, <c>net10.0</c>) -- used to disambiguate rows only when needed, since
-        /// <see cref="Options.TestRuntime.Both"/> schedules the same assembly filename as two separate work items,
+        /// <see cref="TestRuntime.Both"/> schedules the same assembly filename as two separate work items,
         /// one per framework.
         /// </summary>
         private static (string BaseName, string? TfmTag) GetNameParts(WorkItemInfo workItem)
@@ -191,6 +340,7 @@ namespace RunTests
             }
 
             var enteredAltScreen = false;
+            LiveTestProgressDisplay? display = null;
             try
             {
                 // Probe that cursor operations are actually usable here; some terminals/hosts report a non-redirected
@@ -214,6 +364,12 @@ namespace RunTests
                 // worth confirming it actually works in the exact state (already in the alternate screen) it'll
                 // always be called in from then on, not just that cursor queries in general don't throw.
                 Console.SetCursorPosition(0, 0);
+
+                // The constructor itself probes Windows mouse-wheel support (see TryDetectWindowsConsoleInputSupport);
+                // EnableMouseSupport here does the actual (non-Windows escape write / Windows SetConsoleMode) switch
+                // for the rest of this display's lifetime -- both no-op silently if support wasn't available.
+                display = new LiveTestProgressDisplay(runLabel, workItems);
+                display.EnableMouseSupport();
             }
             catch
             {
@@ -236,7 +392,6 @@ namespace RunTests
                 return null;
             }
 
-            var display = new LiveTestProgressDisplay(runLabel, workItems);
             Current = display;
             return display;
         }
@@ -278,6 +433,12 @@ namespace RunTests
 
             try
             {
+                // Mouse support is terminal/console-wide, independent of which screen buffer is active, so it must
+                // be turned back off here too -- otherwise it would keep hijacking the wheel (and clicks, and on
+                // Windows the ordinary QuickEdit text-selection gesture) in the user's real scrollback/shell after
+                // this display is done with it, not just while the table itself was on screen.
+                DisableMouseSupport();
+
                 Console.Out.Write(ExitAltScreen);
                 Console.Out.Flush();
             }
@@ -389,8 +550,11 @@ namespace RunTests
                 if (!_inAltScreen)
                 {
                     Console.Out.Write(EnterAltScreen);
+                    EnableMouseSupport();
                     _inAltScreen = true;
                 }
+
+                PollKeyboardInput(Math.Max(height - FixedFrameLines, 0));
 
                 // Always home the cursor and repaint the whole grid, rather than trying to track a "last frame
                 // height" to selectively overwrite -- the alternate screen is a fixed WindowWidth x WindowHeight
@@ -437,13 +601,327 @@ namespace RunTests
         }
 
         /// <summary>
+        /// Turns on whatever this platform needs for <see cref="PollKeyboardAndMouseInputRaw"/> to start seeing
+        /// mouse-wheel escape bytes on stdin -- the xterm escapes in <see cref="EnableMouseTracking"/> on
+        /// non-Windows, or flipping the previously-verified <see cref="_windowsModifiedConsoleMode"/> on via
+        /// <c>SetConsoleMode</c> on Windows. A no-op wherever <see cref="_supportsMouseWheel"/> is false. Paired
+        /// with <see cref="DisableMouseSupport"/> around every alt-screen enter/exit (see
+        /// <see cref="ExitAltScreenIfActive"/>, <see cref="RedrawCore"/>) the same way the alt-screen escapes
+        /// themselves are, so a <see cref="PrepareForExtraOutput"/> pause doesn't leave mouse/console-mode capture
+        /// hijacking the user's real scrollback while diagnostics print there.
+        /// </summary>
+        private void EnableMouseSupport()
+        {
+            if (!_supportsMouseWheel)
+            {
+                return;
+            }
+
+            if (OperatingSystem.IsWindows())
+            {
+                PInvoke.SetConsoleMode(_windowsStdInHandle!, _windowsModifiedConsoleMode);
+            }
+            else
+            {
+                Console.Out.Write(EnableMouseTracking);
+            }
+        }
+
+        /// <summary>Reverts whatever <see cref="EnableMouseSupport"/> turned on. See its doc comment for the pairing.</summary>
+        private void DisableMouseSupport()
+        {
+            if (!_supportsMouseWheel)
+            {
+                return;
+            }
+
+            if (OperatingSystem.IsWindows())
+            {
+                PInvoke.SetConsoleMode(_windowsStdInHandle!, _windowsOriginalConsoleMode);
+            }
+            else
+            {
+                Console.Out.Write(DisableMouseTracking);
+            }
+        }
+
+        /// <summary>
+        /// Reads and applies any input the user has produced since the last redraw -- keystrokes on every
+        /// platform, plus mouse-wheel scroll notches wherever <see cref="_supportsMouseWheel"/> allows it -- so
+        /// the row window can be scrolled by hand (like freezing a spreadsheet's header row and scrolling the body
+        /// underneath) instead of only ever auto-following whichever row is running/queued. Non-blocking -- drains
+        /// whatever's already buffered via <see cref="Console.KeyAvailable"/> rather than waiting for input -- and
+        /// best-effort: a host that doesn't support input polling (e.g. input redirected, or a probe that throws)
+        /// just leaves navigation disabled for the rest of the run rather than taking the whole display down with
+        /// it.
+        /// </summary>
+        private void PollKeyboardInput(int visibleRowBudget)
+        {
+            try
+            {
+                if (Console.IsInputRedirected)
+                {
+                    return;
+                }
+
+                var maxScrollStart = Math.Max(_rows.Count - visibleRowBudget, 0);
+                if (_supportsMouseWheel)
+                {
+                    PollKeyboardAndMouseInputRaw(visibleRowBudget, maxScrollStart);
+                }
+                else
+                {
+                    while (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey(intercept: true).Key;
+                        _manualScrollStart = ApplyNavigationKey(key, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                    }
+                }
+            }
+            catch
+            {
+                // Best effort -- if input polling isn't usable here, the auto-following window still works fine
+                // without it; there's nothing more useful to do than skip navigation for the rest of the run.
+            }
+        }
+
+        /// <summary>
+        /// Counterpart to the plain <see cref="Console.ReadKey()"/> loop in <see cref="PollKeyboardInput"/> used
+        /// whenever <see cref="_supportsMouseWheel"/> is true -- reads raw characters straight off
+        /// <see cref="Console.In"/> instead, because that's the only way to see the xterm-style mouse-wheel reports
+        /// <see cref="EnableMouseSupport"/> asks the terminal (or, on Windows, the console's VT-input translation)
+        /// to send. <see cref="Console.ReadKey()"/> only ever matches escape sequences against its own fixed table of *key*
+        /// sequences, silently discarding (or mis-decoding, one leftover character at a time) anything outside
+        /// it -- like a mouse report -- so it can never surface wheel input no matter how mouse tracking is
+        /// configured upstream. This re-implements just enough of the arrow/Home/End/PageUp/PageDown decoding
+        /// ReadKey normally provides for free, since going around it here means going around it for every key on
+        /// this platform, not only the mouse-specific bytes.
+        /// </summary>
+        private void PollKeyboardAndMouseInputRaw(int visibleRowBudget, int maxScrollStart)
+        {
+            while (Console.KeyAvailable)
+            {
+                var first = Console.In.Read();
+                if (first != 0x1b)
+                {
+                    // Not part of an escape sequence -- nothing this display reacts to is a bare character.
+                    continue;
+                }
+
+                // A terminal almost always delivers a whole escape sequence in one write(), so the rest of it is
+                // typically sitting in the buffer already -- but a PTY is just a byte stream with no message
+                // boundaries, so a slow link or an unusually scheduled terminal process could still deliver it in
+                // pieces. WaitForMoreInput gives a split delivery a brief bounded window to catch up before this
+                // gives up and treats "nothing showed up" as a real, bare Esc keypress (which resumes auto-follow,
+                // same as on Windows).
+                if (!WaitForMoreInput())
+                {
+                    _manualScrollStart = null;
+                    continue;
+                }
+
+                if (Console.In.Read() != '[' || !WaitForMoreInput())
+                {
+                    continue;
+                }
+
+                var third = Console.In.Read();
+                if (third == '<')
+                {
+                    if (TryParseSgrMouseWheel(out var wheelDown))
+                    {
+                        var current = _manualScrollStart ?? _lastScrollStart;
+                        _manualScrollStart = Math.Clamp(current + (wheelDown ? 1 : -1), 0, maxScrollStart);
+                    }
+
+                    continue;
+                }
+
+                var key = third switch
+                {
+                    'A' => ConsoleKey.UpArrow,
+                    'B' => ConsoleKey.DownArrow,
+                    'H' => ConsoleKey.Home,
+                    'F' => ConsoleKey.End,
+                    _ => (ConsoleKey?)null,
+                };
+
+                if (key is null && third is >= '0' and <= '9')
+                {
+                    key = ReadCsiTildeSequence(third) switch
+                    {
+                        "1" => ConsoleKey.Home,
+                        "4" => ConsoleKey.End,
+                        "5" => ConsoleKey.PageUp,
+                        "6" => ConsoleKey.PageDown,
+                        _ => null,
+                    };
+                }
+
+                if (key is { } navigationKey)
+                {
+                    _manualScrollStart = ApplyNavigationKey(navigationKey, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Bounded wait for more input to show up on <see cref="Console.In"/>, used everywhere
+        /// <see cref="PollKeyboardAndMouseInputRaw"/> and its helpers (<see cref="ReadCsiTildeSequence"/>,
+        /// <see cref="TryParseSgrMouseWheel"/>) are partway through a multi-byte escape sequence and need to know
+        /// whether the next byte is really not coming, or just hasn't arrived on the wire yet. A plain
+        /// <see cref="Console.KeyAvailable"/> check alone can't tell those apart -- a PTY is a byte stream with no
+        /// message boundaries, so nothing guarantees a terminal's write() lands in one piece by the time a poll
+        /// runs, even though it almost always does locally. Blocking here (rather than leaving it to the *next*
+        /// redraw tick, roughly a second later) keeps a merely-slow-to-arrive sequence from being torn in half --
+        /// its already-read prefix discarded or misparsed, and its second half misread as bare characters on the
+        /// next poll -- instead of correctly waiting the extra few milliseconds for the rest to show up.
+        /// </summary>
+        private static bool WaitForMoreInput()
+        {
+            if (Console.KeyAvailable)
+            {
+                return true;
+            }
+
+            var deadline = Environment.TickCount64 + EscapeSequenceCompletionTimeoutMs;
+            while (Environment.TickCount64 < deadline)
+            {
+                if (Console.KeyAvailable)
+                {
+                    return true;
+                }
+
+                Thread.Sleep(1);
+            }
+
+            return Console.KeyAvailable;
+        }
+
+        /// <summary>Reads the rest of a <c>CSI &lt;digits&gt; ~</c> sequence (e.g. Home/End/PageUp/PageDown), given the first digit already read as <paramref name="firstDigit"/>.</summary>
+        private static string ReadCsiTildeSequence(int firstDigit)
+        {
+            var digits = new StringBuilder().Append((char)firstDigit);
+            while (WaitForMoreInput())
+            {
+                var next = Console.In.Read();
+                if (next < 0 || next == '~')
+                {
+                    break;
+                }
+
+                digits.Append((char)next);
+            }
+
+            return digits.ToString();
+        }
+
+        /// <summary>
+        /// Parses the remainder of an SGR mouse report (<c>Pb;Px;Py</c> followed by <c>M</c> or <c>m</c>),
+        /// positioned just past the leading <c>ESC [ &lt;</c>, extracting only what wheel scrolling needs: bit
+        /// <c>0x40</c> of the button code <c>Pb</c> is xterm's marker for a wheel event specifically (as opposed
+        /// to an ordinary button click/drag/release), with the low bit then distinguishing up from down --
+        /// independent of whatever Shift/Meta/Ctrl modifier bits are also folded into the same byte, which is why
+        /// masking rather than an exact equality check against 64/65 is what's tested. Coordinates are read past
+        /// but otherwise ignored -- nothing here is scoped to where in the terminal the wheel moved.
+        /// </summary>
+        private static bool TryParseSgrMouseWheel(out bool wheelDown)
+        {
+            wheelDown = false;
+            var buffer = new StringBuilder();
+            while (WaitForMoreInput())
+            {
+                var c = Console.In.Read();
+                if (c < 0)
+                {
+                    return false;
+                }
+
+                if (c is 'M' or 'm')
+                {
+                    break;
+                }
+
+                buffer.Append((char)c);
+            }
+
+            return TryGetWheelDirection(buffer.ToString(), out wheelDown);
+        }
+
+        /// <summary>
+        /// The pure button-code-to-direction decision behind <see cref="TryParseSgrMouseWheel"/>, split out (like
+        /// <see cref="ApplyNavigationKey"/>) so it's directly unit-testable without a real console. Bit
+        /// <c>0x40</c> of the leading <c>Pb</c> field is xterm's marker for a wheel-class event generally (as
+        /// opposed to an ordinary button click/drag/release, which this returns <see langword="false"/> for) --
+        /// but that class covers four directions, not two: bit <c>0x02</c> then distinguishes horizontal
+        /// tilt/scroll (buttons 66/67, from a trackpad or a tilt wheel) from the vertical wheel this table actually
+        /// scrolls with (buttons 64/65), and only once that's ruled out does the low bit distinguish up from down.
+        /// All of this is independent of whatever Shift/Meta/Ctrl modifier bits are also folded into the same
+        /// byte (they occupy separate bits from both wheel markers), which is why masking rather than an exact
+        /// equality check against 64/65 is what's tested. <paramref name="sgrParameters"/> is the raw
+        /// <c>Pb;Px;Py</c> text read off the wire; only the first (button) field is used -- coordinates are
+        /// irrelevant to a wheel-only feature.
+        /// </summary>
+        internal static bool TryGetWheelDirection(string sgrParameters, out bool wheelDown)
+        {
+            wheelDown = false;
+            var buttonField = sgrParameters.Split(';')[0];
+            if (!int.TryParse(buttonField, out var buttonCode))
+            {
+                return false;
+            }
+
+            const int WheelClassBit = 0x40;
+            const int HorizontalBit = 0x02;
+            const int DirectionBit = 0x01;
+
+            if ((buttonCode & WheelClassBit) == 0 || (buttonCode & HorizontalBit) != 0)
+            {
+                // Either not a wheel event at all, or a horizontal tilt/scroll -- this table only scrolls vertically.
+                return false;
+            }
+
+            wheelDown = (buttonCode & DirectionBit) != 0;
+            return true;
+        }
+
+        /// <summary>
+        /// The pure key-to-scroll-position mapping behind <see cref="PollKeyboardInput"/>, split out (like
+        /// <see cref="ComputeScrollStart(int, int, int, int, int)"/>) so it's directly unit-testable without a real
+        /// console. Returns the new <see cref="_manualScrollStart"/> value for a recognized navigation key, or the
+        /// unchanged <paramref name="previousManualScrollStart"/> for any other key.
+        /// </summary>
+        internal static int? ApplyNavigationKey(ConsoleKey key, int? previousManualScrollStart, int lastScrollStart, int visibleRowBudget, int maxScrollStart)
+        {
+            var current = previousManualScrollStart ?? lastScrollStart;
+            return key switch
+            {
+                ConsoleKey.UpArrow => Math.Clamp(current - 1, 0, maxScrollStart),
+                ConsoleKey.DownArrow => Math.Clamp(current + 1, 0, maxScrollStart),
+                ConsoleKey.PageUp => Math.Clamp(current - visibleRowBudget, 0, maxScrollStart),
+                ConsoleKey.PageDown => Math.Clamp(current + visibleRowBudget, 0, maxScrollStart),
+                ConsoleKey.Home => 0,
+                ConsoleKey.End => maxScrollStart,
+                // Hand control back to auto-follow instead of holding wherever the user last scrolled.
+                ConsoleKey.Escape => null,
+                _ => previousManualScrollStart,
+            };
+        }
+
+        /// <summary>
         /// Picks which slice of <see cref="_rows"/> (already sorted alphabetically) to show given a viewport that
-        /// can hold <paramref name="visibleRowBudget"/> rows. Thin instance wrapper around the pure, independently
-        /// testable <see cref="ComputeScrollStart(int, int, int, int, int)"/> overload -- just finds the two focus
-        /// candidates in <see cref="_rows"/> and forwards to it.
+        /// can hold <paramref name="visibleRowBudget"/> rows. Defers to <see cref="_manualScrollStart"/> if the
+        /// user has navigated (see <see cref="PollKeyboardInput"/>); otherwise a thin instance wrapper around the
+        /// pure, independently testable <see cref="ComputeScrollStart(int, int, int, int, int)"/> overload -- just
+        /// finds the two focus candidates in <see cref="_rows"/> and forwards to it.
         /// </summary>
         private int ComputeScrollStart(int visibleRowBudget)
         {
+            if (_manualScrollStart is { } manual)
+            {
+                return Math.Clamp(manual, 0, Math.Max(_rows.Count - visibleRowBudget, 0));
+            }
+
             var firstRunningIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Running);
             var firstQueuedIndex = _rows.FindIndex(static r => r.Status == LiveRowStatus.Queued);
             return ComputeScrollStart(_rows.Count, visibleRowBudget, _lastScrollStart, firstRunningIndex, firstQueuedIndex);
@@ -510,6 +988,10 @@ namespace RunTests
             if (visibleRowBudget < _rows.Count)
             {
                 titleLine += $"    (showing {scrollStart + 1}-{scrollStart + visibleRows.Count} of {_rows.Count})";
+                var scrollHint = _supportsMouseWheel ? "scroll wheel / ↑↓/PgUp/PgDn" : "↑↓/PgUp/PgDn";
+                titleLine += _manualScrollStart is not null
+                    ? $"    [{scrollHint}/Home/End to scroll, Esc to follow]"
+                    : $"    [{scrollHint} to scroll]";
             }
 
             var lines = new List<string>(height)
@@ -519,9 +1001,9 @@ namespace RunTests
                 FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}", width),
                 // The Status underline fills its whole column (like the Test Assembly one) -- it only reads as
                 // "one dash past the word" because the centered header text is inset from the column edges. The
-                // Elapsed underline is different: exactly the word's length, never the full (wider, HH:mm:ss-sized)
-                // column, centered within it same as the data.
-                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length), TestResultDisplay.ElapsedColumnWidth)}", width),
+                // Elapsed underline is different: the word's length plus one extra dash on each side, never the
+                // full (wider, HH:mm:ss-sized) column, centered within it same as the data.
+                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length + 2), TestResultDisplay.ElapsedColumnWidth)}", width),
             };
 
             var now = DateTime.UtcNow;
