@@ -1,6 +1,13 @@
 param
 (
-    [string]$action,
+    [Parameter(Position = 0)][string]$action,
+    # Deliberately not given an explicit Position: PowerShell only auto-numbers positional slots
+    # for parameters when *none* of a script's parameters declare an explicit Position, so once
+    # $action above claims Position 0, $config here becomes name-only (-config still works) and
+    # every other positional token -- [config] included -- falls through to $remainingArgs, letting
+    # the manual parse below tell "truth"/"research" apart from --core/--desktop without ambiguity.
+    # (Verified against pwsh 7.6.0: `-action scry -config truth` still binds $config normally.)
+    [string]$config,
     [parameter(ValueFromRemainingArguments = $true)][string[]]$remainingArgs
 )
 try {
@@ -12,9 +19,9 @@ try {
     $nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
 
     # PowerShell's automatic parameter binding only recognises single-dash switches, so --core/
-    # --desktop (matching folly.sh's own --restore/--build style) and the [config] positional are
-    # parsed by hand here instead.
-    $config = ""
+    # --desktop (matching folly.sh's own --restore/--build style) are parsed by hand here; the
+    # [config] positional falls through to here too (see the param block comment above) unless it
+    # was already supplied by name via -config.
     $core = $false
     $desktop = $false
     foreach ($arg in $remainingArgs) {
@@ -103,20 +110,27 @@ try {
             if (-not (Test-Path -LiteralPath $LogPath)) {
                 return $result
             }
-            $markers = Select-String -LiteralPath $LogPath -Pattern '^================$'
-            if ($markers.Count -lt 2) {
-                return $result
+            # A full scry run's runtests.log also contains every failed test's captured
+            # stdout/stderr (Print() writes those before the summary table -- see TestRunner.cs) and
+            # can be large, so this streams the file once via File.ReadLines (lazy, no full-file
+            # array materialization) and stops right after the second marker instead of doing a
+            # Select-String pass followed by a separate full Get-Content of the whole file.
+            $markerCount = 0
+            foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
+                if ($line -eq "================") {
+                    $markerCount++
+                    if ($markerCount -eq 2) {
+                        $result.Found = $true
+                        break
+                    }
+                    continue
+                }
+                if ($markerCount -eq 1) {
+                    if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
+                    elseif ($line -match '\bFAILED\b') { $result.Failed++ }
+                    elseif ($line -match '\bPASSED\b') { $result.Passed++ }
+                }
             }
-            $lines = Get-Content -LiteralPath $LogPath
-            $startLine = $markers[0].LineNumber
-            $endLine = $markers[1].LineNumber
-            for ($i = $startLine - 1; $i -le $endLine - 1; $i++) {
-                $line = $lines[$i]
-                if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
-                elseif ($line -match '\bFAILED\b') { $result.Failed++ }
-                elseif ($line -match '\bPASSED\b') { $result.Passed++ }
-            }
-            $result.Found = $true
             return $result
         }
 
@@ -192,6 +206,12 @@ try {
         }
         if ($desktopExitCode -ne 0) {
             exit $desktopExitCode
+        }
+        if (-not $overallSuccess) {
+            # Every requested leg exited 0, but the summary itself says otherwise (e.g. RunTests hit
+            # a caught I/O error writing runtests.log -- see Program.WriteLogFile -- so the process
+            # still exits 0 with no readable summary). Don't let that read as success to automation.
+            exit 1
         }
         exit 0
     }
