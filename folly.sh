@@ -125,6 +125,11 @@ case "$action" in
       batch_starts=()
       batch_lens=()
       if (( total_count > 0 )); then
+        # `${#var}` counts characters, not bytes, under a multibyte locale,
+        # which would undercount the actual argv size exec() enforces for
+        # non-ASCII paths. Force LC_ALL=C for this loop so it counts bytes.
+        prior_lc_all="${LC_ALL:-}"
+        export LC_ALL=C
         bstart=0
         bcount=0
         bbytes=0
@@ -142,6 +147,11 @@ case "$action" in
         done
         batch_starts+=("$bstart")
         batch_lens+=("$bcount")
+        if [[ -n "$prior_lc_all" ]]; then
+          export LC_ALL="$prior_lc_all"
+        else
+          unset LC_ALL
+        fi
       fi
       # Same bash 3.2 empty-array caveat as `files` above.
       set +u
@@ -154,7 +164,11 @@ case "$action" in
       total_bytes=0
       for (( b = 0; b < batch_count; b++ )); do
         batch=("${files[@]:batch_starts[b]:batch_lens[b]}")
-        bsize=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }')
+        # `|| true`: a file can vanish between enumeration and sizing (e.g. a
+        # concurrent build process cleaning its own temp output), which
+        # makes stat exit nonzero even though awk still sums whatever
+        # operands succeeded -- don't let that abort cleanup under set -e.
+        bsize=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }') || true
         batch_sizes+=("$bsize")
         total_bytes=$(( total_bytes + bsize ))
       done
@@ -183,7 +197,7 @@ case "$action" in
         if (( ${#survivors[@]} == 0 )); then
           deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] ))
         else
-          survivor_bytes=$(stat "$stat_flag" -- "${survivors[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }')
+          survivor_bytes=$(stat "$stat_flag" -- "${survivors[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }') || true
           deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] - survivor_bytes ))
         fi
         set -u
