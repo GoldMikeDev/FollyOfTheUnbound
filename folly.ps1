@@ -183,16 +183,24 @@ try {
         if ($runCoreClr) {
             & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
             $coreClrExitCode = $LASTEXITCODE
+            # Copy rather than move: RunTests fires Process.Start for each failed test's HTML
+            # result and returns immediately without waiting for the browser to actually read the
+            # file (see TestRunner.PrintFailedTestResult), so renaming the directory out from under
+            # those tabs right here would race the browser's own file read. Leaving the originals in
+            # place until just before the Desktop leg needs the directory cleared gives the browser
+            # the whole Desktop build+test duration to load them instead of a few milliseconds.
             if (Test-Path -LiteralPath $testResultsDir) {
-                Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
+                Copy-Item -Recurse -Path $testResultsDir -Destination $coreClrTestResultsDir
             }
             if (Test-Path -LiteralPath $logDir) {
-                Move-Item -Path $logDir -Destination $coreClrLogDir
+                Copy-Item -Recurse -Path $logDir -Destination $coreClrLogDir
             }
         }
 
         $desktopExitCode = 0
         if ($runDesktop) {
+            Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
+            Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
             & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
             $desktopExitCode = $LASTEXITCODE
         }
