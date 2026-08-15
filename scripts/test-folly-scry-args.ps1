@@ -41,8 +41,9 @@ param(
 )
 $scriptroot = $PSScriptRoot
 $repoRoot = Split-Path $scriptroot -Parent
-$testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration"
-$logDir = Join-Path $repoRoot "artifacts\log\$configuration"
+$suffix = $env:FOTU_TEST_RESULTS_SUFFIX
+$testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration-$suffix"
+$logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
 function Write-FakeRunTestsLog([string]$LogDir) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -90,8 +91,9 @@ param(
 )
 $scriptroot = $PSScriptRoot
 $repoRoot = Split-Path $scriptroot -Parent
-$testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration"
-$logDir = Join-Path $repoRoot "artifacts\log\$configuration"
+$suffix = $env:FOTU_TEST_RESULTS_SUFFIX
+$testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration-$suffix"
+$logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
 if ($testCoreClr) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
     New-Item -ItemType Directory -Force -Path $logDir | Out-Null
