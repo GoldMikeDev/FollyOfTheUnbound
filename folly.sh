@@ -76,7 +76,7 @@ case "$action" in
 
       # Enumerate filenames only (no per-file stat/wc calls, which would spawn
       # a subprocess per artifact and make cleanup impractically slow on a
-      # large build tree). Sizing is done once in bulk via `du` below.
+      # large build tree). Sizing is done in batches via `stat` below.
       spinner_frames=('|' '/' '-' '\')
       spinner_index=0
       files=()
@@ -91,30 +91,51 @@ case "$action" in
       done < <(find "$artifacts_dir" -type f -print0)
       (( interactive )) && printf '\r\033[K'
 
+      # `${#files[@]}` on a still-empty array trips "unbound variable" under
+      # `set -u` on bash 3.2 (macOS's system bash), so nounset is relaxed
+      # just for this reference.
+      set +u
       total_count=${#files[@]}
-      total_bytes=$(du -sk "$artifacts_dir" 2>/dev/null | awk '{ print $1 * 1024 }')
-      [[ -z "$total_bytes" ]] && total_bytes=0
-      total_formatted=$(format_bytes "$total_bytes")
+      set -u
 
-      # Delete in batches so cleanup spawns a handful of `rm` processes
-      # instead of one per file.
+      stat_flag="-c%s"
+      stat -c%s "$scriptroot" >/dev/null 2>&1 || stat_flag="-f%z"
+
+      # Delete in batches so cleanup spawns a handful of `stat`/`rm` processes
+      # instead of one per file. Sizes are gathered up front (batch_sizes) so
+      # the deletion pass can report exact bytes deleted without re-`stat`ing.
       batch_size=500
-      deleted_count=0
-      start_time=$(date +%s)
+      batch_sizes=()
+      total_bytes=0
       i=0
       while (( i < total_count )); do
         batch=("${files[@]:i:batch_size}")
+        bsize=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }')
+        batch_sizes+=("$bsize")
+        total_bytes=$(( total_bytes + bsize ))
+        i=$(( i + batch_size ))
+      done
+      total_formatted=$(format_bytes "$total_bytes")
+
+      deleted_bytes=0
+      deleted_count=0
+      start_time=$(date +%s)
+      i=0
+      batch_idx=0
+      while (( i < total_count )); do
+        batch=("${files[@]:i:batch_size}")
         rm -f -- "${batch[@]}" 2>/dev/null || true
+        deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] ))
         deleted_count=$(( deleted_count + ${#batch[@]} ))
+        batch_idx=$(( batch_idx + 1 ))
         i=$(( i + batch_size ))
         if (( interactive )); then
           percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
           now=$(date +%s)
           elapsed=$(( now - start_time ))
-          approx_deleted_bytes=$(( total_count > 0 ? total_bytes * deleted_count / total_count : total_bytes ))
-          bytes_per_second=$(( elapsed > 0 ? approx_deleted_bytes / elapsed : 0 ))
+          bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
           printf '\r\033[KCleansing artefacts: %d / %d files, %s / %s, %s/s (%d%%)' \
-            "$deleted_count" "$total_count" "$(format_bytes "$approx_deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+            "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
         fi
       done
       (( interactive )) && printf '\r\033[K'
@@ -122,7 +143,7 @@ case "$action" in
       rm -rf "$artifacts_dir" || true
       if [[ -d "$artifacts_dir" ]]; then
         remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
-        echo "Cleansed $total_formatted of artefacts; $remaining file(s) could not be removed."
+        echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining file(s) could not be removed."
       else
         echo "Cleansed $total_formatted from artefacts."
       fi
