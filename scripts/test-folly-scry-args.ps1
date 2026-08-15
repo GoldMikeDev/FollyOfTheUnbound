@@ -66,6 +66,50 @@ else {
     return $dir
 }
 
+function New-FalseMarkerTestCase([string]$Name) {
+    # A dedicated mock (rather than New-TestCase's) whose runtests.log has a failed test's
+    # captured stdout/stderr -- written before the real summary table by
+    # TestRunner.PrintFailedTestResult -- coincidentally containing its own "================"
+    # pair, to prove the summary reader locates the *last* marker pair, not the first.
+    $dir = Join-Path $workRoot $Name
+    Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+    New-Item -ItemType Directory -Force -Path (Join-Path $dir "eng") | Out-Null
+    Copy-Item -LiteralPath $follyPs1 -Destination (Join-Path $dir "folly.ps1")
+    $mockBuild = @'
+param(
+    [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
+    [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [string]$solution,[string]$configuration
+)
+$scriptroot = $PSScriptRoot
+$repoRoot = Split-Path $scriptroot -Parent
+$testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration"
+$logDir = Join-Path $repoRoot "artifacts\log\$configuration"
+if ($testCoreClr) {
+    New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
+    New-Item -ItemType Directory -Force -Path $logDir | Out-Null
+    $lines = @(
+        "Errors Assembly.CoreClr.UnitTests_0",
+        "some test printed a divider as part of its own diagnostic output:",
+        "================",
+        "unrelated captured text that happens to be between two stray markers",
+        "================",
+        "Command: dotnet test ...",
+        "================",
+        "Assembly.CoreClr.UnitTests_0                                                FAILED       00:34    ",
+        "Assembly.CoreClr.UnitTests_1                                                PASSED       00:12    ",
+        "================",
+        "Extra run diagnostics for logging, did not impact run results"
+    )
+    Set-Content -LiteralPath (Join-Path $logDir "runtests.log") -Value $lines
+    exit 1
+}
+else { exit 0 }
+'@
+    Set-Content -LiteralPath (Join-Path $dir "eng\build.ps1") -Value $mockBuild
+    return $dir
+}
+
 function Invoke-Folly([string]$Dir, [string[]]$FollyArgs) {
     $output = & $pwshExe -NoProfile -File (Join-Path $Dir "folly.ps1") @FollyArgs 2>&1 | Out-String
     return [pscustomobject]@{ Output = $output; ExitCode = $LASTEXITCODE }
@@ -130,6 +174,16 @@ try {
     }
     else {
         Test-Fail "rejected argument (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- stray "================" lines in captured failure output don't fool the parser ---
+    $dir = New-FalseMarkerTestCase "false-marker"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "CoreCLR: 1 passed, 1 failed") {
+        Test-Pass "stray markers in captured failure output are not mistaken for the summary table"
+    }
+    else {
+        Test-Fail "false-marker log (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- --core/--desktop rejected for non-scry actions ---

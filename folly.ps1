@@ -120,26 +120,43 @@ try {
                 return $result
             }
             # A full scry run's runtests.log also contains every failed test's captured
-            # stdout/stderr (Print() writes those before the summary table -- see TestRunner.cs) and
-            # can be large, so this streams the file once via File.ReadLines (lazy, no full-file
-            # array materialization) and stops right after the second marker instead of doing a
-            # Select-String pass followed by a separate full Get-Content of the whole file.
-            $markerCount = 0
+            # stdout/stderr, written before the summary table (see TestRunner.PrintFailedTestResult,
+            # called from Print() before it writes the table) -- and that captured output could
+            # itself contain a line that happens to equal "================", so the *first* two
+            # matches in the file aren't reliable delimiters. The real summary table is always the
+            # *last* such delimited block RunTests writes (nothing meaningful follows it in the log
+            # but the small "Extra run diagnostics" section), so this finds the last two marker line
+            # numbers in one streaming pass, then extracts just the lines between them in a second
+            # streaming pass -- two passes, but neither materializes the whole (potentially large)
+            # file into memory at once the way Get-Content or Select-String's match objects would.
+            $markerLineNumbers = [System.Collections.Generic.List[int]]::new()
+            $lineNumber = 0
             foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
+                $lineNumber++
                 if ($line -eq "================") {
-                    $markerCount++
-                    if ($markerCount -eq 2) {
-                        $result.Found = $true
-                        break
-                    }
-                    continue
-                }
-                if ($markerCount -eq 1) {
-                    if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
-                    elseif ($line -match '\bFAILED\b') { $result.Failed++ }
-                    elseif ($line -match '\bPASSED\b') { $result.Passed++ }
+                    $markerLineNumbers.Add($lineNumber)
                 }
             }
+            if ($markerLineNumbers.Count -lt 2) {
+                return $result
+            }
+            $startLine = $markerLineNumbers[$markerLineNumbers.Count - 2]
+            $endLine = $markerLineNumbers[$markerLineNumbers.Count - 1]
+
+            $lineNumber = 0
+            foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
+                $lineNumber++
+                if ($lineNumber -le $startLine) {
+                    continue
+                }
+                if ($lineNumber -ge $endLine) {
+                    break
+                }
+                if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
+                elseif ($line -match '\bFAILED\b') { $result.Failed++ }
+                elseif ($line -match '\bPASSED\b') { $result.Passed++ }
+            }
+            $result.Found = $true
             return $result
         }
 
