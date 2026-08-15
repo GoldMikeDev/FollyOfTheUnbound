@@ -158,19 +158,50 @@ case "$action" in
       batch_count=${#batch_starts[@]}
       set -u
 
-      # Sizes are gathered up front (batch_sizes) so the deletion pass can
-      # report exact bytes deleted without re-`stat`ing.
-      batch_sizes=()
+      # Per-file sizes, parallel to `files`, gathered once up front so byte
+      # accounting always reflects this one snapshot. Re-`stat`ing a
+      # survivor later would report its *current* size, which can differ
+      # from what was actually removed if it was concurrently modified.
+      sizes=()
       total_bytes=0
       for (( b = 0; b < batch_count; b++ )); do
-        batch=("${files[@]:batch_starts[b]:batch_lens[b]}")
+        bstart=${batch_starts[b]}
+        blen=${batch_lens[b]}
+        batch=("${files[@]:bstart:blen}")
         # `|| true`: a file can vanish between enumeration and sizing (e.g. a
         # concurrent build process cleaning its own temp output), which
-        # makes stat exit nonzero even though awk still sums whatever
-        # operands succeeded -- don't let that abort cleanup under set -e.
-        bsize=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }') || true
-        batch_sizes+=("$bsize")
-        total_bytes=$(( total_bytes + bsize ))
+        # makes stat exit nonzero -- don't let that abort cleanup.
+        batch_out=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null) || true
+        line_vals=()
+        line_count=0
+        if [[ -n "$batch_out" ]]; then
+          while IFS= read -r sz; do
+            line_vals+=("$sz")
+            line_count=$(( line_count + 1 ))
+          done <<< "$batch_out"
+        fi
+        idx=$bstart
+        if (( line_count == blen )); then
+          # Common case: every operand succeeded, so stat's output is one
+          # line per file in the same order they were passed -- safe to
+          # assign positionally.
+          for sz in "${line_vals[@]}"; do
+            sizes[idx]=$sz
+            total_bytes=$(( total_bytes + sz ))
+            idx=$(( idx + 1 ))
+          done
+        else
+          # Rare: one or more files vanished mid-batch, breaking positional
+          # alignment. Fall back to stat'ing this batch one file at a time
+          # so each size still lands on the correct file.
+          for f in "${batch[@]}"; do
+            sz=$(stat "$stat_flag" -- "$f" 2>/dev/null) || sz=0
+            [[ -z "$sz" ]] && sz=0
+            sizes[idx]=$sz
+            total_bytes=$(( total_bytes + sz ))
+            idx=$(( idx + 1 ))
+          done
+        fi
       done
       total_formatted=$(format_bytes "$total_bytes")
 
@@ -178,30 +209,23 @@ case "$action" in
       deleted_count=0
       start_time=$(date +%s)
       for (( batch_idx = 0; batch_idx < batch_count; batch_idx++ )); do
-        batch=("${files[@]:batch_starts[batch_idx]:batch_lens[batch_idx]}")
+        bstart=${batch_starts[batch_idx]}
+        blen=${batch_lens[batch_idx]}
+        batch=("${files[@]:bstart:blen}")
         rm -f -- "${batch[@]}" 2>/dev/null || true
 
         # Verify what actually disappeared (cheap builtin checks, no
-        # subprocess) instead of assuming the whole batch succeeded --
-        # rm -f swallows per-file failures (e.g. an unwritable parent dir).
-        survivors=()
-        removed_in_batch=0
+        # subprocess) instead of assuming the whole batch succeeded -- rm -f
+        # swallows per-file failures (e.g. an unwritable parent dir). Bytes
+        # come from the original sizing snapshot above, never re-stat'd.
+        idx=$bstart
         for f in "${batch[@]}"; do
-          if [[ -e "$f" || -L "$f" ]]; then
-            survivors+=("$f")
-          else
-            removed_in_batch=$(( removed_in_batch + 1 ))
+          if [[ ! -e "$f" && ! -L "$f" ]]; then
+            deleted_count=$(( deleted_count + 1 ))
+            deleted_bytes=$(( deleted_bytes + sizes[idx] ))
           fi
+          idx=$(( idx + 1 ))
         done
-        set +u
-        if (( ${#survivors[@]} == 0 )); then
-          deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] ))
-        else
-          survivor_bytes=$(stat "$stat_flag" -- "${survivors[@]}" 2>/dev/null | awk '{ sum += $1 } END { print sum + 0 }') || true
-          deleted_bytes=$(( deleted_bytes + batch_sizes[batch_idx] - survivor_bytes ))
-        fi
-        set -u
-        deleted_count=$(( deleted_count + removed_in_batch ))
 
         if (( interactive )); then
           if (( total_bytes > 0 )); then
