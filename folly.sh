@@ -64,7 +64,19 @@ case "$action" in
     # outright (Unix just unlinks it out from under the process, so this is
     # silent there). Shut the servers down first so cleanse never races a
     # locked file.
-    command -v dotnet >/dev/null 2>&1 && dotnet build-server shutdown >/dev/null 2>&1 || true
+    #
+    # attune/weave/etc. run through eng/common/tools.sh's
+    # InitializeDotNetCli, which bootstraps a repo-local SDK under .dotnet/
+    # and only puts it on PATH inside that child build process -- it never
+    # updates this shell's PATH. A developer without a global `dotnet`
+    # install would silently skip the shutdown and still hit the DLL lock,
+    # so check the repo-local SDK first and only fall back to a global
+    # `dotnet` on PATH.
+    dotnet_exe="$scriptroot/.dotnet/dotnet"
+    if [[ ! -x "$dotnet_exe" ]]; then
+      dotnet_exe=$(command -v dotnet 2>/dev/null) || dotnet_exe=""
+    fi
+    [[ -n "$dotnet_exe" ]] && "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
     if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]] && { [[ ! -d "$artifacts_dir" ]] || [[ -L "$artifacts_dir" ]]; }; then
       # A regular file, or a symlink (whether it points at a directory or
       # not), doesn't need the enumeration/progress machinery below -- just
@@ -110,14 +122,14 @@ case "$action" in
           local out status
           out=$(find "$1" -type f -printf '%s\n' 2>/dev/null)
           status=$?
-          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d", s+0, n+0, ok}'
+          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d\n", s+0, n+0, ok}'
         }
       else
         dir_stats() {
           local out status
           out=$(find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null)
           status=$?
-          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d", s+0, n+0, ok}'
+          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d\n", s+0, n+0, ok}'
         }
       fi
 
