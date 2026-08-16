@@ -57,6 +57,14 @@ case "$action" in
     ;;
   cleanse)
     artifacts_dir="$scriptroot/artifacts"
+    # VBCSCompiler / the MSBuild build server / the Razor build server keep
+    # running between invocations and can hold an out-of-process BuildHost
+    # alive with Microsoft.CodeAnalysis.Workspaces.MSBuild*.dll loaded from
+    # artifacts/ -- on Windows that open handle blocks deleting the DLL
+    # outright (Unix just unlinks it out from under the process, so this is
+    # silent there). Shut the servers down first so cleanse never races a
+    # locked file.
+    command -v dotnet >/dev/null 2>&1 && dotnet build-server shutdown >/dev/null 2>&1 || true
     if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]] && { [[ ! -d "$artifacts_dir" ]] || [[ -L "$artifacts_dir" ]]; }; then
       # A regular file, or a symlink (whether it points at a directory or
       # not), doesn't need the enumeration/progress machinery below -- just

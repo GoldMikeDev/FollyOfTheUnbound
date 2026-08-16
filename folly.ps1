@@ -257,6 +257,16 @@ try {
     }
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
+        # VBCSCompiler / the MSBuild build server / the Razor build server
+        # keep running between invocations and can hold an out-of-process
+        # BuildHost alive with Microsoft.CodeAnalysis.Workspaces.MSBuild*.dll
+        # loaded from artifacts/ -- Windows blocks deleting a DLL a running
+        # process still has open, so cleanse would intermittently fail on
+        # those two files. Shut the servers down first so it never races a
+        # locked file.
+        if (Get-Command dotnet -ErrorAction SilentlyContinue) {
+            dotnet build-server shutdown *> $null
+        }
         if (Test-Path -LiteralPath $artifactsDir) {
             # Binary units throughout (1MB/1GB are PowerShell's built-in
             # 1048576/1073741824 literals) -- labelled MiB/GiB, never MB/GB.
@@ -292,12 +302,6 @@ try {
                 Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
             } -ArgumentList $artifactsDir
 
-            # Draw progress with a plain `` `r `` + pad-with-spaces redraw
-            # (mirroring the `\r\033[K` the bash script uses) instead of
-            # Write-Progress -- its "completed" pane doesn't reliably clear
-            # in every console host, which left stray blank padding in front
-            # of the final summary line.
-            $lastLineLength = 0
             $deletedBytes = 0L
             $deletedCount = 0
             $lastUpdate = Get-Date -Year 1970
@@ -318,18 +322,19 @@ try {
                     $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
                     $elapsedSeconds = ($now - $startTime).TotalSeconds
                     $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                    $line = "Cleansing artefacts $($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s ($percent%)"
-                    $pad = [Math]::Max(0, $lastLineLength - $line.Length)
-                    Write-Host -NoNewline ("`r" + $line + (' ' * $pad))
-                    $lastLineLength = $line.Length
+                    Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
                 Start-Sleep -Milliseconds 50
             }
             Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
             Remove-Job -Job $job
-            if ($lastLineLength -gt 0) {
-                Write-Host -NoNewline ("`r" + (' ' * $lastLineLength) + "`r")
-            }
+            Write-Progress -Activity "Cleansing artefacts" -Completed
+            # Write-Progress's "completed" pane doesn't reliably leave the
+            # cursor at column 0 in every console host (conhost in
+            # particular), which left stray blank padding in front of the
+            # line below -- force a fresh line rather than trusting
+            # -Completed alone.
+            Write-Host ""
 
             if (Test-Path -LiteralPath $artifactsDir) {
                 $remainingStats = Get-DirStats $artifactsDir
