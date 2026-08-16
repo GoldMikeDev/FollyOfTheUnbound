@@ -1,5 +1,6 @@
-# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--desktop) and
-# its unified test summary, run against a mocked eng/build.ps1 so no real build/test happens.
+# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--desktop,
+# --timeout) and its unified test summary, run against a mocked eng/build.ps1 so no real build/test
+# happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
 #   pwsh -File ./scripts/test-folly-scry-args.ps1
 $ErrorActionPreference = "Stop"
@@ -46,6 +47,9 @@ $repoRoot = Split-Path $scriptroot -Parent
 $suffix = $env:FOTU_TEST_RESULTS_SUFFIX
 $testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration-$suffix"
 $logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
+# Records the -testTimeout value this mock actually received, so the test harness can assert
+# folly.ps1 forwarded the value the caller asked for instead of silently dropping it.
+Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value "$suffix=$testTimeout"
 function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -212,6 +216,48 @@ try {
     }
     else {
         Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---
+    $dir = New-TestCase "timeout-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "180")
+    $receivedPath = Join-Path $dir "testTimeout-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "CoreClr=180" -and $received -match "Desktop=180") {
+        Test-Pass "'--timeout 180' is forwarded to eng/build.ps1 for both legs"
+    }
+    else {
+        Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --timeout with a missing value is rejected ---
+    $dir = New-TestCase "timeout-missing-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires a") {
+        Test-Pass "'--timeout' with no value is rejected"
+    }
+    else {
+        Test-Fail "timeout missing value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout with a non-numeric/non-positive value is rejected ---
+    $dir = New-TestCase "timeout-invalid-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "banana")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "positive integer minute count") {
+        Test-Pass "'--timeout banana' is rejected"
+    }
+    else {
+        Test-Fail "timeout invalid value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout rejected for non-scry actions ---
+    $dir = New-TestCase "timeout-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--timeout", "180")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--timeout' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "timeout on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     Write-Host ""

@@ -87,6 +87,10 @@ try {
         Write-Host "'--core'/'--desktop' are only valid with the 'scry' action." -ForegroundColor Red
         exit 1
     }
+    if ($testTimeout -gt 0 -and $action -ne "scry") {
+        Write-Host "'--timeout' is only valid with the 'scry' action." -ForegroundColor Red
+        exit 1
+    }
     if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
         $configuration = "Debug"
         $nupkgDir = Join-Path $nupkgRoot "Debug"

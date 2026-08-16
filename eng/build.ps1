@@ -122,6 +122,8 @@ function Print-Usage() {
   Write-Host "                            script's own stdout isn't itself being consumed by something else (e.g. piped to"
   Write-Host "                            Tee-Object/a file): PowerShell's object pipeline doesn't mark Console.Out as"
   Write-Host "                            redirected the way OS-level redirection does, so that can't be auto-detected here"
+  Write-Host "  -testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog (default: 90 for -testCoreClr/"
+  Write-Host "                            -testDesktop, 220 for -testVsi; ignored when -helix is set)"
   Write-Host "  -skipCustomRoslynDeploy   Skip custom Roslyn deployment when running integration tests (uses Roslyn from the VS)"
   Write-Host ""
   Write-Host "Advanced settings:"

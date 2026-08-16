@@ -62,6 +62,10 @@ Example: folly.sh scry truth --timeout 180
 EOF
   exit 0
 fi
+if [[ "$test_timeout" -gt 0 && "$action" != "scry" ]]; then
+  echo "'--timeout' is only valid with the 'scry' action." >&2
+  exit 1
+fi
 if [[ -z "$config" || "$config" == "research" ]]; then
   configuration="Debug"
   nupkg_dir="$nupkg_root/Debug"
