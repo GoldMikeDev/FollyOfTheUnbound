@@ -327,69 +327,94 @@ try {
             # large build output -- run it as a background job too and show
             # a spinner instead of leaving the terminal blank until the scan
             # finishes.
-            $scanJob = Start-Job -ScriptBlock {
-                param($dir)
-                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
-                    Measure-Object -Property Length -Sum
-                [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
-            } -ArgumentList $artifactsDir
-            $lastScanUpdate = Get-Date -Year 1970
-            while ($scanJob.State -eq 'Running') {
-                $now = Get-Date
-                if (($now - $lastScanUpdate).TotalMilliseconds -ge 100) {
-                    $lastScanUpdate = Get-Date
-                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                    Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
-                }
-                Start-Sleep -Milliseconds 50
-            }
-            $totalStats = Receive-Job -Job $scanJob
-            Remove-Job -Job $scanJob
-            Write-Progress -Activity "Scanning artefacts" -Completed
-
-            $totalBytes = $totalStats.Bytes
-            $totalCount = $totalStats.Count
-            $totalFormatted = Format-ByteSize $totalBytes
-
-            $startTime = Get-Date
-            $job = Start-Job -ScriptBlock {
-                param($dir)
-                Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
-            } -ArgumentList $artifactsDir
-
-            $deletedBytes = 0L
-            $deletedCount = 0
-            $lastUpdate = Get-Date -Year 1970
-            while ($job.State -eq 'Running') {
-                $now = Get-Date
-                if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
-                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                    $remainingBytes = 0L
-                    $remainingCount = 0
-                    if (Test-Path -LiteralPath $artifactsDir) {
-                        $remainingStats = Get-DirStats $artifactsDir
-                        $remainingBytes = $remainingStats.Bytes
-                        $remainingCount = $remainingStats.Count
+            #
+            # Both this and the delete job below are wrapped in try/finally:
+            # if Ctrl+C interrupts the polling loop, PowerShell unwinds
+            # through the finally block, which stops and removes whichever
+            # job is still non-$null at that point -- without it, a job
+            # left running would stay attached to the session and keep
+            # executing Remove-Item after the prompt returns, so Ctrl+C
+            # wouldn't actually cancel the deletion.
+            $scanJob = $null
+            $job = $null
+            try {
+                $scanJob = Start-Job -ScriptBlock {
+                    param($dir)
+                    $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
+                        Measure-Object -Property Length -Sum
+                    [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
+                } -ArgumentList $artifactsDir
+                $lastScanUpdate = Get-Date -Year 1970
+                while ($scanJob.State -eq 'Running') {
+                    $now = Get-Date
+                    if (($now - $lastScanUpdate).TotalMilliseconds -ge 100) {
+                        $lastScanUpdate = Get-Date
+                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                        Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
                     }
-                    # Stamp the throttle from *after* the scan, not before --
-                    # on the large trees this is meant to help with,
-                    # Get-DirStats can itself take longer than 100ms, and
-                    # timestamping before it would let the next loop
-                    # iteration fire immediately, keeping a second full-tree
-                    # walker running continuously alongside Remove-Item and
-                    # fighting it for the same filesystem I/O.
-                    $lastUpdate = Get-Date
-                    $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
-                    $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
-                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
-                    $elapsedSeconds = ($lastUpdate - $startTime).TotalSeconds
-                    $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                    Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
+                    Start-Sleep -Milliseconds 50
                 }
-                Start-Sleep -Milliseconds 50
+                $totalStats = Receive-Job -Job $scanJob
+                Remove-Job -Job $scanJob
+                $scanJob = $null
+                Write-Progress -Activity "Scanning artefacts" -Completed
+
+                $totalBytes = $totalStats.Bytes
+                $totalCount = $totalStats.Count
+                $totalFormatted = Format-ByteSize $totalBytes
+
+                $startTime = Get-Date
+                $job = Start-Job -ScriptBlock {
+                    param($dir)
+                    Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+                } -ArgumentList $artifactsDir
+
+                $deletedBytes = 0L
+                $deletedCount = 0
+                $lastUpdate = Get-Date -Year 1970
+                while ($job.State -eq 'Running') {
+                    $now = Get-Date
+                    if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
+                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                        $remainingBytes = 0L
+                        $remainingCount = 0
+                        if (Test-Path -LiteralPath $artifactsDir) {
+                            $remainingStats = Get-DirStats $artifactsDir
+                            $remainingBytes = $remainingStats.Bytes
+                            $remainingCount = $remainingStats.Count
+                        }
+                        # Stamp the throttle from *after* the scan, not before
+                        # -- on the large trees this is meant to help with,
+                        # Get-DirStats can itself take longer than 100ms, and
+                        # timestamping before it would let the next loop
+                        # iteration fire immediately, keeping a second
+                        # full-tree walker running continuously alongside
+                        # Remove-Item and fighting it for the same filesystem
+                        # I/O.
+                        $lastUpdate = Get-Date
+                        $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
+                        $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
+                        $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
+                        $elapsedSeconds = ($lastUpdate - $startTime).TotalSeconds
+                        $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
+                        Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
+                    }
+                    Start-Sleep -Milliseconds 50
+                }
+                Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+                Remove-Job -Job $job
+                $job = $null
             }
-            Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
-            Remove-Job -Job $job
+            finally {
+                if ($scanJob) {
+                    Stop-Job -Job $scanJob -ErrorAction SilentlyContinue
+                    Remove-Job -Job $scanJob -Force -ErrorAction SilentlyContinue
+                }
+                if ($job) {
+                    Stop-Job -Job $job -ErrorAction SilentlyContinue
+                    Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
+                }
+            }
             Write-Progress -Activity "Cleansing artefacts" -Completed
             # Write-Progress's "completed" pane doesn't reliably leave the
             # cursor at column 0 in every console host (conhost in

@@ -84,25 +84,36 @@ try {
     # can't be deleted by Remove-Item -Recurse -Force, nor by the retry --
     # cleanse must still finish, report an accurate survivor count, and not
     # throw.
-    $dir = New-TestCase "locked"
-    $artifactsDir = Join-Path $dir "artifacts"
-    New-Item -ItemType Directory -Force -Path $artifactsDir | Out-Null
-    $removableFile = Join-Path $artifactsDir "removable.bin"
-    $lockedFile = Join-Path $artifactsDir "locked.bin"
-    Set-Content -LiteralPath $removableFile -Value ("x" * 100) -NoNewline
-    Set-Content -LiteralPath $lockedFile -Value ("x" * 10) -NoNewline
-    $stream = [System.IO.File]::Open($lockedFile, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::None)
-    try {
-        $result = Invoke-Cleanse -Dir $dir
-    }
-    finally {
-        $stream.Close()
-    }
-    if ($result.ExitCode -eq 0 -and $result.Output -match "1 file\(s\) could not be removed\." -and -not (Test-Path -LiteralPath $removableFile) -and (Test-Path -LiteralPath $lockedFile)) {
-        Test-Pass "locked file survives the bulk delete and its retry, reported accurately"
+    #
+    # Windows-only: an open FileStream with FileShare.None only blocks
+    # deletion on Windows' mandatory file locking. Unix lets a file be
+    # unlinked out from under an open handle regardless -- cleanse would
+    # correctly remove locked.bin there, and this assertion would always
+    # (and wrongly) report a failure.
+    if (-not $IsWindows) {
+        Write-Host "SKIP: locked-file case (FileShare.None doesn't block deletion on Unix)"
     }
     else {
-        Test-Fail "locked file (exit=$($result.ExitCode), output='$($result.Output)')"
+        $dir = New-TestCase "locked"
+        $artifactsDir = Join-Path $dir "artifacts"
+        New-Item -ItemType Directory -Force -Path $artifactsDir | Out-Null
+        $removableFile = Join-Path $artifactsDir "removable.bin"
+        $lockedFile = Join-Path $artifactsDir "locked.bin"
+        Set-Content -LiteralPath $removableFile -Value ("x" * 100) -NoNewline
+        Set-Content -LiteralPath $lockedFile -Value ("x" * 10) -NoNewline
+        $stream = [System.IO.File]::Open($lockedFile, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::None)
+        try {
+            $result = Invoke-Cleanse -Dir $dir
+        }
+        finally {
+            $stream.Close()
+        }
+        if ($result.ExitCode -eq 0 -and $result.Output -match "1 file\(s\) could not be removed\." -and -not (Test-Path -LiteralPath $removableFile) -and (Test-Path -LiteralPath $lockedFile)) {
+            Test-Pass "locked file survives the bulk delete and its retry, reported accurately"
+        }
+        else {
+            Test-Fail "locked file (exit=$($result.ExitCode), output='$($result.Output)')"
+        }
     }
 
     # --- file vanishing mid-scan (concurrent writer) -------------------------
