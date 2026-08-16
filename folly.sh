@@ -74,6 +74,11 @@ case "$action" in
     # `dotnet` on PATH.
     dotnet_exe="$scriptroot/.dotnet/dotnet"
     if [[ ! -x "$dotnet_exe" ]]; then
+      # Git Bash on Windows runs against a bootstrapped SDK named
+      # dotnet.exe, not the extensionless Unix name.
+      dotnet_exe="$scriptroot/.dotnet/dotnet.exe"
+    fi
+    if [[ ! -x "$dotnet_exe" ]]; then
       dotnet_exe=$(command -v dotnet 2>/dev/null) || dotnet_exe=""
     fi
     [[ -n "$dotnet_exe" ]] && "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
@@ -143,12 +148,15 @@ case "$action" in
       else
         dir_stats() {
           local status
-          # Index 1 (xargs, the stage that actually stats each file) mirrors
-          # what the prior non-streaming implementation captured here.
+          # `find` failing (e.g. a permission-denied subtree) doesn't
+          # necessarily fail `xargs` -- xargs happily stats whatever
+          # filenames it was handed and exits 0. Checking only index 1
+          # (xargs) would report ok=1 on a partial/truncated file list, so
+          # both stages must succeed for this to count as a complete scan.
           if find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'; then
             status=0
           else
-            status=${PIPESTATUS[1]}
+            status=$(( PIPESTATUS[0] != 0 || PIPESTATUS[1] != 0 ? 1 : 0 ))
           fi
           printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
         }
