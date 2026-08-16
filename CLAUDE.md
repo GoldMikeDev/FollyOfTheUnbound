@@ -39,6 +39,7 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 - Consecutive numbers of the same type collapse into a range (`#30-31`); non-consecutive numbers are comma-separated (`#21-25, #28`).
 - Join multiple groups with `&`.
 - If the session already touched other issues/PRs, merge the new number(s) into the existing title instead of overwriting it, re-collapsing into ranges where the merge makes numbers consecutive.
+- **Always call `get_session` first to read the current title before calling `set_session_title`.** Never assume the current title (from memory, from context, or "this looks like a fresh session") — a title set without checking first risks silently overwriting and losing every issue/PR number a prior rename recorded.
 - Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
 
 ## Merging pull requests
