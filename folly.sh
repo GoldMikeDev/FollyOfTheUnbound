@@ -187,9 +187,15 @@ case "$action" in
         last_second=-1
         while kill -0 "$rm_pid" 2>/dev/null; do
           if (( SECONDS != last_second )); then
-            last_second=$SECONDS
             spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
             read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
+            # Stamp the throttle from *after* the scan, not before -- on the
+            # large trees this is meant to help with, `dir_stats` can itself
+            # take a second or more, and timestamping before it would let
+            # the next loop iteration fire immediately, keeping a second
+            # full-tree walker running continuously alongside `rm -rf` and
+            # fighting it for the same filesystem I/O.
+            last_second=$SECONDS
             deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
             deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
             if (( total_bytes > 0 )); then

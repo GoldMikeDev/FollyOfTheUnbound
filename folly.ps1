@@ -295,9 +295,15 @@ try {
                 elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
                 else { return "$bytes B" }
             }
+            # Pipe straight into Measure-Object rather than assigning
+            # Get-ChildItem's output to a variable first -- an assignment
+            # materializes every FileInfo into an array before summing,
+            # which on the large trees this is meant to help with retains a
+            # full-tree object array on every progress refresh. Piping keeps
+            # this streaming, one FileInfo at a time.
             function Get-DirStats([string]$dir) {
-                $items = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue
-                $sum = ($items | Measure-Object -Property Length -Sum)
+                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
+                    Measure-Object -Property Length -Sum
                 $bytes = if ($sum.Sum) { $sum.Sum } else { 0L }
                 return @{ Bytes = $bytes; Count = $sum.Count }
             }
@@ -317,8 +323,8 @@ try {
             # finishes.
             $scanJob = Start-Job -ScriptBlock {
                 param($dir)
-                $items = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue
-                $sum = ($items | Measure-Object -Property Length -Sum)
+                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
+                    Measure-Object -Property Length -Sum
                 [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
             } -ArgumentList $artifactsDir
             $lastScanUpdate = Get-Date -Year 1970
