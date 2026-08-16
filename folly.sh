@@ -93,10 +93,16 @@ case "$action" in
       spinner_index=0
       files=()
       scan_count=0
+      # Redraw at most once per wall-clock second (checked via the `SECONDS`
+      # builtin -- no subprocess) rather than every Nth file. Gating on file
+      # count alone let the spinner and its counter flicker by faster than a
+      # human eye can track on large, fast-enumerating trees.
+      spinner_last_second=-1
       while IFS= read -r -d '' file; do
         files+=("$file")
         scan_count=$(( scan_count + 1 ))
-        if (( interactive )) && (( scan_count % 200 == 0 )); then
+        if (( interactive )) && (( SECONDS != spinner_last_second )); then
+          spinner_last_second=$SECONDS
           spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
           printf '\r\033[KEnumerating files %s %d file(s) found' "${spinner_frames[$spinner_index]}" "$scan_count"
         fi
@@ -208,6 +214,11 @@ case "$action" in
       deleted_bytes=0
       deleted_count=0
       start_time=$(date +%s)
+      # Same once-per-second throttle as the enumeration spinner above: batches
+      # can be up to 1000 files and complete in a flash, which previously made
+      # the bar jump straight from 0% to 100% in a single redraw. Always draw
+      # the last batch so the final numbers shown are accurate.
+      progress_last_second=-1
       for (( batch_idx = 0; batch_idx < batch_count; batch_idx++ )); do
         bstart=${batch_starts[batch_idx]}
         blen=${batch_lens[batch_idx]}
@@ -227,7 +238,8 @@ case "$action" in
           idx=$(( idx + 1 ))
         done
 
-        if (( interactive )); then
+        if (( interactive )) && { (( SECONDS != progress_last_second )) || (( batch_idx == batch_count - 1 )); }; then
+          progress_last_second=$SECONDS
           if (( total_bytes > 0 )); then
             percent=$(( deleted_bytes * 100 / total_bytes ))
           else
