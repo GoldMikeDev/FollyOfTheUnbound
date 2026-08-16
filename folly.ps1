@@ -310,7 +310,31 @@ try {
             # display doesn't add per-file cost back into the deletion path.
             $spinnerFrames = @('|', '/', '-', '\')
             $spinnerIndex = 0
-            $totalStats = Get-DirStats $artifactsDir
+
+            # Get-DirStats on the full tree can itself take a while on a
+            # large build output -- run it as a background job too and show
+            # a spinner instead of leaving the terminal blank until the scan
+            # finishes.
+            $scanJob = Start-Job -ScriptBlock {
+                param($dir)
+                $items = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue
+                $sum = ($items | Measure-Object -Property Length -Sum)
+                [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
+            } -ArgumentList $artifactsDir
+            $lastScanUpdate = Get-Date -Year 1970
+            while ($scanJob.State -eq 'Running') {
+                $now = Get-Date
+                if (($now - $lastScanUpdate).TotalMilliseconds -ge 100) {
+                    $lastScanUpdate = Get-Date
+                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                    Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
+                }
+                Start-Sleep -Milliseconds 50
+            }
+            $totalStats = Receive-Job -Job $scanJob
+            Remove-Job -Job $scanJob
+            Write-Progress -Activity "Scanning artefacts" -Completed
+
             $totalBytes = $totalStats.Bytes
             $totalCount = $totalStats.Count
             $totalFormatted = Format-ByteSize $totalBytes
@@ -361,6 +385,15 @@ try {
             # line below -- force a fresh line rather than trusting
             # -Completed alone.
             Write-Host ""
+
+            if (Test-Path -LiteralPath $artifactsDir) {
+                # A lock held only transiently (e.g. an antivirus scanner, or
+                # a process still winding down) can clear between the bulk
+                # delete and now -- retry once before reporting survivors,
+                # the same second chance the old per-file loop gave every
+                # file implicitly by continuing past individual failures.
+                Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+            }
 
             if (Test-Path -LiteralPath $artifactsDir) {
                 $remainingStats = Get-DirStats $artifactsDir

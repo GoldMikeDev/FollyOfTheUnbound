@@ -126,7 +126,31 @@ case "$action" in
       # in bash. It runs in the background; progress is reported by
       # periodically re-running `dir_stats` on what's left, so the display
       # never adds per-file cost back into the deletion path itself.
-      read -r total_bytes total_count _ <<< "$(dir_stats "$artifacts_dir")"
+      spinner_frames=('|' '/' '-' '\')
+      spinner_index=0
+
+      # `dir_stats` on the full tree can itself take a while on a large
+      # build output -- run it in the background too and show a spinner
+      # instead of leaving the terminal blank (with the cursor hidden)
+      # until the scan finishes.
+      scan_tmp=$(mktemp)
+      ( dir_stats "$artifacts_dir" > "$scan_tmp" ) &
+      scan_pid=$!
+      if (( interactive )); then
+        last_second=-1
+        while kill -0 "$scan_pid" 2>/dev/null; do
+          if (( SECONDS != last_second )); then
+            last_second=$SECONDS
+            spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+            printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
+          fi
+          sleep 0.05
+        done
+        printf '\r\033[K'
+      fi
+      wait "$scan_pid" || true
+      read -r total_bytes total_count _ < "$scan_tmp"
+      rm -f "$scan_tmp"
       total_formatted=$(format_bytes "$total_bytes")
 
       start_time=$(date +%s)
@@ -136,8 +160,6 @@ case "$action" in
       deleted_bytes=$total_bytes
       deleted_count=$total_count
       if (( interactive )); then
-        spinner_frames=('|' '/' '-' '\')
-        spinner_index=0
         last_second=-1
         while kill -0 "$rm_pid" 2>/dev/null; do
           if (( SECONDS != last_second )); then
@@ -171,8 +193,20 @@ case "$action" in
       wait "$rm_pid" || true
 
       if [[ -d "$artifacts_dir" ]]; then
+        # A lock held only transiently (e.g. an antivirus scanner, or a
+        # process still winding down) can clear between the first rm -rf and
+        # now -- retry once before reporting survivors, the same second
+        # chance the old per-file loop gave every file implicitly by
+        # continuing past individual failures.
+        rm -rf "$artifacts_dir" 2>/dev/null || true
+      fi
+
+      if [[ -d "$artifacts_dir" ]]; then
         read -r remaining_bytes remaining_count remaining_ok <<< "$(dir_stats "$artifacts_dir")"
-        deleted_bytes=$(( total_bytes - remaining_bytes ))
+        # A concurrent process (e.g. another build) can add bytes to the
+        # tree after the initial snapshot, making remaining_bytes exceed
+        # total_bytes -- clamp instead of printing a negative size.
+        deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
         if (( remaining_ok )); then
           echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining_count file(s) could not be removed."
         else
