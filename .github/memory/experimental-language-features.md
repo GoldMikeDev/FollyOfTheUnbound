@@ -70,9 +70,10 @@ Reference-type receivers are unaffected — they still take the statement-level 
 path, which both features' `IOperation` results already converged on anyway (`CSharpOperationFactory`
 builds the same `VoidCoalesceOperation` either way). If touching either feature, still check the other —
 they compete for the same syntax shape, just split now by receiver type instead of one unconditionally
-shadowing the other. **Not yet verified against a real build** (no .NET SDK in the environment this fix
-was made in) — build and exercise both a reference-type and a `Nullable<T>` receiver case before trusting
-this.
+shadowing the other. **Verified**: `Microsoft.CodeAnalysis.CSharp.csproj` builds clean, and
+`VoidCoalesceTests.cs` (`src/Compilers/CSharp/Test/Semantic/Semantics/`) has passing compiler tests
+for both cases — a reference-type receiver still binds with no diagnostics via the statement-level
+path, and a `Nullable<T>` receiver reports `ERR_VoidCoalesceRequiresReferenceTypeReceiver`.
 
 ## `*.` root-namespace placeholder qualifier
 
