@@ -86,7 +86,7 @@ internal static class Win32BreakawayProcessLauncher
         SafeFileHandle? jobHandle = null;
         SafeFileHandle? processHandle = null;
         SafeFileHandle? threadHandle = null;
-        var handleListBufferPtr = 0n;
+        nint handleListBufferPtr = 0;
 
         try
         {
@@ -184,7 +184,7 @@ internal static class Win32BreakawayProcessLauncher
                     PInvoke.DeleteProcThreadAttributeList(attributeList);
                     Marshal.FreeHGlobal(attributeListBuffer);
                     Marshal.FreeHGlobal(handleListBufferPtr);
-                    handleListBufferPtr = 0n;
+                    handleListBufferPtr = 0;
                 }
 
                 if (!created)
