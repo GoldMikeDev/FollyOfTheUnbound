@@ -40,6 +40,12 @@ per-layer files (load only the one for your area):
 **Description:** CI flags `TODO` comments; PROTOTYPE comments are disallowed in PRs to `main`.
 **Guidance:** Do **not** add new `TODO` or `TODO2` comments. Track follow-up work as a GitHub issue and link it in code (e.g. `// See https://github.com/dotnet/roslyn/issues/NNNN`). Existing `TODO2` markers are only a frozen baseline from when enforcement was introduced — they are not a pattern to copy. Remove all `PROTOTYPE` markers before merging to `main` (allowed only on feature branches).
 
+## `artifacts/` DLLs can be locked by lingering build servers on Windows
+
+**Affected area:** `folly.sh cleanse` / `folly.ps1 cleanse`
+**Description:** VBCSCompiler, the MSBuild build server, and the Razor build server keep running between `folly` invocations and can hold an out-of-process BuildHost alive with `Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll` / `...MSBuild.BuildHost.dll` loaded from `artifacts/`. On Windows an open handle blocks deleting the DLL outright; on Unix the file is simply unlinked out from under the process, so this is invisible there.
+**Workaround:** `cleanse` runs `dotnet build-server shutdown` (resolving the repo-local `.dotnet/dotnet[.exe]` first, falling back to a global `dotnet` on `PATH`) before deleting `artifacts/`. Don't remove that shutdown step when touching cleanse — without it, deletion can intermittently fail on those two files with no other symptom.
+
 ## Environmental test failures (not code bugs)
 
 **Affected area:** full `test.sh`/`Test.cmd` runs

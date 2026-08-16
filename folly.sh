@@ -94,19 +94,30 @@ case "$action" in
         fi
       }
 
-      # Report (bytes, count) for every regular file under $1 in a single
+      # Report "bytes count ok" for every regular file under $1 in a single
       # `find` pass piped through one `awk`, not a bash loop stat-ing each
       # file -- that per-file bash overhead was what made cleanse feel much
       # slower than a plain `rm -rf`/Explorer delete. GNU find's -printf
       # gives sizes directly; BSD find (macOS) lacks -printf, so fall back
-      # to piping filenames through one batched `stat` call instead.
+      # to piping filenames through one batched `stat` call instead. `ok` is
+      # 1 only if `find` itself exited cleanly -- a permission-denied
+      # subtree makes find exit nonzero while still printing what it could
+      # read, and silently trusting that partial count as the true
+      # remainder would let the final summary report "0 files could not be
+      # removed" when files actually survived.
       if find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1; then
         dir_stats() {
-          find "$1" -type f -printf '%s\n' 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
+          local out status
+          out=$(find "$1" -type f -printf '%s\n' 2>/dev/null)
+          status=$?
+          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d", s+0, n+0, ok}'
         }
       else
         dir_stats() {
-          find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
+          local out status
+          out=$(find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null)
+          status=$?
+          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d", s+0, n+0, ok}'
         }
       fi
 
@@ -115,7 +126,7 @@ case "$action" in
       # in bash. It runs in the background; progress is reported by
       # periodically re-running `dir_stats` on what's left, so the display
       # never adds per-file cost back into the deletion path itself.
-      read -r total_bytes total_count <<< "$(dir_stats "$artifacts_dir")"
+      read -r total_bytes total_count _ <<< "$(dir_stats "$artifacts_dir")"
       total_formatted=$(format_bytes "$total_bytes")
 
       start_time=$(date +%s)
@@ -132,7 +143,7 @@ case "$action" in
           if (( SECONDS != last_second )); then
             last_second=$SECONDS
             spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-            read -r remaining_bytes remaining_count <<< "$(dir_stats "$artifacts_dir")"
+            read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
             deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
             deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
             if (( total_bytes > 0 )); then
@@ -140,6 +151,11 @@ case "$action" in
             else
               percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
             fi
+            # `rm -rf` is still running at this point (the loop condition is
+            # `kill -0 "$rm_pid"`) -- it may still be removing now-empty
+            # directories even once every file is gone, so 100% here would
+            # be a lie. Only the post-`wait` report below may claim 100%.
+            (( percent > 99 )) && percent=99
             now=$(date +%s)
             elapsed=$(( now - start_time ))
             bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
@@ -155,9 +171,17 @@ case "$action" in
       wait "$rm_pid" || true
 
       if [[ -d "$artifacts_dir" ]]; then
-        read -r remaining_bytes remaining_count <<< "$(dir_stats "$artifacts_dir")"
+        read -r remaining_bytes remaining_count remaining_ok <<< "$(dir_stats "$artifacts_dir")"
         deleted_bytes=$(( total_bytes - remaining_bytes ))
-        echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining_count file(s) could not be removed."
+        if (( remaining_ok )); then
+          echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining_count file(s) could not be removed."
+        else
+          # `find` itself failed partway (e.g. an unreadable subtree), so
+          # remaining_count only reflects what it could see -- reporting it
+          # as exact would understate (possibly to a false "0") how much is
+          # actually left behind.
+          echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; at least $remaining_count file(s) could not be removed (some may be unreadable and not counted)."
+        fi
         exit 1
       else
         echo "Cleansed $total_formatted from artefacts."

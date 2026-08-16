@@ -264,8 +264,27 @@ try {
         # process still has open, so cleanse would intermittently fail on
         # those two files. Shut the servers down first so it never races a
         # locked file.
-        if (Get-Command dotnet -ErrorAction SilentlyContinue) {
-            dotnet build-server shutdown *> $null
+        #
+        # attune/weave/etc. run through eng/common/tools.ps1's
+        # InitializeDotNetCli, which bootstraps a repo-local SDK under
+        # .dotnet/ and only puts it on PATH inside that child build process
+        # -- it never updates this process's PATH. A developer without a
+        # global `dotnet` install would silently skip the shutdown here and
+        # still hit the DLL lock, so check the repo-local SDK first and only
+        # fall back to a global `dotnet` on PATH.
+        $localDotnet = Join-Path $PSScriptRoot ".dotnet\dotnet.exe"
+        if (-not (Test-Path -LiteralPath $localDotnet)) {
+            $localDotnet = Join-Path $PSScriptRoot ".dotnet/dotnet"
+        }
+        $dotnetExe = if (Test-Path -LiteralPath $localDotnet) {
+            $localDotnet
+        }
+        else {
+            $cmd = Get-Command dotnet -ErrorAction SilentlyContinue
+            if ($cmd) { $cmd.Source } else { $null }
+        }
+        if ($dotnetExe) {
+            & $dotnetExe build-server shutdown *> $null
         }
         if (Test-Path -LiteralPath $artifactsDir) {
             # Binary units throughout (1MB/1GB are PowerShell's built-in
@@ -308,7 +327,6 @@ try {
             while ($job.State -eq 'Running') {
                 $now = Get-Date
                 if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
-                    $lastUpdate = $now
                     $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
                     $remainingBytes = 0L
                     $remainingCount = 0
@@ -317,10 +335,18 @@ try {
                         $remainingBytes = $remainingStats.Bytes
                         $remainingCount = $remainingStats.Count
                     }
+                    # Stamp the throttle from *after* the scan, not before --
+                    # on the large trees this is meant to help with,
+                    # Get-DirStats can itself take longer than 100ms, and
+                    # timestamping before it would let the next loop
+                    # iteration fire immediately, keeping a second full-tree
+                    # walker running continuously alongside Remove-Item and
+                    # fighting it for the same filesystem I/O.
+                    $lastUpdate = Get-Date
                     $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
                     $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
                     $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
-                    $elapsedSeconds = ($now - $startTime).TotalSeconds
+                    $elapsedSeconds = ($lastUpdate - $startTime).TotalSeconds
                     $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
                     Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
