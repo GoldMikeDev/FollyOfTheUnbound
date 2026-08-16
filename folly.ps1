@@ -170,31 +170,35 @@ try {
             return $result
         }
 
-        $testResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration"
-        $logDir = Join-Path $PSScriptRoot "artifacts\log\$configuration"
-        $coreClrTestResultsDir = "$testResultsDir-CoreClr"
-        $coreClrLogDir = "$logDir-CoreClr"
-        Remove-Item -Recurse -Force -LiteralPath $testResultsDir -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force -LiteralPath $logDir -ErrorAction SilentlyContinue
+        $coreClrTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-CoreClr"
+        $coreClrLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-CoreClr"
+        $desktopTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Desktop"
+        $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $desktopLogDir -ErrorAction SilentlyContinue
 
         $coreClrExitCode = 0
         if ($runCoreClr) {
-            & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
-            $coreClrExitCode = $LASTEXITCODE
-            if (Test-Path -LiteralPath $testResultsDir) {
-                Move-Item -Path $testResultsDir -Destination $coreClrTestResultsDir
-            }
-            if (Test-Path -LiteralPath $logDir) {
-                Move-Item -Path $logDir -Destination $coreClrLogDir
+            $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
+            try {
+                & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
+                $coreClrExitCode = $LASTEXITCODE
+            } finally {
+                Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
             }
         }
 
         $desktopExitCode = 0
         if ($runDesktop) {
-            & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
-            $desktopExitCode = $LASTEXITCODE
+            $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
+            try {
+                & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
+                $desktopExitCode = $LASTEXITCODE
+            } finally {
+                Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
+            }
         }
 
         $summaries = @()
@@ -202,7 +206,7 @@ try {
             $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
         }
         if ($runDesktop) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $logDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
+            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
         }
 
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
@@ -235,7 +239,7 @@ try {
             Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
         }
         if ($runDesktop) {
-            Write-Host "Desktop test results: $testResultsDir (logs: $logDir)"
+            Write-Host "Desktop test results: $desktopTestResultsDir (logs: $desktopLogDir)"
         }
         if ($coreClrExitCode -ne 0) {
             exit $coreClrExitCode
