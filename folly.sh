@@ -126,23 +126,30 @@ case "$action" in
           # memory (and repeat that O(file-count) allocation on every
           # progress refresh while `rm -rf` is running). Piping keeps this
           # streaming; awk only ever accumulates two running scalars.
-          # A pipeline's own exit status (without `pipefail`, which isn't
-          # set here) is the last command's -- awk, which always exits 0 for
-          # this usage -- so this can't trip `set -e` the way capturing
-          # find's status via a substituted assignment did. `$PIPESTATUS[0]`
-          # (read immediately after, before any other command can overwrite
-          # it) gives find's own exit code for the "ok" flag.
-          find "$1" -type f -printf '%s\n' 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
-          status=${PIPESTATUS[0]}
+          # This script sets `pipefail`, so the pipeline's own exit status
+          # is nonzero whenever *any* stage fails, not just the last one --
+          # a permission-denied subtree makes the whole pipeline "fail" even
+          # though awk itself always exits 0 here. Run it as an `if`
+          # condition so that failure can't trip `set -e`/errexit, and
+          # capture `$PIPESTATUS[0]` (find's own code) in each branch,
+          # before any other command has a chance to overwrite it.
+          if find "$1" -type f -printf '%s\n' 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'; then
+            status=0
+          else
+            status=${PIPESTATUS[0]}
+          fi
           printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
         }
       else
         dir_stats() {
           local status
-          find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
           # Index 1 (xargs, the stage that actually stats each file) mirrors
           # what the prior non-streaming implementation captured here.
-          status=${PIPESTATUS[1]}
+          if find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'; then
+            status=0
+          else
+            status=${PIPESTATUS[1]}
+          fi
           printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
         }
       fi
