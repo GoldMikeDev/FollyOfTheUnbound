@@ -73,22 +73,49 @@ case "$action" in
       interactive=0
       [[ -t 1 ]] && interactive=1
 
+      format_bytes() {
+        local bytes=$1
+        if (( bytes >= 1073741824 )); then
+          awk -v b="$bytes" 'BEGIN { printf "%.2f GiB", b / 1073741824 }'
+        elif (( bytes >= 1048576 )); then
+          awk -v b="$bytes" 'BEGIN { printf "%.2f MiB", b / 1048576 }'
+        elif (( bytes >= 1024 )); then
+          awk -v b="$bytes" 'BEGIN { printf "%.2f KiB", b / 1024 }'
+        else
+          printf "%d B" "$bytes"
+        fi
+      }
+
+      # Report (bytes, count) for every regular file under $1 in a single
+      # `find` pass piped through one `awk`, not a bash loop stat-ing each
+      # file -- that per-file bash overhead was what made cleanse feel much
+      # slower than a plain `rm -rf`/Explorer delete. GNU find's -printf
+      # gives sizes directly; BSD find (macOS) lacks -printf, so fall back
+      # to piping filenames through one batched `stat` call instead.
+      if find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1; then
+        dir_stats() {
+          find "$1" -type f -printf '%s\n' 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
+        }
+      else
+        dir_stats() {
+          find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
+        }
+      fi
+
       # The actual removal is a single native `rm -rf`, which walks and
-      # unlinks the tree directly in C. The previous implementation instead
-      # enumerated every file into a bash array, `stat`-sized each one in
-      # batches, and then `rm -f`'d and re-verified each batch from bash --
-      # three full passes of interpreted per-file work before the real
-      # `rm -rf` even ran, which is why it felt much slower than a plain
-      # `rm -rf`/Explorer delete. Progress here is just a lightweight
-      # count of remaining files, polled from a background sampler, so
-      # showing it doesn't add per-file cost back in.
-      total_count=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
-      [[ -z "$total_count" ]] && total_count=0
+      # unlinks the tree directly in C -- far faster than looping per file
+      # in bash. It runs in the background; progress is reported by
+      # periodically re-running `dir_stats` on what's left, so the display
+      # never adds per-file cost back into the deletion path itself.
+      read -r total_bytes total_count <<< "$(dir_stats "$artifacts_dir")"
+      total_formatted=$(format_bytes "$total_bytes")
 
       start_time=$(date +%s)
       rm -rf "$artifacts_dir" &
       rm_pid=$!
 
+      deleted_bytes=$total_bytes
+      deleted_count=$total_count
       if (( interactive )); then
         spinner_frames=('|' '/' '-' '\')
         spinner_index=0
@@ -97,12 +124,20 @@ case "$action" in
           if (( SECONDS != last_second )); then
             last_second=$SECONDS
             spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-            remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
-            [[ -z "$remaining" ]] && remaining=0
-            deleted=$(( total_count > remaining ? total_count - remaining : 0 ))
-            percent=$(( total_count > 0 ? deleted * 100 / total_count : 100 ))
-            printf '\r\033[KCleansing artefacts %s %d / %d files (%d%%)' \
-              "${spinner_frames[$spinner_index]}" "$deleted" "$total_count" "$percent"
+            read -r remaining_bytes remaining_count <<< "$(dir_stats "$artifacts_dir")"
+            deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
+            deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
+            if (( total_bytes > 0 )); then
+              percent=$(( deleted_bytes * 100 / total_bytes ))
+            else
+              percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+            fi
+            now=$(date +%s)
+            elapsed=$(( now - start_time ))
+            bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+            printf '\r\033[KCleansing artefacts %s %d / %d files, %s / %s, %s/s (%d%%)' \
+              "${spinner_frames[$spinner_index]}" "$deleted_count" "$total_count" \
+              "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
           fi
           sleep 0.05
         done
@@ -110,15 +145,14 @@ case "$action" in
       fi
 
       wait "$rm_pid" || true
-      elapsed=$(( $(date +%s) - start_time ))
 
       if [[ -d "$artifacts_dir" ]]; then
-        remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
-        [[ -z "$remaining" ]] && remaining="some"
-        echo "Cleansed artefacts in ${elapsed}s; $remaining file(s) could not be removed."
+        read -r remaining_bytes remaining_count <<< "$(dir_stats "$artifacts_dir")"
+        deleted_bytes=$(( total_bytes - remaining_bytes ))
+        echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining_count file(s) could not be removed."
         exit 1
       else
-        echo "Cleansed $total_count file(s) from artefacts in ${elapsed}s."
+        echo "Cleansed $total_formatted from artefacts."
       fi
     fi
     exit 0
