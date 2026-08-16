@@ -186,7 +186,13 @@ namespace RunTests
 
         private static void WriteLogFile(Options options)
         {
-            var logFilePath = Path.Combine(options.LogFilesDirectory, "runtests.log");
+            var logFileName = options.TestRuntime switch
+            {
+                TestRuntime.Core => "runtestsCoreCLR.log",
+                TestRuntime.Framework => "runtestsDesktop.log",
+                _ => "runtests.log",
+            };
+            var logFilePath = Path.Combine(options.LogFilesDirectory, logFileName);
             try
             {
                 Directory.CreateDirectory(options.LogFilesDirectory);

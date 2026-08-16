@@ -214,10 +214,10 @@ try {
 
         $summaries = @()
         if ($runCoreClr) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
+            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtestsCoreCLR.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
         }
         if ($runDesktop) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
+            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtestsDesktop.log") -Label "Desktop" -ExitCode $desktopExitCode
         }
 
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
