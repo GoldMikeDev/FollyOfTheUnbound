@@ -4,6 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a fork of [dotnet/roslyn](https://github.com/dotnet/roslyn), the C#/VB compiler platform, used to prototype experimental C# language features ("Folly of the Unbound"). The upstream repo already ships a thorough AI-agent knowledge base — **read it before doing anything else**:
 
+0. **[`AGENTS.md`](AGENTS.md)** — the tool-agnostic root every coding agent (Codex included, e.g. the PR reviewer bot on this repo) starts from. It's intentionally thin and just redirects to #1 and #2 below — there's no separate content to maintain there, but it's real and other agents actually follow it, so don't skip opening it just because `CLAUDE.md` looks like a more specific starting point.
 1. **[`.github/copilot-instructions.md`](.github/copilot-instructions.md)** — canonical repo-wide entry point: project overview, directory layout, build/test commands, code style, and the memory-first orientation protocol.
 2. **[`.github/memory/INDEX.md`](.github/memory/INDEX.md)** — loading map for the knowledge base (`ARCHITECTURE.md`, `CONVENTIONS.md`, `FILE_MAP.md`, `API_MAP.md`, `KNOWN_ISSUES.md`, `TESTING_STRATEGY.md`, plus per-area `known-issues/` and `testing/` files). Load only what's relevant to the task.
 3. **Path-scoped rules**, auto-applied by directory: [`.github/instructions/Compiler.instructions.md`](.github/instructions/Compiler.instructions.md) (`src/{Compilers,Dependencies,ExpressionEvaluator,Tools}`), [`IDE.instructions.md`](.github/instructions/IDE.instructions.md) (`src/{Analyzers,CodeStyle,Features,Workspaces,EditorFeatures,VisualStudio,LanguageServer}`), [`Razor.instructions.md`](.github/instructions/Razor.instructions.md) (`src/Razor`).
@@ -11,9 +12,10 @@ This is a fork of [dotnet/roslyn](https://github.com/dotnet/roslyn), the C#/VB c
 
 ## Orientation protocol
 
-1. Read `.github/copilot-instructions.md`, then `.github/memory/INDEX.md` and any memory files relevant to the task.
+1. Read `AGENTS.md`, `.github/copilot-instructions.md`, then `.github/memory/INDEX.md` and any memory files relevant to the task — the full chain, not just whichever one you happen to open first.
 2. Read the path-scoped instruction file for the area being edited — it applies automatically and carries directory-level detail and conventions for that layer.
 3. **After changing code, run the `update-agent-docs` skill** to keep `.github/memory/` current (this is a hard obligation in `copilot-instructions.md`, not optional cleanup).
+4. **A new repo-wide agent-facing rule (a convention, a workflow requirement, a "must always/never" instruction) belongs in `.github/memory/CONVENTIONS.md` or `copilot-instructions.md` — reachable from the `AGENTS.md` chain other agents actually follow — not only in this file.** `CLAUDE.md` is Claude Code-specific supplementary guidance (session naming, this protocol itself); it should *point to* repo-wide rules, not be their only home. If you're unsure where a new rule belongs, check whether it should apply to any agent working in this repo (Codex included) — if so, it goes in the canonical chain, with at most a pointer here.
 
 ## Quick reference (see `.github/copilot-instructions.md` for full detail)
 
@@ -42,6 +44,10 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 - **Always call `get_session` first to read the current title before calling `set_session_title`.** Never assume the current title (from memory, from context, or "this looks like a fresh session") — a title set without checking first risks silently overwriting and losing every issue/PR number a prior rename recorded.
 - Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
 - `set_session_title` requires the real session ID (`session_...`) — there is no "current session" shorthand, and passing one (e.g. `"current"`) fails. Before the first rename in a session, look the ID up yourself: call `list_sessions` (`mine: true`) and match the running entry whose `session_context.outcomes[].git_repository.git_info.branches` contains the branch this session is developing on. Do this proactively, not only after a failed rename attempt.
+
+## `folly.sh` / `folly.ps1` parity
+
+See [`.github/memory/CONVENTIONS.md`](.github/memory/CONVENTIONS.md#follysh--follyps1-parity): the two scripts (and their `scripts/test-folly-cleanse.{sh,ps1}` harnesses) must be edited together, not drift.
 
 ## Merging pull requests
 

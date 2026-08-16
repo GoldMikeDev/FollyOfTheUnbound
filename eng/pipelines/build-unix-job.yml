@@ -40,7 +40,7 @@ jobs:
       parameters:
         configuration: ${{ parameters.configuration }}
 
-    - script: ./eng/prepare-tests.sh
+    - script: ./eng/prepare-tests.sh --configuration ${{ parameters.configuration }}
       displayName: Prepare Test Payload
 
     - task: PublishPipelineArtifact@1

@@ -60,6 +60,10 @@ var symbolInfo = semanticModel.GetSymbolInfo(expression, cancellationToken);
 - After editing a `.resx`, run `dotnet msbuild <project.csproj> /t:UpdateXlf` to refresh the `.xlf` translation files.
 - When adding/changing public APIs, update the project's `PublicAPI.Unshipped.txt` (the PublicApiAnalyzer / RS0016 enforces this).
 
+## `folly.sh` / `folly.ps1` parity
+
+`folly.sh` and `folly.ps1` implement the same commands (`attune`, `weave`, `cleanse`, `scry`, etc.) for bash and PowerShell respectively, and must stay in behavioral lockstep. When editing an action in one, make the equivalent change in the other in the same commit/PR — a bug fix, a new safety check, a changed message format, a retry, a test case — don't land it in only one language. A genuinely platform-specific fix (e.g. an NTFS ACE vs. Unix file permissions, `.dotnet/dotnet` vs. `.dotnet/dotnet.exe`) still needs the equivalent *behavior* added on the other side via whatever mechanism that platform actually has, not a silent omission. Same expectation for their manual test harnesses (`scripts/test-folly-cleanse.sh` / `scripts/test-folly-cleanse.ps1`, and any future `*.sh`/`*.ps1` harness pair) — see `TESTING_STRATEGY.md`.
+
 ## Language / Framework Constraints
 
 - SDK pinned in `global.json` (currently .NET SDK `10.0.x`); VS toolset `17.14`.

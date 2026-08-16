@@ -308,7 +308,18 @@ try {
             # full-tree object array on every progress refresh. Piping keeps
             # this streaming, one FileInfo at a time.
             function Get-DirStats([string]$dir) {
-                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
+                # -ErrorVariable still captures errors that -ErrorAction
+                # SilentlyContinue suppresses from the console (e.g. Access
+                # to the path 'foo' is denied for a subtree this process
+                # can't read) -- Ok is $false whenever any were hit, so a
+                # partial/truncated traversal can be told apart from a
+                # genuinely empty or fully-readable one. Matches folly.sh's
+                # dir_stats "ok" flag for the same reason: silently trusting
+                # a partial count as exact would let the final summary
+                # report "0 files could not be removed" when files actually
+                # survived in a subtree this scan couldn't see into.
+                $errs = $null
+                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue -ErrorVariable errs |
                     Measure-Object -Property Length -Sum
                 $bytes = if ($sum.Sum) { $sum.Sum } else { 0L }
                 # [PSCustomObject], not a Hashtable (@{...}) -- Hashtable has
@@ -316,7 +327,7 @@ try {
                 # 2 here), which shadows a key literally named "Count" and
                 # silently returns the wrong number for every caller of this
                 # function.
-                return [PSCustomObject]@{ Bytes = $bytes; Count = $sum.Count }
+                return [PSCustomObject]@{ Bytes = $bytes; Count = $sum.Count; Ok = ($errs.Count -eq 0) }
             }
 
             # The actual removal is a single bulk `Remove-Item -Recurse -Force`,
@@ -440,7 +451,23 @@ try {
             if (Test-Path -LiteralPath $artifactsDir) {
                 $remainingStats = Get-DirStats $artifactsDir
                 $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingStats.Bytes)
-                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $($remainingStats.Count) file(s) could not be removed." -ForegroundColor Yellow
+                if ($remainingStats.Ok) {
+                    Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $($remainingStats.Count) file(s) could not be removed." -ForegroundColor Yellow
+                }
+                else {
+                    # Get-ChildItem hit an error partway (e.g. an
+                    # access-denied subtree), so remainingStats.Count only
+                    # reflects what it could see -- reporting it as exact
+                    # would understate (possibly to a false "0") how much is
+                    # actually left behind. Matches folly.sh's equivalent
+                    # "at least N ... unreadable" wording.
+                    Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; at least $($remainingStats.Count) file(s) could not be removed (some may be unreadable and not counted)." -ForegroundColor Yellow
+                }
+                # folly.sh exits 1 whenever artifacts/ survives cleanup, so
+                # scripting/CI around either tool can rely on the same exit
+                # code meaning the same thing -- this previously always
+                # exited 0 here, hiding an incomplete cleanup from callers.
+                exit 1
             }
             else {
                 Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
