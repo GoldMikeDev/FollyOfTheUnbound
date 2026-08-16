@@ -11,7 +11,16 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     --timeout)
       test_timeout="${2:-}"
-      if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]+$ || "$test_timeout" -le 0 ]]; then
+      if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]+$ ]]; then
+        echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
+        exit 1
+      fi
+      # Strip leading zeros before any arithmetic use: bash's [[ ... -le ]] and $(( )) both
+      # interpret a leading-zero operand as octal (e.g. "08"/"09" are invalid octal digits and
+      # error out with "value too great for base"), even though the regex above already confirmed
+      # it's a valid decimal integer.
+      test_timeout=$((10#$test_timeout))
+      if [[ "$test_timeout" -le 0 ]]; then
         echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
         exit 1
       fi
