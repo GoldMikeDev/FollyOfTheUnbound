@@ -41,6 +41,10 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 - If the session already touched other issues/PRs, merge the new number(s) into the existing title instead of overwriting it, re-collapsing into ranges where the merge makes numbers consecutive.
 - Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
 
+## Merging pull requests
+
+**Never use squash or rebase merge on this repo. Always use a real merge commit (`merge_method: merge`).** The user manages branches in GitKraken, which flags a branch as "unmerged" whenever its commits aren't literal ancestors of the target branch — squash/rebase merges create new commits with different SHAs, so the source branch's original commits never become ancestors, even though the PR shows as merged on GitHub. This has caused real, repeated confusion and manual cleanup. There is no case on this repo where squash/rebase is the right call — use `merge` every time, no exceptions, without asking.
+
 ## This fork's work: experimental language features
 
 Recent branch work adds new C#-like control-flow constructs (`do/until`, `mutate`, inline expression declarations, `if/catch/finally` chains with block conditions). This kind of work touches the compiler's front-to-back pipeline — parser (`src/Compilers/CSharp/Portable/Parser/`), syntax model (generated from `Syntax.xml`, requires regeneration via `eng/generate-compiler-code.cs`), binder/lowering, and often IDE features (formatting, completion, classification) that pattern-match on syntax kinds. When adding or changing a construct:
