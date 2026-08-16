@@ -76,6 +76,7 @@ param (
   [string]$helixQueueName = "",
   [string]$helixApiAccessToken = "",
   [switch]$testInteractiveConsole,
+  [int]$testTimeout = 0,
 
   [parameter(ValueFromRemainingArguments=$true)][string[]]$properties)
 
@@ -524,6 +525,12 @@ function TestUsingRunTests() {
 
   if ($helix) {
     $args += " --helix"
+  }
+  elseif ($testTimeout -gt 0) {
+    # Overrides whatever the -testCoreClr/-testDesktop/-testVsi branches above set, so a slow machine (or a
+    # single large test assembly, e.g. an unpartitioned Compiler.UnitTests run) doesn't need this script edited
+    # just to raise the whole-run watchdog RunTests enforces via --timeout.
+    $args += " --timeout $testTimeout"
   }
   elseif ($timeout -gt 0) {
     $args += " --timeout $timeout"

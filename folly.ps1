@@ -24,12 +24,24 @@ try {
     # was already supplied by name via -config.
     $core = $false
     $desktop = $false
+    $testTimeout = 0
+    $expectTimeoutValue = $false
     foreach ($arg in $remainingArgs) {
-        if ($arg -eq "--core") {
+        if ($expectTimeoutValue) {
+            if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0) {
+                Write-Host "'--timeout' requires a positive integer minute count, got '$arg'." -ForegroundColor Red
+                exit 1
+            }
+            $expectTimeoutValue = $false
+        }
+        elseif ($arg -eq "--core") {
             $core = $true
         }
         elseif ($arg -eq "--desktop") {
             $desktop = $true
+        }
+        elseif ($arg -eq "--timeout") {
+            $expectTimeoutValue = $true
         }
         elseif ([string]::IsNullOrEmpty($config)) {
             $config = $arg
@@ -38,6 +50,10 @@ try {
             Write-Host "Unrecognised argument '$arg'." -ForegroundColor Red
             exit 1
         }
+    }
+    if ($expectTimeoutValue) {
+        Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
+        exit 1
     }
 
     if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
@@ -60,6 +76,7 @@ try {
         Write-Host "  --core     Run only the CoreCLR tests (skip Desktop)"
         Write-Host "  --desktop  Run only the Desktop tests (skip CoreCLR)"
         Write-Host "             (omit both to run both, the default)"
+        Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
         Write-Host ""
         exit 0
     }
@@ -195,7 +212,7 @@ try {
             # read later than per-pass ones.
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
+                & $buildScript -testCoreClr -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $coreClrExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -208,7 +225,7 @@ try {
             $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
+                & $buildScript -testDesktop -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $desktopExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
