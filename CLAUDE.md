@@ -41,6 +41,10 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 - If the session already touched other issues/PRs, merge the new number(s) into the existing title instead of overwriting it, re-collapsing into ranges where the merge makes numbers consecutive.
 - Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
 
+## Merging pull requests
+
+See [`.github/copilot-instructions.md`](.github/copilot-instructions.md#merging-pull-requests): never squash/rebase-merge, always a real merge commit (`merge_method: merge`), no exceptions.
+
 ## This fork's work: experimental language features
 
 Recent branch work adds new C#-like control-flow constructs (`do/until`, `mutate`, inline expression declarations, `if/catch/finally` chains with block conditions). This kind of work touches the compiler's front-to-back pipeline — parser (`src/Compilers/CSharp/Portable/Parser/`), syntax model (generated from `Syntax.xml`, requires regeneration via `eng/generate-compiler-code.cs`), binder/lowering, and often IDE features (formatting, completion, classification) that pattern-match on syntax kinds. When adding or changing a construct:
