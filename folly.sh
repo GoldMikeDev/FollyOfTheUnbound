@@ -120,15 +120,27 @@ case "$action" in
       if find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1; then
         dir_stats() {
           local out status
-          out=$(find "$1" -type f -printf '%s\n' 2>/dev/null)
-          status=$?
+          # `var=$(cmd)` is itself a simple command -- under `set -e`, find
+          # exiting nonzero here (e.g. a permission-denied subtree) would
+          # trip errexit and kill this function (and the background subshell
+          # it runs in during the initial scan) before it ever reaches the
+          # awk below. Route it through `if` so a nonzero status is captured
+          # instead of aborting the script.
+          if out=$(find "$1" -type f -printf '%s\n' 2>/dev/null); then
+            status=0
+          else
+            status=$?
+          fi
           printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d\n", s+0, n+0, ok}'
         }
       else
         dir_stats() {
           local out status
-          out=$(find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null)
-          status=$?
+          if out=$(find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null); then
+            status=0
+          else
+            status=$?
+          fi
           printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d\n", s+0, n+0, ok}'
         }
       fi
