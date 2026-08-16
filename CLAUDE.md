@@ -4,6 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a fork of [dotnet/roslyn](https://github.com/dotnet/roslyn), the C#/VB compiler platform, used to prototype experimental C# language features ("Folly of the Unbound"). The upstream repo already ships a thorough AI-agent knowledge base — **read it before doing anything else**:
 
+0. **[`AGENTS.md`](AGENTS.md)** — the tool-agnostic root every coding agent (Codex included, e.g. the PR reviewer bot on this repo) starts from. It's intentionally thin and just redirects to #1 and #2 below — there's no separate content to maintain there, but it's real and other agents actually follow it, so don't skip opening it just because `CLAUDE.md` looks like a more specific starting point.
 1. **[`.github/copilot-instructions.md`](.github/copilot-instructions.md)** — canonical repo-wide entry point: project overview, directory layout, build/test commands, code style, and the memory-first orientation protocol.
 2. **[`.github/memory/INDEX.md`](.github/memory/INDEX.md)** — loading map for the knowledge base (`ARCHITECTURE.md`, `CONVENTIONS.md`, `FILE_MAP.md`, `API_MAP.md`, `KNOWN_ISSUES.md`, `TESTING_STRATEGY.md`, plus per-area `known-issues/` and `testing/` files). Load only what's relevant to the task.
 3. **Path-scoped rules**, auto-applied by directory: [`.github/instructions/Compiler.instructions.md`](.github/instructions/Compiler.instructions.md) (`src/{Compilers,Dependencies,ExpressionEvaluator,Tools}`), [`IDE.instructions.md`](.github/instructions/IDE.instructions.md) (`src/{Analyzers,CodeStyle,Features,Workspaces,EditorFeatures,VisualStudio,LanguageServer}`), [`Razor.instructions.md`](.github/instructions/Razor.instructions.md) (`src/Razor`).
@@ -11,9 +12,10 @@ This is a fork of [dotnet/roslyn](https://github.com/dotnet/roslyn), the C#/VB c
 
 ## Orientation protocol
 
-1. Read `.github/copilot-instructions.md`, then `.github/memory/INDEX.md` and any memory files relevant to the task.
+1. Read `AGENTS.md`, `.github/copilot-instructions.md`, then `.github/memory/INDEX.md` and any memory files relevant to the task — the full chain, not just whichever one you happen to open first.
 2. Read the path-scoped instruction file for the area being edited — it applies automatically and carries directory-level detail and conventions for that layer.
 3. **After changing code, run the `update-agent-docs` skill** to keep `.github/memory/` current (this is a hard obligation in `copilot-instructions.md`, not optional cleanup).
+4. **A new repo-wide agent-facing rule (a convention, a workflow requirement, a "must always/never" instruction) belongs in `.github/memory/CONVENTIONS.md` or `copilot-instructions.md` — reachable from the `AGENTS.md` chain other agents actually follow — not only in this file.** `CLAUDE.md` is Claude Code-specific supplementary guidance (session naming, this protocol itself); it should *point to* repo-wide rules, not be their only home. If you're unsure where a new rule belongs, check whether it should apply to any agent working in this repo (Codex included) — if so, it goes in the canonical chain, with at most a pointer here.
 
 ## Quick reference (see `.github/copilot-instructions.md` for full detail)
 
