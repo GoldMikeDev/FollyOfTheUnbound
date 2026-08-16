@@ -182,22 +182,33 @@ try {
         $coreClrExitCode = 0
         if ($runCoreClr) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
+            # eng/common/tools.ps1 only ever sets $env:MSBUILDDEBUGPATH itself when it's unset
+            # (`if (-not $env:MSBUILDDEBUGPATH)`), to the *unsuffixed* $LogDir\MsbuildDebugLogs --
+            # and since folly.ps1 invokes eng/build.ps1 multiple times in this same PowerShell
+            # process, that guard means only the very first invocation (the initial -restore -build
+            # above) would ever actually set it, leaving every later suffixed pass stuck reusing
+            # that first, unsuffixed value instead of getting its own. Set it explicitly here so
+            # each pass's MSBuild debug logs land alongside that pass's own runtests.log.
+            $env:MSBUILDDEBUGPATH = Join-Path $coreClrLogDir "MsbuildDebugLogs"
             try {
                 & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
                 $coreClrExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
+                Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
             }
         }
 
         $desktopExitCode = 0
         if ($runDesktop) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
+            $env:MSBUILDDEBUGPATH = Join-Path $desktopLogDir "MsbuildDebugLogs"
             try {
                 & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
                 $desktopExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
+                Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
             }
         }
 
