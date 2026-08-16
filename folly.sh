@@ -119,29 +119,31 @@ case "$action" in
       # removed" when files actually survived.
       if find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1; then
         dir_stats() {
-          local out status
-          # `var=$(cmd)` is itself a simple command -- under `set -e`, find
-          # exiting nonzero here (e.g. a permission-denied subtree) would
-          # trip errexit and kill this function (and the background subshell
-          # it runs in during the initial scan) before it ever reaches the
-          # awk below. Route it through `if` so a nonzero status is captured
-          # instead of aborting the script.
-          if out=$(find "$1" -type f -printf '%s\n' 2>/dev/null); then
-            status=0
-          else
-            status=$?
-          fi
-          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d\n", s+0, n+0, ok}'
+          local status
+          # Pipe straight into awk rather than buffering into a bash
+          # variable first -- on the large trees this is meant to help
+          # with, `out=$(find ...)` would hold one size record per file in
+          # memory (and repeat that O(file-count) allocation on every
+          # progress refresh while `rm -rf` is running). Piping keeps this
+          # streaming; awk only ever accumulates two running scalars.
+          # A pipeline's own exit status (without `pipefail`, which isn't
+          # set here) is the last command's -- awk, which always exits 0 for
+          # this usage -- so this can't trip `set -e` the way capturing
+          # find's status via a substituted assignment did. `$PIPESTATUS[0]`
+          # (read immediately after, before any other command can overwrite
+          # it) gives find's own exit code for the "ok" flag.
+          find "$1" -type f -printf '%s\n' 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
+          status=${PIPESTATUS[0]}
+          printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
         }
       else
         dir_stats() {
-          local out status
-          if out=$(find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null); then
-            status=0
-          else
-            status=$?
-          fi
-          printf '%s' "$out" | awk -v ok="$(( status == 0 ? 1 : 0 ))" '{s+=$1; n++} END{printf "%d %d %d\n", s+0, n+0, ok}'
+          local status
+          find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'
+          # Index 1 (xargs, the stage that actually stats each file) mirrors
+          # what the prior non-streaming implementation captured here.
+          status=${PIPESTATUS[1]}
+          printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
         }
       fi
 

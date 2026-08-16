@@ -6,7 +6,12 @@
 #
 # Covers: empty artifacts/, a populated tree, redirected (non-TTY) output
 # staying free of escape codes, a permission failure reporting an accurate
-# count and a nonzero exit code, and a file vanishing mid-enumeration.
+# count and a nonzero exit code, a file vanishing mid-enumeration, an
+# unreadable subtree during the background scan reporting an honest
+# uncertain remainder (not a false "0 files could not be removed"), and
+# artifacts/ as a non-directory. These exercise the background bulk-delete
+# path (single `rm -rf` + background scan/poll, not the old per-file loop),
+# so they're also regression coverage for that rewrite.
 set -uo pipefail
 
 script_root="$(cd -P "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -125,6 +130,25 @@ if (( ec == 0 )) && [[ ! -e "$dir/artifacts" ]]; then
   pass "concurrent file removal during cleanse does not abort (output='$out')"
 else
   fail "concurrent file removal (exit=$ec, output='$out')"
+fi
+
+# --- unreadable subtree during the scan: uncertain (not false-zero) remainder
+if [[ "$(id -u)" == "0" ]]; then
+  echo "SKIP: unreadable-subtree case (root bypasses directory read permissions)"
+else
+  dir=$(new_case unreadable)
+  mkdir -p "$dir/artifacts/locked"
+  head -c 100 /dev/urandom > "$dir/artifacts/locked/hidden.bin"
+  head -c 100 /dev/urandom > "$dir/artifacts/visible.bin"
+  chmod 000 "$dir/artifacts/locked"
+  out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
+  ec=$?
+  chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
+  if (( ec == 1 )) && [[ "$out" == *"at least"*"could not be removed (some may be unreadable and not counted)"* ]]; then
+    pass "unreadable subtree reports an uncertain (not false-zero) remainder"
+  else
+    fail "unreadable subtree (exit=$ec, output='$out')"
+  fi
 fi
 
 # --- artifacts/ as a non-directory (regular file) -------------------------
