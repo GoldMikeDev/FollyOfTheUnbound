@@ -98,6 +98,22 @@ case "$action" in
       interactive=0
       [[ -t 1 ]] && interactive=1
 
+      # Background jobs started below (`rm -rf`, the scan subshell) run
+      # with job control off (this is a non-interactive script) -- POSIX
+      # has asynchronous commands ignore SIGINT/SIGQUIT in that case, so
+      # Ctrl+C would otherwise kill this foreground script while leaving
+      # `rm -rf` running orphaned, still deleting artifacts/ with no
+      # visible progress. Explicitly forward INT/TERM to whichever
+      # background job is currently running.
+      _cleanse_kill_bg() {
+        [[ -n "${scan_pid:-}" ]] && kill "$scan_pid" 2>/dev/null
+        [[ -n "${rm_pid:-}" ]] && kill "$rm_pid" 2>/dev/null
+        [[ -n "${scan_tmp:-}" && -e "${scan_tmp:-}" ]] && rm -f "$scan_tmp"
+        return 0
+      }
+      trap '_cleanse_kill_bg; exit 130' INT
+      trap '_cleanse_kill_bg; exit 143' TERM
+
       format_bytes() {
         local bytes=$1
         if (( bytes >= 1073741824 )); then
