@@ -57,9 +57,9 @@ try {
     }
 
     if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
-        Write-Host "folly.ps1 <action> [config]"
+        Write-Host "folly.ps1 <action> [config] [switches]"
         Write-Host ""
-        Write-Host "Actions:"
+        Write-Host "Actions (positional, or named as -action <action>):"
         Write-Host "  attune    Restore only [config]"
         Write-Host "  weave     Restore + build [config]"
         Write-Host "  reweave   Restore + rebuild [config]"
@@ -68,15 +68,18 @@ try {
         Write-Host "  cleanse   Delete artefacts (ignores config)"
         Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
         Write-Host ""
-        Write-Host "[config] (optional, defaults to Research):"
+        Write-Host "[config] (optional, positional, or named as -config <config>; defaults to Research):"
         Write-Host "  research  Debug"
         Write-Host "  truth     Release"
         Write-Host ""
-        Write-Host "scry-only switches:"
-        Write-Host "  --core     Run only the CoreCLR tests (skip Desktop)"
-        Write-Host "  --desktop  Run only the Desktop tests (skip CoreCLR)"
-        Write-Host "             (omit both to run both, the default)"
+        Write-Host "scry-only switches (not positional -- always passed by name, after [config]):"
+        Write-Host "  --core               Run only the CoreCLR tests (skip Desktop)"
+        Write-Host "  --desktop            Run only the Desktop tests (skip CoreCLR)"
+        Write-Host "                       (omit both to run both, the default)"
         Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
+        Write-Host ""
+        Write-Host "Example: folly.ps1 scry truth --core --timeout 180"
+        Write-Host "Example (named): folly.ps1 -action scry -config truth --core --timeout 180"
         Write-Host ""
         exit 0
     }

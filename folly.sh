@@ -29,23 +29,27 @@ build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
   cat <<'EOF'
-folly.sh <action> [config]
+folly.sh <action> [config] [switches]
 
-Actions:
+Actions (positional only -- no --action flag; unlike folly.ps1, bash's
+positional-only $1/$2 parsing here has no named-parameter equivalent):
   attune    Restore only [config]
   weave     Restore + build [config]
   reweave   Restore + rebuild [config]
   bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
-  scry      Restore + build + run CoreCLR unit tests [config]
+  scry      Restore + build + run CoreCLR unit tests [config] (Desktop/Framework
+            tests are Windows-only -- there is no --desktop/--core switch here)
   cleanse   Delete artifacts/ (ignores config)
   grimoire  Show this text (default when no action is given; ignores config)
 
-[config] (optional, defaults to Research):
+[config] (optional, positional only -- no --config flag; defaults to Research):
   research  Debug
   truth     Release
 
-scry-only switch:
+scry-only switch (not positional -- always passed by name, after [config]):
   --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)
+
+Example: folly.sh scry truth --timeout 180
 
 EOF
   exit 0
