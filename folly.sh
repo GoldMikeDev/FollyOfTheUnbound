@@ -57,6 +57,31 @@ case "$action" in
     ;;
   cleanse)
     artifacts_dir="$scriptroot/artifacts"
+    # VBCSCompiler / the MSBuild build server / the Razor build server keep
+    # running between invocations and can hold an out-of-process BuildHost
+    # alive with Microsoft.CodeAnalysis.Workspaces.MSBuild*.dll loaded from
+    # artifacts/ -- on Windows that open handle blocks deleting the DLL
+    # outright (Unix just unlinks it out from under the process, so this is
+    # silent there). Shut the servers down first so cleanse never races a
+    # locked file.
+    #
+    # attune/weave/etc. run through eng/common/tools.sh's
+    # InitializeDotNetCli, which bootstraps a repo-local SDK under .dotnet/
+    # and only puts it on PATH inside that child build process -- it never
+    # updates this shell's PATH. A developer without a global `dotnet`
+    # install would silently skip the shutdown and still hit the DLL lock,
+    # so check the repo-local SDK first and only fall back to a global
+    # `dotnet` on PATH.
+    dotnet_exe="$scriptroot/.dotnet/dotnet"
+    if [[ ! -x "$dotnet_exe" ]]; then
+      # Git Bash on Windows runs against a bootstrapped SDK named
+      # dotnet.exe, not the extensionless Unix name.
+      dotnet_exe="$scriptroot/.dotnet/dotnet.exe"
+    fi
+    if [[ ! -x "$dotnet_exe" ]]; then
+      dotnet_exe=$(command -v dotnet 2>/dev/null) || dotnet_exe=""
+    fi
+    [[ -n "$dotnet_exe" ]] && "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
     if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]] && { [[ ! -d "$artifacts_dir" ]] || [[ -L "$artifacts_dir" ]]; }; then
       # A regular file, or a symlink (whether it points at a directory or
       # not), doesn't need the enumeration/progress machinery below -- just
@@ -73,6 +98,40 @@ case "$action" in
       interactive=0
       [[ -t 1 ]] && interactive=1
 
+      # Background jobs started below (`rm -rf`, the scan subshell) run
+      # with job control off (this is a non-interactive script) -- POSIX
+      # has asynchronous commands ignore SIGINT/SIGQUIT in that case, so
+      # Ctrl+C would otherwise kill this foreground script while leaving
+      # `rm -rf` running orphaned, still deleting artifacts/ with no
+      # visible progress. Explicitly forward INT/TERM to whichever
+      # background job is currently running.
+      #
+      # The scan job is `( dir_stats "$artifacts_dir" > "$scan_tmp" ) &` --
+      # $scan_pid is that wrapper subshell, not the `find`/`awk` pipeline it
+      # runs internally. Killing only the wrapper leaves those two processes
+      # orphaned, still traversing a potentially large artifact tree after
+      # the prompt returns. Recursively kill each PID's children (via `ps`,
+      # portable across GNU and BSD `ps -eo pid,ppid`) before the PID itself.
+      # `rm -rf` doesn't spawn children, so this degrades to a plain single
+      # kill for it.
+      _cleanse_kill_tree() {
+        local pid="$1" child
+        [[ -z "$pid" ]] && return 0
+        for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+          _cleanse_kill_tree "$child"
+        done
+        kill "$pid" 2>/dev/null
+        return 0
+      }
+      _cleanse_kill_bg() {
+        _cleanse_kill_tree "${scan_pid:-}"
+        _cleanse_kill_tree "${rm_pid:-}"
+        [[ -n "${scan_tmp:-}" && -e "${scan_tmp:-}" ]] && rm -f "$scan_tmp"
+        return 0
+      }
+      trap '_cleanse_kill_bg; exit 130' INT
+      trap '_cleanse_kill_bg; exit 143' TERM
+
       format_bytes() {
         local bytes=$1
         if (( bytes >= 1073741824 )); then
@@ -86,178 +145,158 @@ case "$action" in
         fi
       }
 
-      # Enumerate filenames only (no per-file stat/wc calls, which would spawn
-      # a subprocess per artifact and make cleanup impractically slow on a
-      # large build tree). Sizing is done in batches via `stat` below.
+      # Report "bytes count ok" for every regular file under $1 in a single
+      # `find` pass piped through one `awk`, not a bash loop stat-ing each
+      # file -- that per-file bash overhead was what made cleanse feel much
+      # slower than a plain `rm -rf`/Explorer delete. GNU find's -printf
+      # gives sizes directly; BSD find (macOS) lacks -printf, so fall back
+      # to piping filenames through one batched `stat` call instead. `ok` is
+      # 1 only if `find` itself exited cleanly -- a permission-denied
+      # subtree makes find exit nonzero while still printing what it could
+      # read, and silently trusting that partial count as the true
+      # remainder would let the final summary report "0 files could not be
+      # removed" when files actually survived.
+      if find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1; then
+        dir_stats() {
+          local status
+          # Pipe straight into awk rather than buffering into a bash
+          # variable first -- on the large trees this is meant to help
+          # with, `out=$(find ...)` would hold one size record per file in
+          # memory (and repeat that O(file-count) allocation on every
+          # progress refresh while `rm -rf` is running). Piping keeps this
+          # streaming; awk only ever accumulates two running scalars.
+          # This script sets `pipefail`, so the pipeline's own exit status
+          # is nonzero whenever *any* stage fails, not just the last one --
+          # a permission-denied subtree makes the whole pipeline "fail" even
+          # though awk itself always exits 0 here. Run it as an `if`
+          # condition so that failure can't trip `set -e`/errexit, and
+          # capture `$PIPESTATUS[0]` (find's own code) in each branch,
+          # before any other command has a chance to overwrite it.
+          if find "$1" -type f -printf '%s\n' 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'; then
+            status=0
+          else
+            status=${PIPESTATUS[0]}
+          fi
+          printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
+        }
+      else
+        dir_stats() {
+          local status
+          # `find` failing (e.g. a permission-denied subtree) doesn't
+          # necessarily fail `xargs` -- xargs happily stats whatever
+          # filenames it was handed and exits 0. Checking only index 1
+          # (xargs) would report ok=1 on a partial/truncated file list, so
+          # both stages must succeed for this to count as a complete scan.
+          if find "$1" -type f -print0 2>/dev/null | xargs -0 stat -f%z 2>/dev/null | awk '{s+=$1; n++} END{printf "%d %d", s+0, n+0}'; then
+            status=0
+          else
+            status=$(( PIPESTATUS[0] != 0 || PIPESTATUS[1] != 0 ? 1 : 0 ))
+          fi
+          printf ' %d\n' "$(( status == 0 ? 1 : 0 ))"
+        }
+      fi
+
+      # The actual removal is a single native `rm -rf`, which walks and
+      # unlinks the tree directly in C -- far faster than looping per file
+      # in bash. It runs in the background; progress is reported by
+      # periodically re-running `dir_stats` on what's left, so the display
+      # never adds per-file cost back into the deletion path itself.
       spinner_frames=('|' '/' '-' '\')
       spinner_index=0
-      files=()
-      scan_count=0
-      while IFS= read -r -d '' file; do
-        files+=("$file")
-        scan_count=$(( scan_count + 1 ))
-        if (( interactive )) && (( scan_count % 200 == 0 )); then
-          spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-          printf '\r\033[KEnumerating files %s %d file(s) found' "${spinner_frames[$spinner_index]}" "$scan_count"
-        fi
-      done < <(find "$artifacts_dir" -type f -print0)
-      (( interactive )) && printf '\r\033[K'
 
-      # `${#files[@]}` on a still-empty array trips "unbound variable" under
-      # `set -u` on bash 3.2 (macOS's system bash), so nounset is relaxed
-      # just for this reference.
-      set +u
-      total_count=${#files[@]}
-      set -u
-
-      stat_flag="-c%s"
-      stat -c%s "$scriptroot" >/dev/null 2>&1 || stat_flag="-f%z"
-
-      # Bound each batch by encoded argument size (not just file count): a
-      # fixed count like 500 can still overflow a constrained ARG_MAX on
-      # systems with long artifact paths or a lowered command-line limit.
-      arg_max=$(getconf ARG_MAX 2>/dev/null || echo 0)
-      (( arg_max > 0 )) || arg_max=131072
-      byte_budget=$(( arg_max / 4 ))
-      (( byte_budget >= 4096 )) || byte_budget=4096
-      max_batch_files=1000
-
-      batch_starts=()
-      batch_lens=()
-      if (( total_count > 0 )); then
-        # `${#var}` counts characters, not bytes, under a multibyte locale,
-        # which would undercount the actual argv size exec() enforces for
-        # non-ASCII paths. Force LC_ALL=C for this loop so it counts bytes.
-        prior_lc_all="${LC_ALL:-}"
-        export LC_ALL=C
-        bstart=0
-        bcount=0
-        bbytes=0
-        for (( idx = 0; idx < total_count; idx++ )); do
-          flen=$(( ${#files[idx]} + 1 ))
-          if (( bcount > 0 )) && (( bbytes + flen > byte_budget || bcount >= max_batch_files )); then
-            batch_starts+=("$bstart")
-            batch_lens+=("$bcount")
-            bstart=$idx
-            bcount=0
-            bbytes=0
+      # `dir_stats` on the full tree can itself take a while on a large
+      # build output -- run it in the background too and show a spinner
+      # instead of leaving the terminal blank (with the cursor hidden)
+      # until the scan finishes.
+      scan_tmp=$(mktemp)
+      ( dir_stats "$artifacts_dir" > "$scan_tmp" ) &
+      scan_pid=$!
+      if (( interactive )); then
+        last_second=-1
+        while kill -0 "$scan_pid" 2>/dev/null; do
+          if (( SECONDS != last_second )); then
+            last_second=$SECONDS
+            spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+            printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
           fi
-          bcount=$(( bcount + 1 ))
-          bbytes=$(( bbytes + flen ))
+          sleep 0.05
         done
-        batch_starts+=("$bstart")
-        batch_lens+=("$bcount")
-        if [[ -n "$prior_lc_all" ]]; then
-          export LC_ALL="$prior_lc_all"
-        else
-          unset LC_ALL
-        fi
+        printf '\r\033[K'
       fi
-      # Same bash 3.2 empty-array caveat as `files` above.
-      set +u
-      batch_count=${#batch_starts[@]}
-      set -u
-
-      # Per-file sizes, parallel to `files`, gathered once up front so byte
-      # accounting always reflects this one snapshot. Re-`stat`ing a
-      # survivor later would report its *current* size, which can differ
-      # from what was actually removed if it was concurrently modified.
-      sizes=()
-      total_bytes=0
-      for (( b = 0; b < batch_count; b++ )); do
-        bstart=${batch_starts[b]}
-        blen=${batch_lens[b]}
-        batch=("${files[@]:bstart:blen}")
-        # `|| true`: a file can vanish between enumeration and sizing (e.g. a
-        # concurrent build process cleaning its own temp output), which
-        # makes stat exit nonzero -- don't let that abort cleanup.
-        batch_out=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null) || true
-        line_vals=()
-        line_count=0
-        if [[ -n "$batch_out" ]]; then
-          while IFS= read -r sz; do
-            line_vals+=("$sz")
-            line_count=$(( line_count + 1 ))
-          done <<< "$batch_out"
-        fi
-        idx=$bstart
-        if (( line_count == blen )); then
-          # Common case: every operand succeeded, so stat's output is one
-          # line per file in the same order they were passed -- safe to
-          # assign positionally.
-          for sz in "${line_vals[@]}"; do
-            sizes[idx]=$sz
-            total_bytes=$(( total_bytes + sz ))
-            idx=$(( idx + 1 ))
-          done
-        else
-          # Rare: one or more files vanished mid-batch, breaking positional
-          # alignment. Fall back to stat'ing this batch one file at a time
-          # so each size still lands on the correct file.
-          for f in "${batch[@]}"; do
-            sz=$(stat "$stat_flag" -- "$f" 2>/dev/null) || sz=0
-            [[ -z "$sz" ]] && sz=0
-            sizes[idx]=$sz
-            total_bytes=$(( total_bytes + sz ))
-            idx=$(( idx + 1 ))
-          done
-        fi
-      done
+      wait "$scan_pid" || true
+      read -r total_bytes total_count _ < "$scan_tmp"
+      rm -f "$scan_tmp"
       total_formatted=$(format_bytes "$total_bytes")
 
-      deleted_bytes=0
-      deleted_count=0
       start_time=$(date +%s)
-      for (( batch_idx = 0; batch_idx < batch_count; batch_idx++ )); do
-        bstart=${batch_starts[batch_idx]}
-        blen=${batch_lens[batch_idx]}
-        batch=("${files[@]:bstart:blen}")
-        rm -f -- "${batch[@]}" 2>/dev/null || true
+      rm -rf "$artifacts_dir" &
+      rm_pid=$!
 
-        # Verify what actually disappeared (cheap builtin checks, no
-        # subprocess) instead of assuming the whole batch succeeded -- rm -f
-        # swallows per-file failures (e.g. an unwritable parent dir). Bytes
-        # come from the original sizing snapshot above, never re-stat'd.
-        idx=$bstart
-        for f in "${batch[@]}"; do
-          if [[ ! -e "$f" && ! -L "$f" ]]; then
-            deleted_count=$(( deleted_count + 1 ))
-            deleted_bytes=$(( deleted_bytes + sizes[idx] ))
+      deleted_bytes=$total_bytes
+      deleted_count=$total_count
+      if (( interactive )); then
+        last_second=-1
+        while kill -0 "$rm_pid" 2>/dev/null; do
+          if (( SECONDS != last_second )); then
+            spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+            read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
+            # Stamp the throttle from *after* the scan, not before -- on the
+            # large trees this is meant to help with, `dir_stats` can itself
+            # take a second or more, and timestamping before it would let
+            # the next loop iteration fire immediately, keeping a second
+            # full-tree walker running continuously alongside `rm -rf` and
+            # fighting it for the same filesystem I/O.
+            last_second=$SECONDS
+            deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
+            deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
+            if (( total_bytes > 0 )); then
+              percent=$(( deleted_bytes * 100 / total_bytes ))
+            else
+              percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+            fi
+            # `rm -rf` is still running at this point (the loop condition is
+            # `kill -0 "$rm_pid"`) -- it may still be removing now-empty
+            # directories even once every file is gone, so 100% here would
+            # be a lie. Only the post-`wait` report below may claim 100%.
+            (( percent > 99 )) && percent=99
+            now=$(date +%s)
+            elapsed=$(( now - start_time ))
+            bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+            printf '\r\033[KCleansing artefacts %s %d / %d files, %s / %s, %s/s (%d%%)' \
+              "${spinner_frames[$spinner_index]}" "$deleted_count" "$total_count" \
+              "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
           fi
-          idx=$(( idx + 1 ))
+          sleep 0.05
         done
+        printf '\r\033[K'
+      fi
 
-        if (( interactive )); then
-          if (( total_bytes > 0 )); then
-            percent=$(( deleted_bytes * 100 / total_bytes ))
-          else
-            percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
-          fi
-          now=$(date +%s)
-          elapsed=$(( now - start_time ))
-          bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-          printf '\r\033[KCleansing artefacts: %d / %d files, %s / %s, %s/s (%d%%)' \
-            "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
-        fi
-      done
-      (( interactive )) && printf '\r\033[K'
+      wait "$rm_pid" || true
 
-      rm -rf "$artifacts_dir" || true
       if [[ -d "$artifacts_dir" ]]; then
-        # `find` can fail partway (e.g. an unreadable subtree) while `wc -l`
-        # still happily prints "0" for whatever it received, silently
-        # masking the failure -- so check find's own status via the `if`,
-        # which set -e exempts from triggering on a nonzero condition.
-        if remaining_list=$(find "$artifacts_dir" -type f 2>/dev/null); then
-          if [[ -z "$remaining_list" ]]; then
-            remaining=0
-          else
-            remaining=$(printf '%s\n' "$remaining_list" | wc -l | tr -d ' ')
-          fi
+        # A lock held only transiently (e.g. an antivirus scanner, or a
+        # process still winding down) can clear between the first rm -rf and
+        # now -- retry once before reporting survivors, the same second
+        # chance the old per-file loop gave every file implicitly by
+        # continuing past individual failures.
+        rm -rf "$artifacts_dir" 2>/dev/null || true
+      fi
+
+      if [[ -d "$artifacts_dir" ]]; then
+        read -r remaining_bytes remaining_count remaining_ok <<< "$(dir_stats "$artifacts_dir")"
+        # A concurrent process (e.g. another build) can add bytes to the
+        # tree after the initial snapshot, making remaining_bytes exceed
+        # total_bytes -- clamp instead of printing a negative size.
+        deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
+        if (( remaining_ok )); then
+          echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining_count file(s) could not be removed."
         else
-          remaining="some"
+          # `find` itself failed partway (e.g. an unreadable subtree), so
+          # remaining_count only reflects what it could see -- reporting it
+          # as exact would understate (possibly to a false "0") how much is
+          # actually left behind.
+          echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; at least $remaining_count file(s) could not be removed (some may be unreadable and not counted)."
         fi
-        echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining file(s) could not be removed."
         exit 1
       else
         echo "Cleansed $total_formatted from artefacts."

@@ -257,59 +257,190 @@ try {
     }
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
+        # VBCSCompiler / the MSBuild build server / the Razor build server
+        # keep running between invocations and can hold an out-of-process
+        # BuildHost alive with Microsoft.CodeAnalysis.Workspaces.MSBuild*.dll
+        # loaded from artifacts/ -- Windows blocks deleting a DLL a running
+        # process still has open, so cleanse would intermittently fail on
+        # those two files. Shut the servers down first so it never races a
+        # locked file.
+        #
+        # attune/weave/etc. run through eng/common/tools.ps1's
+        # InitializeDotNetCli, which bootstraps a repo-local SDK under
+        # .dotnet/ and only puts it on PATH inside that child build process
+        # -- it never updates this process's PATH. A developer without a
+        # global `dotnet` install would silently skip the shutdown here and
+        # still hit the DLL lock, so check the repo-local SDK first and only
+        # fall back to a global `dotnet` on PATH.
+        $localDotnet = Join-Path $PSScriptRoot ".dotnet\dotnet.exe"
+        if (-not (Test-Path -LiteralPath $localDotnet)) {
+            $localDotnet = Join-Path $PSScriptRoot ".dotnet/dotnet"
+        }
+        $dotnetExe = if (Test-Path -LiteralPath $localDotnet) {
+            $localDotnet
+        }
+        else {
+            $cmd = Get-Command dotnet -ErrorAction SilentlyContinue
+            if ($cmd) { $cmd.Source } else { $null }
+        }
+        if ($dotnetExe) {
+            # Best-effort: under this script's ErrorActionPreference = "Stop",
+            # a launch failure (e.g. an incomplete or wrong-architecture SDK
+            # bootstrap) would otherwise be a terminating error that aborts
+            # cleanse before it ever attempts to remove artifacts/. A failed
+            # shutdown just means the DLL-lock workaround didn't help this
+            # run -- it must never block cleanup outright.
+            try { & $dotnetExe build-server shutdown *> $null } catch {}
+        }
         if (Test-Path -LiteralPath $artifactsDir) {
+            # Binary units throughout (1MB/1GB are PowerShell's built-in
+            # 1048576/1073741824 literals) -- labelled MiB/GiB, never MB/GB.
             function Format-ByteSize([long]$bytes) {
                 if ($bytes -ge 1GB) { return "{0:N2} GiB" -f ($bytes / 1GB) }
                 elseif ($bytes -ge 1MB) { return "{0:N2} MiB" -f ($bytes / 1MB) }
                 elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
                 else { return "$bytes B" }
             }
+            # Pipe straight into Measure-Object rather than assigning
+            # Get-ChildItem's output to a variable first -- an assignment
+            # materializes every FileInfo into an array before summing,
+            # which on the large trees this is meant to help with retains a
+            # full-tree object array on every progress refresh. Piping keeps
+            # this streaming, one FileInfo at a time.
+            function Get-DirStats([string]$dir) {
+                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
+                    Measure-Object -Property Length -Sum
+                $bytes = if ($sum.Sum) { $sum.Sum } else { 0L }
+                # [PSCustomObject], not a Hashtable (@{...}) -- Hashtable has
+                # its own native .Count property (the number of keys, always
+                # 2 here), which shadows a key literally named "Count" and
+                # silently returns the wrong number for every caller of this
+                # function.
+                return [PSCustomObject]@{ Bytes = $bytes; Count = $sum.Count }
+            }
+
+            # The actual removal is a single bulk `Remove-Item -Recurse -Force`,
+            # run in a background job -- far faster than the previous
+            # implementation's per-file foreach loop, which is why cleanse felt
+            # much slower than Explorer's "Remove item". Progress is reported
+            # by periodically re-scanning what's left with Get-DirStats, so the
+            # display doesn't add per-file cost back into the deletion path.
             $spinnerFrames = @('|', '/', '-', '\')
             $spinnerIndex = 0
-            $lastSpinnerUpdate = Get-Date -Year 1970
-            $fileList = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
-            Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue | ForEach-Object {
-                $fileList.Add($_)
-                $now = Get-Date
-                if (($now - $lastSpinnerUpdate).TotalMilliseconds -ge 100) {
-                    $lastSpinnerUpdate = $now
-                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                    Write-Progress -Activity "Enumerating files" -Status "$($spinnerFrames[$spinnerIndex]) $($fileList.Count) file(s) found"
+
+            # Get-DirStats on the full tree can itself take a while on a
+            # large build output -- run it as a background job too and show
+            # a spinner instead of leaving the terminal blank until the scan
+            # finishes.
+            #
+            # Both this and the delete job below are wrapped in try/finally:
+            # if Ctrl+C interrupts the polling loop, PowerShell unwinds
+            # through the finally block, which stops and removes whichever
+            # job is still non-$null at that point -- without it, a job
+            # left running would stay attached to the session and keep
+            # executing Remove-Item after the prompt returns, so Ctrl+C
+            # wouldn't actually cancel the deletion.
+            $scanJob = $null
+            $job = $null
+            try {
+                $scanJob = Start-Job -ScriptBlock {
+                    param($dir)
+                    $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
+                        Measure-Object -Property Length -Sum
+                    [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
+                } -ArgumentList $artifactsDir
+                $lastScanUpdate = Get-Date -Year 1970
+                while ($scanJob.State -eq 'Running') {
+                    $now = Get-Date
+                    if (($now - $lastScanUpdate).TotalMilliseconds -ge 100) {
+                        $lastScanUpdate = Get-Date
+                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                        Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
+                    }
+                    Start-Sleep -Milliseconds 50
                 }
+                $totalStats = Receive-Job -Job $scanJob
+                Remove-Job -Job $scanJob
+                $scanJob = $null
+                Write-Progress -Activity "Scanning artefacts" -Completed
+
+                $totalBytes = $totalStats.Bytes
+                $totalCount = $totalStats.Count
+                $totalFormatted = Format-ByteSize $totalBytes
+
+                $startTime = Get-Date
+                $job = Start-Job -ScriptBlock {
+                    param($dir)
+                    Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+                } -ArgumentList $artifactsDir
+
+                $deletedBytes = 0L
+                $deletedCount = 0
+                $lastUpdate = Get-Date -Year 1970
+                while ($job.State -eq 'Running') {
+                    $now = Get-Date
+                    if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
+                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                        $remainingBytes = 0L
+                        $remainingCount = 0
+                        if (Test-Path -LiteralPath $artifactsDir) {
+                            $remainingStats = Get-DirStats $artifactsDir
+                            $remainingBytes = $remainingStats.Bytes
+                            $remainingCount = $remainingStats.Count
+                        }
+                        # Stamp the throttle from *after* the scan, not before
+                        # -- on the large trees this is meant to help with,
+                        # Get-DirStats can itself take longer than 100ms, and
+                        # timestamping before it would let the next loop
+                        # iteration fire immediately, keeping a second
+                        # full-tree walker running continuously alongside
+                        # Remove-Item and fighting it for the same filesystem
+                        # I/O.
+                        $lastUpdate = Get-Date
+                        $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
+                        $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
+                        $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
+                        $elapsedSeconds = ($lastUpdate - $startTime).TotalSeconds
+                        $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
+                        Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
+                    }
+                    Start-Sleep -Milliseconds 50
+                }
+                Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+                Remove-Job -Job $job
+                $job = $null
             }
-            Write-Progress -Activity "Enumerating files" -Completed
-            $files = $fileList.ToArray()
-            $totalBytes = ($files | Measure-Object -Property Length -Sum).Sum
-            if (-not $totalBytes) { $totalBytes = 0 }
-            $totalFormatted = Format-ByteSize $totalBytes
-            $totalCount = $files.Count
-            $deletedBytes = 0L
-            $deletedCount = 0
-            $failedCount = 0
-            $startTime = Get-Date
-            $lastUpdate = Get-Date -Year 1970
-            foreach ($file in $files) {
-                Remove-Item -Force -LiteralPath $file.FullName -ErrorAction SilentlyContinue
-                if (Test-Path -LiteralPath $file.FullName) {
-                    $failedCount++
+            finally {
+                if ($scanJob) {
+                    Stop-Job -Job $scanJob -ErrorAction SilentlyContinue
+                    Remove-Job -Job $scanJob -Force -ErrorAction SilentlyContinue
                 }
-                else {
-                    $deletedBytes += $file.Length
-                    $deletedCount++
-                }
-                $now = Get-Date
-                if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
-                    $lastUpdate = $now
-                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / $totalCount) * 100)) }
-                    $elapsedSeconds = ($now - $startTime).TotalSeconds
-                    $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                    Write-Progress -Activity "Cleansing artefacts" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
+                if ($job) {
+                    Stop-Job -Job $job -ErrorAction SilentlyContinue
+                    Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
                 }
             }
             Write-Progress -Activity "Cleansing artefacts" -Completed
-            Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+            # Write-Progress's "completed" pane doesn't reliably leave the
+            # cursor at column 0 in every console host (conhost in
+            # particular), which left stray blank padding in front of the
+            # line below -- force a fresh line rather than trusting
+            # -Completed alone.
+            Write-Host ""
+
             if (Test-Path -LiteralPath $artifactsDir) {
-                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $failedCount file(s) could not be removed." -ForegroundColor Yellow
+                # A lock held only transiently (e.g. an antivirus scanner, or
+                # a process still winding down) can clear between the bulk
+                # delete and now -- retry once before reporting survivors,
+                # the same second chance the old per-file loop gave every
+                # file implicitly by continuing past individual failures.
+                Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+            }
+
+            if (Test-Path -LiteralPath $artifactsDir) {
+                $remainingStats = Get-DirStats $artifactsDir
+                $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingStats.Bytes)
+                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $($remainingStats.Count) file(s) could not be removed." -ForegroundColor Yellow
             }
             else {
                 Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green

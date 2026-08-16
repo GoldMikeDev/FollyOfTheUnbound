@@ -59,10 +59,16 @@ Not every test lives in a `dotnet test` project — `folly.sh cleanse`'s file-en
 ```bash
 ./scripts/test-folly-cleanse.sh
 ```
-Covers: empty `artifacts/`, a populated tree, redirected (non-TTY) output staying free of escape codes, a permission failure reporting an accurate count with a nonzero exit, a file vanishing mid-scan under a concurrent writer, and `artifacts/` existing as a non-directory.
+Covers: empty `artifacts/`, a populated tree, redirected (non-TTY) output staying free of escape codes, a permission failure reporting an accurate count with a nonzero exit, a file vanishing mid-scan under a concurrent writer, an unreadable subtree during the background scan reporting an honest uncertain remainder rather than a false "0 files could not be removed" (skips under root, since root bypasses the permission check needed to trigger it), and `artifacts/` existing as a non-directory.
 
 Similarly, `folly.ps1 scry`'s argument parsing (`[config]`, `--core`/`--desktop`, and the pre-existing named `-action`/`-config` form) and its unified pass/fail/timeout summary have a manual harness at `scripts/test-folly-scry-args.ps1`, run against a mocked `eng/build.ps1` so no real build/test happens. Run it by hand after touching `folly.ps1`'s argument parsing or `scry` action:
 ```powershell
 pwsh -File ./scripts/test-folly-scry-args.ps1
 ```
 Covers: the default (both legs), `--core`-only, `--desktop`-only, positional `[config]`, named `-config` (backward compatibility), and a rejected unknown argument.
+
+`folly.ps1 cleanse`'s own background bulk-delete path (`Start-Job` + `Remove-Item -Recurse -Force`, the byte/count scan, the locked-file retry) has a manual harness at `scripts/test-folly-cleanse.ps1`, mirroring `test-folly-cleanse.sh`'s coverage for the PowerShell implementation. Run it by hand after touching `folly.ps1`'s `cleanse` action:
+```powershell
+pwsh -File ./scripts/test-folly-cleanse.ps1
+```
+Covers: empty `artifacts/`, a populated tree with an exact byte total, a file locked by an open handle (simulating a BuildHost DLL still in use) surviving both the bulk delete and its retry with an accurate reported count, and a file vanishing mid-scan under a concurrent writer.
