@@ -284,7 +284,13 @@ try {
             if ($cmd) { $cmd.Source } else { $null }
         }
         if ($dotnetExe) {
-            & $dotnetExe build-server shutdown *> $null
+            # Best-effort: under this script's ErrorActionPreference = "Stop",
+            # a launch failure (e.g. an incomplete or wrong-architecture SDK
+            # bootstrap) would otherwise be a terminating error that aborts
+            # cleanse before it ever attempts to remove artifacts/. A failed
+            # shutdown just means the DLL-lock workaround didn't help this
+            # run -- it must never block cleanup outright.
+            try { & $dotnetExe build-server shutdown *> $null } catch {}
         }
         if (Test-Path -LiteralPath $artifactsDir) {
             # Binary units throughout (1MB/1GB are PowerShell's built-in

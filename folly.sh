@@ -105,9 +105,27 @@ case "$action" in
       # `rm -rf` running orphaned, still deleting artifacts/ with no
       # visible progress. Explicitly forward INT/TERM to whichever
       # background job is currently running.
+      #
+      # The scan job is `( dir_stats "$artifacts_dir" > "$scan_tmp" ) &` --
+      # $scan_pid is that wrapper subshell, not the `find`/`awk` pipeline it
+      # runs internally. Killing only the wrapper leaves those two processes
+      # orphaned, still traversing a potentially large artifact tree after
+      # the prompt returns. Recursively kill each PID's children (via `ps`,
+      # portable across GNU and BSD `ps -eo pid,ppid`) before the PID itself.
+      # `rm -rf` doesn't spawn children, so this degrades to a plain single
+      # kill for it.
+      _cleanse_kill_tree() {
+        local pid="$1" child
+        [[ -z "$pid" ]] && return 0
+        for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+          _cleanse_kill_tree "$child"
+        done
+        kill "$pid" 2>/dev/null
+        return 0
+      }
       _cleanse_kill_bg() {
-        [[ -n "${scan_pid:-}" ]] && kill "$scan_pid" 2>/dev/null
-        [[ -n "${rm_pid:-}" ]] && kill "$rm_pid" 2>/dev/null
+        _cleanse_kill_tree "${scan_pid:-}"
+        _cleanse_kill_tree "${rm_pid:-}"
         [[ -n "${scan_tmp:-}" && -e "${scan_tmp:-}" ]] && rm -f "$scan_tmp"
         return 0
       }

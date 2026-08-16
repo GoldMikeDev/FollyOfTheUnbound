@@ -64,7 +64,14 @@ try {
     }
     Set-Content -LiteralPath (Join-Path $artifactsDir "sub\nested.bin") -Value ("x" * 50) -NoNewline
     $result = Invoke-Cleanse -Dir $dir
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Cleansed 2\.00 KiB from artefacts\." -and -not (Test-Path -LiteralPath $artifactsDir)) {
+    # Built with the same {0:N2} format Format-ByteSize itself uses, rather
+    # than a hard-coded "2.00 KiB" -- on a host whose current culture uses a
+    # comma decimal separator, Format-ByteSize would emit "2,00 KiB" and a
+    # literal-period regex would report a false failure on correct output.
+    # Plain string Contains (not -match) sidesteps the separator being a
+    # regex metachar in either case.
+    $expectedSize = "{0:N2} KiB" -f (2050 / 1KB)
+    if ($result.ExitCode -eq 0 -and $result.Output.Contains("Cleansed $expectedSize from artefacts.") -and -not (Test-Path -LiteralPath $artifactsDir)) {
         Test-Pass "populated tree removed with correct byte total"
     }
     else {
