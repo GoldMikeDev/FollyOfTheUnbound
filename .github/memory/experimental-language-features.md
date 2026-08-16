@@ -44,15 +44,17 @@ each taught the binder to accept this shape, at different levels, and the order 
   in `Binder_Statements.BindExpressionStatement` *before* the expression binder ever sees the
   `CoalesceExpressionSyntax`: if `node.Expression` is a `CoalesceExpressionSyntax` whose `Left` is a
   `ConditionalAccessExpressionSyntax` that speculatively binds to `void`, it's bound as a statement
-  (`Access` + `FallbackStatement`) instead of an expression — for **any** receiver type, value or
-  reference. Lowered in `LocalRewriter_ConditionalAccess.cs` by threading a `whenNullOpt` fallback
+  (`Access` + `FallbackStatement`) instead of an expression — **reference-type receivers only** since
+  the ordering fix below; a value-type (`Nullable<T>`) receiver is left unintercepted here so it falls
+  through to the void-coalescing expression path instead. Lowered in `LocalRewriter_ConditionalAccess.cs`
+  by threading a `whenNullOpt` fallback
   through `RewriteConditionalAccess` (reusing `BoundLoweredConditionalAccess`'s existing `WhenNullOpt`
   slot). Flow analysis: `AbstractFlowPass.VisitConditionalCoalesceStatement` visits both branches
   unconditionally (conservative, not flow-splitting).
 - **Void-coalescing expression** (`BoundVoidCoalesceExpression`, added second, in `Binder_Operators.
   BindNullCoalescingOperator`). Same trigger shape, but reached only when ordinary `??` expression
   binding sees a void-typed `BoundConditionalAccess` on the left — and only accepts **reference-type**
-  receivers, reporting `ERR_VoidCoalesceRequiresReferenceTypeReceiver` (CS9400) otherwise. Lowered
+  receivers, reporting `ERR_VoidCoalesceRequiresReferenceTypeReceiver` (CS10004) otherwise. Lowered
   separately in `LocalRewriter_VoidCoalesceExpression.cs` to an `if (receiver != null) { ... } else
   { fallback; }`.
 
@@ -61,7 +63,7 @@ for reference-type receivers (`speculativeAccess.Receiver.Type is { IsReferenceT
 the restriction `BindVoidCoalesceExpression` already enforced. A value-type (`Nullable<T>`) receiver is
 no longer intercepted at the statement level and instead falls through to ordinary `??` expression
 binding, which reaches `BindNullCoalescingOperator` → `BindVoidCoalesceExpression` and correctly reports
-`ERR_VoidCoalesceRequiresReferenceTypeReceiver` (CS9400) — previously unreachable in the common case.
+`ERR_VoidCoalesceRequiresReferenceTypeReceiver` (CS10004) — previously unreachable in the common case.
 `IsValidStatementExpression`'s existing `BoundKind.VoidCoalesceExpression` special-case (treats it as
 always statement-valid) means this fallthrough doesn't also spuriously report `ERR_IllegalStatement`.
 Reference-type receivers are unaffected — they still take the statement-level `BoundConditionalCoalesceStatement`
