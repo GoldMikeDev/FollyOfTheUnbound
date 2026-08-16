@@ -109,7 +109,7 @@ try {
         finally {
             $stream.Close()
         }
-        if ($result.ExitCode -eq 0 -and $result.Output -match "1 file\(s\) could not be removed\." -and -not (Test-Path -LiteralPath $removableFile) -and (Test-Path -LiteralPath $lockedFile)) {
+        if ($result.ExitCode -eq 1 -and $result.Output -match "1 file\(s\) could not be removed\." -and -not (Test-Path -LiteralPath $removableFile) -and (Test-Path -LiteralPath $lockedFile)) {
             Test-Pass "locked file survives the bulk delete and its retry, reported accurately"
         }
         else {
@@ -152,7 +152,7 @@ try {
             $acl2.RemoveAccessRule($denyRule) | Out-Null
             Set-Acl -LiteralPath $lockedSub -AclObject $acl2
         }
-        if ($result.ExitCode -eq 0 -and $result.Output -match "at least" -and $result.Output -match "unreadable and not counted") {
+        if ($result.ExitCode -eq 1 -and $result.Output -match "at least" -and $result.Output -match "unreadable and not counted") {
             Test-Pass "unreadable subtree reports an uncertain (not false-zero) remainder"
         }
         else {

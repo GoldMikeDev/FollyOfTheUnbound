@@ -463,6 +463,11 @@ try {
                     # "at least N ... unreadable" wording.
                     Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; at least $($remainingStats.Count) file(s) could not be removed (some may be unreadable and not counted)." -ForegroundColor Yellow
                 }
+                # folly.sh exits 1 whenever artifacts/ survives cleanup, so
+                # scripting/CI around either tool can rely on the same exit
+                # code meaning the same thing -- this previously always
+                # exited 0 here, hiding an incomplete cleanup from callers.
+                exit 1
             }
             else {
                 Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
