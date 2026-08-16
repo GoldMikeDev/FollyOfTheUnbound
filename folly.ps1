@@ -311,7 +311,12 @@ try {
                 $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
                     Measure-Object -Property Length -Sum
                 $bytes = if ($sum.Sum) { $sum.Sum } else { 0L }
-                return @{ Bytes = $bytes; Count = $sum.Count }
+                # [PSCustomObject], not a Hashtable (@{...}) -- Hashtable has
+                # its own native .Count property (the number of keys, always
+                # 2 here), which shadows a key literally named "Count" and
+                # silently returns the wrong number for every caller of this
+                # function.
+                return [PSCustomObject]@{ Bytes = $bytes; Count = $sum.Count }
             }
 
             # The actual removal is a single bulk `Remove-Item -Recurse -Force`,
