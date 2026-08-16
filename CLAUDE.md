@@ -45,7 +45,7 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 
 ## `folly.sh` / `folly.ps1` parity
 
-These two scripts implement the same commands (`attune`, `weave`, `cleanse`, `scry`, etc.) for bash and PowerShell respectively, and are expected to stay in behavioral lockstep. When editing an action in one, make the equivalent change in the other in the same commit/PR — a bug fix, a new safety check, a changed message format, a retry, a test case — don't land it in only one language. If a fix is genuinely platform-specific (e.g. an NTFS ACE vs. Unix file permissions, `.dotnet/dotnet` vs. `.dotnet/dotnet.exe`), still add the equivalent *behavior* on the other side using whatever mechanism that platform actually has, rather than skipping it. Same expectation for their manual test harnesses (`scripts/test-folly-cleanse.sh` / `scripts/test-folly-cleanse.ps1`, and any future `*.sh`/`*.ps1` harness pair): a new regression case added to one should get a matching case in the other unless the scenario truly cannot occur on that platform (and if so, say why in the test file, don't just omit it silently).
+See [`.github/memory/CONVENTIONS.md`](.github/memory/CONVENTIONS.md#follysh--follyps1-parity): the two scripts (and their `scripts/test-folly-cleanse.{sh,ps1}` harnesses) must be edited together, not drift.
 
 ## Merging pull requests
 
