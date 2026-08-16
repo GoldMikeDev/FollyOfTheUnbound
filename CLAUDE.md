@@ -43,7 +43,7 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 
 ## Merging pull requests
 
-**Never use squash or rebase merge on this repo. Always use a real merge commit (`merge_method: merge`).** The user manages branches in GitKraken, which flags a branch as "unmerged" whenever its commits aren't literal ancestors of the target branch — squash/rebase merges create new commits with different SHAs, so the source branch's original commits never become ancestors, even though the PR shows as merged on GitHub. This has caused real, repeated confusion and manual cleanup. There is no case on this repo where squash/rebase is the right call — use `merge` every time, no exceptions, without asking.
+See [`.github/copilot-instructions.md`](.github/copilot-instructions.md#merging-pull-requests): never squash/rebase-merge, always a real merge commit (`merge_method: merge`), no exceptions.
 
 ## This fork's work: experimental language features
 
