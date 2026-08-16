@@ -174,6 +174,8 @@ try {
         $coreClrLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-CoreClr"
         $desktopTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Desktop"
         $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
+        # Matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention.
+        $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
@@ -183,13 +185,15 @@ try {
         if ($runCoreClr) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
             # eng/common/tools.ps1 only ever sets $env:MSBUILDDEBUGPATH itself when it's unset
-            # (`if (-not $env:MSBUILDDEBUGPATH)`), to the *unsuffixed* $LogDir\MsbuildDebugLogs --
-            # and since folly.ps1 invokes eng/build.ps1 multiple times in this same PowerShell
-            # process, that guard means only the very first invocation (the initial -restore -build
-            # above) would ever actually set it, leaving every later suffixed pass stuck reusing
-            # that first, unsuffixed value instead of getting its own. Set it explicitly here so
-            # each pass's MSBuild debug logs land alongside that pass's own runtests.log.
-            $env:MSBUILDDEBUGPATH = Join-Path $coreClrLogDir "MsbuildDebugLogs"
+            # (`if (-not $env:MSBUILDDEBUGPATH)`), and since folly.ps1 invokes eng/build.ps1
+            # multiple times in this same PowerShell process, that guard means only the very
+            # first invocation (the initial -restore -build above) would ever actually set it,
+            # leaving every later pass stuck reusing that first value instead of getting its own.
+            # Set it explicitly here. Both passes share one directory -- MSBuild's own debug log
+            # filenames already embed a unique per-process token, and the passes run sequentially
+            # (never concurrently), so there's no collision risk, and one directory is simpler to
+            # read later than per-pass ones.
+            $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
                 & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
                 $coreClrExitCode = $LASTEXITCODE
@@ -202,7 +206,7 @@ try {
         $desktopExitCode = 0
         if ($runDesktop) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
-            $env:MSBUILDDEBUGPATH = Join-Path $desktopLogDir "MsbuildDebugLogs"
+            $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
                 & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
                 $desktopExitCode = $LASTEXITCODE
