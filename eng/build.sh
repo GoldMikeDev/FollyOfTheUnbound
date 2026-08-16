@@ -30,6 +30,7 @@ usage()
   echo "  --testCompilerOnly         Run only the compiler unit tests"
   echo "  --testIOperation           Run unit tests with the IOperation test hook"
   echo "  --testRuntimeAsync         Run unit tests with runtime async validation enabled"
+  echo "  --testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog"
   echo ""
   echo "Advanced settings:"
   echo "  --ci                       Building in CI"
@@ -72,6 +73,7 @@ test_mono=false
 test_ioperation=false
 test_runtime_async=false
 test_compiler_only=false
+test_timeout=0
 
 configuration="Debug"
 verbosity='minimal'
@@ -154,6 +156,13 @@ while [[ $# > 0 ]]; do
       ;;
     --testruntimeasync)
       test_runtime_async=true
+      ;;
+    --testtimeout)
+      # Overrides RunTests' whole-run --timeout watchdog (minutes); see the -testTimeout parameter
+      # in build.ps1 for why this exists as a call-site override instead of a hardcoded value.
+      test_timeout=$2
+      args="$args $1"
+      shift
       ;;
     --ci)
       ci=true
@@ -431,6 +440,10 @@ if [[ "$test_core_clr" == true ]]; then
 
   if [[ "$ci" != true ]]; then
     runtests_args="$runtests_args --html"
+  fi
+
+  if [[ "$test_timeout" -gt 0 ]]; then
+    runtests_args="$runtests_args --timeout $test_timeout"
   fi
 
   if [[ "$ci" == true ]]; then

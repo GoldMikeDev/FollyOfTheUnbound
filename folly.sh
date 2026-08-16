@@ -5,6 +5,24 @@ if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
 fi
 action="${1:-}"
 config="${2:-}"
+shift $(( $# < 2 ? $# : 2 )) || true
+test_timeout=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --timeout)
+      test_timeout="${2:-}"
+      if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]+$ || "$test_timeout" -le 0 ]]; then
+        echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
+        exit 1
+      fi
+      shift 2
+      ;;
+    *)
+      echo "Unrecognized argument '$1'." >&2
+      exit 1
+      ;;
+  esac
+done
 scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
@@ -25,6 +43,9 @@ Actions:
 [config] (optional, defaults to Research):
   research  Debug
   truth     Release
+
+scry-only switch:
+  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)
 
 EOF
   exit 0
@@ -53,7 +74,11 @@ case "$action" in
     "$build_script" --restore --build --pack --solution "$solution" --configuration "$configuration"
     ;;
   scry)
-    "$build_script" --restore --build --test --solution "$solution" --configuration "$configuration"
+    scry_args=(--restore --build --test --solution "$solution" --configuration "$configuration")
+    if [[ "$test_timeout" -gt 0 ]]; then
+      scry_args+=(--testTimeout "$test_timeout")
+    fi
+    "$build_script" "${scry_args[@]}"
     ;;
   cleanse)
     artifacts_dir="$scriptroot/artifacts"
