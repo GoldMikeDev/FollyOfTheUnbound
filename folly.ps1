@@ -258,61 +258,50 @@ try {
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
         if (Test-Path -LiteralPath $artifactsDir) {
-            function Format-ByteSize([long]$bytes) {
-                if ($bytes -ge 1GB) { return "{0:N2} GiB" -f ($bytes / 1GB) }
-                elseif ($bytes -ge 1MB) { return "{0:N2} MiB" -f ($bytes / 1MB) }
-                elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
-                else { return "$bytes B" }
-            }
+            # The actual removal is a single bulk `Remove-Item -Recurse -Force`,
+            # run in a background job. The previous implementation instead
+            # enumerated every file, summed their sizes, and then removed them
+            # one at a time in a foreach loop -- a per-file cmdlet call is much
+            # slower than one recursive delete, which is why this felt far
+            # slower than Explorer's "Remove item". Progress here is just a
+            # lightweight remaining-file count polled from this job, so
+            # showing it doesn't add per-file cost back in.
             $spinnerFrames = @('|', '/', '-', '\')
             $spinnerIndex = 0
-            $lastSpinnerUpdate = Get-Date -Year 1970
-            $fileList = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
-            Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue | ForEach-Object {
-                $fileList.Add($_)
-                $now = Get-Date
-                if (($now - $lastSpinnerUpdate).TotalMilliseconds -ge 100) {
-                    $lastSpinnerUpdate = $now
-                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                    Write-Progress -Activity "Enumerating files" -Status "$($spinnerFrames[$spinnerIndex]) $($fileList.Count) file(s) found"
-                }
-            }
-            Write-Progress -Activity "Enumerating files" -Completed
-            $files = $fileList.ToArray()
-            $totalBytes = ($files | Measure-Object -Property Length -Sum).Sum
-            if (-not $totalBytes) { $totalBytes = 0 }
-            $totalFormatted = Format-ByteSize $totalBytes
-            $totalCount = $files.Count
-            $deletedBytes = 0L
-            $deletedCount = 0
-            $failedCount = 0
+            $totalCount = (Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue | Measure-Object).Count
             $startTime = Get-Date
+            $job = Start-Job -ScriptBlock {
+                param($dir)
+                Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+            } -ArgumentList $artifactsDir
+
             $lastUpdate = Get-Date -Year 1970
-            foreach ($file in $files) {
-                Remove-Item -Force -LiteralPath $file.FullName -ErrorAction SilentlyContinue
-                if (Test-Path -LiteralPath $file.FullName) {
-                    $failedCount++
-                }
-                else {
-                    $deletedBytes += $file.Length
-                    $deletedCount++
-                }
+            while ($job.State -eq 'Running') {
                 $now = Get-Date
                 if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
                     $lastUpdate = $now
-                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / $totalCount) * 100)) }
-                    $elapsedSeconds = ($now - $startTime).TotalSeconds
-                    $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                    Write-Progress -Activity "Cleansing artefacts" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
+                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                    $remaining = 0
+                    if (Test-Path -LiteralPath $artifactsDir) {
+                        $remaining = (Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue | Measure-Object).Count
+                    }
+                    $deleted = [Math]::Max(0, $totalCount - $remaining)
+                    $percent = if ($totalCount -gt 0) { [Math]::Min(99, [int](($deleted / $totalCount) * 100)) } else { 100 }
+                    Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deleted / $totalCount files" -PercentComplete $percent
                 }
+                Start-Sleep -Milliseconds 50
             }
+            Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+            Remove-Job -Job $job
             Write-Progress -Activity "Cleansing artefacts" -Completed
-            Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+
+            $elapsed = [Math]::Round(((Get-Date) - $startTime).TotalSeconds, 1)
             if (Test-Path -LiteralPath $artifactsDir) {
-                Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $failedCount file(s) could not be removed." -ForegroundColor Yellow
+                $remaining = (Get-ChildItem -LiteralPath $artifactsDir -Recurse -Force -File -ErrorAction SilentlyContinue | Measure-Object).Count
+                Write-Host "Cleansed artefacts in ${elapsed}s; $remaining file(s) could not be removed." -ForegroundColor Yellow
             }
             else {
-                Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
+                Write-Host "Cleansed $totalCount file(s) from artefacts in ${elapsed}s." -ForegroundColor Green
             }
         }
         exit 0

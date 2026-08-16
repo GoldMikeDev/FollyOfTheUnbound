@@ -73,206 +73,52 @@ case "$action" in
       interactive=0
       [[ -t 1 ]] && interactive=1
 
-      format_bytes() {
-        local bytes=$1
-        if (( bytes >= 1073741824 )); then
-          awk -v b="$bytes" 'BEGIN { printf "%.2f GiB", b / 1073741824 }'
-        elif (( bytes >= 1048576 )); then
-          awk -v b="$bytes" 'BEGIN { printf "%.2f MiB", b / 1048576 }'
-        elif (( bytes >= 1024 )); then
-          awk -v b="$bytes" 'BEGIN { printf "%.2f KiB", b / 1024 }'
-        else
-          printf "%d B" "$bytes"
-        fi
-      }
+      # The actual removal is a single native `rm -rf`, which walks and
+      # unlinks the tree directly in C. The previous implementation instead
+      # enumerated every file into a bash array, `stat`-sized each one in
+      # batches, and then `rm -f`'d and re-verified each batch from bash --
+      # three full passes of interpreted per-file work before the real
+      # `rm -rf` even ran, which is why it felt much slower than a plain
+      # `rm -rf`/Explorer delete. Progress here is just a lightweight
+      # count of remaining files, polled from a background sampler, so
+      # showing it doesn't add per-file cost back in.
+      total_count=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
+      [[ -z "$total_count" ]] && total_count=0
 
-      # Enumerate filenames only (no per-file stat/wc calls, which would spawn
-      # a subprocess per artifact and make cleanup impractically slow on a
-      # large build tree). Sizing is done in batches via `stat` below.
-      spinner_frames=('|' '/' '-' '\')
-      spinner_index=0
-      files=()
-      scan_count=0
-      # Redraw at most once per wall-clock second (checked via the `SECONDS`
-      # builtin -- no subprocess) rather than every Nth file. Gating on file
-      # count alone let the spinner and its counter flicker by faster than a
-      # human eye can track on large, fast-enumerating trees.
-      spinner_last_second=-1
-      while IFS= read -r -d '' file; do
-        files+=("$file")
-        scan_count=$(( scan_count + 1 ))
-        if (( interactive )) && (( SECONDS != spinner_last_second )); then
-          spinner_last_second=$SECONDS
-          spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-          printf '\r\033[KEnumerating files %s %d file(s) found' "${spinner_frames[$spinner_index]}" "$scan_count"
-        fi
-      done < <(find "$artifacts_dir" -type f -print0)
-      (( interactive )) && printf '\r\033[K'
-
-      # `${#files[@]}` on a still-empty array trips "unbound variable" under
-      # `set -u` on bash 3.2 (macOS's system bash), so nounset is relaxed
-      # just for this reference.
-      set +u
-      total_count=${#files[@]}
-      set -u
-
-      stat_flag="-c%s"
-      stat -c%s "$scriptroot" >/dev/null 2>&1 || stat_flag="-f%z"
-
-      # Bound each batch by encoded argument size (not just file count): a
-      # fixed count like 500 can still overflow a constrained ARG_MAX on
-      # systems with long artifact paths or a lowered command-line limit.
-      arg_max=$(getconf ARG_MAX 2>/dev/null || echo 0)
-      (( arg_max > 0 )) || arg_max=131072
-      byte_budget=$(( arg_max / 4 ))
-      (( byte_budget >= 4096 )) || byte_budget=4096
-      max_batch_files=1000
-
-      batch_starts=()
-      batch_lens=()
-      if (( total_count > 0 )); then
-        # `${#var}` counts characters, not bytes, under a multibyte locale,
-        # which would undercount the actual argv size exec() enforces for
-        # non-ASCII paths. Force LC_ALL=C for this loop so it counts bytes.
-        prior_lc_all="${LC_ALL:-}"
-        export LC_ALL=C
-        bstart=0
-        bcount=0
-        bbytes=0
-        for (( idx = 0; idx < total_count; idx++ )); do
-          flen=$(( ${#files[idx]} + 1 ))
-          if (( bcount > 0 )) && (( bbytes + flen > byte_budget || bcount >= max_batch_files )); then
-            batch_starts+=("$bstart")
-            batch_lens+=("$bcount")
-            bstart=$idx
-            bcount=0
-            bbytes=0
-          fi
-          bcount=$(( bcount + 1 ))
-          bbytes=$(( bbytes + flen ))
-        done
-        batch_starts+=("$bstart")
-        batch_lens+=("$bcount")
-        if [[ -n "$prior_lc_all" ]]; then
-          export LC_ALL="$prior_lc_all"
-        else
-          unset LC_ALL
-        fi
-      fi
-      # Same bash 3.2 empty-array caveat as `files` above.
-      set +u
-      batch_count=${#batch_starts[@]}
-      set -u
-
-      # Per-file sizes, parallel to `files`, gathered once up front so byte
-      # accounting always reflects this one snapshot. Re-`stat`ing a
-      # survivor later would report its *current* size, which can differ
-      # from what was actually removed if it was concurrently modified.
-      sizes=()
-      total_bytes=0
-      for (( b = 0; b < batch_count; b++ )); do
-        bstart=${batch_starts[b]}
-        blen=${batch_lens[b]}
-        batch=("${files[@]:bstart:blen}")
-        # `|| true`: a file can vanish between enumeration and sizing (e.g. a
-        # concurrent build process cleaning its own temp output), which
-        # makes stat exit nonzero -- don't let that abort cleanup.
-        batch_out=$(stat "$stat_flag" -- "${batch[@]}" 2>/dev/null) || true
-        line_vals=()
-        line_count=0
-        if [[ -n "$batch_out" ]]; then
-          while IFS= read -r sz; do
-            line_vals+=("$sz")
-            line_count=$(( line_count + 1 ))
-          done <<< "$batch_out"
-        fi
-        idx=$bstart
-        if (( line_count == blen )); then
-          # Common case: every operand succeeded, so stat's output is one
-          # line per file in the same order they were passed -- safe to
-          # assign positionally.
-          for sz in "${line_vals[@]}"; do
-            sizes[idx]=$sz
-            total_bytes=$(( total_bytes + sz ))
-            idx=$(( idx + 1 ))
-          done
-        else
-          # Rare: one or more files vanished mid-batch, breaking positional
-          # alignment. Fall back to stat'ing this batch one file at a time
-          # so each size still lands on the correct file.
-          for f in "${batch[@]}"; do
-            sz=$(stat "$stat_flag" -- "$f" 2>/dev/null) || sz=0
-            [[ -z "$sz" ]] && sz=0
-            sizes[idx]=$sz
-            total_bytes=$(( total_bytes + sz ))
-            idx=$(( idx + 1 ))
-          done
-        fi
-      done
-      total_formatted=$(format_bytes "$total_bytes")
-
-      deleted_bytes=0
-      deleted_count=0
       start_time=$(date +%s)
-      # Same once-per-second throttle as the enumeration spinner above: batches
-      # can be up to 1000 files and complete in a flash, which previously made
-      # the bar jump straight from 0% to 100% in a single redraw. Always draw
-      # the last batch so the final numbers shown are accurate.
-      progress_last_second=-1
-      for (( batch_idx = 0; batch_idx < batch_count; batch_idx++ )); do
-        bstart=${batch_starts[batch_idx]}
-        blen=${batch_lens[batch_idx]}
-        batch=("${files[@]:bstart:blen}")
-        rm -f -- "${batch[@]}" 2>/dev/null || true
+      rm -rf "$artifacts_dir" &
+      rm_pid=$!
 
-        # Verify what actually disappeared (cheap builtin checks, no
-        # subprocess) instead of assuming the whole batch succeeded -- rm -f
-        # swallows per-file failures (e.g. an unwritable parent dir). Bytes
-        # come from the original sizing snapshot above, never re-stat'd.
-        idx=$bstart
-        for f in "${batch[@]}"; do
-          if [[ ! -e "$f" && ! -L "$f" ]]; then
-            deleted_count=$(( deleted_count + 1 ))
-            deleted_bytes=$(( deleted_bytes + sizes[idx] ))
+      if (( interactive )); then
+        spinner_frames=('|' '/' '-' '\')
+        spinner_index=0
+        last_second=-1
+        while kill -0 "$rm_pid" 2>/dev/null; do
+          if (( SECONDS != last_second )); then
+            last_second=$SECONDS
+            spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+            remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
+            [[ -z "$remaining" ]] && remaining=0
+            deleted=$(( total_count > remaining ? total_count - remaining : 0 ))
+            percent=$(( total_count > 0 ? deleted * 100 / total_count : 100 ))
+            printf '\r\033[KCleansing artefacts %s %d / %d files (%d%%)' \
+              "${spinner_frames[$spinner_index]}" "$deleted" "$total_count" "$percent"
           fi
-          idx=$(( idx + 1 ))
+          sleep 0.05
         done
+        printf '\r\033[K'
+      fi
 
-        if (( interactive )) && { (( SECONDS != progress_last_second )) || (( batch_idx == batch_count - 1 )); }; then
-          progress_last_second=$SECONDS
-          if (( total_bytes > 0 )); then
-            percent=$(( deleted_bytes * 100 / total_bytes ))
-          else
-            percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
-          fi
-          now=$(date +%s)
-          elapsed=$(( now - start_time ))
-          bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-          printf '\r\033[KCleansing artefacts: %d / %d files, %s / %s, %s/s (%d%%)' \
-            "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
-        fi
-      done
-      (( interactive )) && printf '\r\033[K'
+      wait "$rm_pid" || true
+      elapsed=$(( $(date +%s) - start_time ))
 
-      rm -rf "$artifacts_dir" || true
       if [[ -d "$artifacts_dir" ]]; then
-        # `find` can fail partway (e.g. an unreadable subtree) while `wc -l`
-        # still happily prints "0" for whatever it received, silently
-        # masking the failure -- so check find's own status via the `if`,
-        # which set -e exempts from triggering on a nonzero condition.
-        if remaining_list=$(find "$artifacts_dir" -type f 2>/dev/null); then
-          if [[ -z "$remaining_list" ]]; then
-            remaining=0
-          else
-            remaining=$(printf '%s\n' "$remaining_list" | wc -l | tr -d ' ')
-          fi
-        else
-          remaining="some"
-        fi
-        echo "Cleansed $(format_bytes "$deleted_bytes") of artefacts; $remaining file(s) could not be removed."
+        remaining=$(find "$artifacts_dir" -type f 2>/dev/null | wc -l | tr -d ' ')
+        [[ -z "$remaining" ]] && remaining="some"
+        echo "Cleansed artefacts in ${elapsed}s; $remaining file(s) could not be removed."
         exit 1
       else
-        echo "Cleansed $total_formatted from artefacts."
+        echo "Cleansed $total_count file(s) from artefacts in ${elapsed}s."
       fi
     fi
     exit 0
