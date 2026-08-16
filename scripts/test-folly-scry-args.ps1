@@ -31,12 +31,14 @@ function New-TestCase([string]$Name) {
     Copy-Item -LiteralPath $follyPs1 -Destination (Join-Path $dir "folly.ps1")
 
     # A minimal stand-in for eng/build.ps1: succeeds for restore/build, and for the test legs
-    # writes a runtests.log with exactly one PASSED row so folly.ps1's summary reader has
+    # writes the pass-specific runtestsCoreCLR.log/runtestsDesktop.log RunTests now emits (see
+    # Program.WriteLogFile) with exactly one PASSED row so folly.ps1's summary reader has
     # something real to parse, without running any actual build or tests.
     $mockBuild = @'
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [int]$testTimeout,
     [string]$solution,[string]$configuration
 )
 $scriptroot = $PSScriptRoot
@@ -44,7 +46,7 @@ $repoRoot = Split-Path $scriptroot -Parent
 $suffix = $env:FOTU_TEST_RESULTS_SUFFIX
 $testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration-$suffix"
 $logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
-function Write-FakeRunTestsLog([string]$LogDir) {
+function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
         "================",
@@ -52,16 +54,16 @@ function Write-FakeRunTestsLog([string]$LogDir) {
         "================",
         "Extra run diagnostics for logging, did not impact run results"
     )
-    Set-Content -LiteralPath (Join-Path $LogDir "runtests.log") -Value $lines
+    Set-Content -LiteralPath (Join-Path $LogDir $LogFileName) -Value $lines
 }
 if ($testCoreClr) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
-    Write-FakeRunTestsLog -LogDir $logDir
+    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsCoreCLR.log"
     exit 0
 }
 elseif ($testDesktop) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
-    Write-FakeRunTestsLog -LogDir $logDir
+    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsDesktop.log"
     exit 0
 }
 else {
@@ -73,7 +75,7 @@ else {
 }
 
 function New-FalseMarkerTestCase([string]$Name) {
-    # A dedicated mock (rather than New-TestCase's) whose runtests.log has a failed test's
+    # A dedicated mock (rather than New-TestCase's) whose runtestsCoreCLR.log has a failed test's
     # captured stdout/stderr -- written both before the real summary table (by
     # TestRunner.PrintFailedTestResult) and after it (by Program.LogProcessResultDetails, which
     # dumps every process's raw stdout/stderr post-Print()) -- coincidentally containing its own
@@ -87,6 +89,7 @@ function New-FalseMarkerTestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [int]$testTimeout,
     [string]$solution,[string]$configuration
 )
 $scriptroot = $PSScriptRoot
@@ -116,7 +119,7 @@ if ($testCoreClr) {
         "================",
         "### End logging executed process details"
     )
-    Set-Content -LiteralPath (Join-Path $logDir "runtests.log") -Value $lines
+    Set-Content -LiteralPath (Join-Path $logDir "runtestsCoreCLR.log") -Value $lines
     exit 1
 }
 else { exit 0 }

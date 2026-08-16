@@ -4,8 +4,8 @@ if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
   trap 'tput cnorm 2>/dev/null || true' EXIT
 fi
 action="${1:-}"
-config="${2:-}"
-shift $(( $# < 2 ? $# : 2 )) || true
+shift $(( $# < 1 ? $# : 1 )) || true
+config=""
 test_timeout=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -16,6 +16,14 @@ while [[ $# -gt 0 ]]; do
         exit 1
       fi
       shift 2
+      ;;
+    research|truth)
+      if [[ -n "$config" ]]; then
+        echo "Unrecognized argument '$1' (config already set to '$config')." >&2
+        exit 1
+      fi
+      config="$1"
+      shift
       ;;
     *)
       echo "Unrecognized argument '$1'." >&2

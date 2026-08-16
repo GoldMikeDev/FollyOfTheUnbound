@@ -442,7 +442,13 @@ if [[ "$test_core_clr" == true ]]; then
     runtests_args="$runtests_args --html"
   fi
 
-  if [[ "$test_timeout" -gt 0 ]]; then
+  # Matches build.ps1's own -testCoreClr default of 90 minutes for RunTests' whole-run watchdog;
+  # --testTimeout overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since
+  # Helix has its own external timeout management.
+  if [[ "$helix" != true ]]; then
+    if [[ "$test_timeout" -le 0 ]]; then
+      test_timeout=90
+    fi
     runtests_args="$runtests_args --timeout $test_timeout"
   fi
 

@@ -196,6 +196,9 @@ try {
         $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
         # Matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention.
         $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"
+        # Preserve whatever the caller already had set (if anything) so the per-pass overrides below
+        # don't leak out and permanently change the invoking shell's environment once scry returns.
+        $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
@@ -219,7 +222,11 @@ try {
                 $coreClrExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
-                Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
+                if ($null -eq $callerMsbuildDebugPath) {
+                    Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
+                } else {
+                    $env:MSBUILDDEBUGPATH = $callerMsbuildDebugPath
+                }
             }
         }
 
@@ -232,7 +239,11 @@ try {
                 $desktopExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
-                Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
+                if ($null -eq $callerMsbuildDebugPath) {
+                    Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
+                } else {
+                    $env:MSBUILDDEBUGPATH = $callerMsbuildDebugPath
+                }
             }
         }
 
