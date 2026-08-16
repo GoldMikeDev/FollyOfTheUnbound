@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
 using Windows.Win32;
 using Win32Console = Windows.Win32.System.Console;
@@ -687,21 +688,24 @@ namespace RunTests
 
         /// <summary>
         /// Counterpart to the plain <see cref="Console.ReadKey()"/> loop in <see cref="PollKeyboardInput"/> used
-        /// whenever <see cref="_supportsMouseWheel"/> is true -- reads raw characters straight off
-        /// <see cref="Console.In"/> instead, because that's the only way to see the xterm-style mouse-wheel reports
-        /// <see cref="EnableMouseSupport"/> asks the terminal (or, on Windows, the console's VT-input translation)
-        /// to send. <see cref="Console.ReadKey()"/> only ever matches escape sequences against its own fixed table of *key*
-        /// sequences, silently discarding (or mis-decoding, one leftover character at a time) anything outside
-        /// it -- like a mouse report -- so it can never surface wheel input no matter how mouse tracking is
-        /// configured upstream. This re-implements just enough of the arrow/Home/End/PageUp/PageDown decoding
-        /// ReadKey normally provides for free, since going around it here means going around it for every key on
-        /// this platform, not only the mouse-specific bytes.
+        /// whenever <see cref="_supportsMouseWheel"/> is true -- reads genuinely raw, undecoded bytes via
+        /// <see cref="ReadRawByte"/> instead of <see cref="Console.ReadKey()"/>'s own decoding, because that method
+        /// only ever matches escape sequences against its own fixed table of *key* sequences, silently discarding
+        /// (or mis-decoding, one leftover character at a time) anything outside it -- like a mouse report -- so it
+        /// can never surface wheel input no matter how mouse tracking is configured upstream, and on Unix it
+        /// collapses e.g. <c>ESC [ A</c> into a single <see cref="ConsoleKey.UpArrow"/> before this parser ever
+        /// sees the individual bytes. This re-implements just enough of the arrow/Home/End/PageUp/PageDown decoding
+        /// ReadKey normally provides for free, since going around its decoding here means going around it for
+        /// every key on this platform, not only the mouse-specific bytes. See <see cref="ReadRawByte"/>'s own doc
+        /// comment for how it stays safe against blocking despite reading through <see cref="Console.In"/>, which
+        /// isn't guaranteed to pair safely with the <see cref="Console.KeyAvailable"/> checks this loop and
+        /// <see cref="WaitForMoreInput"/> depend on.
         /// </summary>
         private void PollKeyboardAndMouseInputRaw(int visibleRowBudget, int maxScrollStart)
         {
             while (Console.KeyAvailable)
             {
-                var first = Console.In.Read();
+                var first = ReadRawByte();
                 if (first != 0x1b)
                 {
                     // Not part of an escape sequence -- nothing this display reacts to is a bare character.
@@ -720,12 +724,12 @@ namespace RunTests
                     continue;
                 }
 
-                if (Console.In.Read() != '[' || !WaitForMoreInput())
+                if (ReadRawByte() != '[' || !WaitForMoreInput())
                 {
                     continue;
                 }
 
-                var third = Console.In.Read();
+                var third = ReadRawByte();
                 if (third == '<')
                 {
                     if (TryParseSgrMouseWheel(out var wheelDown))
@@ -766,16 +770,43 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Bounded wait for more input to show up on <see cref="Console.In"/>, used everywhere
-        /// <see cref="PollKeyboardAndMouseInputRaw"/> and its helpers (<see cref="ReadCsiTildeSequence"/>,
-        /// <see cref="TryParseSgrMouseWheel"/>) are partway through a multi-byte escape sequence and need to know
-        /// whether the next byte is really not coming, or just hasn't arrived on the wire yet. A plain
-        /// <see cref="Console.KeyAvailable"/> check alone can't tell those apart -- a PTY is a byte stream with no
-        /// message boundaries, so nothing guarantees a terminal's write() lands in one piece by the time a poll
-        /// runs, even though it almost always does locally. Blocking here (rather than leaving it to the *next*
-        /// redraw tick, roughly a second later) keeps a merely-slow-to-arrive sequence from being torn in half --
-        /// its already-read prefix discarded or misparsed, and its second half misread as bare characters on the
-        /// next poll -- instead of correctly waiting the extra few milliseconds for the rest to show up.
+        /// Reads a single genuinely raw, undecoded byte off <see cref="Console.In"/> -- unlike
+        /// <see cref="Console.ReadKey()"/>, which is not usable here: on Unix it applies its own terminfo-based
+        /// key-sequence decoding, collapsing e.g. <c>ESC [ A</c> into a single <see cref="ConsoleKey.UpArrow"/>
+        /// <see cref="ConsoleKeyInfo"/> with <see cref="ConsoleKeyInfo.KeyChar"/> <c>'\0'</c> instead of surfacing
+        /// the individual <c>ESC</c>/<c>[</c>/<c>A</c> bytes this parser depends on seeing one at a time, and it has
+        /// no table entry for a mouse report at all -- so unrecognized sequences would be consumed or misdecoded
+        /// unpredictably, exactly the reason this class avoided <see cref="Console.ReadKey()"/> in the first place.
+        /// <para>
+        /// <see cref="Console.In"/> is a separate, independently-buffered <see cref="System.IO.TextReader"/> that
+        /// isn't guaranteed to pair safely with the <see cref="Console.KeyAvailable"/> checks every caller here has
+        /// already made before calling this -- it could in principle still block despite that. Since this executes
+        /// synchronously inside <see cref="RedrawCore"/> under <see cref="_gate"/>, on the same single-threaded loop
+        /// that also drives the entire test schedule, a genuine hang here wouldn't just break navigation -- it would
+        /// freeze every redraw and every still-queued work item from starting for as long as it lasted. The read is
+        /// therefore run on a background thread pool thread and bounded to <see cref="EscapeSequenceCompletionTimeoutMs"/>:
+        /// on timeout this returns <c>-1</c> (treated identically to "nothing more arrived" by every caller) and
+        /// abandons that background read rather than waiting on it, at the acceptable cost of a rare leaked blocked
+        /// thread-pool thread instead of a frozen run.
+        /// </para>
+        /// </summary>
+        private static int ReadRawByte()
+        {
+            var task = Task.Run(static () => Console.In.Read());
+            return task.Wait(EscapeSequenceCompletionTimeoutMs) ? task.Result : -1;
+        }
+
+        /// <summary>
+        /// Bounded wait for more input to show up, used everywhere <see cref="PollKeyboardAndMouseInputRaw"/> and
+        /// its helpers (<see cref="ReadCsiTildeSequence"/>, <see cref="TryParseSgrMouseWheel"/>) are partway
+        /// through a multi-byte escape sequence and need to know whether the next byte is really not coming, or
+        /// just hasn't arrived on the wire yet. A single <see cref="Console.KeyAvailable"/> check alone can't tell
+        /// those apart -- a PTY is a byte stream with no message boundaries, so nothing guarantees a terminal's
+        /// write() lands in one piece by the time a poll runs, even though it almost always does locally. Blocking
+        /// here (rather than leaving it to the *next* redraw tick, roughly a second later) keeps a merely-slow-to-
+        /// arrive sequence from being torn in half -- its already-read prefix discarded or misparsed, and its
+        /// second half misread as bare characters on the next poll -- instead of correctly waiting the extra few
+        /// milliseconds for the rest to show up.
         /// </summary>
         private static bool WaitForMoreInput()
         {
@@ -804,7 +835,7 @@ namespace RunTests
             var digits = new StringBuilder().Append((char)firstDigit);
             while (WaitForMoreInput())
             {
-                var next = Console.In.Read();
+                var next = ReadRawByte();
                 if (next < 0 || next == '~')
                 {
                     break;
@@ -831,7 +862,7 @@ namespace RunTests
             var buffer = new StringBuilder();
             while (WaitForMoreInput())
             {
-                var c = Console.In.Read();
+                var c = ReadRawByte();
                 if (c < 0)
                 {
                     return false;
