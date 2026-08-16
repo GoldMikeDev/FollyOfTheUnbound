@@ -138,6 +138,13 @@ try {
             [System.Security.AccessControl.FileSystemRights]::FullControl,
             [System.Security.AccessControl.AccessControlType]::Deny
         )
+        # Captured separately from (not aliased to) the ACL object that gets
+        # the deny rule added below, and restored via this saved copy in
+        # finally rather than a fresh Get-Acl -- a FullControl deny includes
+        # READ_CONTROL, so re-reading the ACL after it's in effect could
+        # itself raise Access Denied and abort cleanup before the deny rule
+        # or the temporary tree is ever removed.
+        $originalAcl = Get-Acl -LiteralPath $lockedSub
         $acl = Get-Acl -LiteralPath $lockedSub
         $acl.AddAccessRule($denyRule)
         Set-Acl -LiteralPath $lockedSub -AclObject $acl
@@ -146,11 +153,7 @@ try {
             $result = Invoke-Cleanse -Dir $dir
         }
         finally {
-            # Remove the deny rule so the final workRoot cleanup below can
-            # actually delete this tree.
-            $acl2 = Get-Acl -LiteralPath $lockedSub
-            $acl2.RemoveAccessRule($denyRule) | Out-Null
-            Set-Acl -LiteralPath $lockedSub -AclObject $acl2
+            Set-Acl -LiteralPath $lockedSub -AclObject $originalAcl
         }
         if ($result.ExitCode -eq 1 -and $result.Output -match "at least" -and $result.Output -match "unreadable and not counted") {
             Test-Pass "unreadable subtree reports an uncertain (not false-zero) remainder"
