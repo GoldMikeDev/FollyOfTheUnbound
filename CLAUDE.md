@@ -43,6 +43,10 @@ When running as a Claude Code Remote session (`claude.ai/code`), rename the sess
 - Examples: `FotU PR #34`, `FotU Issue #8 & PR #27`, `FotU PR #34-35`, `FotU Issue #29 & PR #30-31, #33`.
 - `set_session_title` requires the real session ID (`session_...`) — there is no "current session" shorthand, and passing one (e.g. `"current"`) fails. Before the first rename in a session, look the ID up yourself: call `list_sessions` (`mine: true`) and match the running entry whose `session_context.outcomes[].git_repository.git_info.branches` contains the branch this session is developing on. Do this proactively, not only after a failed rename attempt.
 
+## `folly.sh` / `folly.ps1` parity
+
+These two scripts implement the same commands (`attune`, `weave`, `cleanse`, `scry`, etc.) for bash and PowerShell respectively, and are expected to stay in behavioral lockstep. When editing an action in one, make the equivalent change in the other in the same commit/PR — a bug fix, a new safety check, a changed message format, a retry, a test case — don't land it in only one language. If a fix is genuinely platform-specific (e.g. an NTFS ACE vs. Unix file permissions, `.dotnet/dotnet` vs. `.dotnet/dotnet.exe`), still add the equivalent *behavior* on the other side using whatever mechanism that platform actually has, rather than skipping it. Same expectation for their manual test harnesses (`scripts/test-folly-cleanse.sh` / `scripts/test-folly-cleanse.ps1`, and any future `*.sh`/`*.ps1` harness pair): a new regression case added to one should get a matching case in the other unless the scenario truly cannot occur on that platform (and if so, say why in the test file, don't just omit it silently).
+
 ## Merging pull requests
 
 See [`.github/copilot-instructions.md`](.github/copilot-instructions.md#merging-pull-requests): never squash/rebase-merge, always a real merge commit (`merge_method: merge`), no exceptions.

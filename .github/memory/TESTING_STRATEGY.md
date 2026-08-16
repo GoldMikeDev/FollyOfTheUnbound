@@ -71,4 +71,4 @@ Covers: the default (both legs), `--core`-only, `--desktop`-only, positional `[c
 ```powershell
 pwsh -File ./scripts/test-folly-cleanse.ps1
 ```
-Covers: empty `artifacts/`, a populated tree with an exact byte total, a file locked by an open handle (simulating a BuildHost DLL still in use) surviving both the bulk delete and its retry with an accurate reported count, and a file vanishing mid-scan under a concurrent writer.
+Covers: empty `artifacts/`, a populated tree with an exact byte total, a file locked by an open handle (simulating a BuildHost DLL still in use) surviving both the bulk delete and its retry with an accurate reported count, an unreadable subtree (an NTFS deny ACE, which unlike Unix `chmod` also blocks the current user/owner) reporting an honest uncertain remainder rather than a false "0 files could not be removed", and a file vanishing mid-scan under a concurrent writer.

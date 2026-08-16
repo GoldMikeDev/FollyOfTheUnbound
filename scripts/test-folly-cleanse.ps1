@@ -6,8 +6,9 @@
 #
 # Covers: empty artifacts/, a populated tree with an exact byte total, a
 # locked file surviving the bulk delete and its retry (accurate count,
-# "could not be removed" reported), and a file vanishing mid-scan under a
-# concurrent writer.
+# "could not be removed" reported), an unreadable subtree (an NTFS deny ACE)
+# reporting an honest uncertain remainder rather than a false "0 files could
+# not be removed", and a file vanishing mid-scan under a concurrent writer.
 $ErrorActionPreference = "Stop"
 
 $scriptRoot = Split-Path -Parent $PSScriptRoot
@@ -113,6 +114,49 @@ try {
         }
         else {
             Test-Fail "locked file (exit=$($result.ExitCode), output='$($result.Output)')"
+        }
+    }
+
+    # --- unreadable subtree during the scan: uncertain (not false-zero) remainder
+    # Windows-only: NTFS honors an explicit Deny ACE even for the current
+    # user/owner (unlike Unix, where root bypasses permission checks
+    # entirely), so this doesn't need the root-skip the bash harness needs.
+    if (-not $IsWindows) {
+        Write-Host "SKIP: unreadable-subtree case (Windows-only; needs an NTFS deny ACE)"
+    }
+    else {
+        $dir = New-TestCase "unreadable"
+        $artifactsDir = Join-Path $dir "artifacts"
+        $lockedSub = Join-Path $artifactsDir "locked"
+        New-Item -ItemType Directory -Force -Path $lockedSub | Out-Null
+        Set-Content -LiteralPath (Join-Path $lockedSub "hidden.bin") -Value ("x" * 100) -NoNewline
+        Set-Content -LiteralPath (Join-Path $artifactsDir "visible.bin") -Value ("x" * 100) -NoNewline
+
+        $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent().User
+        $denyRule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+            $identity,
+            [System.Security.AccessControl.FileSystemRights]::FullControl,
+            [System.Security.AccessControl.AccessControlType]::Deny
+        )
+        $acl = Get-Acl -LiteralPath $lockedSub
+        $acl.AddAccessRule($denyRule)
+        Set-Acl -LiteralPath $lockedSub -AclObject $acl
+
+        try {
+            $result = Invoke-Cleanse -Dir $dir
+        }
+        finally {
+            # Remove the deny rule so the final workRoot cleanup below can
+            # actually delete this tree.
+            $acl2 = Get-Acl -LiteralPath $lockedSub
+            $acl2.RemoveAccessRule($denyRule) | Out-Null
+            Set-Acl -LiteralPath $lockedSub -AclObject $acl2
+        }
+        if ($result.ExitCode -eq 0 -and $result.Output -match "at least" -and $result.Output -match "unreadable and not counted") {
+            Test-Pass "unreadable subtree reports an uncertain (not false-zero) remainder"
+        }
+        else {
+            Test-Fail "unreadable subtree (exit=$($result.ExitCode), output='$($result.Output)')"
         }
     }
 
