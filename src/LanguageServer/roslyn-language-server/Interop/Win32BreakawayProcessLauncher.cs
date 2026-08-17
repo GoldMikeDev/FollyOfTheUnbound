@@ -86,6 +86,7 @@ internal static class Win32BreakawayProcessLauncher
         SafeFileHandle? jobHandle = null;
         SafeFileHandle? processHandle = null;
         SafeFileHandle? threadHandle = null;
+        nint handleListBufferPtr = 0;
 
         try
         {
@@ -128,7 +129,7 @@ internal static class Win32BreakawayProcessLauncher
                 // below -- a well-documented Windows footgun. A PROC_THREAD_ATTRIBUTE_HANDLE_LIST restricts
                 // inheritance to exactly the handles named in it, which is the only reliable way to redirect
                 // stdio without also leaking unrelated handles into the child.
-                if (!TryCreateHandleListAttributeList(childStdinRead, childStdoutWrite, childStderrWrite, out var attributeList, out var attributeListBuffer))
+                if (!TryCreateHandleListAttributeList(childStdinRead, childStdoutWrite, childStderrWrite, out var attributeList, out var attributeListBuffer, out handleListBufferPtr))
                     return false;
 
                 try
@@ -182,6 +183,8 @@ internal static class Win32BreakawayProcessLauncher
                 {
                     PInvoke.DeleteProcThreadAttributeList(attributeList);
                     Marshal.FreeHGlobal(attributeListBuffer);
+                    Marshal.FreeHGlobal(handleListBufferPtr);
+                    handleListBufferPtr = 0;
                 }
 
                 if (!created)
@@ -264,10 +267,12 @@ internal static class Win32BreakawayProcessLauncher
         SafeFileHandle stdout,
         SafeFileHandle stderr,
         out LPPROC_THREAD_ATTRIBUTE_LIST attributeList,
-        out nint bufferPtr)
+        out nint bufferPtr,
+        out nint handleListBufferPtr)
     {
         attributeList = default;
         bufferPtr = 0;
+        handleListBufferPtr = 0;
 
         // First call's only purpose is to report the required buffer size via `size` -- it always "fails"
         // (returns false) when given a null/default attribute list, per InitializeProcThreadAttributeList's own
@@ -286,12 +291,17 @@ internal static class Win32BreakawayProcessLauncher
             return false;
         }
 
-        var handles = stackalloc HANDLE[3]
-        {
-            new HANDLE((void*)stdin.DangerousGetHandle()),
-            new HANDLE((void*)stdout.DangerousGetHandle()),
-            new HANDLE((void*)stderr.DangerousGetHandle()),
-        };
+        // UpdateProcThreadAttribute does not copy *this* buffer's contents -- it only records the pointer, and
+        // Windows reads through it later, when CreateProcess actually consumes the attribute list. That buffer
+        // must therefore stay alive until CreateProcess has run and DeleteProcThreadAttributeList has been called
+        // (see TryStart's finally block, which frees this alongside candidateBuffer) -- a stackalloc scoped to
+        // this method would already be dead stack space by then, silently corrupting the handle list CreateProcess
+        // reads back and defeating the whole point of restricting inheritance to just these three handles.
+        var candidateHandleListBuffer = Marshal.AllocHGlobal(sizeof(HANDLE) * 3);
+        var handles = (HANDLE*)candidateHandleListBuffer;
+        handles[0] = new HANDLE((void*)stdin.DangerousGetHandle());
+        handles[1] = new HANDLE((void*)stdout.DangerousGetHandle());
+        handles[2] = new HANDLE((void*)stderr.DangerousGetHandle());
 
         if (!PInvoke.UpdateProcThreadAttribute(
                 candidateList,
@@ -304,11 +314,13 @@ internal static class Win32BreakawayProcessLauncher
         {
             PInvoke.DeleteProcThreadAttributeList(candidateList);
             Marshal.FreeHGlobal(candidateBuffer);
+            Marshal.FreeHGlobal(candidateHandleListBuffer);
             return false;
         }
 
         attributeList = candidateList;
         bufferPtr = candidateBuffer;
+        handleListBufferPtr = candidateHandleListBuffer;
         return true;
     }
 

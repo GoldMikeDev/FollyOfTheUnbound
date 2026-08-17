@@ -4,30 +4,85 @@ if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
   trap 'tput cnorm 2>/dev/null || true' EXIT
 fi
 action="${1:-}"
-config="${2:-}"
+shift $(( $# < 1 ? $# : 1 )) || true
 scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
   cat <<'EOF'
-folly.sh <action> [config]
+folly.sh <action> [config] [switches]
 
-Actions:
+Actions (positional only -- no --action flag; unlike folly.ps1, bash's
+positional-only $1/$2 parsing here has no named-parameter equivalent):
   attune    Restore only [config]
   weave     Restore + build [config]
   reweave   Restore + rebuild [config]
   bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
-  scry      Restore + build + run CoreCLR unit tests [config]
+  scry      Restore + build + run CoreCLR unit tests [config] (Desktop/Framework
+            tests are Windows-only -- there is no --desktop/--core switch here)
   cleanse   Delete artifacts/ (ignores config)
   grimoire  Show this text (default when no action is given; ignores config)
 
-[config] (optional, defaults to Research):
+[config] (optional, positional only -- no --config flag; defaults to Research):
   research  Debug
   truth     Release
 
+scry-only switch (not positional -- always passed by name, after [config]):
+  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)
+
+Example: folly.sh scry truth --timeout 180
+
 EOF
   exit 0
+fi
+config=""
+test_timeout=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --timeout)
+      test_timeout="${2:-}"
+      # The digit-count cap (9 digits, so at most 999999999) matters as much as the regex itself:
+      # without it, a huge-enough digits-only value (e.g. 2^64+1) would silently wrap around
+      # inside bash's 64-bit $(( )) arithmetic below into some unrelated small positive number,
+      # turning an invalid request into a request that looks valid but isn't the one asked for.
+      # Checking the string length first rejects that before arithmetic ever sees it.
+      if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]{1,9}$ ]]; then
+        echo "'--timeout' requires a positive integer minute count (up to 999999999), got '${2:-}'." >&2
+        exit 1
+      fi
+      # Strip leading zeros before any arithmetic use: bash's [[ ... -le ]] and $(( )) both
+      # interpret a leading-zero operand as octal (e.g. "08"/"09" are invalid octal digits and
+      # error out with "value too great for base"), even though the regex above already confirmed
+      # it's a valid decimal integer.
+      test_timeout=$((10#$test_timeout))
+      # Upper bound matches RunTests' own limit: Program.RunCoreAsync passes this straight to
+      # Task.Delay, whose millisecond timer argument maxes out at 4294967294 (~71582.79 minutes) --
+      # anything larger throws ArgumentOutOfRangeException before a single test runs, so reject it
+      # here with a clear message instead of forwarding it and letting RunTests crash on it.
+      if [[ "$test_timeout" -le 0 || "$test_timeout" -gt 71582 ]]; then
+        echo "'--timeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '${2:-}'." >&2
+        exit 1
+      fi
+      shift 2
+      ;;
+    research|truth)
+      if [[ -n "$config" ]]; then
+        echo "Unrecognized argument '$1' (config already set to '$config')." >&2
+        exit 1
+      fi
+      config="$1"
+      shift
+      ;;
+    *)
+      echo "Unrecognized argument '$1'." >&2
+      exit 1
+      ;;
+  esac
+done
+if [[ "$test_timeout" -gt 0 && "$action" != "scry" ]]; then
+  echo "'--timeout' is only valid with the 'scry' action." >&2
+  exit 1
 fi
 if [[ -z "$config" || "$config" == "research" ]]; then
   configuration="Debug"
@@ -53,7 +108,11 @@ case "$action" in
     "$build_script" --restore --build --pack --solution "$solution" --configuration "$configuration"
     ;;
   scry)
-    "$build_script" --restore --build --test --solution "$solution" --configuration "$configuration"
+    scry_args=(--restore --build --test --solution "$solution" --configuration "$configuration")
+    if [[ "$test_timeout" -gt 0 ]]; then
+      scry_args+=(--testTimeout "$test_timeout")
+    fi
+    "$build_script" "${scry_args[@]}"
     ;;
   cleanse)
     artifacts_dir="$scriptroot/artifacts"

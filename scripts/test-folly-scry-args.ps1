@@ -1,5 +1,6 @@
-# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--desktop) and
-# its unified test summary, run against a mocked eng/build.ps1 so no real build/test happens.
+# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--desktop,
+# --timeout) and its unified test summary, run against a mocked eng/build.ps1 so no real build/test
+# happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
 #   pwsh -File ./scripts/test-folly-scry-args.ps1
 $ErrorActionPreference = "Stop"
@@ -31,12 +32,14 @@ function New-TestCase([string]$Name) {
     Copy-Item -LiteralPath $follyPs1 -Destination (Join-Path $dir "folly.ps1")
 
     # A minimal stand-in for eng/build.ps1: succeeds for restore/build, and for the test legs
-    # writes a runtests.log with exactly one PASSED row so folly.ps1's summary reader has
+    # writes the pass-specific runtestsCoreCLR.log/runtestsDesktop.log RunTests now emits (see
+    # Program.WriteLogFile) with exactly one PASSED row so folly.ps1's summary reader has
     # something real to parse, without running any actual build or tests.
     $mockBuild = @'
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [int]$testTimeout,
     [string]$solution,[string]$configuration
 )
 $scriptroot = $PSScriptRoot
@@ -44,7 +47,10 @@ $repoRoot = Split-Path $scriptroot -Parent
 $suffix = $env:FOTU_TEST_RESULTS_SUFFIX
 $testResultsDir = Join-Path $repoRoot "artifacts\TestResults\$configuration-$suffix"
 $logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
-function Write-FakeRunTestsLog([string]$LogDir) {
+# Records the -testTimeout value this mock actually received, so the test harness can assert
+# folly.ps1 forwarded the value the caller asked for instead of silently dropping it.
+Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value "$suffix=$testTimeout"
+function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
         "================",
@@ -52,16 +58,16 @@ function Write-FakeRunTestsLog([string]$LogDir) {
         "================",
         "Extra run diagnostics for logging, did not impact run results"
     )
-    Set-Content -LiteralPath (Join-Path $LogDir "runtests.log") -Value $lines
+    Set-Content -LiteralPath (Join-Path $LogDir $LogFileName) -Value $lines
 }
 if ($testCoreClr) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
-    Write-FakeRunTestsLog -LogDir $logDir
+    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsCoreCLR.log"
     exit 0
 }
 elseif ($testDesktop) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
-    Write-FakeRunTestsLog -LogDir $logDir
+    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsDesktop.log"
     exit 0
 }
 else {
@@ -73,7 +79,7 @@ else {
 }
 
 function New-FalseMarkerTestCase([string]$Name) {
-    # A dedicated mock (rather than New-TestCase's) whose runtests.log has a failed test's
+    # A dedicated mock (rather than New-TestCase's) whose runtestsCoreCLR.log has a failed test's
     # captured stdout/stderr -- written both before the real summary table (by
     # TestRunner.PrintFailedTestResult) and after it (by Program.LogProcessResultDetails, which
     # dumps every process's raw stdout/stderr post-Print()) -- coincidentally containing its own
@@ -87,6 +93,7 @@ function New-FalseMarkerTestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [int]$testTimeout,
     [string]$solution,[string]$configuration
 )
 $scriptroot = $PSScriptRoot
@@ -116,7 +123,7 @@ if ($testCoreClr) {
         "================",
         "### End logging executed process details"
     )
-    Set-Content -LiteralPath (Join-Path $logDir "runtests.log") -Value $lines
+    Set-Content -LiteralPath (Join-Path $logDir "runtestsCoreCLR.log") -Value $lines
     exit 1
 }
 else { exit 0 }
@@ -209,6 +216,58 @@ try {
     }
     else {
         Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---
+    $dir = New-TestCase "timeout-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "180")
+    $receivedPath = Join-Path $dir "testTimeout-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "CoreClr=180" -and $received -match "Desktop=180") {
+        Test-Pass "'--timeout 180' is forwarded to eng/build.ps1 for both legs"
+    }
+    else {
+        Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --timeout with a missing value is rejected ---
+    $dir = New-TestCase "timeout-missing-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires a") {
+        Test-Pass "'--timeout' with no value is rejected"
+    }
+    else {
+        Test-Fail "timeout missing value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout with a non-numeric/non-positive value is rejected ---
+    $dir = New-TestCase "timeout-invalid-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "banana")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "positive integer minute count") {
+        Test-Pass "'--timeout banana' is rejected"
+    }
+    else {
+        Test-Fail "timeout invalid value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout rejected for non-scry actions ---
+    $dir = New-TestCase "timeout-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--timeout", "180")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--timeout' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "timeout on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --timeout exceeding Task.Delay's supported maximum is rejected before the initial build ---
+    $dir = New-TestCase "timeout-exceeds-task-delay-max"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "100000")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "71582") {
+        Test-Pass "'--timeout 100000' (exceeds Task.Delay's supported maximum) is rejected"
+    }
+    else {
+        Test-Fail "timeout exceeds Task.Delay max (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     Write-Host ""

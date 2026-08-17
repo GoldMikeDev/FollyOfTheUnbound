@@ -24,12 +24,29 @@ try {
     # was already supplied by name via -config.
     $core = $false
     $desktop = $false
+    $testTimeout = 0
+    $expectTimeoutValue = $false
     foreach ($arg in $remainingArgs) {
-        if ($arg -eq "--core") {
+        if ($expectTimeoutValue) {
+            # Upper bound matches RunTests' own limit: Program.RunCoreAsync passes this straight to
+            # Task.Delay, whose millisecond timer argument maxes out at 4294967294 (~71582.79
+            # minutes) -- anything larger throws ArgumentOutOfRangeException before a single test
+            # runs, so reject it here (before the potentially expensive initial restore/build even
+            # starts) rather than let the test-leg build script discover it later.
+            if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0 -or $testTimeout -gt 71582) {
+                Write-Host "'--timeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '$arg'." -ForegroundColor Red
+                exit 1
+            }
+            $expectTimeoutValue = $false
+        }
+        elseif ($arg -eq "--core") {
             $core = $true
         }
         elseif ($arg -eq "--desktop") {
             $desktop = $true
+        }
+        elseif ($arg -eq "--timeout") {
+            $expectTimeoutValue = $true
         }
         elseif ([string]::IsNullOrEmpty($config)) {
             $config = $arg
@@ -39,11 +56,15 @@ try {
             exit 1
         }
     }
+    if ($expectTimeoutValue) {
+        Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
+        exit 1
+    }
 
     if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
-        Write-Host "folly.ps1 <action> [config]"
+        Write-Host "folly.ps1 <action> [config] [switches]"
         Write-Host ""
-        Write-Host "Actions:"
+        Write-Host "Actions (positional, or named as -action <action>):"
         Write-Host "  attune    Restore only [config]"
         Write-Host "  weave     Restore + build [config]"
         Write-Host "  reweave   Restore + rebuild [config]"
@@ -52,19 +73,27 @@ try {
         Write-Host "  cleanse   Delete artefacts (ignores config)"
         Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
         Write-Host ""
-        Write-Host "[config] (optional, defaults to Research):"
+        Write-Host "[config] (optional, positional, or named as -config <config>; defaults to Research):"
         Write-Host "  research  Debug"
         Write-Host "  truth     Release"
         Write-Host ""
-        Write-Host "scry-only switches:"
-        Write-Host "  --core     Run only the CoreCLR tests (skip Desktop)"
-        Write-Host "  --desktop  Run only the Desktop tests (skip CoreCLR)"
-        Write-Host "             (omit both to run both, the default)"
+        Write-Host "scry-only switches (not positional -- always passed by name, after [config]):"
+        Write-Host "  --core               Run only the CoreCLR tests (skip Desktop)"
+        Write-Host "  --desktop            Run only the Desktop tests (skip CoreCLR)"
+        Write-Host "                       (omit both to run both, the default)"
+        Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
+        Write-Host ""
+        Write-Host "Example: folly.ps1 scry truth --core --timeout 180"
+        Write-Host "Example (named): folly.ps1 -action scry -config truth --core --timeout 180"
         Write-Host ""
         exit 0
     }
     if (($core -or $desktop) -and $action -ne "scry") {
         Write-Host "'--core'/'--desktop' are only valid with the 'scry' action." -ForegroundColor Red
+        exit 1
+    }
+    if ($testTimeout -gt 0 -and $action -ne "scry") {
+        Write-Host "'--timeout' is only valid with the 'scry' action." -ForegroundColor Red
         exit 1
     }
     if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
@@ -95,6 +124,13 @@ try {
         # Default to both when neither switch is given; either switch alone runs just that one.
         $runCoreClr = $core -or -not ($core -or $desktop)
         $runDesktop = $desktop -or -not ($core -or $desktop)
+
+        # Captured before this initial restore/build, not after: eng/common/tools.ps1 sets
+        # $env:MSBUILDDEBUGPATH itself (to the unsuffixed default) whenever it's unset, so capturing
+        # it after this call would -- when the caller had none set -- snapshot that build-created
+        # value instead of "nothing was set", and the per-pass cleanup below would then restore that
+        # build-created value into the caller's environment instead of actually clearing it.
+        $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH
 
         & $buildScript -restore -build -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
@@ -174,6 +210,8 @@ try {
         $coreClrLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-CoreClr"
         $desktopTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Desktop"
         $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
+        # Matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention.
+        $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
@@ -182,31 +220,52 @@ try {
         $coreClrExitCode = 0
         if ($runCoreClr) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
+            # eng/common/tools.ps1 only ever sets $env:MSBUILDDEBUGPATH itself when it's unset
+            # (`if (-not $env:MSBUILDDEBUGPATH)`), and since folly.ps1 invokes eng/build.ps1
+            # multiple times in this same PowerShell process, that guard means only the very
+            # first invocation (the initial -restore -build above) would ever actually set it,
+            # leaving every later pass stuck reusing that first value instead of getting its own.
+            # Set it explicitly here. Both passes share one directory -- MSBuild's own debug log
+            # filenames already embed a unique per-process token, and the passes run sequentially
+            # (never concurrently), so there's no collision risk, and one directory is simpler to
+            # read later than per-pass ones.
+            $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testCoreClr -testInteractiveConsole -solution $solution -configuration $configuration
+                & $buildScript -testCoreClr -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $coreClrExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
+                if ($null -eq $callerMsbuildDebugPath) {
+                    Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
+                } else {
+                    $env:MSBUILDDEBUGPATH = $callerMsbuildDebugPath
+                }
             }
         }
 
         $desktopExitCode = 0
         if ($runDesktop) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
+            $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testDesktop -testInteractiveConsole -solution $solution -configuration $configuration
+                & $buildScript -testDesktop -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $desktopExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
+                if ($null -eq $callerMsbuildDebugPath) {
+                    Remove-Item Env:\MSBUILDDEBUGPATH -ErrorAction SilentlyContinue
+                } else {
+                    $env:MSBUILDDEBUGPATH = $callerMsbuildDebugPath
+                }
             }
         }
 
         $summaries = @()
         if ($runCoreClr) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtests.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
+            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtestsCoreCLR.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
         }
         if ($runDesktop) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtests.log") -Label "Desktop" -ExitCode $desktopExitCode
+            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtestsDesktop.log") -Label "Desktop" -ExitCode $desktopExitCode
         }
 
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
