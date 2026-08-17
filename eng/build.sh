@@ -160,7 +160,20 @@ while [[ $# > 0 ]]; do
     --testtimeout)
       # Overrides RunTests' whole-run --timeout watchdog (minutes); see the -testTimeout parameter
       # in build.ps1 for why this exists as a call-site override instead of a hardcoded value.
-      test_timeout=$2
+      # Validated (and leading zeros normalized to decimal, matching folly.sh's own --timeout
+      # parsing) here rather than left for the later "$test_timeout" -gt 0 arithmetic check: under
+      # this script's `set -u`, a missing value or a non-numeric one (e.g. "banana") would abort
+      # that check with an unrelated "unbound variable"/"value too great for base" shell error
+      # instead of a controlled argument error.
+      if [[ -z "${2:-}" || ! "$2" =~ ^[0-9]+$ ]]; then
+        echo "'--testTimeout' requires a positive integer minute count, got '${2:-}'."
+        exit 1
+      fi
+      test_timeout=$((10#$2))
+      if [[ "$test_timeout" -le 0 ]]; then
+        echo "'--testTimeout' requires a positive integer minute count, got '$2'."
+        exit 1
+      fi
       args="$args $1"
       shift
       ;;

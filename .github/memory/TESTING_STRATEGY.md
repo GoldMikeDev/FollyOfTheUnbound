@@ -67,6 +67,12 @@ pwsh -File ./scripts/test-folly-scry-args.ps1
 ```
 Covers: the default (both legs), `--core`-only, `--desktop`-only, positional `[config]`, named `-config` (backward compatibility), and a rejected unknown argument.
 
+`folly.sh scry`'s argument parsing has the bash counterpart `scripts/test-folly-scry-args.sh`, run against a mocked `eng/build.sh` (records the args it was invoked with) the same way -- see the `folly.sh`/`folly.ps1` parity rule in `CONVENTIONS.md` for why this pair needs to stay in lockstep with the PowerShell harness rather than that one being the only coverage. Run it by hand after touching `folly.sh`'s argument parsing or `scry` action:
+```bash
+bash ./scripts/test-folly-scry-args.sh
+```
+Covers: no `--testTimeout` forwarded by default, `--timeout <minutes>` actually forwarded as `--testTimeout <minutes>`, positional `[config]` alongside `--timeout`, a leading-zero value (`08`) normalized to decimal instead of misparsed as octal, a missing value, a non-numeric value, use on a non-`scry` action, and a rejected unknown argument.
+
 `folly.ps1 cleanse`'s own background bulk-delete path (`Start-Job` + `Remove-Item -Recurse -Force`, the byte/count scan, the locked-file retry) has a manual harness at `scripts/test-folly-cleanse.ps1`, mirroring `test-folly-cleanse.sh`'s coverage for the PowerShell implementation. Run it by hand after touching `folly.ps1`'s `cleanse` action:
 ```powershell
 pwsh -File ./scripts/test-folly-cleanse.ps1
