@@ -71,7 +71,7 @@ Covers: the default (both legs), `--core`-only, `--desktop`-only, positional `[c
 ```bash
 bash ./scripts/test-folly-scry-args.sh
 ```
-Covers: no `--testTimeout` forwarded by default, `--timeout <minutes>` actually forwarded as `--testTimeout <minutes>`, positional `[config]` alongside `--timeout`, a leading-zero value (`08`) normalized to decimal instead of misparsed as octal, a missing value, a non-numeric value, use on a non-`scry` action, and a rejected unknown argument.
+Covers: no `--testTimeout` forwarded by default, `--timeout <minutes>` actually forwarded as `--testTimeout <minutes>`, positional `[config]` alongside `--timeout`, a leading-zero value (`08`) normalized to decimal instead of misparsed as octal, a missing value, a non-numeric value, a value overflowing bash's 64-bit arithmetic, a value exceeding `Task.Delay`'s supported millisecond range (RunTests' actual downstream limit), use on a non-`scry` action, `grimoire` still ignoring a trailing config, and a rejected unknown argument.
 
 `folly.ps1 cleanse`'s own background bulk-delete path (`Start-Job` + `Remove-Item -Recurse -Force`, the byte/count scan, the locked-file retry) has a manual harness at `scripts/test-folly-cleanse.ps1`, mirroring `test-folly-cleanse.sh`'s coverage for the PowerShell implementation. Run it by hand after touching `folly.ps1`'s `cleanse` action:
 ```powershell

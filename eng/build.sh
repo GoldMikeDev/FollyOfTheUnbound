@@ -174,8 +174,10 @@ while [[ $# > 0 ]]; do
         exit 1
       fi
       test_timeout=$((10#$2))
-      if [[ "$test_timeout" -le 0 ]]; then
-        echo "'--testTimeout' requires a positive integer minute count, got '$2'."
+      # Upper bound matches RunTests' own limit -- see folly.sh's identical check for why
+      # (Task.Delay's supported millisecond range, ~71582.79 minutes).
+      if [[ "$test_timeout" -le 0 || "$test_timeout" -gt 71582 ]]; then
+        echo "'--testTimeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '$2'."
         exit 1
       fi
       args="$args $1"

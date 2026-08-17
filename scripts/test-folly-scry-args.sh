@@ -164,6 +164,17 @@ else
   test_fail "timeout overflow (exit=$exit_code): $output"
 fi
 
+# --- a --timeout past Task.Delay's supported maximum is rejected, not forwarded to crash RunTests ---
+dir="$(new_test_case "timeout-exceeds-task-delay-max")"
+result="$(run_case "$dir" scry --timeout 100000)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"71582"* ]]; then
+  test_pass "'--timeout 100000' (exceeds Task.Delay's supported maximum) is rejected"
+else
+  test_fail "timeout exceeds Task.Delay max (exit=$exit_code): $output"
+fi
+
 # --- grimoire ignores a trailing config, matching its documented "ignores config" contract ---
 dir="$(new_test_case "grimoire-ignores-config")"
 result="$(run_case "$dir" grimoire anything)"

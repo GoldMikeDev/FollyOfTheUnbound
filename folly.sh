@@ -56,8 +56,12 @@ while [[ $# -gt 0 ]]; do
       # error out with "value too great for base"), even though the regex above already confirmed
       # it's a valid decimal integer.
       test_timeout=$((10#$test_timeout))
-      if [[ "$test_timeout" -le 0 ]]; then
-        echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
+      # Upper bound matches RunTests' own limit: Program.RunCoreAsync passes this straight to
+      # Task.Delay, whose millisecond timer argument maxes out at 4294967294 (~71582.79 minutes) --
+      # anything larger throws ArgumentOutOfRangeException before a single test runs, so reject it
+      # here with a clear message instead of forwarding it and letting RunTests crash on it.
+      if [[ "$test_timeout" -le 0 || "$test_timeout" -gt 71582 ]]; then
+        echo "'--timeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '${2:-}'." >&2
         exit 1
       fi
       shift 2

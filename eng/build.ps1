@@ -215,6 +215,18 @@ function Process-Arguments() {
     $script:bootstrap = $true
   }
 
+  # 0 is the internal "unset, use the per-mode default" sentinel (see the -testCoreClr/-testDesktop/
+  # -testVsi branches below), so it must stay valid -- only reject an explicitly-negative override,
+  # which would otherwise just silently fall through to that default instead of erroring, leaving a
+  # caller who typo'd e.g. -testTimeout -1 believing their watchdog setting was actually applied.
+  # The upper bound (71582 minutes) matches RunTests' own limit: Program.RunCoreAsync passes the
+  # timeout straight to Task.Delay, whose millisecond timer argument maxes out at 4294967294 (~71582.79
+  # minutes) -- anything larger throws ArgumentOutOfRangeException before a single test runs.
+  if ($testTimeout -lt 0 -or $testTimeout -gt 71582) {
+    Write-Host "-testTimeout must be between 0 (use the default) and 71582 minutes (Task.Delay's supported maximum)."
+    exit 1
+  }
+
   $anyUnit = $testDesktop -or $testCoreClr
   if ($anyUnit -and $testVsi) {
     Write-Host "Cannot combine unit and VSI testing"
