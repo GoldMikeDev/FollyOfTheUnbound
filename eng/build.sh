@@ -165,8 +165,12 @@ while [[ $# > 0 ]]; do
       # this script's `set -u`, a missing value or a non-numeric one (e.g. "banana") would abort
       # that check with an unrelated "unbound variable"/"value too great for base" shell error
       # instead of a controlled argument error.
-      if [[ -z "${2:-}" || ! "$2" =~ ^[0-9]+$ ]]; then
-        echo "'--testTimeout' requires a positive integer minute count, got '${2:-}'."
+      # The digit-count cap (9 digits, matching folly.sh's own --timeout parsing) matters as much
+      # as the regex itself: without it, a huge-enough digits-only value would silently wrap
+      # around inside bash's 64-bit $(( )) arithmetic below into some unrelated small positive
+      # number instead of being rejected.
+      if [[ -z "${2:-}" || ! "$2" =~ ^[0-9]{1,9}$ ]]; then
+        echo "'--testTimeout' requires a positive integer minute count (up to 999999999), got '${2:-}'."
         exit 1
       fi
       test_timeout=$((10#$2))

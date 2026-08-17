@@ -153,6 +153,28 @@ else
   test_fail "rejected argument (exit=$exit_code): $output"
 fi
 
+# --- an overflowing --timeout value is rejected, not silently wrapped by 64-bit arithmetic ---
+dir="$(new_test_case "timeout-overflow")"
+result="$(run_case "$dir" scry --timeout 18446744073709551617)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"up to 999999999"* ]]; then
+  test_pass "'--timeout 18446744073709551617' (overflows 64-bit arithmetic) is rejected"
+else
+  test_fail "timeout overflow (exit=$exit_code): $output"
+fi
+
+# --- grimoire ignores a trailing config, matching its documented "ignores config" contract ---
+dir="$(new_test_case "grimoire-ignores-config")"
+result="$(run_case "$dir" grimoire anything)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "0" && "$output" == *"folly.sh <action>"* ]]; then
+  test_pass "'grimoire anything' still prints help instead of rejecting the trailing arg"
+else
+  test_fail "grimoire ignores config (exit=$exit_code): $output"
+fi
+
 echo ""
 echo "$pass_count passed, $fail_count failed"
 if [[ "$fail_count" -gt 0 ]]; then

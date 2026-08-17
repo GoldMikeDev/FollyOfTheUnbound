@@ -5,41 +5,6 @@ if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
 fi
 action="${1:-}"
 shift $(( $# < 1 ? $# : 1 )) || true
-config=""
-test_timeout=0
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    --timeout)
-      test_timeout="${2:-}"
-      if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]+$ ]]; then
-        echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
-        exit 1
-      fi
-      # Strip leading zeros before any arithmetic use: bash's [[ ... -le ]] and $(( )) both
-      # interpret a leading-zero operand as octal (e.g. "08"/"09" are invalid octal digits and
-      # error out with "value too great for base"), even though the regex above already confirmed
-      # it's a valid decimal integer.
-      test_timeout=$((10#$test_timeout))
-      if [[ "$test_timeout" -le 0 ]]; then
-        echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
-        exit 1
-      fi
-      shift 2
-      ;;
-    research|truth)
-      if [[ -n "$config" ]]; then
-        echo "Unrecognized argument '$1' (config already set to '$config')." >&2
-        exit 1
-      fi
-      config="$1"
-      shift
-      ;;
-    *)
-      echo "Unrecognized argument '$1'." >&2
-      exit 1
-      ;;
-  esac
-done
 scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
@@ -71,6 +36,46 @@ Example: folly.sh scry truth --timeout 180
 EOF
   exit 0
 fi
+config=""
+test_timeout=0
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --timeout)
+      test_timeout="${2:-}"
+      # The digit-count cap (9 digits, so at most 999999999) matters as much as the regex itself:
+      # without it, a huge-enough digits-only value (e.g. 2^64+1) would silently wrap around
+      # inside bash's 64-bit $(( )) arithmetic below into some unrelated small positive number,
+      # turning an invalid request into a request that looks valid but isn't the one asked for.
+      # Checking the string length first rejects that before arithmetic ever sees it.
+      if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]{1,9}$ ]]; then
+        echo "'--timeout' requires a positive integer minute count (up to 999999999), got '${2:-}'." >&2
+        exit 1
+      fi
+      # Strip leading zeros before any arithmetic use: bash's [[ ... -le ]] and $(( )) both
+      # interpret a leading-zero operand as octal (e.g. "08"/"09" are invalid octal digits and
+      # error out with "value too great for base"), even though the regex above already confirmed
+      # it's a valid decimal integer.
+      test_timeout=$((10#$test_timeout))
+      if [[ "$test_timeout" -le 0 ]]; then
+        echo "'--timeout' requires a positive integer minute count, got '${2:-}'." >&2
+        exit 1
+      fi
+      shift 2
+      ;;
+    research|truth)
+      if [[ -n "$config" ]]; then
+        echo "Unrecognized argument '$1' (config already set to '$config')." >&2
+        exit 1
+      fi
+      config="$1"
+      shift
+      ;;
+    *)
+      echo "Unrecognized argument '$1'." >&2
+      exit 1
+      ;;
+  esac
+done
 if [[ "$test_timeout" -gt 0 && "$action" != "scry" ]]; then
   echo "'--timeout' is only valid with the 'scry' action." >&2
   exit 1
