@@ -260,6 +260,16 @@ try {
         Test-Fail "timeout on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
+    # --- --timeout exceeding Task.Delay's supported maximum is rejected before the initial build ---
+    $dir = New-TestCase "timeout-exceeds-task-delay-max"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "100000")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "71582") {
+        Test-Pass "'--timeout 100000' (exceeds Task.Delay's supported maximum) is rejected"
+    }
+    else {
+        Test-Fail "timeout exceeds Task.Delay max (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
     Write-Host ""
     Write-Host "$($script:passCount) passed, $($script:failCount) failed"
     if ($script:failCount -gt 0) {

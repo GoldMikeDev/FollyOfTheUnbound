@@ -28,8 +28,13 @@ try {
     $expectTimeoutValue = $false
     foreach ($arg in $remainingArgs) {
         if ($expectTimeoutValue) {
-            if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0) {
-                Write-Host "'--timeout' requires a positive integer minute count, got '$arg'." -ForegroundColor Red
+            # Upper bound matches RunTests' own limit: Program.RunCoreAsync passes this straight to
+            # Task.Delay, whose millisecond timer argument maxes out at 4294967294 (~71582.79
+            # minutes) -- anything larger throws ArgumentOutOfRangeException before a single test
+            # runs, so reject it here (before the potentially expensive initial restore/build even
+            # starts) rather than let the test-leg build script discover it later.
+            if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0 -or $testTimeout -gt 71582) {
+                Write-Host "'--timeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '$arg'." -ForegroundColor Red
                 exit 1
             }
             $expectTimeoutValue = $false
@@ -120,6 +125,13 @@ try {
         $runCoreClr = $core -or -not ($core -or $desktop)
         $runDesktop = $desktop -or -not ($core -or $desktop)
 
+        # Captured before this initial restore/build, not after: eng/common/tools.ps1 sets
+        # $env:MSBUILDDEBUGPATH itself (to the unsuffixed default) whenever it's unset, so capturing
+        # it after this call would -- when the caller had none set -- snapshot that build-created
+        # value instead of "nothing was set", and the per-pass cleanup below would then restore that
+        # build-created value into the caller's environment instead of actually clearing it.
+        $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH
+
         & $buildScript -restore -build -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
         if ($buildExitCode -ne 0) {
@@ -200,9 +212,6 @@ try {
         $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
         # Matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention.
         $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"
-        # Preserve whatever the caller already had set (if anything) so the per-pass overrides below
-        # don't leak out and permanently change the invoking shell's environment once scry returns.
-        $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
