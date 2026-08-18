@@ -130,7 +130,10 @@ namespace RunTests
         /// <summary>
         /// A single long-lived background thread that owns every read from <see cref="Console.In"/> for this
         /// display's lifetime, publishing each byte into <see cref="_rawInputQueue"/>. Started once, lazily, the
-        /// first time raw input is actually needed (<see cref="EnsureRawInputReaderStarted"/>).
+        /// first time raw input is actually needed (<see cref="EnsureRawInputReaderStarted"/>), and stopped once,
+        /// permanently, at either of the display's two end-of-life paths (<see cref="StopRawInputReader"/>, called
+        /// from <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/>) -- so it doesn't keep consuming
+        /// console input for the rest of the process's life once this display is done with it.
         /// <para>
         /// Replaces an earlier design where <see cref="ReadRawByte"/> spawned a fresh <c>Task.Run(Console.In.Read)</c>
         /// on every single byte, bounded by a short timeout: whenever that read didn't complete within the bound
@@ -494,6 +497,7 @@ namespace RunTests
             lock (_gate)
             {
                 ExitAltScreenIfActive();
+                StopRawInputReader();
             }
 
             if (Current == this)
@@ -684,6 +688,36 @@ namespace RunTests
         {
             _disabled = true;
             ExitAltScreenIfActive();
+            StopRawInputReader();
+        }
+
+        /// <summary>
+        /// Unblocks <see cref="_rawInputReaderThread"/> so it actually exits instead of staying parked in
+        /// <see cref="Console.In"/>'s blocking <c>Read()</c> for the rest of the process's life -- called only from
+        /// <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/> (the display's two permanent end-of-life
+        /// paths), never from <see cref="PrepareForExtraOutput"/>'s temporary pause, which needs the reader still
+        /// running for the redraw that follows it. <see cref="Console.In.Read"/> has no cancellation token to stop
+        /// it directly; closing the underlying stream is what makes the pending call return (with an exception,
+        /// which <see cref="RawInputReaderLoop"/> already treats as "stop looping"). Console input is not needed
+        /// by anything else once this display is done with it -- the run either exits shortly after or moves on
+        /// to failure/timeout diagnostics that only ever write to <see cref="Console.Out"/>.
+        /// </summary>
+        private void StopRawInputReader()
+        {
+            if (_rawInputReaderThread is null)
+            {
+                return;
+            }
+
+            try
+            {
+                Console.In.Close();
+            }
+            catch
+            {
+                // Best effort -- if this doesn't unblock the read, the thread stays parked, same as before this
+                // method existed; it's still a background thread, so it can never keep the process itself alive.
+            }
         }
 
         /// <summary>
