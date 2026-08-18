@@ -20,7 +20,7 @@ positional-only $1/$2 parsing here has no named-parameter equivalent):
   reweave   Restore + rebuild [config]
   bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
   scry      Restore + build + run Core unit tests [config] (Framework tests are
-            Windows-only -- there is no --desktop/--core switch here)
+            Windows-only -- there is no --framework/--core switch here)
   cleanse   Delete artifacts/ (ignores config)
   grimoire  Show this text (default when no action is given; ignores config)
 

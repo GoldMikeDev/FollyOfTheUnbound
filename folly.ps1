@@ -11,8 +11,8 @@ try {
     $solution = "FollyOfTheUnbound.slnx"
     $buildScript = Join-Path $PSScriptRoot "eng\build.ps1"
     $nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
-    $core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--desktop/--timeout (matching folly.sh's style) are parsed by hand below
-    $desktop = $false
+    $core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--framework/--timeout (matching folly.sh's style) are parsed by hand below
+    $framework = $false
     $testTimeout = 0
     $expectTimeoutValue = $false
     foreach ($arg in $remainingArgs) {
@@ -26,8 +26,8 @@ try {
         elseif ($arg -eq "--core") {
             $core = $true
         }
-        elseif ($arg -eq "--desktop") {
-            $desktop = $true
+        elseif ($arg -eq "--framework") {
+            $framework = $true
         }
         elseif ($arg -eq "--timeout") {
             $expectTimeoutValue = $true
@@ -62,7 +62,7 @@ try {
         Write-Host ""
         Write-Host "scry-only switches (not positional -- always passed by name, after [config]):"
         Write-Host "  --core               Run only the Core tests (skip Framework)"
-        Write-Host "  --desktop            Run only the Framework tests (skip Core)"
+        Write-Host "  --framework          Run only the Framework tests (skip Core)"
         Write-Host "                       (omit both to run both, the default)"
         Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
         Write-Host ""
@@ -71,8 +71,8 @@ try {
         Write-Host ""
         exit 0
     }
-    if (($core -or $desktop) -and $action -ne "scry") {
-        Write-Host "'--core'/'--desktop' are only valid with the 'scry' action." -ForegroundColor Red
+    if (($core -or $framework) -and $action -ne "scry") {
+        Write-Host "'--core'/'--framework' are only valid with the 'scry' action." -ForegroundColor Red
         exit 1
     }
     if ($testTimeout -gt 0 -and $action -ne "scry") {
@@ -104,8 +104,8 @@ try {
         & $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
-        $runCore = $core -or -not ($core -or $desktop)  # default to both when neither switch is given; either switch alone runs just that one
-        $runFramework = $desktop -or -not ($core -or $desktop)
+        $runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one
+        $runFramework = $framework -or -not ($core -or $framework)
         $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
         & $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE

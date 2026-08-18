@@ -1,4 +1,4 @@
-# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--desktop,
+# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--framework,
 # --timeout) and its unified test summary, run against a mocked eng/build.ps1 so no real build/test
 # happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
@@ -158,14 +158,14 @@ try {
         Test-Fail "'scry --core' (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- --desktop only ---
-    $dir = New-TestCase "desktop-only"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--desktop")
+    # --- --framework only ---
+    $dir = New-TestCase "framework-only"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--framework")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
-        Test-Pass "'scry --desktop' runs only Framework"
+        Test-Pass "'scry --framework' runs only Framework"
     }
     else {
-        Test-Fail "'scry --desktop' (exit=$($result.ExitCode)): $($result.Output)"
+        Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- positional [config] alongside a selector ---
@@ -208,11 +208,11 @@ try {
         Test-Fail "false-marker log (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- --core/--desktop rejected for non-scry actions ---
+    # --- --core/--framework rejected for non-scry actions ---
     $dir = New-TestCase "selector-on-non-scry"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--desktop")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--framework")
     if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
-        Test-Pass "'--desktop' is rejected on a non-scry action"
+        Test-Pass "'--framework' is rejected on a non-scry action"
     }
     else {
         Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
