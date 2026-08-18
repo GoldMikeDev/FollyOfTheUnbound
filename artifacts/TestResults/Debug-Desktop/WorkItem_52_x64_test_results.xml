@@ -1,0 +1,555 @@
+<assemblies timestamp="08/18/2026 20:10:34">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.dll" run-date="2026-08-18" run-time="20:10:34" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.dll.config" total="180" passed="180" failed="0" skipped="0" time="11.307" errors="0">
+    <errors />
+    <collection total="157" passed="157" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" time="0.177">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EventInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EventInternal)" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: MethodInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: MethodInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ConstantPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ConstantPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: FieldProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: FieldProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: PropertyPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: PropertyPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ExtensionMethodPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ExtensionMethodPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EventPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EventPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: MethodPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: MethodPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: PropertyInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: PropertyInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EventProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EventProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ModulePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ModulePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: NuGet)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: NuGet)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: StatusInformation)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: StatusInformation)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: DelegateProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: DelegateProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ClassProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ClassProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: CompletionWarning)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: CompletionWarning)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: FieldPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: FieldPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Parameter)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Parameter)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumMemberPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumMemberPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ModuleProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ModuleProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: RangeVariable)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: RangeVariable)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumMemberInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumMemberInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumMemberPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumMemberPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Assembly)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Assembly)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: BasicFile)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: BasicFile)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: PropertyProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: PropertyProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: StructurePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: StructurePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: OpenFolder)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: OpenFolder)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: AddReference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: AddReference)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Snippet)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Snippet)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: DelegatePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: DelegatePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: DelegateInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: DelegateInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: InterfaceInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: InterfaceInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: StructureProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: StructureProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Keyword)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Keyword)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: MethodProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: MethodProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ExtensionMethodInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ExtensionMethodInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ModulePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ModulePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: InterfacePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: InterfacePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ClassPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ClassPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: TypeParameter)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: TypeParameter)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumMemberProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumMemberProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: BasicProject)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: BasicProject)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ModuleInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ModuleInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Copilot)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Copilot)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Namespace)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Namespace)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: TargetTypeMatch)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: TargetTypeMatch)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Label)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Label)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: CSharpFile)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: CSharpFile)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Operator)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Operator)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: FieldPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: FieldPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EventPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EventPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: None)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: None)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: InterfacePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: InterfacePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: DelegatePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: DelegatePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ClassPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ClassPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ConstantInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ConstantInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Intrinsic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Intrinsic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Local)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Local)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ExtensionMethodPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ExtensionMethodPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: InterfaceProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: InterfaceProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: FieldInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: FieldInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ConstantPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ConstantPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: PropertyPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: PropertyPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EnumInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EnumInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ExtensionMethodProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ExtensionMethodProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: MethodPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: MethodPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Error)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Error)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: StructurePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: StructurePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ConstantProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ConstantProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: CSharpProject)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: CSharpProject)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: ClassInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: ClassInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: Reference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: Reference)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: StructureInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: StructureInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: StatusInformation)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: StatusInformation)" time="0.0120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: FieldInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: FieldInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ClassPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ClassPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: DelegatePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: DelegatePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Local)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Local)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Reference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Reference)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: StructureProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: StructureProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: StructurePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: StructurePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Copilot)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Copilot)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: FieldPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: FieldPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: AddReference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: AddReference)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Snippet)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Snippet)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: PropertyInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: PropertyInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: InterfacePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: InterfacePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ModuleInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ModuleInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: StructureInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: StructureInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: InterfaceProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: InterfaceProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ClassInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ClassInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ConstantInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ConstantInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Error)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Error)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: RangeVariable)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: RangeVariable)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EventProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EventProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: None)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: None)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumMemberProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumMemberProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: OperatorInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: OperatorInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EventInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EventInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ExtensionMethodProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ExtensionMethodProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumMemberInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumMemberInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: CompletionWarning)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: CompletionWarning)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Namespace)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Namespace)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: DelegateInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: DelegateInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: OperatorProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: OperatorProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ExtensionMethodPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ExtensionMethodPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Label)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Label)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: PropertyPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: PropertyPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: MethodInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: MethodInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumMemberPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumMemberPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: OperatorPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: OperatorPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: StructurePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: StructurePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: CSharpFile)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: CSharpFile)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Keyword)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Keyword)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ConstantPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ConstantPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: BasicProject)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: BasicProject)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: OperatorPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: OperatorPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ConstantProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ConstantProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: MethodProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: MethodProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ConstantPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ConstantPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: PropertyPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: PropertyPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: OpenFolder)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: OpenFolder)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EventPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EventPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Intrinsic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Intrinsic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ClassPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ClassPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: MethodPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: MethodPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: DelegatePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: DelegatePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: PropertyProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: PropertyProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: TargetTypeMatch)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: TargetTypeMatch)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumMemberPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumMemberPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: InterfacePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: InterfacePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: MethodPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: MethodPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: InterfaceInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: InterfaceInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: TypeParameter)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: TypeParameter)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ExtensionMethodPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ExtensionMethodPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Parameter)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Parameter)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: CSharpProject)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: CSharpProject)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ModulePublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ModulePublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: NuGet)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: NuGet)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: DelegateProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: DelegateProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: FieldProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: FieldProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EventPrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EventPrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ModuleProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ModuleProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ModulePrivate)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ModulePrivate)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ClassProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ClassProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: EnumProtected)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: EnumProtected)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: FieldPublic)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: FieldPublic)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: Assembly)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: Assembly)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: BasicFile)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: BasicFile)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectlyOpposite(glyph: ExtensionMethodInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectlyOpposite(glyph: ExtensionMethodInternal)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" time="0.015">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: Definition)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: Definition)" time="0.0120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: WrittenReference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: WrittenReference)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: Reference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: Reference)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: None)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: None)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" time="0.108">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: ResolvedReferenceConflict)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: ResolvedReferenceConflict)" time="0.1040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: Complexified)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: Complexified)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: UnresolvedConflict)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: UnresolvedConflict)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: NoConflict)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: NoConflict)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: ResolvedNonReferenceConflict)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: ResolvedNonReferenceConflict)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="11" passed="11" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" time="0.022">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCasePrefix)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCasePrefix)" time="0.0120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCaseNonContiguousSubstring)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCaseNonContiguousSubstring)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: Regular)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: Regular)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: Fuzzy)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: Fuzzy)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: Substring)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: Substring)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: Exact)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: Exact)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCaseExact)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCaseExact)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCaseSubstring)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCaseSubstring)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCaseNonContiguousPrefix)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCaseNonContiguousPrefix)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: Prefix)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: Prefix)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: None)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: None)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests" time="0.013">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests.MapsCorrectly(triggerReason: RetriggerCommand)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests" method="MapsCorrectly(triggerReason: RetriggerCommand)" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests.MapsCorrectly(triggerReason: InvokeSignatureHelpCommand)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests" method="MapsCorrectly(triggerReason: InvokeSignatureHelpCommand)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests.MapsCorrectly(triggerReason: TypeCharCommand)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpSignatureHelpTriggerReasonTests" method="MapsCorrectly(triggerReason: TypeCharCommand)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

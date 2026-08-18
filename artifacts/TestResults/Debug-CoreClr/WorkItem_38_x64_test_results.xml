@@ -1,0 +1,2158 @@
+<assemblies timestamp="08/18/2026 19:17:03">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests\Debug\net10.0-windows\Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.dll" run-date="2026-08-18" run-time="19:17:03" total="486" passed="486" failed="0" skipped="0" time="52.785" errors="0">
+    <errors />
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.CaseCorrection.CaseCorrectionTests" time="0.323">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.CaseCorrection.CaseCorrectionTests.NamedTupleIdentifier" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.CaseCorrection.CaseCorrectionTests" method="NamedTupleIdentifier" time="0.3227176" result="Pass">
+        <traits>
+          <trait name="Feature" value="CaseCorrection" />
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/45508" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="112" passed="112" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" time="4.763">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAbstractDeclarationModifier" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAbstractDeclarationModifier" time="0.0542314" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestThrowStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestThrowStatements" time="0.0054277" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithExpression" time="0.0362144" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMemberAccessExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMemberAccessExpressions" time="0.0170449" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestTupleExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestTupleExpression" time="0.0051563" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAsPrivateInterfaceImplementation" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAsPrivateInterfaceImplementation" time="0.1131481" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestDelegateDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestDelegateDeclarations" time="0.0084721" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestReturnStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestReturnStatements" time="0.0025848" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestNamespaceDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestNamespaceDeclarations" time="0.0069838" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestNamespaceImportDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestNamespaceImportDeclarations" time="0.0021515" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestExtensionBlock_01" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestExtensionBlock_01" time="1.4238280" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestDeclarationKind" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestDeclarationKind" time="0.0331386" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddMembers" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddMembers" time="0.0428382" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestEqualityAndInequalityExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestEqualityAndInequalityExpressions" time="0.0099347" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestPropertyDeclarationFromSymbol2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestPropertyDeclarationFromSymbol2" time="0.0196731" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/66379" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithModifiers_Sealed_Class" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithModifiers_Sealed_Class" time="0.0048752" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestTryCatchStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestTryCatchStatements" time="0.0230236" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetAccessorStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetAccessorStatements" time="0.0064518" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestLiteralExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestLiteralExpressions" time="0.0898611" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestLocalDeclarationStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestLocalDeclarationStatements" time="0.0032938" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestLockStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestLockStatements" time="0.0089841" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestRemoveMembers" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestRemoveMembers" time="0.0053751" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestRemoveBaseAndInterfaceTypes" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestRemoveBaseAndInterfaceTypes" time="0.0217067" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestYieldReturnStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestYieldReturnStatements" time="0.0052858" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWhileStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWhileStatements" time="0.0086518" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestConstantFieldDeclarationSpecialTypes" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestConstantFieldDeclarationSpecialTypes" time="0.0087357" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69380" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestEventDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestEventDeclarations" time="0.0101797" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithModifiers_Sealed_Member" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithModifiers_Sealed_Member" time="0.0036333" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/23410" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMultiImports" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMultiImports" time="0.0332741" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetType" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetType" time="0.0126006" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAwaitExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAwaitExpressions" time="0.0068188" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestExpressionStatement" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestExpressionStatement" time="0.0035888" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetModifiers" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetModifiers" time="0.0063066" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetAttributeOnMethodBodies" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetAttributeOnMethodBodies" time="0.0111087" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/31720" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestFieldDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestFieldDeclarations" time="0.0070693" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddParameters" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddParameters" time="0.0104029" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestRemoveNodeInTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestRemoveNodeInTrivia" time="0.0151651" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestPropertyDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestPropertyDeclarations" time="0.0047491" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithStatements_LambdaChanges" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithStatements_LambdaChanges" time="0.0071331" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMethodDeclarationFromSymbol" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMethodDeclarationFromSymbol" time="0.0261559" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/65835" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetStatements" time="0.0038144" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestEnumDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestEnumDeclarations" time="0.0037335" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestInterfaceVariance" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestInterfaceVariance" time="0.0163169" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/66377" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestStructDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestStructDeclarations" time="0.0085352" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestLambdaExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestLambdaExpressions" time="0.0058080" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAccessorDeclarations2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAccessorDeclarations2" time="0.0107104" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddRemoveAttributesPreservesTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddRemoveAttributesPreservesTrivia" time="0.0108213" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestIsAndAsExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestIsAndAsExpressions" time="0.0117390" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestSealedDeclarationModifier" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestSealedDeclarationModifier" time="0.0038626" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithName" time="0.0118073" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestInsertNodeBeforeInTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestInsertNodeBeforeInTrivia" time="0.0191732" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestPropertyDeclarationFromSymbol1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestPropertyDeclarationFromSymbol1" time="0.0038215" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/66379" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestTypeExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestTypeExpressions" time="0.0175172" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddAttributes" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddAttributes" time="0.0238088" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestElementAccessExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestElementAccessExpressions" time="0.0035088" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestInterfaceDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestInterfaceDeclarations" time="0.0068068" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithStatements" time="0.0039877" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddInterfaceType" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddInterfaceType" time="0.0123115" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestInvocationExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestInvocationExpressions" time="0.0042199" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetMembers" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetMembers" time="0.0028743" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddAttributesOnAccessors" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddAttributesOnAccessors" time="0.0106417" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5066" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithAccessorStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithAccessorStatements" time="0.0050009" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestCompilationUnits" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestCompilationUnits" time="0.0032096" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestEnumWithUnderlyingTypeFromSymbol" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestEnumWithUnderlyingTypeFromSymbol" time="0.0129843" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestReplaceNodeInTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestReplaceNodeInTrivia" time="0.0060171" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAsPublicInterfaceImplementation" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAsPublicInterfaceImplementation" time="0.0078457" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMultiFieldMembers" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMultiFieldMembers" time="0.1148796" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetBaseAndInterfaceTypes" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetBaseAndInterfaceTypes" time="0.0049847" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithTypeParameters" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithTypeParameters" time="0.0067373" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMultiAttributes" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMultiAttributes" time="0.0171289" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestClassDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestClassDeclarations" time="0.0039205" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithModifiers" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithModifiers" time="0.0088434" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.MethodDeclarationCanRoundTrip" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="MethodDeclarationCanRoundTrip" time="0.0057506" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestConstantDecimalFieldDeclarationFromMetadata" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestConstantDecimalFieldDeclarationFromMetadata" time="1.7725931" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69376" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestOperatorDeclaration" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestOperatorDeclaration" time="0.0211511" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestOperatorDeclarationSymbolOverload" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestOperatorDeclarationSymbolOverload" time="0.0103614" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithTypeConstraint" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithTypeConstraint" time="0.0262589" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestSpecialTypeExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestSpecialTypeExpression" time="0.0024769" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestInterfaceDeclarationWithEventSymbol" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestInterfaceDeclarationWithEventSymbol" time="0.0146962" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAttributeData" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAttributeData" time="0.1464343" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestIfStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestIfStatements" time="0.0243309" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestSwitchStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestSwitchStatements" time="0.0273821" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestNameExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestNameExpressions" time="0.0047805" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestSymbolTypeExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestSymbolTypeExpressions" time="0.0062169" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestConditionalExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestConditionalExpressions" time="0.0161860" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestEnumDeclarationFromSymbol" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestEnumDeclarationFromSymbol" time="0.0037649" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithAccessibility" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithAccessibility" time="0.0096416" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAccessorDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAccessorDeclarations" time="0.0045630" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAttributeDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAttributeDeclarations" time="0.0033012" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetExpression" time="0.0026939" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestArrayCreationExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestArrayCreationExpressions" time="0.0045712" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMethodDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMethodDeclarations" time="0.0042699" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestNameOfExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestNameOfExpressions" time="0.0030836" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithExpression_LambdaChanges" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithExpression_LambdaChanges" time="0.0038015" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestUsingStatements" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestUsingStatements" time="0.0097703" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetName" time="0.0037628" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestInsertNodeAfterInTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestInsertNodeAfterInTrivia" time="0.0023727" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithType" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithType" time="0.0073868" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestConversionOperatorDeclaration" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestConversionOperatorDeclaration" time="0.0160207" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/65833" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestDelegateDeclarationFromSymbol" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestDelegateDeclarationFromSymbol" time="0.0110072" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/66381" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddBaseType" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddBaseType" time="0.0044677" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestCastAndConvertExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestCastAndConvertExpressions" time="0.0053042" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAssignmentStatement" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAssignmentStatement" time="0.0019787" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestIndexerDeclarations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestIndexerDeclarations" time="0.0066644" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestConstructorDeclaration" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestConstructorDeclaration" time="0.0060853" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestAddInterfaceWithEOLs" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestAddInterfaceWithEOLs" time="0.0111905" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5097" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestDestructor1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestDestructor1" time="0.0161337" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/66374" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetParameters" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetParameters" time="0.0040856" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestGetAccessibility" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestGetAccessibility" time="0.0035988" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestWithTypeChangesSubFunction" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestWithTypeChangesSubFunction" time="0.0056983" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestMathAndLogicExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestMathAndLogicExpressions" time="0.0117788" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests.TestObjectCreationExpressions" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editing.SyntaxGeneratorTests" method="TestObjectCreationExpressions" time="0.0048482" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="42" passed="42" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" time="29.699">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingGenericNameAndTypeArguments" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingGenericNameAndTypeArguments" time="8.6106763" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportNotAddedAgainIfAlreadyExists(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportNotAddedAgainIfAlreadyExists(useSymbolAnnotations: False)" time="0.4272874" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportNotAddedAgainIfAlreadyExists(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportNotAddedAgainIfAlreadyExists(useSymbolAnnotations: True)" time="0.5139060" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingSimpleName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingSimpleName" time="0.2639057" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestDoNotAddImportWithExisitingImportDifferentCase(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestDoNotAddImportWithExisitingImportDifferentCase(useSymbolAnnotations: False)" time="0.5566815" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestDoNotAddImportWithExisitingImportDifferentCase(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestDoNotAddImportWithExisitingImportDifferentCase(useSymbolAnnotations: True)" time="0.4979428" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportNotAddedForNamespaceDeclarations(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportNotAddedForNamespaceDeclarations(useSymbolAnnotations: True)" time="0.6852037" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportNotAddedForNamespaceDeclarations(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportNotAddedForNamespaceDeclarations(useSymbolAnnotations: False)" time="0.1333059" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestDoNotAddSystemImportFirst(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestDoNotAddSystemImportFirst(useSymbolAnnotations: False)" time="1.2794011" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestDoNotAddSystemImportFirst(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestDoNotAddSystemImportFirst(useSymbolAnnotations: True)" time="0.7156323" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestCanExpandCrefSignaturePart" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestCanExpandCrefSignaturePart" time="0.4526890" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39592" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingGenericName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingGenericName" time="0.6568638" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportNotAddedIfGloballyImported(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportNotAddedIfGloballyImported(useSymbolAnnotations: False)" time="0.1652638" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportNotAddedIfGloballyImported(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportNotAddedIfGloballyImported(useSymbolAnnotations: True)" time="0.6874897" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingSimpleNameInAllLocations" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingSimpleNameInAllLocations" time="1.1267989" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestRemoveImportIfItMakesReferencesAmbiguous(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestRemoveImportIfItMakesReferencesAmbiguous(useSymbolAnnotations: True)" time="0.9416052" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestRemoveImportIfItMakesReferencesAmbiguous(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestRemoveImportIfItMakesReferencesAmbiguous(useSymbolAnnotations: False)" time="0.4548838" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingQualifiedNameAndTypeArguments" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingQualifiedNameAndTypeArguments" time="0.8309729" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingGenericName_DifferentArity" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingGenericName_DifferentArity" time="0.4422625" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportAddedAndRemovedForReferencesInsideNamespaceDeclarations(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportAddedAndRemovedForReferencesInsideNamespaceDeclarations(useSymbolAnnotations: False)" time="0.3595800" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestImportAddedAndRemovedForReferencesInsideNamespaceDeclarations(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestImportAddedAndRemovedForReferencesInsideNamespaceDeclarations(useSymbolAnnotations: True)" time="0.5227150" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestBuiltInTypeFromSymbols" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestBuiltInTypeFromSymbols" time="0.3640261" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingExtensionMethod" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingExtensionMethod" time="1.7455643" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddImport(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddImport(useSymbolAnnotations: True)" time="0.6721254" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddImport(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddImport(useSymbolAnnotations: False)" time="0.4967646" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddMultipleImportsInOrder(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddMultipleImportsInOrder(useSymbolAnnotations: False)" time="0.6005774" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddMultipleImportsInOrder(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddMultipleImportsInOrder(useSymbolAnnotations: True)" time="0.6851362" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddSystemImportFirst(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddSystemImportFirst(useSymbolAnnotations: False)" time="0.1781990" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddSystemImportFirst(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddSystemImportFirst(useSymbolAnnotations: True)" time="0.5112708" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingQualifiedName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingQualifiedName" time="0.0840195" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddImportsInOrder(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddImportsInOrder(useSymbolAnnotations: False)" time="0.5871680" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestAddImportsInOrder(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestAddImportsInOrder(useSymbolAnnotations: True)" time="0.1904768" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingSimpleNameDifferentCase" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingSimpleNameDifferentCase" time="0.4057583" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingAliasedIdentifierName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingAliasedIdentifierName" time="0.1810636" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingExtensionMethod_CaseInsensitive" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingExtensionMethod_CaseInsensitive" time="0.3026117" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingExtensionMethodAndTypeArguments" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingExtensionMethodAndTypeArguments" time="0.4942400" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestPartialNamespacesNotUsed(useSymbolAnnotations: True)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestPartialNamespacesNotUsed(useSymbolAnnotations: True)" time="0.3527007" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestPartialNamespacesNotUsed(useSymbolAnnotations: False)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestPartialNamespacesNotUsed(useSymbolAnnotations: False)" time="0.0840103" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingSimpleName_CaseInsensitive" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingSimpleName_CaseInsensitive" time="0.4465849" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithLambdaExtensionMethodAmbiguity" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithLambdaExtensionMethodAmbiguity" time="0.4366573" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39592" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestSafeWithMatchingExtensionMethodAndArguments" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestSafeWithMatchingExtensionMethodAndArguments" time="0.2606456" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests.TestBuiltInTypeFromSyntaxes" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Editting.AddImportsTests" method="TestBuiltInTypeFromSyntaxes" time="0.2941913" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" time="0.365">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestCurliesInSimpleString" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestCurliesInSimpleString" time="0.3424515" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestEmptyString" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestEmptyString" time="0.0010827" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestSimpleString" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestSimpleString" time="0.0004239" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestCurliesInInterpolatedSimpleString2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestCurliesInInterpolatedSimpleString2" time="0.0186854" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestStringWithDoubleQuoteInIt" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestStringWithDoubleQuoteInIt" time="0.0005550" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestCurliesInInterpolatedSimpleString" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestCurliesInInterpolatedSimpleString" time="0.0004754" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestInterpolatedStringWithDoubleQuoteInIt" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestInterpolatedStringWithDoubleQuoteInIt" time="0.0005083" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests.TestSimpleMultiCharString" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.EmbeddedLanguages.VirtualChars.VisualBasicVirtualCharServiceTests" method="TestSimpleMultiCharString" time="0.0003797" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="225" passed="225" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" time="2.992">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.StructuredTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="StructuredTrivia" time="0.1730754" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539409" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals14" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals14" time="0.0423279" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation3(continuation: &quot;_&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation3(continuation: &quot;_&quot;)" time="0.0206192" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation3(continuation: &quot;_ ' Comment&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation3(continuation: &quot;_ ' Comment&quot;)" time="0.0099159" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals8" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals8" time="0.0149679" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Lambda3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Lambda3" time="0.0186708" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix6367" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix6367" time="0.0081914" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539409" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceArrayBraces" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceArrayBraces" time="0.0072939" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.DoLoopBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="DoLoopBlockNode" time="0.0172620" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AlignQueryStatement" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AlignQueryStatement" time="0.0465289" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TypeBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TypeBlock" time="0.0060659" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatUsingAutoGeneratedCodeOperationProvider" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatUsingAutoGeneratedCodeOperationProvider" time="0.0061510" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceLiteralAndTypeCharacters" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceLiteralAndTypeCharacters" time="0.0253881" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5731" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5731" time="0.0134202" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539687" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhileBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhileBlockNode" time="0.0121343" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals1" time="0.0081727" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithDifferentIndent2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithDifferentIndent2" time="0.2962605" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlTest5442" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlTest5442" time="0.0342653" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/530597" />
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539463" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation5(continuation: &quot;_&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation5(continuation: &quot;_&quot;)" time="0.0085314" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation5(continuation: &quot;_ ' Comment&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation5(continuation: &quot;_ ' Comment&quot;)" time="0.0085881" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4459" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4459" time="0.0192560" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538754" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix3939" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix3939" time="0.0049786" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538354" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4647" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4647" time="0.0683941" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538897" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ConditionalAccessFormatting" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ConditionalAccessFormatting" time="0.0489674" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MethodBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MethodBlock" time="0.0076267" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatComment2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatComment2" time="0.0077123" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TryCatchBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TryCatchBlockNode" time="0.0253801" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals10" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals10" time="0.0151837" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5492" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5492" time="0.0134340" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539503" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WorkItem4737" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WorkItem4737" time="0.0302995" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538962" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlProcessingInstruction" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlProcessingInstruction" time="0.0223293" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539458" />
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539459" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabled3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabled3" time="0.0091448" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Parentheses" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Parentheses" time="0.0119773" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestIncompleteWarningDirectives" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestIncompleteWarningDirectives" time="0.0180363" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4644" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4644" time="0.0165806" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538894" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals6" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals6" time="0.0081162" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MultipleAttributesOnParameter_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MultipleAttributesOnParameter_1" time="0.0076088" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087167" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TernaryConditionTest" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TernaryConditionTest" time="0.0096251" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestWarningDirectives" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestWarningDirectives" time="0.0145541" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.PropertyBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="PropertyBlock" time="0.0163342" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TryCastTest" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TryCastTest" time="0.0074180" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InterpolatedString5" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InterpolatedString5" time="0.0178342" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InterpolatedString1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InterpolatedString1" time="0.0073532" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Trivia1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Trivia1" time="0.0075244" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MultipleAttributesOnParameter_3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MultipleAttributesOnParameter_3" time="0.0074567" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087167" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_2" time="0.0069597" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AnchorStatement" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AnchorStatement" time="0.0059578" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InterpolatedString2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InterpolatedString2" time="0.0071462" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestGetXmlNamespace" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestGetXmlNamespace" time="0.0155421" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/544008" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MultipleControlVariables" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MultipleControlVariables" time="0.0266958" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/541628" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals11" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals11" time="0.0135735" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestElasticFormattingPropertySetter" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestElasticFormattingPropertySetter" time="0.0099788" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/530601" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation4(continuation: &quot;_ ' Comment&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation4(continuation: &quot;_ ' Comment&quot;)" time="0.0091264" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation4(continuation: &quot;_&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation4(continuation: &quot;_&quot;)" time="0.0083821" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ForcedSpaceBetweenXmlNameTokenAndPercentGreaterThanToken" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ForcedSpaceBetweenXmlNameTokenAndPercentGreaterThanToken" time="0.0110000" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="530366" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AnchorQueryStatement2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AnchorQueryStatement2" time="0.0082372" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals25" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals25" time="0.0080957" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals20" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals20" time="0.0208680" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.RandomCode1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="RandomCode1" time="0.0039670" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="10027" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatComment1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatComment1" time="0.0072134" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix6367_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix6367_1" time="0.0064187" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539409" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ForNext_MultipleVariables2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ForNext_MultipleVariables2" time="0.0102633" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/545088" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlTextWithEmbededExpression1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlTextWithEmbededExpression1" time="0.0115687" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlElementStartTag1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlElementStartTag1" time="0.0090017" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/542976" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ForNext_MultipleVariables" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ForNext_MultipleVariables" time="0.0088981" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/545088" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestElseIfFormatting_Directive" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestElseIfFormatting_Directive" time="0.0118108" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="17313" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabled2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabled2" time="0.0104962" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.EventBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="EventBlock" time="0.0128181" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ForBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ForBlockNode" time="0.0112881" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals22" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals22" time="0.0119241" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AttributeInParameterList" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AttributeInParameterList" time="0.0062844" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/544496" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InterfaceBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InterfaceBlock" time="0.0056217" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatDictionaryOperatorProperly" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatDictionaryOperatorProperly" time="0.0239753" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/8258" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlDocument" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlDocument" time="0.0111025" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AnchorQueryStatement1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AnchorQueryStatement1" time="0.0083972" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_5" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_5" time="0.0110330" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5022" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5022" time="0.0062355" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539170" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceKeywordParens" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceKeywordParens" time="0.0156670" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals3" time="0.0081337" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabled4" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabled4" time="0.0079972" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5457" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5457" time="0.0293382" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539474" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals27" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals27" time="0.0099596" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_8" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_8" time="0.0059465" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.RegressionCommentFollowsSubsequentIndent4173" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="RegressionCommentFollowsSubsequentIndent4173" time="0.0051214" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Trivia3(continuation: &quot;_ ' Comment&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Trivia3(continuation: &quot;_ ' Comment&quot;)" time="0.0125964" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Trivia3(continuation: &quot;_&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Trivia3(continuation: &quot;_&quot;)" time="0.0073334" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WithBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WithBlockNode" time="0.0077547" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals19" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals19" time="0.0077464" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals13" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals13" time="0.0084919" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InterpolatedString4" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InterpolatedString4" time="0.0072631" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5595" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5595" time="0.0066713" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539582" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals18" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals18" time="0.0066696" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_1" time="0.0086444" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.IndentContinuedLineOfSingleLineLambdaToFunctionKeyword" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="IndentContinuedLineOfSingleLineLambdaToFunctionKeyword" time="0.0125567" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="529899" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals26" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals26" time="0.0094280" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4352" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4352" time="0.0138583" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538675" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BadDirectivesAreValidRanges" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BadDirectivesAreValidRanges" time="0.0096079" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/547005" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5270" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5270" time="0.0080833" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539353" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlTextWithEmbededExpression2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlTextWithEmbededExpression2" time="0.0111720" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.NameOfFormatting" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="NameOfFormatting" time="0.0057907" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceRemovedBeforeComment" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceRemovedBeforeComment" time="0.0071033" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Punctuation" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Punctuation" time="0.0067598" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithDifferentIndent1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithDifferentIndent1" time="0.0063574" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AnchorQueryStatement3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AnchorQueryStatement3" time="0.0074332" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.NewObjectTest" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="NewObjectTest" time="0.0062209" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Trivia2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Trivia2" time="0.0111883" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation1(continuation: &quot;_&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation1(continuation: &quot;_&quot;)" time="0.0078929" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation1(continuation: &quot;_ ' Comment&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation1(continuation: &quot;_ ' Comment&quot;)" time="0.0079577" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AnonType" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AnonType" time="0.0082140" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ColonTrivia2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ColonTrivia2" time="0.0090030" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/542698" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestMemberAccessAfterOpenParen" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestMemberAccessAfterOpenParen" time="0.0138903" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/923172" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals4" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals4" time="0.0083659" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_6" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_6" time="0.0079894" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_4" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_4" time="0.0071958" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.SpacingAroundXmlEntityLiterals" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="SpacingAroundXmlEntityLiterals" time="0.0088338" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Format1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Format1" time="0.0048524" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5277" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5277" time="0.0048891" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539358" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AttributeOnClass1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AttributeOnClass1" time="0.0057022" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.DictionaryAccessOperator" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="DictionaryAccessOperator" time="0.0109177" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/544459" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MultipleAttributesOnClass" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MultipleAttributesOnClass" time="0.0062861" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087167" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TriviaAtEndOfCaseBelongsToNextCase" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TriviaAtEndOfCaseBelongsToNextCase" time="0.0166359" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/796562" />
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/3293" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Label1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Label1" time="0.0167083" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Lambda1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Lambda1" time="0.0097710" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestElseIfFormattingForNestedSingleLineIf" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestElseIfFormattingForNestedSingleLineIf" time="0.0116724" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/531444" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatUsingOverloads" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatUsingOverloads" time="0.0096165" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestSpaceBetweenEqualsAndDotOfXml" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestSpaceBetweenEqualsAndDotOfXml" time="0.0190417" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="604032" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.NamespaceBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="NamespaceBlock" time="0.0059299" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ModuleBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ModuleBlock" time="0.0061055" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatNullableTuple" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatNullableTuple" time="0.0064280" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/21923" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals7" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals7" time="0.0086329" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MemberAccessInObjectMemberInitializer" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MemberAccessInObjectMemberInitializer" time="0.0135271" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceNullable" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceNullable" time="0.0082094" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Label3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Label3" time="0.0077051" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ColonTrivia" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ColonTrivia" time="0.0071269" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/541561" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals23" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals23" time="0.0109088" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals12" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals12" time="0.0080301" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals17" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals17" time="0.0095028" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.CollectionInitializer" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="CollectionInitializer" time="0.0072738" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_7" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_7" time="0.0096134" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5432" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5432" time="0.0151119" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539455" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals16" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals16" time="0.0084740" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InheritsImplementsWithGenericsOnClass" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InheritsImplementsWithGenericsOnClass" time="0.0072863" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlTextWithComment" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlTextWithComment" time="0.0111020" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4826" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4826" time="0.0239112" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539031" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Label2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Label2" time="0.0063675" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5430" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5430" time="0.0121642" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539453" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals24" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals24" time="0.0158933" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestXmlMemberAccessDot" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestXmlMemberAccessDot" time="0.0140783" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/923180" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Punctuation3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Punctuation3" time="0.0067291" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestBang" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestBang" time="0.0081679" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlText" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlText" time="0.0111133" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceMethodParens" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceMethodParens" time="0.0068053" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.SpaceBetweenPercentGreaterThanAndXmlName" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="SpaceBetweenPercentGreaterThanAndXmlName" time="0.0096879" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/545680" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4639" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4639" time="0.0052886" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538889" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4394" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4394" time="0.0071350" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538703" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation2(continuation: &quot;_&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation2(continuation: &quot;_&quot;)" time="0.0082895" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.LineContinuation2(continuation: &quot;_ ' Comment&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="LineContinuation2(continuation: &quot;_ ' Comment&quot;)" time="0.0082869" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4642" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4642" time="0.0108853" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538892" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.KeyInAnonymousType" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="KeyInAnonymousType" time="0.0070494" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/543197" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals28" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals28" time="0.0108844" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.UsingBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="UsingBlockNode" time="0.0089079" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4482" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4482" time="0.0057149" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538772" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabled6" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabled6" time="0.0072223" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/10742" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5497" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5497" time="0.0083281" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539508" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Operators2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Operators2" time="0.0077357" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.GetTypeTest" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="GetTypeTest" time="0.0070109" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5547" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5547" time="0.0160837" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539545" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals5" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals5" time="0.0084374" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5232" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5232" time="0.0074558" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539324" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.TestDoNotCrashOnMissingTokenWithComment" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="TestDoNotCrashOnMissingTokenWithComment" time="0.0103073" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BinaryConditionalExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BinaryConditionalExpression" time="0.0075807" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlElementStartTag" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlElementStartTag" time="0.0068009" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/542976" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals2" time="0.0105050" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ColonTrivia1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ColonTrivia1" time="0.0093909" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/542698" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.WhitespaceStatementSeparator" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="WhitespaceStatementSeparator" time="0.0082988" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.IfBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="IfBlockNode" time="0.0332727" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_9" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_9" time="0.0101128" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ElasticNewlines" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ElasticNewlines" time="0.0192063" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatOmittedArgument" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatOmittedArgument" time="0.0079932" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2822" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Operators1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Operators1" time="0.0115876" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix7023_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix7023_1" time="0.0071620" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/540678" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.SpacesInXmlStrings" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="SpacesInXmlStrings" time="0.0067830" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/545630" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5456" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5456" time="0.0083199" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539473" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5637" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5637" time="0.0061836" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539616" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlElement_Expression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlElement_Expression" time="0.0112401" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/544980" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5268" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5268" time="0.0075778" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539351" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals9" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals9" time="0.0104766" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Punctuation2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Punctuation2" time="0.0066857" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.EnumBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="EnumBlock" time="0.0056997" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.StructBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="StructBlock" time="0.0080044" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlTest" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlTest" time="0.0103001" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatLabelFollowedByDotExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatLabelFollowedByDotExpression" time="0.0075428" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2822" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4235" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4235" time="0.0061228" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538579" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabled1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabled1" time="0.0109300" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4641" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4641" time="0.0079905" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538891" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.RandomCode2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="RandomCode2" time="0.0050591" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="10027" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InheritsImplementsOnClass" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InheritsImplementsOnClass" time="0.0055928" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Lambda4" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Lambda4" time="0.0128296" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.FormatBadCode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="FormatBadCode" time="0.0104881" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/543248" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.DoUntilBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="DoUntilBlockNode" time="0.0110805" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4394_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4394_1" time="0.0068925" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538703" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Preprocessors" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Preprocessors" time="0.0131498" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539574" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InterpolatedString3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InterpolatedString3" time="0.0137958" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ChainedConditionalAccessFormatting" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ChainedConditionalAccessFormatting" time="0.0224118" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.SelectBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="SelectBlockNode" time="0.0158746" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XelementAttributeSpacing" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XelementAttributeSpacing" time="0.0075541" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/938188" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Operators3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Operators3" time="0.0180305" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InheritsOnInterface" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InheritsOnInterface" time="0.0064790" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabled5" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabled5" time="0.0073764" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix4173_3" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix4173_3" time="0.0114427" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538533" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsDisabled" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsDisabled" time="0.0118166" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals21" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals21" time="0.0103303" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.XmlLiterals15" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="XmlLiterals15" time="0.0102951" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.NewLineOption_LineFeedOnly" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="NewLineOption_LineFeedOnly" time="0.0072490" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.ReFormatWithTabsEnabledSmallIndentAndLargeTab" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="ReFormatWithTabsEnabledSmallIndentAndLargeTab" time="0.0073265" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.MultipleAttributesOnParameter_2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="MultipleAttributesOnParameter_2" time="0.0068345" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087167" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.Lambda2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="Lambda2" time="0.0108384" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.CTypeTest" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="CTypeTest" time="0.0067560" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.CaseCommentsRemainsUndisturbed" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="CaseCommentsRemainsUndisturbed" time="0.0098958" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/3293" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5594" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5594" time="0.0162926" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539581" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5268_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5268_1" time="0.0100962" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539351" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.InsertSpaceBetweenXMLMemberAttributeAccessAndEqualsToken" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="InsertSpaceBetweenXMLMemberAttributeAccessAndEqualsToken" time="0.0104705" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/679864" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.SyncLockBlockNode" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="SyncLockBlockNode" time="0.0072477" result="Pass">
+        <traits>
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.BugFix5989" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="BugFix5989" time="0.0093066" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/539889" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest.AnchorIndentToTheFirstTokenOfXmlBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Formatting.FormattingTest" method="AnchorIndentToTheFirstTokenOfXmlBlock" time="0.0257627" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="604092" />
+          <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
+          <trait name="Feature" value="Formatting" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.Serialization.OptionsSerializationTests" time="0.110">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Serialization.OptionsSerializationTests.TestNullGlobalImport" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.Serialization.OptionsSerializationTests" method="TestNullGlobalImport" time="0.1102971" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2325692" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests" time="0.165">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests.FeaturesMultipleWithValue" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests" method="FeaturesMultipleWithValue" time="0.1628470" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests.FeaturesSingleWithValue" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests" method="FeaturesSingleWithValue" time="0.0009997" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests.FetauresMultiple" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests" method="FetauresMultiple" time="0.0007919" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests.FeaturesSingle" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicCommandLineArgumentsFactoryServiceTests" method="FeaturesSingle" time="0.0007267" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicExtensionsTests" time="0.044">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicExtensionsTests.TestFindTrivia_NoStackOverflowOnLargeExpression" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicExtensionsTests" method="TestFindTrivia_NoStackOverflowOnLargeExpression" time="0.0437091" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6536" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="54" passed="54" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" time="0.074">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_SimpleEvent" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_SimpleEvent" time="0.0044355" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupJoin_Group1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupJoin_Group1" time="0.0140256" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_MustInheritMethod" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_MustInheritMethod" time="0.0008371" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Distinct" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Distinct" time="0.0021633" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupBy_Group" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupBy_Group" time="0.0027370" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_From" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_From" time="0.0007471" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_FieldLikeEvent" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_FieldLikeEvent" time="0.0005173" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotEvenStatementInBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotEvenStatementInBlock" time="0.0012374" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_DeclareStatement" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_DeclareStatement" time="0.0042021" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupJoin_Equals" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupJoin_Equals" time="0.0014608" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupJoin_Group2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupJoin_Group2" time="0.0019197" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_OrderBy_Descending" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_OrderBy_Descending" time="0.0039358" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Select" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Select" time="0.0007158" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_IntoAliasGroup" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_IntoAliasGroup" time="0.0009327" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotLambdaHeader" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotLambdaHeader" time="0.0006209" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_Field" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_Field" time="0.0004089" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_OrderBy_By" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_OrderBy_By" time="0.0007475" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_Constructor" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_Constructor" time="0.0004336" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupJoin_On" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupJoin_On" time="0.0007099" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Not_DoLoopWhile" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Not_DoLoopWhile" time="0.0008087" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Join_On" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Join_On" time="0.0018801" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Not_DoWhileLoop" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Not_DoWhileLoop" time="0.0006091" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_OrderBy_Ascending" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_OrderBy_Ascending" time="0.0005932" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Skip_Skip" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Skip_Skip" time="0.0021482" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Not_WhileStatement_2" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Not_WhileStatement_2" time="0.0007462" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupJoin_Join" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupJoin_Join" time="0.0007528" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_In" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_In" time="0.0005326" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Join_In" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Join_In" time="0.0008224" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_SkipWhile_Skip" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_SkipWhile_Skip" time="0.0016672" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotSubNewStatementInBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotSubNewStatementInBlock" time="0.0004356" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Skip_Take" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Skip_Take" time="0.0005386" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Into" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Into" time="0.0005968" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_Method" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_Method" time="0.0004230" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_TakeWhile_Take" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_TakeWhile_Take" time="0.0010198" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NormalProperty" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NormalProperty" time="0.0005496" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_CustomEvent" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_CustomEvent" time="0.0006372" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Aggregate" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Aggregate" time="0.0025733" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Join_Equals" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Join_Equals" time="0.0006514" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_Operator" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_Operator" time="0.0005325" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotPropertyStatementInBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotPropertyStatementInBlock" time="0.0005584" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Join_Join" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Join_Join" time="0.0006309" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Not_WhileStatement_1" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Not_WhileStatement_1" time="0.0006057" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_EnumMember" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_EnumMember" time="0.0004387" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_GroupBy_By" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_GroupBy_By" time="0.0006235" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotDelegate" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotDelegate" time="0.0004351" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_AutoProperty" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_AutoProperty" time="0.0004382" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_SkipWhile_While" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_SkipWhile_While" time="0.0006223" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_OrderBy_Order" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_OrderBy_Order" time="0.0006960" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Where" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Where" time="0.0006273" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotOperatorStatmentInBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotOperatorStatmentInBlock" time="0.0005228" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsLeftSideOfCompoundAssignment" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsLeftSideOfCompoundAssignment" time="0.0014373" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/40917" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsQueryKeyword_Let" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsQueryKeyword_Let" time="0.0035476" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotMethodStatementInBlock" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotMethodStatementInBlock" time="0.0004524" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests.IsMethodLevelMember_NotAccessor" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxFactsServiceTests" method="IsMethodLevelMember_NotAccessor" time="0.0005658" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxTreeFactoryServiceTests" time="0.004">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxTreeFactoryServiceTests.LanguageServiceFactoryCreatesSyntaxTrees" type="Microsoft.CodeAnalysis.VisualBasic.UnitTests.VisualBasicSyntaxTreeFactoryServiceTests" method="LanguageServiceFactoryCreatesSyntaxTrees" time="0.0037459" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="37" passed="37" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" time="0.327">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoTouchCommentsAtBeginningOfFile2" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoTouchCommentsAtBeginningOfFile2" time="0.0757867" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2480" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotSpecialCaseSystem" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotSpecialCaseSystem" time="0.0054703" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotSortIfEndIfBlocks" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotSortIfEndIfBlocks" time="0.0053314" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestMissingNames" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestMissingNames" time="0.0122735" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestCaseSensitivity1" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestCaseSensitivity1" time="0.0157887" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestXml" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestXml" time="0.0192767" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/538367" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoTouchCommentsAtBeginningOfFile3" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoTouchCommentsAtBeginningOfFile3" time="0.0050713" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2480" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestGrouping" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestGrouping" time="0.0077430" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/20988" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotTouchCommentsAtBeginningOfFile1" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotTouchCommentsAtBeginningOfFile1" time="0.0043659" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestSpecialCaseSystem" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestSpecialCaseSystem" time="0.0040692" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestInsideRegionBlock" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestInsideRegionBlock" time="0.0171085" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotSpecialCaseSystem1" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotSpecialCaseSystem1" time="0.0043354" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestGroupingWithFormat" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestGroupingWithFormat" time="0.0531724" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/36984" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestSingleImportsStatement" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestSingleImportsStatement" time="0.0033621" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestCaseSensitivity2" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestCaseSensitivity2" time="0.0045118" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestTrailingComments" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestTrailingComments" time="0.0037015" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestMultipleRegionBlocks" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestMultipleRegionBlocks" time="0.0034515" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotTouchCommentsAtBeginningOfFile3" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotTouchCommentsAtBeginningOfFile3" time="0.0037747" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestIfEndIfBlockMiddle" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestIfEndIfBlockMiddle" time="0.0059491" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestGrouping3(endOfLine: &quot;\r\n&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestGrouping3(endOfLine: &quot;\r\n&quot;)" time="0.0051259" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19306" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestGrouping3(endOfLine: &quot;\n&quot;)" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestGrouping3(endOfLine: &quot;\n&quot;)" time="0.0046138" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19306" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestIfEndIfBlockBelow" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestIfEndIfBlockBelow" time="0.0032390" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoTouchCommentsAtBeginningOfFile1" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoTouchCommentsAtBeginningOfFile1" time="0.0035752" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2480" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestInsideIfEndIfBlock" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestInsideIfEndIfBlock" time="0.0040208" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestSortingAndGroupingWithFormat" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestSortingAndGroupingWithFormat" time="0.0054798" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/36984" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestAliasesAtBottom" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestAliasesAtBottom" time="0.0037487" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotTouchCommentsAtBeginningOfFile4" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotTouchCommentsAtBeginningOfFile4" time="0.0037112" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/33251" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDuplicateUsings" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDuplicateUsings" time="0.0031448" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestNestedRegionBlock" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestNestedRegionBlock" time="0.0033118" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestMultipleStatementsMultipleClauses" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestMultipleStatementsMultipleClauses" time="0.0063495" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestInterleavedNewlines" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestInterleavedNewlines" time="0.0035022" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestDoNotTouchCommentsAtBeginningOfFile2" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestDoNotTouchCommentsAtBeginningOfFile2" time="0.0034531" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestGrouping2" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestGrouping2" time="0.0048145" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/20988" />
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestKorean" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestKorean" time="0.0048718" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestEmptyFile" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestEmptyFile" time="0.0030499" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestIfEndIfBlockAbove" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestIfEndIfBlockAbove" time="0.0033611" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests.TestMultipleClauses" type="Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.OrganizeImports.OrganizeImportsTests" method="TestMultipleClauses" time="0.0031630" result="Pass">
+        <traits>
+          <trait name="Feature" value="Organizing" />
+        </traits>
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

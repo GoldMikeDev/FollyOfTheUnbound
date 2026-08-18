@@ -301,6 +301,7 @@ try {
                 $totalBytes = $totalStats.Bytes
                 $totalCount = $totalStats.Count
                 $totalFormatted = Format-ByteSize $totalBytes
+                Write-Host -NoNewline $clearLine
                 $job = Start-CleanseJob -ScriptBlock {  # raw .NET File.Delete/Directory.Delete, not the Remove-Item cmdlet -- writes each deleted file's length to the job's own output stream as it goes, unverified against Remove-Item -Recurse -Force's speed (no pwsh here to benchmark)
                     param($dir)
                     try { foreach ($f in [System.IO.Directory]::EnumerateFiles($dir, '*', [System.IO.SearchOption]::AllDirectories)) { try { $len = ([System.IO.FileInfo]$f).Length; [System.IO.File]::Delete($f); Write-Output $len } catch {} } } catch {}  # EnumerateFiles itself (not just File.Delete) can throw mid-walk on a locked subtree -- stop rather than fault the whole job with nothing cleaned up
@@ -333,7 +334,7 @@ try {
                 }
             }
             Write-Progress -Activity "Cleansing artefacts" -Completed
-            Write-Host ""  # -Completed doesn't reliably leave the cursor at column 0 on every console host (conhost in particular) -- force a fresh line rather than trusting it alone
+            Write-Host -NoNewline "`r"  # -Completed doesn't reliably leave the cursor at column 0
             if (Test-Path -LiteralPath $artifactsDir) {
                 Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue  # a transiently held lock (e.g. an antivirus scanner) can clear between the bulk delete and now -- retry once before reporting survivors
             }

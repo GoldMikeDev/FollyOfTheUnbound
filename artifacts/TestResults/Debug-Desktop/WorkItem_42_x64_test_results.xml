@@ -1,0 +1,422 @@
+<assemblies timestamp="08/18/2026 20:11:41">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.ResultProvider.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.ResultProvider.UnitTests.dll" run-date="2026-08-18" run-time="20:11:41" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.ResultProvider.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.ResultProvider.UnitTests.dll.config" total="122" passed="122" failed="0" skipped="0" time="42.442" errors="0">
+    <errors />
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ArrayExpansionTests" time="0.228">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ArrayExpansionTests.MultiDimensionalArrays" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="MultiDimensionalArrays" time="0.2280000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" time="0.241">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.GenericTypeWithGenericTypeArgument" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="GenericTypeWithGenericTypeArgument" time="0.2410000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" time="0.680">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.NullComObject" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NullComObject" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.MultipleMembers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="MultipleMembers" time="0.5220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicTypeMember" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicTypeMember" time="0.0440000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicMetaObjectProviderDebugViewItemsException" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicMetaObjectProviderDebugViewItemsException" time="0.0400000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicFormatSpecifier" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicFormatSpecifier" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.NullDynamicObject" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NullDynamicObject" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicTypeError" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicTypeError" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.NoMembers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NoMembers" time="0.0440000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5667" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.ExceptionTypeMember" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="ExceptionTypeMember" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicMetaObjectProviderDebugViewItemsError" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicMetaObjectProviderDebugViewItemsError" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicFormatSpecifierError" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicFormatSpecifierError" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.NullIDynamicMetaObjectProvider" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NullIDynamicMetaObjectProvider" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests.MultipleExpansions" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.DynamicViewTests" method="MultipleExpansions" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" time="1.975">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.RootVersusInternal" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="RootVersusInternal" time="0.0310000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1016895" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.UnicodeString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="UnicodeString" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject_Array" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject_Array" time="0.1050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.UnicodeChar" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="UnicodeChar" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyHiddenByNameOnBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyHiddenByNameOnBase" time="0.0840000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyOnNestedBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyOnNestedBase" time="0.0310000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.HiddenMembers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="HiddenMembers" time="0.7480000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1010498" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithFieldsOnMultipleBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithFieldsOnMultipleBase" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithInterfaceReimplementation" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithInterfaceReimplementation" time="0.0310000" result="Pass">
+        <traits>
+          <trait name="WorkItemId" value="1074435" />
+          <trait name="WorkItemUrl" value="DevDiv" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeAndRuntimeTypeDifferent" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeAndRuntimeTypeDifferent" time="0.0170000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/965892" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyOnGenericBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyOnGenericBase" time="0.0170000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.BaseTypeEditableValue" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseTypeEditableValue" time="0.1620000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1002381" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.Pointers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="Pointers" time="0.5930000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithIndexerOnBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithIndexerOnBase" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithVirtualPropertiesAcrossDeclaredType" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithVirtualPropertiesAcrossDeclaredType" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.Nullable" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="Nullable" time="0.0470000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMembers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMembers" time="0.0220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.Enums" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="Enums" time="0.0220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithFieldOnBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithFieldOnBase" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.PropertyNameConflictsWithFieldOnBase" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="PropertyNameConflictsWithFieldOnBase" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests.MultilineString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ExpansionTests" method="MultilineString" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FormatSpecifierTests" time="0.014">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FormatSpecifierTests.NoQuotes_Char" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="NoQuotes_Char" time="0.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FormatSpecifierTests.NoQuotes_String" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="NoQuotes_String" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" time="9.102">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.RootFormatSpecifiers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="RootFormatSpecifiers" time="0.0270000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.Null" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="Null" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_GenericType" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_GenericType" time="0.7800000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.This" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="This" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_Member" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_Member" time="1.2470000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.RootParentheses" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="RootParentheses" time="0.0690000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.GenericTypeWithoutBacktick" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="GenericTypeWithoutBacktick" time="1.0650000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.Cast" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="Cast" time="0.0930000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_ArrayElement" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_ArrayElement" time="0.9330000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_Namespace" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_Namespace" time="0.6030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.ArrayIndex" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="ArrayIndex" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_NonGenericType" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_NonGenericType" time="0.5870000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_ExplicitInterfaceImplementation" time="0.7200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_Root" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_Root" time="0.1020000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1022165" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.RootComment" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="RootComment" time="0.0410000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_DebuggerTypeProxy" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_DebuggerTypeProxy" time="0.8810000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_FirstCharacter" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_FirstCharacter" time="0.7810000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_StaticMembers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_StaticMembers" time="0.6020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.RootTrailingSemicolons" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="RootTrailingSemicolons" time="0.0200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.RootMixedExtras" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="RootMixedExtras" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_CastRequired" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_CastRequired" time="0.5330000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" time="0.116">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.Nullable" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="Nullable" time="0.0220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.ExpansionOfNullValue" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="ExpansionOfNullValue" time="0.0250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.Expansion" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="Expansion" time="0.0250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.FilteredExpansion" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="FilteredExpansion" time="0.0240000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.SimpleDisplayString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="SimpleDisplayString" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.DisplayString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="DisplayString" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectIdTests" time="0.024">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectIdTests.SpecialTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ObjectIdTests" method="SpecialTypes" time="0.0240000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests" time="7.416">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableExplicitImplementation" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableExplicitImplementation" time="6.6250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTExplicitImplementation" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTExplicitImplementation" time="0.3420000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests.GetProxyPropertyValueError" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetProxyPropertyValueError" time="0.4490000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1043746" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests" time="4.916">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests.Names_LongTuple" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests" method="Names_LongTuple" time="3.9270000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/13625" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests.NamesFromTypeArguments" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests" method="NamesFromTypeArguments" time="0.7800000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests.Keywords" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests" method="Keywords" time="0.1340000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests.LongTuple_NoNames" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TupleTests" method="LongTuple_NoNames" time="0.0750000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" time="0.431">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.DynamicAttribute_ValidFlags" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="DynamicAttribute_ValidFlags" time="0.0060000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087216" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.ArrayTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="ArrayTypes" time="0.0490000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.KeywordIdentifiers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="KeywordIdentifiers" time="0.0490000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PrimitiveNullableTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PrimitiveNullableTypes" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NullableTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NullableTypes" time="0.0440000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PointerTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PointerTypes" time="0.0200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.Primitives" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="Primitives" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.CustomBoundsArrayTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="CustomBoundsArrayTypes" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.GenericTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="GenericTypes" time="0.0170000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.DynamicAttribute_OtherGuid" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="DynamicAttribute_OtherGuid" time="0.0010000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087216" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PrimitiveArrayTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PrimitiveArrayTypes" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NonGenericInGeneric" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NonGenericInGeneric" time="0.0310000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NestedTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NestedTypes" time="0.2080000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1016796" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.Void" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="Void" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PrimitivePointerTypes" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PrimitivePointerTypes" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests" time="0.862">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests.TypeVariables" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests" method="TypeVariables" time="0.8620000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="33" passed="33" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" time="0.235">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.InvalidValue_2" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="InvalidValue_2" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Doubles" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Doubles" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.FlagsEnum_Order" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="FlagsEnum_Order" time="0.0200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.FlagsEnum_Negative" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="FlagsEnum_Negative" time="0.0200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.ValuesWithUnderlyingString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="ValuesWithUnderlyingString" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.FlagsEnum_Zero" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="FlagsEnum_Zero" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.IntegralPrimitives" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="IntegralPrimitives" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Arrays" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Arrays" time="0.0180000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.VisualizeString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="VisualizeString" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.ToStringOverrides" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="ToStringOverrides" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.NonFlagsEnum_Order" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="NonFlagsEnum_Order" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.NonFlagsEnum_Negative" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="NonFlagsEnum_Negative" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Strings" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Strings" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.FlagsEnum" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="FlagsEnum" time="0.0260000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.HostValueNotFound_char" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="HostValueNotFound_char" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.HostValueNotFound_Enum" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="HostValueNotFound_Enum" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.VisualizeSqlString" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="VisualizeSqlString" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.FlagsEnum_Combination" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="FlagsEnum_Combination" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Chars" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Chars" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Singles" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Singles" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.HostValueNotFound_IntPtr" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="HostValueNotFound_IntPtr" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.InvalidValue_1" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="InvalidValue_1" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Nullable" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Nullable" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.HostValueNotFound_UIntPtr" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="HostValueNotFound_UIntPtr" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Void" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Void" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Booleans" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Booleans" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.HostValueNotFound_DateTime" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="HostValueNotFound_DateTime" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.NonFlagsEnum" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="NonFlagsEnum" time="0.0220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.VisualizeXNode" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="VisualizeXNode" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.HostValueNotFound_Integer" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="HostValueNotFound_Integer" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Pointers" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Pointers" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Dates" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Dates" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests.Decimals" type="Microsoft.CodeAnalysis.VisualBasic.ExpressionEvaluator.UnitTests.ValueFormatterTests" method="Decimals" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

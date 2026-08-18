@@ -1,0 +1,37 @@
+<assemblies timestamp="08/18/2026 20:14:27">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-08-18" run-time="20:14:27" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll.config" total="10" passed="10" failed="0" skipped="0" time="15.451" errors="0">
+    <errors />
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" time="1.005">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Debug)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Debug)" time="0.3030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Warning)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Warning)" time="0.0460000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Information)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Information)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Critical)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Critical)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: None)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: None)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Trace)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Trace)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Error)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Error)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.EventWithProperties" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="EventWithProperties" time="0.6250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: False)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: False)" time="0.0250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: True)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: True)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>
