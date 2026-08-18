@@ -897,7 +897,14 @@ try {
     # failures (not that the build tooling itself broke), so skip the full exception dump and
     # report it concisely instead. The HTML/xUnit failure logs under artifacts/log/$configuration
     # already have the actual details.
-    Write-Host "Not all test suites succeeded. See artifacts\TestResults\$configuration and artifacts\log\$configuration for details." -ForegroundColor Red
+    #
+    # FOTU_TEST_RESULTS_SUFFIX (set by folly.ps1's scry action) redirects TestUsingRunTests'
+    # actual output to artifacts\TestResults\$configuration-<suffix> and artifacts\log\$configuration-<suffix>
+    # -- pointing at the unsuffixed paths here would send the user looking in a directory that was
+    # never written to.
+    $resultsSuffix = $env:FOTU_TEST_RESULTS_SUFFIX
+    $resultsDirLabel = if ($resultsSuffix) { "$configuration-$resultsSuffix" } else { $configuration }
+    Write-Host "Not all test suites succeeded. See artifacts\TestResults\$resultsDirLabel and artifacts\log\$resultsDirLabel for details." -ForegroundColor Red
     ExitWithExitCode 1
   }
 

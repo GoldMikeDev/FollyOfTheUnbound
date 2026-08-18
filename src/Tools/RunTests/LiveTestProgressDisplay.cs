@@ -3,13 +3,13 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Win32.SafeHandles;
 using Windows.Win32;
 using Win32Console = Windows.Win32.System.Console;
@@ -118,6 +118,42 @@ namespace RunTests
         private readonly SafeFileHandle? _windowsStdInHandle;
         private readonly Win32Console.CONSOLE_MODE _windowsOriginalConsoleMode;
         private readonly Win32Console.CONSOLE_MODE _windowsModifiedConsoleMode;
+
+        /// <summary>
+        /// Bytes read off <see cref="Console.In"/> by <see cref="_rawInputReaderThread"/>, drained by
+        /// <see cref="ReadRawByte"/>. Only ever populated when <see cref="_supportsMouseWheel"/> is true --
+        /// see <see cref="_rawInputReaderThread"/>'s doc comment for why a dedicated thread feeds this instead
+        /// of each read spawning its own task.
+        /// </summary>
+        private readonly ConcurrentQueue<int> _rawInputQueue = new();
+
+        /// <summary>
+        /// A single long-lived background thread that owns every read from <see cref="Console.In"/> for this
+        /// display's lifetime, publishing each byte into <see cref="_rawInputQueue"/>. Started once, lazily, the
+        /// first time raw input is actually needed (<see cref="EnsureRawInputReaderStarted"/>). Never explicitly
+        /// stopped -- see <see cref="StopRawInputReader"/>'s doc comment for why that's a deliberate choice, not
+        /// an oversight: this thread instead simply outlives the display, blocked forever in its last
+        /// <see cref="Console.In.Read"/> call. That's safe only because it's a single
+        /// <see cref="Thread.IsBackground"/> thread (never more than one), so it can never keep the process
+        /// itself from exiting -- unlike the unbounded thread-pool leak described below, which this design
+        /// exists to eliminate.
+        /// <para>
+        /// Replaces an earlier design where <see cref="ReadRawByte"/> spawned a fresh <c>Task.Run(Console.In.Read)</c>
+        /// on every single byte, bounded by a short timeout: whenever that read didn't complete within the bound
+        /// (e.g. a lone Esc keypress, or the tail of an escape sequence a slow PTY hadn't finished delivering
+        /// yet), the task was abandoned but its <c>Console.In.Read()</c> call kept running forever, permanently
+        /// blocked inside <see cref="Console.In"/>'s internal synchronization lock. <see cref="Console.In"/> only
+        /// lets one reader through that lock at a time, so every later abandoned read piled up queued behind the
+        /// stuck ones instead of ever returning -- silently leaking one blocked thread-pool thread per timed-out
+        /// read, for the rest of the run. On a long run with any scrolling at all (each wheel notch or arrow key
+        /// is a multi-byte escape sequence, i.e. multiple <see cref="ReadRawByte"/> calls), those leaked threads
+        /// accumulate and starve the very thread pool this run's own async test loop depends on to schedule its
+        /// once-a-second continuation -- turning a table that should redraw every second into one that visibly
+        /// stalls for many seconds at a time the longer the run goes on. A single dedicated thread makes exactly
+        /// one blocking read call at a time, ever, so there is nothing left to leak.
+        /// </para>
+        /// </summary>
+        private Thread? _rawInputReaderThread;
 
         private readonly string _runLabel;
         private readonly List<Row> _rows;
@@ -233,6 +269,61 @@ namespace RunTests
             else
             {
                 _supportsMouseWheel = true;
+            }
+
+            if (_supportsMouseWheel)
+            {
+                EnsureRawInputReaderStarted();
+            }
+        }
+
+        /// <summary>
+        /// Starts <see cref="_rawInputReaderThread"/> the first (and only) time it's needed. Safe to call more
+        /// than once -- only the constructor does today, but idempotency here is cheap insurance against that
+        /// changing later.
+        /// </summary>
+        private void EnsureRawInputReaderStarted()
+        {
+            if (_rawInputReaderThread is not null)
+            {
+                return;
+            }
+
+            _rawInputReaderThread = new Thread(RawInputReaderLoop)
+            {
+                IsBackground = true,
+                Name = "LiveTestProgressDisplay raw input reader",
+            };
+            _rawInputReaderThread.Start();
+        }
+
+        /// <summary>
+        /// Body of <see cref="_rawInputReaderThread"/>: blocks on <see cref="Console.In"/> one byte at a time,
+        /// forever, publishing each into <see cref="_rawInputQueue"/>. This is the only code anywhere in this
+        /// class that ever calls <see cref="Console.In"/> directly -- exactly one blocking call in flight at a
+        /// time, for this display's entire lifetime, is what makes the leak described on
+        /// <see cref="_rawInputReaderThread"/> impossible. Exits (rather than spinning) on EOF or any read
+        /// failure; the display just stops seeing further input from that point on, same as before.
+        /// </summary>
+        private void RawInputReaderLoop()
+        {
+            try
+            {
+                while (true)
+                {
+                    var b = Console.In.Read();
+                    if (b < 0)
+                    {
+                        return;
+                    }
+
+                    _rawInputQueue.Enqueue(b);
+                }
+            }
+            catch
+            {
+                // Best effort -- if Console.In itself becomes unusable mid-run, navigation just stops working
+                // for the rest of it rather than taking the whole display down.
             }
         }
 
@@ -409,6 +500,7 @@ namespace RunTests
             lock (_gate)
             {
                 ExitAltScreenIfActive();
+                StopRawInputReader();
             }
 
             if (Current == this)
@@ -599,6 +691,31 @@ namespace RunTests
         {
             _disabled = true;
             ExitAltScreenIfActive();
+            StopRawInputReader();
+        }
+
+        /// <summary>
+        /// Deliberately does <b>not</b> attempt to unblock <see cref="_rawInputReaderThread"/>'s pending
+        /// <see cref="Console.In"/> read. <see cref="Console.In"/> is <see cref="TextReader.Synchronized(TextReader)"/>-
+        /// wrapped, and that wrapper takes the same internal monitor for every call, including <c>Close()</c> --
+        /// so calling <c>Console.In.Close()</c> from here (an earlier version of this method did exactly that)
+        /// would itself block on that monitor for as long as the reader thread's <c>Read()</c> call holds it,
+        /// which is until the next byte of real input arrives. Since this method runs synchronously inside
+        /// <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/>, that would turn "stop the display" into
+        /// "hang until the user presses another key" -- worse than the thread it was trying to clean up,
+        /// especially after a whole-run timeout where nothing is left prompting for keystrokes at all.
+        /// <see cref="Console.In.Read"/> has no cancellation token, and there is no way to safely interrupt a
+        /// blocking read on a real console/terminal input handle out from under another thread on every
+        /// platform this runs on. The thread is therefore simply abandoned once this display is done with it --
+        /// safe only because it's a single <see cref="Thread.IsBackground"/> thread (never more than one, thanks
+        /// to the dedicated-reader design this replaces per-byte <c>Task.Run</c> leaks with), so it can never
+        /// keep the process itself from exiting, unlike the unbounded thread-pool leak the per-byte design risked.
+        /// </summary>
+        private void StopRawInputReader()
+        {
+            // Intentionally a no-op beyond this comment -- see the doc comment above for why actually closing
+            // Console.In here would risk a worse bug (a synchronous hang in Complete()/DisableAndExitAltScreen())
+            // than the one leaked background thread it would have cleaned up.
         }
 
         /// <summary>
@@ -703,7 +820,7 @@ namespace RunTests
         /// </summary>
         private void PollKeyboardAndMouseInputRaw(int visibleRowBudget, int maxScrollStart)
         {
-            while (Console.KeyAvailable)
+            while (!_rawInputQueue.IsEmpty)
             {
                 var first = ReadRawByte();
                 if (first != 0x1b)
@@ -770,47 +887,42 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Reads a single genuinely raw, undecoded byte off <see cref="Console.In"/> -- unlike
-        /// <see cref="Console.ReadKey()"/>, which is not usable here: on Unix it applies its own terminfo-based
-        /// key-sequence decoding, collapsing e.g. <c>ESC [ A</c> into a single <see cref="ConsoleKey.UpArrow"/>
-        /// <see cref="ConsoleKeyInfo"/> with <see cref="ConsoleKeyInfo.KeyChar"/> <c>'\0'</c> instead of surfacing
-        /// the individual <c>ESC</c>/<c>[</c>/<c>A</c> bytes this parser depends on seeing one at a time, and it has
-        /// no table entry for a mouse report at all -- so unrecognized sequences would be consumed or misdecoded
-        /// unpredictably, exactly the reason this class avoided <see cref="Console.ReadKey()"/> in the first place.
+        /// Dequeues a single genuinely raw, undecoded byte already read off <see cref="Console.In"/> by
+        /// <see cref="_rawInputReaderThread"/> -- unlike <see cref="Console.ReadKey()"/>, which is not usable
+        /// here: on Unix it applies its own terminfo-based key-sequence decoding, collapsing e.g. <c>ESC [ A</c>
+        /// into a single <see cref="ConsoleKey.UpArrow"/> <see cref="ConsoleKeyInfo"/> with
+        /// <see cref="ConsoleKeyInfo.KeyChar"/> <c>'\0'</c> instead of surfacing the individual <c>ESC</c>/<c>[</c>/<c>A</c>
+        /// bytes this parser depends on seeing one at a time, and it has no table entry for a mouse report at all
+        /// -- so unrecognized sequences would be consumed or misdecoded unpredictably, exactly the reason this
+        /// class avoided <see cref="Console.ReadKey()"/> in the first place.
         /// <para>
-        /// <see cref="Console.In"/> is a separate, independently-buffered <see cref="System.IO.TextReader"/> that
-        /// isn't guaranteed to pair safely with the <see cref="Console.KeyAvailable"/> checks every caller here has
-        /// already made before calling this -- it could in principle still block despite that. Since this executes
-        /// synchronously inside <see cref="RedrawCore"/> under <see cref="_gate"/>, on the same single-threaded loop
-        /// that also drives the entire test schedule, a genuine hang here wouldn't just break navigation -- it would
-        /// freeze every redraw and every still-queued work item from starting for as long as it lasted. The read is
-        /// therefore run on a background thread pool thread and bounded to <see cref="EscapeSequenceCompletionTimeoutMs"/>:
-        /// on timeout this returns <c>-1</c> (treated identically to "nothing more arrived" by every caller) and
-        /// abandons that background read rather than waiting on it, at the acceptable cost of a rare leaked blocked
-        /// thread-pool thread instead of a frozen run.
+        /// Never blocks: <see cref="_rawInputReaderThread"/> is the only thing that ever calls into
+        /// <see cref="Console.In"/>, so this only ever touches the lock-free <see cref="_rawInputQueue"/>. Callers
+        /// that need to wait for a byte that hasn't arrived yet use <see cref="WaitForMoreInput"/> first; this
+        /// returns <c>-1</c> immediately if the queue is empty, same contract as the old bounded-wait version had
+        /// on timeout.
         /// </para>
         /// </summary>
-        private static int ReadRawByte()
-        {
-            var task = Task.Run(static () => Console.In.Read());
-            return task.Wait(EscapeSequenceCompletionTimeoutMs) ? task.Result : -1;
-        }
+        private int ReadRawByte()
+            => _rawInputQueue.TryDequeue(out var b) ? b : -1;
 
         /// <summary>
         /// Bounded wait for more input to show up, used everywhere <see cref="PollKeyboardAndMouseInputRaw"/> and
         /// its helpers (<see cref="ReadCsiTildeSequence"/>, <see cref="TryParseSgrMouseWheel"/>) are partway
         /// through a multi-byte escape sequence and need to know whether the next byte is really not coming, or
-        /// just hasn't arrived on the wire yet. A single <see cref="Console.KeyAvailable"/> check alone can't tell
-        /// those apart -- a PTY is a byte stream with no message boundaries, so nothing guarantees a terminal's
-        /// write() lands in one piece by the time a poll runs, even though it almost always does locally. Blocking
-        /// here (rather than leaving it to the *next* redraw tick, roughly a second later) keeps a merely-slow-to-
-        /// arrive sequence from being torn in half -- its already-read prefix discarded or misparsed, and its
-        /// second half misread as bare characters on the next poll -- instead of correctly waiting the extra few
-        /// milliseconds for the rest to show up.
+        /// just hasn't arrived on the wire yet. A single non-empty-queue check alone can't tell those apart -- a
+        /// PTY is a byte stream with no message boundaries, so nothing guarantees a terminal's write() lands in
+        /// one piece by the time <see cref="_rawInputReaderThread"/> has drained it into <see cref="_rawInputQueue"/>,
+        /// even though it almost always does locally. Blocking here (rather than leaving it to the *next* redraw
+        /// tick, roughly a second later) keeps a merely-slow-to-arrive sequence from being torn in half -- its
+        /// already-read prefix discarded or misparsed, and its second half misread as bare characters on the next
+        /// poll -- instead of correctly waiting the extra few milliseconds for the rest to show up. The wait
+        /// itself only ever spins this calling thread (never blocks on <see cref="Console.In"/>), so it can't
+        /// contribute to the thread-pool leak <see cref="_rawInputReaderThread"/>'s doc comment describes.
         /// </summary>
-        private static bool WaitForMoreInput()
+        private bool WaitForMoreInput()
         {
-            if (Console.KeyAvailable)
+            if (!_rawInputQueue.IsEmpty)
             {
                 return true;
             }
@@ -818,7 +930,7 @@ namespace RunTests
             var deadline = Environment.TickCount64 + EscapeSequenceCompletionTimeoutMs;
             while (Environment.TickCount64 < deadline)
             {
-                if (Console.KeyAvailable)
+                if (!_rawInputQueue.IsEmpty)
                 {
                     return true;
                 }
@@ -826,11 +938,11 @@ namespace RunTests
                 Thread.Sleep(1);
             }
 
-            return Console.KeyAvailable;
+            return !_rawInputQueue.IsEmpty;
         }
 
         /// <summary>Reads the rest of a <c>CSI &lt;digits&gt; ~</c> sequence (e.g. Home/End/PageUp/PageDown), given the first digit already read as <paramref name="firstDigit"/>.</summary>
-        private static string ReadCsiTildeSequence(int firstDigit)
+        private string ReadCsiTildeSequence(int firstDigit)
         {
             var digits = new StringBuilder().Append((char)firstDigit);
             while (WaitForMoreInput())
@@ -856,7 +968,7 @@ namespace RunTests
         /// masking rather than an exact equality check against 64/65 is what's tested. Coordinates are read past
         /// but otherwise ignored -- nothing here is scoped to where in the terminal the wheel moved.
         /// </summary>
-        private static bool TryParseSgrMouseWheel(out bool wheelDown)
+        private bool TryParseSgrMouseWheel(out bool wheelDown)
         {
             wheelDown = false;
             var buffer = new StringBuilder();

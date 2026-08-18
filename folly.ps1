@@ -422,12 +422,12 @@ try {
                 $lastScanUpdate = Get-Date -Year 1970
                 while ($scanJob.State -eq 'Running') {
                     $now = Get-Date
-                    if (($now - $lastScanUpdate).TotalMilliseconds -ge 100) {
+                    if (($now - $lastScanUpdate).TotalMilliseconds -ge 150) {
                         $lastScanUpdate = Get-Date
                         $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
                         Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
                     }
-                    Start-Sleep -Milliseconds 50
+                    Start-Sleep -Milliseconds 150
                 }
                 $totalStats = Receive-Job -Job $scanJob
                 Remove-Job -Job $scanJob
@@ -449,7 +449,7 @@ try {
                 $lastUpdate = Get-Date -Year 1970
                 while ($job.State -eq 'Running') {
                     $now = Get-Date
-                    if (($now - $lastUpdate).TotalMilliseconds -ge 100) {
+                    if (($now - $lastUpdate).TotalMilliseconds -ge 150) {
                         $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
                         $remainingBytes = 0L
                         $remainingCount = 0
@@ -460,7 +460,7 @@ try {
                         }
                         # Stamp the throttle from *after* the scan, not before
                         # -- on the large trees this is meant to help with,
-                        # Get-DirStats can itself take longer than 100ms, and
+                        # Get-DirStats can itself take longer than 150ms, and
                         # timestamping before it would let the next loop
                         # iteration fire immediately, keeping a second
                         # full-tree walker running continuously alongside
@@ -474,7 +474,7 @@ try {
                         $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
                         Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                     }
-                    Start-Sleep -Milliseconds 50
+                    Start-Sleep -Milliseconds 150
                 }
                 Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
                 Remove-Job -Job $job

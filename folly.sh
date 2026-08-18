@@ -278,7 +278,7 @@ case "$action" in
             spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
             printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
           fi
-          sleep 0.05
+          sleep 0.15
         done
         printf '\r\033[K'
       fi
@@ -325,7 +325,7 @@ case "$action" in
               "${spinner_frames[$spinner_index]}" "$deleted_count" "$total_count" \
               "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
           fi
-          sleep 0.05
+          sleep 0.15
         done
         printf '\r\033[K'
       fi
