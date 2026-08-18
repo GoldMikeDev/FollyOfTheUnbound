@@ -290,7 +290,7 @@ try {
                     [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
                 } -ArgumentList $artifactsDir
                 Write-Host -NoNewline "${clearLine}Scanning artefacts $($spinnerFrames[$spinnerIndex])"  # drawn immediately, before the loop's first 150ms tick, or the line stays blank that whole first interval
-                while ($scanJob.State -eq 'Running') {
+                while ($scanJob.State -notin 'Completed', 'Failed', 'Stopped') {  # not -eq 'Running': a freshly started job can still read 'NotStarted' on this first check (Start-ThreadJob starts fast enough to race it), which isn't 'Running' either but isn't finished
                     Start-Sleep -Milliseconds 150
                     $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
                     Write-Host -NoNewline "${clearLine}Scanning artefacts $($spinnerFrames[$spinnerIndex])"
@@ -310,7 +310,7 @@ try {
                 $startTime = Get-Date
                 $deletedBytes = 0L
                 $deletedCount = 0
-                while ($job.State -eq 'Running') {
+                while ($job.State -notin 'Completed', 'Failed', 'Stopped') {
                     Start-Sleep -Milliseconds 150
                     foreach ($size in (Receive-Job -Job $job)) { $deletedBytes += [long]$size; $deletedCount++ }  # drains the job's own stream instead of re-scanning the tree -- no second operation racing the delete
                     $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
