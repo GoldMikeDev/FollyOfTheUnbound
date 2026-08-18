@@ -108,17 +108,22 @@ try {
         Write-Host "Unrecognised configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." -ForegroundColor Red
         exit 1
     }
+    # -nodeReuse:$false on every action here (not just scry): eng/common/tools.ps1 defaults
+    # nodeReuse to true locally, which leaves persistent MSBuild worker processes running after
+    # this script exits, still holding DLLs open under artifacts/ -- `dotnet build-server shutdown`
+    # (see cleanse below) only stops VBCSCompiler/the Razor server, not these. cleanse has nothing
+    # left to fight only if these never linger in the first place.
     if ($action -eq "attune") {
-        & $buildScript -restore -solution $solution -configuration $configuration
+        & $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "weave") {
-        & $buildScript -restore -build -solution $solution -configuration $configuration
+        & $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "reweave") {
-        & $buildScript -restore -rebuild -solution $solution -configuration $configuration
+        & $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "bind") {
-        & $buildScript -restore -build -pack -solution $solution -configuration $configuration
+        & $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
         # Default to both when neither switch is given; either switch alone runs just that one.
@@ -132,7 +137,7 @@ try {
         # build-created value into the caller's environment instead of actually clearing it.
         $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH
 
-        & $buildScript -restore -build -solution $solution -configuration $configuration
+        & $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
         if ($buildExitCode -ne 0) {
             exit $buildExitCode
@@ -231,7 +236,7 @@ try {
             # read later than per-pass ones.
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testCoreClr -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
+                & $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $coreClrExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -248,7 +253,7 @@ try {
             $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testDesktop -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
+                & $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $desktopExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -395,14 +400,37 @@ try {
             # much slower than Explorer's "Remove item". Progress is reported
             # by periodically re-scanning what's left with Get-DirStats, so the
             # display doesn't add per-file cost back into the deletion path.
+            #
+            # Just a spinner, redrawn in place every 150ms -- no percent, no
+            # rate, no Write-Progress. Write-Progress renders through the host's
+            # own progress-pane machinery (a separate reserved screen region on
+            # some hosts, a title-bar update on others), which is exactly the
+            # inconsistency `-Completed` not reliably resetting the cursor
+            # (below, before this rewrite) came from -- a single manually
+            # redrawn line behaves identically everywhere, matching folly.sh's
+            # plain `printf '\r\033[K...'` line-redraw approach exactly.
             $spinnerFrames = @('|', '/', '-', '\')
             $spinnerIndex = 0
+            $clearLine = "`r" + [char]27 + "[K"
 
-            # Get-DirStats on the full tree can itself take a while on a
-            # large build output -- run it as a background job too and show
-            # a spinner instead of leaving the terminal blank until the scan
-            # finishes.
-            #
+            # Start-Job spins up an entire new powershell(.exe) process -- on a
+            # cold process-creation path that can take a couple of seconds
+            # before .State even leaves NotStarted, which is what left the
+            # terminal looking blank before anything appeared. Start-ThreadJob
+            # (bundled with PowerShell 7+; ships as an in-box module, no
+            # separate install) instead runs the job in a runspace inside this
+            # same process -- no new-process startup cost -- and is API-
+            # compatible with Start-Job (same .State/Receive-Job/Remove-Job
+            # surface), so it's a drop-in swap wherever it's available, with
+            # Start-Job as the fallback on hosts that don't have it.
+            $threadJobAvailable = $null -ne (Get-Command Start-ThreadJob -ErrorAction SilentlyContinue)
+            function Start-CleanseJob([scriptblock]$ScriptBlock, $ArgumentList) {
+                if ($threadJobAvailable) {
+                    return Start-ThreadJob -ScriptBlock $ScriptBlock -ArgumentList $ArgumentList
+                }
+                return Start-Job -ScriptBlock $ScriptBlock -ArgumentList $ArgumentList
+            }
+
             # Both this and the delete job below are wrapped in try/finally:
             # if Ctrl+C interrupts the polling loop, PowerShell unwinds
             # through the finally block, which stops and removes whichever
@@ -413,68 +441,50 @@ try {
             $scanJob = $null
             $job = $null
             try {
-                $scanJob = Start-Job -ScriptBlock {
+                $scanJob = Start-CleanseJob -ScriptBlock {
                     param($dir)
                     $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
                         Measure-Object -Property Length -Sum
                     [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
                 } -ArgumentList $artifactsDir
-                $lastScanUpdate = Get-Date -Year 1970
+                # Draw the first frame immediately, before the polling loop's
+                # first 150ms tick -- otherwise the line stays blank for that
+                # whole first interval even once the job is already running.
+                Write-Host -NoNewline "${clearLine}Scanning artefacts $($spinnerFrames[$spinnerIndex])"
                 while ($scanJob.State -eq 'Running') {
-                    $now = Get-Date
-                    if (($now - $lastScanUpdate).TotalMilliseconds -ge 150) {
-                        $lastScanUpdate = Get-Date
-                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                        Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
-                    }
                     Start-Sleep -Milliseconds 150
+                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                    Write-Host -NoNewline "${clearLine}Scanning artefacts $($spinnerFrames[$spinnerIndex])"
                 }
                 $totalStats = Receive-Job -Job $scanJob
                 Remove-Job -Job $scanJob
                 $scanJob = $null
-                Write-Progress -Activity "Scanning artefacts" -Completed
 
                 $totalBytes = $totalStats.Bytes
                 $totalCount = $totalStats.Count
                 $totalFormatted = Format-ByteSize $totalBytes
 
-                $startTime = Get-Date
-                $job = Start-Job -ScriptBlock {
+                $job = Start-CleanseJob -ScriptBlock {
                     param($dir)
                     Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
                 } -ArgumentList $artifactsDir
 
                 $deletedBytes = 0L
                 $deletedCount = 0
-                $lastUpdate = Get-Date -Year 1970
+                Write-Host -NoNewline "${clearLine}Cleansing artefacts $($spinnerFrames[$spinnerIndex])"
                 while ($job.State -eq 'Running') {
-                    $now = Get-Date
-                    if (($now - $lastUpdate).TotalMilliseconds -ge 150) {
-                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                        $remainingBytes = 0L
-                        $remainingCount = 0
-                        if (Test-Path -LiteralPath $artifactsDir) {
-                            $remainingStats = Get-DirStats $artifactsDir
-                            $remainingBytes = $remainingStats.Bytes
-                            $remainingCount = $remainingStats.Count
-                        }
-                        # Stamp the throttle from *after* the scan, not before
-                        # -- on the large trees this is meant to help with,
-                        # Get-DirStats can itself take longer than 150ms, and
-                        # timestamping before it would let the next loop
-                        # iteration fire immediately, keeping a second
-                        # full-tree walker running continuously alongside
-                        # Remove-Item and fighting it for the same filesystem
-                        # I/O.
-                        $lastUpdate = Get-Date
-                        $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
-                        $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
-                        $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
-                        $elapsedSeconds = ($lastUpdate - $startTime).TotalSeconds
-                        $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                        Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
-                    }
                     Start-Sleep -Milliseconds 150
+                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                    $remainingBytes = 0L
+                    $remainingCount = 0
+                    if (Test-Path -LiteralPath $artifactsDir) {
+                        $remainingStats = Get-DirStats $artifactsDir
+                        $remainingBytes = $remainingStats.Bytes
+                        $remainingCount = $remainingStats.Count
+                    }
+                    $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
+                    $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
+                    Write-Host -NoNewline "${clearLine}Cleansing artefacts $($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted"
                 }
                 Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
                 Remove-Job -Job $job
@@ -490,13 +500,7 @@ try {
                     Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
                 }
             }
-            Write-Progress -Activity "Cleansing artefacts" -Completed
-            # Write-Progress's "completed" pane doesn't reliably leave the
-            # cursor at column 0 in every console host (conhost in
-            # particular), which left stray blank padding in front of the
-            # line below -- force a fresh line rather than trusting
-            # -Completed alone.
-            Write-Host ""
+            Write-Host -NoNewline $clearLine
 
             if (Test-Path -LiteralPath $artifactsDir) {
                 # A lock held only transiently (e.g. an antivirus scanner, or

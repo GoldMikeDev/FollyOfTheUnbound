@@ -95,20 +95,26 @@ else
   exit 1
 fi
 case "$action" in
+  # --nodeReuse false on every action here (not just scry, which cleanse's own file-locking
+  # comment already knew about `dotnet build-server shutdown` not covering): Arcade's tools.sh
+  # defaults nodeReuse to true locally, which leaves persistent MSBuild worker processes running
+  # after the script exits, still holding DLLs open under artifacts/ -- `build-server shutdown`
+  # only stops VBCSCompiler/the Razor server, not these. `cleanse` running later has nothing left
+  # to fight only if these never linger in the first place.
   attune)
-    "$build_script" --restore --solution "$solution" --configuration "$configuration"
+    "$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration"
     ;;
   weave)
-    "$build_script" --restore --build --solution "$solution" --configuration "$configuration"
+    "$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration"
     ;;
   reweave)
-    "$build_script" --restore --rebuild --solution "$solution" --configuration "$configuration"
+    "$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration"
     ;;
   bind)
-    "$build_script" --restore --build --pack --solution "$solution" --configuration "$configuration"
+    "$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration"
     ;;
   scry)
-    scry_args=(--restore --build --test --solution "$solution" --configuration "$configuration")
+    scry_args=(--restore --build --test --nodeReuse false --solution "$solution" --configuration "$configuration")
     if [[ "$test_timeout" -gt 0 ]]; then
       scry_args+=(--testTimeout "$test_timeout")
     fi
@@ -267,65 +273,48 @@ case "$action" in
       # build output -- run it in the background too and show a spinner
       # instead of leaving the terminal blank (with the cursor hidden)
       # until the scan finishes.
+      #
+      # Just a spinner, redrawn in place every ~150ms -- no percent, no
+      # rate. Redraws unconditionally on every loop iteration rather than
+      # gating on a `$SECONDS != last_second` check: that integer-seconds
+      # comparison meant this only ever actually redrew once a second no
+      # matter how short the `sleep` below was, despite looking like a
+      # 150ms cadence at a glance.
       scan_tmp=$(mktemp)
       ( dir_stats "$artifacts_dir" > "$scan_tmp" ) &
       scan_pid=$!
       if (( interactive )); then
-        last_second=-1
+        # Draw the first frame immediately, before the loop's first sleep --
+        # otherwise the line stays blank for that whole first interval even
+        # once the background scan is already running.
+        printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
         while kill -0 "$scan_pid" 2>/dev/null; do
-          if (( SECONDS != last_second )); then
-            last_second=$SECONDS
-            spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-            printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
-          fi
           sleep 0.15
+          spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+          printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
         done
-        printf '\r\033[K'
       fi
       wait "$scan_pid" || true
       read -r total_bytes total_count _ < "$scan_tmp"
       rm -f "$scan_tmp"
       total_formatted=$(format_bytes "$total_bytes")
 
-      start_time=$(date +%s)
       rm -rf "$artifacts_dir" &
       rm_pid=$!
 
       deleted_bytes=$total_bytes
       deleted_count=$total_count
       if (( interactive )); then
-        last_second=-1
+        printf '\r\033[KCleansing artefacts %s' "${spinner_frames[$spinner_index]}"
         while kill -0 "$rm_pid" 2>/dev/null; do
-          if (( SECONDS != last_second )); then
-            spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
-            read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
-            # Stamp the throttle from *after* the scan, not before -- on the
-            # large trees this is meant to help with, `dir_stats` can itself
-            # take a second or more, and timestamping before it would let
-            # the next loop iteration fire immediately, keeping a second
-            # full-tree walker running continuously alongside `rm -rf` and
-            # fighting it for the same filesystem I/O.
-            last_second=$SECONDS
-            deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
-            deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
-            if (( total_bytes > 0 )); then
-              percent=$(( deleted_bytes * 100 / total_bytes ))
-            else
-              percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
-            fi
-            # `rm -rf` is still running at this point (the loop condition is
-            # `kill -0 "$rm_pid"`) -- it may still be removing now-empty
-            # directories even once every file is gone, so 100% here would
-            # be a lie. Only the post-`wait` report below may claim 100%.
-            (( percent > 99 )) && percent=99
-            now=$(date +%s)
-            elapsed=$(( now - start_time ))
-            bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-            printf '\r\033[KCleansing artefacts %s %d / %d files, %s / %s, %s/s (%d%%)' \
-              "${spinner_frames[$spinner_index]}" "$deleted_count" "$total_count" \
-              "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
-          fi
           sleep 0.15
+          spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+          read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
+          deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
+          deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
+          printf '\r\033[KCleansing artefacts %s %d / %d files, %s / %s' \
+            "${spinner_frames[$spinner_index]}" "$deleted_count" "$total_count" \
+            "$(format_bytes "$deleted_bytes")" "$total_formatted"
         done
         printf '\r\033[K'
       fi
