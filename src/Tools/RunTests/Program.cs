@@ -26,6 +26,15 @@ namespace RunTests
 
         internal static async Task<int> Main(string[] args)
         {
+            // Best-effort: raises this process (not the test-worker child processes it spawns) above Normal so the
+            // OS scheduler favors whichever thread is running the live table's redraw/input-polling continuation
+            // over the child dotnet/testhost processes it monitors, when the whole machine is saturated running
+            // tests concurrently -- a Task.Delay firing "on time" is only a request to be woken then, not a
+            // guarantee of being scheduled then, and under that kind of contention the gap between the two can
+            // become visibly inconsistent. Never fatal if the host disallows priority changes (e.g. some sandboxed
+            // or containerized environments).
+            try { Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal; } catch { }
+
             Logger.Log("RunTest command line");
             Logger.Log(string.Join(" ", args));
             var options = Options.Parse(args);

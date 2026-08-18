@@ -95,57 +95,44 @@ namespace RunTests.UnitTests
         [Fact]
         public void ApplyNavigationKey_DownArrow_AdvancesOneRowFromLastScrollStart()
         {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.DownArrow, previousManualScrollStart: null, lastScrollStart: 5, visibleRowBudget: 10, maxScrollStart: 50);
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.DownArrow, previousManualScrollStart: null, lastScrollStart: 5, maxScrollStart: 50);
             Assert.Equal(6, result);
         }
 
         [Fact]
         public void ApplyNavigationKey_UpArrow_StepsBackFromExistingManualPosition()
         {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.UpArrow, previousManualScrollStart: 20, lastScrollStart: 5, visibleRowBudget: 10, maxScrollStart: 50);
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.UpArrow, previousManualScrollStart: 20, lastScrollStart: 5, maxScrollStart: 50);
             Assert.Equal(19, result);
         }
 
         [Fact]
         public void ApplyNavigationKey_UpArrow_ClampsToZero()
         {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.UpArrow, previousManualScrollStart: 0, lastScrollStart: 0, visibleRowBudget: 10, maxScrollStart: 50);
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.UpArrow, previousManualScrollStart: 0, lastScrollStart: 0, maxScrollStart: 50);
             Assert.Equal(0, result);
-        }
-
-        [Fact]
-        public void ApplyNavigationKey_PageDown_AdvancesByFullBudget_ClampedToMax()
-        {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.PageDown, previousManualScrollStart: 45, lastScrollStart: 45, visibleRowBudget: 10, maxScrollStart: 50);
-            Assert.Equal(50, result); // 45 + 10 = 55 would exceed maxScrollStart
-        }
-
-        [Fact]
-        public void ApplyNavigationKey_Home_JumpsToZero()
-        {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.Home, previousManualScrollStart: 30, lastScrollStart: 30, visibleRowBudget: 10, maxScrollStart: 50);
-            Assert.Equal(0, result);
-        }
-
-        [Fact]
-        public void ApplyNavigationKey_End_JumpsToMaxScrollStart()
-        {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.End, previousManualScrollStart: 0, lastScrollStart: 0, visibleRowBudget: 10, maxScrollStart: 50);
-            Assert.Equal(50, result);
         }
 
         [Fact]
         public void ApplyNavigationKey_Escape_ReturnsToAutoFollow()
         {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.Escape, previousManualScrollStart: 30, lastScrollStart: 30, visibleRowBudget: 10, maxScrollStart: 50);
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.Escape, previousManualScrollStart: 30, lastScrollStart: 30, maxScrollStart: 50);
             Assert.Null(result);
         }
 
         [Fact]
         public void ApplyNavigationKey_UnrecognizedKey_LeavesPositionUnchanged()
         {
-            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.A, previousManualScrollStart: 12, lastScrollStart: 5, visibleRowBudget: 10, maxScrollStart: 50);
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.A, previousManualScrollStart: 12, lastScrollStart: 5, maxScrollStart: 50);
             Assert.Equal(12, result);
+        }
+
+        [Fact]
+        public void ApplyNavigationKey_PageDown_NoLongerRecognized_LeavesPositionUnchanged()
+        {
+            // PageUp/PageDown/Home/End were deliberately dropped -- only the arrow keys and the mouse wheel scroll now.
+            var result = LiveTestProgressDisplay.ApplyNavigationKey(ConsoleKey.PageDown, previousManualScrollStart: 45, lastScrollStart: 45, maxScrollStart: 50);
+            Assert.Equal(45, result);
         }
 
         [Fact]
