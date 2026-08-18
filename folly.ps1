@@ -52,7 +52,7 @@ try {
         Write-Host "  weave     Restore + build [config]"
         Write-Host "  reweave   Restore + rebuild [config]"
         Write-Host "  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)"
-        Write-Host "  scry      Restore + build + run CoreCLR and Desktop unit tests [config]"
+        Write-Host "  scry      Restore + build + run Core and Framework unit tests [config]"
         Write-Host "  cleanse   Delete artefacts (ignores config)"
         Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
         Write-Host ""
@@ -61,8 +61,8 @@ try {
         Write-Host "  truth     Release"
         Write-Host ""
         Write-Host "scry-only switches (not positional -- always passed by name, after [config]):"
-        Write-Host "  --core               Run only the CoreCLR tests (skip Desktop)"
-        Write-Host "  --desktop            Run only the Desktop tests (skip CoreCLR)"
+        Write-Host "  --core               Run only the Core tests (skip Framework)"
+        Write-Host "  --desktop            Run only the Framework tests (skip Core)"
         Write-Host "                       (omit both to run both, the default)"
         Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
         Write-Host ""
@@ -104,8 +104,8 @@ try {
         & $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
-        $runCoreClr = $core -or -not ($core -or $desktop)  # default to both when neither switch is given; either switch alone runs just that one
-        $runDesktop = $desktop -or -not ($core -or $desktop)
+        $runCore = $core -or -not ($core -or $desktop)  # default to both when neither switch is given; either switch alone runs just that one
+        $runFramework = $desktop -or -not ($core -or $desktop)
         $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
         & $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
@@ -155,22 +155,22 @@ try {
             $result.Found = $true
             return $result
         }
-        $coreClrTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-CoreClr"
-        $coreClrLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-CoreClr"
-        $desktopTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Desktop"
-        $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
+        $coreTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Core"
+        $coreLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Core"
+        $frameworkTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Framework"
+        $frameworkLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Framework"
         $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"  # matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention
-        Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
-        Remove-Item -Recurse -Force -LiteralPath $desktopLogDir -ErrorAction SilentlyContinue
-        $coreClrExitCode = 0
-        if ($runCoreClr) {
-            $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
+        Remove-Item -Recurse -Force -LiteralPath $coreTestResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $coreLogDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $frameworkTestResultsDir -ErrorAction SilentlyContinue
+        Remove-Item -Recurse -Force -LiteralPath $frameworkLogDir -ErrorAction SilentlyContinue
+        $coreExitCode = 0
+        if ($runCore) {
+            $env:FOTU_TEST_RESULTS_SUFFIX = "Core"
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
             try {
                 & $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
-                $coreClrExitCode = $LASTEXITCODE
+                $coreExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
                 if ($null -eq $callerMsbuildDebugPath) {
@@ -180,13 +180,13 @@ try {
                 }
             }
         }
-        $desktopExitCode = 0
-        if ($runDesktop) {
-            $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
+        $frameworkExitCode = 0
+        if ($runFramework) {
+            $env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
                 & $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
-                $desktopExitCode = $LASTEXITCODE
+                $frameworkExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
                 if ($null -eq $callerMsbuildDebugPath) {
@@ -197,14 +197,14 @@ try {
             }
         }
         $summaries = @()
-        if ($runCoreClr) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtestsCoreCLR.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
+        if ($runCore) {
+            $summaries += Get-TestSummary -LogPath (Join-Path $coreLogDir "runtestsCore.log") -Label "Core" -ExitCode $coreExitCode
         }
-        if ($runDesktop) {
-            $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtestsDesktop.log") -Label "Desktop" -ExitCode $desktopExitCode
+        if ($runFramework) {
+            $summaries += Get-TestSummary -LogPath (Join-Path $frameworkLogDir "runtestsFramework.log") -Label "Framework" -ExitCode $frameworkExitCode
         }
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
-        $anyLegFailedExitCode = ($runCoreClr -and $coreClrExitCode -ne 0) -or ($runDesktop -and $desktopExitCode -ne 0)
+        $anyLegFailedExitCode = ($runCore -and $coreExitCode -ne 0) -or ($runFramework -and $frameworkExitCode -ne 0)
         $totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
         $totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
         $totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
@@ -223,17 +223,17 @@ try {
         $overallColor = if ($overallSuccess) { "Green" } else { "Red" }
         Write-Host "Overall: $totalPassed passed, $totalFailed failed, $totalTimeout timeout" -ForegroundColor $overallColor
         Write-Host ""
-        if ($runCoreClr) {
-            Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
+        if ($runCore) {
+            Write-Host "Core test results: $coreTestResultsDir (logs: $coreLogDir)"
         }
-        if ($runDesktop) {
-            Write-Host "Desktop test results: $desktopTestResultsDir (logs: $desktopLogDir)"
+        if ($runFramework) {
+            Write-Host "Framework test results: $frameworkTestResultsDir (logs: $frameworkLogDir)"
         }
-        if ($coreClrExitCode -ne 0) {
-            exit $coreClrExitCode
+        if ($coreExitCode -ne 0) {
+            exit $coreExitCode
         }
-        if ($desktopExitCode -ne 0) {
-            exit $desktopExitCode
+        if ($frameworkExitCode -ne 0) {
+            exit $frameworkExitCode
         }
         if (-not $overallSuccess) {
             exit 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation

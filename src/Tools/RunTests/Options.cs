@@ -25,24 +25,6 @@ namespace RunTests
         Framework
     }
 
-    internal static class TestRuntimeExtensions
-    {
-        /// <summary>
-        /// The name used for this runtime everywhere it's shown to a human (the live progress table, log file
-        /// names, folly.sh/folly.ps1 summary output) -- kept distinct from the enum member names themselves
-        /// (<see cref="TestRuntime.Core"/>/<see cref="TestRuntime.Framework"/>) since "CoreCLR"/"Desktop" is what
-        /// this repo calls them elsewhere, and a bare ToString() previously produced "Core"/"Framework" instead,
-        /// disagreeing with those other places.
-        /// </summary>
-        public static string DisplayName(this TestRuntime testRuntime) => testRuntime switch
-        {
-            TestRuntime.Both => "Both",
-            TestRuntime.Core => "CoreCLR",
-            TestRuntime.Framework => "Desktop",
-            _ => throw new InvalidOperationException($"Unexpected {nameof(TestRuntime)} value: {testRuntime}"),
-        };
-    }
-
     internal class Options
     {
         /// <summary>

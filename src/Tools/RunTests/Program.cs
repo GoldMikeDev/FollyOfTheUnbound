@@ -197,7 +197,7 @@ namespace RunTests
         {
             var logFileName = options.TestRuntime == TestRuntime.Both
                 ? "runtests.log"
-                : $"runtests{options.TestRuntime.DisplayName()}.log";
+                : $"runtests{options.TestRuntime}.log";
             var logFilePath = Path.Combine(options.LogFilesDirectory, logFileName);
             try
             {

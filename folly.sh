@@ -19,8 +19,8 @@ positional-only $1/$2 parsing here has no named-parameter equivalent):
   weave     Restore + build [config]
   reweave   Restore + rebuild [config]
   bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
-  scry      Restore + build + run CoreCLR unit tests [config] (Desktop/Framework
-            tests are Windows-only -- there is no --desktop/--core switch here)
+  scry      Restore + build + run Core unit tests [config] (Framework tests are
+            Windows-only -- there is no --desktop/--core switch here)
   cleanse   Delete artifacts/ (ignores config)
   grimoire  Show this text (default when no action is given; ignores config)
 
