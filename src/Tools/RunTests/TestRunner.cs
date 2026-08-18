@@ -83,7 +83,7 @@ namespace RunTests
             var completed = new List<TestResult>();
             var failures = 0;
 
-            var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
+            var runLabel = $"{_options.Configuration} ({_options.TestRuntime.DisplayName()})";
             var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems);
 
             try
