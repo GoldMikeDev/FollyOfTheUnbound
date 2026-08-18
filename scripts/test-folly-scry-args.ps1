@@ -1,4 +1,4 @@
-# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--desktop,
+# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--framework,
 # --timeout) and its unified test summary, run against a mocked eng/build.ps1 so no real build/test
 # happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
@@ -32,7 +32,7 @@ function New-TestCase([string]$Name) {
     Copy-Item -LiteralPath $follyPs1 -Destination (Join-Path $dir "folly.ps1")
 
     # A minimal stand-in for eng/build.ps1: succeeds for restore/build, and for the test legs
-    # writes the pass-specific runtestsCoreCLR.log/runtestsDesktop.log RunTests now emits (see
+    # writes the pass-specific runtestsCore.log/runtestsFramework.log RunTests now emits (see
     # Program.WriteLogFile) with exactly one PASSED row so folly.ps1's summary reader has
     # something real to parse, without running any actual build or tests.
     $mockBuild = @'
@@ -62,12 +62,12 @@ function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
 }
 if ($testCoreClr) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
-    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsCoreCLR.log"
+    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsCore.log"
     exit 0
 }
 elseif ($testDesktop) {
     New-Item -ItemType Directory -Force -Path $testResultsDir | Out-Null
-    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsDesktop.log"
+    Write-FakeRunTestsLog -LogDir $logDir -LogFileName "runtestsFramework.log"
     exit 0
 }
 else {
@@ -79,7 +79,7 @@ else {
 }
 
 function New-FalseMarkerTestCase([string]$Name) {
-    # A dedicated mock (rather than New-TestCase's) whose runtestsCoreCLR.log has a failed test's
+    # A dedicated mock (rather than New-TestCase's) whose runtestsCore.log has a failed test's
     # captured stdout/stderr -- written both before the real summary table (by
     # TestRunner.PrintFailedTestResult) and after it (by Program.LogProcessResultDetails, which
     # dumps every process's raw stdout/stderr post-Print()) -- coincidentally containing its own
@@ -123,7 +123,7 @@ if ($testCoreClr) {
         "================",
         "### End logging executed process details"
     )
-    Set-Content -LiteralPath (Join-Path $logDir "runtestsCoreCLR.log") -Value $lines
+    Set-Content -LiteralPath (Join-Path $logDir "runtestsCore.log") -Value $lines
     exit 1
 }
 else { exit 0 }
@@ -141,8 +141,8 @@ try {
     # --- default: both legs run ---
     $dir = New-TestCase "default"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "CoreCLR: 1 passed" -and $result.Output -match "Desktop: 1 passed") {
-        Test-Pass "default 'scry' runs both CoreCLR and Desktop"
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
+        Test-Pass "default 'scry' runs both Core and Framework"
     }
     else {
         Test-Fail "default 'scry' (exit=$($result.ExitCode)): $($result.Output)"
@@ -151,27 +151,27 @@ try {
     # --- --core only ---
     $dir = New-TestCase "core-only"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "CoreCLR: 1 passed" -and $result.Output -notmatch "Desktop:") {
-        Test-Pass "'scry --core' runs only CoreCLR"
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -notmatch "Framework:") {
+        Test-Pass "'scry --core' runs only Core"
     }
     else {
         Test-Fail "'scry --core' (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- --desktop only ---
-    $dir = New-TestCase "desktop-only"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--desktop")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Desktop: 1 passed" -and $result.Output -notmatch "CoreCLR:") {
-        Test-Pass "'scry --desktop' runs only Desktop"
+    # --- --framework only ---
+    $dir = New-TestCase "framework-only"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--framework")
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
+        Test-Pass "'scry --framework' runs only Framework"
     }
     else {
-        Test-Fail "'scry --desktop' (exit=$($result.ExitCode)): $($result.Output)"
+        Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- positional [config] alongside a selector ---
     $dir = New-TestCase "positional-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "truth", "--core")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Release-CoreClr") {
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Release-Core") {
         Test-Pass "positional 'scry truth --core' selects Release"
     }
     else {
@@ -181,7 +181,7 @@ try {
     # --- named -config (backward compat with the pre-existing invocation style) ---
     $dir = New-TestCase "named-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("-action", "scry", "-config", "truth", "--core")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Release-CoreClr") {
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Release-Core") {
         Test-Pass "named '-action scry -config truth --core' selects Release"
     }
     else {
@@ -201,18 +201,18 @@ try {
     # --- stray "================" lines in captured failure output don't fool the parser ---
     $dir = New-FalseMarkerTestCase "false-marker"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
-    if ($result.ExitCode -eq 1 -and $result.Output -match "CoreCLR: 1 passed, 1 failed") {
+    if ($result.ExitCode -eq 1 -and $result.Output -match "Core: 1 passed, 1 failed") {
         Test-Pass "stray markers in captured failure output are not mistaken for the summary table"
     }
     else {
         Test-Fail "false-marker log (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- --core/--desktop rejected for non-scry actions ---
+    # --- --core/--framework rejected for non-scry actions ---
     $dir = New-TestCase "selector-on-non-scry"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--desktop")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--framework")
     if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
-        Test-Pass "'--desktop' is rejected on a non-scry action"
+        Test-Pass "'--framework' is rejected on a non-scry action"
     }
     else {
         Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
@@ -223,7 +223,7 @@ try {
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "180")
     $receivedPath = Join-Path $dir "testTimeout-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
-    if ($result.ExitCode -eq 0 -and $received -match "CoreClr=180" -and $received -match "Desktop=180") {
+    if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
         Test-Pass "'--timeout 180' is forwarded to eng/build.ps1 for both legs"
     }
     else {
