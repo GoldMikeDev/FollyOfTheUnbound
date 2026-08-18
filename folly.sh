@@ -192,6 +192,7 @@ case "$action" in
         _cleanse_kill_tree "${scan_pid:-}"
         _cleanse_kill_tree "${rm_pid:-}"
         [[ -n "${scan_tmp:-}" && -e "${scan_tmp:-}" ]] && rm -f "$scan_tmp"
+        [[ -n "${rm_fifo:-}" && -e "${rm_fifo:-}" ]] && rm -f "$rm_fifo"
         return 0
       }
       trap '_cleanse_kill_bg; exit 130' INT
@@ -221,7 +222,9 @@ case "$action" in
       # read, and silently trusting that partial count as the true
       # remainder would let the final summary report "0 files could not be
       # removed" when files actually survived.
-      if find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1; then
+      gnu_find=0
+      find "$scriptroot" -maxdepth 0 -printf '' >/dev/null 2>&1 && gnu_find=1
+      if (( gnu_find )); then
         dir_stats() {
           local status
           # Pipe straight into awk rather than buffering into a bash
@@ -261,36 +264,12 @@ case "$action" in
         }
       fi
 
-      # The actual removal is a single native `rm -rf`, which walks and
-      # unlinks the tree directly in C -- far faster than looping per file
-      # in bash. It runs in the background; progress is reported by
-      # periodically re-running `dir_stats` on what's left, so the display
-      # never adds per-file cost back into the deletion path itself.
       spinner_frames=('|' '/' '-' '\')
       spinner_index=0
-
-      # `dir_stats` on the full tree can itself take a while on a large
-      # build output -- run it in the background too and show a spinner
-      # instead of leaving the terminal blank (with the cursor hidden)
-      # until the scan finishes.
-      #
-      # The scanning phase below is just a spinner, redrawn in place every
-      # ~150ms -- no percent, no rate. The cleansing (delete) phase further
-      # down keeps the full file-count/byte-total display; only the spinner
-      # glyph itself is dropped there (a live count climbing toward the
-      # total is already its own "still working" indicator). Both phases
-      # redraw unconditionally on every loop iteration rather than gating
-      # on a `$SECONDS != last_second` check: that integer-seconds
-      # comparison meant this only ever actually redrew once a second no
-      # matter how short the `sleep` below was, despite looking like a
-      # 150ms cadence at a glance.
       scan_tmp=$(mktemp)
       ( dir_stats "$artifacts_dir" > "$scan_tmp" ) &
       scan_pid=$!
       if (( interactive )); then
-        # Draw the first frame immediately, before the loop's first sleep --
-        # otherwise the line stays blank for that whole first interval even
-        # once the background scan is already running.
         printf '\r\033[KScanning artefacts %s' "${spinner_frames[$spinner_index]}"
         while kill -0 "$scan_pid" 2>/dev/null; do
           sleep 0.15
@@ -302,42 +281,65 @@ case "$action" in
       read -r total_bytes total_count _ < "$scan_tmp"
       rm -f "$scan_tmp"
       total_formatted=$(format_bytes "$total_bytes")
-
+      deleted_bytes=0
+      deleted_count=0
       start_time=$(date +%s)
-      rm -rf "$artifacts_dir" &
-      rm_pid=$!
-
-      deleted_bytes=$total_bytes
-      deleted_count=$total_count
-      if (( interactive )); then
-        printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' \
-          "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
-        while kill -0 "$rm_pid" 2>/dev/null; do
-          sleep 0.15
-          read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
-          deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
-          deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
-          if (( total_bytes > 0 )); then
-            percent=$(( deleted_bytes * 100 / total_bytes ))
-          else
-            percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+      if (( gnu_find )); then
+        # Single traversal that both deletes and reports each file's size as it goes (no second,
+        # concurrently racing rescan like the old rm -rf + periodic dir_stats loop did -- that
+        # contention over the same directory metadata was the actual source of the jumpy redraw
+        # cadence, not the presence of live progress itself. This is as fast as plain rm -rf
+        # (still one native traversal) and as smooth as Explorer's delete (progress is a byproduct
+        # of the same pass doing the work, same as IFileOperation's own count).
+        rm_fifo=$(mktemp -u)
+        mkfifo "$rm_fifo"
+        ( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true; find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true; printf 'DONE\n' ) > "$rm_fifo" &
+        rm_pid=$!
+        redraw_every=$(( total_count / 100 > 0 ? total_count / 100 : 1 ))  # ~100 redraws over the run, not one per file (format_bytes spawns awk -- exactly the per-file cost this rewrite exists to avoid)
+        since_redraw=0
+        (( interactive )) && printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
+        while IFS= read -r line; do
+          [[ "$line" == DONE ]] && break
+          deleted_bytes=$(( deleted_bytes + line ))
+          deleted_count=$(( deleted_count + 1 ))
+          since_redraw=$(( since_redraw + 1 ))
+          if (( interactive )) && (( since_redraw >= redraw_every )); then
+            since_redraw=0
+            percent=$(( total_bytes > 0 ? deleted_bytes * 100 / total_bytes : (total_count > 0 ? deleted_count * 100 / total_count : 100) ))
+            (( percent > 99 )) && percent=99  # find is still running here -- only the post-wait report below may claim 100%
+            elapsed=$(( $(date +%s) - start_time ))
+            bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+            printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
           fi
-          # `rm -rf` is still running at this point (the loop condition is
-          # `kill -0 "$rm_pid"`) -- it may still be removing now-empty
-          # directories even once every file is gone, so 100% here would
-          # be a lie. Only the post-`wait` report below may claim 100%.
-          (( percent > 99 )) && percent=99
-          now=$(date +%s)
-          elapsed=$(( now - start_time ))
-          bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-          printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' \
-            "$deleted_count" "$total_count" \
-            "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
-        done
-        printf '\r\033[K'
+        done < "$rm_fifo"
+        rm -f "$rm_fifo"
+        (( interactive )) && printf '\r\033[K'
+        wait "$rm_pid" || true
+      else
+        # BSD find (macOS) has no -printf, so it can't report a deleted file's size in the same
+        # pass as -delete -- fall back to the old rm -rf + periodic dir_stats rescan here. That
+        # rescan-vs-delete contention is exactly what the GNU branch above eliminates.
+        rm -rf "$artifacts_dir" &
+        rm_pid=$!
+        deleted_bytes=$total_bytes
+        deleted_count=$total_count
+        if (( interactive )); then
+          printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
+          while kill -0 "$rm_pid" 2>/dev/null; do
+            sleep 0.15
+            read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
+            deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
+            deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
+            percent=$(( total_bytes > 0 ? deleted_bytes * 100 / total_bytes : (total_count > 0 ? deleted_count * 100 / total_count : 100) ))
+            (( percent > 99 )) && percent=99  # rm -rf is still running here -- only the post-wait report below may claim 100%
+            elapsed=$(( $(date +%s) - start_time ))
+            bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+            printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+          done
+          printf '\r\033[K'
+        fi
+        wait "$rm_pid" || true
       fi
-
-      wait "$rm_pid" || true
 
       if [[ -d "$artifacts_dir" ]]; then
         # A lock held only transiently (e.g. an antivirus scanner, or a

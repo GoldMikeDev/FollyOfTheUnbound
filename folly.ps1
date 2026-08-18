@@ -458,36 +458,27 @@ try {
                 $totalStats = Receive-Job -Job $scanJob
                 Remove-Job -Job $scanJob
                 $scanJob = $null
-
                 $totalBytes = $totalStats.Bytes
                 $totalCount = $totalStats.Count
                 $totalFormatted = Format-ByteSize $totalBytes
-
-                $job = Start-CleanseJob -ScriptBlock {
+                $job = Start-CleanseJob -ScriptBlock {  # raw .NET File.Delete/Directory.Delete, not the Remove-Item cmdlet -- writes each deleted file's length to the job's own output stream as it goes, unverified against Remove-Item -Recurse -Force's speed (no pwsh here to benchmark)
                     param($dir)
-                    Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+                    try { foreach ($f in [System.IO.Directory]::EnumerateFiles($dir, '*', [System.IO.SearchOption]::AllDirectories)) { try { $len = ([System.IO.FileInfo]$f).Length; [System.IO.File]::Delete($f); Write-Output $len } catch {} } } catch {}  # EnumerateFiles itself (not just File.Delete) can throw mid-walk on a locked subtree -- stop rather than fault the whole job with nothing cleaned up
+                    try { $dirs = [System.IO.Directory]::EnumerateDirectories($dir, '*', [System.IO.SearchOption]::AllDirectories) | Sort-Object -Property { ($_ -split '[\\/]').Count } -Descending; foreach ($d in $dirs) { try { [System.IO.Directory]::Delete($d) } catch {} } } catch {}  # deepest first so a dir is always empty by the time it's deleted
+                    try { [System.IO.Directory]::Delete($dir) } catch {}
                 } -ArgumentList $artifactsDir
-
                 $startTime = Get-Date
                 $deletedBytes = 0L
                 $deletedCount = 0
                 while ($job.State -eq 'Running') {
                     Start-Sleep -Milliseconds 150
-                    $remainingBytes = 0L
-                    $remainingCount = 0
-                    if (Test-Path -LiteralPath $artifactsDir) {
-                        $remainingStats = Get-DirStats $artifactsDir
-                        $remainingBytes = $remainingStats.Bytes
-                        $remainingCount = $remainingStats.Count
-                    }
-                    $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
-                    $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
+                    foreach ($size in (Receive-Job -Job $job)) { $deletedBytes += [long]$size; $deletedCount++ }  # drains the job's own stream instead of re-scanning the tree -- no second operation racing the delete
                     $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
                     $elapsedSeconds = ((Get-Date) - $startTime).TotalSeconds
                     $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
                     Write-Progress -Activity "Cleansing artefacts" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
-                Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+                foreach ($size in (Receive-Job -Job $job -ErrorAction SilentlyContinue)) { $deletedBytes += [long]$size; $deletedCount++ }
                 Remove-Job -Job $job
                 $job = $null
             }
