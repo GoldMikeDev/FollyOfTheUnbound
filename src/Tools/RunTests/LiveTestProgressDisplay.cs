@@ -785,14 +785,14 @@ namespace RunTests
                 var maxScrollStart = Math.Max(_rows.Count - visibleRowBudget, 0);
                 if (_supportsMouseWheel)
                 {
-                    PollKeyboardAndMouseInputRaw(visibleRowBudget, maxScrollStart);
+                    PollKeyboardAndMouseInputRaw(maxScrollStart);
                 }
                 else
                 {
                     while (Console.KeyAvailable)
                     {
                         var key = Console.ReadKey(intercept: true).Key;
-                        _manualScrollStart = ApplyNavigationKey(key, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                        _manualScrollStart = ApplyNavigationKey(key, _manualScrollStart, _lastScrollStart, maxScrollStart);
                     }
                 }
             }
@@ -811,14 +811,14 @@ namespace RunTests
         /// (or mis-decoding, one leftover character at a time) anything outside it -- like a mouse report -- so it
         /// can never surface wheel input no matter how mouse tracking is configured upstream, and on Unix it
         /// collapses e.g. <c>ESC [ A</c> into a single <see cref="ConsoleKey.UpArrow"/> before this parser ever
-        /// sees the individual bytes. This re-implements just enough of the arrow/Home/End/PageUp/PageDown decoding
+        /// sees the individual bytes. This re-implements just enough of the arrow-key decoding
         /// ReadKey normally provides for free, since going around its decoding here means going around it for
         /// every key on this platform, not only the mouse-specific bytes. See <see cref="ReadRawByte"/>'s own doc
         /// comment for how it stays safe against blocking despite reading through <see cref="Console.In"/>, which
         /// isn't guaranteed to pair safely with the <see cref="Console.KeyAvailable"/> checks this loop and
         /// <see cref="WaitForMoreInput"/> depend on.
         /// </summary>
-        private void PollKeyboardAndMouseInputRaw(int visibleRowBudget, int maxScrollStart)
+        private void PollKeyboardAndMouseInputRaw(int maxScrollStart)
         {
             while (!_rawInputQueue.IsEmpty)
             {
@@ -862,26 +862,12 @@ namespace RunTests
                 {
                     'A' => ConsoleKey.UpArrow,
                     'B' => ConsoleKey.DownArrow,
-                    'H' => ConsoleKey.Home,
-                    'F' => ConsoleKey.End,
                     _ => (ConsoleKey?)null,
                 };
 
-                if (key is null && third is >= '0' and <= '9')
-                {
-                    key = ReadCsiTildeSequence(third) switch
-                    {
-                        "1" => ConsoleKey.Home,
-                        "4" => ConsoleKey.End,
-                        "5" => ConsoleKey.PageUp,
-                        "6" => ConsoleKey.PageDown,
-                        _ => null,
-                    };
-                }
-
                 if (key is { } navigationKey)
                 {
-                    _manualScrollStart = ApplyNavigationKey(navigationKey, _manualScrollStart, _lastScrollStart, visibleRowBudget, maxScrollStart);
+                    _manualScrollStart = ApplyNavigationKey(navigationKey, _manualScrollStart, _lastScrollStart, maxScrollStart);
                 }
             }
         }
@@ -908,7 +894,7 @@ namespace RunTests
 
         /// <summary>
         /// Bounded wait for more input to show up, used everywhere <see cref="PollKeyboardAndMouseInputRaw"/> and
-        /// its helpers (<see cref="ReadCsiTildeSequence"/>, <see cref="TryParseSgrMouseWheel"/>) are partway
+        /// its helper (<see cref="TryParseSgrMouseWheel"/>) are partway
         /// through a multi-byte escape sequence and need to know whether the next byte is really not coming, or
         /// just hasn't arrived on the wire yet. A single non-empty-queue check alone can't tell those apart -- a
         /// PTY is a byte stream with no message boundaries, so nothing guarantees a terminal's write() lands in
@@ -939,24 +925,6 @@ namespace RunTests
             }
 
             return !_rawInputQueue.IsEmpty;
-        }
-
-        /// <summary>Reads the rest of a <c>CSI &lt;digits&gt; ~</c> sequence (e.g. Home/End/PageUp/PageDown), given the first digit already read as <paramref name="firstDigit"/>.</summary>
-        private string ReadCsiTildeSequence(int firstDigit)
-        {
-            var digits = new StringBuilder().Append((char)firstDigit);
-            while (WaitForMoreInput())
-            {
-                var next = ReadRawByte();
-                if (next < 0 || next == '~')
-                {
-                    break;
-                }
-
-                digits.Append((char)next);
-            }
-
-            return digits.ToString();
         }
 
         /// <summary>
@@ -1034,17 +1002,13 @@ namespace RunTests
         /// console. Returns the new <see cref="_manualScrollStart"/> value for a recognized navigation key, or the
         /// unchanged <paramref name="previousManualScrollStart"/> for any other key.
         /// </summary>
-        internal static int? ApplyNavigationKey(ConsoleKey key, int? previousManualScrollStart, int lastScrollStart, int visibleRowBudget, int maxScrollStart)
+        internal static int? ApplyNavigationKey(ConsoleKey key, int? previousManualScrollStart, int lastScrollStart, int maxScrollStart)
         {
             var current = previousManualScrollStart ?? lastScrollStart;
             return key switch
             {
                 ConsoleKey.UpArrow => Math.Clamp(current - 1, 0, maxScrollStart),
                 ConsoleKey.DownArrow => Math.Clamp(current + 1, 0, maxScrollStart),
-                ConsoleKey.PageUp => Math.Clamp(current - visibleRowBudget, 0, maxScrollStart),
-                ConsoleKey.PageDown => Math.Clamp(current + visibleRowBudget, 0, maxScrollStart),
-                ConsoleKey.Home => 0,
-                ConsoleKey.End => maxScrollStart,
                 // Hand control back to auto-follow instead of holding wherever the user last scrolled.
                 ConsoleKey.Escape => null,
                 _ => previousManualScrollStart,
@@ -1131,9 +1095,9 @@ namespace RunTests
             if (visibleRowBudget < _rows.Count)
             {
                 titleLine += $"    (showing {scrollStart + 1}-{scrollStart + visibleRows.Count} of {_rows.Count})";
-                var scrollHint = _supportsMouseWheel ? "scroll wheel / ↑↓/PgUp/PgDn" : "↑↓/PgUp/PgDn";
+                var scrollHint = _supportsMouseWheel ? "scroll wheel / ↑↓" : "↑↓";
                 titleLine += _manualScrollStart is not null
-                    ? $"    [{scrollHint}/Home/End to scroll, Esc to follow]"
+                    ? $"    [{scrollHint} to scroll, Esc to follow]"
                     : $"    [{scrollHint} to scroll]";
             }
 
