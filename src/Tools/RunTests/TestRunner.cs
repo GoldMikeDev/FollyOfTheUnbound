@@ -283,6 +283,11 @@ namespace RunTests
             ConsoleUtil.WriteLine($"Command: {testResult.CommandLine}");
             ConsoleUtil.WriteLine($"xUnit output log: {outputLogPath}");
 
+            // Nothing else creates this directory before results start coming in (Program.WriteLogFile only does
+            // so after the whole run finishes), so without this a failing test host crash before then throws
+            // DirectoryNotFoundException here and takes down the entire run with an unhandled exception, masking
+            // the actual crash that was being reported.
+            Directory.CreateDirectory(_options.LogFilesDirectory);
             File.WriteAllText(outputLogPath, testResult.StandardOutput ?? "");
 
             if (!string.IsNullOrEmpty(testResult.ErrorOutput))
