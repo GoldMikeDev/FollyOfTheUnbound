@@ -274,9 +274,13 @@ case "$action" in
       # instead of leaving the terminal blank (with the cursor hidden)
       # until the scan finishes.
       #
-      # Just a spinner, redrawn in place every ~150ms -- no percent, no
-      # rate. Redraws unconditionally on every loop iteration rather than
-      # gating on a `$SECONDS != last_second` check: that integer-seconds
+      # The scanning phase below is just a spinner, redrawn in place every
+      # ~150ms -- no percent, no rate. The cleansing (delete) phase further
+      # down keeps the full file-count/byte-total display; only the spinner
+      # glyph itself is dropped there (a live count climbing toward the
+      # total is already its own "still working" indicator). Both phases
+      # redraw unconditionally on every loop iteration rather than gating
+      # on a `$SECONDS != last_second` check: that integer-seconds
       # comparison meant this only ever actually redrew once a second no
       # matter how short the `sleep` below was, despite looking like a
       # 150ms cadence at a glance.
@@ -299,22 +303,36 @@ case "$action" in
       rm -f "$scan_tmp"
       total_formatted=$(format_bytes "$total_bytes")
 
+      start_time=$(date +%s)
       rm -rf "$artifacts_dir" &
       rm_pid=$!
 
       deleted_bytes=$total_bytes
       deleted_count=$total_count
       if (( interactive )); then
-        printf '\r\033[KCleansing artefacts %s' "${spinner_frames[$spinner_index]}"
+        printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' \
+          "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
         while kill -0 "$rm_pid" 2>/dev/null; do
           sleep 0.15
-          spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
           read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
           deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
           deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
-          printf '\r\033[KCleansing artefacts %s %d / %d files, %s / %s' \
-            "${spinner_frames[$spinner_index]}" "$deleted_count" "$total_count" \
-            "$(format_bytes "$deleted_bytes")" "$total_formatted"
+          if (( total_bytes > 0 )); then
+            percent=$(( deleted_bytes * 100 / total_bytes ))
+          else
+            percent=$(( total_count > 0 ? deleted_count * 100 / total_count : 100 ))
+          fi
+          # `rm -rf` is still running at this point (the loop condition is
+          # `kill -0 "$rm_pid"`) -- it may still be removing now-empty
+          # directories even once every file is gone, so 100% here would
+          # be a lie. Only the post-`wait` report below may claim 100%.
+          (( percent > 99 )) && percent=99
+          now=$(date +%s)
+          elapsed=$(( now - start_time ))
+          bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+          printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' \
+            "$deleted_count" "$total_count" \
+            "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
         done
         printf '\r\033[K'
       fi

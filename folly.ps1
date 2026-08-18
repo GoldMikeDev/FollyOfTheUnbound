@@ -401,14 +401,13 @@ try {
             # by periodically re-scanning what's left with Get-DirStats, so the
             # display doesn't add per-file cost back into the deletion path.
             #
-            # Just a spinner, redrawn in place every 150ms -- no percent, no
-            # rate, no Write-Progress. Write-Progress renders through the host's
-            # own progress-pane machinery (a separate reserved screen region on
-            # some hosts, a title-bar update on others), which is exactly the
-            # inconsistency `-Completed` not reliably resetting the cursor
-            # (below, before this rewrite) came from -- a single manually
-            # redrawn line behaves identically everywhere, matching folly.sh's
-            # plain `printf '\r\033[K...'` line-redraw approach exactly.
+            # The scanning phase below is just a spinner, manually redrawn in
+            # place every 150ms -- no Write-Progress there at all. The
+            # cleansing (delete) phase keeps Write-Progress with its full
+            # percent/rate/counts display; only the spinner glyph itself is
+            # dropped from its status text (a percent bar is already its own
+            # "still working" indicator, so a spinner glyph next to it was
+            # redundant).
             $spinnerFrames = @('|', '/', '-', '\')
             $spinnerIndex = 0
             $clearLine = "`r" + [char]27 + "[K"
@@ -469,12 +468,11 @@ try {
                     Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
                 } -ArgumentList $artifactsDir
 
+                $startTime = Get-Date
                 $deletedBytes = 0L
                 $deletedCount = 0
-                Write-Host -NoNewline "${clearLine}Cleansing artefacts $($spinnerFrames[$spinnerIndex])"
                 while ($job.State -eq 'Running') {
                     Start-Sleep -Milliseconds 150
-                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
                     $remainingBytes = 0L
                     $remainingCount = 0
                     if (Test-Path -LiteralPath $artifactsDir) {
@@ -484,7 +482,10 @@ try {
                     }
                     $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
                     $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
-                    Write-Host -NoNewline "${clearLine}Cleansing artefacts $($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted"
+                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
+                    $elapsedSeconds = ((Get-Date) - $startTime).TotalSeconds
+                    $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
+                    Write-Progress -Activity "Cleansing artefacts" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
                 Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
                 Remove-Job -Job $job
@@ -500,7 +501,13 @@ try {
                     Remove-Job -Job $job -Force -ErrorAction SilentlyContinue
                 }
             }
-            Write-Host -NoNewline $clearLine
+            Write-Progress -Activity "Cleansing artefacts" -Completed
+            # Write-Progress's "completed" pane doesn't reliably leave the
+            # cursor at column 0 in every console host (conhost in
+            # particular), which left stray blank padding in front of the
+            # line below -- force a fresh line rather than trusting
+            # -Completed alone.
+            Write-Host ""
 
             if (Test-Path -LiteralPath $artifactsDir) {
                 # A lock held only transiently (e.g. an antivirus scanner, or
