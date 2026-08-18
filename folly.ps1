@@ -1,13 +1,7 @@
 param
 (
     [Parameter(Position = 0)][string]$action,
-    # Deliberately not given an explicit Position: PowerShell only auto-numbers positional slots
-    # for parameters when *none* of a script's parameters declare an explicit Position, so once
-    # $action above claims Position 0, $config here becomes name-only (-config still works) and
-    # every other positional token -- [config] included -- falls through to $remainingArgs, letting
-    # the manual parse below tell "truth"/"research" apart from --core/--desktop without ambiguity.
-    # (Verified against pwsh 7.6.0: `-action scry -config truth` still binds $config normally.)
-    [string]$config,
+    [string]$config,  # name-only, not positional: $action above already claimed Position 0, so [config] falls through to $remainingArgs and gets matched by the manual parse below instead
     [parameter(ValueFromRemainingArguments = $true)][string[]]$remainingArgs
 )
 try {
@@ -17,23 +11,13 @@ try {
     $solution = "FollyOfTheUnbound.slnx"
     $buildScript = Join-Path $PSScriptRoot "eng\build.ps1"
     $nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
-
-    # PowerShell's automatic parameter binding only recognises single-dash switches, so --core/
-    # --desktop (matching folly.sh's own --restore/--build style) are parsed by hand here; the
-    # [config] positional falls through to here too (see the param block comment above) unless it
-    # was already supplied by name via -config.
-    $core = $false
+    $core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--desktop/--timeout (matching folly.sh's style) are parsed by hand below
     $desktop = $false
     $testTimeout = 0
     $expectTimeoutValue = $false
     foreach ($arg in $remainingArgs) {
         if ($expectTimeoutValue) {
-            # Upper bound matches RunTests' own limit: Program.RunCoreAsync passes this straight to
-            # Task.Delay, whose millisecond timer argument maxes out at 4294967294 (~71582.79
-            # minutes) -- anything larger throws ArgumentOutOfRangeException before a single test
-            # runs, so reject it here (before the potentially expensive initial restore/build even
-            # starts) rather than let the test-leg build script discover it later.
-            if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0 -or $testTimeout -gt 71582) {
+            if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0 -or $testTimeout -gt 71582) {  # 71582 min = Task.Delay's ms ceiling, which Program.RunCoreAsync forwards this straight into
                 Write-Host "'--timeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '$arg'." -ForegroundColor Red
                 exit 1
             }
@@ -60,7 +44,6 @@ try {
         Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
         exit 1
     }
-
     if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
         Write-Host "folly.ps1 <action> [config] [switches]"
         Write-Host ""
@@ -108,65 +91,33 @@ try {
         Write-Host "Unrecognised configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." -ForegroundColor Red
         exit 1
     }
-    if ($action -eq "attune") {
-        & $buildScript -restore -solution $solution -configuration $configuration
+    if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
+        & $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "weave") {
-        & $buildScript -restore -build -solution $solution -configuration $configuration
+        & $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "reweave") {
-        & $buildScript -restore -rebuild -solution $solution -configuration $configuration
+        & $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "bind") {
-        & $buildScript -restore -build -pack -solution $solution -configuration $configuration
+        & $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
     }
     elseif ($action -eq "scry") {
-        # Default to both when neither switch is given; either switch alone runs just that one.
-        $runCoreClr = $core -or -not ($core -or $desktop)
+        $runCoreClr = $core -or -not ($core -or $desktop)  # default to both when neither switch is given; either switch alone runs just that one
         $runDesktop = $desktop -or -not ($core -or $desktop)
-
-        # Captured before this initial restore/build, not after: eng/common/tools.ps1 sets
-        # $env:MSBUILDDEBUGPATH itself (to the unsuffixed default) whenever it's unset, so capturing
-        # it after this call would -- when the caller had none set -- snapshot that build-created
-        # value instead of "nothing was set", and the per-pass cleanup below would then restore that
-        # build-created value into the caller's environment instead of actually clearing it.
-        $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH
-
-        & $buildScript -restore -build -solution $solution -configuration $configuration
+        $callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
+        & $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
         $buildExitCode = $LASTEXITCODE
         if ($buildExitCode -ne 0) {
             exit $buildExitCode
         }
-
-        # RunTests already prints its own PASSED/FAILED/TIMEOUT table live (Print() runs after
-        # LiveTestProgressDisplay.Complete() exits the alternate screen, so it lands in the normal,
-        # persisted scrollback, not just the ephemeral live table) -- replaying those same rows here
-        # would just print every table a second time. What's actually missing is a single combined
-        # rollup once *both* legs are done, so this only tallies each leg's counts from the
-        # already-logged runtests.log (every line RunTests prints also goes through ConsoleUtil,
-        # which logs it -- see src/Tools/RunTests/ConsoleUtil.cs) without re-printing the rows.
-        function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {
-            # ExitCode is carried through unchanged so a work item that threw before producing a
-            # TestResult (e.g. its response file or test process couldn't be created --
-            # TestRunner.RunAllAsync counts that as a failure but never adds it to `completed`, so
-            # it never becomes a row in the table at all) still marks this leg red even though the
-            # parsed Failed/Timeout counts alone wouldn't show it.
-            $result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode }
+        function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts from its already-logged runtests.log rather than re-printing RunTests' own live table a second time
+            $result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
             if (-not (Test-Path -LiteralPath $LogPath)) {
                 return $result
             }
-            # runtests.log also contains every failed test's captured stdout/stderr -- once before
-            # the summary table (TestRunner.PrintFailedTestResult, called from Print() ahead of the
-            # table) and again after it (Program.LogProcessResultDetails, called after RunAllAsync
-            # returns but before WriteLogFile persists the log -- see Program.cs) -- and that
-            # captured output could itself contain a line equal to "================" on either
-            # side, so neither the first nor the last marker pair in the file is a reliable
-            # delimiter. Print() does write one fixed, RunTests-authored line immediately after the
-            # table's real closing marker, though (see TestRunner.cs), which -- being an exact,
-            # deliberately-worded internal string -- is far less likely to occur by chance in
-            # arbitrary captured test output than a generic divider is. Anchor on the marker
-            # immediately preceding the last occurrence of that footer instead.
-            $footerText = "Extra run diagnostics for logging, did not impact run results"
+            $footerText = "Extra run diagnostics for logging, did not impact run results"  # anchor on the marker pair immediately before this exact, RunTests-authored footer -- captured test stdout/stderr elsewhere in the log can itself contain a "================" line, so neither the first nor the last marker pair alone is reliable
             $markerLineNumbers = [System.Collections.Generic.List[int]]::new()
             $footerLine = -1
             $lineNumber = 0
@@ -188,7 +139,6 @@ try {
             }
             $endLine = $markersBeforeFooter[$markersBeforeFooter.Count - 1]
             $startLine = $markersBeforeFooter[$markersBeforeFooter.Count - 2]
-
             $lineNumber = 0
             foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
                 $lineNumber++
@@ -205,33 +155,21 @@ try {
             $result.Found = $true
             return $result
         }
-
         $coreClrTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-CoreClr"
         $coreClrLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-CoreClr"
         $desktopTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Desktop"
         $desktopLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Desktop"
-        # Matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention.
-        $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"
+        $msbuildDebugPath = Join-Path $PSScriptRoot "artifacts\log\$configuration\MsbuildDebugLogs"  # matches eng/common/tools.ps1's own (unsuffixed) $LogDir\MsbuildDebugLogs convention
         Remove-Item -Recurse -Force -LiteralPath $coreClrTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $coreClrLogDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $desktopTestResultsDir -ErrorAction SilentlyContinue
         Remove-Item -Recurse -Force -LiteralPath $desktopLogDir -ErrorAction SilentlyContinue
-
         $coreClrExitCode = 0
         if ($runCoreClr) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "CoreClr"
-            # eng/common/tools.ps1 only ever sets $env:MSBUILDDEBUGPATH itself when it's unset
-            # (`if (-not $env:MSBUILDDEBUGPATH)`), and since folly.ps1 invokes eng/build.ps1
-            # multiple times in this same PowerShell process, that guard means only the very
-            # first invocation (the initial -restore -build above) would ever actually set it,
-            # leaving every later pass stuck reusing that first value instead of getting its own.
-            # Set it explicitly here. Both passes share one directory -- MSBuild's own debug log
-            # filenames already embed a unique per-process token, and the passes run sequentially
-            # (never concurrently), so there's no collision risk, and one directory is simpler to
-            # read later than per-pass ones.
-            $env:MSBUILDDEBUGPATH = $msbuildDebugPath
+            $env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
             try {
-                & $buildScript -testCoreClr -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
+                & $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $coreClrExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -242,13 +180,12 @@ try {
                 }
             }
         }
-
         $desktopExitCode = 0
         if ($runDesktop) {
             $env:FOTU_TEST_RESULTS_SUFFIX = "Desktop"
             $env:MSBUILDDEBUGPATH = $msbuildDebugPath
             try {
-                & $buildScript -testDesktop -testInteractiveConsole -testTimeout $testTimeout -solution $solution -configuration $configuration
+                & $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
                 $desktopExitCode = $LASTEXITCODE
             } finally {
                 Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -259,7 +196,6 @@ try {
                 }
             }
         }
-
         $summaries = @()
         if ($runCoreClr) {
             $summaries += Get-TestSummary -LogPath (Join-Path $coreClrLogDir "runtestsCoreCLR.log") -Label "CoreCLR" -ExitCode $coreClrExitCode
@@ -267,13 +203,11 @@ try {
         if ($runDesktop) {
             $summaries += Get-TestSummary -LogPath (Join-Path $desktopLogDir "runtestsDesktop.log") -Label "Desktop" -ExitCode $desktopExitCode
         }
-
         $missingSummaries = @($summaries | Where-Object { -not $_.Found })
         $anyLegFailedExitCode = ($runCoreClr -and $coreClrExitCode -ne 0) -or ($runDesktop -and $desktopExitCode -ne 0)
         $totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
         $totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
         $totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
-
         Write-Host ""
         Write-Host "=== Test summary ===" -ForegroundColor Cyan
         foreach ($summary in $summaries) {
@@ -285,14 +219,9 @@ try {
                 Write-Host "$($summary.Label): summary unavailable (no runtests.log found)" -ForegroundColor Yellow
             }
         }
-        # Green requires every requested leg to have both exited 0 *and* produced a readable
-        # summary with no failures/timeouts -- any of those being off (a crash before runtests.log
-        # was written, a nonzero exit the parsed counts didn't capture, or an actual failure) must
-        # never present as green.
-        $overallSuccess = -not $anyLegFailedExitCode -and $missingSummaries.Count -eq 0 -and $totalFailed -eq 0 -and $totalTimeout -eq 0
+        $overallSuccess = -not $anyLegFailedExitCode -and $missingSummaries.Count -eq 0 -and $totalFailed -eq 0 -and $totalTimeout -eq 0  # green requires every requested leg to have exited 0 AND produced a readable summary with no failures/timeouts
         $overallColor = if ($overallSuccess) { "Green" } else { "Red" }
         Write-Host "Overall: $totalPassed passed, $totalFailed failed, $totalTimeout timeout" -ForegroundColor $overallColor
-
         Write-Host ""
         if ($runCoreClr) {
             Write-Host "CoreCLR test results: $coreClrTestResultsDir (logs: $coreClrLogDir)"
@@ -307,31 +236,13 @@ try {
             exit $desktopExitCode
         }
         if (-not $overallSuccess) {
-            # Every requested leg exited 0, but the summary itself says otherwise (e.g. RunTests hit
-            # a caught I/O error writing runtests.log -- see Program.WriteLogFile -- so the process
-            # still exits 0 with no readable summary). Don't let that read as success to automation.
-            exit 1
+            exit 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
         }
         exit 0
     }
     elseif ($action -eq "cleanse") {
         $artifactsDir = Join-Path $PSScriptRoot "artifacts"
-        # VBCSCompiler / the MSBuild build server / the Razor build server
-        # keep running between invocations and can hold an out-of-process
-        # BuildHost alive with Microsoft.CodeAnalysis.Workspaces.MSBuild*.dll
-        # loaded from artifacts/ -- Windows blocks deleting a DLL a running
-        # process still has open, so cleanse would intermittently fail on
-        # those two files. Shut the servers down first so it never races a
-        # locked file.
-        #
-        # attune/weave/etc. run through eng/common/tools.ps1's
-        # InitializeDotNetCli, which bootstraps a repo-local SDK under
-        # .dotnet/ and only puts it on PATH inside that child build process
-        # -- it never updates this process's PATH. A developer without a
-        # global `dotnet` install would silently skip the shutdown here and
-        # still hit the DLL lock, so check the repo-local SDK first and only
-        # fall back to a global `dotnet` on PATH.
-        $localDotnet = Join-Path $PSScriptRoot ".dotnet\dotnet.exe"
+        $localDotnet = Join-Path $PSScriptRoot ".dotnet\dotnet.exe"  # VBCSCompiler/MSBuild/the Razor server keep DLLs open under artifacts/ between invocations -- shut them down first so cleanse never races a locked file
         if (-not (Test-Path -LiteralPath $localDotnet)) {
             $localDotnet = Join-Path $PSScriptRoot ".dotnet/dotnet"
         }
@@ -343,140 +254,71 @@ try {
             if ($cmd) { $cmd.Source } else { $null }
         }
         if ($dotnetExe) {
-            # Best-effort: under this script's ErrorActionPreference = "Stop",
-            # a launch failure (e.g. an incomplete or wrong-architecture SDK
-            # bootstrap) would otherwise be a terminating error that aborts
-            # cleanse before it ever attempts to remove artifacts/. A failed
-            # shutdown just means the DLL-lock workaround didn't help this
-            # run -- it must never block cleanup outright.
-            try { & $dotnetExe build-server shutdown *> $null } catch {}
+            try { & $dotnetExe build-server shutdown *> $null } catch {}  # best-effort under ErrorActionPreference=Stop -- a failed shutdown must never block cleanup outright
         }
         if (Test-Path -LiteralPath $artifactsDir) {
-            # Binary units throughout (1MB/1GB are PowerShell's built-in
-            # 1048576/1073741824 literals) -- labelled MiB/GiB, never MB/GB.
-            function Format-ByteSize([long]$bytes) {
+            function Format-ByteSize([long]$bytes) {  # binary units throughout (1MB/1GB are PowerShell's built-in 1048576/1073741824 literals) -- labelled MiB/GiB, never MB/GB
                 if ($bytes -ge 1GB) { return "{0:N2} GiB" -f ($bytes / 1GB) }
                 elseif ($bytes -ge 1MB) { return "{0:N2} MiB" -f ($bytes / 1MB) }
                 elseif ($bytes -ge 1KB) { return "{0:N2} KiB" -f ($bytes / 1KB) }
                 else { return "$bytes B" }
             }
-            # Pipe straight into Measure-Object rather than assigning
-            # Get-ChildItem's output to a variable first -- an assignment
-            # materializes every FileInfo into an array before summing,
-            # which on the large trees this is meant to help with retains a
-            # full-tree object array on every progress refresh. Piping keeps
-            # this streaming, one FileInfo at a time.
             function Get-DirStats([string]$dir) {
-                # -ErrorVariable still captures errors that -ErrorAction
-                # SilentlyContinue suppresses from the console (e.g. Access
-                # to the path 'foo' is denied for a subtree this process
-                # can't read) -- Ok is $false whenever any were hit, so a
-                # partial/truncated traversal can be told apart from a
-                # genuinely empty or fully-readable one. Matches folly.sh's
-                # dir_stats "ok" flag for the same reason: silently trusting
-                # a partial count as exact would let the final summary
-                # report "0 files could not be removed" when files actually
-                # survived in a subtree this scan couldn't see into.
                 $errs = $null
-                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue -ErrorVariable errs |
+                $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue -ErrorVariable errs |  # piped straight into Measure-Object, not assigned first -- an assignment would materialize every FileInfo into an array before summing
                     Measure-Object -Property Length -Sum
                 $bytes = if ($sum.Sum) { $sum.Sum } else { 0L }
-                # [PSCustomObject], not a Hashtable (@{...}) -- Hashtable has
-                # its own native .Count property (the number of keys, always
-                # 2 here), which shadows a key literally named "Count" and
-                # silently returns the wrong number for every caller of this
-                # function.
-                return [PSCustomObject]@{ Bytes = $bytes; Count = $sum.Count; Ok = ($errs.Count -eq 0) }
+                return [PSCustomObject]@{ Bytes = $bytes; Count = $sum.Count; Ok = ($errs.Count -eq 0) }  # Ok is $false whenever ErrorVariable caught anything, so a partial/truncated scan can be told apart from a genuinely complete one (matches folly.sh's dir_stats)
             }
-
-            # The actual removal is a single bulk `Remove-Item -Recurse -Force`,
-            # run in a background job -- far faster than the previous
-            # implementation's per-file foreach loop, which is why cleanse felt
-            # much slower than Explorer's "Remove item". Progress is reported
-            # by periodically re-scanning what's left with Get-DirStats, so the
-            # display doesn't add per-file cost back into the deletion path.
             $spinnerFrames = @('|', '/', '-', '\')
             $spinnerIndex = 0
-
-            # Get-DirStats on the full tree can itself take a while on a
-            # large build output -- run it as a background job too and show
-            # a spinner instead of leaving the terminal blank until the scan
-            # finishes.
-            #
-            # Both this and the delete job below are wrapped in try/finally:
-            # if Ctrl+C interrupts the polling loop, PowerShell unwinds
-            # through the finally block, which stops and removes whichever
-            # job is still non-$null at that point -- without it, a job
-            # left running would stay attached to the session and keep
-            # executing Remove-Item after the prompt returns, so Ctrl+C
-            # wouldn't actually cancel the deletion.
-            $scanJob = $null
+            $clearLine = "`r" + [char]27 + "[K"  # the scanning phase below is a bare manually-redrawn spinner (no Write-Progress); the cleansing phase keeps Write-Progress's percent/rate/counts, just without the spinner glyph
+            $threadJobAvailable = $null -ne (Get-Command Start-ThreadJob -ErrorAction SilentlyContinue)  # Start-Job spins up a whole new powershell(.exe) process (multi-second cold start); Start-ThreadJob (in-box since PS7) runs in a runspace inside this process instead
+            function Start-CleanseJob([scriptblock]$ScriptBlock, $ArgumentList) {
+                if ($threadJobAvailable) {
+                    return Start-ThreadJob -ScriptBlock $ScriptBlock -ArgumentList $ArgumentList
+                }
+                return Start-Job -ScriptBlock $ScriptBlock -ArgumentList $ArgumentList
+            }
+            $scanJob = $null  # both jobs are wrapped in try/finally below: on Ctrl+C, the finally block stops and removes whichever job is still running instead of leaving it attached to the session past the prompt returning
             $job = $null
             try {
-                $scanJob = Start-Job -ScriptBlock {
+                $scanJob = Start-CleanseJob -ScriptBlock {
                     param($dir)
                     $sum = Get-ChildItem -LiteralPath $dir -Recurse -Force -File -ErrorAction SilentlyContinue |
                         Measure-Object -Property Length -Sum
                     [PSCustomObject]@{ Bytes = if ($sum.Sum) { $sum.Sum } else { 0L }; Count = $sum.Count }
                 } -ArgumentList $artifactsDir
-                $lastScanUpdate = Get-Date -Year 1970
+                Write-Host -NoNewline "${clearLine}Scanning artefacts $($spinnerFrames[$spinnerIndex])"  # drawn immediately, before the loop's first 150ms tick, or the line stays blank that whole first interval
                 while ($scanJob.State -eq 'Running') {
-                    $now = Get-Date
-                    if (($now - $lastScanUpdate).TotalMilliseconds -ge 150) {
-                        $lastScanUpdate = Get-Date
-                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                        Write-Progress -Activity "Scanning artefacts" -Status "$($spinnerFrames[$spinnerIndex])"
-                    }
                     Start-Sleep -Milliseconds 150
+                    $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
+                    Write-Host -NoNewline "${clearLine}Scanning artefacts $($spinnerFrames[$spinnerIndex])"
                 }
                 $totalStats = Receive-Job -Job $scanJob
                 Remove-Job -Job $scanJob
                 $scanJob = $null
-                Write-Progress -Activity "Scanning artefacts" -Completed
-
                 $totalBytes = $totalStats.Bytes
                 $totalCount = $totalStats.Count
                 $totalFormatted = Format-ByteSize $totalBytes
-
-                $startTime = Get-Date
-                $job = Start-Job -ScriptBlock {
+                $job = Start-CleanseJob -ScriptBlock {  # raw .NET File.Delete/Directory.Delete, not the Remove-Item cmdlet -- writes each deleted file's length to the job's own output stream as it goes, unverified against Remove-Item -Recurse -Force's speed (no pwsh here to benchmark)
                     param($dir)
-                    Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+                    try { foreach ($f in [System.IO.Directory]::EnumerateFiles($dir, '*', [System.IO.SearchOption]::AllDirectories)) { try { $len = ([System.IO.FileInfo]$f).Length; [System.IO.File]::Delete($f); Write-Output $len } catch {} } } catch {}  # EnumerateFiles itself (not just File.Delete) can throw mid-walk on a locked subtree -- stop rather than fault the whole job with nothing cleaned up
+                    try { $dirs = [System.IO.Directory]::EnumerateDirectories($dir, '*', [System.IO.SearchOption]::AllDirectories) | Sort-Object -Property { ($_ -split '[\\/]').Count } -Descending; foreach ($d in $dirs) { try { [System.IO.Directory]::Delete($d) } catch {} } } catch {}  # deepest first so a dir is always empty by the time it's deleted
+                    try { [System.IO.Directory]::Delete($dir) } catch {}
                 } -ArgumentList $artifactsDir
-
+                $startTime = Get-Date
                 $deletedBytes = 0L
                 $deletedCount = 0
-                $lastUpdate = Get-Date -Year 1970
                 while ($job.State -eq 'Running') {
-                    $now = Get-Date
-                    if (($now - $lastUpdate).TotalMilliseconds -ge 150) {
-                        $spinnerIndex = ($spinnerIndex + 1) % $spinnerFrames.Length
-                        $remainingBytes = 0L
-                        $remainingCount = 0
-                        if (Test-Path -LiteralPath $artifactsDir) {
-                            $remainingStats = Get-DirStats $artifactsDir
-                            $remainingBytes = $remainingStats.Bytes
-                            $remainingCount = $remainingStats.Count
-                        }
-                        # Stamp the throttle from *after* the scan, not before
-                        # -- on the large trees this is meant to help with,
-                        # Get-DirStats can itself take longer than 150ms, and
-                        # timestamping before it would let the next loop
-                        # iteration fire immediately, keeping a second
-                        # full-tree walker running continuously alongside
-                        # Remove-Item and fighting it for the same filesystem
-                        # I/O.
-                        $lastUpdate = Get-Date
-                        $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingBytes)
-                        $deletedCount = [Math]::Max(0, $totalCount - $remainingCount)
-                        $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
-                        $elapsedSeconds = ($lastUpdate - $startTime).TotalSeconds
-                        $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
-                        Write-Progress -Activity "Cleansing artefacts" -Status "$($spinnerFrames[$spinnerIndex]) $deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
-                    }
                     Start-Sleep -Milliseconds 150
+                    foreach ($size in (Receive-Job -Job $job)) { $deletedBytes += [long]$size; $deletedCount++ }  # drains the job's own stream instead of re-scanning the tree -- no second operation racing the delete
+                    $percent = if ($totalBytes -gt 0) { [Math]::Min(99, [int](($deletedBytes / $totalBytes) * 100)) } else { [Math]::Min(99, [int](($deletedCount / [Math]::Max(1, $totalCount)) * 100)) }
+                    $elapsedSeconds = ((Get-Date) - $startTime).TotalSeconds
+                    $bytesPerSecond = if ($elapsedSeconds -gt 0) { $deletedBytes / $elapsedSeconds } else { 0 }
+                    Write-Progress -Activity "Cleansing artefacts" -Status "$deletedCount / $totalCount files, $(Format-ByteSize $deletedBytes) / $totalFormatted, $(Format-ByteSize $bytesPerSecond)/s" -PercentComplete $percent
                 }
-                Receive-Job -Job $job -ErrorAction SilentlyContinue | Out-Null
+                foreach ($size in (Receive-Job -Job $job -ErrorAction SilentlyContinue)) { $deletedBytes += [long]$size; $deletedCount++ }
                 Remove-Job -Job $job
                 $job = $null
             }
@@ -491,22 +333,10 @@ try {
                 }
             }
             Write-Progress -Activity "Cleansing artefacts" -Completed
-            # Write-Progress's "completed" pane doesn't reliably leave the
-            # cursor at column 0 in every console host (conhost in
-            # particular), which left stray blank padding in front of the
-            # line below -- force a fresh line rather than trusting
-            # -Completed alone.
-            Write-Host ""
-
+            Write-Host ""  # -Completed doesn't reliably leave the cursor at column 0 on every console host (conhost in particular) -- force a fresh line rather than trusting it alone
             if (Test-Path -LiteralPath $artifactsDir) {
-                # A lock held only transiently (e.g. an antivirus scanner, or
-                # a process still winding down) can clear between the bulk
-                # delete and now -- retry once before reporting survivors,
-                # the same second chance the old per-file loop gave every
-                # file implicitly by continuing past individual failures.
-                Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue
+                Remove-Item -Recurse -Force -LiteralPath $artifactsDir -ErrorAction SilentlyContinue  # a transiently held lock (e.g. an antivirus scanner) can clear between the bulk delete and now -- retry once before reporting survivors
             }
-
             if (Test-Path -LiteralPath $artifactsDir) {
                 $remainingStats = Get-DirStats $artifactsDir
                 $deletedBytes = [Math]::Max(0L, $totalBytes - $remainingStats.Bytes)
@@ -514,19 +344,9 @@ try {
                     Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; $($remainingStats.Count) file(s) could not be removed." -ForegroundColor Yellow
                 }
                 else {
-                    # Get-ChildItem hit an error partway (e.g. an
-                    # access-denied subtree), so remainingStats.Count only
-                    # reflects what it could see -- reporting it as exact
-                    # would understate (possibly to a false "0") how much is
-                    # actually left behind. Matches folly.sh's equivalent
-                    # "at least N ... unreadable" wording.
-                    Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; at least $($remainingStats.Count) file(s) could not be removed (some may be unreadable and not counted)." -ForegroundColor Yellow
+                    Write-Host "Cleansed $(Format-ByteSize $deletedBytes) of artefacts; at least $($remainingStats.Count) file(s) could not be removed (some may be unreadable and not counted)." -ForegroundColor Yellow  # Get-ChildItem hit an error partway, so remainingStats.Count is a lower bound, not exact
                 }
-                # folly.sh exits 1 whenever artifacts/ survives cleanup, so
-                # scripting/CI around either tool can rely on the same exit
-                # code meaning the same thing -- this previously always
-                # exited 0 here, hiding an incomplete cleanup from callers.
-                exit 1
+                exit 1  # folly.sh exits 1 whenever artifacts/ survives cleanup too, so scripting/CI around either tool can rely on the same exit code meaning the same thing
             }
             else {
                 Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
