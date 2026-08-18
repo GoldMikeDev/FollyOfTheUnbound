@@ -130,10 +130,13 @@ namespace RunTests
         /// <summary>
         /// A single long-lived background thread that owns every read from <see cref="Console.In"/> for this
         /// display's lifetime, publishing each byte into <see cref="_rawInputQueue"/>. Started once, lazily, the
-        /// first time raw input is actually needed (<see cref="EnsureRawInputReaderStarted"/>), and stopped once,
-        /// permanently, at either of the display's two end-of-life paths (<see cref="StopRawInputReader"/>, called
-        /// from <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/>) -- so it doesn't keep consuming
-        /// console input for the rest of the process's life once this display is done with it.
+        /// first time raw input is actually needed (<see cref="EnsureRawInputReaderStarted"/>). Never explicitly
+        /// stopped -- see <see cref="StopRawInputReader"/>'s doc comment for why that's a deliberate choice, not
+        /// an oversight: this thread instead simply outlives the display, blocked forever in its last
+        /// <see cref="Console.In.Read"/> call. That's safe only because it's a single
+        /// <see cref="Thread.IsBackground"/> thread (never more than one), so it can never keep the process
+        /// itself from exiting -- unlike the unbounded thread-pool leak described below, which this design
+        /// exists to eliminate.
         /// <para>
         /// Replaces an earlier design where <see cref="ReadRawByte"/> spawned a fresh <c>Task.Run(Console.In.Read)</c>
         /// on every single byte, bounded by a short timeout: whenever that read didn't complete within the bound
@@ -692,32 +695,27 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Unblocks <see cref="_rawInputReaderThread"/> so it actually exits instead of staying parked in
-        /// <see cref="Console.In"/>'s blocking <c>Read()</c> for the rest of the process's life -- called only from
-        /// <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/> (the display's two permanent end-of-life
-        /// paths), never from <see cref="PrepareForExtraOutput"/>'s temporary pause, which needs the reader still
-        /// running for the redraw that follows it. <see cref="Console.In.Read"/> has no cancellation token to stop
-        /// it directly; closing the underlying stream is what makes the pending call return (with an exception,
-        /// which <see cref="RawInputReaderLoop"/> already treats as "stop looping"). Console input is not needed
-        /// by anything else once this display is done with it -- the run either exits shortly after or moves on
-        /// to failure/timeout diagnostics that only ever write to <see cref="Console.Out"/>.
+        /// Deliberately does <b>not</b> attempt to unblock <see cref="_rawInputReaderThread"/>'s pending
+        /// <see cref="Console.In"/> read. <see cref="Console.In"/> is <see cref="TextReader.Synchronized(TextReader)"/>-
+        /// wrapped, and that wrapper takes the same internal monitor for every call, including <c>Close()</c> --
+        /// so calling <c>Console.In.Close()</c> from here (an earlier version of this method did exactly that)
+        /// would itself block on that monitor for as long as the reader thread's <c>Read()</c> call holds it,
+        /// which is until the next byte of real input arrives. Since this method runs synchronously inside
+        /// <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/>, that would turn "stop the display" into
+        /// "hang until the user presses another key" -- worse than the thread it was trying to clean up,
+        /// especially after a whole-run timeout where nothing is left prompting for keystrokes at all.
+        /// <see cref="Console.In.Read"/> has no cancellation token, and there is no way to safely interrupt a
+        /// blocking read on a real console/terminal input handle out from under another thread on every
+        /// platform this runs on. The thread is therefore simply abandoned once this display is done with it --
+        /// safe only because it's a single <see cref="Thread.IsBackground"/> thread (never more than one, thanks
+        /// to the dedicated-reader design this replaces per-byte <c>Task.Run</c> leaks with), so it can never
+        /// keep the process itself from exiting, unlike the unbounded thread-pool leak the per-byte design risked.
         /// </summary>
         private void StopRawInputReader()
         {
-            if (_rawInputReaderThread is null)
-            {
-                return;
-            }
-
-            try
-            {
-                Console.In.Close();
-            }
-            catch
-            {
-                // Best effort -- if this doesn't unblock the read, the thread stays parked, same as before this
-                // method existed; it's still a background thread, so it can never keep the process itself alive.
-            }
+            // Intentionally a no-op beyond this comment -- see the doc comment above for why actually closing
+            // Console.In here would risk a worse bug (a synchronous hang in Complete()/DisableAndExitAltScreen())
+            // than the one leaked background thread it would have cleaned up.
         }
 
         /// <summary>
