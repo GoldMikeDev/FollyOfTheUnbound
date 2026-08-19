@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:35:48">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests.dll" run-date="2026-08-19" run-time="09:35:48" total="1278" passed="1278" failed="0" skipped="0" time="16.198" errors="0">
     <errors />
@@ -841,6 +842,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpPreprocessorTest.ElIfNotOnNewline" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpPreprocessorTest" method="ElIfNotOnNewline" time="0.0035427" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:31:15">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests.dll" run-date="2026-08-19" run-time="08:31:15" total="1278" passed="1278" failed="0" skipped="0" time="16.715" errors="0">
     <errors />
@@ -1682,11 +1685,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpPreprocessorTest.ElIfNotOnNewline" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpPreprocessorTest" method="ElIfNotOnNewline" time="0.0041554" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.CSharpRazorCommentsTest" time="0.043">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpRazorCommentsTest.MultipleRazorCommentsInSameLineInMarkup" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpRazorCommentsTest" method="MultipleRazorCommentsInSameLineInMarkup" time="0.0029105" result="Pass">
         <traits />
@@ -2347,6 +2354,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerOperatorsTest.LeftParen_Is_Recognized" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerOperatorsTest" method="LeftParen_Is_Recognized" time="0.0001487" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpRazorCommentsTest.MultipleRazorCommentsInSameLineInMarkup" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpRazorCommentsTest" method="MultipleRazorCommentsInSameLineInMarkup" time="0.0030688" result="Pass">
         <traits />
       </test>
@@ -3005,11 +3014,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerOperatorsTest.LeftParen_Is_Recognized" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerOperatorsTest" method="LeftParen_Is_Recognized" time="0.0001527" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerTest" time="0.002">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerTest.Transition_Is_Recognized" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerTest" method="Transition_Is_Recognized" time="0.0001499" result="Pass">
         <traits />
@@ -3057,6 +3070,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_07" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_07" time="0.0029290" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerTest.Transition_Is_Recognized" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpTokenizerTest" method="Transition_Is_Recognized" time="0.0002257" result="Pass">
         <traits />
       </test>
@@ -3102,56 +3117,78 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_07" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_07" time="0.0105102" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnSwitchCharacterFollowedByColonInCodeBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnSwitchCharacterFollowedByColonInCodeBlock" time="0.0031911" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_10" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_10" time="0.0016944" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnSwitchCharacterFollowedByColonInCodeBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnSwitchCharacterFollowedByColonInCodeBlock" time="0.0027787" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_10" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_10" time="0.0020602" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnSwitchCharacterFollowedByColon" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnSwitchCharacterFollowedByColon" time="0.0025347" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_08" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_08" time="0.0027884" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnSwitchCharacterFollowedByColon" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnSwitchCharacterFollowedByColon" time="0.0034811" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_08" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_08" time="0.0028452" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.AllowsMarkupInIfBodyWithBracesWithinCodeBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="AllowsMarkupInIfBodyWithBracesWithinCodeBlock" time="0.0037761" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_02" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_02" time="0.0027131" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.AllowsMarkupInIfBodyWithBracesWithinCodeBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="AllowsMarkupInIfBodyWithBracesWithinCodeBlock" time="0.0032420" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_02" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_02" time="0.0034023" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnOpenAngleBracketInCodeBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnOpenAngleBracketInCodeBlock" time="0.0030691" result="Pass">
         <traits />
@@ -3164,6 +3201,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_03" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_03" time="0.0038470" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnOpenAngleBracketInCodeBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnOpenAngleBracketInCodeBlock" time="0.0029021" result="Pass">
         <traits />
       </test>
@@ -3174,13 +3213,20 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_03" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_03" time="0.0059902" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_04" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_04" time="0.0027413" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_04" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_04" time="0.0027711" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_04" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_04" time="0.0027711" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -3189,7 +3235,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_06" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_06" time="0.0025458" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_06" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_06" time="0.0048018" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_06" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_06" time="0.0048018" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -3197,6 +3247,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.SupportsMarkupInCaseAndDefaultBranchesOfSwitch" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="SupportsMarkupInCaseAndDefaultBranchesOfSwitch" time="0.0041150" result="Pass">
         <traits />
@@ -3209,6 +3260,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_09" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_09" time="0.0034906" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.SupportsMarkupInCaseAndDefaultBranchesOfSwitch" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="SupportsMarkupInCaseAndDefaultBranchesOfSwitch" time="0.0036940" result="Pass">
         <traits />
       </test>
@@ -3219,11 +3272,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_09" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_09" time="0.0028744" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ShouldSupportMarkupWithoutPreceedingWhitespace" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ShouldSupportMarkupWithoutPreceedingWhitespace" time="0.0032783" result="Pass">
         <traits />
@@ -3233,6 +3290,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_05" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_05" time="0.0037649" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ShouldSupportMarkupWithoutPreceedingWhitespace" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ShouldSupportMarkupWithoutPreceedingWhitespace" time="0.0039071" result="Pass">
         <traits />
       </test>
@@ -3240,26 +3299,36 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_05" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_05" time="0.0029664" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnSwitchCharacterFollowedByDoubleColon" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnSwitchCharacterFollowedByDoubleColon" time="0.0027020" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_01" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_01" time="0.0034703" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.ParsesMarkupStatementOnSwitchCharacterFollowedByDoubleColon" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="ParsesMarkupStatementOnSwitchCharacterFollowedByDoubleColon" time="0.0034528" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CodeBlocksTrailingWhitespace_01" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CodeBlocksTrailingWhitespace_01" time="0.0028857" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10358" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CorrectlyReturnsFromMarkupBlockWithPseudoTag" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CorrectlyReturnsFromMarkupBlockWithPseudoTag" time="0.0031974" result="Pass">
         <traits />
@@ -3277,6 +3346,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpVerbatimBlockTest.VerbatimBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpVerbatimBlockTest" method="VerbatimBlock" time="0.0034675" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest.CorrectlyReturnsFromMarkupBlockWithPseudoTag" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpToMarkupSwitchTest" method="CorrectlyReturnsFromMarkupBlockWithPseudoTag" time="0.0028827" result="Pass">
         <traits />
       </test>
@@ -3292,11 +3363,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpVerbatimBlockTest.VerbatimBlock" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpVerbatimBlockTest" method="VerbatimBlock" time="0.0032412" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.CSharpWhitespaceHandlingTest" time="0.003">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpWhitespaceHandlingTest.StmtBlockDoesNotAcceptTrailingNewlineIfTheyAreSignificantToAncestor" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpWhitespaceHandlingTest" method="StmtBlockDoesNotAcceptTrailingNewlineIfTheyAreSignificantToAncestor" time="0.0028115" result="Pass">
         <traits />
@@ -3810,6 +3885,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.HtmlToCodeSwitchTest.ParsesCodeWithinSingleLineMarkup" type="Microsoft.AspNetCore.Razor.Language.Legacy.HtmlToCodeSwitchTest" method="ParsesCodeWithinSingleLineMarkup" time="0.0036372" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpWhitespaceHandlingTest.StmtBlockDoesNotAcceptTrailingNewlineIfTheyAreSignificantToAncestor" type="Microsoft.AspNetCore.Razor.Language.Legacy.CSharpWhitespaceHandlingTest" method="StmtBlockDoesNotAcceptTrailingNewlineIfTheyAreSignificantToAncestor" time="0.0028541" result="Pass">
         <traits />
       </test>
@@ -4321,12 +4398,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.HtmlToCodeSwitchTest.ParsesCodeWithinSingleLineMarkup" type="Microsoft.AspNetCore.Razor.Language.Legacy.HtmlToCodeSwitchTest" method="ParsesCodeWithinSingleLineMarkup" time="0.0029049" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/aspnet/Razor/issues/101" />
         </traits>
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="33" passed="33" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.ImplicitExpressionEditHandlerTest" time="0.011">
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.ImplicitExpressionEditHandlerTest.ContainsPosition_AtEndOfToken_ReturnsFalse" type="Microsoft.AspNetCore.Razor.Language.Legacy.ImplicitExpressionEditHandlerTest" method="ContainsPosition_AtEndOfToken_ReturnsFalse" time="0.0018756" result="Pass">
@@ -4710,6 +4791,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.RazorDirectivesTest.DirectiveDescriptor_StringToken_ParserErrorForSingleQuotedValue" type="Microsoft.AspNetCore.Razor.Language.Legacy.RazorDirectivesTest" method="DirectiveDescriptor_StringToken_ParserErrorForSingleQuotedValue" time="0.0037763" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="33" passed="33" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.ImplicitExpressionEditHandlerTest" time="0.010">
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.ImplicitExpressionEditHandlerTest.ContainsPosition_AtEndOfToken_ReturnsFalse" type="Microsoft.AspNetCore.Razor.Language.Legacy.ImplicitExpressionEditHandlerTest" method="ContainsPosition_AtEndOfToken_ReturnsFalse" time="0.0024718" result="Pass">
         <traits />
@@ -5091,11 +5174,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.RazorDirectivesTest.DirectiveDescriptor_StringToken_ParserErrorForSingleQuotedValue" type="Microsoft.AspNetCore.Razor.Language.Legacy.RazorDirectivesTest" method="DirectiveDescriptor_StringToken_ParserErrorForSingleQuotedValue" time="0.0039620" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.RazorParserTest" time="0.001">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.RazorParserTest.ParseMethodCallsParseDocumentOnMarkupParserAndReturnsResults" type="Microsoft.AspNetCore.Razor.Language.Legacy.RazorParserTest" method="ParseMethodCallsParseDocumentOnMarkupParserAndReturnsResults" time="0.0013832" result="Pass">
         <traits />
@@ -6467,6 +6554,8 @@
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.WhiteSpaceRewriterTest" time="0.007">
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.WhiteSpaceRewriterTest.Moves_Whitespace_Preceeding_ExpressionBlock_To_Parent_Block" type="Microsoft.AspNetCore.Razor.Language.Legacy.WhiteSpaceRewriterTest" method="Moves_Whitespace_Preceeding_ExpressionBlock_To_Parent_Block" time="0.0074438" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.RazorParserTest.ParseMethodCallsParseDocumentOnMarkupParserAndReturnsResults" type="Microsoft.AspNetCore.Razor.Language.Legacy.RazorParserTest" method="ParseMethodCallsParseDocumentOnMarkupParserAndReturnsResults" time="0.0014400" result="Pass">
         <traits />
       </test>
@@ -7836,6 +7925,9 @@
     </collection>
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Language.Legacy.WhiteSpaceRewriterTest" time="0.010">
       <test name="Microsoft.AspNetCore.Razor.Language.Legacy.WhiteSpaceRewriterTest.Moves_Whitespace_Preceeding_ExpressionBlock_To_Parent_Block" type="Microsoft.AspNetCore.Razor.Language.Legacy.WhiteSpaceRewriterTest" method="Moves_Whitespace_Preceeding_ExpressionBlock_To_Parent_Block" time="0.0100814" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

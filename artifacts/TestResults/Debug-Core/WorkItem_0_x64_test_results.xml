@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:36:54">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests.dll" run-date="2026-08-19" run-time="09:36:54" total="150" passed="150" failed="0" skipped="0" time="21.759" errors="0">
     <errors />
@@ -20,6 +21,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ConsolidatedMvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_NullFilePath_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ConsolidatedMvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_NullFilePath_SetsClass" time="0.0027787" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:31:37">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests.dll" run-date="2026-08-19" run-time="08:31:37" total="150" passed="150" failed="0" skipped="0" time="23.130" errors="0">
     <errors />
@@ -40,11 +43,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ConsolidatedMvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_NullFilePath_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ConsolidatedMvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_NullFilePath_SetsClass" time="0.0007256" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.CreateNewOnMetadataUpdateAttributePassTest" time="0.004">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.CreateNewOnMetadataUpdateAttributePassTest.Execute_NoOpsForBlazorComponents" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.CreateNewOnMetadataUpdateAttributePassTest" method="Execute_NoOpsForBlazorComponents" time="0.0030425" result="Pass">
         <traits />
@@ -68,6 +75,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" time="0.0005504" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.CreateNewOnMetadataUpdateAttributePassTest.Execute_NoOpsForBlazorComponents" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.CreateNewOnMetadataUpdateAttributePassTest" method="Execute_NoOpsForBlazorComponents" time="0.0025232" result="Pass">
         <traits />
       </test>
@@ -89,11 +98,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" time="0.0005045" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectTargetExtensionTest" time="0.002">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectTargetExtensionTest.InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectTargetExtensionTest" method="InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" time="0.0011042" result="Pass">
         <traits />
@@ -111,6 +124,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" time="0.8269337" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectTargetExtensionTest.InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.InjectTargetExtensionTest" method="InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" time="0.0020214" result="Pass">
         <traits />
       </test>
@@ -126,13 +141,20 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" time="1.3559889" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7286" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" time="0.0916946" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" time="0.0621832" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" time="0.0621832" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -141,7 +163,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" time="0.0616185" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" time="0.0485220" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" time="0.0485220" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -150,7 +176,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" time="0.0334371" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" time="0.0435897" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" time="0.0435897" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -159,7 +189,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" time="0.0368677" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" time="0.0523800" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;Latest&quot;)" time="0.0523800" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -168,7 +202,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" time="0.0313302" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" time="0.0564216" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" time="0.0564216" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -177,7 +215,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" time="0.0364878" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" time="0.0897734" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;8.0&quot;)" time="0.0897734" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -186,7 +228,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" time="0.0320705" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" time="0.0509384" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;Latest&quot;)" time="0.0509384" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -195,7 +241,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" time="0.0294416" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" time="0.0908707" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;9.0&quot;)" time="0.0908707" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -204,7 +254,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" time="0.0307793" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" time="0.0313430" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: True, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" time="0.0313430" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -213,7 +267,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" time="0.0323432" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" time="0.0393339" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: True, razorLangVersion: &quot;8.0&quot;)" time="0.0393339" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -222,7 +280,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" time="0.0494167" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" time="0.0382191" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_NullableModel(nullableModel: False, nullableContextEnabled: False, razorLangVersion: &quot;9.0&quot;)" time="0.0382191" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -230,6 +292,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7286" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_WithCssScope" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_WithCssScope" time="0.4189981" result="Pass">
         <traits />
@@ -245,6 +308,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorComment_AdjacentCommentsInCodeBlock" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorComment_AdjacentCommentsInCodeBlock" time="0.0258840" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorPage_WithCssScope" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPage_WithCssScope" time="0.5433521" result="Pass">
         <traits />
       </test>
@@ -258,13 +323,20 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorComment_AdjacentCommentsInCodeBlock" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorComment_AdjacentCommentsInCodeBlock" time="0.0175639" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7421" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.InvalidCode_EmptyImplicitExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="InvalidCode_EmptyImplicitExpression" time="0.0488033" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.InvalidCode_EmptyImplicitExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="InvalidCode_EmptyImplicitExpression" time="0.0760935" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.InvalidCode_EmptyImplicitExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="InvalidCode_EmptyImplicitExpression" time="0.0760935" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -272,6 +344,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10965" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.UsingDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="UsingDirectives" time="0.0279123" result="Pass">
         <traits />
@@ -281,6 +354,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.Utf8HtmlLiterals_AutoDetectedFromInherits" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="Utf8HtmlLiterals_AutoDetectedFromInherits" time="0.1014275" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.UsingDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="UsingDirectives" time="0.0257172" result="Pass">
         <traits />
       </test>
@@ -288,11 +363,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.Utf8HtmlLiterals_AutoDetectedFromInherits" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="Utf8HtmlLiterals_AutoDetectedFromInherits" time="0.1382093" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorView_WithNonNullableModel_NullableContextEnabled" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorView_WithNonNullableModel_NullableContextEnabled" time="0.0448442" result="Pass">
         <traits />
@@ -320,6 +399,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" time="0.0348466" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.RazorView_WithNonNullableModel_NullableContextEnabled" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="RazorView_WithNonNullableModel_NullableContextEnabled" time="0.1279214" result="Pass">
         <traits />
       </test>
@@ -345,11 +426,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" time="0.1116814" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.Inject" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="Inject" time="0.0332218" result="Pass">
         <traits />
@@ -429,6 +514,8 @@
     <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" time="0.114">
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_RazorPageWithInheritsWithoutTModelDoesNotWarn" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_RazorPageWithInheritsWithoutTModelDoesNotWarn" time="0.0790177" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest.Inject" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.IntegrationTests.CodeGenerationIntegrationTest" method="Inject" time="0.0421183" result="Pass">
         <traits />
       </test>
@@ -506,13 +593,20 @@
     </collection>
     <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" time="0.044">
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_RazorPageWithInheritsWithoutTModelDoesNotWarn" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_RazorPageWithInheritsWithoutTModelDoesNotWarn" time="0.0268691" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10987" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReportsExpectedDiagnosticAtWarningLevel11" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReportsExpectedDiagnosticAtWarningLevel11" time="0.0085783" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReportsExpectedDiagnosticAtWarningLevel11" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReportsExpectedDiagnosticAtWarningLevel11" time="0.0035893" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReportsExpectedDiagnosticAtWarningLevel11" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReportsExpectedDiagnosticAtWarningLevel11" time="0.0035893" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -521,7 +615,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1&quot;)" time="0.0008428" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1&quot;)" time="0.0006619" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1&quot;)" time="0.0006619" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -530,7 +628,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&quot;)" time="0.0006893" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&quot;)" time="0.0007239" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&quot;)" time="0.0007239" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -539,7 +641,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1\r\n@inherits BaseType&lt;TModel&gt;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1\r\n@inherits BaseType&lt;TModel&gt;&quot;)" time="0.0036587" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1\r\n@inherits BaseType&lt;TModel&gt;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1\r\n@inherits BaseType&lt;TModel&gt;&quot;)" time="0.0010379" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1\r\n@inherits BaseType&lt;TModel&gt;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@model Type1\r\n@inherits BaseType&lt;TModel&gt;&quot;)" time="0.0010379" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -548,7 +654,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;\r\n@model Type1&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;\r\n@model Type1&quot;)" time="0.0004729" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;\r\n@model Type1&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;\r\n@model Type1&quot;)" time="0.0005421" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;\r\n@model Type1&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;\r\n@model Type1&quot;)" time="0.0005421" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -557,7 +667,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;&quot;)" time="0.0004133" result="Pass">
+=======
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;&quot;)" time="0.0004980" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ValidFormsDoNotWarn(source: &quot;@inherits BaseType&lt;TModel&gt;&quot;)" time="0.0004980" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -566,35 +680,48 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" time="0.0151844" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_UnsupportedGenericParameterWarns" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_UnsupportedGenericParameterWarns" time="0.0008086" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" time="0.0051439" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_UnsupportedGenericParameterWarns" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_UnsupportedGenericParameterWarns" time="0.0007620" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10987" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType" time="0.0008837" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_DoesNotReportDiagnosticAtWarningLevel10" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_DoesNotReportDiagnosticAtWarningLevel10" time="0.0005701" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType" time="0.0006744" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_DoesNotReportDiagnosticAtWarningLevel10" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_DoesNotReportDiagnosticAtWarningLevel10" time="0.0006368" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10987" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" time="0.0007207" result="Pass">
         <traits />
@@ -629,6 +756,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcImportProjectFeatureTest.AddDefaultDirectivesImport_AddsSingleDynamicImport" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcImportProjectFeatureTest" method="AddDefaultDirectivesImport_AddsSingleDynamicImport" time="0.0004525" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" time="0.0006773" result="Pass">
         <traits />
       </test>
@@ -661,11 +790,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcImportProjectFeatureTest.AddDefaultDirectivesImport_AddsSingleDynamicImport" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcImportProjectFeatureTest" method="AddDefaultDirectivesImport_AddsSingleDynamicImport" time="0.0006077" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcViewDocumentClassifierPassTest" time="0.005">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" time="0.0005433" result="Pass">
         <traits />
@@ -854,6 +987,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" time="0.0006803" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" time="0.0005739" result="Pass">
         <traits />
       </test>
@@ -1040,6 +1175,9 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" time="0.0004858" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

@@ -11,7 +11,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (3280).
+=======
+Blame: Attaching crash dump utility to process testhost (15400).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (15400).
 >>>>>>> origin/folly-of-the-unbound
@@ -26,7 +30,11 @@ Blame: Attaching crash dump utility to process testhost (15400).
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 304
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [< 1 ms]
+=======
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [1 ms]
+>>>>>>> origin/folly-of-the-unbound
 =======
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [1 ms]
 >>>>>>> origin/folly-of-the-unbound
@@ -120,7 +128,11 @@ Blame: Attaching crash dump utility to process testhost (15400).
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 94
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [< 1 ms]
+=======
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [1 ms]
+>>>>>>> origin/folly-of-the-unbound
 =======
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [1 ms]
 >>>>>>> origin/folly-of-the-unbound
@@ -204,7 +216,10 @@ Blame: Attaching crash dump utility to process testhost (15400).
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 175
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+=======
+>>>>>>> origin/folly-of-the-unbound
 =======
 >>>>>>> origin/folly-of-the-unbound
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports [< 1 ms]
@@ -248,14 +263,21 @@ Data collector 'Blame' message: All tests finished running, Sequence file will n
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 117
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.html
 
 Failed!  - Failed:    22, Passed:   193, Skipped:     0, Total:   215, Duration: 1 m 2 s - Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll (net10.0)
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.html
 
+<<<<<<< HEAD
+Failed!  - Failed:    22, Passed:   193, Skipped:     0, Total:   215, Duration: 1 m 9 s - Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll (net10.0)
+>>>>>>> origin/folly-of-the-unbound
+=======
 Failed!  - Failed:    22, Passed:   193, Skipped:     0, Total:   215, Duration: 1 m 9 s - Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll (net10.0)
 >>>>>>> origin/folly-of-the-unbound

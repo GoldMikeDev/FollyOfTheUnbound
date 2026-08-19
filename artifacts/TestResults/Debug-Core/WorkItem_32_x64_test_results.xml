@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:28:44">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Scripting.UnitTests.dll" run-date="2026-08-19" run-time="09:28:44" total="45" passed="45" failed="0" skipped="0" time="13.346" errors="0">
     <errors />
@@ -141,6 +142,8 @@
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" time="0.018">
       <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests.Resolve" type="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" method="Resolve" time="0.0178190" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:23:30">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Scripting.UnitTests.dll" run-date="2026-08-19" run-time="08:23:30" total="45" passed="45" failed="0" skipped="0" time="12.950" errors="0">
     <errors />
@@ -282,6 +285,9 @@
     </collection>
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" time="0.080">
       <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests.Resolve" type="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" method="Resolve" time="0.0801771" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

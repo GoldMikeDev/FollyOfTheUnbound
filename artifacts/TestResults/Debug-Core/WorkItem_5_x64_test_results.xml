@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:35:01">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll" run-date="2026-08-19" run-time="09:35:01" total="1306" passed="1303" failed="0" skipped="3" time="10.191" errors="0">
     <errors />
@@ -997,6 +998,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByDescendingAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByDescendingAsArray_ReadOnlyList(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ValueHolder { Value = 5 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···])" time="0.0000190" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:30:55">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll" run-date="2026-08-19" run-time="08:30:55" total="1306" passed="1303" failed="0" skipped="3" time="10.069" errors="0">
     <errors />
@@ -1994,12 +1997,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByDescendingAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByDescendingAsArray_ReadOnlyList(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ValueHolder { Value = 5 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···])" time="0.0000171" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByDescendingAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByDescendingAsArray_ReadOnlyList(data: [ValueHolder { Value = 2 }, ValueHolder { Value = 5 }, ValueHolder { Value = 8 }, ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···])" time="0.0000106" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByDescendingAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByDescendingAsArray_ReadOnlyList(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···])" time="0.0000096" result="Pass">
         <traits />
@@ -2111,6 +2118,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByAndClear" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByAndClear(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ValueHolder { Value = 5 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···])" time="0.0000158" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByDescendingAsArray_ReadOnlyList" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByDescendingAsArray_ReadOnlyList(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 9 }, ValueHolder { Value = 8 }, ValueHolder { Value = 7 }, ValueHolder { Value = 6 }, ···])" time="0.0000189" result="Pass">
         <traits />
       </test>
@@ -2220,12 +2229,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByAndClear" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByAndClear(data: [ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ValueHolder { Value = 5 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···])" time="0.0000167" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByAndClear" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByAndClear(data: [ValueHolder { Value = 2 }, ValueHolder { Value = 5 }, ValueHolder { Value = 8 }, ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···])" time="0.0000106" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByAndClear" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByAndClear(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···])" time="0.0000092" result="Pass">
         <traits />
@@ -2286,6 +2299,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByDescendingAndClear_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByDescendingAndClear_OddBeforeEven(data: [ValueHolder { Value = 2 }, ValueHolder { Value = 5 }, ValueHolder { Value = 8 }, ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0000110" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByAndClear" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByAndClear(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 1 }, ValueHolder { Value = 2 }, ValueHolder { Value = 3 }, ValueHolder { Value = 4 }, ValueHolder { Value = 5 }, ···])" time="0.0000093" result="Pass">
         <traits />
       </test>
@@ -2344,12 +2359,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByDescendingAndClear_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByDescendingAndClear_OddBeforeEven(data: [ValueHolder { Value = 2 }, ValueHolder { Value = 5 }, ValueHolder { Value = 8 }, ValueHolder { Value = 1 }, ValueHolder { Value = 3 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0000111" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.ToImmutableOrderedByDescendingAndClear_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="ToImmutableOrderedByDescendingAndClear_OddBeforeEven(data: [ValueHolder { Value = 6 }, ValueHolder { Value = 10 }, ValueHolder { Value = 4 }, ValueHolder { Value = 7 }, ValueHolder { Value = 9 }, ···], expected: [ValueHolder { Value = 10 }, ValueHolder { Value = 8 }, ValueHolder { Value = 6 }, ValueHolder { Value = 4 }, ValueHolder { Value = 2 }, ···])" time="0.0000113" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByAsArray_EmptyArrayReturnsSameArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByAsArray_EmptyArrayReturnsSameArray" time="0.0002565" result="Pass">
         <traits />
@@ -2491,6 +2510,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [10, 9, 8, 7, 6, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0002608" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.OrderByAsArray_EmptyArrayReturnsSameArray" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="OrderByAsArray_EmptyArrayReturnsSameArray" time="0.0002957" result="Pass">
         <traits />
       </test>
@@ -2630,12 +2651,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [10, 9, 8, 7, 6, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0003072" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [1, 3, 5, 7, 9, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0000171" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [2, 5, 8, 1, 3, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0000129" result="Pass">
         <traits />
@@ -2696,6 +2721,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_Enumerable(data: [10, 9, 8, 7, 6, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0002974" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_OddBeforeEven(data: [2, 5, 8, 1, 3, ···], expected: [&quot;1&quot;, &quot;3&quot;, &quot;5&quot;, &quot;7&quot;, &quot;9&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_1(Int32), Target = &lt;&gt;c { } })" time="0.0000119" result="Pass">
         <traits />
       </test>
@@ -2754,12 +2781,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_Enumerable(data: [10, 9, 8, 7, 6, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0003676" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_Enumerable(data: [1, 3, 5, 7, 9, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0000181" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_Enumerable(data: [2, 5, 8, 1, 3, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0000119" result="Pass">
         <traits />
@@ -3527,6 +3558,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Windows_Valid(path: &quot;C://foo2&quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="IsPathFullyQualified_Windows_Valid(path: &quot;C://foo2&quot;)" time="0.0000038" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests.SelectAndOrderAsArray_Enumerable" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.ImmutableArrayOrderingTests" method="SelectAndOrderAsArray_Enumerable(data: [2, 5, 8, 1, 3, ···], expected: [&quot;1&quot;, &quot;10&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, ···], selector: Func`2 { Method = System.String &lt;AddCase&gt;b__32_0(Int32), Target = &lt;&gt;c { } })" time="0.0000256" result="Pass">
         <traits />
       </test>
@@ -4292,6 +4325,9 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Windows_Valid(path: &quot;C://foo2&quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="IsPathFullyQualified_Windows_Valid(path: &quot;C://foo2&quot;)" time="0.0000101" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -4299,6 +4335,7 @@
         <reason><![CDATA[The following conditions are not all true: AnyUnix]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_SkipSpaces(path: &quot; C:\\dir/baz&quot;, expected: &quot; C:\\dir&quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetDirectoryName_SkipSpaces(path: &quot; C:\\dir/baz&quot;, expected: &quot; C:\\dir&quot;)" time="0.0001080" result="Pass">
         <traits />
@@ -4401,6 +4438,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_Span_CurrentDirectory" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetDirectoryName_Span_CurrentDirectory" time="0.0002073" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_SkipSpaces(path: &quot; C:\\dir/baz&quot;, expected: &quot; C:\\dir&quot;)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetDirectoryName_SkipSpaces(path: &quot; C:\\dir/baz&quot;, expected: &quot; C:\\dir&quot;)" time="0.0002312" result="Pass">
         <traits />
       </test>
@@ -4501,6 +4540,9 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_Span_CurrentDirectory" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetDirectoryName_Span_CurrentDirectory" time="0.0002574" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -4513,6 +4555,7 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_EmptyReturnsNull" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetDirectoryName_EmptyReturnsNull" time="0.0001241" result="Pass">
         <traits />
       </test>
@@ -4521,6 +4564,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Empty" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="IsPathFullyQualified_Empty" time="0.0001317" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_EmptyReturnsNull" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="GetDirectoryName_EmptyReturnsNull" time="0.0003102" result="Pass">
         <traits />
       </test>
@@ -4528,11 +4573,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Empty" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests" method="IsPathFullyQualified_Empty" time="0.0001853" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" time="0.002">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests.FillBufferWriter(arraySize: 42)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" method="FillBufferWriter(arraySize: 42)" time="0.0012121" result="Pass">
         <traits />
@@ -4664,6 +4713,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered_OddBeforeEven(data: [1, 3, 5, 7, 9, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0000132" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests.FillBufferWriter(arraySize: 42)" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledArrayBufferWriterTests" method="FillBufferWriter(arraySize: 42)" time="0.0014264" result="Pass">
         <traits />
       </test>
@@ -4793,12 +4844,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered_OddBeforeEven(data: [1, 3, 5, 7, 9, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0000160" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered_OddBeforeEven(data: [2, 5, 8, 1, 3, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0000101" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered_OddBeforeEven(data: [6, 10, 4, 7, 9, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0000266" result="Pass">
         <traits />
@@ -6354,6 +6409,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_GetValue_ExceptionDoesNotCacheValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_GetValue_ExceptionDoesNotCacheValue" time="0.0003788" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests.ToImmutableOrdered_OddBeforeEven" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PooledObjects.PooledArrayBuilderOrderingTests" method="ToImmutableOrdered_OddBeforeEven(data: [6, 10, 4, 7, 9, ···], expected: [1, 3, 5, 7, 9, ···])" time="0.0000090" result="Pass">
         <traits />
       </test>
@@ -7907,6 +7964,9 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests.LazyValueWithArg_GetValue_ExceptionDoesNotCacheValue" type="Microsoft.AspNetCore.Razor.Utilities.Shared.Test.Threading.LazyValueTests" method="LazyValueWithArg_GetValue_ExceptionDoesNotCacheValue" time="0.0007161" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

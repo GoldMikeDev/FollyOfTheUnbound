@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:00">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll" run-date="2026-08-19" run-time="09:29:00" total="91" passed="91" failed="0" skipped="0" time="31.486" errors="0">
     <errors />
@@ -120,6 +121,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), callbackType: null)" time="0.0000729" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:23:46">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll" run-date="2026-08-19" run-time="08:23:46" total="91" passed="91" failed="0" skipped="0" time="33.931" errors="0">
     <errors />
@@ -240,12 +243,16 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), callbackType: null)" time="0.0000798" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHoverService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHoverService), callbackType: null)" time="0.0000632" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), callbackType: null)" time="0.0000960" result="Pass">
         <traits />
@@ -416,6 +423,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.DoesntFit" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="DoesntFit" time="0.0004113" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), callbackType: null)" time="0.0000737" result="Pass">
         <traits />
       </test>
@@ -584,6 +593,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.DoesntFit" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="DoesntFit" time="0.0009163" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

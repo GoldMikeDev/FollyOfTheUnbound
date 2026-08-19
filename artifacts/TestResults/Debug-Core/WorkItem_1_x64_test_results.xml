@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:36:44">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests.dll" run-date="2026-08-19" run-time="09:36:44" total="63" passed="63" failed="0" skipped="0" time="16.961" errors="0">
     <errors />
@@ -215,6 +216,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" time="0.0014790" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:31:34">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests.dll" run-date="2026-08-19" run-time="08:31:34" total="63" passed="63" failed="0" skipped="0" time="18.073" errors="0">
     <errors />
@@ -430,6 +433,9 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" time="0.0013875" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

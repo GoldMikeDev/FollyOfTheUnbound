@@ -11,6 +11,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (32288).
   Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface(includeDevKitComponents: True) [15 s]
   Error Message:
@@ -856,6 +857,8 @@ Blame: Attaching crash dump utility to process testhost (32288).
 
 
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (41300).
   Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle [27 s]
   Error Message:
@@ -1348,6 +1351,9 @@ Blame: Attaching crash dump utility to process testhost (41300).
 
 
 Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
@@ -1355,9 +1361,16 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 
 Attachments:
 <<<<<<< HEAD
+<<<<<<< HEAD
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\ebd28114-439a-48c9-bc8e-83e4aa2d4dbf\testhost.exe_32288_1787131961_crashdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\ebd28114-439a-48c9-bc8e-83e4aa2d4dbf\Sequence_ab07125b3def44739179355e53d3f596.xml
 Failed!  - Failed:     1, Passed:    11, Skipped:     0, Total:    12, Duration: 2 m 58 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
+=======
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\dotnet_50152_20260819T095121_hangdump.dmp
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\testhost_41300_20260819T095121_hangdump.dmp
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\Sequence_8e1346f0aff64d51b7778ef8808ec05b.xml
+Failed!  - Failed:    15, Passed:     3, Skipped:     0, Total:    18, Duration: 1 m 53 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
+>>>>>>> origin/folly-of-the-unbound
 =======
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\dotnet_50152_20260819T095121_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\testhost_41300_20260819T095121_hangdump.dmp

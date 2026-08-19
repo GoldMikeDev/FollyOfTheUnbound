@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:32">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll" run-date="2026-08-19" run-time="09:29:32" total="12" passed="11" failed="1" skipped="0" time="213.751" errors="0">
     <errors />
@@ -1982,6 +1983,8 @@
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.DisposeAsync() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 425
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface(Boolean includeDevKitComponents) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\CodeActions\ExtractRefactoringTests.cs:line 61
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:24:18">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll" run-date="2026-08-19" run-time="08:24:18" total="18" passed="3" failed="15" skipped="0" time="1625.133" errors="0">
     <errors />
@@ -2490,12 +2493,16 @@
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TestDaemon.CreateClientAsync(Boolean useNamedPipe, Nullable`1 initializeProcessId, Nullable`1 workspaceContent) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 409
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.StaleDaemon_NextClientLaunchesFreshDaemon() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 193
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.StaleDaemon_NextClientLaunchesFreshDaemon() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 205
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 --- End of stack trace from previous location ---</stack-trace>
         </failure>
         <traits />
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests" time="115.960">
       <test name="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.RestoresSolutionInsteadOfIndividualProjectsWhenSolutionLoaded" type="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests" method="RestoresSolutionInsteadOfIndividualProjectsWhenSolutionLoaded" time="35.6781863" result="Pass">
@@ -2723,6 +2730,8 @@
 [09:30:09.782] [Information] [LSP LogMessage] [Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService] Requesting 1 Razor cohost registrations.
 [09:30:09.794] [Error] [LSP LogMessage] [initialized] [Razor]  Error initializing Razor startup service 'RazorCohostDynamicRegistrationService' StreamJsonRpc.RemoteMethodNotFoundException: No method by the name 'client/registerCapability' is found.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Win32BreakawayLauncherTests" time="4.363">
       <test name="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Win32BreakawayLauncherTests.DaemonLaunchBreaksAwayFromKillOnCloseJobObject" type="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Win32BreakawayLauncherTests" method="DaemonLaunchBreaksAwayFromKillOnCloseJobObject" time="4.3630758" result="Pass">
         <traits />
@@ -3149,11 +3158,15 @@
 [08:26:02.253] [Debug] [LSP LogMessage] [initialized] [Razor] [Global] Loading assembly Microsoft.VisualStudioCode.RazorExtension, Version=42.42.42.42, Culture=neutral, PublicKeyToken=adb9793829ddae60
 [08:26:02.259] [Information] [LSP LogMessage] [Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService] Requesting 1 Razor cohost registrations.
 [08:26:02.339] [Error] [LSP LogMessage] [initialized] [Razor]  Error initializing Razor startup service 'RazorCohostDynamicRegistrationService' StreamJsonRpc.RemoteMethodNotFoundException: No method by the name 'client/registerCapability' is found.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
    at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
    at Microsoft.CodeAnalysis.LanguageServer.Handler.ClientLanguageServerManager.SendRequestAsync[TParams](String methodName, TParams params, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Protocol\Handler\LanguageServerNotificationManager.cs:line 33
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService.StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorCohostDynamicRegistrationService.cs:line 65
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
+<<<<<<< HEAD
 <<<<<<< HEAD
 [09:30:09.794] [Information] [LSP LogMessage] [initialized] [Razor]  Razor extension startup finished.
 [09:30:11.032] [Debug] [LSP LogMessage] [initialized] [BuildHost PID 38100] Message on stderr: info: BuildHost Runtime Version: .NET 11.0.0-preview.6.26359.118
@@ -3193,6 +3206,8 @@
 [09:30:18.891] [Information] [LSP LogMessage] Shutting down
 [09:30:18.938] [Debug] [LSP LogMessage] [LanguageServerProjectSystem] Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released. System.InvalidOperationException: The project has already been removed.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [08:26:02.340] [Information] [LSP LogMessage] [initialized] [Razor]  Razor extension startup finished.
 [08:26:03.648] [Debug] [LSP LogMessage] [initialized] [BuildHost PID 30464] Message on stderr: info: BuildHost Runtime Version: .NET 11.0.0-preview.6.26359.118
 [08:26:04.305] [Debug] [LSP LogMessage] [initialized] [BuildHost PID 30464] Sending a Shutdown request to the BuildHost.
@@ -3253,6 +3268,9 @@
 [08:26:20.489] [Debug] [LSP LogMessage] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 [08:26:20.489] [Debug] [LSP LogMessage] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 [08:26:20.576] [Debug] [LSP LogMessage] [LanguageServerProjectSystem] Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released. System.InvalidOperationException: The project has already been removed.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
    at Microsoft.CodeAnalysis.Workspaces.ProjectSystem.ProjectSystemProject.RemoveFromWorkspaceMaybeAsync(Boolean useAsync) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Workspaces\Core\Portable\Workspace\ProjectSystem\ProjectSystemProject.cs:line 1221
    at Roslyn.Utilities.ValueTaskExtensions.VerifyCompleted(ValueTask task, String message) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Workspaces\SharedUtilitiesAndExtensions\Compiler\Core\Utilities\ValueTaskExtensions.cs:line 25
@@ -3260,7 +3278,11 @@
    at Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.LoadedProject.Dispose() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer\HostWorkspace\LoadedProject.cs:line 142
    at Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.LanguageServerProjectLoader.Dispose() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer\HostWorkspace\LanguageServerProjectLoader.cs:line 579
 <<<<<<< HEAD
+<<<<<<< HEAD
 [09:30:18.938] [Debug] [LSP LogMessage] [LanguageServerProjectSystem] Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released. System.InvalidOperationException: The project has already been removed.
+=======
+[08:26:20.576] [Debug] [LSP LogMessage] [LanguageServerProjectSystem] Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released. System.InvalidOperationException: The project has already been removed.
+>>>>>>> origin/folly-of-the-unbound
 =======
 [08:26:20.576] [Debug] [LSP LogMessage] [LanguageServerProjectSystem] Ignoring an expected failure to remove a project from its workspace during shutdown; its file watches were already released. System.InvalidOperationException: The project has already been removed.
 >>>>>>> origin/folly-of-the-unbound
@@ -3269,6 +3291,7 @@
    at Microsoft.CodeAnalysis.Workspaces.ProjectSystem.ProjectSystemProject.RemoveFromWorkspace() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Workspaces\Core\Portable\Workspace\ProjectSystem\ProjectSystemProject.cs:line 1210
    at Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.LoadedProject.Dispose() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer\HostWorkspace\LoadedProject.cs:line 142
    at Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.LanguageServerProjectLoader.Dispose() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer\HostWorkspace\LanguageServerProjectLoader.cs:line 579
+<<<<<<< HEAD
 <<<<<<< HEAD
 [09:30:19.075] [Error] [[ThinClient][stderr]] Language server child exited cleanly.
 [09:30:19.117] [Trace] [Shutdown] Process shut down.
@@ -6709,6 +6732,10 @@
 [09:31:39.289] [Debug] [LSP LogMessage] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 [09:31:39.510] [Error] [[ThinClient][stderr]] Language server child exited cleanly.
 [09:31:39.604] [Trace] [Shutdown] Process shut down.
+=======
+[08:26:20.660] [Error] [[ThinClient][stderr]] Language server child exited cleanly.
+[08:26:20.713] [Trace] [Shutdown] Process shut down.
+>>>>>>> origin/folly-of-the-unbound
 =======
 [08:26:20.660] [Error] [[ThinClient][stderr]] Language server child exited cleanly.
 [08:26:20.713] [Trace] [Shutdown] Process shut down.

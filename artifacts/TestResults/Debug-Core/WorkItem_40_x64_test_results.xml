@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:28:41">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests\Debug\net10.0\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.dll" run-date="2026-08-19" run-time="09:28:41" total="26" passed="26" failed="0" skipped="0" time="16.483" errors="0">
     <errors />
@@ -86,6 +87,8 @@
       </test>
       <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Parameterless" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Parameterless" time="0.0168794" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:23:28">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests\Debug\net10.0\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.dll" run-date="2026-08-19" run-time="08:23:28" total="26" passed="26" failed="0" skipped="0" time="14.946" errors="0">
     <errors />
@@ -172,6 +175,9 @@
         <traits />
       </test>
       <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Parameterless" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Parameterless" time="0.0756916" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

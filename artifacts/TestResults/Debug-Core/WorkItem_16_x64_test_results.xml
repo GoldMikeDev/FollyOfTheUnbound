@@ -1,15 +1,21 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:31:02">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll" run-date="2026-08-19" run-time="09:31:02" total="295" passed="268" failed="0" skipped="27" time="67.795" errors="0">
     <errors />
     <collection total="51" passed="43" failed="0" skipped="8" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="0.076">
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedList" time="0.0061373" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:25:29">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll" run-date="2026-08-19" run-time="08:25:29" total="295" passed="268" failed="0" skipped="27" time="59.491" errors="0">
     <errors />
     <collection total="51" passed="43" failed="0" skipped="8" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="0.096">
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedList" time="0.0062134" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -20,6 +26,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Queue" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Queue" time="0.0006438" result="Pass">
         <traits />
@@ -38,6 +45,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.FormatConstructorSignature" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="FormatConstructorSignature" time="0.0005371" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Queue" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Queue" time="0.0007216" result="Pass">
         <traits />
       </test>
@@ -54,12 +63,16 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.FormatConstructorSignature" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="FormatConstructorSignature" time="0.0005957" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemId" value="8542" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/8452" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.RecursiveRootHidden" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="RecursiveRootHidden" time="0.0002896" result="Pass">
         <traits />
@@ -75,6 +88,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Stack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Stack" time="0.0006200" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.RecursiveRootHidden" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="RecursiveRootHidden" time="0.0003080" result="Pass">
         <traits />
       </test>
@@ -88,6 +103,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Stack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Stack" time="0.0006182" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -98,6 +116,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ConcurrentStack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ConcurrentStack" time="0.0006468" result="Pass">
         <traits />
@@ -119,6 +138,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_MdArray" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_MdArray" time="0.0007572" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ConcurrentStack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ConcurrentStack" time="0.0006068" result="Pass">
         <traits />
       </test>
@@ -138,6 +159,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_MdArray" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_MdArray" time="0.0011437" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -152,6 +176,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IDictionary_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IDictionary_Exception" time="0.0008646" result="Pass">
         <traits />
@@ -176,6 +201,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.TupleType" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="TupleType" time="0.0002044" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IDictionary_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IDictionary_Exception" time="0.0009596" result="Pass">
         <traits />
       </test>
@@ -198,6 +225,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.TupleType" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="TupleType" time="0.0002971" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -209,7 +239,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Task" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Task" time="0.0013983" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Task" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Task" time="0.0015610" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Task" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Task" time="0.0015610" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -225,6 +259,7 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Core" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Core" time="0.0003180" result="Pass">
         <traits />
       </test>
@@ -239,6 +274,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Framework" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Framework" time="0.0005709" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Core" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Core" time="0.0004214" result="Pass">
         <traits />
       </test>
@@ -252,6 +289,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Framework" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Framework" time="0.0005867" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -262,6 +302,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_DiagnosticBag" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_DiagnosticBag" time="0.0025531" result="Pass">
         <traits />
@@ -283,6 +324,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.Array_Recursive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Array_Recursive" time="0.0005238" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_DiagnosticBag" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_DiagnosticBag" time="0.0023589" result="Pass">
         <traits />
       </test>
@@ -302,6 +345,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.Array_Recursive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Array_Recursive" time="0.0006344" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -313,6 +359,7 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IDictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IDictionary" time="0.0002926" result="Pass">
         <traits />
       </test>
@@ -321,6 +368,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.ArrayOfInt32_NoMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="ArrayOfInt32_NoMembers" time="0.0001672" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IDictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IDictionary" time="0.0002609" result="Pass">
         <traits />
       </test>
@@ -328,11 +377,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.ArrayOfInt32_NoMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="ArrayOfInt32_NoMembers" time="0.0001897" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" time="0.014">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEllipsis" time="0.0033933" result="Pass">
         <traits />
@@ -374,6 +427,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_NetStandard20" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_NetStandard20" time="0.4612445" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEllipsis" time="0.0036237" result="Pass">
         <traits />
       </test>
@@ -413,6 +468,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_NetStandard20" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_NetStandard20" time="0.5806197" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/try/issues/345" />
@@ -420,8 +478,13 @@
       </test>
     </collection>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <collection total="53" passed="48" failed="0" skipped="5" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" time="6.217">
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="PreservingDeclarationsOnException" time="0.2494549" result="Pass">
+=======
+    <collection total="53" passed="48" failed="0" skipped="5" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" time="5.570">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="PreservingDeclarationsOnException" time="0.2777661" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
     <collection total="53" passed="48" failed="0" skipped="5" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" time="5.570">
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="PreservingDeclarationsOnException" time="0.2777661" result="Pass">
@@ -435,7 +498,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.DefaultLiteral" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="DefaultLiteral" time="0.1302574" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.DefaultLiteral" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="DefaultLiteral" time="0.0727470" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.DefaultLiteral" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="DefaultLiteral" time="0.0727470" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -443,6 +510,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/21327" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" time="0.0003298" result="Pass">
         <traits />
@@ -503,6 +571,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.RelativePath" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="RelativePath" time="0.0695115" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" time="0.0003002" result="Pass">
         <traits />
       </test>
@@ -561,6 +631,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.RelativePath" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="RelativePath" time="0.1109544" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -569,7 +642,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script3" time="0.1380922" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script3" time="0.1091758" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script3" time="0.1091758" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -578,7 +655,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script1" time="0.0611639" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script1" time="0.0488499" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script1" time="0.0488499" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -587,20 +668,27 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths1" time="0.1122444" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InferredTupleNames" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InferredTupleNames" time="0.1841608" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths1" time="0.1367327" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InferredTupleNames" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InferredTupleNames" time="0.0829867" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/21327" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive2" time="0.0031581" result="Pass">
         <traits />
@@ -610,6 +698,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Help" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Help" time="0.0007238" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive2" time="0.0028448" result="Pass">
         <traits />
       </test>
@@ -617,6 +707,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Help" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Help" time="0.0006966" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -628,20 +721,27 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script4" time="0.0994818" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Tuples" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Tuples" time="0.0829753" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script4" time="0.0774664" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Tuples" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Tuples" time="0.0586646" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/18479" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.LangVersions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="LangVersions" time="0.0080288" result="Pass">
         <traits />
@@ -651,6 +751,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_InteractiveWithScript1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_InteractiveWithScript1" time="0.0884907" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.LangVersions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="LangVersions" time="0.0086306" result="Pass">
         <traits />
       </test>
@@ -658,11 +760,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_InteractiveWithScript1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_InteractiveWithScript1" time="0.1157725" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_NonExistingFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_NonExistingFile" time="0.0008737" result="Pass">
         <traits />
@@ -687,6 +793,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script2" time="0.0952315" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_NonExistingFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_NonExistingFile" time="0.0008877" result="Pass">
         <traits />
       </test>
@@ -709,21 +817,30 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script2" time="0.0822465" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ReferenceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ReferenceSearchPaths_Change1" time="1.7817084" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths_Change1" time="0.1424352" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ReferenceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ReferenceSearchPaths_Change1" time="1.6532468" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths_Change1" time="0.1301219" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -734,15 +851,21 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive1" time="0.0694750" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SharedLibCopy_Different" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SharedLibCopy_Different" time="1.7901132" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive1" time="0.0458826" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SharedLibCopy_Different" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SharedLibCopy_Different" time="1.5625513" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -750,6 +873,7 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/24402]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script5" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script5" time="0.1122114" result="Pass">
         <traits />
@@ -761,6 +885,8 @@
     <collection total="96" passed="91" failed="0" skipped="5" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" time="24.420">
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericMethods" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericMethods" time="4.5531168" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script5" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script5" time="0.0682282" result="Pass">
         <traits />
       </test>
@@ -770,6 +896,9 @@
     </collection>
     <collection total="96" passed="91" failed="0" skipped="5" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" time="24.024">
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericMethods" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericMethods" time="4.6248314" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemId" value="5378" />
@@ -777,30 +906,42 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateTopLevel" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateTopLevel" time="0.2860259" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseParent" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseParent" time="0.8431303" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateTopLevel" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateTopLevel" time="0.3378503" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseParent" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseParent" time="0.9857626" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GlobalImports" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GlobalImports" time="0.1136702" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException4" time="0.1564056" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GlobalImports" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GlobalImports" time="0.0619393" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException4" time="0.2017000" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
@@ -808,7 +949,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority1" time="0.8529408" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority1" time="1.1059592" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority1" time="1.1059592" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -822,30 +967,42 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.LocalFunction_PreviousSubmissionAndGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="LocalFunction_PreviousSubmissionAndGlobal" time="0.8901808" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.InteractiveSession_ImportScopes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="InteractiveSession_ImportScopes" time="0.0662032" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.LocalFunction_PreviousSubmissionAndGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="LocalFunction_PreviousSubmissionAndGlobal" time="0.7394662" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.InteractiveSession_ImportScopes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="InteractiveSession_ImportScopes" time="0.0350204" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/63144" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder2" time="0.1095506" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingNotHidingPreviousSubmission" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingNotHidingPreviousSubmission" time="0.1451581" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder2" time="0.1658843" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingNotHidingPreviousSubmission" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingNotHidingPreviousSubmission" time="0.1426699" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -854,7 +1011,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.RecursiveBaseType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="RecursiveBaseType" time="0.0650127" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.RecursiveBaseType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="RecursiveBaseType" time="0.0596802" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.RecursiveBaseType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="RecursiveBaseType" time="0.0596802" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -863,7 +1024,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_Redefinition" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_Redefinition" time="0.1384755" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_Redefinition" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_Redefinition" time="0.1398909" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_Redefinition" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_Redefinition" time="0.1398909" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -872,15 +1037,21 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder1" time="0.0787363" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException2" time="0.0798026" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder1" time="0.0605195" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException2" time="0.0726908" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
@@ -888,7 +1059,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticLocalFunctionCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticLocalFunctionCannotAccessGlobalInstance" time="1.1866882" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticLocalFunctionCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticLocalFunctionCannotAccessGlobalInstance" time="1.2791569" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticLocalFunctionCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticLocalFunctionCannotAccessGlobalInstance" time="1.2791569" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -896,6 +1071,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39581" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.NestedVisibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="NestedVisibility" time="0.1006048" result="Pass">
         <traits />
@@ -914,6 +1090,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings2" time="0.1730954" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.NestedVisibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="NestedVisibility" time="0.1004515" result="Pass">
         <traits />
       </test>
@@ -930,12 +1108,16 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings2" time="0.1533736" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemId" value="9229" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitInLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitInLambda" time="0.2382403" result="Pass">
         <traits />
@@ -996,6 +1178,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.TopLevelLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="TopLevelLambda" time="0.1644442" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitInLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitInLambda" time="0.2171374" result="Pass">
         <traits />
       </test>
@@ -1054,6 +1238,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.TopLevelLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="TopLevelLambda" time="0.1730195" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemId" value="5397" />
@@ -1061,15 +1248,21 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_InterfaceTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_InterfaceTypes" time="0.1137398" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException1" time="0.1115857" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_InterfaceTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_InterfaceTypes" time="0.0699715" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException1" time="0.0462333" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
@@ -1077,7 +1270,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExternDestructor" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExternDestructor" time="0.0592884" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExternDestructor" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExternDestructor" time="0.0399199" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExternDestructor" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExternDestructor" time="0.0399199" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1086,7 +1283,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.MethodCallWithImplicitReceiverAndOutVar" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="MethodCallWithImplicitReceiverAndOutVar" time="0.3855803" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.MethodCallWithImplicitReceiverAndOutVar" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="MethodCallWithImplicitReceiverAndOutVar" time="0.4612944" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.MethodCallWithImplicitReceiverAndOutVar" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="MethodCallWithImplicitReceiverAndOutVar" time="0.4612944" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1094,6 +1295,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39565" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_BasicFields" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_BasicFields" time="0.0780599" result="Pass">
         <traits />
@@ -1112,6 +1314,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings1" time="0.0485106" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_BasicFields" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_BasicFields" time="0.0348579" result="Pass">
         <traits />
       </test>
@@ -1128,12 +1332,16 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings1" time="0.0379404" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemId" value="9229" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Fields_Visibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Fields_Visibility" time="0.1528305" result="Pass">
         <traits />
@@ -1143,6 +1351,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CSharp9PatternForms" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CSharp9PatternForms" time="0.2383820" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Fields_Visibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Fields_Visibility" time="0.0795143" result="Pass">
         <traits />
       </test>
@@ -1150,11 +1360,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CSharp9PatternForms" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CSharp9PatternForms" time="0.2171231" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/42368" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitChain1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitChain1" time="0.1286123" result="Pass">
         <traits />
@@ -1164,6 +1378,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateImplementationDetailsType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateImplementationDetailsType" time="0.2375954" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitChain1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitChain1" time="0.1597146" result="Pass">
         <traits />
       </test>
@@ -1171,6 +1387,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateImplementationDetailsType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateImplementationDetailsType" time="0.1482290" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2721" />
@@ -1181,7 +1400,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Arrays" time="0.1251716" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Arrays" time="0.0657501" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Arrays" time="0.0657501" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1190,6 +1413,7 @@
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference2" time="0.0802961" result="Pass">
         <traits />
@@ -1214,6 +1438,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException3" time="0.0735774" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference2" time="0.0876496" result="Pass">
         <traits />
       </test>
@@ -1236,6 +1462,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException3" time="0.0814610" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
@@ -1243,15 +1472,21 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectInRootNamespace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectInRootNamespace" time="0.5910538" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExprStmtParenthesesUsedToOverrideDefaultEval" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExprStmtParenthesesUsedToOverrideDefaultEval" time="0.0902032" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectInRootNamespace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectInRootNamespace" time="0.6833943" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExprStmtParenthesesUsedToOverrideDefaultEval" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExprStmtParenthesesUsedToOverrideDefaultEval" time="0.0826335" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -1264,7 +1499,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericTypes" time="0.0506201" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericTypes" time="0.0442400" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericTypes" time="0.0442400" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1272,6 +1511,7 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/201759" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AddNamespaces_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AddNamespaces_Errors" time="0.1265415" result="Pass">
         <traits />
@@ -1284,6 +1524,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseRoot" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseRoot" time="0.3255997" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AddNamespaces_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AddNamespaces_Errors" time="0.1961051" result="Pass">
         <traits />
       </test>
@@ -1294,26 +1536,36 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseRoot" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseRoot" time="0.1960809" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_DefinitionHidesHostObjectMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_DefinitionHidesHostObjectMembers" time="0.4476352" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PatternVariableDeclaration" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PatternVariableDeclaration" time="0.1465258" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_DefinitionHidesHostObjectMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_DefinitionHidesHostObjectMembers" time="0.4436350" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PatternVariableDeclaration" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PatternVariableDeclaration" time="0.0949748" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39548" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitSubExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitSubExpression" time="0.0415098" result="Pass">
         <traits />
@@ -1335,6 +1587,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Ldftn_GenericType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Ldftn_GenericType" time="0.0614697" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitSubExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitSubExpression" time="0.0427025" result="Pass">
         <traits />
       </test>
@@ -1354,6 +1608,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Ldftn_GenericType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Ldftn_GenericType" time="0.0863445" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -1361,6 +1618,7 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/17869]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UseDelegateMixStaticAndDynamic" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UseDelegateMixStaticAndDynamic" time="0.0408728" result="Pass">
         <traits />
@@ -1388,6 +1646,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ScriptMemberAccessFromNestedClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ScriptMemberAccessFromNestedClass" time="0.0540339" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UseDelegateMixStaticAndDynamic" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UseDelegateMixStaticAndDynamic" time="0.0349905" result="Pass">
         <traits />
       </test>
@@ -1413,11 +1673,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ScriptMemberAccessFromNestedClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ScriptMemberAccessFromNestedClass" time="0.0416971" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" time="0.004">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" time="0.0002033" result="Pass">
         <traits />
@@ -1435,6 +1699,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScriptDelegateWithGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScriptDelegateWithGlobals" time="0.4461167" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" time="0.0002046" result="Pass">
         <traits />
       </test>
@@ -1450,6 +1716,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScriptDelegateWithGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScriptDelegateWithGlobals" time="0.3194436" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -1457,6 +1726,7 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/170]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnAwait" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnAwait" time="0.0528825" result="Pass">
         <traits />
@@ -1478,6 +1748,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StreamWithOffset" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StreamWithOffset" time="0.1146579" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnAwait" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnAwait" time="0.0327820" result="Pass">
         <traits />
       </test>
@@ -1497,11 +1769,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StreamWithOffset" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StreamWithOffset" time="0.1506135" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/12348" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithScriptState" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithScriptState" time="0.0375739" result="Pass">
         <traits />
@@ -1523,6 +1799,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.CreateScriptWithNullableContextWithCSharp8" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="CreateScriptWithNullableContextWithCSharp8" time="0.0915405" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithScriptState" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithScriptState" time="0.0422523" result="Pass">
         <traits />
       </test>
@@ -1542,6 +1820,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.CreateScriptWithNullableContextWithCSharp8" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="CreateScriptWithNullableContextWithCSharp8" time="0.0261068" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -1552,6 +1833,7 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Function_ReturningPartialType_CSharp13" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Function_ReturningPartialType_CSharp13" time="0.0529659" result="Pass">
         <traits />
       </test>
@@ -1560,6 +1842,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunExpressionStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunExpressionStatement" time="0.0492364" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Function_ReturningPartialType_CSharp13" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Function_ReturningPartialType_CSharp13" time="0.0486191" result="Pass">
         <traits />
       </test>
@@ -1567,11 +1851,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunExpressionStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunExpressionStatement" time="0.0335380" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5279" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.LoadedFileWithVoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="LoadedFileWithVoidReturn" time="0.0415494" result="Pass">
         <traits />
@@ -1584,6 +1872,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedNoSemicolonFollowedByAnotherStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedNoSemicolonFollowedByAnotherStatement" time="0.0087090" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.LoadedFileWithVoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="LoadedFileWithVoidReturn" time="0.0473182" result="Pass">
         <traits />
       </test>
@@ -1594,13 +1884,20 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedNoSemicolonFollowedByAnotherStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedNoSemicolonFollowedByAnotherStatement" time="0.0105702" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" time="0.3286502" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" time="0.3139082" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" time="0.3139082" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1613,7 +1910,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.0501555" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.0281003" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.0281003" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1630,7 +1931,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptInstantiation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptInstantiation" time="0.9472343" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptInstantiation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptInstantiation" time="0.0078443" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptInstantiation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptInstantiation" time="0.0078443" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1639,7 +1944,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" time="0.1251725" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" time="0.0458554" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" time="0.0458554" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1647,6 +1956,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithUnexpectedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithUnexpectedGlobals" time="0.0007819" result="Pass">
         <traits />
@@ -1668,6 +1978,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementNotFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementNotFollowedBySemicolon" time="0.0070334" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithUnexpectedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithUnexpectedGlobals" time="0.0009340" result="Pass">
         <traits />
       </test>
@@ -1687,21 +1999,30 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementNotFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementNotFollowedBySemicolon" time="0.0079701" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariables_Chain" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariables_Chain" time="0.3613971" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ContinueAsync_Error1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ContinueAsync_Error1" time="0.3770318" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariables_Chain" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariables_Chain" time="0.4040396" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ContinueAsync_Error1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ContinueAsync_Error1" time="0.3288242" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -1712,20 +2033,27 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.VoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="VoidReturn" time="0.0958306" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" time="0.4194528" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.VoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="VoidReturn" time="0.1159447" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" time="0.3071320" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" time="0.0540709" result="Pass">
         <traits />
@@ -1759,6 +2087,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEmit_WindowsPdb" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEmit_WindowsPdb" time="0.2445268" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" time="0.0461557" result="Pass">
         <traits />
       </test>
@@ -1790,6 +2120,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEmit_WindowsPdb" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEmit_WindowsPdb" time="0.4168215" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -1797,6 +2130,7 @@
         <reason><![CDATA[Test only supported on Windows desktop]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestBranchingSubscripts" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestBranchingSubscripts" time="0.0700148" result="Pass">
         <traits />
@@ -1821,6 +2155,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedBySpace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedBySpace" time="0.4008742" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestBranchingSubscripts" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestBranchingSubscripts" time="0.0549379" result="Pass">
         <traits />
       </test>
@@ -1843,21 +2179,30 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedBySpace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedBySpace" time="0.5092487" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariable_SetValue_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariable_SetValue_Errors" time="0.0654122" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementFollowedBySemicolon" time="0.4947656" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariable_SetValue_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariable_SetValue_Errors" time="0.0324577" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementFollowedBySemicolon" time="0.4752372" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
@@ -1876,6 +2221,7 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" time="0.0379837" result="Pass">
         <traits />
       </test>
@@ -1884,6 +2230,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" time="0.3055496" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" time="0.0394871" result="Pass">
         <traits />
       </test>
@@ -1891,13 +2239,20 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" time="0.2907206" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedByNewLineNoSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedByNewLineNoSemicolon" time="0.4886202" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedByNewLineNoSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedByNewLineNoSemicolon" time="0.3095079" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedByNewLineNoSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedByNewLineNoSemicolon" time="0.3095079" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1905,6 +2260,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunVoidScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunVoidScript" time="0.0711386" result="Pass">
         <traits />
@@ -1926,6 +2282,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnNullable" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnNullable" time="0.0879659" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunVoidScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunVoidScript" time="0.0827957" result="Pass">
         <traits />
       </test>
@@ -1945,6 +2303,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnNullable" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnNullable" time="0.0837464" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

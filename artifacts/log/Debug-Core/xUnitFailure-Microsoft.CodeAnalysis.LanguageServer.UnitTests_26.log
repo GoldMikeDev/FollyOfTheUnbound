@@ -11,8 +11,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (9824).
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (43348).
   Failed Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection [32 s]
   Error Message:
@@ -15083,6 +15086,9 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.263
  [window/LogMessage][Info] Shutting down
 
 
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_26_x64_test_results.xml
@@ -15091,9 +15097,15 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 
 Attachments:
 <<<<<<< HEAD
+<<<<<<< HEAD
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\b45099d3-a5ef-48e2-8a88-f6d70cd2b438\testhost_9824_20260819T105513_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\b45099d3-a5ef-48e2-8a88-f6d70cd2b438\Sequence_556ff5bc760243699ee764097eade2bd.xml
 Passed!  - Failed:     0, Passed:    35, Skipped:     0, Total:    35, Duration: 31 s - Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll (net10.0)
+=======
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\ee6fea94-ef5e-4d24-8aa7-e45f8791bdd6\testhost_43348_20260819T100250_hangdump.dmp
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\ee6fea94-ef5e-4d24-8aa7-e45f8791bdd6\Sequence_f09ceff5a4704f47998e02037d8160db.xml
+Failed!  - Failed:    71, Passed:   189, Skipped:     0, Total:   260, Duration: 13 m 24 s - Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll (net10.0)
+>>>>>>> origin/folly-of-the-unbound
 =======
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\ee6fea94-ef5e-4d24-8aa7-e45f8791bdd6\testhost_43348_20260819T100250_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\ee6fea94-ef5e-4d24-8aa7-e45f8791bdd6\Sequence_f09ceff5a4704f47998e02037d8160db.xml

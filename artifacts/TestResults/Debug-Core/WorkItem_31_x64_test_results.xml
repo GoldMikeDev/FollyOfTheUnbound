@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:00">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-08-19" run-time="09:29:00" total="16" passed="16" failed="0" skipped="0" time="23.985" errors="0">
     <errors />
@@ -54,6 +55,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: True)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: True)" time="0.0004040" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:23:36">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-08-19" run-time="08:23:36" total="16" passed="16" failed="0" skipped="0" time="23.495" errors="0">
     <errors />
@@ -108,6 +111,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: True)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: True)" time="0.0003873" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:36:23">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests.dll" run-date="2026-08-19" run-time="09:36:23" total="149" passed="149" failed="0" skipped="0" time="18.689" errors="0">
     <errors />
@@ -270,6 +271,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000275" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:31:15">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests.dll" run-date="2026-08-19" run-time="08:31:15" total="149" passed="149" failed="0" skipped="0" time="19.730" errors="0">
     <errors />
@@ -540,12 +543,16 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000374" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" time="0.0000348" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000263" result="Pass">
         <traits />
@@ -758,6 +765,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" time="0.0018176" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000303" result="Pass">
         <traits />
       </test>
@@ -968,6 +977,9 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" time="0.0007175" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:35">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Features.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Features.UnitTests.dll" run-date="2026-08-19" run-time="09:29:35" total="361" passed="360" failed="0" skipped="1" time="84.653" errors="0">
     <errors />
@@ -94,6 +95,8 @@
     <collection total="143" passed="142" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" time="36.400">
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiProjectUpdates_ValidSignificantChange_RudeEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiProjectUpdates_ValidSignificantChange_RudeEdit" time="0.2466721" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:24:28">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Features.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Features.UnitTests.dll" run-date="2026-08-19" run-time="08:24:28" total="361" passed="360" failed="0" skipped="1" time="99.742" errors="0">
     <errors />
@@ -188,21 +191,30 @@
     </collection>
     <collection total="143" passed="142" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" time="49.121">
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiProjectUpdates_ValidSignificantChange_RudeEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiProjectUpdates_ValidSignificantChange_RudeEdit" time="8.2736620" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/78244" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectWithoutEffectiveGeneratedFilesOutputDirectory" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectWithoutEffectiveGeneratedFilesOutputDirectory" time="0.2121757" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8WithBom)" time="0.2418871" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectWithoutEffectiveGeneratedFilesOutputDirectory" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectWithoutEffectiveGeneratedFilesOutputDirectory" time="0.4140619" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8WithBom)" time="0.2898992" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
@@ -210,7 +222,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: ShiftJis)" time="0.2918576" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: ShiftJis)" time="0.1663117" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: ShiftJis)" time="0.1663117" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -220,7 +236,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: ShiftJis)" time="0.2136758" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: ShiftJis)" time="0.2465338" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: ShiftJis)" time="0.2465338" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -230,7 +250,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" time="0.2325662" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" time="0.2175849" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" time="0.2175849" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -240,7 +264,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" time="0.2508676" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" time="0.1662249" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" time="0.1662249" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -250,7 +278,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Unicode)" time="0.2441794" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Unicode)" time="0.3129720" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Unicode)" time="0.3129720" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -260,7 +292,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8)" time="0.2361867" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8)" time="0.2356569" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8)" time="0.2356569" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -270,7 +306,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" time="0.2370032" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" time="0.2865090" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" time="0.2865090" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -280,7 +320,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Unicode)" time="0.2061956" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Unicode)" time="0.3155752" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Unicode)" time="0.3155752" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -290,7 +334,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8)" time="0.1967692" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8)" time="0.1959389" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8)" time="0.1959389" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -299,6 +347,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: OutputType, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: OutputType, language: &quot;Visual Basic&quot;)" time="0.3695218" result="Pass">
         <traits />
@@ -362,6 +411,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.EditAndContinueAfterApplyingMoveTypeToFileCodeFix" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="EditAndContinueAfterApplyingMoveTypeToFileCodeFix" time="0.7439616" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: OutputType, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: OutputType, language: &quot;Visual Basic&quot;)" time="0.7701782" result="Pass">
         <traits />
       </test>
@@ -423,11 +474,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.EditAndContinueAfterApplyingMoveTypeToFileCodeFix" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="EditAndContinueAfterApplyingMoveTypeToFileCodeFix" time="0.8974628" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72984" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" time="0.2192384" result="Pass">
         <traits />
@@ -458,6 +513,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakAfterRunModeChangeDeletesNonLeafActiveStatement" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakAfterRunModeChangeDeletesNonLeafActiveStatement" time="0.2403906" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" time="0.2797185" result="Pass">
         <traits />
       </test>
@@ -486,11 +543,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakAfterRunModeChangeDeletesNonLeafActiveStatement" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakAfterRunModeChangeDeletesNonLeafActiveStatement" time="0.3994778" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/52100" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_DocumentOutOfSync(delayLoad: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_DocumentOutOfSync(delayLoad: True)" time="0.3822295" result="Pass">
         <traits />
@@ -548,6 +609,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakStateRemappingFollowedUpByRunStateUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakStateRemappingFollowedUpByRunStateUpdate" time="0.2271114" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_DocumentOutOfSync(delayLoad: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_DocumentOutOfSync(delayLoad: True)" time="0.3497482" result="Pass">
         <traits />
       </test>
@@ -603,11 +666,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakStateRemappingFollowedUpByRunStateUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakStateRemappingFollowedUpByRunStateUpdate" time="0.2429535" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/52100" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_RenameAndUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_RenameAndUpdate" time="0.2389705" result="Pass">
         <traits />
@@ -632,6 +699,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_NoTypesEmitted" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_NoTypesEmitted" time="0.2014312" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_RenameAndUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_RenameAndUpdate" time="0.4644119" result="Pass">
         <traits />
       </test>
@@ -654,11 +723,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_NoTypesEmitted" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_NoTypesEmitted" time="0.3098711" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/56431" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectWithoutChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectWithoutChanges" time="0.2842218" result="Pass">
         <traits />
@@ -725,6 +798,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiProjectUpdates_ValidSignificantChange_NoEffectEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiProjectUpdates_ValidSignificantChange_NoEffectEdit" time="0.6127836" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectWithoutChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectWithoutChanges" time="0.2851344" result="Pass">
         <traits />
       </test>
@@ -789,11 +864,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiProjectUpdates_ValidSignificantChange_NoEffectEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiProjectUpdates_ValidSignificantChange_NoEffectEdit" time="0.2629465" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/78244" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument" time="0.0178512" result="Pass">
         <traits />
@@ -821,6 +900,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Automatic)" time="0.1381299" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument" time="0.2157422" result="Pass">
         <traits />
       </test>
@@ -846,13 +927,20 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Automatic)" time="0.3402622" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72331" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" time="0.6003153" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" time="0.4040926" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" time="0.4040926" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -861,7 +949,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_Add_BinaryAlreadyLoaded" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_Add_BinaryAlreadyLoaded" time="0.5571487" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_Add_BinaryAlreadyLoaded" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_Add_BinaryAlreadyLoaded" time="0.4714878" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_Add_BinaryAlreadyLoaded" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_Add_BinaryAlreadyLoaded" time="0.4714878" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -871,6 +963,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/79423" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_Delete" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_Delete" time="0.4647188" result="Pass">
         <traits />
@@ -901,6 +994,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Balanced)" time="0.1620920" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_Delete" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_Delete" time="0.2829265" result="Pass">
         <traits />
       </test>
@@ -929,13 +1024,20 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Balanced)" time="0.2437746" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2169491" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" time="0.1206942" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" time="0.2441999" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" time="0.2441999" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -943,6 +1045,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2169491" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_SourceGeneratedDocuments_LineDirectives" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_SourceGeneratedDocuments_LineDirectives" time="0.1046987" result="Pass">
         <traits />
@@ -967,6 +1070,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectThatDoesNotSupportEnC_Language(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectThatDoesNotSupportEnC_Language(breakMode: False)" time="0.2974218" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_SourceGeneratedDocuments_LineDirectives" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_SourceGeneratedDocuments_LineDirectives" time="0.2104084" result="Pass">
         <traits />
       </test>
@@ -989,6 +1094,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectThatDoesNotSupportEnC_Language(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectThatDoesNotSupportEnC_Language(breakMode: False)" time="0.1852994" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -996,6 +1104,7 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/79589]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue" time="0.1135024" result="Pass">
         <traits />
@@ -1005,6 +1114,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_LinkedDocuments" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_LinkedDocuments" time="0.0083059" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue" time="0.0703952" result="Pass">
         <traits />
       </test>
@@ -1012,13 +1123,20 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_LinkedDocuments" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_LinkedDocuments" time="0.0077460" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/24320" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_ExplicitInterfaceImplementation" time="0.3738597" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_ExplicitInterfaceImplementation" time="0.4874516" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_ExplicitInterfaceImplementation" time="0.4874516" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1026,6 +1144,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_workitems/edit/2631743" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue_SourceGenerator_NoChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue_SourceGenerator_NoChanges" time="0.0029849" result="Pass">
         <traits />
@@ -1038,6 +1157,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_EncSessionFollowedByHotReload" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_EncSessionFollowedByHotReload" time="0.2880171" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue_SourceGenerator_NoChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue_SourceGenerator_NoChanges" time="0.0031167" result="Pass">
         <traits />
       </test>
@@ -1048,11 +1169,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_EncSessionFollowedByHotReload" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_EncSessionFollowedByHotReload" time="0.2615817" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/54347" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_Settings" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_Settings" time="0.0029880" result="Pass">
         <traits />
@@ -1097,6 +1222,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions2" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions2" time="0.0135088" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_Settings" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_Settings" time="0.0031506" result="Pass">
         <traits />
       </test>
@@ -1139,11 +1266,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions2" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions2" time="0.0093834" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/24439" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions_Recursion" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions_Recursion" time="0.0058941" result="Pass">
         <traits />
@@ -1224,6 +1355,8 @@
     <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" time="1.295">
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Implementations_FindsCrossProjectImplementations" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Implementations_FindsCrossProjectImplementations" time="0.3655557" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions_Recursion" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions_Recursion" time="0.0036392" result="Pass">
         <traits />
       </test>
@@ -1302,13 +1435,20 @@
     </collection>
     <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" time="2.591">
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Implementations_FindsCrossProjectImplementations" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Implementations_FindsCrossProjectImplementations" time="0.3499977" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="Feature" value="CallHierarchy" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" time="0.0891296" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" time="0.4680922" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" time="0.4680922" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1317,7 +1457,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" time="0.0696022" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" time="0.3249281" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" time="0.3249281" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1326,7 +1470,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FindsCrossProjectTargets" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FindsCrossProjectTargets" time="0.0847350" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FindsCrossProjectTargets" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FindsCrossProjectTargets" time="0.2709600" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FindsCrossProjectTargets" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FindsCrossProjectTargets" time="0.2709600" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1335,7 +1483,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_RespectsDocumentFilter" time="0.1395459" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_RespectsDocumentFilter" time="0.3169000" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_RespectsDocumentFilter" time="0.3169000" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1344,7 +1496,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_IncludesImplicitConstructors" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_IncludesImplicitConstructors" time="0.0756566" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_IncludesImplicitConstructors" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_IncludesImplicitConstructors" time="0.2444171" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_IncludesImplicitConstructors" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_IncludesImplicitConstructors" time="0.2444171" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1353,7 +1509,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" time="0.2946099" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" time="0.3920347" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" time="0.3920347" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1362,7 +1522,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" time="0.0980343" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" time="0.1183947" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" time="0.1183947" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1371,7 +1535,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" time="0.0776542" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" time="0.1048311" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" time="0.1048311" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1380,6 +1548,7 @@
         </traits>
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" time="0.781">
       <test name="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests.ToRunningProjectOptions_TargetFrameworkDoesNotMatch" type="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" method="ToRunningProjectOptions_TargetFrameworkDoesNotMatch" time="0.7659213" result="Pass">
@@ -1573,6 +1742,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo.+Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo.+Bar&quot;)" time="0.0000046" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" time="0.694">
       <test name="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests.ToRunningProjectOptions_TargetFrameworkDoesNotMatch" type="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" method="ToRunningProjectOptions_TargetFrameworkDoesNotMatch" time="0.6820108" result="Pass">
         <traits />
@@ -1764,12 +1935,16 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo.+Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo.+Bar&quot;)" time="0.0000052" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;a\\d&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;a\\d&quot;)" time="0.0000053" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo.*Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo.*Bar&quot;)" time="0.0000072" result="Pass">
         <traits />
@@ -2058,6 +2233,8 @@
       </test>
       <test name="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests.Proxy(testHost: InProcess)" type="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests" method="Proxy(testHost: InProcess)" time="0.2751533" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo.*Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo.*Bar&quot;)" time="0.0000094" result="Pass">
         <traits />
       </test>
@@ -2344,6 +2521,9 @@
         <traits />
       </test>
       <test name="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests.Proxy(testHost: InProcess)" type="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests" method="Proxy(testHost: InProcess)" time="0.2257331" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

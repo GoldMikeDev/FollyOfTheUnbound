@@ -1,15 +1,21 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:28:40">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\Debug\net10.0\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll" run-date="2026-08-19" run-time="09:28:40" total="215" passed="193" failed="22" skipped="0" time="74.245" errors="0">
     <errors />
     <collection total="22" passed="0" failed="22" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" time="1.275">
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseType" time="1.2619710" result="Fail">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:23:28">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\Debug\net10.0\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll" run-date="2026-08-19" run-time="08:23:28" total="215" passed="193" failed="22" skipped="0" time="76.806" errors="0">
     <errors />
     <collection total="22" passed="0" failed="22" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" time="1.462">
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseType" time="1.4456252" result="Fail">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <failure>
           <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
@@ -23,7 +29,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" time="0.0009807" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" time="0.0010765" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" time="0.0010765" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -39,7 +49,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" time="0.0004645" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" time="0.0007647" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" time="0.0007647" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -55,7 +69,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" time="0.0002299" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" time="0.0003350" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" time="0.0003350" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -71,7 +89,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" time="0.0001975" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" time="0.0003097" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" time="0.0003097" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -87,7 +109,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" time="0.0006907" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" time="0.0003351" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" time="0.0003351" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -103,7 +129,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoEditorRequiredStillReports" time="0.0007609" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoEditorRequiredStillReports" time="0.0008946" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoEditorRequiredStillReports" time="0.0008946" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -119,7 +149,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeNotComponentWithBaseParameter" time="0.0007253" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeNotComponentWithBaseParameter" time="0.0009505" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeNotComponentWithBaseParameter" time="0.0009505" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -135,7 +169,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeWithBaseParameter" time="0.0007082" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeWithBaseParameter" time="0.0009069" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeWithBaseParameter" time="0.0009069" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -151,7 +189,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NotComponentStillReports" time="0.0007605" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NotComponentStillReports" time="0.0008750" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NotComponentStillReports" time="0.0008750" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -167,7 +209,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesAndSdkAttributes" time="0.0006922" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesAndSdkAttributes" time="0.0010973" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesAndSdkAttributes" time="0.0010973" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -183,7 +229,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;&quot;)" time="0.0007797" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;&quot;)" time="0.0009067" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;&quot;)" time="0.0009067" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -199,7 +249,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private init;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private init;&quot;)" time="0.0003843" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private init;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private init;&quot;)" time="0.0005550" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private init;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private init;&quot;)" time="0.0005550" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -215,7 +269,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private set;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private set;&quot;)" time="0.0002015" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private set;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private set;&quot;)" time="0.0003566" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private set;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private set;&quot;)" time="0.0003566" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -231,7 +289,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterWithInit" time="0.0006435" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterWithInit" time="0.0009178" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterWithInit" time="0.0009178" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -247,7 +309,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NullableReturnType" time="0.0006334" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NullableReturnType" time="0.0007444" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NullableReturnType" time="0.0007444" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -263,7 +329,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributes" time="0.0007068" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributes" time="0.0008622" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributes" time="0.0008622" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -279,7 +349,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesDifferentNamespace" time="0.0006704" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesDifferentNamespace" time="0.0008376" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesDifferentNamespace" time="0.0008376" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -295,7 +369,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoParameterRequiredStillReports" time="0.0006380" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoParameterRequiredStillReports" time="0.0009759" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoParameterRequiredStillReports" time="0.0009759" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -311,7 +389,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterEditorRequiredNoWarning" time="0.0006883" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterEditorRequiredNoWarning" time="0.0009172" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterEditorRequiredNoWarning" time="0.0009172" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -327,7 +409,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="RequiredPropertyDoesNotReport" time="0.0005657" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="RequiredPropertyDoesNotReport" time="0.0007682" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="RequiredPropertyDoesNotReport" time="0.0007682" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -343,7 +429,11 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="AliasedAttributes" time="0.0006846" result="Fail">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="AliasedAttributes" time="0.0009207" result="Fail">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="AliasedAttributes" time="0.0009207" result="Fail">
 >>>>>>> origin/folly-of-the-unbound
@@ -360,6 +450,7 @@
       </test>
     </collection>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" time="0.004">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest.AsDiagnostic_WithUndefinedSpanWorks" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" method="AsDiagnostic_WithUndefinedSpanWorks" time="0.0032875" result="Pass">
         <traits />
@@ -371,6 +462,8 @@
     <collection total="60" passed="60" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" time="7.494">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline" time="0.1579222" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" time="0.005">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest.AsDiagnostic_WithUndefinedSpanWorks" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" method="AsDiagnostic_WithUndefinedSpanWorks" time="0.0043903" result="Pass">
         <traits />
@@ -381,13 +474,20 @@
     </collection>
     <collection total="60" passed="60" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" time="40.730">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline" time="25.4268819" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass" time="0.2145404" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass" time="0.4305295" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass" time="0.4305295" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -395,6 +495,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter_InSource(langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter_InSource(langVersion: &quot;Latest&quot;)" time="0.1214276" result="Pass">
         <traits />
@@ -407,6 +508,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="QuoteInAttributeName" time="0.1133669" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter_InSource(langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter_InSource(langVersion: &quot;Latest&quot;)" time="0.5009633" result="Pass">
         <traits />
       </test>
@@ -417,11 +520,15 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="QuoteInAttributeName" time="0.2876628" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/11327" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_CascadingValue_WithNestedDialogAndForm" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_CascadingValue_WithNestedDialogAndForm" time="0.1937338" result="Pass">
         <traits />
@@ -431,6 +538,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor_WithMarkup" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor_WithMarkup" time="0.0395991" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_CascadingValue_WithNestedDialogAndForm" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_CascadingValue_WithNestedDialogAndForm" time="0.5596324" result="Pass">
         <traits />
       </test>
@@ -438,13 +547,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor_WithMarkup" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor_WithMarkup" time="1.4091896" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10991" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.2667011" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.4115017" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.4115017" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -453,7 +569,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.2708080" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.4178116" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.4178116" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -462,7 +582,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1559026" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.2757528" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.2757528" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -471,7 +595,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1900894" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.2570555" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.2570555" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -480,7 +608,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1168148" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.5736091" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.5736091" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -489,7 +621,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.3328544" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.4581370" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.4581370" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -498,7 +634,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment" time="0.1120738" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment" time="0.1607014" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment" time="0.1607014" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -507,7 +647,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TypeArgumentsCannotBeInferred" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TypeArgumentsCannotBeInferred" time="0.0769691" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TypeArgumentsCannotBeInferred" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TypeArgumentsCannotBeInferred" time="0.0734580" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TypeArgumentsCannotBeInferred" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TypeArgumentsCannotBeInferred" time="0.0734580" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -516,22 +660,32 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithImplicitContext_NestedInWrapper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithImplicitContext_NestedInWrapper" time="0.1088745" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;Latest&quot;)" time="0.0953450" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithImplicitContext_NestedInWrapper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithImplicitContext_NestedInWrapper" time="0.2210560" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;Latest&quot;)" time="0.2343129" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/52547" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" time="0.0997567" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" time="0.1582011" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" time="0.1582011" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -540,7 +694,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" time="0.1190302" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" time="0.2544517" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" time="0.2544517" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -549,22 +707,32 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue_InsideTypedChildContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue_InsideTypedChildContent" time="0.2696952" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline_View" time="0.1044907" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue_InsideTypedChildContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue_InsideTypedChildContent" time="0.2138986" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline_View" time="0.4404875" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.EmptyRootNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="EmptyRootNamespace" time="0.1803003" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.EmptyRootNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="EmptyRootNamespace" time="0.4304423" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.EmptyRootNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="EmptyRootNamespace" time="0.4304423" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -572,6 +740,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1954771" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithAuthorizeView_NestedChildContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithAuthorizeView_NestedChildContent" time="0.0634200" result="Pass">
         <traits />
@@ -584,6 +753,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LineMapping_Tabs" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LineMapping_Tabs" time="0.0626089" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithAuthorizeView_NestedChildContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithAuthorizeView_NestedChildContent" time="0.5947713" result="Pass">
         <traits />
       </test>
@@ -594,11 +765,15 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LineMapping_Tabs" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LineMapping_Tabs" time="0.0682567" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9050" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter(langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter(langVersion: &quot;7.0&quot;)" time="0.0412487" result="Pass">
         <traits />
@@ -611,6 +786,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp" time="0.1221747" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter(langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter(langVersion: &quot;7.0&quot;)" time="0.1106390" result="Pass">
         <traits />
       </test>
@@ -621,13 +798,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp" time="0.3011300" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp_View" time="0.0913078" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp_View" time="0.1617595" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp_View" time="0.1617595" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -636,22 +820,32 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Inject" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Inject" time="0.0460147" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.1124634" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Inject" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Inject" time="0.0779415" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.5208904" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1286116" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.2301924" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.2301924" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -660,7 +854,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1087396" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.2140247" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.2140247" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -669,7 +867,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.1276501" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.2576003" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.2576003" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -678,7 +880,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1653492" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1995231" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1995231" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -687,7 +893,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1288898" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1183604" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1183604" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -696,7 +906,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline" time="0.1654759" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline" time="0.2439156" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline" time="0.2439156" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -705,22 +919,32 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithImplicitContextVariable" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithImplicitContextVariable" time="0.1099868" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment_View" time="0.1082911" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithImplicitContextVariable" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithImplicitContextVariable" time="0.1910044" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment_View" time="0.1161696" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TextAfterCodeBlockInMarkupTransition" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TextAfterCodeBlockInMarkupTransition" time="0.0842711" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TextAfterCodeBlockInMarkupTransition" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TextAfterCodeBlockInMarkupTransition" time="0.2297112" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TextAfterCodeBlockInMarkupTransition" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TextAfterCodeBlockInMarkupTransition" time="0.2297112" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -729,7 +953,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ComponentInheritsFromComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ComponentInheritsFromComponent" time="0.1839557" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ComponentInheritsFromComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ComponentInheritsFromComponent" time="0.1408250" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ComponentInheritsFromComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ComponentInheritsFromComponent" time="0.1408250" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -737,6 +965,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_GenericWithTypedChildContent_ImplicitContext" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_GenericWithTypedChildContent_ImplicitContext" time="0.0998996" result="Pass">
         <traits />
@@ -746,6 +975,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor" time="0.1475335" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_GenericWithTypedChildContent_ImplicitContext" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_GenericWithTypedChildContent_ImplicitContext" time="0.2642810" result="Pass">
         <traits />
       </test>
@@ -753,13 +984,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor" time="0.0854807" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10991" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment_View" time="0.0827517" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment_View" time="0.1535357" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment_View" time="0.1535357" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -768,7 +1006,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline_View" time="0.0790997" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline_View" time="0.3118098" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline_View" time="0.3118098" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -777,7 +1019,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment" time="0.0862667" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment" time="0.1760095" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment" time="0.1760095" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -785,6 +1031,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue_NestedInWrapper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue_NestedInWrapper" time="0.2197404" result="Pass">
         <traits />
@@ -794,6 +1041,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.UnrecognizedComponentName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="UnrecognizedComponentName" time="0.1361940" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue_NestedInWrapper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue_NestedInWrapper" time="0.1092217" result="Pass">
         <traits />
       </test>
@@ -801,13 +1050,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.UnrecognizedComponentName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="UnrecognizedComponentName" time="0.1234956" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9381" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass_NoBaseInCSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass_NoBaseInCSharp" time="0.1445468" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass_NoBaseInCSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass_NoBaseInCSharp" time="0.4401101" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass_NoBaseInCSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass_NoBaseInCSharp" time="0.4401101" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -816,35 +1072,48 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor_SystemInNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor_SystemInNamespace" time="0.0311428" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag" time="0.0933525" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor_SystemInNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor_SystemInNamespace" time="0.0836259" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag" time="0.1750601" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9204" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_ImplicitContext_InDrawerTemplate_NestedInRoot" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_ImplicitContext_InDrawerTemplate_NestedInRoot" time="0.1270115" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LineMapping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LineMapping" time="0.0606030" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_ImplicitContext_InDrawerTemplate_NestedInRoot" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_ImplicitContext_InDrawerTemplate_NestedInRoot" time="0.1371881" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LineMapping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LineMapping" time="0.0290551" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9051" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithRouter_NoWrapper_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithRouter_NoWrapper_Works" time="0.0829556" result="Pass">
         <traits />
@@ -853,19 +1122,28 @@
     <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" time="5.422">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_FullyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_FullyQualifiedInherits" time="0.2247425" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithRouter_NoWrapper_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithRouter_NoWrapper_Works" time="0.0620265" result="Pass">
         <traits />
       </test>
     </collection>
     <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" time="4.727">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_FullyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_FullyQualifiedInherits" time="0.1073738" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AutoDetectedFromInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AutoDetectedFromInherits" time="0.1978978" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AutoDetectedFromInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AutoDetectedFromInherits" time="0.0497862" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AutoDetectedFromInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AutoDetectedFromInherits" time="0.0497862" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -874,7 +1152,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" time="0.1364709" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" time="0.0759192" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" time="0.0759192" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -883,7 +1165,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" time="0.2259872" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" time="0.2832256" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" time="0.2832256" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -892,7 +1178,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" time="0.2917790" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" time="0.2639993" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" time="0.2639993" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -901,7 +1191,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" time="0.1829348" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" time="0.1434197" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" time="0.1434197" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -910,7 +1204,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass" time="0.1113650" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass" time="0.1614394" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass" time="0.1614394" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -919,7 +1217,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" time="0.0756175" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" time="0.3050289" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" time="0.3050289" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -928,7 +1230,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" time="0.1248359" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" time="0.0808698" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" time="0.0808698" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -937,7 +1243,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.OpenAngle" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="OpenAngle" time="0.0712161" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.OpenAngle" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="OpenAngle" time="0.0611500" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.OpenAngle" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="OpenAngle" time="0.0611500" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -946,7 +1256,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" time="0.0727006" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" time="0.1671626" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" time="0.1671626" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -955,7 +1269,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" time="0.2077604" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" time="0.0326438" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" time="0.0326438" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -964,7 +1282,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" time="0.0502343" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" time="0.0767957" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" time="0.0767957" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -973,7 +1295,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.CssScoping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="CssScoping" time="0.2433005" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.CssScoping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="CssScoping" time="0.1732286" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.CssScoping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="CssScoping" time="0.1732286" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -982,7 +1308,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ShortNameInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ShortNameInherits_WithUsing" time="0.1359354" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ShortNameInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ShortNameInherits_WithUsing" time="0.1477094" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ShortNameInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ShortNameInherits_WithUsing" time="0.1477094" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -991,7 +1321,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports" time="0.2301062" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports" time="0.2171459" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports" time="0.2171459" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1000,7 +1334,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="QuoteInAttributeName" time="0.1850877" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="QuoteInAttributeName" time="0.1557775" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="QuoteInAttributeName" time="0.1557775" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1009,7 +1347,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@null&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@null&quot;)" time="0.2814286" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@null&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@null&quot;)" time="0.2155462" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@null&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@null&quot;)" time="0.2155462" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1018,7 +1360,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@n&quot;)" time="0.1946081" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@n&quot;)" time="0.1548393" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@n&quot;)" time="0.1548393" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1027,7 +1373,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" time="0.1077111" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" time="0.1821220" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" time="0.1821220" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1036,7 +1386,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" time="0.1044043" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" time="0.2602513" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" time="0.2602513" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1045,7 +1399,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" time="0.2029707" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" time="0.1518167" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" time="0.1518167" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1054,7 +1412,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" time="0.2928195" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" time="0.1528577" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" time="0.1528577" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1063,7 +1425,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PartiallyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PartiallyQualifiedInherits" time="0.1708709" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PartiallyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PartiallyQualifiedInherits" time="0.1190073" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PartiallyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PartiallyQualifiedInherits" time="0.1190073" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1072,7 +1438,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ProtectedOverload_Detected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ProtectedOverload_Detected" time="0.3826416" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ProtectedOverload_Detected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ProtectedOverload_Detected" time="0.2200559" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ProtectedOverload_Detected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ProtectedOverload_Detected" time="0.2200559" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1081,7 +1451,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasedInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasedInherits_WithUsing" time="0.1595778" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasedInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasedInherits_WithUsing" time="0.1834256" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasedInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasedInherits_WithUsing" time="0.1834256" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1090,7 +1464,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_InNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_InNamespace" time="0.2086018" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_InNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_InNamespace" time="0.0939668" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_InNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_InNamespace" time="0.0939668" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1099,7 +1477,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" time="0.1765809" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" time="0.1075316" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" time="0.1075316" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1108,7 +1490,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" time="0.1468070" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" time="0.1986197" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" time="0.1986197" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1117,7 +1503,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" time="0.1512266" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" time="0.1522766" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" time="0.1522766" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1126,7 +1516,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" time="0.0736479" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" time="0.0319732" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" time="0.0319732" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1135,6 +1529,7 @@
         </traits>
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" time="23.737">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;TwoEncoders&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;TwoEncoders&quot;)" time="11.9892003" result="Pass">
@@ -1178,6 +1573,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ComponentAndTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ComponentAndTagHelper" time="0.3487403" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" time="11.367">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;TwoEncoders&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;TwoEncoders&quot;)" time="0.4880304" result="Pass">
         <traits />
@@ -1219,13 +1616,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ComponentAndTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ComponentAndTagHelper" time="0.2865345" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.GlobalPrefixedDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="GlobalPrefixedDirective" time="0.3996633" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.GlobalPrefixedDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="GlobalPrefixedDirective" time="0.4113827" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.GlobalPrefixedDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="GlobalPrefixedDirective" time="0.4113827" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1234,7 +1638,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_Prefixed" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_Prefixed" time="0.2283994" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_Prefixed" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_Prefixed" time="0.1797426" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_Prefixed" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_Prefixed" time="0.1797426" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1243,7 +1651,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedIdentifierInRazorBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedIdentifierInRazorBlock" time="0.1925749" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedIdentifierInRazorBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedIdentifierInRazorBlock" time="0.2692124" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedIdentifierInRazorBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedIdentifierInRazorBlock" time="0.2692124" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1252,20 +1664,27 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.CustomTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="CustomTagHelper" time="0.1695114" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedExpressions" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedExpressions" time="0.3252126" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.CustomTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="CustomTagHelper" time="0.1001954" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedExpressions" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedExpressions" time="0.1822064" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10426" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.TagHelpersWebSite" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="TagHelpersWebSite" time="0.9221732" result="Pass">
         <traits />
@@ -1278,6 +1697,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ComponentAndTagHelper_HtmlTargetElement" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ComponentAndTagHelper_HtmlTargetElement" time="0.5130696" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.TagHelpersWebSite" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="TagHelpersWebSite" time="0.8227605" result="Pass">
         <traits />
       </test>
@@ -1288,28 +1709,41 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ComponentAndTagHelper_HtmlTargetElement" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ComponentAndTagHelper_HtmlTargetElement" time="0.2621427" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.WebsiteInformationTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="WebsiteInformationTagHelper" time="0.2729253" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_NoMatchingTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_NoMatchingTagHelper" time="0.1144235" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.WebsiteInformationTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="WebsiteInformationTagHelper" time="0.3723234" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_NoMatchingTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_NoMatchingTagHelper" time="0.1521089" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_SelfClosing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_SelfClosing" time="0.3643806" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_SelfClosing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_SelfClosing" time="0.2670979" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_SelfClosing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_SelfClosing" time="0.2670979" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1317,6 +1751,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UnboundDynamicAttributes" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UnboundDynamicAttributes" time="0.4335225" result="Pass">
         <traits />
@@ -1326,6 +1761,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName" time="0.2383785" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UnboundDynamicAttributes" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UnboundDynamicAttributes" time="0.4161386" result="Pass">
         <traits />
       </test>
@@ -1333,13 +1770,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName" time="0.2240110" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Suppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Suppression" time="0.6430397" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Suppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Suppression" time="0.4084871" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Suppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Suppression" time="0.4084871" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1348,7 +1792,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UrlResolutionTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UrlResolutionTagHelper" time="0.2754830" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UrlResolutionTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UrlResolutionTagHelper" time="0.1943487" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UrlResolutionTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UrlResolutionTagHelper" time="0.1943487" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1357,6 +1805,7 @@
         </traits>
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="56" passed="56" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" time="20.452">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_ValidValues(warningLevel: &quot;9999&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_ValidValues(warningLevel: &quot;9999&quot;)" time="11.1990360" result="Pass">
@@ -1376,6 +1825,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_UsingAlias_NestedClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_UsingAlias_NestedClass" time="0.4201056" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="56" passed="56" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" time="6.420">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_ValidValues(warningLevel: &quot;9999&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_ValidValues(warningLevel: &quot;9999&quot;)" time="0.0464697" result="Pass">
         <traits />
@@ -1393,28 +1844,41 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_UsingAlias_NestedClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_UsingAlias_NestedClass" time="0.0924283" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8610" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_CSharpTypeChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_CSharpTypeChanges" time="3.0975186" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInFunction" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInFunction" time="0.6309309" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_CSharpTypeChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_CSharpTypeChanges" time="0.1775605" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInFunction" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInFunction" time="0.1440789" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7049" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SystemFolder" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SystemFolder" time="0.0964563" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SystemFolder" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SystemFolder" time="0.1044048" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SystemFolder" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SystemFolder" time="0.1044048" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1422,6 +1886,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8850" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorLangVersion_Incorrect(langVersion: &quot;incorrect&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorLangVersion_Incorrect(langVersion: &quot;incorrect&quot;)" time="0.0586070" result="Pass">
         <traits />
@@ -1485,6 +1950,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_UppercaseRazor_GeneratesComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_UppercaseRazor_GeneratesComponent" time="0.0201146" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorLangVersion_Incorrect(langVersion: &quot;incorrect&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorLangVersion_Incorrect(langVersion: &quot;incorrect&quot;)" time="0.0984462" result="Pass">
         <traits />
       </test>
@@ -1546,11 +2013,15 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_UppercaseRazor_GeneratesComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_UppercaseRazor_GeneratesComponent" time="0.0558822" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7914" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Incorrect(warningLevel: &quot;incorrect&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Incorrect(warningLevel: &quot;incorrect&quot;)" time="0.0202528" result="Pass">
         <traits />
@@ -1575,6 +2046,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_MisplacedPreprocessorDirectiveInDisabledText_DoesNotCrash" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_MisplacedPreprocessorDirectiveInDisabledText_DoesNotCrash" time="0.0561694" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Incorrect(warningLevel: &quot;incorrect&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Incorrect(warningLevel: &quot;incorrect&quot;)" time="0.0286184" result="Pass">
         <traits />
       </test>
@@ -1597,28 +2070,41 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_MisplacedPreprocessorDirectiveInDisabledText_DoesNotCrash" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_MisplacedPreprocessorDirectiveInDisabledText_DoesNotCrash" time="0.0813529" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/3016708" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_Works" time="0.0461169" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;\n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;\n&quot;)" time="0.0081444" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_Works" time="0.0334011" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;\n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;\n&quot;)" time="0.0141518" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7236" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" time="0.0076712" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" time="0.0123506" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" time="0.0123506" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1627,7 +2113,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" time="0.0068637" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" time="0.0122266" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" time="0.0122266" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1636,20 +2126,27 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenProjectReferencesChange" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenProjectReferencesChange" time="0.5653174" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInBody" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInBody" time="0.1956410" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenProjectReferencesChange" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenProjectReferencesChange" time="0.2164712" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInBody" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInBody" time="0.1210595" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7049" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_WhenMarkupChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_WhenMarkupChanges" time="0.1545209" result="Pass">
         <traits />
@@ -1659,6 +2156,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_Using_NestedClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_Using_NestedClass" time="0.1099214" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_WhenMarkupChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_WhenMarkupChanges" time="0.1856152" result="Pass">
         <traits />
       </test>
@@ -1666,13 +2165,20 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_Using_NestedClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_Using_NestedClass" time="0.0452011" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8610" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_ViewComponentTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_ViewComponentTagHelper" time="0.2053068" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_ViewComponentTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_ViewComponentTagHelper" time="0.0795101" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_ViewComponentTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_ViewComponentTagHelper" time="0.0795101" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1681,7 +2187,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" time="0.1650030" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" time="0.2888926" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" time="0.2888926" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1690,7 +2200,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" time="0.0592028" result="Pass">
+=======
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" time="0.0438208" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" time="0.0438208" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -1698,6 +2212,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7421" />
         </traits>
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Empty_IsValid" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Empty_IsValid" time="0.0174118" result="Pass">
         <traits />
@@ -1716,6 +2231,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInFunction_ManualSuppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInFunction_ManualSuppression" time="0.1826804" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Empty_IsValid" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Empty_IsValid" time="0.0613724" result="Pass">
         <traits />
       </test>
@@ -1732,12 +2249,16 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInFunction_ManualSuppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInFunction_ManualSuppression" time="0.0780399" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7049" />
         </traits>
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" time="0.003">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsFileExtension(path: &quot;/Home/Index.cshtml&quot;, expected: &quot;.cshtml&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsFileExtension(path: &quot;/Home/Index.cshtml&quot;, expected: &quot;.cshtml&quot;)" time="0.0010302" result="Pass">
@@ -1778,6 +2299,8 @@
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PhysicalPath_ReturnsSourceTextPath" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PhysicalPath_ReturnsSourceTextPath" time="0.0001788" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" time="0.006">
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsFileExtension(path: &quot;/Home/Index.cshtml&quot;, expected: &quot;.cshtml&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsFileExtension(path: &quot;/Home/Index.cshtml&quot;, expected: &quot;.cshtml&quot;)" time="0.0011333" result="Pass">
         <traits />
@@ -1816,6 +2339,9 @@
         <traits />
       </test>
       <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PhysicalPath_ReturnsSourceTextPath" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PhysicalPath_ReturnsSourceTextPath" time="0.0001649" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

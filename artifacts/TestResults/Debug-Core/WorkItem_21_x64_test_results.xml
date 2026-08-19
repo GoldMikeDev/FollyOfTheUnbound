@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:30:17">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll" run-date="2026-08-19" run-time="09:30:17" total="11" passed="11" failed="0" skipped="0" time="34.967" errors="0">
     <errors />
@@ -37,6 +38,8 @@
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" time="5.299">
       <test name="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests.UpdateSolution" type="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" method="UpdateSolution" time="5.2986505" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:24:47">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll" run-date="2026-08-19" run-time="08:24:47" total="11" passed="11" failed="0" skipped="0" time="39.396" errors="0">
     <errors />
@@ -74,6 +77,9 @@
     </collection>
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" time="13.111">
       <test name="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests.UpdateSolution" type="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" method="UpdateSolution" time="13.1110157" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

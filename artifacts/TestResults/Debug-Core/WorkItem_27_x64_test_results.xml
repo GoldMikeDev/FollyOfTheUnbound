@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:21">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Razor.UnitTests.dll" run-date="2026-08-19" run-time="09:29:21" total="567" passed="567" failed="0" skipped="0" time="58.821" errors="0">
     <errors />
@@ -57,6 +58,8 @@
     <collection total="19" passed="19" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" time="0.010">
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T X, T Y)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T X, T Y)[]&quot;, expectedNumberOfTs: 2)" time="0.0035417" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:24:02">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Razor.UnitTests.dll" run-date="2026-08-19" run-time="08:24:02" total="567" passed="567" failed="0" skipped="0" time="66.620" errors="0">
     <errors />
@@ -114,13 +117,20 @@
     </collection>
     <collection total="19" passed="19" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" time="0.011">
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T X, T Y)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T X, T Y)[]&quot;, expectedNumberOfTs: 2)" time="0.0038528" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9631" />
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0050326" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0054186" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0054186" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -129,7 +139,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T[]&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T[]&quot;, expectedNumberOfTs: 1)" time="0.0000688" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T[]&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T[]&quot;, expectedNumberOfTs: 1)" time="0.0000707" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T[]&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T[]&quot;, expectedNumberOfTs: 1)" time="0.0000707" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -138,7 +152,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T[][]&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T[][]&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000968" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T[][]&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T[][]&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000850" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T[][]&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T[][]&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000850" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -147,7 +165,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000647" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000543" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T[]&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000543" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -156,7 +178,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T[] X, T Y)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T[] X, T Y)[]&quot;, expectedNumberOfTs: 2)" time="0.0000701" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T[] X, T Y)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T[] X, T Y)[]&quot;, expectedNumberOfTs: 2)" time="0.0000624" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T[] X, T Y)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T[] X, T Y)[]&quot;, expectedNumberOfTs: 2)" time="0.0000624" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -165,7 +191,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;NS.T&gt;&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;NS.T&gt;&quot;, expectedNumberOfTs: 0)" time="0.0001455" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;NS.T&gt;&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;NS.T&gt;&quot;, expectedNumberOfTs: 0)" time="0.0001192" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;NS.T&gt;&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;NS.T&gt;&quot;, expectedNumberOfTs: 0)" time="0.0001192" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -174,7 +204,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T[], T)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T[], T)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0003736" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T[], T)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T[], T)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0003111" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T[], T)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T[], T)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0003111" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -183,7 +217,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&quot;, expectedNumberOfTs: 0)" time="0.0000343" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&quot;, expectedNumberOfTs: 0)" time="0.0000354" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&quot;, expectedNumberOfTs: 0)" time="0.0000354" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -192,7 +230,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000705" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000928" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000928" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -201,7 +243,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T[]&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T[]&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000668" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T[]&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T[]&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000842" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;T[]&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;T[]&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000842" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -210,7 +256,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T, T)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T, T)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0000819" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T, T)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T, T)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0000851" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T, T)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T, T)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0000851" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -219,7 +269,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T[][]&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T[][]&quot;, expectedNumberOfTs: 1)" time="0.0000503" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T[][]&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T[][]&quot;, expectedNumberOfTs: 1)" time="0.0000388" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T[][]&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T[][]&quot;, expectedNumberOfTs: 1)" time="0.0000388" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -228,7 +282,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T[] X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T[] X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0001149" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T[] X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T[] X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0001047" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T[] X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T[] X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0001047" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -237,7 +295,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0001002" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0000787" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;(T X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;(T X, T Y)[]&gt;&quot;, expectedNumberOfTs: 2)" time="0.0000787" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -246,7 +308,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T, T)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T, T)[]&quot;, expectedNumberOfTs: 2)" time="0.0000805" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T, T)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T, T)[]&quot;, expectedNumberOfTs: 2)" time="0.0000457" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T, T)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T, T)[]&quot;, expectedNumberOfTs: 2)" time="0.0000457" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -255,7 +321,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T[], T)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T[], T)[]&quot;, expectedNumberOfTs: 2)" time="0.0000670" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T[], T)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T[], T)[]&quot;, expectedNumberOfTs: 2)" time="0.0000455" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;(T[], T)[]&quot;, expectedNumberOfTs: 2)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;(T[], T)[]&quot;, expectedNumberOfTs: 2)" time="0.0000455" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -264,7 +334,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T&quot;, expectedNumberOfTs: 0)" time="0.0000384" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T&quot;, expectedNumberOfTs: 0)" time="0.0000251" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;T&quot;, expectedNumberOfTs: 0)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;T&quot;, expectedNumberOfTs: 0)" time="0.0000251" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -273,7 +347,11 @@
         </traits>
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000921" result="Pass">
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000732" result="Pass">
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest.ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;&gt;&quot;, expectedNumberOfTs: 1)" type="Microsoft.CodeAnalysis.Razor.ComponentGenericTypePassParsingTest" method="ParseTypeParameters(input: &quot;C&lt;D&lt;T&gt;&gt;&quot;, expectedNumberOfTs: 1)" time="0.0000732" result="Pass">
 >>>>>>> origin/folly-of-the-unbound
@@ -282,6 +360,7 @@
         </traits>
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="27" passed="27" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.ComponentTagHelperProducerTest" time="1.494">
       <test name="Microsoft.CodeAnalysis.Razor.ComponentTagHelperProducerTest.Execute_EventCallbackProperty_CreatesDescriptor" type="Microsoft.CodeAnalysis.Razor.ComponentTagHelperProducerTest" method="Execute_EventCallbackProperty_CreatesDescriptor" time="0.0445096" result="Pass">
@@ -1897,6 +1976,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.IsTagHelperTest.IsTagHelper_InheritedTagHelper_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Workspaces.IsTagHelperTest" method="IsTagHelper_InheritedTagHelper_ReturnsTrue" time="0.0467976" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="27" passed="27" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.ComponentTagHelperProducerTest" time="2.455">
       <test name="Microsoft.CodeAnalysis.Razor.ComponentTagHelperProducerTest.Execute_EventCallbackProperty_CreatesDescriptor" type="Microsoft.CodeAnalysis.Razor.ComponentTagHelperProducerTest" method="Execute_EventCallbackProperty_CreatesDescriptor" time="0.2380451" result="Pass">
         <traits />
@@ -3510,6 +3591,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.IsTagHelperTest.IsTagHelper_InheritedTagHelper_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Workspaces.IsTagHelperTest" method="IsTagHelper_InheritedTagHelper_ReturnsTrue" time="0.0600013" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>

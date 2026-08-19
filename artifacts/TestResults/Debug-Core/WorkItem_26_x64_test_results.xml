@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:26">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll" run-date="2026-08-19" run-time="09:29:26" total="35" passed="35" failed="0" skipped="0" time="1548.481" errors="0">
     <errors />
@@ -69,6 +70,8 @@
 [window/LogMessage][Debug] [Services.VSCodeRemoteServicesInitializer] Initializing remote services.
 [window/LogMessage][Info] Shutting down
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:24:10">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll" run-date="2026-08-19" run-time="08:24:10" total="260" passed="189" failed="71" skipped="0" time="2331.000" errors="0">
     <errors />
@@ -418,11 +421,15 @@
 [08:35:30.891][Debug][Microsoft.CodeAnalysis.LanguageServer.FileBasedPrograms.FileBasedProgramsEntryPointDiscovery] "dotnet.projects.enableFileBasedPrograms" is false. Not discovering entry points.
 [08:35:30.892][Debug]Could not find 'file:///C:/Users/mhole/AppData/Local/Temp/RoslynTests/4604749b-6ade-4802-9d9f-0f010bd66ff3/App1.cs'.  Searched Host;Host;MiscellaneousFiles
 [08:35:30.892][Info]Shutting down
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.LspFileChangeWatcherTests.CreatingFileWatchRequestsFileWatch" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.LspFileChangeWatcherTests" method="CreatingFileWatchRequestsFileWatch" time="0.3227795" result="Pass">
         <output>[window/LogMessage][Debug] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.dll added to workspace.
@@ -545,6 +552,8 @@
 [09:30:12.180] [Trace] [ExtensionTypeRefResolver] Resolving type, Roslyn.LanguageServer.Protocol.InitializedParams
 [09:30:12.180] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.FileBasedPrograms.FileBasedProgramsEntryPointDiscoveryTests.Swap_ReplaceNonFBADirectoryWithFBADirectory" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.FileBasedPrograms.FileBasedProgramsEntryPointDiscoveryTests" method="Swap_ReplaceNonFBADirectoryWithFBADirectory" time="0.4266893" result="Pass">
         <output>[08:35:31.152][Debug][initialize] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll added to workspace.
 [08:35:31.153][Debug][initialize] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\FollyOfTheUnbound.CodeAnalysis.Workspaces.dll added to workspace.
@@ -22632,6 +22641,9 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
 [window/LogMessage][Debug] [initialize]  Request handler completed successfully.
 [08:37:20.549] [Trace] [ExtensionTypeRefResolver] Resolving type, Roslyn.LanguageServer.Protocol.InitializedParams
 [08:37:20.549] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 [window/LogMessage][Debug] [initialized]  Starting request handler
 [window/LogMessage][Debug] [initialized]  Request handler completed successfully.
@@ -22650,6 +22662,7 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService.StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorCohostDynamicRegistrationService.cs:line 65
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
 [window/LogMessage][Info] [initialized] [Razor]  Razor extension startup finished.
+<<<<<<< HEAD
 <<<<<<< HEAD
 [window/LogMessage][Info] Shutting down
 
@@ -22706,6 +22719,8 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
 [09:30:12.475] [Trace] [ExtensionTypeRefResolver] Resolving type, Roslyn.LanguageServer.Protocol.InitializedParams
 [09:30:12.475] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [08:37:20.566] [Trace] [ExtensionTypeRefResolver] Resolving type, Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.OpenProjectHandler+NotificationParams
 [window/LogMessage][Debug] [project/open]  Request did not contain a textDocument, using default language handler
 [08:37:20.566] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
@@ -23592,6 +23607,9 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
 [window/LogMessage][Debug] [initialize]  Request handler completed successfully.
 [08:37:40.082] [Trace] [ExtensionTypeRefResolver] Resolving type, Roslyn.LanguageServer.Protocol.InitializedParams
 [08:37:40.082] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 [window/LogMessage][Debug] [initialized]  Starting request handler
 [window/LogMessage][Debug] [initialized]  Request handler completed successfully.
@@ -23611,9 +23629,12 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
 [window/LogMessage][Info] [initialized] [Razor]  Razor extension startup finished.
 <<<<<<< HEAD
+<<<<<<< HEAD
 [window/LogMessage][Warning] [Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.FileWatching.DelegatingFileChangeWatcher] We are unable to use LSP file watching; falling back to our in-process watcher.
 [window/LogMessage][Info] Shutting down
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [08:37:40.107] [Trace] [Microsoft.CodeAnalysis.Remote.ExportProviderBuilder] Loading cached MEF catalog: C:\Users\mhole\AppData\Local\Temp\RoslynTests\f8f6f15e-f316-4610-8e22-0f3cd4fd703f\c#-languageserver.ENiT8vL16-Tuu0AkEuAn9Q.mef-composition
 [08:37:40.115] [Trace] [MEF Assembly Loader] Loading assembly System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e
 [08:37:40.166] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.VisualStudio.Composition, Version=18.9.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
@@ -24535,12 +24556,16 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.263
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService.StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorCohostDynamicRegistrationService.cs:line 65
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
 [window/LogMessage][Info] [initialized] [Razor]  Razor extension startup finished.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
     </collection>
+<<<<<<< HEAD
 <<<<<<< HEAD
     <collection total="27" passed="27" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.LanguageServer.UnitTests.ProjectDependencyHelperTests" time="1.118">
       <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.ProjectDependencyHelperTests.NeedsRestore_UnreadableAssetsFile(contents: &quot;not json&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.ProjectDependencyHelperTests" method="NeedsRestore_UnreadableAssetsFile(contents: &quot;not json&quot;)" time="0.8396439" result="Pass">
@@ -24682,6 +24707,8 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.263
 [window/LogMessage][Debug] [Services.VSCodeRemoteServicesInitializer] Initialized remote services.
 [window/LogMessage][Debug] [Endpoints.CohostConfigurationChangedService] Refreshing options from client.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
     <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.LanguageServer.UnitTests.LspRelayTests" time="15.342">
       <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.LspRelayTests.ServerPayloadIsForwardedPromptlyWhileConnectionStaysOpen" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.LspRelayTests" method="ServerPayloadIsForwardedPromptlyWhileConnectionStaysOpen" time="0.1042077" result="Pass">
         <traits />
@@ -24939,6 +24966,9 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
 [window/LogMessage][Debug] [Endpoints.CohostConfigurationChangedService] Refreshing options from client.
 [window/LogMessage][Debug] [initialized] [Microsoft.CodeAnalysis.LanguageServer.FileBasedPrograms.FileBasedProgramsEntryPointDiscovery] No workspace folders to search for file-based apps.
 [window/LogMessage][Debug] [initialized]  Request handler completed successfully.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 [window/LogMessage][Error] [initialized] [Razor]  Error initializing Razor startup service 'CohostConfigurationChangedService' StreamJsonRpc.RemoteMethodNotFoundException: No method by the name 'workspace/configuration' is found.
    at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
@@ -24951,6 +24981,7 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService.StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorCohostDynamicRegistrationService.cs:line 65
    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
 [window/LogMessage][Info] [initialized] [Razor]  Razor extension startup finished.
+<<<<<<< HEAD
 <<<<<<< HEAD
 [window/LogMessage][Debug] [BrokeredServiceTraceListener] ServiceBroker Information: 1 : 
 [window/LogMessage][Debug] [BrokeredServiceTraceListener] SameProcess proffered brokered service(s): Microsoft.VisualStudio.RemoteBrokeredServiceManifest (0.2).
@@ -24966,6 +24997,8 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
 [window/LogMessage][Debug] [BrokeredServiceTraceListener] SameProcess proffered brokered service(s): Microsoft.VisualStudio.Server.IBrokeredServiceBridgeManifest (0.1).
 [window/LogMessage][Warning] [Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.FileWatching.DelegatingFileChangeWatcher] We are unable to use LSP file watching; falling back to our in-process watcher.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [08:37:48.061] [Trace] [ExtensionTypeRefResolver] Resolving type, Microsoft.CodeAnalysis.LanguageServer.BrokeredServices.ServiceBrokerConnectHandler+NotificationParams
 [window/LogMessage][Debug] [serviceBroker/connect]  Request did not contain a textDocument, using default language handler
 [08:37:48.061] [Trace] [MEF Assembly Loader] Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
@@ -25192,6 +25225,9 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
 [window/LogMessage][Debug] [BrokeredServiceTraceListener] Connection closing (RemotePartyTerminated: Reached end of stream.). 
 [window/LogMessage][Debug] [BrokeredServiceTraceListener] ServiceBroker Information: 13 : 
 [window/LogMessage][Debug] [BrokeredServiceTraceListener] Connection closing (RemotePartyTerminated: Reached end of stream.). 
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 [window/LogMessage][Info] Shutting down
 
@@ -25199,7 +25235,10 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalys
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.ServiceBrokerFactoryTests.ServiceBrokerFactoryIsManagedPerServerAsync" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.ServiceBrokerFactoryTests" method="ServiceBrokerFactoryIsManagedPerServerAsync" time="1.5039685" result="Pass">
         <output>[08:37:48.644] [Trace] [Microsoft.CodeAnalysis.Remote.ExportProviderBuilder] Composing MEF catalog using:
 C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll    
@@ -26328,6 +26367,9 @@ System.IO.IOException: Unable to impersonate using a named pipe until data has b
       <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.VSCodeSettingsTests.TryRead_ReadsDisableDefaultSolutionValue" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.VSCodeSettingsTests" method="TryRead_ReadsDisableDefaultSolutionValue" time="0.0054795" result="Pass">
         <traits />
       </test>
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
     </collection>
   </assembly>

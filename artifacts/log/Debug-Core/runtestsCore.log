@@ -5,6 +5,7 @@ Running 'C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe --vers
 
 Proc dump location: 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Create xunit process with id 47640 for test VBCSCompiler.UnitTests_46
 Create xunit process with id 45464 for test SemanticSearch.BuildTask.UnitTests_45
 Create xunit process with id 34648 for test RunTests.UnitTests_44
@@ -181,6 +182,8 @@ The active Test Run was aborted because the host process exited unexpectedly. Pl
 The test running when the crash occurred: 
 Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Create xunit process with id 43864 for test VBCSCompiler.UnitTests_46
 Create xunit process with id 42512 for test SemanticSearch.BuildTask.UnitTests_45
 Create xunit process with id 46192 for test RunTests.UnitTests_44
@@ -354,12 +357,16 @@ The active test run was aborted. Reason: Test host process crashed : Process pat
 The active Test Run was aborted because the host process exited unexpectedly. Please inspect the call stack above, if available, to get more information about where the exception originated from.
 The test running when the crash occurred: 
 Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 This test may, or may not be the source of the crash.
 Test Run Aborted.
 Command: exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_24.rsp"
 xUnit output log: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\log\Debug-Core\xUnitFailure-Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests_24.log
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:03:03.30]     Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface(includeDevKitComponents: True) [FAIL]
 The active test run was aborted. Reason: Test host process crashed : Process path: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\testhost.exe
@@ -384,6 +391,8 @@ The active Test Run was aborted because the host process exited unexpectedly. Pl
 The test running when the crash occurred: 
 Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:00:36.13]     Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle [FAIL]
 [xUnit.net 00:00:39.90]     Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(useNamedPipe: False) [FAIL]
 [xUnit.net 00:00:43.18]     Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(useNamedPipe: True) [FAIL]
@@ -403,13 +412,19 @@ The active test run was aborted. Reason: Test host process crashed : Process pat
 The active Test Run was aborted because the host process exited unexpectedly. Please inspect the call stack above, if available, to get more information about where the exception originated from.
 The test running when the crash occurred: 
 Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 This test may, or may not be the source of the crash.
 Test Run Aborted.
 Errors Microsoft.CodeAnalysis.LanguageServer.UnitTests_26
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:00:48.16]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection [FAIL]
 [xUnit.net 00:00:48.55]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.ConnectionsWithDifferentPreferences_SeeOnlyTheirOwnOverride [FAIL]
 [xUnit.net 00:00:49.72]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.GlobalLogMessageLoggerTests.AmbientConnectionSetButNoLongerLive_AndNoOtherServers_TargetsNothing [FAIL]
@@ -481,6 +496,9 @@ Errors Microsoft.CodeAnalysis.LanguageServer.UnitTests_26
 [xUnit.net 00:13:20.33]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadSolutionAsync(useDaemon: False) [FAIL]
 [xUnit.net 00:13:21.79]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadSolutionAsync(useDaemon: True) [FAIL]
 [xUnit.net 00:13:31.92]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadProjectsIntoSeparateStandaloneServersAsync [FAIL]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 The active test run was aborted. Reason: Test host process crashed : Process path: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\testhost.exe
 The active Test Run was aborted because the host process exited unexpectedly. Please inspect the call stack above, if available, to get more information about where the exception originated from.
@@ -492,7 +510,10 @@ Test Run Aborted.
 Command: exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_26.rsp"
 xUnit output log: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\log\Debug-Core\xUnitFailure-Microsoft.CodeAnalysis.LanguageServer.UnitTests_26.log
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:00:48.16]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection [FAIL]
 [xUnit.net 00:00:48.55]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.ConnectionsWithDifferentPreferences_SeeOnlyTheirOwnOverride [FAIL]
 [xUnit.net 00:00:49.72]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.GlobalLogMessageLoggerTests.AmbientConnectionSetButNoLongerLive_AndNoOtherServers_TargetsNothing [FAIL]
@@ -564,6 +585,9 @@ xUnit output log: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\log\De
 [xUnit.net 00:13:20.33]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadSolutionAsync(useDaemon: False) [FAIL]
 [xUnit.net 00:13:21.79]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadSolutionAsync(useDaemon: True) [FAIL]
 [xUnit.net 00:13:31.92]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadProjectsIntoSeparateStandaloneServersAsync [FAIL]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 The active test run was aborted. Reason: Test host process crashed : Process path: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\testhost.exe
 The active Test Run was aborted because the host process exited unexpectedly. Please inspect the call stack above, if available, to get more information about where the exception originated from.
@@ -573,6 +597,7 @@ Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon
 This test may, or may not be the source of the crash.
 Test Run Aborted.
 Errors Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests_41
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:01:07.31]     Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType [FAIL]
 [xUnit.net 00:01:07.31]     Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [FAIL]
@@ -674,6 +699,8 @@ Test execution time: 00:26:38.8109530
 ### Begin logging executed process details
 ### Begin 45024
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:01:00.43]     Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType [FAIL]
 [xUnit.net 00:01:00.45]     Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [FAIL]
 [xUnit.net 00:01:00.46]     Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "protected internal") [FAIL]
@@ -773,6 +800,9 @@ Extra run diagnostics for logging, did not impact run results
 Test execution time: 00:39:38.0697398
 ### Begin logging executed process details
 ### Begin 49732
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_0.rsp"
 ### Exit code 0
@@ -790,7 +820,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (50848).
+=======
+Blame: Attaching crash dump utility to process testhost (48204).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (48204).
 >>>>>>> origin/folly-of-the-unbound
@@ -799,15 +833,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_0_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   150, Skipped:     0, Total:   150, Duration: 9 s - Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45024
 ### Begin 34136
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   150, Skipped:     0, Total:   150, Duration: 13 s - Microsoft.AspNetCore.Mvc.Razor.Extensions.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49732
 ### Begin 45344
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_1.rsp"
 ### Exit code 0
@@ -825,7 +865,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (46652).
+=======
+Blame: Attaching crash dump utility to process testhost (43892).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (43892).
 >>>>>>> origin/folly-of-the-unbound
@@ -834,15 +878,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_1_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:    63, Skipped:     0, Total:    63, Duration: 8 s - Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 34136
 ### Begin 39456
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:    63, Skipped:     0, Total:    63, Duration: 9 s - Microsoft.AspNetCore.Mvc.Razor.Extensions.Version1_X.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45344
 ### Begin 44780
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_2.rsp"
 ### Exit code 0
@@ -860,7 +910,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (10876).
+=======
+Blame: Attaching crash dump utility to process testhost (51896).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (51896).
 >>>>>>> origin/folly-of-the-unbound
@@ -869,15 +923,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_2_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   149, Skipped:     0, Total:   149, Duration: 9 s - Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 39456
 ### Begin 10928
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   149, Skipped:     0, Total:   149, Duration: 10 s - Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 44780
 ### Begin 51744
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_3.rsp"
 ### Exit code 0
@@ -895,7 +955,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (53936).
+=======
+Blame: Attaching crash dump utility to process testhost (21716).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (21716).
 >>>>>>> origin/folly-of-the-unbound
@@ -906,8 +970,13 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 Passed!  - Failed:     0, Passed:  1278, Skipped:     0, Total:  1278, Duration: 6 s - Microsoft.AspNetCore.Razor.Language.Legacy.UnitTests.dll (net10.0)
 ### Standard Error
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### End 10928
 ### Begin 47244
+=======
+### End 51744
+### Begin 50912
+>>>>>>> origin/folly-of-the-unbound
 =======
 ### End 51744
 ### Begin 50912
@@ -928,7 +997,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (3652).
+=======
+Blame: Attaching crash dump utility to process testhost (31928).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (31928).
 >>>>>>> origin/folly-of-the-unbound
@@ -937,15 +1010,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_4_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  3901, Skipped:     0, Total:  3901, Duration: 1 m 19 s - Microsoft.AspNetCore.Razor.Language.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 47244
 ### Begin 36732
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  3901, Skipped:     0, Total:  3901, Duration: 1 m 31 s - Microsoft.AspNetCore.Razor.Language.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 50912
 ### Begin 30148
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_5.rsp"
 ### Exit code 0
@@ -963,17 +1042,23 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (52856).
 [xUnit.net 00:00:05.68]     Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Valid [SKIP]
   Skipped Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Valid [1 ms]
 [xUnit.net 00:00:05.72]     Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Invalid [SKIP]
 [xUnit.net 00:00:05.72]     Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_Spaces_Unix [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (47364).
 [xUnit.net 00:00:05.19]     Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Valid [SKIP]
   Skipped Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Valid [1 ms]
 [xUnit.net 00:00:05.26]     Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Invalid [SKIP]
 [xUnit.net 00:00:05.26]     Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_Spaces_Unix [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.IsPathFullyQualified_Unix_Invalid [1 ms]
   Skipped Microsoft.AspNetCore.Razor.Utilities.Shared.Test.PathUtilitiesTests.GetDirectoryName_Spaces_Unix [1 ms]
@@ -984,8 +1069,13 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 Passed!  - Failed:     0, Passed:  1303, Skipped:     3, Total:  1306, Duration: 2 s - Microsoft.AspNetCore.Razor.Utilities.Shared.UnitTests.dll (net10.0)
 ### Standard Error
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### End 36732
 ### Begin 49472
+=======
+### End 30148
+### Begin 29316
+>>>>>>> origin/folly-of-the-unbound
 =======
 ### End 30148
 ### Begin 29316
@@ -1006,6 +1096,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (52424).
 [xUnit.net 00:00:24.06]     Microsoft.CodeAnalysis.BuildTasks.UnitTests.CscTests.MultipleSourceFilesWithRootDirectoryOnUnix [SKIP]
   Skipped Microsoft.CodeAnalysis.BuildTasks.UnitTests.CscTests.MultipleSourceFilesWithRootDirectoryOnUnix [1 ms]
@@ -1024,6 +1115,8 @@ Blame: Attaching crash dump utility to process testhost (52424).
 [xUnit.net 00:03:51.75]     Microsoft.CodeAnalysis.BuildTasks.UnitTests.VbcTests.MultipleSourceFilesWithRootDirectoryOnUnix [SKIP]
   Skipped Microsoft.CodeAnalysis.BuildTasks.UnitTests.VbcTests.MultipleSourceFilesWithRootDirectoryOnUnix [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (49356).
 [xUnit.net 00:01:16.76]     Microsoft.CodeAnalysis.BuildTasks.UnitTests.VbcTests.SourceFileInRootDirectoryOnUnix [SKIP]
   Skipped Microsoft.CodeAnalysis.BuildTasks.UnitTests.VbcTests.SourceFileInRootDirectoryOnUnix [1 ms]
@@ -1041,21 +1134,30 @@ Blame: Attaching crash dump utility to process testhost (49356).
   Skipped Microsoft.CodeAnalysis.BuildTasks.UnitTests.IntegrationTests.SolutionWithPunctuation [1 ms]
 [xUnit.net 00:03:45.25]     Microsoft.CodeAnalysis.BuildTasks.UnitTests.DotNetSdkTests.TestSourceLink [SKIP]
   Skipped Microsoft.CodeAnalysis.BuildTasks.UnitTests.DotNetSdkTests.TestSourceLink [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_6_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_6_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   456, Skipped:     8, Total:   464, Duration: 3 m 47 s - Microsoft.Build.Tasks.CodeAnalysis.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49472
 ### Begin 35464
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   456, Skipped:     8, Total:   464, Duration: 3 m 49 s - Microsoft.Build.Tasks.CodeAnalysis.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 29316
 ### Begin 1056
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_8.rsp"
 ### Exit code 0
@@ -1072,6 +1174,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (49116).
 [xUnit.net 00:00:59.11]     Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests.MicrosoftDiaSymReaderNativeAltLoadPath [SKIP]
@@ -1152,6 +1255,8 @@ Blame: Attaching crash dump utility to process testhost (49116).
   Skipped Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests.Bug768605 [1 ms]
 [xUnit.net 00:04:12.45]     Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests+QuotedArgumentTests.CodePage [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (48200).
 [xUnit.net 00:00:51.63]     Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests.MicrosoftDiaSymReaderNativeAltLoadPath [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests.MicrosoftDiaSymReaderNativeAltLoadPath [1 ms]
@@ -1230,6 +1335,9 @@ Blame: Attaching crash dump utility to process testhost (48200).
 [xUnit.net 00:04:14.40]     Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests.Bug768605 [SKIP]
 [xUnit.net 00:04:14.47]     Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests+QuotedArgumentTests.CodePage [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests.Bug768605 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.CommandLineTests+QuotedArgumentTests.CodePage [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
@@ -1237,15 +1345,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_8_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   804, Skipped:    39, Total:   843, Duration: 4 m 5 s - Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 35464
 ### Begin 47320
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   804, Skipped:    39, Total:   843, Duration: 4 m 12 s - Microsoft.CodeAnalysis.CSharp.CommandLine.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 1056
 ### Begin 51528
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_7.rsp"
 ### Exit code 0
@@ -1262,6 +1376,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (16420).
 [xUnit.net 00:00:05.89] Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests: Skipping test case with duplicate ID '6ba3c0fd7bb6f44b08f442c3431aaf4c90116d97' ('Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: True, apiUnsafe: True, callerLangVersion: Preview, callerAllowUnsafe: True, callerUpdatedRules: True, callerUnsafeBlock: True, compilationReference: null)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: True, apiUnsafe: True, callerLangVersion: Preview, callerAllowUnsafe: True, callerUpdatedRules: True, callerUnsafeBlock: True, compilationReference: null)')
@@ -1362,6 +1477,8 @@ Blame: Attaching crash dump utility to process testhost (16420).
 [xUnit.net 00:00:05.90] Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests: Skipping test case with duplicate ID '1393ffb3398c345282efe59fa79f3e13b806ad19' ('Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: False, apiUnsafe: False, callerLangVersion: Preview, callerAllowUnsafe: False, callerUpdatedRules: False, callerUnsafeBlock: False, compilationReference: False)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: False, apiUnsafe: False, callerLangVersion: Preview, callerAllowUnsafe: False, callerUpdatedRules: False, callerUnsafeBlock: False, compilationReference: False)')
 [xUnit.net 00:00:58.48]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionIndexersTests.Indexing_51 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (42896).
 [xUnit.net 00:00:04.91] Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests: Skipping test case with duplicate ID '6ba3c0fd7bb6f44b08f442c3431aaf4c90116d97' ('Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: True, apiUnsafe: True, callerLangVersion: Preview, callerAllowUnsafe: True, callerUpdatedRules: True, callerUnsafeBlock: True, compilationReference: null)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: True, apiUnsafe: True, callerLangVersion: Preview, callerAllowUnsafe: True, callerUpdatedRules: True, callerUnsafeBlock: True, compilationReference: null)')
 [xUnit.net 00:00:04.91] Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests: Skipping test case with duplicate ID 'aed799bb9b566724265a6fa120098ac90861d4b6' ('Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: True, apiUnsafe: True, callerLangVersion: Preview, callerAllowUnsafe: True, callerUpdatedRules: True, callerUnsafeBlock: True, compilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: True, apiUnsafe: True, callerLangVersion: Preview, callerAllowUnsafe: True, callerUpdatedRules: True, callerUnsafeBlock: True, compilationReference: True)')
@@ -1460,6 +1577,9 @@ Blame: Attaching crash dump utility to process testhost (42896).
 [xUnit.net 00:00:04.93] Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests: Skipping test case with duplicate ID '681ada2b5af0773df05ce83494d0e4d8e85eedbc' ('Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: False, apiUnsafe: False, callerLangVersion: Preview, callerAllowUnsafe: False, callerUpdatedRules: False, callerUnsafeBlock: False, compilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: False, apiUnsafe: False, callerLangVersion: Preview, callerAllowUnsafe: False, callerUpdatedRules: False, callerUnsafeBlock: False, compilationReference: True)')
 [xUnit.net 00:00:04.93] Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests: Skipping test case with duplicate ID '1393ffb3398c345282efe59fa79f3e13b806ad19' ('Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: False, apiUnsafe: False, callerLangVersion: Preview, callerAllowUnsafe: False, callerUpdatedRules: False, callerUnsafeBlock: False, compilationReference: False)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.UnsafeEvolutionTests.Member_Method_Invocation(apiUpdatedRules: False, apiUnsafe: False, callerLangVersion: Preview, callerAllowUnsafe: False, callerUpdatedRules: False, callerUnsafeBlock: False, compilationReference: False)')
 [xUnit.net 00:01:06.55]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionIndexersTests.Indexing_51 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionIndexersTests.Indexing_51 [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
@@ -1467,15 +1587,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_7_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  2829, Skipped:     1, Total:  2830, Duration: 3 m 46 s - Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 47320
 ### Begin 50812
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  2829, Skipped:     1, Total:  2830, Duration: 3 m 2 s - Microsoft.CodeAnalysis.CSharp.CSharp15.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 51528
 ### Begin 45692
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_9.rsp"
 ### Exit code 0
@@ -1492,6 +1618,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (15784).
 [xUnit.net 00:00:12.90] Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '9b5252339be681c574d01cfa8cb04eda08af817d' ('Microsoft.CodeAnalysis.CSharp.UnitTests.EmbeddedLanguages.RegularExpressions.CSharpRegexParserTests.TestRealWorldCases(pattern: "^([a-zA-Z]{1,8})(-[a-zA-Z0-9]{1,8})*$", options: 0)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.EmbeddedLanguages.RegularExpressions.CSharpRegexParserTests.TestRealWorldCases(pattern: "^([a-zA-Z]{1,8})(-[a-zA-Z0-9]{1,8})*$", options: 0)')
@@ -1624,6 +1751,8 @@ Blame: Attaching crash dump utility to process testhost (15784).
 [xUnit.net 00:02:29.90]     Microsoft.CodeAnalysis.Editor.CSharp.UnitTests.Recommendations.AbstractKeywordRecommenderTests.TestNotBeforeGlobalUsing_Interactive [SKIP]
   Skipped Microsoft.CodeAnalysis.Editor.CSharp.UnitTests.Recommendations.AbstractKeywordRecommenderTests.TestNotBeforeGlobalUsing_Interactive [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (2208).
 [xUnit.net 00:00:09.35] Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '9b5252339be681c574d01cfa8cb04eda08af817d' ('Microsoft.CodeAnalysis.CSharp.UnitTests.EmbeddedLanguages.RegularExpressions.CSharpRegexParserTests.TestRealWorldCases(pattern: "^([a-zA-Z]{1,8})(-[a-zA-Z0-9]{1,8})*$", options: 0)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.EmbeddedLanguages.RegularExpressions.CSharpRegexParserTests.TestRealWorldCases(pattern: "^([a-zA-Z]{1,8})(-[a-zA-Z0-9]{1,8})*$", options: 0)')
 [xUnit.net 00:00:09.35] Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '0b9dc7b1b4772ab66f57d8027e2754097dade14a' ('Microsoft.CodeAnalysis.CSharp.UnitTests.EmbeddedLanguages.RegularExpressions.CSharpRegexParserTests.TestRealWorldCases(pattern: "^[0-9a-zA-Z_\\-]+$", options: 0)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.EmbeddedLanguages.RegularExpressions.CSharpRegexParserTests.TestRealWorldCases(pattern: "^[0-9a-zA-Z_\\-]+$", options: 0)')
@@ -1754,21 +1883,30 @@ Blame: Attaching crash dump utility to process testhost (2208).
   Skipped Microsoft.CodeAnalysis.Editor.CSharp.UnitTests.Recommendations.EventKeywordRecommenderTests.TestNotBeforeUsing_Interactive [1 ms]
 [xUnit.net 00:03:01.55]     Microsoft.CodeAnalysis.Editor.CSharp.UnitTests.Recommendations.EventKeywordRecommenderTests.TestNotBeforeGlobalUsing_Interactive [SKIP]
   Skipped Microsoft.CodeAnalysis.Editor.CSharp.UnitTests.Recommendations.EventKeywordRecommenderTests.TestNotBeforeGlobalUsing_Interactive [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_9_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_9_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed: 27568, Skipped:    48, Total: 27616, Duration: 2 m 33 s - Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 50812
 ### Begin 19632
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed: 27568, Skipped:    48, Total: 27616, Duration: 2 m 49 s - Microsoft.CodeAnalysis.CSharp.EditorFeatures2.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45692
 ### Begin 42380
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_10.rsp"
 ### Exit code 0
@@ -1785,6 +1923,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (51112).
 [xUnit.net 00:00:32.83]     Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.CodeGenExplicitImplementationTests.TestExplicitImplSignatureMismatches_ParamsAndOptionals [SKIP]
@@ -1993,6 +2132,8 @@ Blame: Attaching crash dump utility to process testhost (51112).
 [xUnit.net 00:08:32.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.DuplicateAccessInBinder [SKIP]
 [xUnit.net 00:08:32.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictivePositive_01 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (4168).
 [xUnit.net 00:00:11.12]     Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.CodeGenThrowTests.TestThrowNewExpression [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.CodeGenThrowTests.TestThrowNewExpression [1 ms]
@@ -2140,6 +2281,9 @@ Blame: Attaching crash dump utility to process testhost (4168).
 [xUnit.net 00:04:09.50]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AccessibleWhereRequired_02 [SKIP]
 [xUnit.net 00:04:09.50]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.DuplicateAccessInBinder [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.HidingAbstract [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.VerifyProtectedSemantics [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.ForbiddenAccessorProtection_01 [1 ms]
@@ -2149,6 +2293,7 @@ Blame: Attaching crash dump utility to process testhost (4168).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NotAccessibleWhereRequired [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AccessibleWhereRequired_02 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.DuplicateAccessInBinder [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictivePositive_01 [1 ms]
 [xUnit.net 00:08:32.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.VerifyPartialPartsMatch [SKIP]
@@ -2161,6 +2306,8 @@ Blame: Attaching crash dump utility to process testhost (4168).
 [xUnit.net 00:08:32.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictiveNegative_01 [SKIP]
 [xUnit.net 00:08:32.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NestedTypes [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:04:09.50]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictivePositive_01 [SKIP]
 [xUnit.net 00:04:09.50]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.VerifyPartialPartsMatch [SKIP]
 [xUnit.net 00:04:09.50]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.UnimplementedInaccessible [SKIP]
@@ -2171,6 +2318,9 @@ Blame: Attaching crash dump utility to process testhost (4168).
 [xUnit.net 00:04:09.51]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NotInVersion71 [SKIP]
 [xUnit.net 00:04:09.51]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictiveNegative_01 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictivePositive_01 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.VerifyPartialPartsMatch [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.UnimplementedInaccessible [1 ms]
@@ -2180,6 +2330,7 @@ Blame: Attaching crash dump utility to process testhost (4168).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.VerifyPPExtension [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NotInVersion71 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AtLeastAsRestrictiveNegative_01 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NestedTypes [1 ms]
 [xUnit.net 00:08:32.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AccessibleWhereRequired_01 [SKIP]
@@ -2209,6 +2360,8 @@ Blame: Attaching crash dump utility to process testhost (4168).
 [xUnit.net 00:08:38.16]     Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.CodeGenDeconstructTests.InferredName_Lambda [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.CodeGenDeconstructTests.InferredName_Lambda [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:04:09.51]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NestedTypes [SKIP]
 [xUnit.net 00:04:09.51]     Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.AccessibleWhereRequired_01 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PrivateProtected.NestedTypes [1 ms]
@@ -2295,21 +2448,30 @@ Blame: Attaching crash dump utility to process testhost (4168).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Emit.CompilationEmitTests.CheckUnsafeAttributes5 [1 ms]
 [xUnit.net 00:08:34.09]     Microsoft.CodeAnalysis.CSharp.UnitTests.Emit.CompilationEmitTests.CheckUnsafeAttributes3 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Emit.CompilationEmitTests.CheckUnsafeAttributes3 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_10_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_10_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  7153, Skipped:   129, Total:  7282, Duration: 8 m 26 s - Microsoft.CodeAnalysis.CSharp.Emit.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 19632
 ### Begin 50644
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  7153, Skipped:   129, Total:  7282, Duration: 8 m 29 s - Microsoft.CodeAnalysis.CSharp.Emit.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 42380
 ### Begin 48416
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_11.rsp"
 ### Exit code 0
@@ -2326,6 +2488,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (48344).
 [xUnit.net 00:00:40.13]     Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.EditAndContinueTests.LocalType_UnsupportedSignatureContent [SKIP]
@@ -2354,6 +2517,8 @@ Blame: Attaching crash dump utility to process testhost (48344).
 [xUnit.net 00:00:57.59]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ImportedTypeWithUnknownBase [SKIP]
 [xUnit.net 00:00:57.63]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestPartialTypeInTwoFiles [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (52148).
 [xUnit.net 00:00:36.80]     Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.EditAndContinueStateMachineTests.AsyncLambda_Delete [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.EditAndContinueStateMachineTests.AsyncLambda_Delete [1 ms]
@@ -2385,11 +2550,15 @@ Blame: Attaching crash dump utility to process testhost (52148).
 [xUnit.net 00:04:06.25]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestExternAliasesInUsing [SKIP]
 [xUnit.net 00:04:06.25]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestNamespaceAliases [SKIP]
 [xUnit.net 00:04:06.25]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ImportedTypeWithUnknownBase [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestTypeAliases2 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestExternAliasesInUsing [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestNamespaceAliases [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ImportedTypeWithUnknownBase [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestPartialTypeInTwoFiles [1 ms]
 [xUnit.net 00:00:57.72]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestTypeAliases3 [SKIP]
@@ -2407,6 +2576,8 @@ Blame: Attaching crash dump utility to process testhost (52148).
 [xUnit.net 00:00:57.91]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ReferenceWithMultipleAliases [SKIP]
 [xUnit.net 00:00:57.91]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestNestedType [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:04:06.29]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestPartialTypeInTwoFiles [SKIP]
 [xUnit.net 00:04:06.38]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestTypeAliases3 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestPartialTypeInTwoFiles [1 ms]
@@ -2423,11 +2594,15 @@ Blame: Attaching crash dump utility to process testhost (52148).
 [xUnit.net 00:04:06.54]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestNestedType [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestTypeAliases1_B [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.UsingExternAlias [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestExternAliases_ExplicitAndGlobal [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestNamespacesAndAliases [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ReferenceWithMultipleAliases [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestNestedType [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:00:57.96]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ImportedNoPiaTypes [SKIP]
 [xUnit.net 00:00:57.96]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestVerbatimIdentifiers [SKIP]
@@ -2452,6 +2627,8 @@ Blame: Attaching crash dump utility to process testhost (52148).
 [xUnit.net 00:04:23.48]     Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.EditAndContinueStateMachineTests.AsyncLambda_Delete [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.EditAndContinueStateMachineTests.AsyncLambda_Delete [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:04:06.59]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.ImportedNoPiaTypes [SKIP]
 [xUnit.net 00:04:06.59]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.TestVerbatimIdentifiers [SKIP]
 [xUnit.net 00:04:06.61]     Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.PDBUsingTests.AliasIncludingDynamic [SKIP]
@@ -2468,21 +2645,30 @@ Blame: Attaching crash dump utility to process testhost (52148).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PDB.CSharpDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [1 ms]
 [xUnit.net 00:04:28.39]     Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.SymbolMatcherTests.VaryingCompilationReferences [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.EditAndContinue.UnitTests.SymbolMatcherTests.VaryingCompilationReferences [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_11_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_11_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  2185, Skipped:    35, Total:  2220, Duration: 4 m 57 s - Microsoft.CodeAnalysis.CSharp.Emit2.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 50644
 ### Begin 49496
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  2185, Skipped:    35, Total:  2220, Duration: 4 m 22 s - Microsoft.CodeAnalysis.CSharp.Emit2.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 48416
 ### Begin 41204
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_12.rsp"
 ### Exit code 0
@@ -2499,6 +2685,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45980).
 [xUnit.net 00:00:11.87] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID 'b04fbbac70f8fe46403e557717b3d599c235f074' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)')
@@ -2599,6 +2786,8 @@ Blame: Attaching crash dump utility to process testhost (45980).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [1 ms]
 [xUnit.net 00:12:04.22]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (44912).
 [xUnit.net 00:00:13.58] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID 'b04fbbac70f8fe46403e557717b3d599c235f074' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)')
 [xUnit.net 00:00:13.58] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID '3031882be867753fd71f39f7f0bf1aa5f64ebee0' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)')
@@ -2697,6 +2886,9 @@ Blame: Attaching crash dump utility to process testhost (44912).
 [xUnit.net 00:13:55.16]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [1 ms]
 [xUnit.net 00:13:55.67]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
@@ -2704,15 +2896,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed: 28001, Skipped:    48, Total: 28049, Duration: 11 m 50 s - Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49496
 ### Begin 35064
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed: 28001, Skipped:    48, Total: 28049, Duration: 13 m 40 s - Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 41204
 ### Begin 51996
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_13.rsp"
 ### Exit code 0
@@ -2730,8 +2928,13 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (48776).
 [xUnit.net 00:01:50.15]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall_ExtensionMethods [SKIP]
+=======
+Blame: Attaching crash dump utility to process testhost (34724).
+[xUnit.net 00:01:38.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall_ExtensionMethods [SKIP]
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (34724).
 [xUnit.net 00:01:38.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall_ExtensionMethods [SKIP]
@@ -2742,15 +2945,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_13_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:    27, Skipped:     1, Total:    28, Duration: 1 m 43 s - Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 35064
 ### Begin 30220
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:    27, Skipped:     1, Total:    28, Duration: 1 m 33 s - Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 51996
 ### Begin 49368
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_15.rsp"
 ### Exit code 0
@@ -2768,7 +2977,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (41280).
+=======
+Blame: Attaching crash dump utility to process testhost (19272).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (19272).
 >>>>>>> origin/folly-of-the-unbound
@@ -2777,15 +2990,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_15_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:     6, Skipped:     0, Total:     6, Duration: 13 s - Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 30220
 ### Begin 44500
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:     6, Skipped:     0, Total:     6, Duration: 14 s - Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49368
 ### Begin 45008
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_14.rsp"
 ### Exit code 0
@@ -2803,6 +3022,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45724).
 [xUnit.net 00:00:38.90]     Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IObjectCreationExpression.ObjectCreationFlow_75_CollectionInitializerError [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IObjectCreationExpression.ObjectCreationFlow_75_CollectionInitializerError [1 ms]
@@ -2819,6 +3039,8 @@ Blame: Attaching crash dump utility to process testhost (45724).
 [xUnit.net 00:00:47.92]     Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IParameterReferenceExpression.ParameterReference_NoPiaObjectCreation [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IParameterReferenceExpression.ParameterReference_NoPiaObjectCreation [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (46528).
 [xUnit.net 00:00:26.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IParameterReferenceExpression.ParameterReference_NoPiaObjectCreation [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IParameterReferenceExpression.ParameterReference_NoPiaObjectCreation [1 ms]
@@ -2834,21 +3056,30 @@ Blame: Attaching crash dump utility to process testhost (46528).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests_IConversionExpression.ConversionExpression_Implicit_ExpressionTreeConversion_InvalidIncorrectLambdaType [1 ms]
 [xUnit.net 00:00:36.31]     Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests.TestClone [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.IOperationTests.TestClone [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_14_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_14_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  2501, Skipped:     7, Total:  2508, Duration: 53 s - Microsoft.CodeAnalysis.CSharp.IOperation.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 44500
 ### Begin 45840
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  2501, Skipped:     7, Total:  2508, Duration: 50 s - Microsoft.CodeAnalysis.CSharp.IOperation.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45008
 ### Begin 45468
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_16.rsp"
 ### Exit code 0
@@ -2865,6 +3096,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (44068).
 [xUnit.net 00:00:11.43]     Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_FileWithDependencies [SKIP]
@@ -2921,6 +3153,8 @@ Blame: Attaching crash dump utility to process testhost (44068).
   Skipped Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [1 ms]
 [xUnit.net 00:00:55.52]     Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.HelpCommand [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (17808).
 [xUnit.net 00:00:11.68]     Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_FileWithDependencies [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_FileWithDependencies [1 ms]
@@ -2975,6 +3209,9 @@ Blame: Attaching crash dump utility to process testhost (17808).
 [xUnit.net 00:00:51.70]     Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1 [1 ms]
 [xUnit.net 00:00:53.31]     Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.HelpCommand [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
   Skipped Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.HelpCommand [1 ms]
@@ -2982,15 +3219,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_16_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   268, Skipped:    27, Total:   295, Duration: 51 s - Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45840
 ### Begin 49824
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   268, Skipped:    27, Total:   295, Duration: 49 s - Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45468
 ### Begin 20476
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_17.rsp"
 ### Exit code 0
@@ -3007,6 +3250,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (44136).
 [xUnit.net 00:00:11.48] Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests: Skipping test case with duplicate ID '2430d4f60998d18aa29037c411facfb0161e85b4' ('Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests.SourceGeneration.GeneratorDriverTests.Generator_Output_Kinds_Can_Be_Disabled(disabledOutput: PreCompilation)' and 'Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests.SourceGeneration.GeneratorDriverTests.Generator_Output_Kinds_Can_Be_Disabled(disabledOutput: PreCompilation)')
@@ -3168,6 +3412,8 @@ Blame: Attaching crash dump utility to process testhost (44136).
 [xUnit.net 00:12:14.81]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NestedLambdas_02 [SKIP]
 [xUnit.net 00:12:15.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_01 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (37752).
 [xUnit.net 00:00:11.79] Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests: Skipping test case with duplicate ID '2430d4f60998d18aa29037c411facfb0161e85b4' ('Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests.SourceGeneration.GeneratorDriverTests.Generator_Output_Kinds_Can_Be_Disabled(disabledOutput: PreCompilation)' and 'Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests.SourceGeneration.GeneratorDriverTests.Generator_Output_Kinds_Can_Be_Disabled(disabledOutput: PreCompilation)')
 [xUnit.net 00:00:42.43]     Microsoft.CodeAnalysis.CSharp.UnitTests.LambdaTests.LambdaReturnType_12 [SKIP]
@@ -3205,6 +3451,9 @@ Blame: Attaching crash dump utility to process testhost (37752).
 [xUnit.net 00:01:44.56]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.DefiniteAssignment_ManySwitchCasesAndLabels [SKIP]
 [xUnit.net 00:01:44.56]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NestedLambdas_02 [SKIP]
 [xUnit.net 00:01:44.98]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_01 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NestedLambdas_WithParameterAndReturnTypes [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NullableAnalysis_ObjectCreationExpression [1 ms]
@@ -3214,23 +3463,30 @@ Blame: Attaching crash dump utility to process testhost (37752).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NestedLambdas_02 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_01 [1 ms]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [xUnit.net 00:12:16.84]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_03 [SKIP]
 [xUnit.net 00:12:16.84]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionMethodsWithLambdaAndErrors [SKIP]
 [xUnit.net 00:12:16.85]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.BinaryOperatorOverloads [SKIP]
 [xUnit.net 00:12:16.85]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_02 [SKIP]
 [xUnit.net 00:12:16.86]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NotNull_Complexity [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:01:47.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_03 [SKIP]
 [xUnit.net 00:01:47.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionMethodsWithLambdaAndErrors [SKIP]
 [xUnit.net 00:01:47.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.BinaryOperatorOverloads [SKIP]
 [xUnit.net 00:01:47.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_02 [SKIP]
 [xUnit.net 00:01:47.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NotNull_Complexity [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_03 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionMethodsWithLambdaAndErrors [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.BinaryOperatorOverloads [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionOverloadsDistinctClasses_02 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.NotNull_Complexity [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:12:18.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.Overloads [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.Overloads [1 ms]
@@ -3255,6 +3511,8 @@ Blame: Attaching crash dump utility to process testhost (37752).
 [xUnit.net 00:12:56.20]     Microsoft.CodeAnalysis.CSharp.UnitTests.SemanticErrorTests.CS0122ERR_InaccessibleGenericType [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.SemanticErrorTests.CS0122ERR_InaccessibleGenericType [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:01:51.28]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.Overloads [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.Overloads [1 ms]
 [xUnit.net 00:02:00.66]     Microsoft.CodeAnalysis.CSharp.UnitTests.OverloadResolutionPerfTests.ExtensionMethodsWithLambdaAndParams [SKIP]
@@ -3399,21 +3657,30 @@ Blame: Attaching crash dump utility to process testhost (37752).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.LocalFunctionTests.RethrowingExceptionsInCatchInsideLocalFuncIsAllowed [1 ms]
 [xUnit.net 00:14:03.19]     Microsoft.CodeAnalysis.CSharp.UnitTests.LocalFunctionTests.CanAccessScriptGlobalsFromInsideLambda [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.LocalFunctionTests.CanAccessScriptGlobalsFromInsideLambda [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_17_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_17_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed: 19765, Skipped:    98, Total: 19863, Duration: 12 m 43 s - Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49824
 ### Begin 11500
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed: 19765, Skipped:    98, Total: 19863, Duration: 13 m 49 s - Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 20476
 ### Begin 52216
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_18.rsp"
 ### Exit code 0
@@ -3430,6 +3697,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (49044).
 [xUnit.net 00:00:22.78]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ModuleInitializers.ModuleInitializersTests.MultipleNetmodules [SKIP]
@@ -3544,6 +3812,8 @@ Blame: Attaching crash dump utility to process testhost (49044).
 [xUnit.net 00:10:40.34]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.Delegates_01 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRefReturn_01 [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (43820).
 [xUnit.net 00:00:23.77]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.ExpressionBodiedMethodTests.Syntax01 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.ExpressionBodiedMethodTests.Syntax01 [1 ms]
@@ -3590,12 +3860,16 @@ Blame: Attaching crash dump utility to process testhost (43820).
 [xUnit.net 00:01:14.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.Delegates_01 [SKIP]
 [xUnit.net 00:01:14.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.EventWithDynamic [SKIP]
 [xUnit.net 00:01:14.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_03 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRefReturn_03 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRefReturn_04 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiedTypeArgument_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_02 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.Delegates_01 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:10:40.34]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.EventWithDynamic [SKIP]
 [xUnit.net 00:10:40.34]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_03 [SKIP]
@@ -3609,6 +3883,8 @@ Blame: Attaching crash dump utility to process testhost (43820).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.EventWithDynamic [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_03 [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.EventWithDynamic [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_03 [1 ms]
 [xUnit.net 00:01:14.40]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_06 [SKIP]
@@ -3620,6 +3896,9 @@ Blame: Attaching crash dump utility to process testhost (43820).
 [xUnit.net 00:01:14.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_02 [SKIP]
 [xUnit.net 00:01:14.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.RetargetingModifiedTypeArgument_01 [SKIP]
 [xUnit.net 00:01:14.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_05 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_06 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRefReturn_05 [1 ms]
@@ -3628,6 +3907,7 @@ Blame: Attaching crash dump utility to process testhost (43820).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.MultiDimensionalArray_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_02 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:10:40.35]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.RetargetingModifiedTypeArgument_01 [SKIP]
 [xUnit.net 00:10:40.35]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_05 [SKIP]
@@ -3639,6 +3919,8 @@ Blame: Attaching crash dump utility to process testhost (43820).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.RetargetingModifiedTypeArgument_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_05 [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.RetargetingModifiedTypeArgument_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_05 [1 ms]
 [xUnit.net 00:01:14.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_04 [SKIP]
@@ -3646,6 +3928,9 @@ Blame: Attaching crash dump utility to process testhost (43820).
 [xUnit.net 00:01:14.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.PropertyWithDynamic [SKIP]
 [xUnit.net 00:01:15.07]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.DynamicEncodingDecoding_01 [SKIP]
 [xUnit.net 00:01:15.84]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_04 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_04 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_03 [1 ms]
@@ -3653,23 +3938,30 @@ Blame: Attaching crash dump utility to process testhost (43820).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.DynamicEncodingDecoding_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiersAndByRef_04 [1 ms]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [xUnit.net 00:10:41.32]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiedTypeArgument_02 [SKIP]
 [xUnit.net 00:10:41.32]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_01 [SKIP]
 [xUnit.net 00:10:41.32]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_05 [SKIP]
 [xUnit.net 00:10:41.32]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_04 [SKIP]
 [xUnit.net 00:10:41.32]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_02 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:01:16.35]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiedTypeArgument_02 [SKIP]
 [xUnit.net 00:01:16.36]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_01 [SKIP]
 [xUnit.net 00:01:16.36]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_05 [SKIP]
 [xUnit.net 00:01:16.36]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_04 [SKIP]
 [xUnit.net 00:01:16.36]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_02 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiedTypeArgument_02 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_01 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ModifiersWithConstructedType_05 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_04 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.CustomModifiersTests.ConcatModifiers_02 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:10:44.97]     Microsoft.CodeAnalysis.CSharp.UnitTests.CustomModifierCopyTests.Repro819774 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CustomModifierCopyTests.Repro819774 [1 ms]
@@ -3750,6 +4042,8 @@ Blame: Attaching crash dump utility to process testhost (43820).
 [xUnit.net 00:11:35.46]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.LocalTypeSubstitution1_2 [SKIP]
 [xUnit.net 00:11:35.46]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.NestedType2 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:01:17.24]     Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.NestedLambdaReinference_LocalFunctionInLambda [SKIP]
 [xUnit.net 00:01:17.24]     Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.LocalFunction_GenericTypeParameters [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.NestedLambdaReinference_LocalFunctionInLambda [1 ms]
@@ -3841,12 +4135,16 @@ Blame: Attaching crash dump utility to process testhost (43820).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.GenericType1 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.CannotEmbedValueTupleImplicitlyReferred_ByProperty [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.CannotEmbedValueTupleImplicitlyReferred_ByMethod [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.NestedType3 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.LocalTypeSubstitution1_1 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.NestedType1 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.CyclicReference_3 [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.LocalTypeSubstitution1_2 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.NestedType2 [1 ms]
 [xUnit.net 00:11:38.64]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ConversionTests.CheckedConversionsInExpressionTrees [SKIP]
@@ -3864,6 +4162,8 @@ Blame: Attaching crash dump utility to process testhost (43820).
 [xUnit.net 00:11:56.68]     Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.EmbedInteropTypesReferences [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.EmbedInteropTypesReferences [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:02:12.45]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.NestedType2 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Retargeting.NoPia.NestedType2 [1 ms]
 [xUnit.net 00:08:01.37]     Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.EmbedInteropTypesReferences [SKIP]
@@ -3934,21 +4234,30 @@ Blame: Attaching crash dump utility to process testhost (43820).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CustomModifierCopyTests.Repro819774 [1 ms]
 [xUnit.net 00:11:07.38]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.PE.LoadingMethods.MemberSignature_CycleTrhuTypeSpecInCustomModifiers [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.PE.LoadingMethods.MemberSignature_CycleTrhuTypeSpecInCustomModifiers [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_18_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_18_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed: 13888, Skipped:   128, Total: 14016, Duration: 11 m 48 s - Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 11500
 ### Begin 50180
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed: 13888, Skipped:   128, Total: 14016, Duration: 12 m 30 s - Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 52216
 ### Begin 41712
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_19.rsp"
 ### Exit code 0
@@ -3965,6 +4274,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (44788).
 [xUnit.net 00:00:06.34] Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests: Skipping test case with duplicate ID '644be594a763368c2575a59ed6e1856c194e1bab' ('Microsoft.CodeAnalysis.CSharp.UnitTests.SafeModifierParsingTests.Method_Async_After(languageVersion: Preview)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.SafeModifierParsingTests.Method_Async_After(languageVersion: Preview)')
@@ -4018,6 +4328,8 @@ Blame: Attaching crash dump utility to process testhost (44788).
 [xUnit.net 00:01:12.95]     Microsoft.CodeAnalysis.CSharp.UnitTests.NameAttributeValueLexerTests.TestLexNewline [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.NameAttributeValueLexerTests.TestLexNewline [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (46448).
 [xUnit.net 00:00:06.61] Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests: Skipping test case with duplicate ID '644be594a763368c2575a59ed6e1856c194e1bab' ('Microsoft.CodeAnalysis.CSharp.UnitTests.SafeModifierParsingTests.Method_Async_After(languageVersion: Preview)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.SafeModifierParsingTests.Method_Async_After(languageVersion: Preview)')
 [xUnit.net 00:00:06.61] Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests: Skipping test case with duplicate ID 'c8b26633141ff3c95f26f2009d07750762ef103f' ('Microsoft.CodeAnalysis.CSharp.UnitTests.SafeModifierParsingTests.Destructor_After(languageVersion: Preview)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.SafeModifierParsingTests.Destructor_After(languageVersion: Preview)')
@@ -4069,21 +4381,30 @@ Blame: Attaching crash dump utility to process testhost (46448).
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PreprocessorTests.TestPragmaWarningEnable [1 ms]
 [xUnit.net 00:01:08.49]     Microsoft.CodeAnalysis.CSharp.UnitTests.PreprocessorTests.TestPragmaWarningEnableNullable [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PreprocessorTests.TestPragmaWarningEnableNullable [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_19_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_19_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed: 10585, Skipped:    22, Total: 10607, Duration: 1 m 29 s - Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 50180
 ### Begin 42732
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed: 10585, Skipped:    22, Total: 10607, Duration: 1 m 10 s - Microsoft.CodeAnalysis.CSharp.Syntax.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 41712
 ### Begin 17984
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_20.rsp"
 ### Exit code 0
@@ -4101,8 +4422,13 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (36452).
 [xUnit.net 00:00:29.02]     Microsoft.CodeAnalysis.CSharp.UnitTests.Formatting.FormattingEngineElasticTriviaTests.FormatElasticTrivia [SKIP]
+=======
+Blame: Attaching crash dump utility to process testhost (50776).
+[xUnit.net 00:00:33.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.Formatting.FormattingEngineElasticTriviaTests.FormatElasticTrivia [SKIP]
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (50776).
 [xUnit.net 00:00:33.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.Formatting.FormattingEngineElasticTriviaTests.FormatElasticTrivia [SKIP]
@@ -4113,15 +4439,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_20_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  1228, Skipped:     1, Total:  1229, Duration: 27 s - Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 42732
 ### Begin 28684
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  1228, Skipped:     1, Total:  1229, Duration: 30 s - Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 17984
 ### Begin 52184
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_21.rsp"
 ### Exit code 0
@@ -4139,7 +4471,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (40388).
+=======
+Blame: Attaching crash dump utility to process testhost (19404).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (19404).
 >>>>>>> origin/folly-of-the-unbound
@@ -4148,15 +4484,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_21_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:    11, Skipped:     0, Total:    11, Duration: 25 s - Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 28684
 ### Begin 49852
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:    11, Skipped:     0, Total:    11, Duration: 27 s - Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 52184
 ### Begin 47476
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_22.rsp"
 ### Exit code 0
@@ -4174,7 +4516,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (25036).
+=======
+Blame: Attaching crash dump utility to process testhost (46272).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (46272).
 >>>>>>> origin/folly-of-the-unbound
@@ -4183,15 +4529,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_22_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 7 s - Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49852
 ### Begin 13304
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 9 s - Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 47476
 ### Begin 43316
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_23.rsp"
 ### Exit code 0
@@ -4209,8 +4561,13 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (25388).
 [xUnit.net 00:01:14.81]     Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_DocumentOutOfSync [SKIP]
+=======
+Blame: Attaching crash dump utility to process testhost (50980).
+[xUnit.net 00:01:14.85]     Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_DocumentOutOfSync [SKIP]
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (50980).
 [xUnit.net 00:01:14.85]     Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_DocumentOutOfSync [SKIP]
@@ -4221,15 +4578,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_23_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   360, Skipped:     1, Total:   361, Duration: 1 m 9 s - Microsoft.CodeAnalysis.Features.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 13304
 ### Begin 8108
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   360, Skipped:     1, Total:   361, Duration: 1 m 25 s - Microsoft.CodeAnalysis.Features.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 43316
 ### Begin 42272
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_24.rsp"
 ### Exit code 1
@@ -4246,6 +4609,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (32288).
   Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface(includeDevKitComponents: True) [15 s]
@@ -5092,6 +5456,8 @@ Blame: Attaching crash dump utility to process testhost (32288).
 
 
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (41300).
   Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle [27 s]
   Error Message:
@@ -5584,12 +5950,16 @@ Blame: Attaching crash dump utility to process testhost (41300).
 
 
 Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
 
 
 Attachments:
+<<<<<<< HEAD
 <<<<<<< HEAD
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\ebd28114-439a-48c9-bc8e-83e4aa2d4dbf\testhost.exe_32288_1787131961_crashdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\ebd28114-439a-48c9-bc8e-83e4aa2d4dbf\Sequence_ab07125b3def44739179355e53d3f596.xml
@@ -5623,6 +5993,8 @@ Test Run Aborted.
 ### End 8108
 ### Begin 46332
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\dotnet_50152_20260819T095121_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\testhost_41300_20260819T095121_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\Sequence_8e1346f0aff64d51b7778ef8808ec05b.xml
@@ -5652,6 +6024,9 @@ This test may, or may not be the source of the crash.
 Test Run Aborted.
 ### End 42272
 ### Begin 49648
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_25.rsp"
 ### Exit code 0
@@ -5668,6 +6043,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (44712).
 [xUnit.net 00:06:50.55]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.ProtocolConversionsTests.CreateAbsoluteUri_LocalPaths_Unix [SKIP]
@@ -5693,6 +6069,8 @@ Blame: Attaching crash dump utility to process testhost (44712).
 [xUnit.net 00:13:53.83]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.CodeActions.RunCodeActionsTests.TestRunCodeActions [SKIP]
   Skipped Microsoft.CodeAnalysis.LanguageServer.UnitTests.CodeActions.RunCodeActionsTests.TestRunCodeActions [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (24528).
 [xUnit.net 00:00:33.11]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerTargetTests.LanguageServerRejectsRequestsBeforeInitialized [SKIP]
   Skipped Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerTargetTests.LanguageServerRejectsRequestsBeforeInitialized [1 ms]
@@ -5716,21 +6094,30 @@ Blame: Attaching crash dump utility to process testhost (24528).
   Skipped Microsoft.CodeAnalysis.LanguageServer.UnitTests.Diagnostics.PullDiagnosticTests.TestDocumentDiagnosticsWhenClientRequestsWithDifferentCasing [1 ms]
 [xUnit.net 00:15:37.19]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.Symbols.DocumentSymbolsTests.TestGetDocumentSymbolsAsync__WithLocals [SKIP]
   Skipped Microsoft.CodeAnalysis.LanguageServer.UnitTests.Symbols.DocumentSymbolsTests.TestGetDocumentSymbolsAsync__WithLocals [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_25_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_25_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  1573, Skipped:    11, Total:  1584, Duration: 15 m 46 s - Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 46332
 ### Begin 44168
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  1573, Skipped:    11, Total:  1584, Duration: 16 m 23 s - Microsoft.CodeAnalysis.LanguageServer.Protocol.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49648
 ### Begin 46800
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_26.rsp"
 ### Exit code 1
@@ -5748,8 +6135,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (9824).
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (43348).
   Failed Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection [32 s]
   Error Message:
@@ -20820,6 +21210,9 @@ C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.263
  [window/LogMessage][Info] Shutting down
 
 
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_26_x64_test_results.xml
@@ -20828,11 +21221,14 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 
 Attachments:
 <<<<<<< HEAD
+<<<<<<< HEAD
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\b45099d3-a5ef-48e2-8a88-f6d70cd2b438\testhost_9824_20260819T105513_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\b45099d3-a5ef-48e2-8a88-f6d70cd2b438\Sequence_556ff5bc760243699ee764097eade2bd.xml
 Passed!  - Failed:     0, Passed:    35, Skipped:     0, Total:    35, Duration: 31 s - Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll (net10.0)
 ### Standard Error
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\ee6fea94-ef5e-4d24-8aa7-e45f8791bdd6\testhost_43348_20260819T100250_hangdump.dmp
   C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\ee6fea94-ef5e-4d24-8aa7-e45f8791bdd6\Sequence_f09ceff5a4704f47998e02037d8160db.xml
 Failed!  - Failed:    71, Passed:   189, Skipped:     0, Total:   260, Duration: 13 m 24 s - Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll (net10.0)
@@ -20908,6 +21304,9 @@ Failed!  - Failed:    71, Passed:   189, Skipped:     0, Total:   260, Duration:
 [xUnit.net 00:13:20.33]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadSolutionAsync(useDaemon: False) [FAIL]
 [xUnit.net 00:13:21.79]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadSolutionAsync(useDaemon: True) [FAIL]
 [xUnit.net 00:13:31.92]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerProjectLoadingTests.LoadProjectsIntoSeparateStandaloneServersAsync [FAIL]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 The active test run was aborted. Reason: Test host process crashed : Process path: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\testhost.exe
 The active Test Run was aborted because the host process exited unexpectedly. Please inspect the call stack above, if available, to get more information about where the exception originated from.
@@ -20917,8 +21316,13 @@ Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon
 This test may, or may not be the source of the crash.
 Test Run Aborted.
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### End 44168
 ### Begin 44852
+=======
+### End 46800
+### Begin 10804
+>>>>>>> origin/folly-of-the-unbound
 =======
 ### End 46800
 ### Begin 10804
@@ -20939,7 +21343,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45224).
+=======
+Blame: Attaching crash dump utility to process testhost (36232).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (36232).
 >>>>>>> origin/folly-of-the-unbound
@@ -20948,15 +21356,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_27_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   567, Skipped:     0, Total:   567, Duration: 48 s - Microsoft.CodeAnalysis.Razor.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 44852
 ### Begin 42152
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   567, Skipped:     0, Total:   567, Duration: 55 s - Microsoft.CodeAnalysis.Razor.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 10804
 ### Begin 45688
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_28.rsp"
 ### Exit code 0
@@ -20974,32 +21388,44 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45240).
 [xUnit.net 00:00:10.82]     Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSchemeProperly [SKIP]
   Skipped Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSchemeProperly [1 ms]
 [xUnit.net 00:00:19.78]     Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_NonWindows_AddsLeadingForwardSlash [SKIP]
   Skipped Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_NonWindows_AddsLeadingForwardSlash [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (42960).
 [xUnit.net 00:00:40.59]     Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_NonWindows_AddsLeadingForwardSlash [SKIP]
   Skipped Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_NonWindows_AddsLeadingForwardSlash [1 ms]
 [xUnit.net 00:00:41.07]     Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSchemeProperly [SKIP]
   Skipped Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSchemeProperly [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_28_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_28_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   801, Skipped:     2, Total:   803, Duration: 22 s - Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 42152
 ### Begin 6308
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   801, Skipped:     2, Total:   803, Duration: 32 s - Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45688
 ### Begin 32324
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_29.rsp"
 ### Exit code 0
@@ -21017,7 +21443,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (8736).
+=======
+Blame: Attaching crash dump utility to process testhost (48688).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (48688).
 >>>>>>> origin/folly-of-the-unbound
@@ -21026,15 +21456,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_29_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   640, Skipped:     0, Total:   640, Duration: 1 m 12 s - Microsoft.CodeAnalysis.Rebuild.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 6308
 ### Begin 27468
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   640, Skipped:     0, Total:   640, Duration: 1 m 14 s - Microsoft.CodeAnalysis.Rebuild.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 32324
 ### Begin 47868
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_30.rsp"
 ### Exit code 0
@@ -21052,7 +21488,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45968).
+=======
+Blame: Attaching crash dump utility to process testhost (45744).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (45744).
 >>>>>>> origin/folly-of-the-unbound
@@ -21061,15 +21501,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_30_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:    91, Skipped:     0, Total:    91, Duration: 15 s - Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 27468
 ### Begin 43268
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:    91, Skipped:     0, Total:    91, Duration: 16 s - Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 47868
 ### Begin 24812
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_31.rsp"
 ### Exit code 0
@@ -21087,7 +21533,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (11500).
+=======
+Blame: Attaching crash dump utility to process testhost (33788).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (33788).
 >>>>>>> origin/folly-of-the-unbound
@@ -21098,8 +21548,13 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 Passed!  - Failed:     0, Passed:    16, Skipped:     0, Total:    16, Duration: 14 s - Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll (net10.0)
 ### Standard Error
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### End 43268
 ### Begin 24472
+=======
+### End 24812
+### Begin 51004
+>>>>>>> origin/folly-of-the-unbound
 =======
 ### End 24812
 ### Begin 51004
@@ -21120,7 +21575,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45732).
+=======
+Blame: Attaching crash dump utility to process testhost (47736).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (47736).
 >>>>>>> origin/folly-of-the-unbound
@@ -21129,15 +21588,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_32_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:    45, Skipped:     0, Total:    45, Duration: 3 s - Microsoft.CodeAnalysis.Scripting.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 24472
 ### Begin 46408
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:    45, Skipped:     0, Total:    45, Duration: 4 s - Microsoft.CodeAnalysis.Scripting.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 51004
 ### Begin 42556
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_33.rsp"
 ### Exit code 0
@@ -21154,6 +21619,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (45692).
 [xUnit.net 00:00:09.27] Microsoft.CodeAnalysis.UnitTests: Skipping test case with duplicate ID 'b8ddc14aabea5dde414e914032b9ff5c661b83f4' ('Microsoft.CodeAnalysis.UnitTests.Collections.SegmentedHashSet_Generic_Tests_string.HashSet_Generic_Constructor_IEnumerable(enumerableType: SegmentedHashSet, setLength: 1, enumerableLength: 0, numberOfMatchingElements: 0, numberOfDuplicateElements: 0)' and 'Microsoft.CodeAnalysis.UnitTests.Collections.SegmentedHashSet_Generic_Tests_string.HashSet_Generic_Constructor_IEnumerable(enumerableType: SegmentedHashSet, setLength: 1, enumerableLength: 0, numberOfMatchingElements: 0, numberOfDuplicateElements: 0)')
@@ -23021,6 +23487,8 @@ Blame: Attaching crash dump utility to process testhost (45692).
 [xUnit.net 00:08:15.25]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values2 [SKIP]
 [xUnit.net 00:08:15.25]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Errors [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (45636).
 [xUnit.net 00:00:09.44] Microsoft.CodeAnalysis.UnitTests: Skipping test case with duplicate ID 'b8ddc14aabea5dde414e914032b9ff5c661b83f4' ('Microsoft.CodeAnalysis.UnitTests.Collections.SegmentedHashSet_Generic_Tests_string.HashSet_Generic_Constructor_IEnumerable(enumerableType: SegmentedHashSet, setLength: 1, enumerableLength: 0, numberOfMatchingElements: 0, numberOfDuplicateElements: 0)' and 'Microsoft.CodeAnalysis.UnitTests.Collections.SegmentedHashSet_Generic_Tests_string.HashSet_Generic_Constructor_IEnumerable(enumerableType: SegmentedHashSet, setLength: 1, enumerableLength: 0, numberOfMatchingElements: 0, numberOfDuplicateElements: 0)')
 [xUnit.net 00:00:09.44] Microsoft.CodeAnalysis.UnitTests: Skipping test case with duplicate ID '31f21c650545ba147c605f57ab686af66ad946fd' ('Microsoft.CodeAnalysis.UnitTests.Collections.SegmentedHashSet_Generic_Tests_string.HashSet_Generic_Constructor_IEnumerable(enumerableType: SegmentedHashSet, setLength: 1, enumerableLength: 1, numberOfMatchingElements: 1, numberOfDuplicateElements: 0)' and 'Microsoft.CodeAnalysis.UnitTests.Collections.SegmentedHashSet_Generic_Tests_string.HashSet_Generic_Constructor_IEnumerable(enumerableType: SegmentedHashSet, setLength: 1, enumerableLength: 1, numberOfMatchingElements: 1, numberOfDuplicateElements: 0)')
@@ -24774,11 +25242,15 @@ Blame: Attaching crash dump utility to process testhost (45636).
 [xUnit.net 00:00:55.57]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Errors [SKIP]
 [xUnit.net 00:00:55.57]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values1 [SKIP]
 [xUnit.net 00:00:55.57]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_NoValues [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values4 [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_EmptyElement [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values2 [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Errors [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:08:15.25]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values1 [SKIP]
 [xUnit.net 00:08:15.25]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_NoValues [SKIP]
@@ -24792,6 +25264,8 @@ Blame: Attaching crash dump utility to process testhost (45636).
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values1 [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_NoValues [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values1 [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_NoValues [1 ms]
 [xUnit.net 00:00:55.58]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_DuplicateSupportPortability2 [SKIP]
@@ -24803,6 +25277,9 @@ Blame: Attaching crash dump utility to process testhost (45636).
 [xUnit.net 00:00:55.58]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values_MissingNamespace [SKIP]
 [xUnit.net 00:00:55.59]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_LinkedConfiguration [SKIP]
 [xUnit.net 00:00:55.59]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_UnknownAttributes2 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_DuplicateSupportPortability2 [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_DuplicateSupportPortability1 [1 ms]
@@ -24811,6 +25288,7 @@ Blame: Attaching crash dump utility to process testhost (45636).
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_InterleavingElements [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_LeadingWhitespace [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_Values_MissingNamespace [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:08:15.26]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_LinkedConfiguration [SKIP]
 [xUnit.net 00:08:15.26]     Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_UnknownAttributes2 [SKIP]
@@ -24825,6 +25303,8 @@ Blame: Attaching crash dump utility to process testhost (45636).
 [xUnit.net 00:08:22.21]     Microsoft.CodeAnalysis.UnitTests.AssemblyIdentityTests.FullKeyAndToken [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyIdentityTests.FullKeyAndToken [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_LinkedConfiguration [1 ms]
   Skipped Microsoft.CodeAnalysis.UnitTests.AssemblyPortabilityPolicyTests.LoadFromFile_UnknownAttributes2 [1 ms]
 [xUnit.net 00:01:01.53]     Microsoft.CodeAnalysis.UnitTests.Collections.ImmutableSegmentedHashSetTest.TestDebuggerAttributes_Null [SKIP]
@@ -24949,21 +25429,30 @@ Blame: Attaching crash dump utility to process testhost (45636).
   Skipped Microsoft.CodeAnalysis.UnitTests.StringTextDecodingTests.NonUtf8_MiddleDot [1 ms]
 [xUnit.net 00:07:13.11]     Microsoft.CodeAnalysis.UnitTests.CompilerResolverTests.ResolveReturnsForHostAssembly [SKIP]
   Skipped Microsoft.CodeAnalysis.UnitTests.CompilerResolverTests.ResolveReturnsForHostAssembly [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_33_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_33_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed: 19046, Skipped:    76, Total: 19122, Duration: 6 m 4 s - Microsoft.CodeAnalysis.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 46408
 ### Begin 15284
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed: 19046, Skipped:    76, Total: 19122, Duration: 6 m 17 s - Microsoft.CodeAnalysis.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 42556
 ### Begin 49724
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_34.rsp"
 ### Exit code 0
@@ -24980,6 +25469,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (49092).
 [xUnit.net 00:00:18.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [SKIP]
@@ -25003,6 +25493,8 @@ Blame: Attaching crash dump utility to process testhost (49092).
 [xUnit.net 00:00:38.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [SKIP]
 [xUnit.net 00:00:38.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (48604).
 [xUnit.net 00:00:17.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [1 ms]
@@ -25060,11 +25552,15 @@ Blame: Attaching crash dump utility to process testhost (48604).
 [xUnit.net 00:02:12.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [SKIP]
 [xUnit.net 00:02:12.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [SKIP]
 [xUnit.net 00:02:12.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericType [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:00:38.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [SKIP]
 [xUnit.net 00:00:38.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [SKIP]
@@ -25076,6 +25572,8 @@ Blame: Attaching crash dump utility to process testhost (48604).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [1 ms]
 [xUnit.net 00:02:12.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [SKIP]
@@ -25084,12 +25582,16 @@ Blame: Attaching crash dump utility to process testhost (48604).
 [xUnit.net 00:02:12.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [SKIP]
 [xUnit.net 00:02:12.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [SKIP]
 [xUnit.net 00:02:12.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InheritanceScenario [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonSequentialLineNumbers [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:00:38.11]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [SKIP]
 [xUnit.net 00:00:38.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [SKIP]
@@ -25101,6 +25603,8 @@ Blame: Attaching crash dump utility to process testhost (48604).
 [xUnit.net 00:00:38.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [1 ms]
 [xUnit.net 00:02:12.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [SKIP]
 [xUnit.net 00:02:12.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [SKIP]
@@ -25111,6 +25615,9 @@ Blame: Attaching crash dump utility to process testhost (48604).
 [xUnit.net 00:02:12.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [SKIP]
 [xUnit.net 00:02:12.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [SKIP]
 [xUnit.net 00:02:12.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [1 ms]
@@ -25119,6 +25626,7 @@ Blame: Attaching crash dump utility to process testhost (48604).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_UnhandledErrorDontBubbleUp [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelGreaterThanIntegerMaxValueValue [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:00:38.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [SKIP]
 [xUnit.net 00:00:38.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [SKIP]
@@ -25130,6 +25638,8 @@ Blame: Attaching crash dump utility to process testhost (48604).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [1 ms]
 [xUnit.net 00:02:12.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [SKIP]
@@ -25137,12 +25647,16 @@ Blame: Attaching crash dump utility to process testhost (48604).
 [xUnit.net 00:02:12.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [SKIP]
 [xUnit.net 00:02:12.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [SKIP]
 [xUnit.net 00:02:12.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_ThrowExceptionInsteadOfErrorRaiseLambdaInvocation [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:00:39.39]     VisualBasicDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [SKIP]
 Test Logger: Unable to parse one or more test names provided by your test runner. These will be logged using Namespace='UnknownNamespace', Type='UnknownType'. The entire test name will be used as the Method name. Please open a ticket so we can review this issue
@@ -25268,6 +25782,8 @@ Test Logger: Unable to parse one or more test names provided by your test runner
 [xUnit.net 00:05:22.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:02:13.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [1 ms]
 [xUnit.net 00:02:18.36]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [SKIP]
@@ -25357,21 +25873,30 @@ Test Logger: Unable to parse one or more test names provided by your test runner
   Skipped InternalsVisibleToAndStrongNameTests.MaxSizeKey [1 ms]
 [xUnit.net 00:05:30.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  4236, Skipped:    95, Total:  4331, Duration: 5 m 49 s - Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 15284
 ### Begin 3376
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  4236, Skipped:    95, Total:  4331, Duration: 5 m 22 s - Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49724
 ### Begin 38304
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_35.rsp"
 ### Exit code 0
@@ -25389,6 +25914,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (48256).
 [xUnit.net 00:00:34.25]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.OptionalArgumentTests.TestMultipleEnumDefaultValues [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.OptionalArgumentTests.TestMultipleEnumDefaultValues [1 ms]
@@ -25405,6 +25931,8 @@ Blame: Attaching crash dump utility to process testhost (48256).
 [xUnit.net 00:01:43.16]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ObjectConstruction_1 [SKIP]
 [xUnit.net 00:01:43.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_InCollectionInitializer_2 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:21.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.Test5 [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.Test5 [1 ms]
@@ -25440,11 +25968,15 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:05:24.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_WithSyncLock_3 [SKIP]
 [xUnit.net 00:05:24.73]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ObjectConstruction_1 [SKIP]
 [xUnit.net 00:05:24.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_InCollectionInitializer_2 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Using_1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_WithSyncLock_3 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ObjectConstruction_1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_InCollectionInitializer_2 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:01:43.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_GotoM1 [SKIP]
 [xUnit.net 00:01:43.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_05 [SKIP]
@@ -25453,17 +25985,23 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:43.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_01 [SKIP]
 [xUnit.net 00:01:43.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithConditionBlocks [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:24.83]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_GotoM1 [SKIP]
 [xUnit.net 00:05:24.83]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_05 [SKIP]
 [xUnit.net 00:05:24.84]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_TypeInitialization_0 [SKIP]
 [xUnit.net 00:05:24.88]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithSelectCase_Error_On_Case_Condition [SKIP]
 [xUnit.net 00:05:24.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_01 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_GotoM1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_05 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_TypeInitialization_0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithSelectCase_Error_On_Case_Condition [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_01 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithConditionBlocks [1 ms]
 [xUnit.net 00:01:43.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_GotoLabel [SKIP]
@@ -25473,6 +26011,8 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:43.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_VariableDeclaration_0 [SKIP]
 [xUnit.net 00:01:43.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Erase_1 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:24.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithConditionBlocks [SKIP]
 [xUnit.net 00:05:24.93]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_GotoLabel [SKIP]
 [xUnit.net 00:05:24.93]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInMainBlock [SKIP]
@@ -25481,6 +26021,9 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:05:25.12]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_VariableDeclaration_0 [SKIP]
 [xUnit.net 00:05:25.12]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Erase_1 [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithConditionBlocks [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_GotoLabel [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInMainBlock [1 ms]
@@ -25488,6 +26031,7 @@ Blame: Attaching crash dump utility to process testhost (46852).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorStatement_1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_VariableDeclaration_0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Erase_1 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:01:43.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_With_Explicit_Throw [SKIP]
 [xUnit.net 00:01:44.03]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ExitSelect_0 [SKIP]
@@ -25501,6 +26045,8 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:44.33]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_Goto0 [SKIP]
 [xUnit.net 00:01:44.33]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_In_Single_Method_With_Resume_Next [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:25.16]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_With_Explicit_Throw [SKIP]
 [xUnit.net 00:05:25.23]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ExitSelect_0 [SKIP]
 [xUnit.net 00:05:25.24]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_04 [SKIP]
@@ -25512,6 +26058,9 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:05:25.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Multi_OnError_In_Single_Method_1 [SKIP]
 [xUnit.net 00:05:25.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_Goto0 [SKIP]
 [xUnit.net 00:05:25.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_In_Single_Method_With_Resume_Next [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception_2 [1 ms]
@@ -25519,21 +26068,28 @@ Blame: Attaching crash dump utility to process testhost (46852).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_Goto0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_In_Single_Method_With_Resume_Next [1 ms]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [xUnit.net 00:01:44.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithSelectCase_Error_On_Case [SKIP]
 [xUnit.net 00:01:44.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_WithSyncLock_1 [SKIP]
 [xUnit.net 00:01:44.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_With_Explicit_Error [SKIP]
 [xUnit.net 00:01:44.62]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ObjectConstruction_0 [SKIP]
 [xUnit.net 00:01:44.62]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInMainBlock_ThrowException [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:25.44]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithSelectCase_Error_On_Case [SKIP]
 [xUnit.net 00:05:25.46]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_WithSyncLock_1 [SKIP]
 [xUnit.net 00:05:25.46]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_With_Explicit_Error [SKIP]
 [xUnit.net 00:05:25.52]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ObjectConstruction_0 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_ResumeWithSelectCase_Error_On_Case [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_WithSyncLock_1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_With_Explicit_Error [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_ObjectConstruction_0 [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInMainBlock_ThrowException [1 ms]
 [xUnit.net 00:01:44.62]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.BaseCtor [SKIP]
@@ -25549,6 +26105,8 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:44.87]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResume [SKIP]
 [xUnit.net 00:01:45.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Using_0 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:25.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInMainBlock_ThrowException [SKIP]
 [xUnit.net 00:05:25.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.BaseCtor [SKIP]
 [xUnit.net 00:05:25.76]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject_Properties [SKIP]
@@ -25562,12 +26120,16 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:05:26.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject [SKIP]
 [xUnit.net 00:05:26.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_2 [SKIP]
 [xUnit.net 00:05:26.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResume [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_03 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorStatement_0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_2 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResume [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Using_0 [1 ms]
 [xUnit.net 00:01:45.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception_AndLabel_Next [SKIP]
@@ -25579,6 +26141,8 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:45.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResumeNext [SKIP]
 [xUnit.net 00:01:45.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Goto_0 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:26.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Using_0 [SKIP]
 [xUnit.net 00:05:26.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception_AndLabel_Next [SKIP]
 [xUnit.net 00:05:26.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_ResumeNext [SKIP]
@@ -25588,6 +26152,9 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:05:26.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInhandler [SKIP]
 [xUnit.net 00:05:26.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResumeNext [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Using_0 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception_AndLabel_Next [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestOnError_ResumeNext [1 ms]
@@ -25597,6 +26164,7 @@ Blame: Attaching crash dump utility to process testhost (46852).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_GotoMinusBaselineInhandler [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResumeNext [1 ms]
 <<<<<<< HEAD
+<<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Goto_0 [1 ms]
 [xUnit.net 00:01:45.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Erase_0 [SKIP]
 [xUnit.net 00:01:45.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.MultipleLabelErrorHandler [SKIP]
@@ -25605,6 +26173,8 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:45.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResumeLabel [SKIP]
 [xUnit.net 00:01:45.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Bug17937 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:26.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Goto_0 [SKIP]
 [xUnit.net 00:05:26.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Erase_0 [SKIP]
 [xUnit.net 00:05:26.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.MultipleLabelErrorHandler [SKIP]
@@ -25612,12 +26182,16 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:05:26.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_InCollectionInitializer_3 [SKIP]
 [xUnit.net 00:05:26.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResumeLabel [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Goto_0 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Erase_0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.MultipleLabelErrorHandler [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject_Properties__DLLLastError [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_InCollectionInitializer_3 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.TestResumeLabel [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Bug17937 [1 ms]
 [xUnit.net 00:01:45.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception [SKIP]
@@ -25626,17 +26200,23 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:45.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Error [SKIP]
 [xUnit.net 00:01:45.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_4 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:26.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Bug17937 [SKIP]
 [xUnit.net 00:05:26.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception [SKIP]
 [xUnit.net 00:05:26.39]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_6 [SKIP]
 [xUnit.net 00:05:26.39]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.SingleLabelErrorHandler [SKIP]
 [xUnit.net 00:05:26.46]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Error [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Bug17937 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Exception [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_6 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.SingleLabelErrorHandler [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.OnError_Resume_Next_With_Explicit_Error [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_4 [1 ms]
 [xUnit.net 00:01:45.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject_Properties_AfterGeneratedInDifferentWays [SKIP]
@@ -25644,17 +26224,23 @@ Blame: Attaching crash dump utility to process testhost (46852).
 [xUnit.net 00:01:45.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_AddRaiseRemove_Event_0 [SKIP]
 [xUnit.net 00:01:45.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_ResumeNext_ErrorObjectFunctionality [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:26.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_4 [SKIP]
 [xUnit.net 00:05:26.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject_Properties_AfterGeneratedInDifferentWays [SKIP]
 [xUnit.net 00:05:26.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Do_Loop_1 [SKIP]
 [xUnit.net 00:05:26.56]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_AddRaiseRemove_Event_0 [SKIP]
 [xUnit.net 00:05:26.56]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_ResumeNext_ErrorObjectFunctionality [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Select_4 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorObject_Properties_AfterGeneratedInDifferentWays [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_Do_Loop_1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_AddRaiseRemove_Event_0 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_ResumeNext_ErrorObjectFunctionality [1 ms]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [xUnit.net 00:01:45.46]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_02 [SKIP]
 [xUnit.net 00:01:45.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_With_0 [SKIP]
@@ -25713,6 +26299,8 @@ Blame: Attaching crash dump utility to process testhost (46852).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.Test1 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.TestLargeStringConcatenation [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:05:26.84]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ERL_02 [SKIP]
 [xUnit.net 00:05:27.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.Resume_in_With_0 [SKIP]
 [xUnit.net 00:05:27.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.UnstructuredExceptionHandling.ErrorHandler_InCollectionInitializer [SKIP]
@@ -25749,21 +26337,30 @@ Blame: Attaching crash dump utility to process testhost (46852).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_11 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_05 [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_04 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_35_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_35_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  5497, Skipped:    94, Total:  5591, Duration: 6 m 1 s - Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 3376
 ### Begin 39284
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  5497, Skipped:    94, Total:  5591, Duration: 6 m 49 s - Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 38304
 ### Begin 50420
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_36.rsp"
 ### Exit code 0
@@ -25780,6 +26377,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (48012).
 [xUnit.net 00:00:57.98]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationCreationTests.RootNamespace_NoTrees_SuppressEmbeddedDeclarations [SKIP]
@@ -25831,6 +26429,8 @@ Test Logger: Unable to parse one or more test names provided by your test runner
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.Metadata.PE.NoPia.Bug16689_1 [1 ms]
 [xUnit.net 00:03:14.34]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.Metadata.PE.NoPia.Bug16689_3 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (31128).
 [xUnit.net 00:00:34.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ExtensionMethods.AnonymousTypesEmittedSymbolsTests.MultipleNetmodulesWithAnonymousTypes [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ExtensionMethods.AnonymousTypesEmittedSymbolsTests.MultipleNetmodulesWithAnonymousTypes [1 ms]
@@ -25880,6 +26480,9 @@ Test Logger: Unable to parse one or more test names provided by your test runner
 [xUnit.net 00:04:13.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.Metadata.PE.NoPia.Bug16689_1 [SKIP]
 [xUnit.net 00:04:13.88]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.Metadata.PE.NoPia.Bug16689_3 [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.Metadata.PE.NoPia.Bug16689_1 [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.Metadata.PE.NoPia.Bug16689_3 [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
@@ -25887,15 +26490,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_36_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  3364, Skipped:    24, Total:  3388, Duration: 3 m 49 s - Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 39284
 ### Begin 49036
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  3364, Skipped:    24, Total:  3388, Duration: 4 m 23 s - Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 50420
 ### Begin 48772
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_37.rsp"
 ### Exit code 0
@@ -25913,6 +26522,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (9872).
 [xUnit.net 00:00:25.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.SyntaxFactsTests.AllowsLeadingOrTrailingImplicitLineContinuation [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.SyntaxFactsTests.AllowsLeadingOrTrailingImplicitLineContinuation [1 ms]
@@ -25921,6 +26531,8 @@ Blame: Attaching crash dump utility to process testhost (9872).
 [xUnit.net 00:00:25.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ParserRegressionTests.TestBinary [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ParserRegressionTests.TestBinary [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (29220).
 [xUnit.net 00:00:18.03]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ParserRegressionTests.TestBinary [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ParserRegressionTests.TestBinary [1 ms]
@@ -25928,21 +26540,30 @@ Blame: Attaching crash dump utility to process testhost (29220).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.SyntaxFactsTests.AllowsLeadingOrTrailingImplicitLineContinuation [1 ms]
 [xUnit.net 00:00:26.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.SyntaxFactsTests.AllowsLeadingOrTrailingImplicitLineContinuationNegativeTests [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.SyntaxFactsTests.AllowsLeadingOrTrailingImplicitLineContinuationNegativeTests [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_37_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_37_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  4037, Skipped:     3, Total:  4040, Duration: 29 s - Microsoft.CodeAnalysis.VisualBasic.Syntax.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49036
 ### Begin 39176
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  4037, Skipped:     3, Total:  4040, Duration: 28 s - Microsoft.CodeAnalysis.VisualBasic.Syntax.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 48772
 ### Begin 42140
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_38.rsp"
 ### Exit code 0
@@ -25960,7 +26581,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (47088).
+=======
+Blame: Attaching crash dump utility to process testhost (46796).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (46796).
 >>>>>>> origin/folly-of-the-unbound
@@ -25969,15 +26594,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_38_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   486, Skipped:     0, Total:   486, Duration: 24 s - Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 39176
 ### Begin 36788
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   486, Skipped:     0, Total:   486, Duration: 28 s - Microsoft.CodeAnalysis.VisualBasic.Workspaces.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 42140
 ### Begin 49248
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_39.rsp"
 ### Exit code 0
@@ -25995,6 +26626,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (3460).
 [xUnit.net 00:14:15.63]     Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestInternalsVisibleToSigned [SKIP]
   Skipped Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestInternalsVisibleToSigned [1 ms]
@@ -26008,6 +26640,8 @@ Blame: Attaching crash dump utility to process testhost (3460).
   Skipped Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.MSBuildProjectShouldHandleCodePageProperty [1 ms]
 [xUnit.net 00:19:27.89]     Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestOpenSolution_WithDuplicatedGuidsBecomeCircularReferential [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (51012).
 [xUnit.net 00:04:41.64]     Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestInternalsVisibleToSigned [SKIP]
   Skipped Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestInternalsVisibleToSigned [1 ms]
@@ -26020,6 +26654,9 @@ Blame: Attaching crash dump utility to process testhost (51012).
 [xUnit.net 00:15:09.03]     Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.MSBuildProjectShouldHandleCodePageProperty [SKIP]
   Skipped Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.MSBuildProjectShouldHandleCodePageProperty [1 ms]
 [xUnit.net 00:15:14.04]     Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestOpenSolution_WithDuplicatedGuidsBecomeCircularReferential [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.MSBuild.UnitTests.VisualStudioMSBuildWorkspaceTests.TestOpenSolution_WithDuplicatedGuidsBecomeCircularReferential [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
@@ -26027,15 +26664,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_39_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   284, Skipped:     6, Total:   290, Duration: 21 m 26 s - Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 36788
 ### Begin 48808
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:   284, Skipped:     6, Total:   290, Duration: 30 m 40 s - Microsoft.CodeAnalysis.Workspaces.MSBuild.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49248
 ### Begin 2868
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_40.rsp"
 ### Exit code 0
@@ -26053,7 +26696,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (44172).
+=======
+Blame: Attaching crash dump utility to process testhost (47492).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (47492).
 >>>>>>> origin/folly-of-the-unbound
@@ -26064,8 +26711,13 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 Passed!  - Failed:     0, Passed:    26, Skipped:     0, Total:    26, Duration: 7 s - Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.dll (net10.0)
 ### Standard Error
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### End 48808
 ### Begin 44384
+=======
+### End 2868
+### Begin 49560
+>>>>>>> origin/folly-of-the-unbound
 =======
 ### End 2868
 ### Begin 49560
@@ -26086,7 +26738,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (3280).
+=======
+Blame: Attaching crash dump utility to process testhost (15400).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (15400).
 >>>>>>> origin/folly-of-the-unbound
@@ -26101,7 +26757,11 @@ Blame: Attaching crash dump utility to process testhost (15400).
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 304
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [< 1 ms]
+=======
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [1 ms]
+>>>>>>> origin/folly-of-the-unbound
 =======
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [1 ms]
 >>>>>>> origin/folly-of-the-unbound
@@ -26195,7 +26855,11 @@ Blame: Attaching crash dump utility to process testhost (15400).
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 94
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [< 1 ms]
+=======
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [1 ms]
+>>>>>>> origin/folly-of-the-unbound
 =======
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [1 ms]
 >>>>>>> origin/folly-of-the-unbound
@@ -26279,7 +26943,10 @@ Blame: Attaching crash dump utility to process testhost (15400).
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 175
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+=======
+>>>>>>> origin/folly-of-the-unbound
 =======
 >>>>>>> origin/folly-of-the-unbound
   Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports [< 1 ms]
@@ -26323,6 +26990,7 @@ Data collector 'Blame' message: All tests finished running, Sequence file will n
    at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 117
 --- End of stack trace from previous location ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.html
 
@@ -26353,6 +27021,8 @@ Failed!  - Failed:    22, Passed:   193, Skipped:     0, Total:   215, Duration:
 ### End 44384
 ### Begin 47480
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_41_x64_test_results.html
@@ -26383,6 +27053,9 @@ Failed!  - Failed:    22, Passed:   193, Skipped:     0, Total:   215, Duration:
 [xUnit.net 00:01:00.51]     Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes [FAIL]
 ### End 49560
 ### Begin 49816
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_42.rsp"
 ### Exit code 0
@@ -26400,6 +27073,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (41872).
 [xUnit.net 00:02:34.66]     Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindSet [SKIP]
   Skipped Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindSet [1 ms]
@@ -26407,12 +27081,17 @@ Blame: Attaching crash dump utility to process testhost (41872).
 [xUnit.net 00:02:37.30]     Microsoft.VisualStudio.Razor.LanguageClient.Cohost.Formatting.CSharpSyntaxFormattingOptionsTest_Generator.GenerateTests [SKIP]
   Skipped Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindAfter [1 ms]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (16752).
 [xUnit.net 00:02:52.78]     Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindSet [SKIP]
   Skipped Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindSet [1 ms]
 [xUnit.net 00:02:56.06]     Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindAfter [SKIP]
   Skipped Microsoft.VisualStudio.Razor.LanguageClient.Cohost.CodeActions.GenerateEventHandlerTests.BindAfter [1 ms]
 [xUnit.net 00:05:54.09]     Microsoft.VisualStudio.Razor.LanguageClient.Cohost.Formatting.CSharpSyntaxFormattingOptionsTest_Generator.GenerateTests [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.VisualStudio.Razor.LanguageClient.Cohost.Formatting.CSharpSyntaxFormattingOptionsTest_Generator.GenerateTests [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
@@ -26420,15 +27099,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_42_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  1428, Skipped:     3, Total:  1431, Duration: 9 m 53 s - Microsoft.VisualStudioCode.RazorExtension.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 47480
 ### Begin 46660
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  1428, Skipped:     3, Total:  1431, Duration: 10 m 28 s - Microsoft.VisualStudioCode.RazorExtension.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 49816
 ### Begin 11840
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_43.rsp"
 ### Exit code 0
@@ -26446,6 +27131,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (3860).
 [xUnit.net 00:00:25.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializer_02 [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializer_02 [1 ms]
@@ -26455,6 +27141,8 @@ Blame: Attaching crash dump utility to process testhost (3860).
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.InvalidArrayInitializer [1 ms]
 [xUnit.net 00:00:40.42]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializerAndExplicitInitializer [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (13036).
 [xUnit.net 00:00:24.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializer_02 [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializer_02 [1 ms]
@@ -26463,6 +27151,9 @@ Blame: Attaching crash dump utility to process testhost (13036).
 [xUnit.net 00:00:40.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.InvalidArrayInitializer [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.InvalidArrayInitializer [1 ms]
 [xUnit.net 00:00:40.41]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializerAndExplicitInitializer [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.SimpleArrayCreation_WithImplicitArrayInitializerAndExplicitInitializer [1 ms]
 [xUnit.net 00:00:40.59]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.TryCatch_GetOperationForCatchExceptionDeclaration [SKIP]
@@ -26470,9 +27161,15 @@ Blame: Attaching crash dump utility to process testhost (13036).
 [xUnit.net 00:00:40.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.TestParenthesizedDelegateCreation [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.TestParenthesizedDelegateCreation [1 ms]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [xUnit.net 00:00:40.87]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.ParameterReference_UnstructuredExceptionHandlingStatement [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.ParameterReference_UnstructuredExceptionHandlingStatement [1 ms]
 [xUnit.net 00:00:41.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.TestParenthesizedDelegateCreationParent [SKIP]
+=======
+[xUnit.net 00:00:40.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.ParameterReference_UnstructuredExceptionHandlingStatement [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.ParameterReference_UnstructuredExceptionHandlingStatement [1 ms]
+[xUnit.net 00:00:41.03]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.TestParenthesizedDelegateCreationParent [SKIP]
+>>>>>>> origin/folly-of-the-unbound
 =======
 [xUnit.net 00:00:40.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.ParameterReference_UnstructuredExceptionHandlingStatement [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.IOperationTests.ParameterReference_UnstructuredExceptionHandlingStatement [1 ms]
@@ -26484,15 +27181,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_43_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:  1566, Skipped:     8, Total:  1574, Duration: 35 s - Roslyn.Compilers.VisualBasic.IOperation.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 46660
 ### Begin 34648
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:  1566, Skipped:     8, Total:  1574, Duration: 36 s - Roslyn.Compilers.VisualBasic.IOperation.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 11840
 ### Begin 46192
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_44.rsp"
 ### Exit code 0
@@ -26510,7 +27213,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (42156).
+=======
+Blame: Attaching crash dump utility to process testhost (23828).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (23828).
 >>>>>>> origin/folly-of-the-unbound
@@ -26521,8 +27228,13 @@ Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts
 Passed!  - Failed:     0, Passed:    50, Skipped:     0, Total:    50, Duration: 1 s - RunTests.UnitTests.dll (net10.0)
 ### Standard Error
 <<<<<<< HEAD
+<<<<<<< HEAD
 ### End 34648
 ### Begin 45464
+=======
+### End 46192
+### Begin 42512
+>>>>>>> origin/folly-of-the-unbound
 =======
 ### End 46192
 ### Begin 42512
@@ -26543,7 +27255,11 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
 <<<<<<< HEAD
+<<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (35692).
+=======
+Blame: Attaching crash dump utility to process testhost (42168).
+>>>>>>> origin/folly-of-the-unbound
 =======
 Blame: Attaching crash dump utility to process testhost (42168).
 >>>>>>> origin/folly-of-the-unbound
@@ -26552,15 +27268,21 @@ Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResult
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_45_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:    33, Skipped:     0, Total:    33, Duration: 13 s - SemanticSearch.BuildTask.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 45464
 ### Begin 47640
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Passed!  - Failed:     0, Passed:    33, Skipped:     0, Total:    33, Duration: 11 s - SemanticSearch.BuildTask.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 42512
 ### Begin 43864
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 ### C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe exec "C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118\vstest.console.dll" @"C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\tmp\Debug\vstest-rsp\vstest_46.rsp"
 ### Exit code 0
@@ -26577,6 +27299,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
+<<<<<<< HEAD
 <<<<<<< HEAD
 Blame: Attaching crash dump utility to process testhost (2144).
 [xUnit.net 00:00:39.75]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.CSharpTrivialMetadataCaching [SKIP]
@@ -26606,6 +27329,8 @@ Blame: Attaching crash dump utility to process testhost (2144).
 [xUnit.net 00:02:09.91]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [SKIP]
 [xUnit.net 00:02:09.91]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive1 [SKIP]
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 Blame: Attaching crash dump utility to process testhost (36452).
 [xUnit.net 00:00:33.46]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive4 [SKIP]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive4 [1 ms]
@@ -26627,28 +27352,43 @@ Blame: Attaching crash dump utility to process testhost (36452).
 [xUnit.net 00:01:12.63]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [SKIP]
 [xUnit.net 00:01:12.63]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [SKIP]
 [xUnit.net 00:01:12.63]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive1 [SKIP]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompilerBinariesAreNotX86 [1 ms]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [1 ms]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [1 ms]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive1 [1 ms]
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 [xUnit.net 00:01:46.19]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_Desktop [SKIP]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_Desktop [1 ms]
 [xUnit.net 00:01:46.89]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.CSharpTrivialMetadataCaching [SKIP]
 [xUnit.net 00:01:46.89]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.VisualBasicTrivialMetadataCaching [SKIP]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.CSharpTrivialMetadataCaching [1 ms]
   Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.VisualBasicTrivialMetadataCaching [1 ms]
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_46_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_46_x64_test_results.html
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Passed!  - Failed:     0, Passed:   189, Skipped:    15, Total:   204, Duration: 2 m 13 s - VBCSCompiler.UnitTests.dll (net10.0)
 ### Standard Error
 ### End 47640
+=======
+Passed!  - Failed:     0, Passed:   189, Skipped:    15, Total:   204, Duration: 1 m 50 s - VBCSCompiler.UnitTests.dll (net10.0)
+### Standard Error
+### End 43864
+>>>>>>> origin/folly-of-the-unbound
 =======
 Passed!  - Failed:     0, Passed:   189, Skipped:    15, Total:   204, Duration: 1 m 50 s - VBCSCompiler.UnitTests.dll (net10.0)
 ### Standard Error

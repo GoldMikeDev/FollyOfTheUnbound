@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <assemblies timestamp="08/19/2026 09:29:20">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll" run-date="2026-08-19" run-time="09:29:20" total="803" passed="801" failed="0" skipped="2" time="36.454" errors="0">
     <errors />
@@ -538,6 +539,8 @@
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0008107" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
 <assemblies timestamp="08/19/2026 08:23:51">
   <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll" run-date="2026-08-19" run-time="08:23:51" total="803" passed="801" failed="0" skipped="2" time="47.867" errors="0">
     <errors />
@@ -1076,11 +1079,15 @@
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0015219" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Test.RangeExtensionsTests" time="0.001">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.RangeExtensionsTests.CompareTo_StartOfThisRangeIsAfterOther_ReturnsPositive" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.RangeExtensionsTests" method="CompareTo_StartOfThisRangeIsAfterOther_ReturnsPositive" time="0.0003400" result="Pass">
         <traits />
@@ -2028,6 +2035,8 @@
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" time="0.0175237" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0457624] Resolved 8 completion items.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.RangeExtensionsTests.CompareTo_StartOfThisRangeIsAfterOther_ReturnsPositive" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.RangeExtensionsTests" method="CompareTo_StartOfThisRangeIsAfterOther_ReturnsPositive" time="0.0003436" result="Pass">
         <traits />
       </test>
@@ -2973,14 +2982,22 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" time="0.0819574" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:17.9349249] Resolved 8 completion items.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" time="0.0008984" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0530888] Resolved 8 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" time="0.0014786" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:17.9859402] Resolved 8 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" time="0.0014786" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:17.9859402] Resolved 8 completion items.
@@ -2990,8 +3007,13 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" time="0.0005634" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0544340] Resolved 8 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" time="0.0008000" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:17.9879447] Resolved 8 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" time="0.0008000" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:17.9879447] Resolved 8 completion items.
@@ -3001,8 +3023,13 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" time="0.0002141" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0553276] Resolved 8 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" time="0.0005383" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:17.9892809] Resolved 8 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" time="0.0005383" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:17.9892809] Resolved 8 completion items.
@@ -3012,8 +3039,13 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" time="0.0002043" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0561088] Resolved 8 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" time="0.0003235" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:17.9903738] Resolved 8 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" time="0.0003235" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:17.9903738] Resolved 8 completion items.
@@ -3023,8 +3055,13 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" time="0.0002018" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0568754] Resolved 8 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" time="0.0004634" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:17.9925438] Resolved 8 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" time="0.0004634" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:17.9925438] Resolved 8 completion items.
@@ -3034,22 +3071,29 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_CapsAt1000Items_ByDefault" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_CapsAt1000Items_ByDefault" time="0.0014195" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperElementCompletionItems" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperElementCompletionItems" time="0.0030508" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0629493] Resolved 1 completion items.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_CapsAt1000Items_ByDefault" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_CapsAt1000Items_ByDefault" time="0.0012460" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperElementCompletionItems" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperElementCompletionItems" time="0.0082668" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.0035123] Resolved 1 completion items.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_Directive_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_Directive_SerializationDoesNotThrow" time="0.0184138" result="Pass">
         <traits />
@@ -3057,16 +3101,22 @@
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_DoesNotProvideInjectOnInvoked" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_DoesNotProvideInjectOnInvoked" time="0.0005955" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0838144] Resolved 0 completion items.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_Directive_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_Directive_SerializationDoesNotThrow" time="0.0548428" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_DoesNotProvideInjectOnInvoked" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_DoesNotProvideInjectOnInvoked" time="0.0008277" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.0618892] Resolved 0 completion items.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_MarkupTransition_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_MarkupTransition_SerializationDoesNotThrow" time="0.0003441" result="Pass">
         <traits />
@@ -3074,16 +3124,22 @@
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionListAsync_ProvidesDirectiveCompletions_IncompleteTriggerOnDeletion" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionListAsync_ProvidesDirectiveCompletions_IncompleteTriggerOnDeletion" time="0.0008793" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.0859012] Resolved 8 completion items.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_MarkupTransition_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_MarkupTransition_SerializationDoesNotThrow" time="0.0022095" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionListAsync_ProvidesDirectiveCompletions_IncompleteTriggerOnDeletion" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionListAsync_ProvidesDirectiveCompletions_IncompleteTriggerOnDeletion" time="0.0010166" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.0667006] Resolved 8 completion items.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_DoesNotFilter_WhenUnderLimit" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_DoesNotFilter_WhenUnderLimit" time="0.0003859" result="Pass">
         <traits />
@@ -3121,6 +3177,8 @@
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesInjectOnIncomplete_KeywordIn" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesInjectOnIncomplete_KeywordIn" time="0.0007690" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.1100086] Resolved 8 completion items.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_DoesNotFilter_WhenUnderLimit" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_DoesNotFilter_WhenUnderLimit" time="0.0003636" result="Pass">
         <traits />
       </test>
@@ -3156,14 +3214,22 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesInjectOnIncomplete_KeywordIn" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesInjectOnIncomplete_KeywordIn" time="0.0010571" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.1023570] Resolved 8 completion items.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems" time="0.0023706" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.1131069] Resolved 1 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems" time="0.0054133" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:18.1084636] Resolved 1 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems" time="0.0054133" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.1084636] Resolved 1 completion items.
@@ -3173,25 +3239,36 @@
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperAttribute_ForBool_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperAttribute_ForBool_ReturnsTrue" time="0.0003894" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesInjectOnIncomplete" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesInjectOnIncomplete" time="0.0006549" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.1154964] Resolved 8 completion items.
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperAttribute_ForBool_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperAttribute_ForBool_ReturnsTrue" time="0.0004030" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesInjectOnIncomplete" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesInjectOnIncomplete" time="0.0009283" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.1116908] Resolved 8 completion items.
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
 
 </output>
         <traits />
       </test>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" time="0.0012381" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [10:29:56.1175684] Resolved 1 completion items.
+=======
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" time="0.0010792" result="Pass">
+        <output>[Completion.RazorCompletionListProvider] [09:24:18.1135472] Resolved 1 completion items.
+>>>>>>> origin/folly-of-the-unbound
 =======
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" time="0.0010792" result="Pass">
         <output>[Completion.RazorCompletionListProvider] [09:24:18.1135472] Resolved 1 completion items.
@@ -3200,6 +3277,7 @@
 </output>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" time="0.0007181" result="Pass">
         <traits />
@@ -3518,6 +3596,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsExpectedResults" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsExpectedResults" time="0.0008839" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" time="0.0008999" result="Pass">
         <traits />
       </test>
@@ -3834,11 +3914,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsExpectedResults" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsExpectedResults" time="0.0013848" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" time="0.001">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest.ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" type="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" method="ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" time="0.0002534" result="Pass">
         <traits />
@@ -4062,6 +4146,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" time="0.0002805" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest.ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" type="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" method="ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" time="0.0006880" result="Pass">
         <traits />
       </test>
@@ -4283,6 +4369,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesSpacePaths" time="0.0001375" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -4290,6 +4379,7 @@
         <reason><![CDATA[The following conditions are not all true: !Windows]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_UNCPath_ReturnsLocalPath" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_UNCPath_ReturnsLocalPath" time="0.0002835" result="Pass">
         <traits />
@@ -4354,6 +4444,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_Windows_StripsPrecedingSlash_ShortPath" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Normalize_Windows_StripsPrecedingSlash_ShortPath" time="0.0001787" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_UNCPath_ReturnsLocalPath" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_UNCPath_ReturnsLocalPath" time="0.0001543" result="Pass">
         <traits />
       </test>
@@ -4416,6 +4508,9 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_Windows_StripsPrecedingSlash_ShortPath" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Normalize_Windows_StripsPrecedingSlash_ShortPath" time="0.0004315" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
@@ -4423,6 +4518,7 @@
         <reason><![CDATA[https://github.com/dotnet/razor/issues/11660]]></reason>
         <traits />
       </test>
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.NormalizeDirectory_Windows_HandlesSingleSlashDirectory" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="NormalizeDirectory_Windows_HandlesSingleSlashDirectory" time="0.0001903" result="Pass">
         <traits />
@@ -4545,6 +4641,8 @@
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LargeValues_DoNotCauseIssues" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LargeValues_DoNotCauseIssues" time="0.0014627" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.NormalizeDirectory_Windows_HandlesSingleSlashDirectory" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="NormalizeDirectory_Windows_HandlesSingleSlashDirectory" time="0.0001284" result="Pass">
         <traits />
       </test>
@@ -4665,11 +4763,15 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LargeValues_DoNotCauseIssues" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LargeValues_DoNotCauseIssues" time="0.0018252" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
     </collection>
     <collection total="12" passed="12" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" time="0.001">
+<<<<<<< HEAD
 <<<<<<< HEAD
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests.Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" method="Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" time="0.0007805" result="Pass">
         <traits />
@@ -4859,6 +4961,8 @@
       </test>
       <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelperBinding_WorksAsExpected" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelperBinding_WorksAsExpected" time="0.0019754" result="Pass">
 =======
+=======
+>>>>>>> origin/folly-of-the-unbound
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests.Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" method="Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" time="0.0007459" result="Pass">
         <traits />
       </test>
@@ -5046,6 +5150,9 @@
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelperBinding_WorksAsExpected" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelperBinding_WorksAsExpected" time="0.0028597" result="Pass">
+<<<<<<< HEAD
+>>>>>>> origin/folly-of-the-unbound
+=======
 >>>>>>> origin/folly-of-the-unbound
         <traits />
       </test>
