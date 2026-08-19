@@ -36,23 +36,30 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" />
     <ProjectReference Include="..\..\..\..\..\Workspaces\CSharp\Portable\Microsoft.CodeAnalysis.CSharp.Workspaces.csproj" />
 
-    <!--
-      Microsoft.CodeAnalysis.CSharp.Analyzer.Testing's CSharpAnalyzerVerifier loads the real
-      "Microsoft.CodeAnalysis.Workspaces" assembly by name at runtime. That package would normally flow in
-      transitively via this project's PackageReference above, but our local Workspaces.csproj keeps the real
-      upstream PackageId ("Microsoft.CodeAnalysis.Workspaces.Common", needed for VS insertion; see
-      eng/config/PublishData.json) while renaming its own AssemblyName to FollyOfTheUnbound.CodeAnalysis.Workspaces.
-      NuGet's ProjectReference/PackageReference conflict resolution matches by PackageId, so it treats our renamed
-      local build as already satisfying that package and drops the real transitive one, but the renamed
-      assembly's file name doesn't match what CSharpAnalyzerVerifier actually asks the CLR to load, so it fails
-      with FileNotFoundException. Pull the real package directly (compile-time-only, like the AspNetCore.App.Ref
-      reference below) so its unrenamed DLL still lands in this project's output.
-    -->
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" VersionOverride="$(MicrosoftCodeAnalysisVersionForAnalyzerTests)" GeneratePathProperty="true" ExcludeAssets="all" />
+  </ItemGroup>
+
+  <!--
+    Microsoft.CodeAnalysis.CSharp.Analyzer.Testing's CSharpAnalyzerVerifier loads the real
+    "Microsoft.CodeAnalysis.Workspaces" assembly by name at runtime. That package would normally flow in
+    transitively via the PackageReference above, but our local Workspaces.csproj keeps the real upstream PackageId
+    ("Microsoft.CodeAnalysis.Workspaces.Common", needed for VS insertion; see eng/config/PublishData.json) while
+    renaming its own AssemblyName to FollyOfTheUnbound.CodeAnalysis.Workspaces. NuGet's ProjectReference/
+    PackageReference conflict resolution matches by PackageId, so it treats our renamed local build as already
+    satisfying that package and drops the real transitive one, but the renamed assembly's file name doesn't match
+    what CSharpAnalyzerVerifier actually asks the CLR to load, so it fails with FileNotFoundException.
+    A second PackageReference under the same PackageId (even with ExcludeAssets="all") was tried first and made
+    things worse: it also disrupted the *compile-time* type resolution the ProjectReference chain above was
+    already providing fine (CS0246 on Microsoft.CodeAnalysis.Project), evidently because matching identity pulls
+    it into the same conflict resolution regardless of ExcludeAssets. PackageDownload sidesteps that entirely: it
+    only fetches the package's content into the NuGet cache without adding it as any kind of compile/runtime
+    reference, so it can't collide with the ProjectReference at all.
+  -->
+  <ItemGroup>
+    <PackageDownload Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="[$(MicrosoftCodeAnalysisVersionForAnalyzerTests)]" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="$(PkgMicrosoft_CodeAnalysis_Workspaces_Common)\lib\net8.0\Microsoft.CodeAnalysis.Workspaces.dll"
+    <None Include="$(NuGetPackageRoot)microsoft.codeanalysis.workspaces.common/$(MicrosoftCodeAnalysisVersionForAnalyzerTests)/lib/net8.0/Microsoft.CodeAnalysis.Workspaces.dll"
           CopyToOutputDirectory="PreserveNewest"
           Visible="false" />
   </ItemGroup>
