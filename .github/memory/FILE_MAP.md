@@ -33,7 +33,7 @@ This file is a **top-level map only**. For per-area directory detail, read the m
 
 | Path | Status | Purpose |
 |------|--------|---------|
-| `eng/` | Config / Generated | Arcade build engineering. `eng/common/` is DARC-synced — do not hand-edit. `eng/generate-compiler-code.cs` regenerates compiler code. |
+| `eng/` | Config / Generated | Arcade build engineering. Pipeline definitions and templates live in `eng/pipelines/`; `eng/common/` is DARC-synced and must not be hand-edited. `eng/generate-compiler-code.cs` regenerates compiler code. |
 | `docs/` | Active | Contributor & design docs. New docs use kebab-case filenames in the right subdirectory. |
 | Root | Config | Entry points & solution filters: `build.sh`/`Build.cmd`, `test.sh`/`Test.cmd`, `Roslyn.slnx`, `Compilers.slnf`, `Ide.slnf`, `Razor.slnf`, `FollyOfTheUnbound.slnx` (Compilers+IDE+Razor, deliberately excluding most of `src/RoslynAnalyzers` — see its `/Analyzers/` folder comment), `global.json`, `Directory.*.props/targets`, `Directory.Packages.props`. |
 | `folly.ps1` / `folly.sh` | Active | This fork's own build/pack/test wrapper for `FollyOfTheUnbound.slnx` (`attune`/`weave`/`bind`/`scry`, mapping to Arcade's `--restore`/`--build`/`--pack`/test) — Windows and Linux/macOS respectively. Not fully in sync: `scry` runs both Core and Framework tests on Windows (`folly.ps1`, restrictable to just one via `--core`/`--framework`) but only Core on Linux/macOS (`folly.sh`, since there's no `net472` runtime there, so no `--core`/`--framework` there either). See `API_MAP.md`'s Build & Test Entry Points table for the action mapping. |
