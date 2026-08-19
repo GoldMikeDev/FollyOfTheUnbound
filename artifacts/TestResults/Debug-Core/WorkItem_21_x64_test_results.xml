@@ -1,0 +1,42 @@
+<assemblies timestamp="08/19/2026 09:30:17">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll" run-date="2026-08-19" run-time="09:30:17" total="11" passed="11" failed="0" skipped="0" time="34.967" errors="0">
+    <errors />
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" time="20.282">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.AnalyzerConfigFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="AnalyzerConfigFile" time="16.6370775" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource(language: &quot;NoCompilation&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource(language: &quot;NoCompilation&quot;)" time="1.2514608" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource(language: &quot;C#&quot;)" time="0.2225349" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.AdditionalFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="AdditionalFile" time="0.2148675" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;C#&quot;)" time="0.5828306" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;Visual Basic&quot;)" time="0.0815498" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;NoCompilation&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;NoCompilation&quot;)" time="0.0806052" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource_AdditionalFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource_AdditionalFile" time="0.3892753" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.Test" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="Test" time="0.7818195" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.SourceGeneratorFailure" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="SourceGeneratorFailure" time="0.0397452" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" time="5.299">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests.UpdateSolution" type="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" method="UpdateSolution" time="5.2986505" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

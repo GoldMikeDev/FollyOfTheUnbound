@@ -1,0 +1,298 @@
+<assemblies timestamp="08/19/2026 09:29:00">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll" run-date="2026-08-19" run-time="09:29:00" total="91" passed="91" failed="0" skipped="0" time="31.486" errors="0">
+    <errors />
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest" time="0.039">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest.ClientSettings_RoundTripsWithExpectedPropertyNames" type="Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest" method="ClientSettings_RoundTripsWithExpectedPropertyNames" time="0.0386754" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" time="1.405">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Microsoft.CodeAnalysis.Remote.Workspaces&quot;)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Microsoft.CodeAnalysis.Remote.Workspaces&quot;)" time="0.6326450" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;StreamJsonRpc&quot;)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;StreamJsonRpc&quot;)" time="0.0054318" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Nerdbank.Streams&quot;)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Nerdbank.Streams&quot;)" time="0.0051245" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Microsoft.CodeAnalysis.Remote.ServiceHub&quot;)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Microsoft.CodeAnalysis.Remote.ServiceHub&quot;)" time="0.0054872" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;MessagePack&quot;)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;MessagePack&quot;)" time="0.0045407" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Newtonsoft.Json&quot;)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="SharedRemoteAssemblyUsesParentLoadContext(assemblyName: &quot;Newtonsoft.Json&quot;)" time="0.0060839" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest.RemoteMefInitializationFactoryCanCreateServiceInRazorAlc" type="Microsoft.CodeAnalysis.Razor.Remote.RazorAssemblyLoadContextTest" method="RemoteMefInitializationFactoryCanCreateServiceInRazorAlc" time="0.7460251" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="56" passed="56" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" time="0.013">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), _: null)" time="0.0007053" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToDefinitionService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToDefinitionService), _: null)" time="0.0005575" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), _: null)" time="0.0000704" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToImplementationService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToImplementationService), _: null)" time="0.0000497" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientSettingsService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientSettingsService), _: null)" time="0.0000508" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), _: null)" time="0.0000553" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientInitializationService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientInitializationService), _: null)" time="0.0000404" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteAddNestedFileService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteAddNestedFileService), _: null)" time="0.0000511" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDataTipRangeService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDataTipRangeService), _: null)" time="0.0000555" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), _: null)" time="0.0001367" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentSymbolService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentSymbolService), _: null)" time="0.0001047" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFindAllReferencesService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFindAllReferencesService), _: null)" time="0.0000509" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteRenameService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteRenameService), _: null)" time="0.0000801" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDiagnosticsService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDiagnosticsService), _: null)" time="0.0000618" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeLensService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeLensService), _: null)" time="0.0000443" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), _: null)" time="0.0000260" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSelectionRangeService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSelectionRangeService), _: null)" time="0.0000652" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeActionsService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeActionsService), _: null)" time="0.0000556" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHoverService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHoverService), _: null)" time="0.0000368" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteTypeHierarchyService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteTypeHierarchyService), _: null)" time="0.0000688" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), callbackType: null)" time="0.0052335" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFindAllReferencesService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFindAllReferencesService), callbackType: null)" time="0.0004648" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToDefinitionService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToDefinitionService), callbackType: null)" time="0.0001009" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToImplementationService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToImplementationService), callbackType: null)" time="0.0000863" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeLensService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeLensService), callbackType: null)" time="0.0000829" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDataTipRangeService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDataTipRangeService), callbackType: null)" time="0.0000902" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeActionsService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCodeActionsService), callbackType: null)" time="0.0000800" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientInitializationService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientInitializationService), callbackType: null)" time="0.0000649" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), callbackType: null)" time="0.0000754" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCallHierarchyService), callbackType: null)" time="0.0000729" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHoverService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHoverService), callbackType: null)" time="0.0000632" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSignatureHelpService), callbackType: null)" time="0.0000960" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteTypeHierarchyService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteTypeHierarchyService), callbackType: null)" time="0.0000785" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientSettingsService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteClientSettingsService), callbackType: null)" time="0.0000600" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDiagnosticsService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDiagnosticsService), callbackType: null)" time="0.0000779" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), callbackType: null)" time="0.0000693" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteRenameService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteRenameService), callbackType: null)" time="0.0000961" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteAddNestedFileService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteAddNestedFileService), callbackType: null)" time="0.0000816" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentSymbolService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentSymbolService), callbackType: null)" time="0.0000747" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSelectionRangeService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSelectionRangeService), callbackType: null)" time="0.0000671" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlineCompletionService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlineCompletionService), callbackType: null)" time="0.0001826" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFormattingService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFormattingService), callbackType: null)" time="0.0002808" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentHighlightService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentHighlightService), callbackType: null)" time="0.0000809" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteRemoveAndSortUsingsService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteRemoveAndSortUsingsService), callbackType: null)" time="0.0000812" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSpanMappingService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSpanMappingService), callbackType: null)" time="0.0000741" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteLinkedEditingRangeService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteLinkedEditingRangeService), callbackType: null)" time="0.0000660" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFoldingRangeService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFoldingRangeService), callbackType: null)" time="0.0000710" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDebugInfoService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDebugInfoService), callbackType: null)" time="0.0000889" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSemanticTokensService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSemanticTokensService), callbackType: null)" time="0.0001015" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSpellCheckService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteSpellCheckService), callbackType: null)" time="0.0000981" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteAutoInsertService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteAutoInsertService), callbackType: null)" time="0.0000715" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteUriPresentationService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteUriPresentationService), callbackType: null)" time="0.0000634" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDevToolsService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDevToolsService), callbackType: null)" time="0.0000801" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteWrapWithTagService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteWrapWithTagService), callbackType: null)" time="0.0000777" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHtmlDocumentService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHtmlDocumentService), callbackType: null)" time="0.0000621" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.RazorServicesContainsAllServices" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="RazorServicesContainsAllServices" time="0.0022508" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" time="1.498">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CleansOldCacheFiles" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CleansOldCacheFiles" time="1.2258807" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CacheFileIsUsed" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CacheFileIsUsed" time="0.0458069" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CompositionIsCached" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CompositionIsCached" time="0.1085952" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CorruptCacheFileIsOverwritten" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CorruptCacheFileIsOverwritten" time="0.1154316" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.NoCacheDirectoryCreatesFreshProviders" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="NoCacheDirectoryCreatesFreshProviders" time="0.0019030" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest" time="0.194">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest.InitializeRemoteExportProviderBuilderAsync_OnlyInitializesOnce" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest" method="InitializeRemoteExportProviderBuilderAsync_OnlyInitializesOnce" time="0.1940840" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" time="0.002">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_BlankLines" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_BlankLines" time="0.0011231" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_LastLineExceedsBuffer" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_LastLineExceedsBuffer" time="0.0001907" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_LineExceedsBuffer" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_LineExceedsBuffer" time="0.0001762" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_LF" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_LF" time="0.0001859" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength" time="0.0001695" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_Empty" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_Empty" time="0.0001834" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" time="10.684">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest.ProvideAsync_WrapsResolvableCodeActions" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" method="ProvideAsync_WrapsResolvableCodeActions" time="10.5821448" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest.ProvideAsync_RemapsAndFixesEdits" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" method="ProvideAsync_RemapsAndFixesEdits" time="0.1018420" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest" time="0.024">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest.ResolveAsync_RemapsAndFixesEdits" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest" method="ResolveAsync_RemapsAndFixesEdits" time="0.0239360" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" time="0.012">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_ReturnsConvertedRange" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_ReturnsConvertedRange" time="0.0012201" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_EndsOutsideOfDocument_NormalizesToEnd" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_EndsOutsideOfDocument_NormalizesToEnd" time="0.0001958" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_StartsOutsideOfDocument_NormalizesToEnd" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_StartsOutsideOfDocument_NormalizesToEnd" time="0.0003131" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.Convert_Converts" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="Convert_Converts" time="0.0081232" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_ReturnsNullIfSpanIsUndefined" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_ReturnsNullIfSpanIsUndefined" time="0.0002177" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_StartsOutsideOfDocument_EmptyDocument_NormalizesTo0" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_StartsOutsideOfDocument_EmptyDocument_NormalizesTo0" time="0.0002489" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSeverity_WarningReturnsWarning" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSeverity_WarningReturnsWarning" time="0.0017045" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSeverity_ErrorReturnsError" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSeverity_ErrorReturnsError" time="0.0001426" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" time="1.236">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.TODO_Multiline" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="TODO_Multiline" time="1.2347451" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.TODO" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="TODO" time="0.0007193" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.TODOnt" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="TODOnt" time="0.0004325" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.DoesntFit" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="DoesntFit" time="0.0004113" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>
