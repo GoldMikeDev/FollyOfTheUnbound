@@ -40,6 +40,20 @@ per-layer files (load only the one for your area):
 **Description:** CI flags `TODO` comments; PROTOTYPE comments are disallowed in PRs to `main`.
 **Guidance:** Do **not** add new `TODO` or `TODO2` comments. Track follow-up work as a GitHub issue and link it in code (e.g. `// See https://github.com/dotnet/roslyn/issues/NNNN`). Existing `TODO2` markers are only a frozen baseline from when enforcement was introduced — they are not a pattern to copy. Remove all `PROTOTYPE` markers before merging to `main` (allowed only on feature branches).
 
+## `artifacts/` DLLs can be locked by lingering build servers on Windows
+
+**Affected area:** `folly.sh cleanse` / `folly.ps1 cleanse`
+**Description:** VBCSCompiler, the MSBuild build server, and the Razor build server keep running between `folly` invocations and can hold an out-of-process BuildHost alive with `Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll` / `...MSBuild.BuildHost.dll` loaded from `artifacts/`. On Windows an open handle blocks deleting the DLL outright; on Unix the file is simply unlinked out from under the process, so this is invisible there.
+**Workaround:** `cleanse` runs `dotnet build-server shutdown` (resolving the repo-local `.dotnet/dotnet[.exe]` first, falling back to a global `dotnet` on `PATH`) before deleting `artifacts/`. Don't remove that shutdown step when touching cleanse — without it, deletion can intermittently fail on those two files with no other symptom.
+
+## `eng/build.ps1`-only test-runner switches are not portable to bash
+
+**Affected area:** `eng/build.sh` vs `eng/build.ps1`, `folly.sh scry` vs `folly.ps1 scry`
+**Description:** `eng/build.ps1` has two switches with no `eng/build.sh` counterpart: `-testInteractiveConsole` and `$env:FOTU_TEST_RESULTS_SUFFIX` handling. This looks like `folly.sh`/`folly.ps1` parity drift, but it isn't — both exist to solve problems that only occur in PowerShell's execution model or on the Windows-only Framework test leg:
+- `-testInteractiveConsole` works around `Exec-CommandCore`'s default behavior of redirecting `RunTests`' stdout and relaying it line-by-line through `Write-Output`, which makes `RunTests` see `Console.IsOutputRedirected = true` and disables its live per-work-item progress table. `eng/build.sh` invokes `RunTests.dll` with a direct foreground `dotnet exec` and no capture/relay step, so `RunTests` already sees a real inherited console by default when run via `folly.sh scry` — there is nothing for an equivalent switch to opt out of.
+- `FOTU_TEST_RESULTS_SUFFIX` gives `folly.ps1 scry`'s two legs (Core + Framework) separate `TestResults`/log directories so they don't clobber each other. `eng/build.sh` has no Framework (`.NET Framework`) leg at all (`grep` for `test_desktop`/`--framework`/`framework` in `build.sh` returns nothing) — Framework tests require Windows and cannot run on Linux/macOS. `folly.sh scry` only ever runs one leg (Core), so there is no directory collision to avoid and no purpose for the suffix mechanism.
+**Guidance:** Do not "fix" this by porting either mechanism to `eng/build.sh` — both would be inert no-ops there. If `eng/build.ps1` ever changes how it uses either one, re-verify this reasoning still holds rather than assuming the two scripts have simply drifted apart.
+
 ## Environmental test failures (not code bugs)
 
 **Affected area:** full `test.sh`/`Test.cmd` runs

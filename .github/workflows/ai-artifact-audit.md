@@ -13,6 +13,7 @@ model: gpt-5-mini
 
 permissions:
   contents: read
+  copilot-requests: write
 
 network:
   allowed: [defaults]
@@ -20,6 +21,7 @@ network:
 safe-outputs:
   mentions: false
   allowed-github-references: []
+  report-failure-as-issue: false
   noop:
     report-as-issue: false
   create-issue:

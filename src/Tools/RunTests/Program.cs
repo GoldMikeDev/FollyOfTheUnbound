@@ -26,6 +26,15 @@ namespace RunTests
 
         internal static async Task<int> Main(string[] args)
         {
+            // Best-effort: raises this process (not the test-worker child processes it spawns) above Normal so the
+            // OS scheduler favors whichever thread is running the live table's redraw/input-polling continuation
+            // over the child dotnet/testhost processes it monitors, when the whole machine is saturated running
+            // tests concurrently -- a Task.Delay firing "on time" is only a request to be woken then, not a
+            // guarantee of being scheduled then, and under that kind of contention the gap between the two can
+            // become visibly inconsistent. Never fatal if the host disallows priority changes (e.g. some sandboxed
+            // or containerized environments).
+            try { Process.GetCurrentProcess().PriorityClass = ProcessPriorityClass.AboveNormal; } catch { }
+
             Logger.Log("RunTest command line");
             Logger.Log(string.Join(" ", args));
             var options = Options.Parse(args);
@@ -186,7 +195,10 @@ namespace RunTests
 
         private static void WriteLogFile(Options options)
         {
-            var logFilePath = Path.Combine(options.LogFilesDirectory, "runtests.log");
+            var logFileName = options.TestRuntime == TestRuntime.Both
+                ? "runtests.log"
+                : $"runtests{options.TestRuntime}.log";
+            var logFilePath = Path.Combine(options.LogFilesDirectory, logFileName);
             try
             {
                 Directory.CreateDirectory(options.LogFilesDirectory);
@@ -210,6 +222,14 @@ namespace RunTests
         /// </summary>
         private static async Task HandleTimeout(Options options, CancellationToken cancellationToken)
         {
+            // The run loop this timeout interrupted is still executing (and hasn't been cancelled yet -- that
+            // happens after this method returns), so it's still calling Redraw on its own one-second timer for as
+            // long as this method takes to finish (screenshot capture, per-process dump collection -- can take a
+            // while). Suspend (not PrepareForExtraOutput, which only covers one immediate print before the very
+            // next Redraw would re-enter the alternate screen and undo it) so nothing printed below is ever hidden
+            // behind, overwritten by, or interleaved with that still-running loop's own redraws.
+            LiveTestProgressDisplay.Current?.Suspend();
+
             ConsoleUtil.Error("Test timeout exceeded, dumping remaining processes");
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

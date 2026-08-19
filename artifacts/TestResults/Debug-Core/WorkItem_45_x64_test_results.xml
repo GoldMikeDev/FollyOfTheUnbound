@@ -1,0 +1,106 @@
+<assemblies timestamp="08/19/2026 11:37:45">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\SemanticSearch.BuildTask.UnitTests\Debug\net10.0\SemanticSearch.BuildTask.UnitTests.dll" run-date="2026-08-19" run-time="11:37:45" total="33" passed="33" failed="0" skipped="0" time="20.081" errors="0">
+    <errors />
+    <collection total="33" passed="33" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" time="12.355">
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;%&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;%&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;%&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;%&quot;)" time="0.8145647" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;- System.IO.* *&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*\\ .*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;- System.IO.* *&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*\\ .*&quot;)" time="0.0019315" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;?&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;\\?&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;?&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;\\?&quot;)" time="0.0001337" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot; a b #c&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;a\\ b\\ \\#c&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot; a b #c&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;a\\ b\\ \\#c&quot;)" time="0.0001301" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot; + System.IO&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;System\\.IO&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot; + System.IO&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;System\\.IO&quot;)" time="0.0001133" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;M:*&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;.*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;M:*&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;.*&quot;)" time="0.0001403" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;\ud86d\udead鿯龻蝌灋齅ㄥ﹫䶱ན།ىي꓂&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;\ud86d\udead鿯龻蝌灋齅ㄥ﹫䶱ན།ىي꓂&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;\ud86d\udead鿯龻蝌灋齅ㄥ﹫䶱ན།ىي꓂&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;\ud86d\udead鿯龻蝌灋齅ㄥ﹫䶱ན།ىي꓂&quot;)" time="0.0012979" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;M:a.b.#ctor&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;a\\.b\\.\\#ctor&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;M:a.b.#ctor&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;a\\.b\\.\\#ctor&quot;)" time="0.0001425" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot; -System.IO.**&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*.*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot; -System.IO.**&quot;, isIncluded: False, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*.*&quot;)" time="0.0001415" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;a b c&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;a\\ b\\ c&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;a b c&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;a\\ b\\ c&quot;)" time="0.0001599" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;*&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;.*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;*&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;.*&quot;)" time="0.0001107" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;+M: System.IO.Path.F(*)&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;System\\.IO\\.Path\\.F\\(.*\\)&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;+M: System.IO.Path.F(*)&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;System\\.IO\\.Path\\.F\\(.*\\)&quot;)" time="0.0001190" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;&lt;&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;&lt;&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;&lt;&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;&lt;&quot;)" time="0.0001347" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;M:?&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;\\?&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;M:?&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;\\?&quot;)" time="0.0001343" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;a b c#&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;a\\ b\\ c\\#&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;a b c#&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;a\\ b\\ c\\#&quot;)" time="0.0000971" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;+System.IO.*&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;+System.IO.*&quot;, isIncluded: True, symbolKinds: NamedType, pattern: &quot;System\\.IO\\..*&quot;)" time="0.0001238" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns(value: &quot;+M: System.IO&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;System\\.IO&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns(value: &quot;+M: System.IO&quot;, isIncluded: True, symbolKinds: Method, pattern: &quot;System\\.IO&quot;)" time="0.0001262" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Property" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Property" time="11.3261237" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;&quot;)" time="0.0009634" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;#&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;#&quot;)" time="0.0002801" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;\t#\t&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;\t#\t&quot;)" time="0.0000337" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;\t&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;\t&quot;)" time="0.0000429" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;#+&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;#+&quot;)" time="0.0000231" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;#\ud86d\udead鿯龻蝌灋齅ㄥ﹫䶱ན།ىي꓂&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;#\ud86d\udead鿯龻蝌灋齅ㄥ﹫䶱ན།ىي꓂&quot;)" time="0.0000355" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Empty(value: &quot;#abc&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Empty(value: &quot;#abc&quot;)" time="0.0000191" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;E&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;E&quot;)" time="0.0022274" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;N&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;N&quot;)" time="0.0002931" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;X&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;X&quot;)" time="0.0000469" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;P&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_UnexpectedSymbolKind(kind: &quot;P&quot;)" time="0.0000323" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_ExpectedMetadataName(value: &quot;+&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_ExpectedMetadataName(value: &quot;+&quot;)" time="0.0003126" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.ParseApiPatterns_Error_ExpectedMetadataName(value: &quot;-&quot;)" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="ParseApiPatterns_Error_ExpectedMetadataName(value: &quot;-&quot;)" time="0.0002732" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Types" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Types" time="0.1689209" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests.Interface" type="Microsoft.CodeAnalysis.Tools.UnitTests.GenerateFilteredReferenceAssembliesTaskTests" method="Interface" time="0.0354757" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

@@ -1,0 +1,162 @@
+<assemblies timestamp="08/19/2026 11:38:31">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll" run-date="2026-08-19" run-time="11:38:31" total="31" passed="29" failed="2" skipped="0" time="1553.428" errors="0">
+    <errors />
+    <collection total="29" passed="29" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" time="0.035">
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresPerConnectionRoutedOptions_InlineForm(option: &quot;--extensionLogDirectory&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresPerConnectionRoutedOptions_InlineForm(option: &quot;--extensionLogDirectory&quot;)" time="0.0027104" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresPerConnectionRoutedOptions_InlineForm(option: &quot;--sourceGeneratorExecutionPreference&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresPerConnectionRoutedOptions_InlineForm(option: &quot;--sourceGeneratorExecutionPreference&quot;)" time="0.0002300" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresPerConnectionRoutedOptions_ColonForm(option: &quot;--sourceGeneratorExecutionPreference&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresPerConnectionRoutedOptions_ColonForm(option: &quot;--sourceGeneratorExecutionPreference&quot;)" time="0.0002325" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresPerConnectionRoutedOptions_ColonForm(option: &quot;--extensionLogDirectory&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresPerConnectionRoutedOptions_ColonForm(option: &quot;--extensionLogDirectory&quot;)" time="0.0001912" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_MultipleExtensionValuesAllCanonicalized" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_MultipleExtensionValuesAllCanonicalized" time="0.0072396" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(option: &quot;--devKitDependencyPath&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(option: &quot;--devKitDependencyPath&quot;)" time="0.0026537" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(option: &quot;--csharpDesignTimePath&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(option: &quot;--csharpDesignTimePath&quot;)" time="0.0036866" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(option: &quot;--extension&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersForSameRelativePathArgumentFromDifferentWorkingDirectories(option: &quot;--extension&quot;)" time="0.0034292" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit_InlineForm" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit_InlineForm" time="0.0003454" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.MutexNames_HaveExpectedShapeAndDiffer" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="MutexNames_HaveExpectedShapeAndDiffer" time="0.0006012" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_NormalizesEquivalentKeepAliveEnvironmentValues" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_NormalizesEquivalentKeepAliveEnvironmentValues" time="0.0004208" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DoesNotCollideAcrossServerArgumentSplits" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DoesNotCollideAcrossServerArgumentSplits" time="0.0002612" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresPerConnectionRoutedOptions_TwoTokenForm(option: &quot;--extensionLogDirectory&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresPerConnectionRoutedOptions_TwoTokenForm(option: &quot;--extensionLogDirectory&quot;)" time="0.0002304" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresPerConnectionRoutedOptions_TwoTokenForm(option: &quot;--sourceGeneratorExecutionPreference&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresPerConnectionRoutedOptions_TwoTokenForm(option: &quot;--sourceGeneratorExecutionPreference&quot;)" time="0.0002165" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByElevation" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByElevation" time="0.0001659" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_OutOfRangeKeepAliveEnvironmentValue_DoesNotCollideWithDefault" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_OutOfRangeKeepAliveEnvironmentValue_DoesNotCollideWithDefault" time="0.0002478" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByDotNetHostPathEnvironmentVariable(variableName: &quot;DOTNET_HOST_PATH&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByDotNetHostPathEnvironmentVariable(variableName: &quot;DOTNET_HOST_PATH&quot;)" time="0.0002188" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByDotNetHostPathEnvironmentVariable(variableName: &quot;DOTNET_EXPERIMENTAL_HOST_PATH&quot;)" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByDotNetHostPathEnvironmentVariable(variableName: &quot;DOTNET_EXPERIMENTAL_HOST_PATH&quot;)" time="0.0002575" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_SameAbsolutePathArgumentStillCollides" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_SameAbsolutePathArgumentStillCollides" time="0.0025182" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_NormalizesToolIdentifierCasingOnWindows" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_NormalizesToolIdentifierCasingOnWindows" time="0.0002291" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IsDeterministic" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IsDeterministic" time="0.0001802" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByUser" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByUser" time="0.0002786" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_StillDiffersByOtherArgumentsAroundPerConnectionRoutedOptions" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_StillDiffersByOtherArgumentsAroundPerConnectionRoutedOptions" time="0.0002953" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByServerArguments" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByServerArguments" time="0.0003094" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersForSameRelativePathArgumentColonForm_DifferentWorkingDirectories" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersForSameRelativePathArgumentColonForm_DifferentWorkingDirectories" time="0.0042322" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByToolIdentifier" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByToolIdentifier" time="0.0002715" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IgnoresKeepAliveEnvironmentVariableWhenArgumentIsExplicit" time="0.0003388" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_DiffersByKeepAliveEnvironmentVariable" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_DiffersByKeepAliveEnvironmentVariable" time="0.0003377" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests.PipeName_IsFileSystemAndUrlSafe" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.DaemonPipeNameTests" method="PipeName_IsFileSystemAndUrlSafe" time="0.0023083" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="0" failed="2" skipped="0" name="Test collection for Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests" time="31.345">
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests" method="InvalidPreference_RejectsTheConnection" time="31.2371622" result="Fail">
+        <output>[11:39:24.085] [Warning] [Microsoft.CodeAnalysis.LanguageServer.LanguageServerConnectionManager] Daemon failed to verify a client connection's elevation; treating it as rejected.
+System.IO.IOException: Unable to impersonate using a named pipe until data has been read from that pipe.
+   at System.IO.Pipes.NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker impersonationWorker)
+   at Microsoft.CodeAnalysis.NamedPipeUtil.CheckClientElevationMatches(NamedPipeServerStream pipeStream) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Shared\NamedPipeUtil.cs:line 63
+   at Microsoft.CodeAnalysis.LanguageServer.NamedPipeDaemonConnectionSource.ProcessAcceptedConnectionAsync(NamedPipeServerStream pipeStream, ChannelWriter`1 writer, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer\LanguageServer\NamedPipeDaemonConnectionSource.cs:line 227
+
+</output>
+        <failure>
+          <message>System.IO.IOException : Pipe is broken.</message>
+          <stack-trace>   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine&amp; stateMachine)
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
+   at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Threading.ThreadPoolWorkQueue.Dispatch()
+   at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
+   at System.Threading.Thread.StartCallback()
+--- End of stack trace from previous location ---
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.DaemonClientTestLspServer.CreateAsync(String pipeName, ExportProvider exportProvider, ClientCapabilities clientCapabilities, ITestOutputHelper testOutputHelper, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 387
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.DaemonClientTestLspServer.CreateAsync(String pipeName, ExportProvider exportProvider, ClientCapabilities clientCapabilities, ITestOutputHelper testOutputHelper, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 392
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.TestDaemon.CreateClientAsync(ClientCapabilities clientCapabilities, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 550
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Daemon\SourceGeneratorExecutionPreferenceRoutingTests.cs:line 75
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.InvalidPreference_RejectsTheConnection() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Daemon\SourceGeneratorExecutionPreferenceRoutingTests.cs:line 95
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.ConnectionsWithDifferentPreferences_SeeOnlyTheirOwnOverride" type="Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests" method="ConnectionsWithDifferentPreferences_SeeOnlyTheirOwnOverride" time="0.1075367" result="Fail">
+        <output>[11:39:24.394] [Warning] [Microsoft.CodeAnalysis.LanguageServer.LanguageServerConnectionManager] Daemon failed to verify a client connection's elevation; treating it as rejected.
+System.IO.IOException: Unable to impersonate using a named pipe until data has been read from that pipe.
+   at System.IO.Pipes.NamedPipeServerStream.RunAsClient(PipeStreamImpersonationWorker impersonationWorker)
+   at Microsoft.CodeAnalysis.NamedPipeUtil.CheckClientElevationMatches(NamedPipeServerStream pipeStream) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Shared\NamedPipeUtil.cs:line 63
+   at Microsoft.CodeAnalysis.LanguageServer.NamedPipeDaemonConnectionSource.ProcessAcceptedConnectionAsync(NamedPipeServerStream pipeStream, ChannelWriter`1 writer, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer\LanguageServer\NamedPipeDaemonConnectionSource.cs:line 227
+
+</output>
+        <failure>
+          <message>System.IO.IOException : Pipe is broken.</message>
+          <stack-trace>   at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+   at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine&amp; stateMachine)
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.DaemonClientTestLspServer.CreateAsync(String pipeName, ExportProvider exportProvider, ClientCapabilities clientCapabilities, ITestOutputHelper testOutputHelper, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 387
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.ExecutionContextCallback(Object s)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task&amp; currentTaskSlot, Thread threadPoolThread)
+   at System.Threading.Thread.StartCallback()
+--- End of stack trace from previous location ---
+   at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.DaemonClientTestLspServer.CreateAsync(String pipeName, ExportProvider exportProvider, ClientCapabilities clientCapabilities, ITestOutputHelper testOutputHelper, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 387
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.DaemonClientTestLspServer.CreateAsync(String pipeName, ExportProvider exportProvider, ClientCapabilities clientCapabilities, ITestOutputHelper testOutputHelper, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 392
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.AbstractLanguageServerHostTests.TestDaemon.CreateClientAsync(ClientCapabilities clientCapabilities, ConnectionHandshake handshake) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Utilities\AbstractLanguageServerHostTests.cs:line 550
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.ConnectionsWithDifferentPreferences_SeeOnlyTheirOwnOverride() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Daemon\SourceGeneratorExecutionPreferenceRoutingTests.cs:line 40
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.SourceGeneratorExecutionPreferenceRoutingTests.ConnectionsWithDifferentPreferences_SeeOnlyTheirOwnOverride() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Daemon\SourceGeneratorExecutionPreferenceRoutingTests.cs:line 64
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

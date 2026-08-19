@@ -302,6 +302,8 @@
     <Project Path="src/Test/Perf/Utilities/Roslyn.Test.Performance.Utilities.csproj" />
   </Folder>
   <Folder Name="/Tools/">
+    <Project Path="src/Tools/dotnet-roslyn-tools/Test/Microsoft.RoslynTools.UnitTests.csproj" />
+    <Project Path="src/Tools/dotnet-roslyn-tools/Tool/Microsoft.RoslynTools.csproj" />
     <Project Path="src/Tools/AnalyzerRunner/AnalyzerRunner.csproj">
       <BuildDependency Project="src/EditorFeatures/Core/Microsoft.CodeAnalysis.EditorFeatures.csproj" />
       <BuildDependency Project="src/EditorFeatures/CSharp/Microsoft.CodeAnalysis.CSharp.EditorFeatures.csproj" />
@@ -323,6 +325,7 @@
     <Project Path="src/Tools/CompilerGeneratorTools/Source/VisualBasicErrorFactsGenerator/VisualBasicErrorFactsGenerator.vbproj" />
     <Project Path="src/Tools/CompilerGeneratorTools/Source/VisualBasicSyntaxGenerator/VisualBasicSyntaxGenerator.vbproj" />
     <Project Path="src/Tools/RunTests/RunTests.csproj" />
+    <Project Path="src/Tools/RunTests.UnitTests/RunTests.UnitTests.csproj" />
     <Project Path="src/Tools/TestDiscoveryWorker/TestDiscoveryWorker.csproj" />
   </Folder>
   <Folder Name="/Tools/ExternalAccess/">

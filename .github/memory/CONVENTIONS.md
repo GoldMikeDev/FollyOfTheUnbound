@@ -60,6 +60,38 @@ var symbolInfo = semanticModel.GetSymbolInfo(expression, cancellationToken);
 - After editing a `.resx`, run `dotnet msbuild <project.csproj> /t:UpdateXlf` to refresh the `.xlf` translation files.
 - When adding/changing public APIs, update the project's `PublicAPI.Unshipped.txt` (the PublicApiAnalyzer / RS0016 enforces this).
 
+## `folly.sh` / `folly.ps1` parity
+
+`folly.sh` and `folly.ps1` implement the same commands (`attune`, `weave`, `cleanse`, `scry`, etc.) for bash and PowerShell respectively, and must stay in behavioral lockstep. When editing an action in one, make the equivalent change in the other in the same commit/PR — a bug fix, a new safety check, a changed message format, a retry, a test case — don't land it in only one language. A genuinely platform-specific fix (e.g. an NTFS ACE vs. Unix file permissions, `.dotnet/dotnet` vs. `.dotnet/dotnet.exe`) still needs the equivalent *behavior* added on the other side via whatever mechanism that platform actually has, not a silent omission. Same expectation for their manual test harnesses (`scripts/test-folly-cleanse.sh` / `scripts/test-folly-cleanse.ps1`, and any future `*.sh`/`*.ps1` harness pair) — see `TESTING_STRATEGY.md`.
+
+## Disk-constrained sandboxes: never run a full solution build
+
+A full build of this repo (`Roslyn.slnx`/`FollyOfTheUnbound.slnx`, restore + build, with all the
+intermediate/obj output that produces) exceeds 34 GiB and will exhaust a disk-constrained sandbox's
+storage allowance outright — it is not a "slow but eventually works" situation, it fails partway
+through with no usable build output. In such an environment:
+- Run `attune` (restore only) first, then build **individual solution filters** separately
+  (`Compilers.slnf`, `Ide.slnf`, `Razor.slnf`, or a single project) rather than the full solution —
+  see the Quick Reference commands in `CLAUDE.md`.
+- **`cleanse` (delete `artifacts/`) between each separate solution/filter build**, not just at the
+  end of a session — each filter's own build output is enough on its own to threaten the same
+  storage ceiling if left alongside the next filter's. Treat `attune` → build filter A → `cleanse` →
+  build filter B → `cleanse` → ... as the normal loop in these environments, not an occasional
+  cleanup step.
+- If a build appears to hang or is taking far longer than a filtered build should, suspect disk
+  exhaustion (or an accidental full-solution build) before assuming the build itself is broken.
+
+## Every open PR review thread must end resolved, not just addressed
+
+A review comment that has been fixed (code changed, doc updated, test added — whatever the comment
+asked for) must be marked resolved on GitHub (`resolve_review_thread`/equivalent) as part of the same
+work, not left open for someone else to close later. This applies to every PR, current and future,
+opened by any agent working in this repo. A thread you're intentionally *not* acting on (disagreeing
+with the suggestion, deferring it, it's out of scope) still needs a reply explaining why — it does not
+get resolved silently, but it also does not get left with no response at all. "I pushed a fix" and "I
+left it alone, here's why" are both acceptable end states for a thread; "the fix is in the diff and the
+thread is still open" is not.
+
 ## Language / Framework Constraints
 
 - SDK pinned in `global.json` (currently .NET SDK `10.0.x`); VS toolset `17.14`.

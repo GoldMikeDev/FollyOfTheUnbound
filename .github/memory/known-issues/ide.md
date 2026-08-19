@@ -119,3 +119,24 @@ does this for inferred-type hints and parameter-name hints via WPF `IntraTextAdo
 `AbstractInlineHintsService`'s aggregation (see `IInlineRootNamespaceHintsService` for the pattern —
 Core/Portable interface + `AbstractInlineHintsService.GetInlineHintsAsync` wiring + a C#-only, or
 per-language, implementation) rather than reaching for outlining/collapsible-span APIs.
+
+## UpdateProcThreadAttribute retains lpValue -- it does not copy it
+
+**Affected area:** `src/LanguageServer/roslyn-language-server/Interop/Win32BreakawayProcessLauncher.cs`
+**Description:** `PROC_THREAD_ATTRIBUTE_HANDLE_LIST` (used to restrict `CreateProcess`'s handle
+inheritance to exactly the redirected stdio pipes, instead of every inheritable handle open
+anywhere in the process) is registered via `UpdateProcThreadAttribute(..., lpValue: handles, ...)`.
+Win32 only stores the pointer passed as `lpValue` -- it does not copy the buffer's contents -- and
+`CreateProcess` doesn't read through it until later, when the attribute list is actually consumed.
+The original implementation `stackalloc`'d the `HANDLE[3]` array inside a helper method
+(`TryCreateHandleListAttributeList`) that returned before `CreateProcess` ran, so by the time
+`CreateProcess` read the handle list back, that stack memory was already dead/reused --
+silently defeating the restriction. This wasn't caught by unit tests (nothing in this class can be
+exercised without a real Windows job object); it surfaced as `Win32BreakawayLauncherTests
+.DaemonLaunchBreaksAwayFromKillOnCloseJobObject` reporting `SENTINEL:Accessible` instead of the
+expected `SENTINEL:Inaccessible` on an actual Windows CI run (GoldMikeDev/roslyn#11).
+**Workaround:** Any buffer passed as `UpdateProcThreadAttribute`'s `lpValue` must stay allocated
+(heap, not stack, and not scoped to a helper method that returns early) until after `CreateProcess`
+has run and `DeleteProcThreadAttributeList` has been called -- the same lifetime as the attribute
+list's own backing buffer. `TryCreateHandleListAttributeList` now `Marshal.AllocHGlobal`s the handle
+array alongside the attribute-list buffer and frees both together in `TryStart`'s `finally` block.

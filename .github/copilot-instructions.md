@@ -132,6 +132,10 @@ Trivial changes don't need a written plan — go straight to the Definition of D
 - Do not optimize for an arbitrary line-count limit: generated files and mechanical updates can be large. Optimize for reviewer cognitive load, clear intent, and independent validation.
 - If a change cannot be split without making it less correct or harder to validate, explain that constraint in the plan and keep the commits logically separated.
 
+## Merging Pull Requests
+
+Never use squash or rebase merge on this repo. Always use a real merge commit. The user manages branches in GitKraken, which flags a branch as "unmerged" whenever its commits aren't literal ancestors of the target branch — squash/rebase merges create new commits with different SHAs, so the source branch's original commits never become ancestors, even though the PR shows as merged on GitHub. This applies to every agent that can merge PRs, not just Claude, and has no exceptions.
+
 ## Definition of Done
 
 Work is done only when every applicable step below is complete:

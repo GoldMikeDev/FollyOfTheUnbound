@@ -1,0 +1,1050 @@
+<assemblies timestamp="08/19/2026 11:37:47">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\Debug\net10.0\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll" run-date="2026-08-19" run-time="11:37:47" total="215" passed="193" failed="22" skipped="0" time="83.218" errors="0">
+    <errors />
+    <collection total="22" passed="0" failed="22" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" time="2.808">
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseType" time="2.7937749" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor()
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor()
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 304
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;internal&quot;)" time="0.0008238" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected internal&quot;)" time="0.0005204" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;protected&quot;)" time="0.0003006" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;private&quot;)" time="0.0002746" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectModifiersStillReport(modifiers: &quot;public static&quot;)" time="0.0002723" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoEditorRequiredStillReports" time="0.0006884" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 52
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeNotComponentWithBaseParameter" time="0.0007084" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 356
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="DerivedBaseTypeWithBaseParameter" time="0.0008247" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 329
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NotComponentStillReports" time="0.0009555" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 94
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesAndSdkAttributes" time="0.0008620" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 204
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;&quot;)" time="0.0007882" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(String setter) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 261
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private init;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private init;&quot;)" time="0.0004631" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(String setter) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 261
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: &quot;private set;&quot;)" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="IncorrectSetterStillReport(setter: &quot;private set;&quot;)" time="0.0002709" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(String setter) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 261
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterWithInit" time="0.0006936" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 395
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NullableReturnType" time="0.0007102" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 377
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributes" time="0.0008574" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 146
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="LocallyDefinedAttributesDifferentNamespace" time="0.0007071" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 175
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="NoParameterRequiredStillReports" time="0.0008234" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 73
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="ParameterEditorRequiredNoWarning" time="0.0007801" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 31
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="RequiredPropertyDoesNotReport" time="0.0006394" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 282
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes" type="Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests" method="AliasedAttributes" time="0.0007791" result="Fail">
+        <failure>
+          <message>System.IO.FileNotFoundException : Could not load file or assembly 'Microsoft.CodeAnalysis.Workspaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.</message>
+          <stack-trace>   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1..ctor() in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 48
+   at Microsoft.CodeAnalysis.CSharp.Testing.CSharpAnalyzerTest`2..ctor()
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 408
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 117
+--- End of stack trace from previous location ---</stack-trace>
+        </failure>
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" time="0.003">
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest.AsDiagnostic_WithUndefinedSpanWorks" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" method="AsDiagnostic_WithUndefinedSpanWorks" time="0.0029632" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest.AsDiagnostic_WithSpanWorks" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorDiagnosticTest" method="AsDiagnostic_WithSpanWorks" time="0.0004710" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="60" passed="60" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" time="8.964">
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline" time="0.1253320" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass" time="0.2001557" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter_InSource(langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter_InSource(langVersion: &quot;Latest&quot;)" time="0.2414392" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter_InSource(langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter_InSource(langVersion: &quot;7.0&quot;)" time="0.1441923" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter_InSource(langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter_InSource(langVersion: &quot;8.0&quot;)" time="0.2459203" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="QuoteInAttributeName" time="0.1967332" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/11327" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_CascadingValue_WithNestedDialogAndForm" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_CascadingValue_WithNestedDialogAndForm" time="0.3375278" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithRouter_MatchesBlazorTemplate" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithRouter_MatchesBlazorTemplate" time="0.0678017" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor_WithMarkup" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor_WithMarkup" time="0.0409472" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10991" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.1568463" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.4052032" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1079216" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.2319716" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1737203" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.1184724" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment" time="0.1341255" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TypeArgumentsCannotBeInferred" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TypeArgumentsCannotBeInferred" time="0.1046335" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8660" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithImplicitContext_NestedInWrapper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithImplicitContext_NestedInWrapper" time="0.2002338" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;Latest&quot;)" time="0.1747939" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/52547" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;8.0&quot;)" time="0.0914296" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/52547" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag_WithVariable(razorLangVersion: &quot;7.0&quot;)" time="0.0935885" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/52547" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue_InsideTypedChildContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue_InsideTypedChildContent" time="0.0912969" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline_View" time="0.0866208" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.EmptyRootNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="EmptyRootNamespace" time="0.2136327" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1954771" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithAuthorizeView_NestedChildContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithAuthorizeView_NestedChildContent" time="0.0710199" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithNamedContext_NestedInComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithNamedContext_NestedInComponent" time="0.1092012" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_DeepNesting_ComponentInsideChildContentTemplate" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_DeepNesting_ComponentInsideChildContentTemplate" time="0.0658405" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LineMapping_Tabs" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LineMapping_Tabs" time="0.0584905" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9050" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter(langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter(langVersion: &quot;7.0&quot;)" time="0.1011925" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter(langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter(langVersion: &quot;8.0&quot;)" time="0.0779199" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.AddComponentParameter(langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="AddComponentParameter(langVersion: &quot;Latest&quot;)" time="0.0664793" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp" time="0.1681746" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_CSharp_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_CSharp_View" time="0.0799924" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Inject" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Inject" time="0.0300374" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.1595259" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.1996231" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;StringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1585510" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;Latest&quot;)" time="0.1381327" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;7.0&quot;)" time="0.1769554" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImplicitStringConversion_ParameterCasing_Bind(paramName: &quot;stringParameter&quot;, langVersion: &quot;8.0&quot;)" time="0.3644124" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/48778" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_NoNewline" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_NoNewline" time="0.1254829" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithImplicitContextVariable" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithImplicitContextVariable" time="0.2675541" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment_View" time="0.0952860" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.TextAfterCodeBlockInMarkupTransition" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="TextAfterCodeBlockInMarkupTransition" time="0.1832882" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10180" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ComponentInheritsFromComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ComponentInheritsFromComponent" time="0.3458390" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_GenericWithTypedChildContent_ImplicitContext" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_GenericWithTypedChildContent_ImplicitContext" time="0.0973334" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue" time="0.1719251" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor" time="0.1602530" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10991" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_RazorComment_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_RazorComment_View" time="0.2409397" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_Newline_View" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_Newline_View" time="0.1338920" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Doctype_HtmlComment" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Doctype_HtmlComment" time="0.0832090" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8545" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithBindValue_NestedInWrapper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithBindValue_NestedInWrapper" time="0.0762634" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LegacyTagHelper_WithoutEndTagStructure_MatchedPair_NoError" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LegacyTagHelper_WithoutEndTagStructure_MatchedPair_NoError" time="0.1589665" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.UnrecognizedComponentName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="UnrecognizedComponentName" time="0.0592384" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9381" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.PartialClass_NoBaseInCSharp" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="PartialClass_NoBaseInCSharp" time="0.2535459" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ImportsRazor_SystemInNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ImportsRazor_SystemInNamespace" time="0.0859148" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.ScriptTag" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="ScriptTag" time="0.1613433" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9204" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_ImplicitContext_InDrawerTemplate_NestedInRoot" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_ImplicitContext_InDrawerTemplate_NestedInRoot" time="0.0949171" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.LineMapping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="LineMapping" time="0.0555952" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9051" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_WithRouter_NoWrapper_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests" method="Component_WithRouter_NoWrapper_Works" time="0.1034336" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" time="4.032">
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_FullyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_FullyQualifiedInherits" time="0.1416511" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AutoDetectedFromInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AutoDetectedFromInherits" time="0.0666825" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_SwitchesWhenOverloadAddedOrRemoved" time="0.1659654" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InternalOverloadOnReferencedAssembly_NotDetected" time="0.1963998" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_NestedInGenericClass" time="0.1403052" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_WithTModel_AndModelDirective" time="0.1098713" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass" time="0.0821911" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports_ShortNameWithUsing" time="0.0573905" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_LanguageVersionBelowCSharp11_UsesStringLiterals" time="0.0552752" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.OpenAngle" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="OpenAngle" time="0.0734325" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/11518" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NonGenericBaseClass_ResolvedViaCSharpGlobalUsing" time="0.0696814" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasFromImports_ResolvesInProbe" time="0.0774548" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_WithoutOverload_UsesStringLiterals" time="0.1076047" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.CssScoping" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="CssScoping" time="0.1731922" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/9034" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ShortNameInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ShortNameInherits_WithUsing" time="0.2135782" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_InheritsFromViewImports" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_InheritsFromViewImports" time="0.0816754" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.QuoteInAttributeName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="QuoteInAttributeName" time="0.1036985" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/11327" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@null&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@null&quot;)" time="0.2164576" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10586" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.ConditionalAttributes(value: &quot;@n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="ConditionalAttributes(value: &quot;@n&quot;)" time="0.1603723" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10586" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_FromMetadataReference" time="0.2215203" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AddingUsingMakesShortNameResolve" time="0.1328901" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PrivateOverloadOnReferencedAssembly_NotDetected" time="0.1716383" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_CascadingViewImports_MostSpecificWins" time="0.4425651" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_PartiallyQualifiedInherits" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_PartiallyQualifiedInherits" time="0.1147189" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_ProtectedOverload_Detected" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_ProtectedOverload_Detected" time="0.1016323" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasedInherits_WithUsing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasedInherits_WithUsing" time="0.0917696" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_InNamespace" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_InNamespace" time="0.1918175" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_GenericBaseClass_MultipleTypeParameters" time="0.0618224" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_MixedFiles_OnlyUtf8ForInheritsWithOverload" time="0.1116679" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_AliasShadowsExistingType_GracefulFallback" time="0.0590266" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests.Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorCshtmlTests" method="Utf8HtmlLiterals_NoInheritsDirective_UsesStringLiterals" time="0.0377903" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8429" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" time="43.905">
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;TwoEncoders&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;TwoEncoders&quot;)" time="25.1895941" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;CustomEncoder&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;CustomEncoder&quot;)" time="0.3469814" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;NullEncoder&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;NullEncoder&quot;)" time="0.6603435" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;ThreeEncoders&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;ThreeEncoders&quot;)" time="0.2446091" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Encoders(name: &quot;Index&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Encoders(name: &quot;Index&quot;)" time="0.7386845" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_InheritedTagHelperPrefix_NestedInheritedTagH&quot;···)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_InheritedTagHelperPrefix_NestedInheritedTagH&quot;···)" time="0.2794767" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_Shared_ViewWithLayoutAndNestedTagHelper&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_Shared_ViewWithLayoutAndNestedTagHelper&quot;)" time="0.2928717" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_InheritedTagHelperPrefix_NestedInheritedTagH&quot;···)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_InheritedTagHelperPrefix_NestedInheritedTagH&quot;···)" time="0.6333669" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_InheritedTagHelperPrefix_InheritedTagHelperP&quot;···)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_InheritedTagHelperPrefix_InheritedTagHelperP&quot;···)" time="0.4055762" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_Home_NestedViewImportsTagHelper&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_Home_NestedViewImportsTagHelper&quot;)" time="0.5227026" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_InheritedTagHelperPrefix_OverriddenTagHelper&quot;···)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_InheritedTagHelperPrefix_OverriddenTagHelper&quot;···)" time="0.4325739" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_RemoveDefaultInheritedTagHelpers_Index&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_RemoveDefaultInheritedTagHelpers_Index&quot;)" time="0.3521863" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewImports(name: &quot;Views_RemoveInheritedTagHelpers_ViewWithInheritedR&quot;···)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewImports(name: &quot;Views_RemoveInheritedTagHelpers_ViewWithInheritedR&quot;···)" time="1.2395984" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ComponentAndTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ComponentAndTagHelper" time="0.6580486" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.GlobalPrefixedDirective" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="GlobalPrefixedDirective" time="1.1951358" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/pull/49034#issuecomment-1608571858" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_Prefixed" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_Prefixed" time="0.3531843" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedIdentifierInRazorBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedIdentifierInRazorBlock" time="0.4744113" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10186" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.CustomTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="CustomTagHelper" time="0.4332699" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.EscapedExpressions" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="EscapedExpressions" time="0.6032199" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/10426" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.TagHelpersWebSite" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="TagHelpersWebSite" time="1.7789179" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewComponentTagHelpers" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewComponentTagHelpers" time="0.7153786" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ViewComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ViewComponent" time="0.5876505" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.ComponentAndTagHelper_HtmlTargetElement" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="ComponentAndTagHelper_HtmlTargetElement" time="0.5064889" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8718" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.WebsiteInformationTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="WebsiteInformationTagHelper" time="0.7404961" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_NoMatchingTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_NoMatchingTagHelper" time="0.1080315" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName_SelfClosing" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName_SelfClosing" time="0.5409182" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UnboundDynamicAttributes" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UnboundDynamicAttributes" time="0.5879272" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Form_Employee" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Form_Employee" time="0.9433818" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.VoidTagName" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="VoidTagName" time="1.2636269" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8460" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.Suppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="Suppression" time="0.9306295" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/issues/49728" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests.UrlResolutionTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTagHelperTests" method="UrlResolutionTagHelper" time="0.1454831" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/aspnetcore/pull/49034#issuecomment-1608571858" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="56" passed="56" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" time="7.659">
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_ValidValues(warningLevel: &quot;9999&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_ValidValues(warningLevel: &quot;9999&quot;)" time="0.0341510" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_ValidValues(warningLevel: &quot;10&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_ValidValues(warningLevel: &quot;10&quot;)" time="0.0541997" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_ValidValues(warningLevel: &quot;11&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_ValidValues(warningLevel: &quot;11&quot;)" time="0.0990497" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_ValidValues(warningLevel: &quot;0&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_ValidValues(warningLevel: &quot;0&quot;)" time="0.0916754" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_WhenRazorFileMarkupChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_WhenRazorFileMarkupChanges" time="0.3886564" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_UsingAlias_NestedClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_UsingAlias_NestedClass" time="0.0925311" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8610" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_CSharpTypeChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_CSharpTypeChanges" time="0.4521729" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInFunction" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInFunction" time="0.1090141" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7049" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SystemFolder" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SystemFolder" time="0.1507442" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8850" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorLangVersion_Incorrect(langVersion: &quot;incorrect&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorLangVersion_Incorrect(langVersion: &quot;incorrect&quot;)" time="0.0376063" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorLangVersion_Incorrect(langVersion: &quot;10000&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorLangVersion_Incorrect(langVersion: &quot;10000&quot;)" time="0.0270495" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorLangVersion_Incorrect(langVersion: &quot;-1&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorLangVersion_Incorrect(langVersion: &quot;-1&quot;)" time="0.1605339" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerEnabledWithTrue(value: &quot;TRUE&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerEnabledWithTrue(value: &quot;TRUE&quot;)" time="0.3040108" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerEnabledWithTrue(value: &quot;tRuE&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerEnabledWithTrue(value: &quot;tRuE&quot;)" time="0.1819626" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerEnabledWithTrue(value: &quot;True&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerEnabledWithTrue(value: &quot;True&quot;)" time="0.2995298" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerEnabledWithTrue(value: &quot;true&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerEnabledWithTrue(value: &quot;true&quot;)" time="0.2503071" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_NewTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_NewTagHelper" time="0.3772455" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_Works" time="0.0443647" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_RazorDiagnostics_Introduced" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_RazorDiagnostics_Introduced" time="0.2836227" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenNewComponentParameterIsAdded" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenNewComponentParameterIsAdded" time="0.0805308" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenNewTypeIsAdded" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenNewTypeIsAdded" time="0.3060345" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_CssScopeRemoved" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_CssScopeRemoved" time="0.1123213" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerDisabledWithFalseOrNothing(value: null)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerDisabledWithFalseOrNothing(value: null)" time="0.0424074" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;FALSE&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;FALSE&quot;)" time="0.0413310" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;false&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;false&quot;)" time="0.0286247" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;&quot;)" time="0.0774717" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;FaLsE&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;FaLsE&quot;)" time="0.0847222" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;False&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RoslynTokenizerDisabledWithFalseOrNothing(value: &quot;False&quot;)" time="0.0846032" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenChildComponentsAreAdded" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenChildComponentsAreAdded" time="0.1894569" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_UppercaseRazor_GeneratesComponent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_UppercaseRazor_GeneratesComponent" time="0.0581610" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7914" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Incorrect(warningLevel: &quot;incorrect&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Incorrect(warningLevel: &quot;incorrect&quot;)" time="0.0484772" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Incorrect(warningLevel: &quot;-1&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Incorrect(warningLevel: &quot;-1&quot;)" time="0.0705899" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Incorrect(warningLevel: &quot;1.2&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Incorrect(warningLevel: &quot;1.2&quot;)" time="0.0214982" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Incorrect(warningLevel: &quot;0x1&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Incorrect(warningLevel: &quot;0x1&quot;)" time="0.0594166" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_Class_Inside_CodeBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_Class_Inside_CodeBlock" time="0.1007687" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_DoesNotReexecuteSteps_WhenRazorFilesAreUnchanged" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_DoesNotReexecuteSteps_WhenRazorFilesAreUnchanged" time="0.2541364" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenCSharpTypeChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenCSharpTypeChanges" time="0.0966824" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_MisplacedPreprocessorDirectiveInDisabledText_DoesNotCrash" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_MisplacedPreprocessorDirectiveInDisabledText_DoesNotCrash" time="0.0578815" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/3016708" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_Works" time="0.0777888" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;\n&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;\n&quot;)" time="0.0127893" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7236" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot; &quot;)" time="0.0115557" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7236" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_EmptyTargetPath(targetPath: &quot;&quot;)" time="0.0104472" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7236" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RazorFiles_WhenProjectReferencesChange" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RazorFiles_WhenProjectReferencesChange" time="0.1967745" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInBody" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInBody" time="0.0709258" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7049" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_WhenMarkupChanges" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_WhenMarkupChanges" time="0.0983715" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_NothingRuns_When_AdditionalFiles_HaveSameContent" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_NothingRuns_When_AdditionalFiles_HaveSameContent" time="0.0844306" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorFiles_Using_NestedClass" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorFiles_Using_NestedClass" time="0.0459662" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8610" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_ViewComponentTagHelper" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_ViewComponentTagHelper" time="0.2265346" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/8281" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorClassLibrary_Change_Updates_DependentProject_WhenReferencedAsCompilation" time="0.4909831" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/12316" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_RazorComment_AdjacentCommentsInCodeBlock" time="0.0462724" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7421" />
+        </traits>
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.RazorWarningLevel_Empty_IsValid" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="RazorWarningLevel_Empty_IsValid" time="0.0804400" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_RerunsGenerator_When_AdditionalFileRenamed" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_RerunsGenerator_When_AdditionalFileRenamed" time="0.2930005" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGeneratorEvents_RazorFiles_Works" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGeneratorEvents_RazorFiles_Works" time="0.0982240" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_RazorDiagnostics_Fixed" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_RazorDiagnostics_Fixed" time="0.1553864" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.IncrementalCompilation_OnlyCompilationRuns_When_MetadataReferences_SameAssembly" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="IncrementalCompilation_OnlyCompilationRuns_When_MetadataReferences_SameAssembly" time="0.2203907" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests.SourceGenerator_CshtmlFiles_TagHelperInFunction_ManualSuppression" type="Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorTests" method="SourceGenerator_CshtmlFiles_TagHelperInFunction_ManualSuppression" time="0.1850628" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/razor/issues/7049" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" time="1.002">
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsFileExtension(path: &quot;/Home/Index.cshtml&quot;, expected: &quot;.cshtml&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsFileExtension(path: &quot;/Home/Index.cshtml&quot;, expected: &quot;.cshtml&quot;)" time="0.9946528" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsFileExtension(path: &quot;/Home/Index.en-gb.cshtml&quot;, expected: &quot;.cshtml&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsFileExtension(path: &quot;/Home/Index.en-gb.cshtml&quot;, expected: &quot;.cshtml&quot;)" time="0.0003239" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsFileExtension(path: &quot;EditUser.razor&quot;, expected: &quot;.razor&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsFileExtension(path: &quot;EditUser.razor&quot;, expected: &quot;.razor&quot;)" time="0.0000160" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PathWithoutExtension_ExcludesExtension(path: &quot;/Accounts/Customers/Manage-en-us.razor&quot;, expected: &quot;/Accounts/Customers/Manage-en-us&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PathWithoutExtension_ExcludesExtension(path: &quot;/Accounts/Customers/Manage-en-us.razor&quot;, expected: &quot;/Accounts/Customers/Manage-en-us&quot;)" time="0.0002344" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PathWithoutExtension_ExcludesExtension(path: &quot;Home/Index.cshtml&quot;, expected: &quot;Home/Index&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PathWithoutExtension_ExcludesExtension(path: &quot;Home/Index.cshtml&quot;, expected: &quot;Home/Index&quot;)" time="0.0002296" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PathWithoutExtension_ExcludesExtension(path: &quot;Home/Index&quot;, expected: &quot;Home/Index&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PathWithoutExtension_ExcludesExtension(path: &quot;Home/Index&quot;, expected: &quot;Home/Index&quot;)" time="0.0000171" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PathWithoutExtension_ExcludesExtension(path: &quot;/Accounts/Customers/Manage.en-us.razor&quot;, expected: &quot;/Accounts/Customers/Manage.en-us&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PathWithoutExtension_ExcludesExtension(path: &quot;/Accounts/Customers/Manage.en-us.razor&quot;, expected: &quot;/Accounts/Customers/Manage.en-us&quot;)" time="0.0000127" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.ProjectItems_WithDifferentPaths_SameContent_AreNotEqual" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="ProjectItems_WithDifferentPaths_SameContent_AreNotEqual" time="0.0051760" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.FileName_ReturnsFileNameWithExtension(path: &quot;Home/Index.cshtml&quot;, expected: &quot;Index.cshtml&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="FileName_ReturnsFileNameWithExtension(path: &quot;Home/Index.cshtml&quot;, expected: &quot;Index.cshtml&quot;)" time="0.0001640" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.FileName_ReturnsFileNameWithExtension(path: &quot;/Accounts/Customers/Manage-en-us.razor&quot;, expected: &quot;Manage-en-us.razor&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="FileName_ReturnsFileNameWithExtension(path: &quot;/Accounts/Customers/Manage-en-us.razor&quot;, expected: &quot;Manage-en-us.razor&quot;)" time="0.0002171" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsNullIfFileDoesNotHaveExtension(path: &quot;/Home/Index&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsNullIfFileDoesNotHaveExtension(path: &quot;/Home/Index&quot;)" time="0.0002883" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.Extension_ReturnsNullIfFileDoesNotHaveExtension(path: &quot;EditUser&quot;)" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="Extension_ReturnsNullIfFileDoesNotHaveExtension(path: &quot;EditUser&quot;)" time="0.0002031" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest.PhysicalPath_ReturnsSourceTextPath" type="Microsoft.NET.Sdk.Razor.SourceGenerators.SourceGeneratorProjectItemTest" method="PhysicalPath_ReturnsSourceTextPath" time="0.0001787" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

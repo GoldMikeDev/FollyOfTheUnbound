@@ -2,6 +2,8 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Text;
 using Microsoft.Win32.SafeHandles;
@@ -84,6 +86,7 @@ internal static class Win32BreakawayProcessLauncher
         SafeFileHandle? jobHandle = null;
         SafeFileHandle? processHandle = null;
         SafeFileHandle? threadHandle = null;
+        nint handleListBufferPtr = 0;
 
         try
         {
@@ -114,39 +117,75 @@ internal static class Win32BreakawayProcessLauncher
             var commandLineChars = (BuildCommandLine(fileName, arguments) + "\0").ToCharArray();
             var environmentBlock = BuildEnvironmentBlock(environment);
 
-            PROCESS_INFORMATION processInfo;
+            PROCESS_INFORMATION processInfo = default;
+            var created = false;
             fixed (char* environmentBlockPtr = environmentBlock)
             {
                 Span<char> commandLineSpan = commandLineChars;
-                var startupInfo = new STARTUPINFOW
-                {
-                    cb = (uint)sizeof(STARTUPINFOW),
-                    dwFlags = STARTUPINFOW_FLAGS.STARTF_USESTDHANDLES,
-                    hStdInput = new HANDLE((void*)childStdinRead.DangerousGetHandle()),
-                    hStdOutput = new HANDLE((void*)childStdoutWrite.DangerousGetHandle()),
-                    hStdError = new HANDLE((void*)childStderrWrite.DangerousGetHandle()),
-                };
 
-                var created = PInvoke.CreateProcess(
-                    fileName,
-                    ref commandLineSpan,
-                    lpProcessAttributes: null,
-                    lpThreadAttributes: null,
-                    bInheritHandles: true,
-                    // CREATE_SUSPENDED so we can assign the process to its own job (see jobHandle below)
-                    // before it runs anything. CREATE_BREAKAWAY_FROM_JOB is the actual point of this class:
-                    // escape any job the current process belongs to. CREATE_NO_WINDOW matches
-                    // ProcessStartInfo's CreateNoWindow=true. CREATE_UNICODE_ENVIRONMENT because
-                    // BuildEnvironmentBlock below produces a Unicode (not ANSI) block.
-                    dwCreationFlags:
-                        PROCESS_CREATION_FLAGS.CREATE_SUSPENDED
-                        | PROCESS_CREATION_FLAGS.CREATE_BREAKAWAY_FROM_JOB
-                        | PROCESS_CREATION_FLAGS.CREATE_NO_WINDOW
-                        | PROCESS_CREATION_FLAGS.CREATE_UNICODE_ENVIRONMENT,
-                    lpEnvironment: environmentBlockPtr,
-                    lpCurrentDirectory: null!,
-                    lpStartupInfo: in startupInfo,
-                    lpProcessInformation: out processInfo);
+                // CreateProcess's bInheritHandles is all-or-nothing by default: passing true would inherit every
+                // currently-inheritable handle open anywhere in this process (named pipes, mutexes, anything the
+                // .NET runtime or our own code happens to have left inheritable), not just the three pipe handles
+                // below -- a well-documented Windows footgun. A PROC_THREAD_ATTRIBUTE_HANDLE_LIST restricts
+                // inheritance to exactly the handles named in it, which is the only reliable way to redirect
+                // stdio without also leaking unrelated handles into the child.
+                if (!TryCreateHandleListAttributeList(childStdinRead, childStdoutWrite, childStderrWrite, out var attributeList, out var attributeListBuffer, out handleListBufferPtr))
+                    return false;
+
+                try
+                {
+                    var startupInfoEx = new STARTUPINFOEXW
+                    {
+                        StartupInfo = new STARTUPINFOW
+                        {
+                            cb = (uint)sizeof(STARTUPINFOEXW),
+                            dwFlags = STARTUPINFOW_FLAGS.STARTF_USESTDHANDLES,
+                            hStdInput = new HANDLE((void*)childStdinRead.DangerousGetHandle()),
+                            hStdOutput = new HANDLE((void*)childStdoutWrite.DangerousGetHandle()),
+                            hStdError = new HANDLE((void*)childStderrWrite.DangerousGetHandle()),
+                        },
+                        lpAttributeList = attributeList,
+                    };
+
+                    created = PInvoke.CreateProcess(
+                        fileName,
+                        ref commandLineSpan,
+                        lpProcessAttributes: null,
+                        lpThreadAttributes: null,
+                        // Still required (the attribute list above narrows *which* handles are inherited, it
+                        // doesn't replace this flag -- without it, no handle inheritance happens at all and
+                        // hStdInput/hStdOutput/hStdError above would be invalid in the child).
+                        bInheritHandles: true,
+                        // CREATE_SUSPENDED so we can assign the process to its own job (see jobHandle below)
+                        // before it runs anything. CREATE_BREAKAWAY_FROM_JOB is the actual point of this class:
+                        // escape any job the current process belongs to. CREATE_NO_WINDOW matches
+                        // ProcessStartInfo's CreateNoWindow=true. CREATE_UNICODE_ENVIRONMENT because
+                        // BuildEnvironmentBlock below produces a Unicode (not ANSI) block.
+                        // EXTENDED_STARTUPINFO_PRESENT is required for the attribute list (STARTUPINFOEXW) above
+                        // to actually take effect, rather than being silently ignored as a plain STARTUPINFOW.
+                        dwCreationFlags:
+                            PROCESS_CREATION_FLAGS.CREATE_SUSPENDED
+                            | PROCESS_CREATION_FLAGS.CREATE_BREAKAWAY_FROM_JOB
+                            | PROCESS_CREATION_FLAGS.CREATE_NO_WINDOW
+                            | PROCESS_CREATION_FLAGS.CREATE_UNICODE_ENVIRONMENT
+                            | PROCESS_CREATION_FLAGS.EXTENDED_STARTUPINFO_PRESENT,
+                        lpEnvironment: environmentBlockPtr,
+                        lpCurrentDirectory: null!,
+                        // STARTUPINFOEXW's first field is a full STARTUPINFOW, matching the Win32 documented
+                        // layout for passing an extended startup info block where a plain STARTUPINFOW is
+                        // declared -- reinterpreting the reference (rather than needing a separate CreateProcess
+                        // overload) is the standard way to do this from a language without C's implicit
+                        // struct-prefix pointer conversion.
+                        lpStartupInfo: in Unsafe.As<STARTUPINFOEXW, STARTUPINFOW>(ref startupInfoEx),
+                        lpProcessInformation: out processInfo);
+                }
+                finally
+                {
+                    PInvoke.DeleteProcThreadAttributeList(attributeList);
+                    Marshal.FreeHGlobal(attributeListBuffer);
+                    Marshal.FreeHGlobal(handleListBufferPtr);
+                    handleListBufferPtr = 0;
+                }
 
                 if (!created)
                     return false;
@@ -210,6 +249,79 @@ internal static class Win32BreakawayProcessLauncher
             processHandle?.Dispose();
             threadHandle?.Dispose();
         }
+    }
+
+    /// <summary>
+    /// Builds a <c>PROC_THREAD_ATTRIBUTE_LIST</c> containing just a <c>PROC_THREAD_ATTRIBUTE_HANDLE_LIST</c>
+    /// attribute naming <paramref name="stdin"/>/<paramref name="stdout"/>/<paramref name="stderr"/> -- the
+    /// child's ends of the three redirected pipes -- so <see cref="TryStart"/>'s <c>CreateProcess</c> call only
+    /// ever inherits exactly those three handles into the child, not every other inheritable handle open
+    /// anywhere in this process (see <see cref="TryStart"/>'s remarks on why <c>bInheritHandles: true</c> alone
+    /// is unsafe). On success, the caller owns <paramref name="bufferPtr"/> (must be freed with
+    /// <see cref="Marshal.FreeHGlobal(nint)"/>) and <paramref name="attributeList"/> (must be released with
+    /// <see cref="PInvoke.DeleteProcThreadAttributeList"/>) -- both are cleaned up together in <see cref="TryStart"/>'s
+    /// <c>finally</c> block once the process has been created (or creation failed).
+    /// </summary>
+    private static unsafe bool TryCreateHandleListAttributeList(
+        SafeFileHandle stdin,
+        SafeFileHandle stdout,
+        SafeFileHandle stderr,
+        out LPPROC_THREAD_ATTRIBUTE_LIST attributeList,
+        out nint bufferPtr,
+        out nint handleListBufferPtr)
+    {
+        attributeList = default;
+        bufferPtr = 0;
+        handleListBufferPtr = 0;
+
+        // First call's only purpose is to report the required buffer size via `size` -- it always "fails"
+        // (returns false) when given a null/default attribute list, per InitializeProcThreadAttributeList's own
+        // documented usage pattern.
+        nuint size = 0;
+        PInvoke.InitializeProcThreadAttributeList(default, 1, 0, &size);
+        if (size == 0)
+            return false;
+
+        var candidateBuffer = Marshal.AllocHGlobal((nint)size);
+        var candidateList = new LPPROC_THREAD_ATTRIBUTE_LIST((void*)candidateBuffer);
+
+        if (!PInvoke.InitializeProcThreadAttributeList(candidateList, 1, 0, &size))
+        {
+            Marshal.FreeHGlobal(candidateBuffer);
+            return false;
+        }
+
+        // UpdateProcThreadAttribute does not copy *this* buffer's contents -- it only records the pointer, and
+        // Windows reads through it later, when CreateProcess actually consumes the attribute list. That buffer
+        // must therefore stay alive until CreateProcess has run and DeleteProcThreadAttributeList has been called
+        // (see TryStart's finally block, which frees this alongside candidateBuffer) -- a stackalloc scoped to
+        // this method would already be dead stack space by then, silently corrupting the handle list CreateProcess
+        // reads back and defeating the whole point of restricting inheritance to just these three handles.
+        var candidateHandleListBuffer = Marshal.AllocHGlobal(sizeof(HANDLE) * 3);
+        var handles = (HANDLE*)candidateHandleListBuffer;
+        handles[0] = new HANDLE((void*)stdin.DangerousGetHandle());
+        handles[1] = new HANDLE((void*)stdout.DangerousGetHandle());
+        handles[2] = new HANDLE((void*)stderr.DangerousGetHandle());
+
+        if (!PInvoke.UpdateProcThreadAttribute(
+                candidateList,
+                dwFlags: 0,
+                Attribute: PInvoke.PROC_THREAD_ATTRIBUTE_HANDLE_LIST,
+                lpValue: handles,
+                cbSize: (nuint)(sizeof(HANDLE) * 3),
+                lpPreviousValue: null,
+                lpReturnSize: null))
+        {
+            PInvoke.DeleteProcThreadAttributeList(candidateList);
+            Marshal.FreeHGlobal(candidateBuffer);
+            Marshal.FreeHGlobal(candidateHandleListBuffer);
+            return false;
+        }
+
+        attributeList = candidateList;
+        bufferPtr = candidateBuffer;
+        handleListBufferPtr = candidateHandleListBuffer;
+        return true;
     }
 
     /// <summary>

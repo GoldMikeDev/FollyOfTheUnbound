@@ -30,6 +30,7 @@ usage()
   echo "  --testCompilerOnly         Run only the compiler unit tests"
   echo "  --testIOperation           Run unit tests with the IOperation test hook"
   echo "  --testRuntimeAsync         Run unit tests with runtime async validation enabled"
+  echo "  --testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog"
   echo ""
   echo "Advanced settings:"
   echo "  --ci                       Building in CI"
@@ -72,6 +73,7 @@ test_mono=false
 test_ioperation=false
 test_runtime_async=false
 test_compiler_only=false
+test_timeout=0
 
 configuration="Debug"
 verbosity='minimal'
@@ -154,6 +156,32 @@ while [[ $# > 0 ]]; do
       ;;
     --testruntimeasync)
       test_runtime_async=true
+      ;;
+    --testtimeout)
+      # Overrides RunTests' whole-run --timeout watchdog (minutes); see the -testTimeout parameter
+      # in build.ps1 for why this exists as a call-site override instead of a hardcoded value.
+      # Validated (and leading zeros normalized to decimal, matching folly.sh's own --timeout
+      # parsing) here rather than left for the later "$test_timeout" -gt 0 arithmetic check: under
+      # this script's `set -u`, a missing value or a non-numeric one (e.g. "banana") would abort
+      # that check with an unrelated "unbound variable"/"value too great for base" shell error
+      # instead of a controlled argument error.
+      # The digit-count cap (9 digits, matching folly.sh's own --timeout parsing) matters as much
+      # as the regex itself: without it, a huge-enough digits-only value would silently wrap
+      # around inside bash's 64-bit $(( )) arithmetic below into some unrelated small positive
+      # number instead of being rejected.
+      if [[ -z "${2:-}" || ! "$2" =~ ^[0-9]{1,9}$ ]]; then
+        echo "'--testTimeout' requires a positive integer minute count (up to 999999999), got '${2:-}'."
+        exit 1
+      fi
+      test_timeout=$((10#$2))
+      # Upper bound matches RunTests' own limit -- see folly.sh's identical check for why
+      # (Task.Delay's supported millisecond range, ~71582.79 minutes).
+      if [[ "$test_timeout" -le 0 || "$test_timeout" -gt 71582 ]]; then
+        echo "'--testTimeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '$2'."
+        exit 1
+      fi
+      args="$args $1"
+      shift
       ;;
     --ci)
       ci=true
@@ -431,6 +459,16 @@ if [[ "$test_core_clr" == true ]]; then
 
   if [[ "$ci" != true ]]; then
     runtests_args="$runtests_args --html"
+  fi
+
+  # Matches build.ps1's own -testCoreClr default of 90 minutes for RunTests' whole-run watchdog;
+  # --testTimeout overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since
+  # Helix has its own external timeout management.
+  if [[ "$helix" != true ]]; then
+    if [[ "$test_timeout" -le 0 ]]; then
+      test_timeout=90
+    fi
+    runtests_args="$runtests_args --timeout $test_timeout"
   fi
 
   if [[ "$ci" == true ]]; then

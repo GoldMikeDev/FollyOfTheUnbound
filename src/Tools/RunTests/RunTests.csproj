@@ -17,5 +17,11 @@
     <PackageReference Include="Newtonsoft.Json" />
     <ProjectReference Include="..\..\Compilers\Test\Core\Microsoft.CodeAnalysis.Test.Utilities.csproj" />
   </ItemGroup>
+  <ItemGroup Label="Windows console-mode bindings for LiveTestProgressDisplay's mouse-wheel support (see NativeMethods.txt); same source-generated, dependency-light PInvoke pattern used in src/LanguageServer/roslyn-language-server">
+    <PackageReference Include="Microsoft.Windows.CsWin32" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="RunTests.UnitTests" />
+  </ItemGroup>
   <Import Project="..\..\Dependencies\Contracts\Microsoft.CodeAnalysis.Contracts.projitems" />
 </Project>

@@ -71,10 +71,12 @@ namespace RunTests
 
         internal async Task<RunAllResult> RunAllAsync(ImmutableArray<AssemblyInfo> assemblies, CancellationToken cancellationToken)
         {
-            // Use 1.5 times the number of processors for unit tests, but only 1 processor for the open integration tests
-            // since they perform actual UI operations (such as mouse clicks and sending keystrokes) and we don't want two
-            // tests to conflict with one-another.
-            var max = _options.Sequential ? 1 : (int)(Environment.ProcessorCount * 1.5);
+            // Leave one processor free for the rest of the system (including the console itself, so the live
+            // progress table's redraws stay responsive instead of getting starved by CPU-saturated test
+            // processes), but only 1 processor for the open integration tests since they perform actual UI
+            // operations (such as mouse clicks and sending keystrokes) and we don't want two tests to conflict
+            // with one-another.
+            var max = _options.Sequential ? 1 : Math.Max(Environment.ProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
             var running = new List<(WorkItemInfo WorkItem, Task<TestResult> Task)>();
@@ -84,117 +86,17 @@ namespace RunTests
             var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
             var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems);
 
-            do
+            try
             {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                var i = 0;
-                while (i < running.Count)
-                {
-                    var (workItem, task) = running[i];
-                    if (task.IsCompleted)
-                    {
-                        try
-                        {
-                            var testResult = await task.ConfigureAwait(false);
-                            liveDisplay?.MarkCompleted(workItem, testResult.Elapsed, testResult.Succeeded, testResult.IsTimeout);
-
-                            if (!testResult.Succeeded)
-                            {
-                                failures++;
-                                liveDisplay?.PrepareForExtraOutput();
-
-                                // Printed here (rather than from inside ProcessTestExecutor.RunTestAsync, where
-                                // it's detected) so it lands after the PrepareForExtraOutput call above -- that
-                                // executor code can run concurrently with other still-running work items, and
-                                // printing directly from there would race the live table's own redraws.
-                                if (testResult.CrashDiagnostics.ErrorMessage is string crashErrorMessage)
-                                {
-                                    ConsoleUtil.Error(crashErrorMessage);
-                                    foreach (var dump in testResult.CrashDiagnostics.DumpPaths)
-                                    {
-                                        ConsoleUtil.WriteLine(ConsoleColor.Red, $"  Dump: {dump}");
-                                    }
-                                }
-
-                                if (testResult.ResultsDisplayFilePath is string resultsPath)
-                                {
-                                    ConsoleUtil.WriteLine(ConsoleColor.Red, resultsPath);
-                                }
-                                else
-                                {
-                                    foreach (var result in testResult.ProcessResults)
-                                    {
-                                        foreach (var line in result.ErrorLines)
-                                        {
-                                            ConsoleUtil.WriteLine(ConsoleColor.Red, line);
-                                        }
-                                    }
-                                }
-                            }
-
-                            completed.Add(testResult);
-                        }
-                        catch (Exception ex)
-                        {
-                            // The work item never got a normal completion (e.g. the response file or test process
-                            // itself couldn't be created), so it's still marked RUNNING in the live table with an
-                            // ever-climbing timer unless explicitly resolved here.
-                            liveDisplay?.MarkFailed(workItem);
-                            liveDisplay?.PrepareForExtraOutput();
-                            ConsoleUtil.WriteLine(ConsoleColor.Red, $"Error: {ex.Message}");
-                            failures++;
-                        }
-
-                        running.RemoveAt(i);
-                    }
-                    else
-                    {
-                        i++;
-                    }
-                }
-
-                while (running.Count < max && waiting.Count > 0)
-                {
-                    var workItem = waiting.Pop();
-                    liveDisplay?.MarkRunning(workItem);
-                    var task = _testExecutor.RunTestAsync(workItem, _options, cancellationToken);
-                    running.Add((workItem, task));
-                }
-
-                if (liveDisplay is not null)
-                {
-                    liveDisplay.Redraw();
-                }
-                else
-                {
-                    // Display the current status of the TestRunner.
-                    // Note: The { ... , 2 } is to right align the values, thus aligns sections into columns.
-                    ConsoleUtil.Write($"  {running.Count,2} running, {waiting.Count,2} queued, {completed.Count,2} completed");
-                    if (failures > 0)
-                    {
-                        ConsoleUtil.Write($", {failures,2} failures");
-                    }
-                    ConsoleUtil.WriteLine();
-                }
-
-                if (running.Count > 0)
-                {
-                    if (liveDisplay is not null)
-                    {
-                        // Wake at least once a second even if nothing completes, purely so the live table's
-                        // elapsed-time column visibly ticks for still-running rows; CI's line-based fallback above
-                        // has no such need and keeps its original wake-only-on-completion behavior (waking on a
-                        // timer there would just spam the log with an unchanged line every second).
-                        var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
-                        await Task.WhenAny(tasks);
-                    }
-                    else
-                    {
-                        await Task.WhenAny(running.Select(static r => r.Task).ToArray());
-                    }
-                }
-            } while (running.Count > 0);
+                await RunLoopAsync();
+            }
+            finally
+            {
+                // Must run even on cancellation/an unhandled exception -- otherwise the terminal is left stuck
+                // showing the table's last static frame in the alternate screen buffer indefinitely, with the
+                // user's real prompt and scrollback never coming back.
+                liveDisplay?.Complete();
+            }
 
             Print(completed);
 
@@ -205,11 +107,137 @@ namespace RunTests
             }
 
             return new RunAllResult((failures == 0), completed.ToImmutableArray(), processResults.ToImmutable());
+
+            async Task RunLoopAsync()
+            {
+                do
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var i = 0;
+                    while (i < running.Count)
+                    {
+                        var (workItem, task) = running[i];
+                        if (task.IsCompleted)
+                        {
+                            try
+                            {
+                                var testResult = await task.ConfigureAwait(false);
+                                liveDisplay?.MarkCompleted(workItem, testResult.Elapsed, testResult.Succeeded, testResult.IsTimeout);
+
+                                if (!testResult.Succeeded)
+                                {
+                                    failures++;
+                                    liveDisplay?.PrepareForExtraOutput();
+
+                                    // Printed here (rather than from inside ProcessTestExecutor.RunTestAsync, where
+                                    // it's detected) so it lands after the PrepareForExtraOutput call above -- that
+                                    // executor code can run concurrently with other still-running work items, and
+                                    // printing directly from there would race the live table's own redraws.
+                                    if (testResult.CrashDiagnostics.ErrorMessage is string crashErrorMessage)
+                                    {
+                                        ConsoleUtil.Error(crashErrorMessage);
+                                        foreach (var dump in testResult.CrashDiagnostics.DumpPaths)
+                                        {
+                                            ConsoleUtil.WriteLine(ConsoleColor.Red, $"  Dump: {dump}");
+                                        }
+                                    }
+
+                                    if (testResult.ResultsDisplayFilePath is string resultsPath)
+                                    {
+                                        ConsoleUtil.WriteLine(ConsoleColor.Red, resultsPath);
+                                    }
+                                    else
+                                    {
+                                        foreach (var result in testResult.ProcessResults)
+                                        {
+                                            foreach (var line in result.ErrorLines)
+                                            {
+                                                ConsoleUtil.WriteLine(ConsoleColor.Red, line);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                completed.Add(testResult);
+                            }
+                            catch (Exception ex)
+                            {
+                                // The work item never got a normal completion (e.g. the response file or test process
+                                // itself couldn't be created), so it's still marked RUNNING in the live table with an
+                                // ever-climbing timer unless explicitly resolved here.
+                                liveDisplay?.MarkFailed(workItem);
+                                liveDisplay?.PrepareForExtraOutput();
+                                ConsoleUtil.WriteLine(ConsoleColor.Red, $"Error: {ex.Message}");
+                                failures++;
+                            }
+
+                            running.RemoveAt(i);
+                        }
+                        else
+                        {
+                            i++;
+                        }
+                    }
+
+                    while (running.Count < max && waiting.Count > 0)
+                    {
+                        var workItem = waiting.Pop();
+                        liveDisplay?.MarkRunning(workItem);
+                        var task = _testExecutor.RunTestAsync(workItem, _options, cancellationToken);
+                        running.Add((workItem, task));
+                    }
+
+                    if (liveDisplay is not null)
+                    {
+                        liveDisplay.Redraw();
+                    }
+                    else
+                    {
+                        // Display the current status of the TestRunner.
+                        // Note: The { ... , 2 } is to right align the values, thus aligns sections into columns.
+                        ConsoleUtil.Write($"  {running.Count,2} running, {waiting.Count,2} queued, {completed.Count,2} completed");
+                        if (failures > 0)
+                        {
+                            ConsoleUtil.Write($", {failures,2} failures");
+                        }
+                        ConsoleUtil.WriteLine();
+                    }
+
+                    if (running.Count > 0)
+                    {
+                        if (liveDisplay is not null)
+                        {
+                            // Wake at least once a second even if nothing completes, purely so the live table's
+                            // elapsed-time column visibly ticks for still-running rows; CI's line-based fallback above
+                            // has no such need and keeps its original wake-only-on-completion behavior (waking on a
+                            // timer there would just spam the log with an unchanged line every second).
+                            var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
+                            await Task.WhenAny(tasks);
+                        }
+                        else
+                        {
+                            await Task.WhenAny(running.Select(static r => r.Task).ToArray());
+                        }
+                    }
+                } while (running.Count > 0);
+            }
         }
+
+        /// <summary>
+        /// Name column width for the final summary table below. Unlike <see cref="LiveTestProgressDisplay"/>'s
+        /// live table, this isn't derived from <see cref="Console.WindowWidth"/> -- this summary is always
+        /// printed (including to the log file in CI, where there's no real terminal width to read), so it needs
+        /// a width that's sensible on its own. A name longer than this is truncated (see
+        /// <see cref="TestResultDisplay.FitName"/>) rather than left to grow and push the Status/Elapsed columns
+        /// out of alignment for every row after it, which is what the previous plain <c>{DisplayName,-75}</c>
+        /// padding did for any work item name past 75 characters.
+        /// </summary>
+        private const int SummaryNameColumnWidth = 75;
 
         private void Print(List<TestResult> testResults)
         {
-            testResults.Sort((x, y) => x.Elapsed.CompareTo(y.Elapsed));
+            testResults.Sort((x, y) => string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase));
 
             foreach (var testResult in testResults.Where(x => !x.Succeeded))
             {
@@ -221,11 +249,14 @@ namespace RunTests
             foreach (var testResult in testResults)
             {
                 line.Length = 0;
-                var color = testResult.Succeeded ? Console.ForegroundColor : ConsoleColor.Red;
-                line.Append($"{testResult.DisplayName,-75}");
-                line.Append($" {(testResult.Succeeded ? "PASSED" : testResult.IsTimeout ? "TIMEOUT" : "FAILED")}");
-                line.Append($" {testResult.Elapsed}");
-                line.Append($" {(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "")}");
+                var color = testResult.Succeeded ? ConsoleColor.Green : ConsoleColor.Red;
+                line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
+                line.Append(' ');
+                line.Append(TestResultDisplay.CenterPad(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout), TestResultDisplay.StatusColumnWidth));
+                line.Append(' ');
+                line.Append(TestResultDisplay.CenterPad(TestResultDisplay.FormatElapsed(testResult.Elapsed), TestResultDisplay.ElapsedColumnWidth));
+                line.Append(' ');
+                line.Append(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "");
 
                 var message = line.ToString();
                 ConsoleUtil.WriteLine(color, message);
@@ -252,6 +283,11 @@ namespace RunTests
             ConsoleUtil.WriteLine($"Command: {testResult.CommandLine}");
             ConsoleUtil.WriteLine($"xUnit output log: {outputLogPath}");
 
+            // Nothing else creates this directory before results start coming in (Program.WriteLogFile only does
+            // so after the whole run finishes), so without this a failing test host crash before then throws
+            // DirectoryNotFoundException here and takes down the entire run with an unhandled exception, masking
+            // the actual crash that was being reported.
+            Directory.CreateDirectory(_options.LogFilesDirectory);
             File.WriteAllText(outputLogPath, testResult.StandardOutput ?? "");
 
             if (!string.IsNullOrEmpty(testResult.ErrorOutput))

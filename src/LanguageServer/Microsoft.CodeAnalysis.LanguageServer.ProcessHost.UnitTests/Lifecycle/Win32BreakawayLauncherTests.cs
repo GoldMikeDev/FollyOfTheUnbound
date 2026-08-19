@@ -97,6 +97,12 @@ public sealed class Win32BreakawayLauncherTests
 
                 Assert.Equal("INJOB:True", await ReadLineWithTimeoutAsync(helper));
 
+                // The regression this guards against: bInheritHandles: true alone inherits *every* inheritable
+                // handle open in the helper, not just the three stdio pipes. Confirms the escaped child can't
+                // reach the helper's sentinel handle -- proving PROC_THREAD_ATTRIBUTE_HANDLE_LIST is actually
+                // scoping inheritance, not just that the child process starts and runs.
+                Assert.Equal("SENTINEL:Inaccessible", await ReadLineWithTimeoutAsync(helper));
+
                 var startedLine = await ReadLineWithTimeoutAsync(helper);
                 Assert.StartsWith("STARTED:True:", startedLine);
                 var childProcessId = int.Parse(startedLine!.Split(':')[2]);
