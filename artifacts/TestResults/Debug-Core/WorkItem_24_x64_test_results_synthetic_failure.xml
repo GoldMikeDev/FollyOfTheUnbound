@@ -2,11 +2,20 @@
 <assemblies>
   <assembly name="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests_24" total="1" passed="0" failed="1" skipped="0">
     <collection name="Crash/Hang Detection" total="1" passed="0" failed="1" skipped="0">
+<<<<<<< HEAD
       <test name="[CRASH] Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface" type="RunTests.CRASHDetection" method="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface" time="0" result="Fail">
         <failure exception-type="TestHostCRASHException">
           <message>Test host crash detected. Test running at time of crash: Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.ExtractRefactoringTests.TestExtractInterface. Dump files: testhost.exe_32288_1787131961_crashdump.dmp</message>
           <stack-trace>Dump files collected:
 C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\ebd28114-439a-48c9-bc8e-83e4aa2d4dbf\testhost.exe_32288_1787131961_crashdump.dmp</stack-trace>
+=======
+      <test name="[HANG] Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen" type="RunTests.HANGDetection" method="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen" time="0" result="Fail">
+        <failure exception-type="TestHostHANGException">
+          <message>Test host hang detected. Test running at time of hang: Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen. Dump files: dotnet_50152_20260819T095121_hangdump.dmp, testhost_41300_20260819T095121_hangdump.dmp</message>
+          <stack-trace>Dump files collected:
+C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\dotnet_50152_20260819T095121_hangdump.dmp
+C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\65984832-e782-4f1e-9ab0-59e9d6d5e674\testhost_41300_20260819T095121_hangdump.dmp</stack-trace>
+>>>>>>> origin/folly-of-the-unbound
         </failure>
       </test>
     </collection>
