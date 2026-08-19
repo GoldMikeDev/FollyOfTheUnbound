@@ -36,6 +36,16 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
     private readonly Mutex _serverMutex;
     private readonly ConnectionIdleTimeout _idleTimeout;
 
+    /// <summary>
+    /// Completes once <see cref="RunAcceptLoopAsync"/> has created its first listening pipe instance and is about
+    /// to wait on it -- i.e. once a client connecting to <see cref="_pipeName"/> can actually expect its connect
+    /// call to succeed. Exposed for tests only (see <see cref="TestAccessor.WaitForAcceptLoopStartedAsync"/>):
+    /// production callers race a real client's connect-with-retry/timeout against this loop starting up on a
+    /// background <see cref="Task"/>, but a test harness that connects a client immediately after constructing
+    /// this source (no such retry) can otherwise connect before the OS pipe is actually listening.
+    /// </summary>
+    private readonly TaskCompletionSource _acceptLoopStarted = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
     private Action? _onConnectionAccepted;
 
     private NamedPipeDaemonConnectionSource(
@@ -128,6 +138,10 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
 
                 var timeoutToken = _idleTimeout.TimeoutToken;
                 var pipeStream = NamedPipeUtil.CreateServer(_pipeName);
+
+                // Idempotent (TrySetResult only ever takes effect on the first, i.e. this loop's very first,
+                // iteration): a client connecting to _pipeName can now expect to actually succeed.
+                _acceptLoopStarted.TrySetResult();
 
                 try
                 {
@@ -286,6 +300,13 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
         internal bool HasTimedOut => _instance._idleTimeout.TimeoutToken.IsCancellationRequested;
 
         internal void TriggerTimeout() => _instance._idleTimeout.GetTestAccessor().TriggerTimeout();
+
+        /// <summary>
+        /// Completes once the accept loop has created its first listening pipe instance, so a test can await this
+        /// before connecting a client instead of racing an immediate connect against the loop's background
+        /// <see cref="Task"/> not having started yet.
+        /// </summary>
+        internal Task WaitForAcceptLoopStartedAsync() => _instance._acceptLoopStarted.Task;
 
         internal Action? OnConnectionAccepted
         {
