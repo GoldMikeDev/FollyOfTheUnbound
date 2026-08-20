@@ -140,7 +140,7 @@ function Invoke-Folly([string]$Dir, [string[]]$FollyArgs) {
 try {
     # --- default: both legs run ---
     $dir = New-TestCase "default"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
         Test-Pass "default 'scry' runs both Core and Framework"
     }
@@ -150,7 +150,7 @@ try {
 
     # --- --core only ---
     $dir = New-TestCase "core-only"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -notmatch "Framework:") {
         Test-Pass "'scry --core' runs only Core"
     }
@@ -160,7 +160,7 @@ try {
 
     # --- --framework only ---
     $dir = New-TestCase "framework-only"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--framework")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--framework")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
         Test-Pass "'scry --framework' runs only Framework"
     }
@@ -200,7 +200,7 @@ try {
 
     # --- stray "================" lines in captured failure output don't fool the parser ---
     $dir = New-FalseMarkerTestCase "false-marker"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
     if ($result.ExitCode -eq 1 -and $result.Output -match "Core: 1 passed, 1 failed") {
         Test-Pass "stray markers in captured failure output are not mistaken for the summary table"
     }
@@ -220,7 +220,7 @@ try {
 
     # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---
     $dir = New-TestCase "timeout-forwarded"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "180")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--timeout", "180")
     $receivedPath = Join-Path $dir "testTimeout-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {

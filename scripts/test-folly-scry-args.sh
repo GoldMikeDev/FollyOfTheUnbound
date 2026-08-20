@@ -63,7 +63,7 @@ run_case() {
 
 # --- default: no --testTimeout forwarded ---
 dir="$(new_test_case "default")"
-result="$(run_case "$dir" scry)"
+result="$(run_case "$dir" scry research)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
@@ -75,7 +75,7 @@ fi
 
 # --- --timeout is forwarded to eng/build.sh ---
 dir="$(new_test_case "timeout-forwarded")"
-result="$(run_case "$dir" scry --timeout 180)"
+result="$(run_case "$dir" scry research --timeout 180)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
@@ -99,7 +99,7 @@ fi
 
 # --- leading-zero timeout values are normalized to decimal, not misparsed as octal ---
 dir="$(new_test_case "timeout-leading-zero")"
-result="$(run_case "$dir" scry --timeout 08)"
+result="$(run_case "$dir" scry research --timeout 08)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"

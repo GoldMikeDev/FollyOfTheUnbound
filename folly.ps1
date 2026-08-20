@@ -52,7 +52,8 @@ try {
         Write-Host "folly.ps1 <action> [config] [switches]"
         Write-Host ""
         Write-Host "Actions are positional, or named as -action <action>."
-        Write-Host "[config] is likewise positional, or named as -config <config>; defaults to Research."
+        Write-Host "[config] is likewise positional, or named as -config <config>; required for every"
+        Write-Host "action except 'cleanse' and 'scry reflection'."
         Write-Host ""
         Write-Host "Commands:"
         Write-Host "  'attune'    Restore only [config]."
@@ -100,7 +101,15 @@ try {
         Write-Host "'reflection' doesn't take '--core'/'--framework'/'--timeout' -- it runs folly's own test harnesses, not RunTests." -ForegroundColor Red
         exit 1
     }
-    if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
+    if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {
+        $configuration = $null
+        $nupkgDir = $null
+    }
+    elseif ([string]::IsNullOrEmpty($config)) {
+        Write-Host "[config] is required for action '$action'. Expected 'research' or 'truth'." -ForegroundColor Red
+        exit 1
+    }
+    elseif ($config -eq "research") {
         $configuration = "Debug"
         $nupkgDir = Join-Path $nupkgRoot "Debug"
     }
@@ -109,7 +118,7 @@ try {
         $nupkgDir = Join-Path $nupkgRoot "Release"
     }
     else {
-        Write-Host "Unrecognised configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." -ForegroundColor Red
+        Write-Host "Unrecognised configuration '$config'. Expected 'research' or 'truth'." -ForegroundColor Red
         exit 1
     }
     if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)

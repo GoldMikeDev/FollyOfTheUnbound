@@ -15,7 +15,8 @@ folly.sh <action> [config] [switches]
 
 Actions are positional only -- no --action flag; unlike folly.ps1, bash's
 positional-only $1/$2 parsing here has no named-parameter equivalent.
-[config] is likewise positional only -- no --config flag; defaults to Research.
+[config] is likewise positional only -- no --config flag; required for every
+action except 'cleanse' and 'scry reflection'.
 
 Commands:
   'attune'    Restore only [config].
@@ -93,14 +94,20 @@ if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
   echo "'reflection' doesn't take '--timeout' -- it runs folly's own test harnesses, not RunTests." >&2
   exit 1
 fi
-if [[ -z "$config" || "$config" == "research" ]]; then
+if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]]; then
+  configuration=""
+  nupkg_dir=""
+elif [[ -z "$config" ]]; then
+  echo "[config] is required for action '$action'. Expected 'research' or 'truth'." >&2
+  exit 1
+elif [[ "$config" == "research" ]]; then
   configuration="Debug"
   nupkg_dir="$nupkg_root/Debug"
 elif [[ "$config" == "truth" ]]; then
   configuration="Release"
   nupkg_dir="$nupkg_root/Release"
 else
-  echo "Unrecognized configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." >&2
+  echo "Unrecognized configuration '$config'. Expected 'research' or 'truth'." >&2
   exit 1
 fi
 case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh defaults nodeReuse true locally, leaving MSBuild worker nodes running after exit, still holding DLLs open under artifacts/ (`build-server shutdown` in cleanse only stops VBCSCompiler/Razor, not these)
