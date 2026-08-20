@@ -24,7 +24,8 @@ echo "Started './folly.sh attune' in the background (PID $!); progress logged to
 if ! command -v pwsh >/dev/null 2>&1; then
   pwsh_log="$CLAUDE_PROJECT_DIR/.claude/hooks/pwsh-install.log"
   (
-    curl -sSL -o /tmp/packages-microsoft-prod.deb https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb
+    ubuntu_release="$(lsb_release -rs)"  # queried rather than hardcoded -- Microsoft publishes a separate packages-microsoft-prod.deb per Ubuntu release, and this sandbox's release shouldn't be assumed to stay 24.04 forever
+    wget -q -O /tmp/packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/$ubuntu_release/packages-microsoft-prod.deb"
     sudo dpkg -i /tmp/packages-microsoft-prod.deb
     sudo apt-get update -qq
     sudo apt-get install -y powershell
