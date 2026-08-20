@@ -49,7 +49,7 @@ try {
     $dir = New-TestCase "empty"
     New-Item -ItemType Directory -Force -Path (Join-Path $dir "artifacts") | Out-Null
     $result = Invoke-Cleanse -Dir $dir
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Cleansed 0 B from artefacts\." -and -not (Test-Path -LiteralPath (Join-Path $dir "artifacts"))) {
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Cleansed 0 B of artefacts\." -and -not (Test-Path -LiteralPath (Join-Path $dir "artifacts"))) {
         Test-Pass "empty artifacts/ directory removed cleanly"
     }
     else {
@@ -72,7 +72,7 @@ try {
     # Plain string Contains (not -match) sidesteps the separator being a
     # regex metachar in either case.
     $expectedSize = "{0:N2} KiB" -f (2050 / 1KB)
-    if ($result.ExitCode -eq 0 -and $result.Output.Contains("Cleansed $expectedSize from artefacts.") -and -not (Test-Path -LiteralPath $artifactsDir)) {
+    if ($result.ExitCode -eq 0 -and $result.Output.Contains("Cleansed $expectedSize of artefacts.") -and -not (Test-Path -LiteralPath $artifactsDir)) {
         Test-Pass "populated tree removed with correct byte total"
     }
     else {

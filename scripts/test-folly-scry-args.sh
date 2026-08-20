@@ -175,6 +175,62 @@ else
   test_fail "timeout exceeds Task.Delay max (exit=$exit_code): $output"
 fi
 
+# --- 'reflection' is rejected on a non-scry action ---
+dir="$(new_test_case "reflection-non-scry")"
+result="$(run_case "$dir" weave reflection)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'reflection' is rejected on a non-scry action"
+else
+  test_fail "reflection on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- 'reflection' rejects a [config] alongside it ---
+dir="$(new_test_case "reflection-with-config")"
+result="$(run_case "$dir" scry reflection truth)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a [config]"* ]]; then
+  test_pass "'reflection' rejects a [config] alongside it"
+else
+  test_fail "reflection with config (exit=$exit_code): $output"
+fi
+
+# --- 'reflection' rejects '--timeout' alongside it ---
+dir="$(new_test_case "reflection-with-timeout")"
+result="$(run_case "$dir" scry reflection --timeout 5)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take '--timeout'"* ]]; then
+  test_pass "'reflection' rejects '--timeout' alongside it"
+else
+  test_fail "reflection with timeout (exit=$exit_code): $output"
+fi
+
+# --- 'scry reflection' runs folly's own test harnesses instead of the (mocked) build ---
+dir="$(new_test_case "reflection-runs-harnesses")"
+mkdir -p "$dir/scripts"
+cat > "$dir/scripts/test-folly-cleanse.sh" <<'MOCK'
+#!/usr/bin/env bash
+echo "cleanse harness ran"
+exit 0
+MOCK
+cat > "$dir/scripts/test-folly-scry-args.sh" <<'MOCK'
+#!/usr/bin/env bash
+echo "scry-args harness ran"
+exit 0
+MOCK
+chmod +x "$dir/scripts/test-folly-cleanse.sh" "$dir/scripts/test-folly-scry-args.sh"
+result="$(run_case "$dir" scry reflection)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "0" && "$output" == *"cleanse harness ran"* && "$output" == *"scry-args harness ran"* && ! -e "$dir/build-args.log" ]]; then
+  test_pass "'scry reflection' runs both harnesses instead of building"
+else
+  test_fail "scry reflection runs harnesses (exit=$exit_code): $output"
+fi
+
 # --- grimoire ignores a trailing config, matching its documented "ignores config" contract ---
 dir="$(new_test_case "grimoire-ignores-config")"
 result="$(run_case "$dir" grimoire anything)"

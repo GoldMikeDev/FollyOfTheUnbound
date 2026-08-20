@@ -51,7 +51,7 @@ dir=$(new_case empty)
 mkdir -p "$dir/artifacts"
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
-if (( ec == 0 )) && [[ "$out" == "Cleansed 0 B from artefacts." ]] && [[ ! -e "$dir/artifacts" ]]; then
+if (( ec == 0 )) && [[ "$out" == "Cleansed 0 B of artefacts." ]] && [[ ! -e "$dir/artifacts" ]]; then
   pass "empty artifacts/ directory removed cleanly"
 else
   fail "empty artifacts/ directory (exit=$ec, output='$out')"
@@ -64,7 +64,7 @@ for i in $(seq 1 20); do head -c 100 /dev/urandom > "$dir/artifacts/f_$i.bin"; d
 head -c 50 /dev/urandom > "$dir/artifacts/sub/nested.bin"
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
-if (( ec == 0 )) && [[ "$out" == "Cleansed 2.00 KiB from artefacts." ]] && [[ ! -e "$dir/artifacts" ]]; then
+if (( ec == 0 )) && [[ "$out" == "Cleansed 2.00 KiB of artefacts." ]] && [[ ! -e "$dir/artifacts" ]]; then
   pass "populated tree removed with correct byte total"
 else
   fail "populated tree (exit=$ec, output='$out')"

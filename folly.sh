@@ -31,15 +31,24 @@ positional-only $1/$2 parsing here has no named-parameter equivalent):
 scry-only switch (not positional -- always passed by name, after [config]):
   --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)
 
+scry reflection: runs folly's own test harnesses (scripts/test-folly-*.sh)
+instead of building/testing the solution -- no [config], not wired into CI.
+
 Example: folly.sh scry truth --timeout 180
+Example: folly.sh scry reflection
 
 EOF
   exit 0
 fi
 config=""
 test_timeout=0
+reflection=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    reflection)
+      reflection=1
+      shift
+      ;;
     --timeout)
       test_timeout="${2:-}"
       if [[ -z "$test_timeout" || ! "$test_timeout" =~ ^[0-9]{1,9}$ ]]; then  # digit-count cap first: an all-digits value past bash's 64-bit $(( )) range would otherwise silently wrap into an unrelated small number below
@@ -71,6 +80,18 @@ if [[ "$test_timeout" -gt 0 && "$action" != "scry" ]]; then
   echo "'--timeout' is only valid with the 'scry' action." >&2
   exit 1
 fi
+if [[ "$reflection" -eq 1 && "$action" != "scry" ]]; then
+  echo "'reflection' is only valid with the 'scry' action." >&2
+  exit 1
+fi
+if [[ "$reflection" -eq 1 && -n "$config" ]]; then
+  echo "'reflection' doesn't take a [config] -- it runs folly's own test harnesses, not a build." >&2
+  exit 1
+fi
+if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
+  echo "'reflection' doesn't take '--timeout' -- it runs folly's own test harnesses, not RunTests." >&2
+  exit 1
+fi
 if [[ -z "$config" || "$config" == "research" ]]; then
   configuration="Debug"
   nupkg_dir="$nupkg_root/Debug"
@@ -95,6 +116,15 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
     "$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration"
     ;;
   scry)
+    if [[ "$reflection" -eq 1 ]]; then
+      harness_fail=0
+      for harness in test-folly-cleanse.sh test-folly-scry-args.sh; do
+        echo "--- $harness ---"
+        bash "$scriptroot/scripts/$harness" || harness_fail=1
+        echo
+      done
+      exit "$harness_fail"
+    fi
     scry_args=(--restore --build --test --nodeReuse false --solution "$solution" --configuration "$configuration")
     if [[ "$test_timeout" -gt 0 ]]; then
       scry_args+=(--testTimeout "$test_timeout")
