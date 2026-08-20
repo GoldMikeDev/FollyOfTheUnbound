@@ -94,7 +94,7 @@ thread is still open" is not.
 
 ## Language / Framework Constraints
 
-- SDK pinned in `global.json` (currently .NET SDK `10.0.x`); VS toolset `17.14`.
+- SDK and VS toolset pinned in `global.json`.
 - Arcade-based build (`Microsoft.DotNet.Arcade.Sdk`); package versions centralized in `Directory.Packages.props`.
 
 ## Documentation Files
