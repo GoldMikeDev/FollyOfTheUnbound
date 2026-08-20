@@ -13,23 +13,25 @@ if [[ -z "$action" || "$action" == "grimoire" ]]; then
   cat <<'EOF'
 folly.sh <action> [config] [switches]
 
-Actions (positional only -- no --action flag; unlike folly.ps1, bash's
-positional-only $1/$2 parsing here has no named-parameter equivalent):
-  attune    Restore only [config]
-  weave     Restore + build [config]
-  reweave   Restore + rebuild [config]
-  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
-  scry      Restore + build + run Core unit tests [config] (Framework tests are
-            Windows-only -- there is no --framework/--core switch here)
-  cleanse   Delete artifacts/ (ignores config)
-  grimoire  Show this text (default when no action is given; ignores config)
+Actions are positional only -- no --action flag; unlike folly.ps1, bash's
+positional-only $1/$2 parsing here has no named-parameter equivalent.
+[config] is likewise positional only -- no --config flag; required for every
+action except 'cleanse' and 'scry reflection'.
 
-[config] (optional, positional only -- no --config flag; defaults to Research):
-  research  Debug
-  truth     Release
-
-scry-only switch (not positional -- always passed by name, after [config]):
-  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)
+Commands:
+  'attune'    Restore only [config].
+  'weave'     Restore + build [config].
+  'reweave'   Restore + rebuild [config].
+  'bind'      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU).
+  'scry'      Restore + build + run Core unit tests [config] (Framework tests are
+              Windows-only -- there is no --framework/--core switch here).
+  'cleanse'   Delete artifacts/ (ignores config).
+  'grimoire'  Show this text (default when no action is given; ignores config).
+Primary args:
+  'research'  Debug configuration.
+  'truth'     Release configuration.
+Secondary args:
+  '<config> --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90). Requires 'scry' action.
 
 scry reflection: runs folly's own test harnesses (scripts/test-folly-*.sh)
 instead of building/testing the solution -- no [config], not wired into CI.
@@ -92,14 +94,20 @@ if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
   echo "'reflection' doesn't take '--timeout' -- it runs folly's own test harnesses, not RunTests." >&2
   exit 1
 fi
-if [[ -z "$config" || "$config" == "research" ]]; then
+if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]]; then
+  configuration=""
+  nupkg_dir=""
+elif [[ -z "$config" ]]; then
+  echo "[config] is required for action '$action'. Expected 'research' or 'truth'." >&2
+  exit 1
+elif [[ "$config" == "research" ]]; then
   configuration="Debug"
   nupkg_dir="$nupkg_root/Debug"
 elif [[ "$config" == "truth" ]]; then
   configuration="Release"
   nupkg_dir="$nupkg_root/Release"
 else
-  echo "Unrecognized configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." >&2
+  echo "Unrecognized configuration '$config'. Expected 'research' or 'truth'." >&2
   exit 1
 fi
 case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh defaults nodeReuse true locally, leaving MSBuild worker nodes running after exit, still holding DLLs open under artifacts/ (`build-server shutdown` in cleanse only stops VBCSCompiler/Razor, not these)

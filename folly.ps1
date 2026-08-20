@@ -51,24 +51,26 @@ try {
     if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
         Write-Host "folly.ps1 <action> [config] [switches]"
         Write-Host ""
-        Write-Host "Actions (positional, or named as -action <action>):"
-        Write-Host "  attune    Restore only [config]"
-        Write-Host "  weave     Restore + build [config]"
-        Write-Host "  reweave   Restore + rebuild [config]"
-        Write-Host "  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)"
-        Write-Host "  scry      Restore + build + run Core and Framework unit tests [config]"
-        Write-Host "  cleanse   Delete artefacts (ignores config)"
-        Write-Host "  grimoire  Show this text (default when no action is given; ignores config)"
+        Write-Host "Actions are positional, or named as -action <action>."
+        Write-Host "[config] is likewise positional, or named as -config <config>; required for every"
+        Write-Host "action except 'cleanse' and 'scry reflection'."
         Write-Host ""
-        Write-Host "[config] (optional, positional, or named as -config <config>; defaults to Research):"
-        Write-Host "  research  Debug"
-        Write-Host "  truth     Release"
-        Write-Host ""
-        Write-Host "scry-only switches (not positional -- always passed by name, after [config]):"
-        Write-Host "  --core               Run only the Core tests (skip Framework)"
-        Write-Host "  --framework          Run only the Framework tests (skip Core)"
-        Write-Host "                       (omit both to run both, the default)"
-        Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
+        Write-Host "Commands:"
+        Write-Host "  'attune'    Restore only [config]."
+        Write-Host "  'weave'     Restore + build [config]."
+        Write-Host "  'reweave'   Restore + rebuild [config]."
+        Write-Host "  'bind'      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)."
+        Write-Host "  'scry'      Restore + build + run Core and Framework unit tests [config]."
+        Write-Host "  'cleanse'   Delete artefacts (ignores config)."
+        Write-Host "  'grimoire'  Show this text (default when no action is given; ignores config)."
+        Write-Host "Primary args:"
+        Write-Host "  'research'  Debug configuration."
+        Write-Host "  'truth'     Release configuration."
+        Write-Host "Secondary args (not positional -- always passed by name, after [config]; require 'scry' action):"
+        Write-Host "  '<config> --core'               Run only the Core tests (skip Framework)."
+        Write-Host "  '<config> --framework'          Run only the Framework tests (skip Core)."
+        Write-Host "                                   (omit both to run both, the default)"
+        Write-Host "  '<config> --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90)."
         Write-Host ""
         Write-Host "scry reflection: runs folly's own test harnesses (scripts\test-folly-*.ps1)"
         Write-Host "instead of building/testing the solution -- no [config], not wired into CI."
@@ -99,7 +101,15 @@ try {
         Write-Host "'reflection' doesn't take '--core'/'--framework'/'--timeout' -- it runs folly's own test harnesses, not RunTests." -ForegroundColor Red
         exit 1
     }
-    if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
+    if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {
+        $configuration = $null
+        $nupkgDir = $null
+    }
+    elseif ([string]::IsNullOrEmpty($config)) {
+        Write-Host "[config] is required for action '$action'. Expected 'research' or 'truth'." -ForegroundColor Red
+        exit 1
+    }
+    elseif ($config -eq "research") {
         $configuration = "Debug"
         $nupkgDir = Join-Path $nupkgRoot "Debug"
     }
@@ -108,7 +118,7 @@ try {
         $nupkgDir = Join-Path $nupkgRoot "Release"
     }
     else {
-        Write-Host "Unrecognised configuration '$config'. Expected 'Debug', 'Release', or omitted (defaults to Debug)." -ForegroundColor Red
+        Write-Host "Unrecognised configuration '$config'. Expected 'research' or 'truth'." -ForegroundColor Red
         exit 1
     }
     if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
