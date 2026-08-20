@@ -353,6 +353,9 @@ try {
                 Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
             }
         }
+        else {
+            Write-Host "No artefacts to cleanse."
+        }
         exit 0
     }
     else {
