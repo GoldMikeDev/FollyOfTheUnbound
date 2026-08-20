@@ -13,6 +13,7 @@ try {
     $nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
     $core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--framework/--timeout (matching folly.sh's style) are parsed by hand below
     $framework = $false
+    $reflection = $false
     $testTimeout = 0
     $expectTimeoutValue = $false
     foreach ($arg in $remainingArgs) {
@@ -31,6 +32,9 @@ try {
         }
         elseif ($arg -eq "--timeout") {
             $expectTimeoutValue = $true
+        }
+        elseif ($arg -eq "reflection") {
+            $reflection = $true
         }
         elseif ([string]::IsNullOrEmpty($config)) {
             $config = $arg
@@ -66,8 +70,12 @@ try {
         Write-Host "                       (omit both to run both, the default)"
         Write-Host "  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)"
         Write-Host ""
+        Write-Host "scry reflection: runs folly's own test harnesses (scripts\test-folly-*.ps1)"
+        Write-Host "instead of building/testing the solution -- no [config], not wired into CI."
+        Write-Host ""
         Write-Host "Example: folly.ps1 scry truth --core --timeout 180"
         Write-Host "Example (named): folly.ps1 -action scry -config truth --core --timeout 180"
+        Write-Host "Example: folly.ps1 scry reflection"
         Write-Host ""
         exit 0
     }
@@ -77,6 +85,18 @@ try {
     }
     if ($testTimeout -gt 0 -and $action -ne "scry") {
         Write-Host "'--timeout' is only valid with the 'scry' action." -ForegroundColor Red
+        exit 1
+    }
+    if ($reflection -and $action -ne "scry") {
+        Write-Host "'reflection' is only valid with the 'scry' action." -ForegroundColor Red
+        exit 1
+    }
+    if ($reflection -and -not [string]::IsNullOrEmpty($config)) {
+        Write-Host "'reflection' doesn't take a [config] -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
+        exit 1
+    }
+    if ($reflection -and ($core -or $framework -or $testTimeout -gt 0)) {
+        Write-Host "'reflection' doesn't take '--core'/'--framework'/'--timeout' -- it runs folly's own test harnesses, not RunTests." -ForegroundColor Red
         exit 1
     }
     if ([string]::IsNullOrEmpty($config) -or $config -eq "research") {
@@ -102,6 +122,17 @@ try {
     }
     elseif ($action -eq "bind") {
         & $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
+    }
+    elseif ($action -eq "scry" -and $reflection) {
+        $pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
+        $harnessFail = $false
+        foreach ($harness in @("test-folly-cleanse.ps1", "test-folly-scry-args.ps1")) {
+            Write-Host "--- $harness ---"
+            & $pwshExe -NoProfile -File (Join-Path $PSScriptRoot "scripts\$harness")
+            if ($LASTEXITCODE -ne 0) { $harnessFail = $true }
+            Write-Host ""
+        }
+        exit ($(if ($harnessFail) { 1 } else { 0 }))
     }
     elseif ($action -eq "scry") {
         $runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one

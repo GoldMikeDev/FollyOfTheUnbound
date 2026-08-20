@@ -270,6 +270,50 @@ try {
         Test-Fail "timeout exceeds Task.Delay max (exit=$($result.ExitCode)): $($result.Output)"
     }
 
+    # --- 'reflection' is rejected on a non-scry action ---
+    $dir = New-TestCase "reflection-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "reflection")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'reflection' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "reflection on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'reflection' rejects a [config] alongside it ---
+    $dir = New-TestCase "reflection-with-config"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "truth")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a \[config\]") {
+        Test-Pass "'reflection' rejects a [config] alongside it"
+    }
+    else {
+        Test-Fail "reflection with config (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'reflection' rejects '--timeout' alongside it ---
+    $dir = New-TestCase "reflection-with-timeout"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--timeout", "5")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take '--core'/'--framework'/'--timeout'") {
+        Test-Pass "'reflection' rejects '--timeout' alongside it"
+    }
+    else {
+        Test-Fail "reflection with timeout (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'scry reflection' runs folly's own test harnesses instead of the (mocked) build ---
+    $dir = New-TestCase "reflection-runs-harnesses"
+    New-Item -ItemType Directory -Force -Path (Join-Path $dir "scripts") | Out-Null
+    Set-Content -LiteralPath (Join-Path $dir "scripts\test-folly-cleanse.ps1") -Value 'Write-Host "cleanse harness ran"; exit 0'
+    Set-Content -LiteralPath (Join-Path $dir "scripts\test-folly-scry-args.ps1") -Value 'Write-Host "scry-args harness ran"; exit 0'
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection")
+    $buildRan = Test-Path -LiteralPath (Join-Path $dir "testTimeout-received.log")
+    if ($result.ExitCode -eq 0 -and $result.Output -match "cleanse harness ran" -and $result.Output -match "scry-args harness ran" -and -not $buildRan) {
+        Test-Pass "'scry reflection' runs both harnesses instead of building"
+    }
+    else {
+        Test-Fail "scry reflection runs harnesses (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
     Write-Host ""
     Write-Host "$($script:passCount) passed, $($script:failCount) failed"
     if ($script:failCount -gt 0) {
