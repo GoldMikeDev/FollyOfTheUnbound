@@ -15,21 +15,21 @@ folly.sh <action> [config] [switches]
 
 Actions (positional only -- no --action flag; unlike folly.ps1, bash's
 positional-only $1/$2 parsing here has no named-parameter equivalent):
-  attune    Restore only [config]
-  weave     Restore + build [config]
-  reweave   Restore + rebuild [config]
-  bind      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
-  scry      Restore + build + run Core unit tests [config] (Framework tests are
-            Windows-only -- there is no --framework/--core switch here)
-  cleanse   Delete artifacts/ (ignores config)
-  grimoire  Show this text (default when no action is given; ignores config)
+  'attune'    Restore only [config]
+  'weave'     Restore + build [config]
+  'reweave'   Restore + rebuild [config]
+  'bind'      Restore + build + pack [config] (copies .nupkg output to ../.nupkg/FotU)
+  'scry'      Restore + build + run Core unit tests [config] (Framework tests are
+              Windows-only -- there is no --framework/--core switch here)
+  'cleanse'   Delete artifacts/ (ignores config)
+  'grimoire'  Show this text (default when no action is given; ignores config)
 
 [config] (optional, positional only -- no --config flag; defaults to Research):
-  research  Debug
-  truth     Release
+  'research'  Debug
+  'truth'     Release
 
 scry-only switch (not positional -- always passed by name, after [config]):
-  --timeout <minutes>  Override RunTests' whole-run watchdog (default: 90)
+  '--timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90)
 
 scry reflection: runs folly's own test harnesses (scripts/test-folly-*.sh)
 instead of building/testing the solution -- no [config], not wired into CI.
