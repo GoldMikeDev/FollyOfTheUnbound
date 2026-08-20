@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "mcp__Claude_Code_Remote__delete_trigger"
     ]
   },
   "hooks": {
