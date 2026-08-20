@@ -258,6 +258,8 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
       else
         echo "Cleansed $total_formatted of artefacts."
       fi
+    else
+      echo "No artefacts to cleanse."
     fi
     exit 0
     ;;

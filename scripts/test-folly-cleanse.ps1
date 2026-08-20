@@ -189,6 +189,16 @@ try {
         Test-Fail "concurrent file removal (exit=$($result.ExitCode), output='$($result.Output)')"
     }
 
+    # --- no artifacts/ at all -------------------------------------------------
+    $dir = New-TestCase "nothing"
+    $result = Invoke-Cleanse -Dir $dir
+    if ($result.ExitCode -eq 0 -and $result.Output -match "No artefacts to cleanse\.") {
+        Test-Pass "missing artifacts/ reports nothing to cleanse"
+    }
+    else {
+        Test-Fail "missing artifacts/ (exit=$($result.ExitCode), output='$($result.Output)')"
+    }
+
     Write-Host ""
     Write-Host "$($script:passCount) passed, $($script:failCount) failed"
     if ($script:failCount -gt 0) {

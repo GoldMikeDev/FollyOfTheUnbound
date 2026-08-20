@@ -162,6 +162,16 @@ else
   fail "artifacts/ as a regular file (exit=$ec, output='$out')"
 fi
 
+# --- no artifacts/ at all -------------------------------------------------
+dir=$(new_case nothing)
+out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
+ec=$?
+if (( ec == 0 )) && [[ "$out" == "No artefacts to cleanse." ]]; then
+  pass "missing artifacts/ reports nothing to cleanse"
+else
+  fail "missing artifacts/ (exit=$ec, output='$out')"
+fi
+
 echo ""
 echo "$pass_count passed, $fail_count failed"
 (( fail_count == 0 ))
