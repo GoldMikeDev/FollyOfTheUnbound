@@ -256,7 +256,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
         fi
         exit 1
       else
-        echo "Cleansed $total_formatted from artefacts."
+        echo "Cleansed $total_formatted of artefacts."
       fi
     fi
     exit 0

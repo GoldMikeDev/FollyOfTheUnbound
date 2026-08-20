@@ -350,7 +350,7 @@ try {
                 exit 1  # folly.sh exits 1 whenever artifacts/ survives cleanup too, so scripting/CI around either tool can rely on the same exit code meaning the same thing
             }
             else {
-                Write-Host "Cleansed $totalFormatted from artefacts." -ForegroundColor Green
+                Write-Host "Cleansed $totalFormatted of artefacts." -ForegroundColor Green
             }
         }
         exit 0
