@@ -11,10 +11,15 @@ cd "$CLAUDE_PROJECT_DIR"
 # FollyOfTheUnbound.slnx, so `dotnet` and the build/test scripts work
 # without a manual `./folly.sh attune` first. Runs in the background so
 # SessionStart doesn't block on the restore; check attune.log for progress.
-log="$CLAUDE_PROJECT_DIR/.claude/hooks/attune.log"
-nohup ./folly.sh attune >"$log" 2>&1 &
-disown
-echo "Started './folly.sh attune' in the background (PID $!); progress logged to $log"
+# SessionStart fires on every resume, not just a fresh container, so guard
+# on the repo-local SDK attune bootstraps -- re-running a full restore each
+# resume costs ~90s even when nothing changed.
+if [[ ! -x "$CLAUDE_PROJECT_DIR/.dotnet/dotnet" ]]; then
+  log="$CLAUDE_PROJECT_DIR/.claude/hooks/attune.log"
+  nohup ./folly.sh attune >"$log" 2>&1 &
+  disown
+  echo "Started './folly.sh attune' in the background (PID $!); progress logged to $log"
+fi
 
 # Installs PowerShell (pwsh) via Microsoft's apt repo, so `folly.ps1` and its
 # `scripts/test-folly-*.ps1` harnesses (e.g. `folly.sh scry reflection`) can
