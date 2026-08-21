@@ -53,16 +53,29 @@ static async Task<int> RunAsync(ServerConfiguration serverConfiguration, Cancell
         // This should be done before the logger is created as it can write to the standard output.
         Console.SetOut(new StreamWriter(Console.OpenStandardError()));
     }
-    else if (serverConfiguration.IsDaemon)
+    else if (serverConfiguration.IsDaemon && Environment.GetEnvironmentVariable("ROSLYN_DAEMON_DIAGNOSTIC_LOG") == "1")
     {
-        // TEMPORARY DIAGNOSTIC: the daemon's own console logger otherwise writes to stdout, which
-        // DaemonBootstrap.RunAsync drains to Stream.Null (and stops reading altogether once the daemon is
-        // orphaned) -- so none of it is ever visible. Redirect straight to a file, independent of the
-        // bootstrap/pipe lifetime, to capture what the daemon is actually doing around a connection failure.
-        // Revert this once the DaemonServerLifecycleTests investigation is done.
-        var diagnosticLogPath = Path.Combine(Path.GetTempPath(), $"daemon-diagnostic-{serverConfiguration.ServerPipeName}.log");
-        var diagnosticWriter = new StreamWriter(diagnosticLogPath, append: false) { AutoFlush = true };
-        Console.SetOut(diagnosticWriter);
+        // TEMPORARY DIAGNOSTIC, opt-in only (ROSLYN_DAEMON_DIAGNOSTIC_LOG=1): the daemon's own console logger
+        // otherwise writes to stdout, which DaemonBootstrap.RunAsync drains to Stream.Null (and stops reading
+        // altogether once the daemon is orphaned) -- so none of it is ever visible. Redirect straight to a file,
+        // independent of the bootstrap/pipe lifetime, to capture what the daemon is actually doing around a
+        // connection failure. Never enabled by default: this is for investigating the DaemonServerLifecycleTests
+        // failures and should be reverted once that's done, not something a normal daemon launch does.
+        try
+        {
+            // Include the process ID alongside the pipe name so two daemons that raced to start for the same
+            // pipe (the loser is expected to exit almost immediately once it loses to DaemonServerMutex) don't
+            // collide on the same exclusively-opened file.
+            var diagnosticLogPath = Path.Combine(Path.GetTempPath(), $"daemon-diagnostic-{serverConfiguration.ServerPipeName}-{Environment.ProcessId}.log");
+            var diagnosticWriter = new StreamWriter(diagnosticLogPath, append: false) { AutoFlush = true };
+            Console.SetOut(diagnosticWriter);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            // Best-effort only -- an unwritable/full/missing temp directory must not prevent an otherwise
+            // functional daemon from starting.
+            Console.Error.WriteLine($"Failed to open daemon diagnostic log; continuing without it: {ex.Message}");
+        }
     }
 
     var connectionManager = new LanguageServerConnectionManager();
