@@ -141,13 +141,22 @@ else
   head -c 100 /dev/urandom > "$dir/artifacts/locked/hidden.bin"
   head -c 100 /dev/urandom > "$dir/artifacts/visible.bin"
   chmod 000 "$dir/artifacts/locked"
-  out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
-  ec=$?
-  chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
-  if (( ec == 1 )) && [[ "$out" == *"at least"*"could not be removed (some may be unreadable and not counted)"* ]]; then
-    pass "unreadable subtree reports an uncertain (not false-zero) remainder"
+  # Some filesystems/shells don't actually enforce chmod as real access control -- notably Git Bash
+  # (MSYS2) on Windows, which sits on NTFS and only emulates the DOS read-only attribute, not POSIX
+  # permission bits. On those, the directory stays fully readable despite chmod 000, so the rest of
+  # this case can't exercise what it's meant to; skip rather than fail on an environment limitation.
+  if ls "$dir/artifacts/locked" >/dev/null 2>&1; then
+    echo "SKIP: unreadable-subtree case (this filesystem/shell does not enforce chmod as real access control)"
+    chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
   else
-    fail "unreadable subtree (exit=$ec, output='$out')"
+    out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
+    ec=$?
+    chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
+    if (( ec == 1 )) && [[ "$out" == *"at least"*"could not be removed (some may be unreadable and not counted)"* ]]; then
+      pass "unreadable subtree reports an uncertain (not false-zero) remainder"
+    else
+      fail "unreadable subtree (exit=$ec, output='$out')"
+    fi
   fi
 fi
 

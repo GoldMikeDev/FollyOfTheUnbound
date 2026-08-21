@@ -236,7 +236,7 @@ dir="$(new_test_case "grimoire-ignores-config")"
 result="$(run_case "$dir" grimoire anything)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "0" && "$output" == *"folly.sh <action>"* ]]; then
+if [[ "$exit_code" == "0" && "$output" == *"Commands:"* ]]; then
   test_pass "'grimoire anything' still prints help instead of rejecting the trailing arg"
 else
   test_fail "grimoire ignores config (exit=$exit_code): $output"
