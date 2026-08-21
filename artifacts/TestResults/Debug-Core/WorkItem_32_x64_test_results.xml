@@ -1,144 +1,144 @@
-<assemblies timestamp="08/20/2026 14:28:48">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Scripting.UnitTests.dll" run-date="2026-08-20" run-time="14:28:48" total="45" passed="45" failed="0" skipped="0" time="11.619" errors="0">
+<assemblies timestamp="08/21/2026 12:40:03">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Scripting.UnitTests.dll" run-date="2026-08-21" run-time="12:40:03" total="45" passed="45" failed="0" skipped="0" time="6.428" errors="0">
     <errors />
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Test.NuGetPackageResolverTests" time="0.001">
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.NuGetPackageResolverTests.ParsePackageNameAndVersion" type="Microsoft.CodeAnalysis.Scripting.Test.NuGetPackageResolverTests" method="ParsePackageNameAndVersion" time="0.0009542" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Test.NuGetPackageResolverTests" time="0.017">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.NuGetPackageResolverTests.ParsePackageNameAndVersion" type="Microsoft.CodeAnalysis.Scripting.Test.NuGetPackageResolverTests" method="ParsePackageNameAndVersion" time="0.0174181" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="43" passed="43" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" time="3.405">
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 4)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 4)" time="0.0490828" result="Pass">
+    <collection total="43" passed="43" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" time="0.896">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 4)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 4)" time="0.0226001" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 1)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 1)" time="0.0006056" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 1)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 1)" time="0.0008155" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 0)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 0)" time="0.0000367" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 0)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 0)" time="0.0000312" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 3)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 3)" time="0.0000259" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 3)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 3)" time="0.0000466" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 2)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 2)" time="0.0000383" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SetsWarningLevel(warningLevel: 2)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SetsWarningLevel(warningLevel: 2)" time="0.0000400" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: False)" time="0.0003245" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: False)" time="0.0004245" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: True)" time="0.0002554" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithCheckOverflow_SameValueTwice_DoesNotCreateNewInstance(checkOverflow: True)" time="0.0003191" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddImports_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddImports_Errors" time="0.0094273" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddImports_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddImports_Errors" time="0.0129737" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithFileEncoding_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithFileEncoding_SameValueTwice_DoesNotCreateNewInstance" time="0.0003753" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithFileEncoding_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithFileEncoding_SameValueTwice_DoesNotCreateNewInstance" time="0.0005404" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithEmitDebugInformation_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithEmitDebugInformation_SameValueTwice_DoesNotCreateNewInstance" time="0.0003191" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithEmitDebugInformation_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithEmitDebugInformation_SameValueTwice_DoesNotCreateNewInstance" time="0.0002990" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddNamespaces" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddNamespaces" time="0.0020020" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddNamespaces" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddNamespaces" time="0.0031446" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Release)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Release)" time="0.0002847" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Release)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Release)" time="0.0003233" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Debug)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Debug)" time="0.0002997" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Debug)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SameValueTwice_DoesNotCreateNewInstance(optimizationLevel: Debug)" time="0.0003623" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Debug)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Debug)" time="0.0022897" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Debug)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Debug)" time="0.0029072" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Release)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Release)" time="0.0003136" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Release)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithOptimizationLevel_SetsOptimizationLevel(optimizationLevel: Release)" time="0.0003178" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: False)" time="0.0002403" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: False)" time="0.0003011" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: True)" time="0.0002967" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithAllowUnsafe_SameValueTwice_DoesNotCreateNewInstance(allowUnsafe: True)" time="0.0004061" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: True)" time="2.2249075" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: True)" time="0.7241630" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: False)" time="0.0072438" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AllowUnsafe_Is_AppliedTo_CompilationOption(allowUnsafe: False)" time="0.0082337" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: False)" time="0.0072842" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: False)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: False)" time="0.0084822" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: True)" time="0.0081126" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: True)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="CheckOverflow_Is_AppliedTo_CompilationOption(checkOverflow: True)" time="0.0082111" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithReferences_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithReferences_Errors" time="1.0168734" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithReferences_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithReferences_Errors" time="0.0077199" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithAllowUnsafe_SetsAllowUnsafe" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithAllowUnsafe_SetsAllowUnsafe" time="0.0004040" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithAllowUnsafe_SetsAllowUnsafe" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithAllowUnsafe_SetsAllowUnsafe" time="0.0001834" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 2)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 2)" time="0.0001469" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 2)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 2)" time="0.0001926" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 4)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 4)" time="0.0002375" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 4)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 4)" time="0.0003140" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 1)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 1)" time="0.0000321" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 1)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 1)" time="0.0000384" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 0)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 0)" time="0.0000184" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 0)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 0)" time="0.0000313" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 3)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 3)" time="0.0000216" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 3)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithWarningLevel_SameValueTwice_DoesNotCreateNewInstance(warningLevel: 3)" time="0.0000344" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.Imports_Are_AppliedTo_CompilationOption" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="Imports_Are_AppliedTo_CompilationOption" time="0.0132735" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.Imports_Are_AppliedTo_CompilationOption" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="Imports_Are_AppliedTo_CompilationOption" time="0.0152504" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithFileEncoding_SetsWithFileEncoding" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithFileEncoding_SetsWithFileEncoding" time="0.0020658" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithFileEncoding_SetsWithFileEncoding" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithFileEncoding_SetsWithFileEncoding" time="0.0025318" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Debug)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Debug)" time="0.0077422" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Debug)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Debug)" time="0.0099250" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Release)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Release)" time="0.0078399" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Release)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="OptimizationLevel_Is_AppliedTo_CompilationOption(optimizationLevel: Release)" time="0.0098726" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 3)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 3)" time="0.0074109" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 3)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 3)" time="0.0090579" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 1)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 1)" time="0.0085874" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 1)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 1)" time="0.0094208" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 4)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 4)" time="0.0068066" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 4)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 4)" time="0.0091517" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 2)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 2)" time="0.0074435" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 2)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 2)" time="0.0091118" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 0)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 0)" time="0.0070918" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 0)" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WarningLevel_Is_AppliedTo_CompilationOption(warningLevel: 0)" time="0.0119036" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithCheckOverflow_SetsCheckOverflow" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithCheckOverflow_SetsCheckOverflow" time="0.0001722" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithCheckOverflow_SetsCheckOverflow" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithCheckOverflow_SetsCheckOverflow" time="0.0001934" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithEmitDebugInformation_SetsEmitDebugInformation" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithEmitDebugInformation_SetsEmitDebugInformation" time="0.0001462" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithEmitDebugInformation_SetsEmitDebugInformation" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithEmitDebugInformation_SetsEmitDebugInformation" time="0.0002081" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithImports_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithImports_Errors" time="0.0007935" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithImports_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithImports_Errors" time="0.0008680" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddReferences" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddReferences" time="0.0018469" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddReferences" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddReferences" time="0.0024199" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddReferences_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddReferences_Errors" time="0.0009466" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.AddReferences_Errors" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="AddReferences_Errors" time="0.0011949" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithReferences" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithReferences" time="0.0011363" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests.WithReferences" type="Microsoft.CodeAnalysis.Scripting.Test.ScriptOptionsTests" method="WithReferences" time="0.0016366" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" time="0.019">
-      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests.Resolve" type="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" method="Resolve" time="0.0191986" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" time="0.022">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests.Resolve" type="Microsoft.CodeAnalysis.UnitTests.Interactive.RuntimeMetadataReferenceResolverTests" method="Resolve" time="0.0222789" result="Pass">
         <traits />
       </test>
     </collection>

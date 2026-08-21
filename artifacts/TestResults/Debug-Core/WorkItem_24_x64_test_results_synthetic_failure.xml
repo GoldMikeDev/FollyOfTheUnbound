@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assemblies>
+  <assembly name="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests_24" total="1" passed="0" failed="1" skipped="0">
+    <collection name="Crash/Hang Detection" total="1" passed="0" failed="1" skipped="0">
+      <test name="[HANG] Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.LoadsSingleSlnxFileAtRoot" type="RunTests.HANGDetection" method="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.LoadsSingleSlnxFileAtRoot" time="0" result="Fail">
+        <failure exception-type="TestHostHANGException">
+          <message>Test host hang detected. Test running at time of hang: Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.LoadsSingleSlnxFileAtRoot. Dump files: dotnet_30428_20260821T140657_hangdump.dmp, testhost_20736_20260821T140657_hangdump.dmp</message>
+          <stack-trace>Dump files collected:
+C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\13fa877a-4065-4d90-8077-ee059463fd8a\dotnet_30428_20260821T140657_hangdump.dmp
+C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\13fa877a-4065-4d90-8077-ee059463fd8a\testhost_20736_20260821T140657_hangdump.dmp</stack-trace>
+        </failure>
+      </test>
+    </collection>
+  </assembly>
+</assemblies>
