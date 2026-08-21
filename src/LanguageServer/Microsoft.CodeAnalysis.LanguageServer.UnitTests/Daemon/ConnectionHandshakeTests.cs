@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System;
+using System.IO;
 using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Xunit;
 
@@ -16,7 +17,7 @@ public sealed class ConnectionHandshakeTests
         var handshake = ConnectionHandshake.FromServerArguments(
             ["--extensionLogDirectory", "/tmp/logs", "--sourceGeneratorExecutionPreference", "Balanced"]);
 
-        Assert.Equal("/tmp/logs", handshake.ExtensionLogDirectory);
+        Assert.Equal(Path.GetFullPath("/tmp/logs"), handshake.ExtensionLogDirectory);
         Assert.Equal("Balanced", handshake.SourceGeneratorExecutionPreference);
     }
 
@@ -26,7 +27,7 @@ public sealed class ConnectionHandshakeTests
         var handshake = ConnectionHandshake.FromServerArguments(
             ["--extensionLogDirectory=/tmp/logs", "--sourceGeneratorExecutionPreference=Balanced"]);
 
-        Assert.Equal("/tmp/logs", handshake.ExtensionLogDirectory);
+        Assert.Equal(Path.GetFullPath("/tmp/logs"), handshake.ExtensionLogDirectory);
         Assert.Equal("Balanced", handshake.SourceGeneratorExecutionPreference);
     }
 
@@ -69,7 +70,7 @@ public sealed class ConnectionHandshakeTests
         var handshake = ConnectionHandshake.FromServerArguments(
             ["--extensionLogDirectory:/tmp/logs", "--sourceGeneratorExecutionPreference:Balanced"]);
 
-        Assert.Equal("/tmp/logs", handshake.ExtensionLogDirectory);
+        Assert.Equal(Path.GetFullPath("/tmp/logs"), handshake.ExtensionLogDirectory);
         Assert.Equal("Balanced", handshake.SourceGeneratorExecutionPreference);
     }
 
