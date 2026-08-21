@@ -1,40 +1,40 @@
-<assemblies timestamp="08/19/2026 11:39:13">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll" run-date="2026-08-19" run-time="11:39:13" total="11" passed="11" failed="0" skipped="0" time="40.052" errors="0">
+<assemblies timestamp="08/20/2026 14:30:44">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests.dll" run-date="2026-08-20" run-time="14:30:44" total="11" passed="11" failed="0" skipped="0" time="51.586" errors="0">
     <errors />
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" time="24.849">
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.AnalyzerConfigFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="AnalyzerConfigFile" time="21.0718961" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" time="36.203">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.AnalyzerConfigFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="AnalyzerConfigFile" time="32.9215125" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource(language: &quot;NoCompilation&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource(language: &quot;NoCompilation&quot;)" time="1.1849778" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource(language: &quot;NoCompilation&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource(language: &quot;NoCompilation&quot;)" time="1.1410651" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource(language: &quot;C#&quot;)" time="0.3905143" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource(language: &quot;C#&quot;)" time="0.2105502" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.AdditionalFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="AdditionalFile" time="0.3683137" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.AdditionalFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="AdditionalFile" time="0.2076006" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;C#&quot;)" time="0.4586280" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;C#&quot;)" time="0.3282629" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;Visual Basic&quot;)" time="0.0588492" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;Visual Basic&quot;)" time="0.0423071" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;NoCompilation&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;NoCompilation&quot;)" time="0.2056635" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.HydrateDocumentsAsync(language: &quot;NoCompilation&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="HydrateDocumentsAsync(language: &quot;NoCompilation&quot;)" time="0.0808775" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource_AdditionalFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource_AdditionalFile" time="0.3130432" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.StaleSource_AdditionalFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="StaleSource_AdditionalFile" time="0.2095897" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.Test" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="Test" time="0.7198706" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.Test" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="Test" time="0.9587960" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.SourceGeneratorFailure" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="SourceGeneratorFailure" time="0.0769949" result="Pass">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests.SourceGeneratorFailure" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.HotReloadServiceTests" method="SourceGeneratorFailure" time="0.1022294" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" time="3.100">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests.UpdateSolution" type="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" method="UpdateSolution" time="3.1004227" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" time="2.976">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests.UpdateSolution" type="Microsoft.CodeAnalysis.ExternalAccess.HotReload.Api.UnitTests.HotReloadMSBuildWorkspaceTests" method="UpdateSolution" time="2.9764121" result="Pass">
         <traits />
       </test>
     </collection>

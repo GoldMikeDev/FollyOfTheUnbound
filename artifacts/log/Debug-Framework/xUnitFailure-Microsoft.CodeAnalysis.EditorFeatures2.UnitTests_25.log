@@ -1,0 +1,224 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.EditorFeatures2.UnitTests\Debug\net472\Microsoft.CodeAnalysis.EditorFeatures2.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_25_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_25_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\dumps\25
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (10900).
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'c120cebc88ef72c79365a71fd90a1221bdd0fb6b' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameCommandHandlerTests.RenameMemberFromCref(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameCommandHandlerTests.RenameMemberFromCref(host: InProcess)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '184312daa7035badf41aa56dabde4fcdd0eb751a' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameCommandHandlerTests.RenameMemberFromCref(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameCommandHandlerTests.RenameMemberFromCref(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '66f2e4d3abad4e7b0d2b20709f22474879b2581b' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameCommandHandlerTests.RenameMemberFromCref(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameCommandHandlerTests.RenameMemberFromCref(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '2e1b8692de425f843f8333cda99c6bb264a0843c' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameIncludesPreviouslyInvalidReference(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameIncludesPreviouslyInvalidReference(host: InProcess)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '524b556f2a8ab46ab8647c05a6344395db08a1c0' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameIncludesPreviouslyInvalidReference(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameIncludesPreviouslyInvalidReference(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '358d80d5d9b0cff956500e3f8234c577c6944716' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameIncludesPreviouslyInvalidReference(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameIncludesPreviouslyInvalidReference(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '648e7d0e2d449db97c0e5988ee958f24b93fc4c5' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameVariableInQueryAsUsingStatement(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameVariableInQueryAsUsingStatement(host: InProcess)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'c0fb11ccd89cbed1a7b277af5235e10c6b6eb411' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameVariableInQueryAsUsingStatement(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameVariableInQueryAsUsingStatement(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '31793a9344dc67e69f465e70197e68881038baa5' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameVariableInQueryAsUsingStatement(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameVariableInQueryAsUsingStatement(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '5efc094ba912c970de8e12c947a6dabdfb1df971' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.LambdaWithOutParameter(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.LambdaWithOutParameter(host: InProcess)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'f1162da16fdc823c1ba3e7274d3d05d5594e4deb' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.LambdaWithOutParameter(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.LambdaWithOutParameter(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.62] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'a731c69683f8abef3dab1d0f9cebf0d12a8086d2' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.LambdaWithOutParameter(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.LambdaWithOutParameter(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'c8d94b1dbb2b5a4c58d93bb7ad8084f7b0cb1fcf' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenOverridingProperties(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenOverridingProperties(host: InProcess)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '6ab2e66d458736a763dbc6568fd7b4dea806cf12' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenOverridingProperties(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenOverridingProperties(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'ddc5ffd1ba3e7816811c78b8d38640f8d42af61e' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenOverridingProperties(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenOverridingProperties(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '04b9eead9fc980d7fb46f026eb78b83776c4cca4' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenEventParameters(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenEventParameters(host: InProcess)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '9d5d9d27f674be6fa13897ad0847ce4a60d48315' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenEventParameters(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenEventParameters(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '74a08f5f3b287028808acfb4f5df8baa47356fc3' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenEventParameters(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.CascadeBetweenEventParameters(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'db24894ef8be9c19b967d849681142bd1c46d668' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesUsingWithoutDeclaration(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesUsingWithoutDeclaration(host: InProcess)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'c230f0a768cc7b4f4fb4fea6ac6415d4bdc7e8e2' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesUsingWithoutDeclaration(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesUsingWithoutDeclaration(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '1194500fd706ab4d38b8bd2f46d406c159bd9ee0' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesUsingWithoutDeclaration(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesUsingWithoutDeclaration(host: OutOfProcess_SplitCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'c76a9fb7873545690c083d48957000a798480cb0' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesForWithoutDeclaration(host: InProcess)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesForWithoutDeclaration(host: InProcess)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID '0d736d6148d19f8013089e91f15f13028b25e66c' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesForWithoutDeclaration(host: OutOfProcess_SingleCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesForWithoutDeclaration(host: OutOfProcess_SingleCall)')
+[xUnit.net 00:00:37.63] Microsoft.CodeAnalysis.EditorFeatures2.UnitTests: Skipping test case with duplicate ID 'c863f93f30d48096d5246685f799b47f63c6fc3f' ('Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesForWithoutDeclaration(host: OutOfProcess_SplitCall)' and 'Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+CSharpConflicts.RenameHandlesForWithoutDeclaration(host: OutOfProcess_SplitCall)')
+  Failed Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests.TestNoBlockOnCompletionItems4(showCompletionInArgumentLists: True) [1 s]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: Running
+Actual:   RanToCompletion
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests._Closure$__215-0._Lambda$__1() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\EditorFeatures\Test2\IntelliSense\CSharpCompletionCommandHandlerTests.vb:line 5261
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests.VB$StateMachine_215_TestNoBlockOnCompletionItems4.MoveNext() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\EditorFeatures\Test2\IntelliSense\CSharpCompletionCommandHandlerTests.vb:line 5292
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.ExceptionServices.ExceptionDispatchInfo.Throw()
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+[xUnit.net 00:09:54.93]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests.TestDeletingWholeWordResetCompletionToTheDefaultItem [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests.TestDeletingWholeWordResetCompletionToTheDefaultItem [1 ms]
+[xUnit.net 00:11:35.79]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests.TargetTypePreselectionConvertibility1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests.TargetTypePreselectionConvertibility1 [1 ms]
+[xUnit.net 00:11:41.14]     Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.NameExpansionTests.TestVisualBasic_SimpleIdentifierAliasExpansion_AliasDoesNotBind [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.NameExpansionTests.TestVisualBasic_SimpleIdentifierAliasExpansion_AliasDoesNotBind [1 ms]
+[xUnit.net 00:15:24.84]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.Bug622086_CSRenameExplicitInterfaceImplementation [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.Bug622086_CSRenameExplicitInterfaceImplementation [1 ms]
+[xUnit.net 00:15:26.39]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.GenericNameTypeInferenceExpansion_InErrorCode [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.GenericNameTypeInferenceExpansion_InErrorCode [1 ms]
+[xUnit.net 00:16:05.58]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameCref9 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests.RenameCref9 [1 ms]
+[xUnit.net 00:18:40.03]     Microsoft.CodeAnalysis.Editor.UnitTests.NavigationBar.NavigationBarControllerTests.ProjectionBuffersWork [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.NavigationBar.NavigationBarControllerTests.ProjectionBuffersWork [1 ms]
+[xUnit.net 00:19:20.30]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ResolveConflictingTypeIncludedThroughModule2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ResolveConflictingTypeIncludedThroughModule2 [1 ms]
+[xUnit.net 00:19:39.47]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ProperlyEscapeNewKeywordWithTypeCharacters [SKIP]
+[xUnit.net 00:19:39.77]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.RenameDoesNotBreakQuery [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ProperlyEscapeNewKeywordWithTypeCharacters [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.RenameDoesNotBreakQuery [1 ms]
+[xUnit.net 00:19:40.89]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ConflictResolutionWithTypeInference_Cref [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ConflictResolutionWithTypeInference_Cref [1 ms]
+[xUnit.net 00:19:43.42]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ResolveConflictingTypeIncludedThroughModule1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.RenameEngineTests+VisualBasicConflicts.ResolveConflictingTypeIncludedThroughModule1 [1 ms]
+[xUnit.net 00:20:59.04]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests_XmlDoc.AllowTypingDoubleQuote [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.CSharpCompletionCommandHandlerTests_XmlDoc.AllowTypingDoubleQuote [1 ms]
+[xUnit.net 00:21:06.51]     Microsoft.CodeAnalysis.Editor.UnitTests.ReferenceHighlighting.CSharpReferenceHighlightingTests.TestThisShouldNotHighlightTypeName [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.ReferenceHighlighting.CSharpReferenceHighlightingTests.TestThisShouldNotHighlightTypeName [1 ms]
+[xUnit.net 00:21:09.53]     Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestVisualBasic_ExpandExtensionMethodInConditionalAccessExpression_2 [SKIP]
+[xUnit.net 00:21:09.85]     Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestVisualBasic_ExpandExtensionMethodInConditionalAccessExpression [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestVisualBasic_ExpandExtensionMethodInConditionalAccessExpression_2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestVisualBasic_ExpandExtensionMethodInConditionalAccessExpression [1 ms]
+[xUnit.net 00:21:09.90]     Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestCSharp_ExpandExtensionMethodInConditionalAccessExpression [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestCSharp_ExpandExtensionMethodInConditionalAccessExpression [1 ms]
+[xUnit.net 00:21:10.33]     Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestCSharp_ExpandExtensionMethodInConditionalAccessExpression_2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Expansion.ExtensionMethodExpansionRewriteTests.TestCSharp_ExpandExtensionMethodInConditionalAccessExpression_2 [1 ms]
+[xUnit.net 00:22:30.14]     Microsoft.CodeAnalysis.Editor.UnitTests.Diagnostics.GenerateMethod.GenerateMethodCrossLanguageUserDiagnosticTests.TestSimpleInstanceMethod_CSharpToVisualBasic [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Diagnostics.GenerateMethod.GenerateMethodCrossLanguageUserDiagnosticTests.TestSimpleInstanceMethod_CSharpToVisualBasic [1 ms]
+[xUnit.net 00:22:45.44]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.VisualBasic.DeclarationConflictTests.VB_ConflictForUsingVariableAndRangeVariable_3 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.VisualBasic.DeclarationConflictTests.VB_ConflictForUsingVariableAndRangeVariable_3 [1 ms]
+[xUnit.net 00:22:56.34]     Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceCompoundAssignmentOperatorsOnBase [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceCompoundAssignmentOperatorsOnBase [1 ms]
+[xUnit.net 00:22:58.26]     Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestInstanceCompoundAssignmentOperatorsImplementation_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestInstanceCompoundAssignmentOperatorsImplementation_02 [1 ms]
+[xUnit.net 00:23:00.60]     Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceCompoundAssignmentOperatorsOnImplementation [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceCompoundAssignmentOperatorsOnImplementation [1 ms]
+[xUnit.net 00:23:01.14]     Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceIncrementOperatorsOnBase [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceIncrementOperatorsOnBase [1 ms]
+[xUnit.net 00:23:01.52]     Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceIncrementOperatorsOnImplementation [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestWithOverridableInstanceIncrementOperatorsOnImplementation [1 ms]
+[xUnit.net 00:23:01.72]     Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestInstanceCompoundAssignmentOperatorsImplementation_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.GoToImplementation.GoToImplementationTests.TestInstanceCompoundAssignmentOperatorsImplementation_01 [1 ms]
+[xUnit.net 00:24:37.97]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.InlineRenameTests.RenameOverloadsCSharp [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.InlineRenameTests.RenameOverloadsCSharp [1 ms]
+[xUnit.net 00:24:41.06]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.TypeNameSimplifierTest.TestVisualBasic_Bug1019361 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.TypeNameSimplifierTest.TestVisualBasic_Bug1019361 [1 ms]
+[xUnit.net 00:24:41.37]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.TypeNameSimplifierTest.TestSimplifyNot_Delegate1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.TypeNameSimplifierTest.TestSimplifyNot_Delegate1 [1 ms]
+[xUnit.net 00:25:06.88]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators_FromDefinition [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators_FromDefinition [1 ms]
+[xUnit.net 00:25:21.72]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface_ViaFeature_1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface_ViaFeature_1 [1 ms]
+[xUnit.net 00:25:28.40]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqWhere1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqWhere1 [1 ms]
+[xUnit.net 00:25:29.07]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators_Checked [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators_Checked [1 ms]
+[xUnit.net 00:25:43.01]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface_ViaFeature_1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface_ViaFeature_1 [1 ms]
+[xUnit.net 00:25:58.66]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators_Checked [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators_Checked [1 ms]
+[xUnit.net 00:26:30.10]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface_ViaApi [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface_ViaApi [1 ms]
+[xUnit.net 00:26:42.89]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqSelect1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqSelect1 [1 ms]
+[xUnit.net 00:26:51.24]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators [1 ms]
+[xUnit.net 00:26:59.93]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestTypeReferenceInGlobalSuppressionParameter [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestTypeReferenceInGlobalSuppressionParameter [1 ms]
+[xUnit.net 00:27:21.76]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface [1 ms]
+[xUnit.net 00:27:31.05]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodMonitorExit [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodMonitorExit [1 ms]
+[xUnit.net 00:27:41.40]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface_ViaFeature_2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface_ViaFeature_2 [1 ms]
+[xUnit.net 00:27:52.81]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqSelect2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqSelect2 [1 ms]
+[xUnit.net 00:27:56.83]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface [1 ms]
+[xUnit.net 00:28:05.44]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators [1 ms]
+[xUnit.net 00:28:06.40]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqWhere2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodLinqWhere2 [1 ms]
+[xUnit.net 00:28:10.83]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface_ViaApi [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractStaticIncrementOperatorsInInterface_ViaApi [1 ms]
+[xUnit.net 00:28:12.32]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodInterfaceDispose2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodInterfaceDispose2 [1 ms]
+[xUnit.net 00:28:20.79]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators_FromDefinition [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators_FromDefinition [1 ms]
+[xUnit.net 00:28:24.08]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface_ViaApi [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface_ViaApi [1 ms]
+[xUnit.net 00:28:28.97]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators_FromDefinition_Checked [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceCompoundAssignmentOperators_FromDefinition_Checked [1 ms]
+[xUnit.net 00:28:31.33]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface_ViaFeature_2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface_ViaFeature_2 [1 ms]
+[xUnit.net 00:28:36.96]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestTypeReferenceInGlobalSuppressionTypeParameter_GenericType [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestTypeReferenceInGlobalSuppressionTypeParameter_GenericType [1 ms]
+[xUnit.net 00:28:38.70]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCrefConstructor2_VisualBasic [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCrefConstructor2_VisualBasic [1 ms]
+[xUnit.net 00:28:41.06]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators_FromDefinition_Checked [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpFindReferencesOnInstanceIncrementOperators_FromDefinition_Checked [1 ms]
+[xUnit.net 00:28:42.12]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestTypeReferenceInGlobalSuppressionParameter_GenericType [SKIP]
+[xUnit.net 00:28:42.13]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface_ViaFeature_2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestTypeReferenceInGlobalSuppressionParameter_GenericType [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface_ViaFeature_2 [1 ms]
+[xUnit.net 00:28:47.09]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodMonitorEnter [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodMonitorEnter [1 ms]
+[xUnit.net 00:28:47.44]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface [SKIP]
+[xUnit.net 00:28:47.44]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestIndexInCref3_VisualBasic [SKIP]
+[xUnit.net 00:28:47.45]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodInterfaceDispose1 [SKIP]
+[xUnit.net 00:28:47.46]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface_ViaFeature_1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceCompoundAssignmentOperatorsInInterface [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestIndexInCref3_VisualBasic [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestOrdinaryMethodInterfaceDispose1 [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesTests.TestCSharpAbstractInstanceIncrementOperatorsInInterface_ViaFeature_1 [1 ms]
+[xUnit.net 00:29:12.41]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestMatchWithTurkishIWorkaround9 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestMatchWithTurkishIWorkaround9 [1 ms]
+[xUnit.net 00:29:13.42]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TargetTypePreselectionConvertibility1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TargetTypePreselectionConvertibility1 [1 ms]
+[xUnit.net 00:29:19.67]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestProjections [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestProjections [1 ms]
+[xUnit.net 00:29:30.34]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestMatchWithTurkishIWorkaround10 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestMatchWithTurkishIWorkaround10 [1 ms]
+[xUnit.net 00:29:38.72]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestBackspaceBeforeCompletedComputation [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests.TestBackspaceBeforeCompletedComputation [1 ms]
+[xUnit.net 00:29:43.08]     Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests_XmlDoc.AllowTypingDoubleQuote [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.IntelliSense.VisualBasicCompletionCommandHandlerTests_XmlDoc.AllowTypingDoubleQuote [1 ms]
+[xUnit.net 00:29:54.06]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInAsExpression [SKIP]
+[xUnit.net 00:29:54.17]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInDelegateCreationExpression7 [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInAsExpression [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInDelegateCreationExpression7 [1 ms]
+[xUnit.net 00:29:54.41]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoNotRemove_ParamDefaultValueNegativeZero2 [SKIP]
+[xUnit.net 00:29:54.52]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoNotRemove_ParamDefaultValueNegativeZero [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoNotRemove_ParamDefaultValueNegativeZero2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoNotRemove_ParamDefaultValueNegativeZero [1 ms]
+[xUnit.net 00:29:55.10]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_SimplifyNullableMethodTypeArgument [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_SimplifyNullableMethodTypeArgument [1 ms]
+[xUnit.net 00:29:57.10]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoRemove_UnnecessaryCastInForEachExpression [SKIP]
+[xUnit.net 00:29:57.10]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInDelegateCreationExpression3 [SKIP]
+[xUnit.net 00:29:57.14]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoNotRemove_RequiredExplicitNullableCast_And_Remove_UnnecessaryExplicitNullableCast [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoRemove_UnnecessaryCastInForEachExpression [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInDelegateCreationExpression3 [1 ms]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_DoNotRemove_RequiredExplicitNullableCast_And_Remove_UnnecessaryExplicitNullableCast [1 ms]
+[xUnit.net 00:29:57.23]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInIsExpression [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_UnnecessaryCastInIsExpression [1 ms]
+[xUnit.net 00:29:57.40]     Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_NullableTypeToInterfaceTypeInNullComparison [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Simplification.CastSimplificationTests.TestCSharp_Remove_NullableTypeToInterfaceTypeInNullComparison [1 ms]
+[xUnit.net 00:30:37.23]     Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesCommandHandlerTests.TestSelection [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.FindReferences.FindReferencesCommandHandlerTests.TestSelection [1 ms]
+[xUnit.net 00:31:04.19]     Microsoft.CodeAnalysis.Editor.UnitTests.Rename.CSharp.DeclarationConflictTests.NoConflictForIsolatedScopes [SKIP]
+  Skipped Microsoft.CodeAnalysis.Editor.UnitTests.Rename.CSharp.DeclarationConflictTests.NoConflictForIsolatedScopes [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_25_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_25_x64_test_results.html
+
+Failed!  - Failed:     1, Passed: 10269, Skipped:    80, Total: 10350, Duration: 26 m 13 s - Microsoft.CodeAnalysis.EditorFeatures2.UnitTests.dll (net472)

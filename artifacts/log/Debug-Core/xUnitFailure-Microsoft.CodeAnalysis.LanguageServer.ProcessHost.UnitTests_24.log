@@ -10,41 +10,29 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost (52096).
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle [2 s]
+Blame: Attaching crash dump utility to process testhost (44840).
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle [7 s]
   Error Message:
-   System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
+   StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
-     at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.CreateDaemonPipeAsync(ClientCapabilities clientCapabilities, String extensionLogsPath, LspServerLaunchOptions launchOptions, ILoggerFactory loggerFactory, LspWorkspaceContent workspaceContent, String workspaceRootPath, WorkDoneProgressTarget workDoneProgressTarget, Dictionary`2 locations) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.DaemonLspClient.cs:line 70
+     at StreamJsonRpc.JsonRpc.InvokeCoreAsync(JsonRpcRequest request, Type expectedResultType, CancellationToken cancellationToken)
+   at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.ExecuteRequestAsync[TRequestType,TResponseType](String methodName, TRequestType request, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 287
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.InitializeAsync[TClient](TClient lspClient, TaskCompletionSource`1 serverProcessTaskCompletionSource, ClientCapabilities clientCapabilities, String workspaceRootPath) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 99
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.CreateDaemonPipeAsync(ClientCapabilities clientCapabilities, String extensionLogsPath, LspServerLaunchOptions launchOptions, ILoggerFactory loggerFactory, LspWorkspaceContent workspaceContent, String workspaceRootPath, WorkDoneProgressTarget workDoneProgressTarget, Dictionary`2 locations) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.DaemonLspClient.cs:line 76
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.CreateLanguageServerAsync(LspWorkspaceContent workspaceContent, LspServerLaunchOptions launchOptions, ClientCapabilities clientCapabilities) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.cs:line 42
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TestDaemon.CreateClientAsync(Boolean useNamedPipe, Nullable`1 initializeProcessId, Nullable`1 workspaceContent) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 409
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 115
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 131
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:02.576] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 43204).
- [11:44:02.581] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 43204)
- [11:44:03.096] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:04.565] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:04.565] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:04.566] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:04.566] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:34:49.481] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 47884).
+ [02:34:49.482] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 47884)
+ [02:34:49.968] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:34:51.937] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(useNamedPipe: False) [3 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(useNamedPipe: False) [2 s]
   Error Message:
    StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
@@ -59,30 +47,13 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 61
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:05.320] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 38220).
- [11:44:05.321] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 38220)
- [11:44:05.846] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:07.573] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken)
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.Threading.ThreadPoolWorkQueue.Dispatch()
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at System.Threading.Thread.StartCallback()
- [11:44:07.573] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:07.573] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:34:52.773] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 46276).
+ [02:34:52.775] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 46276)
+ [02:34:53.282] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:34:54.786] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(useNamedPipe: True) [1 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(useNamedPipe: True) [2 s]
   Error Message:
    System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
   Stack Trace:
@@ -93,63 +64,50 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneThinClientKilled_OnlyThatConnectionTornDown(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 61
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:08.103] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 47664).
- [11:44:08.104] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 47664)
- [11:44:08.558] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:09.648] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:09.648] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:09.649] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:09.649] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:34:55.529] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 42116).
+ [02:34:55.530] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 42116)
+ [02:34:55.925] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:34:57.596] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:34:57.597] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:34:57.597] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(useNamedPipe: True) [1 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(useNamedPipe: True) [2 s]
   Error Message:
-   System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
+   StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
-     at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.CreateDaemonPipeAsync(ClientCapabilities clientCapabilities, String extensionLogsPath, LspServerLaunchOptions launchOptions, ILoggerFactory loggerFactory, LspWorkspaceContent workspaceContent, String workspaceRootPath, WorkDoneProgressTarget workDoneProgressTarget, Dictionary`2 locations) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.DaemonLspClient.cs:line 70
+     at StreamJsonRpc.JsonRpc.InvokeCoreAsync(JsonRpcRequest request, Type expectedResultType, CancellationToken cancellationToken)
+   at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.ExecuteRequestAsync[TRequestType,TResponseType](String methodName, TRequestType request, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 287
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.InitializeAsync[TClient](TClient lspClient, TaskCompletionSource`1 serverProcessTaskCompletionSource, ClientCapabilities clientCapabilities, String workspaceRootPath) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 99
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.CreateDaemonPipeAsync(ClientCapabilities clientCapabilities, String extensionLogsPath, LspServerLaunchOptions launchOptions, ILoggerFactory loggerFactory, LspWorkspaceContent workspaceContent, String workspaceRootPath, WorkDoneProgressTarget workDoneProgressTarget, Dictionary`2 locations) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.DaemonLspClient.cs:line 76
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.CreateLanguageServerAsync(LspWorkspaceContent workspaceContent, LspServerLaunchOptions launchOptions, ClientCapabilities clientCapabilities) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.cs:line 42
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TestDaemon.CreateClientAsync(Boolean useNamedPipe, Nullable`1 initializeProcessId, Nullable`1 workspaceContent) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 409
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 73
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 86
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:10.133] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 10928).
- [11:44:10.134] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 10928)
- [11:44:10.595] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:11.543] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken)
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.Threading.ThreadPoolWorkQueue.Dispatch()
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at System.Threading.Thread.StartCallback()
- [11:44:11.543] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:11.543] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:34:58.432] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 31256).
+ [02:34:58.433] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 31256)
+ [02:34:58.956] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:00.528] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(useNamedPipe: False) [2 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(useNamedPipe: False) [3 s]
   Error Message:
    StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
@@ -164,13 +122,13 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.OneEditorKilled_OnlyThatClientTornDown(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 86
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:12.109] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 39664).
- [11:44:12.110] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 39664)
- [11:44:12.494] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:13.719] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
+ [02:35:01.226] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 43536).
+ [02:35:01.227] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 43536)
+ [02:35:01.643] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:03.638] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(useNamedPipe: False) [3 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(useNamedPipe: False) [9 s]
   Error Message:
    StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
@@ -185,63 +143,34 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 259
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:15.314] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 26540).
- [11:44:15.315] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 26540)
- [11:44:15.741] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:16.875] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:16.875] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:16.876] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:16.876] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:06.142] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 49880).
+ [02:35:06.144] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 49880)
+ [02:35:06.665] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:12.942] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(useNamedPipe: True) [3 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(useNamedPipe: True) [6 s]
   Error Message:
-   System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
+   StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
-     at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.CreateDaemonPipeAsync(ClientCapabilities clientCapabilities, String extensionLogsPath, LspServerLaunchOptions launchOptions, ILoggerFactory loggerFactory, LspWorkspaceContent workspaceContent, String workspaceRootPath, WorkDoneProgressTarget workDoneProgressTarget, Dictionary`2 locations) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.DaemonLspClient.cs:line 70
+     at StreamJsonRpc.JsonRpc.InvokeCoreAsync(JsonRpcRequest request, Type expectedResultType, CancellationToken cancellationToken)
+   at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.ExecuteRequestAsync[TRequestType,TResponseType](String methodName, TRequestType request, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 287
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.InitializeAsync[TClient](TClient lspClient, TaskCompletionSource`1 serverProcessTaskCompletionSource, ClientCapabilities clientCapabilities, String workspaceRootPath) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 99
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.CreateDaemonPipeAsync(ClientCapabilities clientCapabilities, String extensionLogsPath, LspServerLaunchOptions launchOptions, ILoggerFactory loggerFactory, LspWorkspaceContent workspaceContent, String workspaceRootPath, WorkDoneProgressTarget workDoneProgressTarget, Dictionary`2 locations) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.DaemonLspClient.cs:line 76
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.CreateLanguageServerAsync(LspWorkspaceContent workspaceContent, LspServerLaunchOptions launchOptions, ClientCapabilities clientCapabilities) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.cs:line 42
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TestDaemon.CreateClientAsync(Boolean useNamedPipe, Nullable`1 initializeProcessId, Nullable`1 workspaceContent) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 409
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 246
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClients_DifferentSolutions_EachServedFromItsOwnSolution(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 259
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:18.366] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 26236).
- [11:44:18.367] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 26236)
- [11:44:18.725] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:19.899] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken)
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
- [11:44:19.899] [Error] [[ThinClient][stderr]]    at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at System.Threading.ThreadPoolWorkQueue.Dispatch()
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at System.Threading.Thread.StartCallback()
- [11:44:19.900] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 134
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:19.900] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:15.806] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 50088).
+ [02:35:15.807] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 50088)
+ [02:35:16.530] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:18.980] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.MultipleClients_ShareOneDaemon_AndEachShutsDownCleanly(useNamedPipe: True) [2 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.MultipleClients_ShareOneDaemon_AndEachShutsDownCleanly(useNamedPipe: True) [3 s]
   Error Message:
    System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
   Stack Trace:
@@ -252,29 +181,29 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.MultipleClients_ShareOneDaemon_AndEachShutsDownCleanly(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 38
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:20.589] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 50640).
- [11:44:20.590] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 50640)
- [11:44:21.034] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:22.391] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:22.391] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:22.391] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:19.787] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 52432).
+ [02:35:19.788] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 52432)
+ [02:35:20.484] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:22.428] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:22.428] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:22.428] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.MultipleClients_ShareOneDaemon_AndEachShutsDownCleanly(useNamedPipe: False) [2 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.MultipleClients_ShareOneDaemon_AndEachShutsDownCleanly(useNamedPipe: False) [8 s]
   Error Message:
    StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
@@ -289,13 +218,13 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.MultipleClients_ShareOneDaemon_AndEachShutsDownCleanly(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 38
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:22.894] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 23272).
- [11:44:22.895] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 23272)
- [11:44:23.504] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:24.711] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
+ [02:35:23.106] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 12468).
+ [02:35:23.108] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 12468)
+ [02:35:24.039] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:31.097] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClientsRacingToStart_ShareExactlyOneDaemon [2 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClientsRacingToStart_ShareExactlyOneDaemon [3 s]
   Error Message:
    System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
   Stack Trace:
@@ -306,46 +235,46 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.TwoClientsRacingToStart_ShareExactlyOneDaemon() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 150
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:25.321] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 20192).
- [11:44:25.322] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 20192)
- [11:44:25.946] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:27.154] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:27.154] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:27.154] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:27.267] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:27.267] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:27.267] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:27.267] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:27.267] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:27.267] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:27.267] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:27.268] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:27.268] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:31.984] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 50092).
+ [02:35:31.985] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 50092)
+ [02:35:32.802] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:34.796] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:34.796] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:34.796] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:34.796] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:34.796] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:34.796] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:34.797] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:34.797] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:34.926] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:34.926] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:34.926] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DaemonKilled_EveryThinClientExitsNonZero(useNamedPipe: False) [2 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DaemonKilled_EveryThinClientExitsNonZero(useNamedPipe: False) [3 s]
   Error Message:
    StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
@@ -360,37 +289,29 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DaemonKilled_EveryThinClientExitsNonZero(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 106
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:27.981] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 30376).
- [11:44:27.981] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 30376)
- [11:44:28.559] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:29.846] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 135
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.Tasks.AwaitTaskContinuation.RunOrScheduleAction(IAsyncStateMachineBox box, Boolean allowInlining)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.Tasks.Task.RunContinuations(Object continuationObject)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.Tasks.Task`1.TrySetResult(TResult result)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.SetExistingTaskResult(Task`1 task, TResult result)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 161
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.ExecutionContext.RunFromThreadPoolDispatchLoop(Thread threadPoolThread, ExecutionContext executionContext, ContextCallback callback, Object state)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.AsyncStateMachineBox`1.MoveNext(Thread threadPoolThread)
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.ThreadPoolWorkQueue.Dispatch()
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at System.Threading.Thread.StartCallback()
- [11:44:29.846] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteStringAsync(Stream stream, String value, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 158
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 135
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:29.846] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:35.857] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 51760).
+ [02:35:35.859] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 51760)
+ [02:35:36.741] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:38.735] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:38.735] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:38.735] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DaemonKilled_EveryThinClientExitsNonZero(useNamedPipe: True) [1 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DaemonKilled_EveryThinClientExitsNonZero(useNamedPipe: True) [2 s]
   Error Message:
    StreamJsonRpc.ConnectionLostException : The JSON-RPC connection with the remote party was lost before the request could complete.
   Stack Trace:
@@ -405,10 +326,10 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DaemonKilled_EveryThinClientExitsNonZero(Boolean useNamedPipe) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 106
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:30.203] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 15680).
- [11:44:30.205] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 15680)
- [11:44:30.555] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:31.506] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
+ [02:35:39.521] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 49700).
+ [02:35:39.522] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 49700)
+ [02:35:40.271] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:41.758] [Error] [[ThinClient][stderr]] Language server daemon connection closed before the editor connection.
 
 
   Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DifferentIdentity_UsesSeparateDaemon [3 s]
@@ -423,29 +344,29 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.DifferentIdentity_UsesSeparateDaemon() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 236
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:32.417] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 15476).
- [11:44:32.418] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 15476)
- [11:44:33.006] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:34.752] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:34.752] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:34.753] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:34.753] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:43.483] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 4368).
+ [02:35:43.484] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 4368)
+ [02:35:43.999] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:45.527] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:45.527] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:45.527] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
-  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.ClientMutexHeld_ConnectingClientSerializesUntilReleased [5 s]
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.ClientMutexHeld_ConnectingClientSerializesUntilReleased [6 s]
   Error Message:
    System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
   Stack Trace:
@@ -456,29 +377,28 @@ Blame: Attaching crash dump utility to process testhost (52096).
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.ClientMutexHeld_ConnectingClientSerializesUntilReleased() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 185
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:38.315] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 11100).
- [11:44:38.316] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 11100)
- [11:44:38.890] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:40.218] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:40.218] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:40.218] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:49.041] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 51444).
+ [02:35:49.043] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 51444)
+ [02:35:50.060] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:52.014] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:52.014] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:52.014] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
-Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
   Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.StaleDaemon_NextClientLaunchesFreshDaemon [2 s]
   Error Message:
    System.InvalidOperationException : Thin client process exited before the pipe server connection was established.
@@ -490,29 +410,30 @@ Data collector 'Blame' message: All tests finished running, Sequence file will n
    at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.DaemonServerLifecycleTests.StaleDaemon_NextClientLaunchesFreshDaemon() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Lifecycle\DaemonServerLifecycleTests.cs:line 205
 --- End of stack trace from previous location ---
   Standard Output Messages:
- [11:44:40.825] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 18076).
- [11:44:40.827] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 18076)
- [11:44:41.173] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
- [11:44:42.560] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
- [11:44:42.560] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
- [11:44:42.560] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:52.784] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\roslyn-language-server.exe' (pid 19116).
+ [02:35:52.785] [Error] [[ThinClient][stderr]] Started language server daemon bootstrap (pid 19116)
+ [02:35:53.222] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] In a job but breakaway failed launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe'; falling back to the normal launch.
+ [02:35:54.815] [Error] [[ThinClient][stderr]] System.IO.IOException: Pipe is broken.
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsyncCore(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at System.IO.Pipes.PipeStream.WriteAsync(ReadOnlyMemory`1 buffer, CancellationToken cancellationToken)
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken)
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at System.Runtime.CompilerServices.AsyncMethodBuilderCore.Start[TStateMachine](TStateMachine& stateMachine)
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args)
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.<Main>(String[] args)
+ [02:35:54.815] [Error] [[ThinClient][stderr]] --- End of stack trace from previous location ---
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Daemon.ConnectionHandshake.WriteAsync(Stream stream, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\DaemonConnection\ConnectionHandshake.cs:line 133
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectPipe(String pipeName, Boolean launchedDaemon, ILaunchedProcess bootstrapProcess, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 137
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.DaemonClient.ConnectAsync(ServerExecutable executable, IReadOnlyList`1 serverArguments) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\DaemonClient.cs:line 94
+ [02:35:54.815] [Error] [[ThinClient][stderr]]    at Microsoft.CodeAnalysis.LanguageServer.Client.Program.Main(String[] args) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\roslyn-language-server\Program.cs:line 59
 
 
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
 
-Failed!  - Failed:    15, Passed:    31, Skipped:     0, Total:    46, Duration: 5 m 52 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
+Failed!  - Failed:    15, Passed:    31, Skipped:     0, Total:    46, Duration: 7 m 42 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
