@@ -25,7 +25,7 @@ Primary args:
     '<scry> reflection'                                 Runs folly script test harnesses.
     '<command> research [secondary]'                    Debug configuration.
     '<command> truth [secondary]'                       Release configuration.
-Secondary args:"
+Secondary args:
     '<scry> <primary> --core'                           Run only the Core tests (skip Framework).
     '<scry> <primary> --framework'                      Run only the Framework tests (skip Core).
 Tertiary args:
