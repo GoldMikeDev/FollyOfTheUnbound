@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 set -euo pipefail
 if [[ -t 1 ]] && command -v tput >/dev/null 2>&1; then
   tput civis 2>/dev/null || true
