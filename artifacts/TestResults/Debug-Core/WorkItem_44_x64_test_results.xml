@@ -1,157 +1,157 @@
-<assemblies timestamp="08/20/2026 14:28:44">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\RunTests.UnitTests\Debug\net10.0\RunTests.UnitTests.dll" run-date="2026-08-20" run-time="14:28:44" total="50" passed="50" failed="0" skipped="0" time="9.737" errors="0">
+<assemblies timestamp="08/23/2026 02:23:22">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\RunTests.UnitTests\Debug\net10.0\RunTests.UnitTests.dll" run-date="2026-08-23" run-time="02:23:22" total="50" passed="50" failed="0" skipped="0" time="7.843" errors="0">
     <errors />
-    <collection total="28" passed="28" failed="0" skipped="0" name="Test collection for RunTests.UnitTests.LiveTestProgressDisplayTests" time="2.490">
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;67&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;67&quot;)" time="2.4761000" result="Pass">
+    <collection total="28" passed="28" failed="0" skipped="0" name="Test collection for RunTests.UnitTests.LiveTestProgressDisplayTests" time="0.019">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;67&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;67&quot;)" time="0.0011397" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;66&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;66&quot;)" time="0.0002119" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;66&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;66&quot;)" time="0.0004342" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;70&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;70&quot;)" time="0.0000162" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;70&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_HorizontalWheelButtons_AreNotVerticalScrollEvents(buttonCode: &quot;70&quot;)" time="0.0000304" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_EverythingFits_AlwaysZero" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_EverythingFits_AlwaysZero" time="0.0034145" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_EverythingFits_AlwaysZero" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_EverythingFits_AlwaysZero" time="0.0005501" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_NothingRunningOrQueued_HoldsPreviousPosition" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_NothingRunningOrQueued_HoldsPreviousPosition" time="0.0002947" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_NothingRunningOrQueued_HoldsPreviousPosition" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_NothingRunningOrQueued_HoldsPreviousPosition" time="0.0002559" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_PageDown_NoLongerRecognized_LeavesPositionUnchanged" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_PageDown_NoLongerRecognized_LeavesPositionUnchanged" time="0.0058606" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_PageDown_NoLongerRecognized_LeavesPositionUnchanged" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_PageDown_NoLongerRecognized_LeavesPositionUnchanged" time="0.0109012" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ElapsedColumnWidth_IsTwoWiderThanUnderlineWithSideDashes" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ElapsedColumnWidth_IsTwoWiderThanUnderlineWithSideDashes" time="0.0004180" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ElapsedColumnWidth_IsTwoWiderThanUnderlineWithSideDashes" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ElapsedColumnWidth_IsTwoWiderThanUnderlineWithSideDashes" time="0.0002138" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ButtonCode65_IsWheelDown" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ButtonCode65_IsWheelDown" time="0.0002118" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ButtonCode65_IsWheelDown" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ButtonCode65_IsWheelDown" time="0.0002427" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_UnrecognizedKey_LeavesPositionUnchanged" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_UnrecognizedKey_LeavesPositionUnchanged" time="0.0001810" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_UnrecognizedKey_LeavesPositionUnchanged" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_UnrecognizedKey_LeavesPositionUnchanged" time="0.0004567" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_Escape_ReturnsToAutoFollow" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_Escape_ReturnsToAutoFollow" time="0.0002586" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_Escape_ReturnsToAutoFollow" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_Escape_ReturnsToAutoFollow" time="0.0005411" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;80&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;80&quot;)" time="0.0001130" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;80&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;80&quot;)" time="0.0002690" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;68&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;68&quot;)" time="0.0002469" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;68&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;68&quot;)" time="0.0004028" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;72&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;72&quot;)" time="0.0000195" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;72&quot;)" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ModifierBits_StillRecognizedAsWheelUp(buttonCode: &quot;72&quot;)" time="0.0000268" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_UnparsableField_IsNotAWheelEvent" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_UnparsableField_IsNotAWheelEvent" time="0.0001817" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_UnparsableField_IsNotAWheelEvent" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_UnparsableField_IsNotAWheelEvent" time="0.0002243" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusNearStart_ClampsToZero" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusNearStart_ClampsToZero" time="0.0001078" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusNearStart_ClampsToZero" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusNearStart_ClampsToZero" time="0.0002721" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_NothingRunningOrQueued_ClampsHeldPositionToValidRange" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_NothingRunningOrQueued_ClampsHeldPositionToValidRange" time="0.0001314" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_NothingRunningOrQueued_ClampsHeldPositionToValidRange" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_NothingRunningOrQueued_ClampsHeldPositionToValidRange" time="0.0002411" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_EverythingFits_EvenWithNoFocus" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_EverythingFits_EvenWithNoFocus" time="0.0001022" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_EverythingFits_EvenWithNoFocus" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_EverythingFits_EvenWithNoFocus" time="0.0002402" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_NoRunning_FallsBackToQueued" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_NoRunning_FallsBackToQueued" time="0.0001485" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_NoRunning_FallsBackToQueued" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_NoRunning_FallsBackToQueued" time="0.0002355" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_PrefersRunningOverQueued" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_PrefersRunningOverQueued" time="0.0001856" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_PrefersRunningOverQueued" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_PrefersRunningOverQueued" time="0.0002660" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_OrdinaryButtonClick_IsNotAWheelEvent" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_OrdinaryButtonClick_IsNotAWheelEvent" time="0.0001604" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_OrdinaryButtonClick_IsNotAWheelEvent" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_OrdinaryButtonClick_IsNotAWheelEvent" time="0.0002365" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_RunningFocusOutsideView_CentersOnRunningRow" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_RunningFocusOutsideView_CentersOnRunningRow" time="0.0001280" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_RunningFocusOutsideView_CentersOnRunningRow" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_RunningFocusOutsideView_CentersOnRunningRow" time="0.0002571" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusNearEnd_ClampsToMaxScrollStart" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusNearEnd_ClampsToMaxScrollStart" time="0.0001316" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusNearEnd_ClampsToMaxScrollStart" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusNearEnd_ClampsToMaxScrollStart" time="0.0002764" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_UpArrow_StepsBackFromExistingManualPosition" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_UpArrow_StepsBackFromExistingManualPosition" time="0.0002331" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_UpArrow_StepsBackFromExistingManualPosition" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_UpArrow_StepsBackFromExistingManualPosition" time="0.0002863" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ButtonCode64_IsWheelUp" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ButtonCode64_IsWheelUp" time="0.0001650" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.TryGetWheelDirection_ButtonCode64_IsWheelUp" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="TryGetWheelDirection_ButtonCode64_IsWheelUp" time="0.0002109" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusAlreadyVisible_HoldsPositionInsteadOfRecentering" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusAlreadyVisible_HoldsPositionInsteadOfRecentering" time="0.0002076" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusAlreadyVisible_HoldsPositionInsteadOfRecentering" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusAlreadyVisible_HoldsPositionInsteadOfRecentering" time="0.0002442" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_UpArrow_ClampsToZero" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_UpArrow_ClampsToZero" time="0.0001959" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_UpArrow_ClampsToZero" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_UpArrow_ClampsToZero" time="0.0003122" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_DownArrow_AdvancesOneRowFromLastScrollStart" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_DownArrow_AdvancesOneRowFromLastScrollStart" time="0.0001992" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ApplyNavigationKey_DownArrow_AdvancesOneRowFromLastScrollStart" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ApplyNavigationKey_DownArrow_AdvancesOneRowFromLastScrollStart" time="0.0002861" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusJustOutsideVisibleRange_Recenters" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusJustOutsideVisibleRange_Recenters" time="0.0001670" result="Pass">
+      <test name="RunTests.UnitTests.LiveTestProgressDisplayTests.ComputeScrollStart_FocusJustOutsideVisibleRange_Recenters" type="RunTests.UnitTests.LiveTestProgressDisplayTests" method="ComputeScrollStart_FocusJustOutsideVisibleRange_Recenters" time="0.0002553" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="22" passed="22" failed="0" skipped="0" name="Test collection for RunTests.UnitTests.TestResultDisplayTests" time="0.008">
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_PathologicallyLongRun_CapsAtNinetyNineHoursRatherThanOverflowingTheColumn" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_PathologicallyLongRun_CapsAtNinetyNineHoursRatherThanOverflowingTheColumn" time="0.0008992" result="Pass">
+    <collection total="22" passed="22" failed="0" skipped="0" name="Test collection for RunTests.UnitTests.TestResultDisplayTests" time="0.046">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_PathologicallyLongRun_CapsAtNinetyNineHoursRatherThanOverflowingTheColumn" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_PathologicallyLongRun_CapsAtNinetyNineHoursRatherThanOverflowingTheColumn" time="0.0238220" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600)" time="0.0003611" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600)" time="0.0005852" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 0)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 0)" time="0.0002618" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 0)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 0)" time="0.0004122" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3599)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3599)" time="0.0000203" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3599)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3599)" time="0.0000396" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 45)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 45)" time="0.0000335" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 45)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 45)" time="0.0000392" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 359999)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 359999)" time="0.0000353" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 359999)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 359999)" time="0.0000418" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600000)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600000)" time="0.0000174" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600000)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_NeverExceedsColumnWidth(totalSeconds: 3600000)" time="0.0000448" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_ShorterThanWidth_PadsRight" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_ShorterThanWidth_PadsRight" time="0.0003831" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_ShorterThanWidth_PadsRight" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_ShorterThanWidth_PadsRight" time="0.0072791" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.GetStatusText_FailedNotTimeout_ReturnsFailed" type="RunTests.UnitTests.TestResultDisplayTests" method="GetStatusText_FailedNotTimeout_ReturnsFailed" time="0.0002178" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.GetStatusText_FailedNotTimeout_ReturnsFailed" type="RunTests.UnitTests.TestResultDisplayTests" method="GetStatusText_FailedNotTimeout_ReturnsFailed" time="0.0003997" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_Negative_ClampsToZero" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_Negative_ClampsToZero" time="0.0001660" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_Negative_ClampsToZero" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_Negative_ClampsToZero" time="0.0003173" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_LongerThanWidth_TruncatesWithEllipsis" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_LongerThanWidth_TruncatesWithEllipsis" time="0.0018364" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_LongerThanWidth_TruncatesWithEllipsis" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_LongerThanWidth_TruncatesWithEllipsis" time="0.0047190" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 0, minutes: 5, seconds: 0, expected: &quot;05:00&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 0, minutes: 5, seconds: 0, expected: &quot;05:00&quot;)" time="0.0001398" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 0, minutes: 5, seconds: 0, expected: &quot;05:00&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 0, minutes: 5, seconds: 0, expected: &quot;05:00&quot;)" time="0.0004086" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 10, minutes: 0, seconds: 0, expected: &quot;10:00:00&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 10, minutes: 0, seconds: 0, expected: &quot;10:00:00&quot;)" time="0.0004003" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 10, minutes: 0, seconds: 0, expected: &quot;10:00:00&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 10, minutes: 0, seconds: 0, expected: &quot;10:00:00&quot;)" time="0.0006886" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 23, minutes: 59, seconds: 59, expected: &quot;23:59:59&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 23, minutes: 59, seconds: 59, expected: &quot;23:59:59&quot;)" time="0.0000229" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 23, minutes: 59, seconds: 59, expected: &quot;23:59:59&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 23, minutes: 59, seconds: 59, expected: &quot;23:59:59&quot;)" time="0.0000407" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 1, minutes: 0, seconds: 0, expected: &quot;01:00:00&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 1, minutes: 0, seconds: 0, expected: &quot;01:00:00&quot;)" time="0.0000233" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 1, minutes: 0, seconds: 0, expected: &quot;01:00:00&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 1, minutes: 0, seconds: 0, expected: &quot;01:00:00&quot;)" time="0.0000455" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 0, minutes: 0, seconds: 30, expected: &quot;00:30&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 0, minutes: 0, seconds: 30, expected: &quot;00:30&quot;)" time="0.0000216" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 0, minutes: 0, seconds: 30, expected: &quot;00:30&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 0, minutes: 0, seconds: 30, expected: &quot;00:30&quot;)" time="0.0000347" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 0, minutes: 59, seconds: 59, expected: &quot;59:59&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 0, minutes: 59, seconds: 59, expected: &quot;59:59&quot;)" time="0.0000195" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FormatElapsed_FormatsAsExpected(hours: 0, minutes: 59, seconds: 59, expected: &quot;59:59&quot;)" type="RunTests.UnitTests.TestResultDisplayTests" method="FormatElapsed_FormatsAsExpected(hours: 0, minutes: 59, seconds: 59, expected: &quot;59:59&quot;)" time="0.0000380" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_LongNameWithPartitionSuffix_PreservesSuffix" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_LongNameWithPartitionSuffix_PreservesSuffix" time="0.0026065" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_LongNameWithPartitionSuffix_PreservesSuffix" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_LongNameWithPartitionSuffix_PreservesSuffix" time="0.0054768" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.GetStatusText_Succeeded_ReturnsPassed" type="RunTests.UnitTests.TestResultDisplayTests" method="GetStatusText_Succeeded_ReturnsPassed" time="0.0001426" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.GetStatusText_Succeeded_ReturnsPassed" type="RunTests.UnitTests.TestResultDisplayTests" method="GetStatusText_Succeeded_ReturnsPassed" time="0.0002205" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_ExactlyWidth_ReturnedUnchanged" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_ExactlyWidth_ReturnedUnchanged" time="0.0001745" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_ExactlyWidth_ReturnedUnchanged" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_ExactlyWidth_ReturnedUnchanged" time="0.0002837" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_NoPartitionSuffix_TruncatesPlainly" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_NoPartitionSuffix_TruncatesPlainly" time="0.0001357" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.FitName_NoPartitionSuffix_TruncatesPlainly" type="RunTests.UnitTests.TestResultDisplayTests" method="FitName_NoPartitionSuffix_TruncatesPlainly" time="0.0003320" result="Pass">
         <traits />
       </test>
-      <test name="RunTests.UnitTests.TestResultDisplayTests.GetStatusText_Timeout_ReturnsTimeout" type="RunTests.UnitTests.TestResultDisplayTests" method="GetStatusText_Timeout_ReturnsTimeout" time="0.0001303" result="Pass">
+      <test name="RunTests.UnitTests.TestResultDisplayTests.GetStatusText_Timeout_ReturnsTimeout" type="RunTests.UnitTests.TestResultDisplayTests" method="GetStatusText_Timeout_ReturnsTimeout" time="0.0002859" result="Pass">
         <traits />
       </test>
     </collection>

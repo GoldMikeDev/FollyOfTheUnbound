@@ -1,8 +1,8 @@
-<assemblies timestamp="08/20/2026 15:13:54">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll" run-date="2026-08-20" run-time="15:13:54" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll.config" total="295" passed="279" failed="0" skipped="16" time="130.055" errors="0">
+<assemblies timestamp="08/23/2026 03:04:13">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll" run-date="2026-08-23" run-time="03:04:13" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.dll.config" total="295" passed="279" failed="0" skipped="16" time="120.101" errors="0">
     <errors />
-    <collection total="51" passed="44" failed="0" skipped="7" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="0.213">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedList" time="0.0110000" result="Pass">
+    <collection total="51" passed="44" failed="0" skipped="7" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="0.460">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedList" time="0.0270000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.StackTrace_GenericRefParameter" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="StackTrace_GenericRefParameter" time="0.0010000" result="Skip">
@@ -12,19 +12,19 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Queue" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Queue" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Queue" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Queue" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_BlockingCollection" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_BlockingCollection" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_BlockingCollection" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_BlockingCollection" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.LongMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="LongMembers" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.LongMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="LongMembers" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ReadOnlyCollection" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ReadOnlyCollection" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_List" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_List" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_List" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_List" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.FormatConstructorSignature" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="FormatConstructorSignature" time="0.0010000" result="Pass">
@@ -36,16 +36,16 @@
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.RecursiveRootHidden" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="RecursiveRootHidden" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_DebuggerDisplayAndProxy" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_DebuggerDisplayAndProxy" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_DebuggerDisplayAndProxy" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_DebuggerDisplayAndProxy" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_HashSet" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_HashSet" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_HashSet" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_HashSet" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerDisplay_Inherited" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerDisplay_Inherited" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Stack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Stack" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Stack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Stack" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.StackTrace_NonGeneric" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="StackTrace_NonGeneric" time="0.0010000" result="Skip">
@@ -58,10 +58,10 @@
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ConcurrentStack" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ConcurrentStack" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedDictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedDictionary" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedDictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedDictionary" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerDisplay" time="0.0470000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerDisplay" time="0.0340000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Array" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Array" time="0.0010000" result="Pass">
@@ -70,13 +70,13 @@
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.ValueTupleType" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="ValueTupleType" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ConcurrentDictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ConcurrentDictionary" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ConcurrentDictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ConcurrentDictionary" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_MdArray" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_MdArray" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_MdArray" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_MdArray" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Lazy" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Lazy" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Lazy" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Lazy" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.StackTrace_RefOutParameters" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="StackTrace_RefOutParameters" time="0.0010000" result="Skip">
@@ -86,25 +86,25 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IDictionary_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IDictionary_Exception" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IDictionary_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IDictionary_Exception" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedSet" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedSet" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SortedSet" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SortedSet" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SpinLock1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SpinLock1" time="0.0220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SpinLock1" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SpinLock1" time="0.0210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.LargeGraph" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="LargeGraph" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.LargeGraph" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="LargeGraph" time="0.0470000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_Recursive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_Recursive" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_Recursive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_Recursive" time="0.1640000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Exception" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Exception" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_LinkedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_LinkedList" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_LinkedList" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_LinkedList" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.TupleType" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="TupleType" time="0.0010000" result="Pass">
@@ -117,7 +117,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Task" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Task" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Task" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Task" time="0.0020000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/mono/mono/issues/10838" />
         </traits>
@@ -135,13 +135,13 @@
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_SpinLock2" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_SpinLock2" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_ArrayBuilder" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_ArrayBuilder" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_ArrayBuilder" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_ArrayBuilder" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.ArrayMethodParameters" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="ArrayMethodParameters" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Framework" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Framework" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_IEnumerable_Framework" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_IEnumerable_Framework" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.StackTrace_GenericType" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="StackTrace_GenericType" time="0.0010000" result="Skip">
@@ -151,7 +151,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_DiagnosticBag" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_DiagnosticBag" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_DiagnosticBag" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_DiagnosticBag" time="0.0090000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_ConcurrentQueue" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_ConcurrentQueue" time="0.0010000" result="Pass">
@@ -160,16 +160,16 @@
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_Dictionary" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_Dictionary" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.Objects" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Objects" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.Objects" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Objects" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerDisplay_ParseSimpleMemberName" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerDisplay_ParseSimpleMemberName" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerDisplay_ParseSimpleMemberName" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerDisplay_ParseSimpleMemberName" time="0.0150000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.DebuggerProxy_FrameworkTypes_KeyValuePair" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="DebuggerProxy_FrameworkTypes_KeyValuePair" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.Array_Recursive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Array_Recursive" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.Array_Recursive" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Array_Recursive" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests.StackTrace_Dynamic" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="StackTrace_Dynamic" time="0.0010000" result="Skip">
@@ -189,53 +189,53 @@
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" time="0.028">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEllipsis" time="0.0070000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" time="0.066">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEllipsis" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMemberDisplayFormat" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMemberDisplayFormat" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMemberDisplayFormat" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMemberDisplayFormat" time="0.0240000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMaximumOutputLength" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidMaximumOutputLength" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidNumberRadix" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidNumberRadix" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidNumberRadix" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidNumberRadix" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidNumberRadix" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidNumberRadix" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidNumberRadix" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidNumberRadix" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidMemberDisplayFormat" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMemberDisplayFormat" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidMemberDisplayFormat" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMaximumOutputLength" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMaximumOutputLength" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMaximumOutputLength" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMaximumOutputLength" time="0.0210000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEscapeNonPrintableCharacters" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEscapeNonPrintableCharacters" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.NullOptions" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="NullOptions" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests.NullOptions" type="Microsoft.CodeAnalysis.CSharp.Scripting.Hosting.UnitTests.PrintOptionsTests" method="NullOptions" time="0.0050000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" time="18.559">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: False)" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: False)" time="16.0470000" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" time="3.416">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: False)" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: False)" time="1.2820000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: True)" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: True)" time="0.9840000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: True)" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_MissingDependency_MultipleResolveAttempts(swapReferences: True)" time="0.7600000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_MissingDependency" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_MissingDependency" time="0.7340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_MissingDependency" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_MissingDependency" time="0.7260000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_NetStandard20" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_NetStandard20" time="0.7940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests.LibraryReference_NetStandard20" type="Microsoft.CodeAnalysis.CSharp.Scripting.Test.InteractiveSessionReferencesTests" method="LibraryReference_NetStandard20" time="0.6480000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/try/issues/345" />
         </traits>
       </test>
     </collection>
-    <collection total="53" passed="50" failed="0" skipped="3" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" time="19.008">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="PreservingDeclarationsOnException" time="0.7580000" result="Pass">
+    <collection total="53" passed="50" failed="0" skipped="3" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" time="25.139">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.PreservingDeclarationsOnException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="PreservingDeclarationsOnException" time="9.6970000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
         </traits>
@@ -244,12 +244,12 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/26510]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.DefaultLiteral" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="DefaultLiteral" time="0.5540000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.DefaultLiteral" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="DefaultLiteral" time="0.7150000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/21327" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestGetDirectoryName_Windows(path: &quot;\\first\\&quot;, expectedOutput: &quot;\\first&quot;)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestGetDirectoryName_Windows(path: &quot;c:\\first&quot;, expectedOutput: &quot;c:\\&quot;)" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestGetDirectoryName_Windows(path: &quot;c:\\first&quot;, expectedOutput: &quot;c:\\&quot;)" time="0.0010000" result="Pass">
@@ -306,94 +306,94 @@
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestGetDirectoryName_Windows(path: &quot;first\\second\\&quot;, expectedOutput: &quot;first\\second&quot;)" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestGetDirectoryName_Windows(path: &quot;first\\second\\&quot;, expectedOutput: &quot;first\\second&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.RelativePath" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="RelativePath" time="0.6250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.RelativePath" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="RelativePath" time="1.2500000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_NoHostNamespaces" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_NoHostNamespaces" time="0.5180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_NoHostNamespaces" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_NoHostNamespaces" time="0.5190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script3" time="0.6160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script3" time="0.8460000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script1" time="0.4740000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script1" time="0.4250000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths1" time="0.6780000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths1" time="0.7230000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InferredTupleNames" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InferredTupleNames" time="0.9700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InferredTupleNames" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InferredTupleNames" time="0.6610000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/21327" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive2" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive2" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ExceptionInGeneric" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ExceptionInGeneric" time="0.7550000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ExceptionInGeneric" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ExceptionInGeneric" time="0.9910000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Help" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Help" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture2" time="0.6220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture2" time="0.6230000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/33564" />
           <trait name="WorkItemUrl" value="http://github.com/dotnet/roslyn/issues/7133" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script4" time="0.8530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script4" time="0.4290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Tuples" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Tuples" time="1.3350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Tuples" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Tuples" time="0.4590000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/18479" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.LangVersions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="LangVersions" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.LangVersions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="LangVersions" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Version" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Version" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Version" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Version" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_InteractiveWithScript1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_InteractiveWithScript1" time="0.4780000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_InteractiveWithScript1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_InteractiveWithScript1" time="0.5130000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_NonExistingFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_NonExistingFile" time="0.0570000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_NonExistingFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_NonExistingFile" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_BadUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_BadUsings" time="0.4750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Script_BadUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Script_BadUsings" time="0.6730000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Await" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Await" time="0.6350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Await" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Await" time="1.1240000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Exception" time="0.5320000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Exception" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Exception" time="0.5460000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InitialScript1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InitialScript1" time="0.5940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InitialScript1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InitialScript1" time="0.4510000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ResponseFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ResponseFile" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ResponseFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ResponseFile" time="0.0520000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Void" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Void" time="0.5480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Void" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Void" time="0.5410000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script2" time="0.3720000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script2" time="0.4400000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ReferenceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ReferenceSearchPaths_Change1" time="2.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.ReferenceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="ReferenceSearchPaths_Change1" time="0.6570000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths_Change1" time="0.6180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SourceSearchPaths_Change1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SourceSearchPaths_Change1" time="0.5740000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture1" time="0.0010000" result="Skip">
@@ -402,48 +402,48 @@
           <trait name="WorkItemUrl" value="http://github.com/dotnet/roslyn/issues/7133" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive1" time="0.4460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Interactive1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Interactive1" time="0.4160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SharedLibCopy_Different" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SharedLibCopy_Different" time="2.3390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.SharedLibCopy_Different" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="SharedLibCopy_Different" time="0.9080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.HelpCommand" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="HelpCommand" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/24402]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script5" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script5" time="0.4970000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.Args_Script5" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="Args_Script5" time="0.4070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InitialScript_Error" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InitialScript_Error" time="0.5940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests.InitialScript_Error" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.CommandLineRunnerTests" method="InitialScript_Error" time="0.4360000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="96" passed="92" failed="0" skipped="4" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" time="52.167">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericMethods" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericMethods" time="0.0570000" result="Pass">
+    <collection total="96" passed="92" failed="0" skipped="4" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" time="42.573">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericMethods" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericMethods" time="0.1350000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="5378" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateTopLevel" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateTopLevel" time="0.0490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateTopLevel" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateTopLevel" time="0.1100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseParent" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseParent" time="0.7090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseParent" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseParent" time="0.2270000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GlobalImports" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GlobalImports" time="0.0420000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GlobalImports" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GlobalImports" time="0.1140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException4" time="0.0800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException4" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException4" time="0.2970000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/10883" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority1" time="0.6950000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority1" time="0.5090000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_FileWithDependencies" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_FileWithDependencies" time="0.0010000" result="Skip">
@@ -453,190 +453,190 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/53391" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.LocalFunction_PreviousSubmissionAndGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="LocalFunction_PreviousSubmissionAndGlobal" time="0.8690000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.LocalFunction_PreviousSubmissionAndGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="LocalFunction_PreviousSubmissionAndGlobal" time="1.1590000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.InteractiveSession_ImportScopes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="InteractiveSession_ImportScopes" time="0.0280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.InteractiveSession_ImportScopes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="InteractiveSession_ImportScopes" time="0.0540000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/63144" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder2" time="0.0800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder2" time="0.2100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingNotHidingPreviousSubmission" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingNotHidingPreviousSubmission" time="0.1020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingNotHidingPreviousSubmission" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingNotHidingPreviousSubmission" time="0.2280000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_NestedTypesClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_NestedTypesClass" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/17869]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.RecursiveBaseType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="RecursiveBaseType" time="0.0410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.RecursiveBaseType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="RecursiveBaseType" time="0.1020000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/529243" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_Redefinition" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_Redefinition" time="0.1330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_Redefinition" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_Redefinition" time="0.3630000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/543863" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder1" time="0.0480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submissions_ExecutionOrder1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submissions_ExecutionOrder1" time="0.1690000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException2" time="0.0860000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException2" time="0.1600000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/10883" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticLocalFunctionCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticLocalFunctionCannotAccessGlobalInstance" time="0.6300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticLocalFunctionCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticLocalFunctionCannotAccessGlobalInstance" time="0.8710000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39581" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.NestedVisibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="NestedVisibility" time="0.1730000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.NestedVisibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="NestedVisibility" time="0.2650000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_Interface" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_Interface" time="0.5920000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_Interface" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_Interface" time="0.7820000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GlobalNamespaceAndUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GlobalNamespaceAndUsings" time="0.7800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GlobalNamespaceAndUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GlobalNamespaceAndUsings" time="1.0210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitChain2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitChain2" time="0.2180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitChain2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitChain2" time="0.2590000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnCancellation2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnCancellation2" time="0.1240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnCancellation2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnCancellation2" time="0.2160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings2" time="0.2280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings2" time="0.1620000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="9229" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitInLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitInLambda" time="0.1650000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitInLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitInLambda" time="0.2160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ObjectOverrides1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ObjectOverrides1" time="0.6630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ObjectOverrides1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ObjectOverrides1" time="0.8800000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ImplicitlyTypedFields" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ImplicitlyTypedFields" time="0.0410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ImplicitlyTypedFields" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ImplicitlyTypedFields" time="0.0600000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Await" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Await" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Await" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Await" time="0.0770000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.IfStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="IfStatement" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.IfStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="IfStatement" time="0.1710000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PrivateMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PrivateMembers" time="0.7220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PrivateMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PrivateMembers" time="0.8790000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Ldftn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Ldftn" time="0.1730000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Ldftn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Ldftn" time="0.1590000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Closure2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Closure2" time="0.0820000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Closure2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Closure2" time="0.1100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Accessibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Accessibility" time="0.0930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Accessibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Accessibility" time="0.1210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority2" time="1.3270000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionPriority2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionPriority2" time="0.6360000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_SubmissionSlotResize" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_SubmissionSlotResize" time="0.7090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_SubmissionSlotResize" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_SubmissionSlotResize" time="0.5310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PrivateClassImplementingPublicInterface" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PrivateClassImplementingPublicInterface" time="0.8250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PrivateClassImplementingPublicInterface" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PrivateClassImplementingPublicInterface" time="1.1130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ObjectOverrides2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ObjectOverrides2" time="0.1010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ObjectOverrides2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ObjectOverrides2" time="0.1400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnCancellation1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnCancellation1" time="0.3330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnCancellation1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnCancellation1" time="0.2380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Closure" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Closure" time="0.0320000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Closure" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Closure" time="0.0540000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PublicClassMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PublicClassMembers" time="1.0420000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PublicClassMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PublicClassMembers" time="1.2320000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_Empty" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_Empty" time="0.1360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_Empty" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_Empty" time="0.1130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_Overloads" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_Overloads" time="1.1110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_Overloads" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_Overloads" time="1.1890000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference3" time="0.2280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference3" time="0.2530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.TopLevelLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="TopLevelLambda" time="0.2590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.TopLevelLambda" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="TopLevelLambda" time="0.2320000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="5397" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_InterfaceTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_InterfaceTypes" time="0.1930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_InterfaceTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_InterfaceTypes" time="0.4330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException1" time="0.3190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException1" time="0.2850000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/10883" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExternDestructor" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExternDestructor" time="0.0460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExternDestructor" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExternDestructor" time="0.0680000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/100639" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.MethodCallWithImplicitReceiverAndOutVar" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="MethodCallWithImplicitReceiverAndOutVar" time="1.7460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.MethodCallWithImplicitReceiverAndOutVar" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="MethodCallWithImplicitReceiverAndOutVar" time="1.2630000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39565" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_BasicFields" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_BasicFields" time="0.3130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_BasicFields" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_BasicFields" time="0.1180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UsingAlias" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UsingAlias" time="0.0950000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UsingAlias" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UsingAlias" time="0.1010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PrivateClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PrivateClass" time="1.5900000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PrivateClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PrivateClass" time="1.1380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.FieldInitializersWithBlocks" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="FieldInitializersWithBlocks" time="0.0860000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.FieldInitializersWithBlocks" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="FieldInitializersWithBlocks" time="0.1900000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.LocalFunctionCanAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="LocalFunctionCanAccessGlobalInstance" time="1.4700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.LocalFunctionCanAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="LocalFunctionCanAccessGlobalInstance" time="0.8420000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings1" time="0.2020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Usings1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Usings1" time="0.1000000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="9229" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Fields_Visibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Fields_Visibility" time="0.2280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Fields_Visibility" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Fields_Visibility" time="0.2160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions" time="0.2190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions" time="0.1330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CSharp9PatternForms" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CSharp9PatternForms" time="0.3490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CSharp9PatternForms" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CSharp9PatternForms" time="0.6960000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/42368" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitChain1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitChain1" time="0.2580000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitChain1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitChain1" time="0.2750000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ObjectOverrides3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ObjectOverrides3" time="0.1980000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ObjectOverrides3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ObjectOverrides3" time="0.1650000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateImplementationDetailsType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateImplementationDetailsType" time="0.1510000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PrivateImplementationDetailsType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PrivateImplementationDetailsType" time="0.4140000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/2721" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/949559" />
@@ -645,221 +645,221 @@
           <trait name="WorkItemId" value="9229" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Arrays" time="0.1610000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Arrays" time="0.1910000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="9229" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference2" time="0.1950000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference2" time="0.3430000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_CurrentSubmissionUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_CurrentSubmissionUsings" time="3.8750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_CurrentSubmissionUsings" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_CurrentSubmissionUsings" time="1.8020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submission_HostVarianceConversions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submission_HostVarianceConversions" time="0.0350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submission_HostVarianceConversions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submission_HostVarianceConversions" time="0.0770000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_StaticMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_StaticMembers" time="2.1370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_StaticMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_StaticMembers" time="1.9400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.TestInteractiveClosures" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="TestInteractiveClosures" time="0.7460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.TestInteractiveClosures" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="TestInteractiveClosures" time="0.3000000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PublicGenericClassMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PublicGenericClassMembers" time="1.3720000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectBinding_PublicGenericClassMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectBinding_PublicGenericClassMembers" time="1.0650000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionMethods" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionMethods" time="0.1080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExtensionMethods" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExtensionMethods" time="0.1710000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException3" time="0.6000000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnException3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnException3" time="0.4670000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6580" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/10883" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectInRootNamespace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectInRootNamespace" time="3.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectInRootNamespace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectInRootNamespace" time="2.2550000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExprStmtParenthesesUsedToOverrideDefaultEval" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExprStmtParenthesesUsedToOverrideDefaultEval" time="0.2030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ExprStmtParenthesesUsedToOverrideDefaultEval" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ExprStmtParenthesesUsedToOverrideDefaultEval" time="0.2520000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UsingExternalAliasesForHiding" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UsingExternalAliasesForHiding" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/6015]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference1" time="0.6660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.HostObjectAssemblyReference1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="HostObjectAssemblyReference1" time="0.2340000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericTypes" time="0.6090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_GenericTypes" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_GenericTypes" time="0.1260000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/201759" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AddNamespaces_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AddNamespaces_Errors" time="0.5440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AddNamespaces_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AddNamespaces_Errors" time="0.2140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PInvoke" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PInvoke" time="0.4930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PInvoke" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PInvoke" time="0.3240000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingDuplicates" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingDuplicates" time="0.2930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingDuplicates" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingDuplicates" time="0.0800000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseRoot" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseRoot" time="0.2840000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ReferenceDirective_RelativeToBaseRoot" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ReferenceDirective_RelativeToBaseRoot" time="0.3560000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/15860" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_DefinitionHidesHostObjectMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_DefinitionHidesHostObjectMembers" time="2.4630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_DefinitionHidesHostObjectMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_DefinitionHidesHostObjectMembers" time="1.5980000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PatternVariableDeclaration" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PatternVariableDeclaration" time="0.3370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PatternVariableDeclaration" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PatternVariableDeclaration" time="0.3460000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/39548" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitSubExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitSubExpression" time="0.1290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitSubExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitSubExpression" time="0.0570000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_HostObjectMembersHidesGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_HostObjectMembersHidesGlobal" time="1.5980000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_HostObjectMembersHidesGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_HostObjectMembersHidesGlobal" time="0.8090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.FieldInitializers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="FieldInitializers" time="0.0560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.FieldInitializers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="FieldInitializers" time="0.0530000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.NoAwait" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="NoAwait" time="0.0550000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Enums" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Enums" time="0.1350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Enums" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Enums" time="0.1300000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitVoid" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitVoid" time="0.1470000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AwaitVoid" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AwaitVoid" time="0.1010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Ldftn_GenericType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Ldftn_GenericType" time="0.6640000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Ldftn_GenericType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Ldftn_GenericType" time="0.2070000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_NestedTypesStruct" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_NestedTypesStruct" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/17869]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UseDelegateMixStaticAndDynamic" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UseDelegateMixStaticAndDynamic" time="0.2860000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.UseDelegateMixStaticAndDynamic" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="UseDelegateMixStaticAndDynamic" time="0.0990000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Dynamic_Expando" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Dynamic_Expando" time="2.0480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Dynamic_Expando" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Dynamic_Expando" time="1.1210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingNotHidingHostObjectMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingNotHidingHostObjectMembers" time="1.6800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_UsingNotHidingHostObjectMembers" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_UsingNotHidingHostObjectMembers" time="0.8330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticMethodCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticMethodCannotAccessGlobalInstance" time="1.7300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.StaticMethodCannotAccessGlobalInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="StaticMethodCannotAccessGlobalInstance" time="0.8520000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnCancellation3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnCancellation3" time="0.7430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.PreservingDeclarationsOnCancellation3" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="PreservingDeclarationsOnCancellation3" time="0.1750000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submission_HostConversions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submission_HostConversions" time="3.1620000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.Submission_HostConversions" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="Submission_HostConversions" time="3.2150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions2" time="0.1430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions2" time="0.2510000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_DefinitionHidesGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_DefinitionHidesGlobal" time="0.0820000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_DefinitionHidesGlobal" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_DefinitionHidesGlobal" time="0.0700000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ScriptMemberAccessFromNestedClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ScriptMemberAccessFromNestedClass" time="0.0530000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" time="0.011">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" time="0.0010000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion" time="0.0070000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion_NonCSharpParseOptions_Throws" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion_NonCSharpParseOptions_Throws" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests.ScriptMemberAccessFromNestedClass" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.InteractiveSessionTests" method="ScriptMemberAccessFromNestedClass" time="0.1460000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="79" passed="77" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" time="15.836">
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithMismatchedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithMismatchedGlobals" time="0.0100000" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" time="0.078">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion_SameValueTwice_DoesNotCreateNewInstance" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScriptDelegateWithGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScriptDelegateWithGlobals" time="1.4060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests.WithLanguageVersion_NonCSharpParseOptions_Throws" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptOptionsTests" method="WithLanguageVersion_NonCSharpParseOptions_Throws" time="0.0620000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="79" passed="77" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" time="22.361">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithMismatchedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithMismatchedGlobals" time="0.0230000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScriptDelegateWithGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScriptDelegateWithGlobals" time="1.2500000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunDynamicVoidScriptWithTerminatingSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunDynamicVoidScriptWithTerminatingSemicolon" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/170]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnAwait" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnAwait" time="0.2180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnAwait" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnAwait" time="0.0460000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_CodeFromFile_WithoutEmitDebugInformation_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_CodeFromFile_WithoutEmitDebugInformation_ResultInPdbNotEmitted" time="0.1350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_CodeFromFile_WithoutEmitDebugInformation_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_CodeFromFile_WithoutEmitDebugInformation_ResultInPdbNotEmitted" time="0.0580000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithoutGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithoutGlobals" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnIntWithTrailingDoubleExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnIntWithTrailingDoubleExpression" time="0.1560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnIntWithTrailingDoubleExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnIntWithTrailingDoubleExpression" time="0.1430000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.NoReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="NoReturn" time="0.0400000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.NoReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="NoReturn" time="0.0570000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestGetCompilation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestGetCompilation" time="0.6370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestGetCompilation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestGetCompilation" time="1.2380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StreamWithOffset" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StreamWithOffset" time="0.3530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StreamWithOffset" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StreamWithOffset" time="0.0560000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/12348" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithScriptState" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithScriptState" time="0.0780000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithScriptState" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithScriptState" time="0.2790000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ContinueAsync_Error2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ContinueAsync_Error2" time="1.6210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ContinueAsync_Error2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ContinueAsync_Error2" time="2.1080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Function_ReturningPartialType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Function_ReturningPartialType" time="1.1920000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Function_ReturningPartialType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Function_ReturningPartialType" time="0.1010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnGenericAsInterface" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnGenericAsInterface" time="0.1410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnGenericAsInterface" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnGenericAsInterface" time="0.1580000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInLoadedFileTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInLoadedFileTrailingExpression" time="0.0530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInLoadedFileTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInLoadedFileTrailingExpression" time="0.1270000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" time="0.0300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" time="0.1250000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.CreateScriptWithNullableContextWithCSharp8" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="CreateScriptWithNullableContextWithCSharp8" time="0.0400000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.CreateScriptWithNullableContextWithCSharp8" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="CreateScriptWithNullableContextWithCSharp8" time="0.0350000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_CodeFromFile_WithEmitDebugInformation_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_CodeFromFile_WithEmitDebugInformation_ResultInPdbEmitted" time="0.2520000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_CodeFromFile_WithEmitDebugInformation_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_CodeFromFile_WithEmitDebugInformation_ResultInPdbEmitted" time="0.1880000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Function_ReturningPartialType_CSharp13" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Function_ReturningPartialType_CSharp13" time="0.0980000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Function_ReturningPartialType_CSharp13" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Function_ReturningPartialType_CSharp13" time="0.2410000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariable_SetValue" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariable_SetValue" time="0.0410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariable_SetValue" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariable_SetValue" time="0.1120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunExpressionStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunExpressionStatement" time="0.0490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunExpressionStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunExpressionStatement" time="0.0520000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5279" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.LoadedFileWithVoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="LoadedFileWithVoidReturn" time="0.0430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.LoadedFileWithVoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="LoadedFileWithVoidReturn" time="0.0930000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithGlobals" time="0.5760000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithGlobals" time="0.8990000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInLoadedFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInLoadedFile" time="0.0520000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInLoadedFile" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInLoadedFile" time="0.0880000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedNoSemicolonFollowedByAnotherStatement" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedNoSemicolonFollowedByAnotherStatement" time="0.0060000" result="Pass">
@@ -867,193 +867,193 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" time="0.8450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenNonExistentVariable_ShouldReturnNameNotInContextCompilationError" time="0.8650000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" time="0.0370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithFileEncoding_ResultInPdbNotEmitted" time="0.0600000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.0270000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.0390000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunDynamicVoidScriptWithoutTerminatingSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunDynamicVoidScriptWithoutTerminatingSemicolon" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/170]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_InlineCode_WithEmitDebugInformation_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_InlineCode_WithEmitDebugInformation_ResultInPdbEmitted" time="0.0510000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_InlineCode_WithEmitDebugInformation_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_InlineCode_WithEmitDebugInformation_ResultInPdbEmitted" time="0.1360000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptInstantiation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptInstantiation" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptInstantiation" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptInstantiation" time="0.0510000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/79146" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" time="0.1870000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenValidCode_ShouldReturnValidResult" time="0.1270000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithUnexpectedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithUnexpectedGlobals" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithUnexpectedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithUnexpectedGlobals" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.LoadedFileWithReturnAndGoto" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="LoadedFileWithReturnAndGoto" time="0.0800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.LoadedFileWithReturnAndGoto" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="LoadedFileWithReturnAndGoto" time="0.1400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithSpecifiedReturnType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithSpecifiedReturnType" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunScriptWithSpecifiedReturnType" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithSpecifiedReturnType" time="0.0530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateFromStreamAndRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateFromStreamAndRunScript" time="0.0280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateFromStreamAndRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateFromStreamAndRunScript" time="0.0540000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestGetCompilationSourceText" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestGetCompilationSourceText" time="0.5430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestGetCompilationSourceText" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestGetCompilationSourceText" time="1.1400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInNestedScopeWithTrailingVoidExpressionAsInt" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInNestedScopeWithTrailingVoidExpressionAsInt" time="0.0550000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInNestedScopeWithTrailingVoidExpressionAsInt" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInNestedScopeWithTrailingVoidExpressionAsInt" time="0.1210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementNotFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementNotFollowedBySemicolon" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementNotFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementNotFollowedBySemicolon" time="0.0100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariables_Chain" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariables_Chain" time="0.7340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariables_Chain" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariables_Chain" time="1.2680000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ContinueAsync_Error1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ContinueAsync_Error1" time="0.6980000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ContinueAsync_Error1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ContinueAsync_Error1" time="1.1510000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" time="0.0560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" time="0.2490000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.VoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="VoidReturn" time="0.0520000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.VoidReturn" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="VoidReturn" time="0.1640000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" time="0.7180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidPattern_ShouldReturnUnsupportedTypeForRelationalPatternAndNoImplicitConvErrors" time="1.0810000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" time="0.0390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" time="0.0700000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnIntAsObject" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnIntAsObject" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnIntAsObject" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnIntAsObject" time="0.0380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithExpectedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithExpectedGlobals" time="0.5750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunCreatedScriptWithExpectedGlobals" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunCreatedScriptWithExpectedGlobals" time="1.0860000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.MultipleLoadedFilesWithTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="MultipleLoadedFilesWithTrailingExpression" time="0.0780000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.MultipleLoadedFilesWithTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="MultipleLoadedFilesWithTrailingExpression" time="0.1840000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRepl" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRepl" time="0.0630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRepl" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRepl" time="0.1320000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StaticDelegate2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StaticDelegate2" time="0.1390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StaticDelegate2" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StaticDelegate2" time="0.1310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEmit_PortablePdb" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEmit_PortablePdb" time="0.3530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEmit_PortablePdb" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEmit_PortablePdb" time="0.2140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.MultipleLoadedFilesWithReturnAndTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="MultipleLoadedFilesWithReturnAndTrailingExpression" time="0.0730000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.MultipleLoadedFilesWithReturnAndTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="MultipleLoadedFilesWithReturnAndTrailingExpression" time="0.2020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.CreateScriptWithFeatureThatIsNotSupportedInTheSelectedLanguageVersion" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="CreateScriptWithFeatureThatIsNotSupportedInTheSelectedLanguageVersion" time="0.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.CreateScriptWithFeatureThatIsNotSupportedInTheSelectedLanguageVersion" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="CreateScriptWithFeatureThatIsNotSupportedInTheSelectedLanguageVersion" time="0.0310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScriptDelegate" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScriptDelegate" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScriptDelegate" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScriptDelegate" time="0.0700000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEmit_WindowsPdb" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEmit_WindowsPdb" time="0.0220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEmit_WindowsPdb" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEmit_WindowsPdb" time="0.0430000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithoutEmitDebugInformation_WithoutFileEncoding_ResultInPdbNotEmitted" time="0.1080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestBranchingSubscripts" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestBranchingSubscripts" time="0.0620000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestBranchingSubscripts" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestBranchingSubscripts" time="0.1780000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEvalScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEvalScript" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestEvalScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestEvalScript" time="0.0480000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInNestedScopeWithTrailingVoidExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInNestedScopeWithTrailingVoidExpression" time="0.0600000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInNestedScopeWithTrailingVoidExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInNestedScopeWithTrailingVoidExpression" time="0.1700000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StaticDelegate0" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StaticDelegate0" time="0.0700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StaticDelegate0" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StaticDelegate0" time="0.1780000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateFromStreamScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateFromStreamScript" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateAndRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateAndRunScript" time="0.0230000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateAndRunScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateAndRunScript" time="0.0680000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInLoadedFileTrailingVoidExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInLoadedFileTrailingVoidExpression" time="0.0630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInLoadedFileTrailingVoidExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInLoadedFileTrailingVoidExpression" time="0.2340000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedBySpace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedBySpace" time="0.5440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedBySpace" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedBySpace" time="0.8100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariable_SetValue_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariable_SetValue_Errors" time="0.0320000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ScriptVariable_SetValue_Errors" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ScriptVariable_SetValue_Errors" time="0.1800000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementFollowedBySemicolon" time="0.5850000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunEmbeddedStatementFollowedBySemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunEmbeddedStatementFollowedBySemicolon" time="1.1240000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithoutFileEncoding_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithoutFileEncoding_ResultInPdbEmitted" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithoutFileEncoding_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithoutFileEncoding_ResultInPdbEmitted" time="0.1780000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" time="0.0270000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_InlineCode_WithEmitDebugInformation_WithFileEncoding_ResultInPdbEmitted" time="0.0820000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/19027" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" time="0.0260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromStream_InlineCode_WithoutEmitDebugInformation_ResultInPdbNotEmitted" time="0.1220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScript_CodeIsNull" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScript_CodeIsNull" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScript_CodeIsNull" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScript_CodeIsNull" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" time="0.5820000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="SwitchPatternWithVar_WhenInvalidArm_ShouldReturnTheNameNotInContextError" time="0.8470000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/49529" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedByNewLineNoSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedByNewLineNoSemicolon" time="0.5380000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunStatementFollowedByNewLineNoSemicolon" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunStatementFollowedByNewLineNoSemicolon" time="1.1780000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/6676" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunVoidScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunVoidScript" time="0.0260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestRunVoidScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestRunVoidScript" time="0.0450000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateScript" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateScript" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInNestedScopeNoTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInNestedScopeNoTrailingExpression" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnInNestedScopeNoTrailingExpression" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnInNestedScopeNoTrailingExpression" time="0.0660000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StaticDelegate1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StaticDelegate1" time="0.1750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.StaticDelegate1" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="StaticDelegate1" time="0.1590000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithoutFileEncoding_CompilationErrorException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithoutFileEncoding_CompilationErrorException" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithoutFileEncoding_CompilationErrorException" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="Pdb_CreateFromString_CodeFromFile_WithEmitDebugInformation_WithoutFileEncoding_CompilationErrorException" time="0.0610000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateFromStreamScript_StreamIsNull" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateFromStreamScript_StreamIsNull" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.TestCreateFromStreamScript_StreamIsNull" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="TestCreateFromStreamScript_StreamIsNull" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnNullable" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnNullable" time="0.0860000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests.ReturnNullable" type="Microsoft.CodeAnalysis.CSharp.Scripting.UnitTests.ScriptTests" method="ReturnNullable" time="0.1010000" result="Pass">
         <traits />
       </test>
     </collection>

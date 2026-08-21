@@ -4,9 +4,9 @@
     <collection name="Crash/Hang Detection" total="1" passed="0" failed="1" skipped="0">
       <test name="[HANG] Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon_StartupFailure_DaemonSurvivesAndContinuesAccepting" type="RunTests.HANGDetection" method="Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon_StartupFailure_DaemonSurvivesAndContinuesAccepting" time="0" result="Fail">
         <failure exception-type="TestHostHANGException">
-          <message>Test host hang detected. Test running at time of hang: Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon_StartupFailure_DaemonSurvivesAndContinuesAccepting. Dump files: testhost_46928_20260820T160757_hangdump.dmp</message>
+          <message>Test host hang detected. Test running at time of hang: Microsoft.CodeAnalysis.LanguageServer.UnitTests.LanguageServerDaemonTests.Daemon_StartupFailure_DaemonSurvivesAndContinuesAccepting. Dump files: testhost_78652_20260823T034945_hangdump.dmp</message>
           <stack-trace>Dump files collected:
-C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\0f373bb7-8052-4d39-86cb-335f39597dfc\testhost_46928_20260820T160757_hangdump.dmp</stack-trace>
+C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26\197ee197-c8e0-46c4-99f0-ff639c8f0b14\testhost_78652_20260823T034945_hangdump.dmp</stack-trace>
         </failure>
       </test>
     </collection>

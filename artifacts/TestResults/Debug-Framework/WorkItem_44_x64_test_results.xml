@@ -1,35 +1,35 @@
-<assemblies timestamp="08/20/2026 15:08:49">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll" run-date="2026-08-20" run-time="15:08:49" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll.config" total="37" passed="34" failed="0" skipped="3" time="34.392" errors="0">
+<assemblies timestamp="08/23/2026 02:56:05">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll" run-date="2026-08-23" run-time="02:56:05" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.dll.config" total="37" passed="34" failed="0" skipped="3" time="33.029" errors="0">
     <errors />
-    <collection total="5" passed="4" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="0.045">
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.EscapeWithoutQuotes" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="EscapeWithoutQuotes" time="0.0060000" result="Pass">
+    <collection total="5" passed="4" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" time="0.067">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.EscapeWithoutQuotes" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="EscapeWithoutQuotes" time="0.0440000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.QuotedStrings" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="QuotedStrings" time="0.0010000" result="Skip">
         <reason><![CDATA[IDK]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.ArrayMethodParameters" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="ArrayMethodParameters" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.ArrayMethodParameters" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="ArrayMethodParameters" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.Objects" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Objects" time="0.0340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.Objects" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="Objects" time="0.0190000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests.InlineCharacters" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.ObjectFormatterTests" method="InlineCharacters" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="8" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" time="0.017">
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.NullOptions" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="NullOptions" time="0.0010000" result="Pass">
+    <collection total="9" passed="8" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" time="0.513">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.NullOptions" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="NullOptions" time="0.2780000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEllipsis" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEllipsis" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEllipsis" time="0.1470000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidNumberRadix" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidNumberRadix" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidNumberRadix" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidNumberRadix" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMaximumOutputLength" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMaximumOutputLength" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMaximumOutputLength" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMaximumOutputLength" time="0.0460000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidMaximumOutputLength" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidMaximumOutputLength" time="0.0010000" result="Pass">
@@ -39,93 +39,93 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/8241]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEscapeNonPrintableCharacters" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEscapeNonPrintableCharacters" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidEscapeNonPrintableCharacters" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidEscapeNonPrintableCharacters" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMemberDisplayFormat" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMemberDisplayFormat" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.InvalidMemberDisplayFormat" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="InvalidMemberDisplayFormat" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidNumberRadix" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidNumberRadix" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests.ValidNumberRadix" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.Hosting.UnitTests.PrintOptionsTests" method="ValidNumberRadix" time="0.0070000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="7" passed="6" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" time="2.724">
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestPrint" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestPrint" time="0.7680000" result="Pass">
+    <collection total="7" passed="6" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" time="3.065">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestPrint" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestPrint" time="0.8780000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture2" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture2" time="0.7930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture2" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture2" time="0.9390000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/7133" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.Version" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="Version" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.Version" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="Version" time="0.0330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestImportArgument" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestImportArgument" time="0.0340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestImportArgument" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestImportArgument" time="0.0420000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirectiveWhenReferenceMissing" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestReferenceDirectiveWhenReferenceMissing" time="0.5410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirectiveWhenReferenceMissing" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestReferenceDirectiveWhenReferenceMissing" time="0.6060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestReferenceDirective" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestReferenceDirective" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/46720]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture1" time="0.5810000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests.TestDisplayResultsWithCurrentUICulture1" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.CommandLineRunnerTests" method="TestDisplayResultsWithCurrentUICulture1" time="0.5660000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/7133" />
         </traits>
       </test>
     </collection>
-    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" time="9.849">
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Accessibility" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Accessibility" time="5.7380000" result="Pass">
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" time="10.579">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.CompilationChain_Accessibility" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="CompilationChain_Accessibility" time="6.6740000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions" time="0.8800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions" time="0.9440000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions2" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions2" time="0.6650000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.AnonymousTypes_TopLevel_MultipleSubmissions2" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="AnonymousTypes_TopLevel_MultipleSubmissions2" time="0.7360000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.IfStatement" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="IfStatement" time="0.5480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.IfStatement" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="IfStatement" time="0.3980000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="10856" />
           <trait name="WorkItemUrl" value="DevDiv_Projects/Roslyn" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_IntLiteral" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="StatementExpressions_IntLiteral" time="0.3940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_IntLiteral" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="StatementExpressions_IntLiteral" time="0.3910000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_Nothing" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="StatementExpressions_Nothing" time="0.5160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_Nothing" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="StatementExpressions_Nothing" time="0.4310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_LineContinuation" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="StatementExpressions_LineContinuation" time="0.4790000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.StatementExpressions_LineContinuation" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="StatementExpressions_LineContinuation" time="0.4100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.Fields" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="Fields" time="0.6290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests.Fields" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.InteractiveSessionTests" method="Fields" time="0.5950000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" time="4.094">
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestCreateAndRunScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestCreateAndRunScript" time="2.7860000" result="Pass">
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" time="1.721">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestCreateAndRunScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestCreateAndRunScript" time="0.2840000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunVoidScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestRunVoidScript" time="0.4020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunVoidScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestRunVoidScript" time="0.3090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestDefaultNamespaces" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestDefaultNamespaces" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestDefaultNamespaces" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestDefaultNamespaces" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunScriptWithSpecifiedReturnType" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithSpecifiedReturnType" time="0.2940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunScriptWithSpecifiedReturnType" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestRunScriptWithSpecifiedReturnType" time="0.3530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestEvalScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestEvalScript" time="0.2840000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestEvalScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestEvalScript" time="0.4360000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestGetCompilation" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestGetCompilation" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestGetCompilation" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestGetCompilation" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.3210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestRunScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestRunScript" time="0.3310000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests.TestCreateScript" type="Microsoft.CodeAnalysis.VisualBasic.Scripting.UnitTests.ScriptTests" method="TestCreateScript" time="0.0010000" result="Pass">

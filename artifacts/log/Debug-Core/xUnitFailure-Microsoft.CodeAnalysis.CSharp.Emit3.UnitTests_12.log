@@ -1,0 +1,565 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\12
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost (324168).
+[xUnit.net 00:00:15.60] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID 'b04fbbac70f8fe46403e557717b3d599c235f074' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)')
+[xUnit.net 00:00:15.60] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID '3031882be867753fd71f39f7f0bf1aa5f64ebee0' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)')
+[xUnit.net 00:00:46.77]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_03 [1 ms]
+[xUnit.net 00:00:48.11]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Scope_Query_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Scope_Query_01 [1 ms]
+[xUnit.net 00:00:50.05]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_01 [1 ms]
+[xUnit.net 00:00:51.71]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_LabeledStatement_06_Script [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_LabeledStatement_06_Script [1 ms]
+[xUnit.net 00:00:52.34]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Query_01 [SKIP]
+[xUnit.net 00:00:52.34]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_InferenceFailure_07 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Query_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_InferenceFailure_07 [1 ms]
+[xUnit.net 00:01:07.93]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_02 [1 ms]
+[xUnit.net 00:01:16.95]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.DiscardAndArgList [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.DiscardAndArgList [1 ms]
+[xUnit.net 00:01:27.16]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr4 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr4 [1 ms]
+[xUnit.net 00:01:32.24]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NotNullClone [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NotNullClone [1 ms]
+[xUnit.net 00:01:50.86]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprCloneReturnDifferent [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprCloneReturnDifferent [1 ms]
+[xUnit.net 00:02:04.89]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr18 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr18 [1 ms]
+[xUnit.net 00:02:06.09]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprStaticWithMethod2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprStaticWithMethod2 [1 ms]
+[xUnit.net 00:02:18.44]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_RefProperty [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_RefProperty [1 ms]
+[xUnit.net 00:02:18.75]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_ObsoleteProperty [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_ObsoleteProperty [1 ms]
+[xUnit.net 00:02:22.61]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_MaybeNullClone [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_MaybeNullClone [1 ms]
+[xUnit.net 00:03:12.37]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr17 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr17 [1 ms]
+[xUnit.net 00:03:13.27]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [1 ms]
+[xUnit.net 00:03:14.25]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [1 ms]
+[xUnit.net 00:03:41.47]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_WellKnownAttributes.TestPseudoAttributes1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_WellKnownAttributes.TestPseudoAttributes1 [1 ms]
+[xUnit.net 00:04:05.06]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_MultipleOutParameters [SKIP]
+[xUnit.net 00:04:05.06]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutParameters [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_MultipleOutParameters [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutParameters [1 ms]
+[xUnit.net 00:04:07.25]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutVar_UsedInLaterElements [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutVar_UsedInLaterElements [1 ms]
+[xUnit.net 00:05:39.76]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InAnonymousMethods [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InAnonymousMethods [1 ms]
+[xUnit.net 00:05:42.01]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InLocalFunctions [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InLocalFunctions [1 ms]
+[xUnit.net 00:05:46.00]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_Lambdas [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_Lambdas [1 ms]
+[xUnit.net 00:06:20.39]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Query_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Query_01 [1 ms]
+[xUnit.net 00:06:31.13]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.MultiFuzz [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.MultiFuzz [1 ms]
+[xUnit.net 00:06:33.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Fuzz [SKIP]
+[xUnit.net 00:06:33.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.PatternInFieldInitializer [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Fuzz [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.PatternInFieldInitializer [1 ms]
+[xUnit.net 00:13:07.05]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests_Global.GlobalCode_LabeledStatement_06 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests_Global.GlobalCode_LabeledStatement_06 [1 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [217 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(MemoryStream moduleContents, AttributeDescription expectedModuleAttr, CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1563
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1688
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [94 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(MemoryStream moduleContents, AttributeDescription expectedModuleAttr, CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1563
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1688
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [104 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1234
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [33 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1234
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [112 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2").WithLocation(1, 1),
+                Diagnostic(ErrorCode.ERR_BadAccess, "AssemblyKeyName").WithArguments("AssemblyKeyNameAttribute").WithLocation(3, 12)
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+                // error CS0281: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2', but the public key of the output assembly ('John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null') does not match that specified by the InternalsVisibleTo attribute in the granting assembly.
+                Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").WithLocation(1, 1),
+                // (3,12): error CS0122: 'AssemblyKeyNameAttribute' is inaccessible due to its protection level
+                // [assembly: AssemblyKeyName()]
+                Diagnostic(ErrorCode.ERR_BadAccess, "AssemblyKeyName").WithArguments("AssemblyKeyNameAttribute").WithLocation(3, 12)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+++>                 Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").WithLocation(1, 1)
+-->                 Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1343
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [35 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2").WithLocation(1, 1),
+                Diagnostic(ErrorCode.ERR_BadAccess, "AssemblyKeyName").WithArguments("AssemblyKeyNameAttribute").WithLocation(3, 12)
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+                // error CS0281: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2', but the public key of the output assembly ('John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null') does not match that specified by the InternalsVisibleTo attribute in the granting assembly.
+                Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").WithLocation(1, 1),
+                // (3,12): error CS0122: 'AssemblyKeyNameAttribute' is inaccessible due to its protection level
+                // [assembly: AssemblyKeyName()]
+                Diagnostic(ErrorCode.ERR_BadAccess, "AssemblyKeyName").WithArguments("AssemblyKeyNameAttribute").WithLocation(3, 12)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+++>                 Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null").WithLocation(1, 1)
+-->                 Diagnostic(ErrorCode.ERR_FriendRefNotEqualToThis).WithArguments("Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2", "John, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1343
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [37 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1138
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [43 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1138
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [76 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(MemoryStream moduleContents, AttributeDescription expectedModuleAttr, CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1563
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1592
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [114 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(MemoryStream moduleContents, AttributeDescription expectedModuleAttr, CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1563
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1592
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:13:31.55]     Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.MaxSizeKey [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.MaxSizeKey [1 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [39 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "The temporary path for legacy file signing is unavailable.")
+Actual:
+                // error CS7028: Error signing output with public key from container 'RoslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+-->                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "The temporary path for legacy file signing is unavailable.")
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyEmitDiagnostics[TCompilation](TCompilation c, EmitOptions options, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 358
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyEmitDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 375
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 443
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [40 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "The temporary path for legacy file signing is unavailable.")
+Actual:
+                // error CS7028: Error signing output with public key from container 'RoslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+-->                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "The temporary path for legacy file signing is unavailable.")
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyEmitDiagnostics[TCompilation](TCompilation c, EmitOptions options, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 358
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyEmitDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 375
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 443
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [38 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1109
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [29 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1109
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [33 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1274
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [30 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1274
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [32 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1199
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [44 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1199
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [118 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(MemoryStream moduleContents, AttributeDescription expectedModuleAttr, CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1563
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1668
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [76 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(MemoryStream moduleContents, AttributeDescription expectedModuleAttr, CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1563
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1668
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [43 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.WRN_CmdOptionConflictsSource).WithArguments("CryptoKeyContainer", "System.Reflection.AssemblyKeyNameAttribute")
+Actual:
+                // error CS7028: Error signing output with public key from container 'RoslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+                // warning CS1616: Option 'CryptoKeyContainer' overrides attribute 'System.Reflection.AssemblyKeyNameAttribute' given in a source file or added module
+                Diagnostic(ErrorCode.WRN_CmdOptionConflictsSource).WithArguments("CryptoKeyContainer", "System.Reflection.AssemblyKeyNameAttribute").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 429
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [49 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.WRN_CmdOptionConflictsSource).WithArguments("CryptoKeyContainer", "System.Reflection.AssemblyKeyNameAttribute")
+Actual:
+                // error CS7028: Error signing output with public key from container 'RoslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+                // warning CS1616: Option 'CryptoKeyContainer' overrides attribute 'System.Reflection.AssemblyKeyNameAttribute' given in a source file or added module
+                Diagnostic(ErrorCode.WRN_CmdOptionConflictsSource).WithArguments("CryptoKeyContainer", "System.Reflection.AssemblyKeyNameAttribute").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 429
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [38 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 256
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [32 ms]
+  Error Message:
+   
+Expected:
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 256
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [44 ms]
+  Error Message:
+   Assert.Empty() Failure: Collection was not empty
+Collection: [error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016), (7,15): error CS0281: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2', but the public key of the output assembly ('') does not match that specified by the InternalsVisibleTo attribute in the granting assembly.]
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 921
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [79 ms]
+  Error Message:
+   Assert.Empty() Failure: Collection was not empty
+Collection: [error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016), (7,15): error CS0281: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2', but the public key of the output assembly ('') does not match that specified by the InternalsVisibleTo attribute in the granting assembly.]
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 921
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSigned(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [49 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.ERR_BadAccess, "C").WithArguments("CAttribute").WithLocation(3, 12)
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+                // (3,12): error CS0122: 'CAttribute' is inaccessible due to its protection level
+                // [assembly: C()]
+                Diagnostic(ErrorCode.ERR_BadAccess, "C").WithArguments("CAttribute").WithLocation(3, 12)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1307
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [34 ms]
+  Error Message:
+   
+Expected:
+                Diagnostic(ErrorCode.ERR_BadAccess, "C").WithArguments("CAttribute").WithLocation(3, 12)
+Actual:
+                // error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016)
+                Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+                // (3,12): error CS0122: 'CAttribute' is inaccessible due to its protection level
+                // [assembly: C()]
+                Diagnostic(ErrorCode.ERR_BadAccess, "C").WithArguments("CAttribute").WithLocation(3, 12)
+Diff:
+++>                 Diagnostic(ErrorCode.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.VerifyDiagnostics[TCompilation](TCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 111
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1307
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [41 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1167
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [44 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1167
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:13:48.90]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestUnicodeAttributeArgumentsStrings [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestUnicodeAttributeArgumentsStrings [1 ms]
+[xUnit.net 00:13:53.18]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestWellKnownAttributeOnProperty_DynamicAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestWellKnownAttributeOnProperty_DynamicAttribute [1 ms]
+[xUnit.net 00:13:53.69]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifierOnInvalidAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifierOnInvalidAttribute [1 ms]
+[xUnit.net 00:13:54.09]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifier [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifier [1 ms]
+[xUnit.net 00:14:32.21]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.InterpolationHandler_Indexer_InObjectInitializer [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.InterpolationHandler_Indexer_InObjectInitializer [1 ms]
+[xUnit.net 00:16:12.55]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.UseSiteInfoTracking_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.UseSiteInfoTracking_01 [1 ms]
+[xUnit.net 00:16:37.74]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_ArraysAndSpans.WithElement_ReadOnlySpan_WithOutVar [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_ArraysAndSpans.WithElement_ReadOnlySpan_WithOutVar [1 ms]
+[xUnit.net 00:20:45.62]     Microsoft.CodeAnalysis.CSharp.UnitTests.AssemblyAttributeTests.Bug16465 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AssemblyAttributeTests.Bug16465 [1 ms]
+[xUnit.net 00:20:53.78]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestInvalidDiagnosticSuppressionReported [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestInvalidDiagnosticSuppressionReported [1 ms]
+[xUnit.net 00:20:54.03]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestNonReportedDiagnosticCannotBeSuppressed [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestNonReportedDiagnosticCannotBeSuppressed [1 ms]
+[xUnit.net 00:20:54.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestUnsupportedSuppressionReported [SKIP]
+[xUnit.net 00:20:54.07]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestExceptionFromSuppressor [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestUnsupportedSuppressionReported [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestExceptionFromSuppressor [1 ms]
+[xUnit.net 00:21:12.36]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_CallerInfoAttributes.TestCallerMemberName_ConstructorDestructor [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_CallerInfoAttributes.TestCallerMemberName_ConstructorDestructor [1 ms]
+[xUnit.net 00:22:21.26]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_02B [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_02B [1 ms]
+[xUnit.net 00:22:33.85]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.RestrictedTypes [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.RestrictedTypes [1 ms]
+[xUnit.net 00:22:53.02]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.AddMethod_RefOmittedArguments [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.AddMethod_RefOmittedArguments [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.xml
+Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.html
+
+Failed!  - Failed:    30, Passed: 27971, Skipped:    48, Total: 28049, Duration: 23 m 4 s - Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests.dll (net10.0)
