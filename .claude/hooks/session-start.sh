@@ -16,7 +16,7 @@ cd "$CLAUDE_PROJECT_DIR"
 # resume costs ~90s even when nothing changed.
 if [[ ! -x "$CLAUDE_PROJECT_DIR/.dotnet/dotnet" ]]; then
   log="$CLAUDE_PROJECT_DIR/.claude/hooks/attune.log"
-  nohup ./folly.sh attune >"$log" 2>&1 &
+  nohup ./folly.sh attune research >"$log" 2>&1 &
   disown
   echo "Started './folly.sh attune' in the background (PID $!); progress logged to $log"
 fi
