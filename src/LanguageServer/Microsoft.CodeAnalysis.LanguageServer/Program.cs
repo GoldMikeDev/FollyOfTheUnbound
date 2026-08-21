@@ -60,7 +60,7 @@ static async Task<int> RunAsync(ServerConfiguration serverConfiguration, Cancell
         // orphaned) -- so none of it is ever visible. Redirect straight to a file, independent of the
         // bootstrap/pipe lifetime, to capture what the daemon is actually doing around a connection failure.
         // Revert this once the DaemonServerLifecycleTests investigation is done.
-        var diagnosticLogPath = Path.Combine(Path.GetTempPath(), $"daemon-diagnostic-{Environment.ProcessId}.log");
+        var diagnosticLogPath = Path.Combine(Path.GetTempPath(), $"daemon-diagnostic-{serverConfiguration.ServerPipeName}.log");
         var diagnosticWriter = new StreamWriter(diagnosticLogPath, append: false) { AutoFlush = true };
         Console.SetOut(diagnosticWriter);
     }
