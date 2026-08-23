@@ -66,7 +66,10 @@ public abstract class AbstractLspMiscellaneousFilesWorkspaceTests : AbstractLang
             {
                 project.RemoveFromWorkspace();
             }
-            catch (InvalidOperationException)
+            // Match only the specific message ProjectSystemProject.RemoveFromWorkspaceMaybeAsync throws for this
+            // race, not InvalidOperationException generally -- a real bug elsewhere in removal (e.g. a
+            // Contract.ThrowIfFalse failure) must still surface as a teardown failure instead of being swallowed.
+            catch (InvalidOperationException ex) when (ex.Message == "The project has already been removed.")
             {
             }
         }

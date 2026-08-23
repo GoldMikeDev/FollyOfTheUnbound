@@ -165,23 +165,47 @@ refactors of `ProcessAcceptedConnectionAsync` (or any other consumer of `CheckCl
 must preserve "read first, then check elevation" -- reordering it back regresses this silently on
 Linux, since nothing there will ever throw to catch it.
 
-## `ProjectSystemProject.RemoveFromWorkspaceMaybeAsync` must release its own resources before the "already removed" check
+## `ProjectSystemProject.RemoveFromWorkspaceMaybeAsync` releases its own resources independently of solution membership
 
 **Affected area:** `src/Workspaces/Core/Portable/Workspace/ProjectSystem/ProjectSystemProject.cs`
 **Description:** `RemoveFromWorkspaceMaybeAsync` can be entered concurrently for the same project --
 e.g. the LSP daemon's `Workspace` being disposed at the same time as, and before, the
 `LanguageServerProjectLoader` that owns the project (see that type's `Dispose` for the same race
-already anticipated there). When that happens, `_projectSystemProjectFactory.Workspace.CurrentSolution.ContainsProject(Id)`
-is `false` and the method throws `InvalidOperationException("The project has already been removed.")`.
-Nothing ever retries cleanup for an instance whose removal already threw once. If that throw runs
-before this project's own `_fileChangesToProcess` and `_documentFileChangeContext` are disposed, both
-are leaked for the rest of the process's lifetime -- `_documentFileChangeContext` in particular stays
-registered as an active file-watch context, which `FileWatcherReleaseTracker`
+already anticipated there). When that happens,
+`_projectSystemProjectFactory.Workspace.CurrentSolution.ContainsProject(Id)` is `false` and the method
+throws `InvalidOperationException("The project has already been removed.")`. A `_removedFromWorkspace`
+flag, set under `_gate` the first time this method runs, guards against a second racing call
+re-entering cleanup: that second call throws the same exception immediately rather than proceeding.
+**Invariant:** `_fileChangesToProcess.Dispose()` and `_documentFileChangeContext.Dispose()` run
+unconditionally, guarded only by `_removedFromWorkspace`, before the `ContainsProject` check that can
+throw -- they belong to this `ProjectSystemProject` instance and aren't tied to solution membership, so
+the first call releases them exactly once regardless of which caller wins the race to remove the
+project. If a future edit moves either disposal after that check, or removes the
+`_removedFromWorkspace` guard, hitting this race leaks `_documentFileChangeContext` as an active
+file-watch context for the rest of the process's lifetime -- `FileWatcherReleaseTracker`
 (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.UnitTests/Utilities/FileWatcherReleaseTracker.cs`)
-asserts against after every test, so one project hitting this race can fail every later test that
-shares the xUnit test-host process.
-**Workaround:** `_fileChangesToProcess.Dispose()` and `_documentFileChangeContext.Dispose()` must run
-unconditionally, before the `ContainsProject` check that can throw -- they belong to this
-`ProjectSystemProject` instance and aren't tied to solution membership, so they must be released
-exactly once regardless of which caller wins the race to remove the project. Future edits to
-`RemoveFromWorkspaceMaybeAsync` must keep both disposals ahead of that check.
+asserts against exactly that after every test, so one project hitting this race would fail every later
+test sharing the xUnit test-host process.
+
+## `LspRelay.CopyStreamDetectingSentinelAsync` must keep reading after a forward fails, not just after the sentinel's own chunk fails
+
+**Affected area:** `src/LanguageServer/roslyn-language-server/LspRelay.cs`
+**Description:** The thin client's editor-side transport can already be disposed by the time the
+daemon writes `CleanExitSentinel` -- `TestLspClient.ShutdownAndExitCoreAsync` (and any well-behaved
+LSP client following the same pattern) sends `exit` as a fire-and-forget notification and then
+immediately tears down its side of the connection without waiting for any response, so the relay's
+attempt to forward the daemon's *next* chunk back to the editor routinely lands after that pipe is
+already gone. The sentinel is not necessarily in that first failing chunk -- unrelated response bytes
+the daemon wrote just before shutting down commonly fail to forward first, one or more reads before
+the sentinel-carrying chunk even arrives. Treating any forwarding failure as conclusive (the original
+implementation returned immediately on the first destination-write exception) discards the read loop
+before it ever reaches the sentinel, so `LspRelay.RelayAsync` classifies a perfectly clean shutdown as
+`EditorConnectionLost` -- this was `DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle`'s
+observed flake (`Assert.Equal(0, ...)` failing with `Actual: 2`), reproducible locally at roughly a
+1-in-6 rate before this fix.
+**Invariant:** `CopyStreamDetectingSentinelAsync` keeps reading `source` after a destination-write
+failure -- it only stops forwarding (via the `destinationAlive` flag), never stops reading. Whether the
+daemon's exit was clean is determined entirely by what it wrote to the source stream; a dead
+destination does not change that fact and must not short-circuit the search for the sentinel. A future
+edit that reintroduces an early return on the first destination-write exception regresses this
+silently, since nothing in CI reliably reproduces a race this timing-sensitive on a single run.

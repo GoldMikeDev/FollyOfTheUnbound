@@ -118,6 +118,14 @@ internal static class LspRelay
         const int BufferSize = 64 * 1024;
         var buffer = new byte[BufferSize];
 
+        // Once a forward to the destination fails, stop trying to write to it but keep reading from the source:
+        // the daemon may still be about to write the sentinel in a later chunk (e.g. the editor disposed its
+        // side of the relay right after telling the server to exit, without waiting for any response -- the
+        // failed write can easily land on an earlier, unrelated chunk than the one that would have carried the
+        // sentinel). Whether the daemon's exit was clean is a fact about what it wrote to the source; it doesn't
+        // depend on whether anyone was still listening for the courtesy forward.
+        var destinationAlive = true;
+
         try
         {
             while (true)
@@ -136,32 +144,31 @@ internal static class LspRelay
                     return (StreamCopyCompletion.SourceClosed, SentinelSeen: false);
 
                 var sentinelIndex = Array.IndexOf(buffer, CleanExitSentinel.Value, 0, bytesRead);
+                var sawSentinel = sentinelIndex >= 0;
+                var forwardLength = sawSentinel ? sentinelIndex : bytesRead;
 
-                try
+                // Forward everything up to (but not including) the sentinel, if any -- the daemon writes it
+                // immediately before tearing down its JsonRpc connection, so nothing meaningful follows it in the
+                // same stream.
+                if (destinationAlive && forwardLength > 0)
                 {
-                    if (sentinelIndex < 0)
+                    try
                     {
-                        await destination.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+                        await destination.WriteAsync(buffer.AsMemory(0, forwardLength), cancellationToken).ConfigureAwait(false);
                         await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
                     }
-                    else
+                    catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                     {
-                        // Forward everything up to (but not including) the sentinel, then treat it as the end
-                        // of this connection's traffic -- the daemon writes it immediately before tearing down
-                        // its JsonRpc connection, so nothing meaningful follows it in the same stream.
-                        if (sentinelIndex > 0)
-                        {
-                            await destination.WriteAsync(buffer.AsMemory(0, sentinelIndex), cancellationToken).ConfigureAwait(false);
-                            await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
-                        }
-
-                        return (StreamCopyCompletion.SourceClosed, SentinelSeen: true);
+                        destinationAlive = false;
                     }
                 }
-                catch (Exception ex) when (ex is IOException or ObjectDisposedException)
-                {
-                    return (StreamCopyCompletion.DestinationException, SentinelSeen: false);
-                }
+
+                if (sawSentinel)
+                    return (StreamCopyCompletion.SourceClosed, SentinelSeen: true);
+
+                // A dead destination alone isn't evidence of an unclean exit -- loop back and keep reading from
+                // the source (without further forwarding) until it either produces the sentinel or ends on its
+                // own, at which point the switch in CopyUntilClosedAsync reports that outcome normally.
             }
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
