@@ -79,7 +79,18 @@ internal static class LspRelay
         // a crash that tears down the connection produces ungraceful closures on both directions, regardless of
         // which endpoint they're attributed to.
         var otherTask = completedTask == editorToServer ? serverToEditor : editorToServer;
-        var otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(s_secondCloseGracePeriod)).ConfigureAwait(false) == otherTask;
+
+        // serverToEditor can start its own s_deadDestinationDrainTimeout-bounded drain at any point up to
+        // s_secondCloseGracePeriod into this wait (whenever its destination write happens to fail), and that
+        // drain then needs its own full window from there. Racing it against a second, independently-running
+        // s_secondCloseGracePeriod timer here would double-bound it -- if the destination failure happens
+        // partway through this outer wait, the inner drain's own fresh timeout can still be running when this
+        // outer one expires first, cutting off a drain that would otherwise have found the sentinel within its
+        // own allotted window. Give serverToEditor the sum of both windows so its internal timeout is always
+        // the one that actually governs; editorToServer -- backed by the plain, unbounded
+        // ProcessUtilities.CopyStreamAsync -- still gets only the base grace period as its sole timeout.
+        var otherGracePeriod = otherTask == serverToEditor ? s_secondCloseGracePeriod + s_deadDestinationDrainTimeout : s_secondCloseGracePeriod;
+        var otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(otherGracePeriod)).ConfigureAwait(false) == otherTask;
         var otherResult = otherCompletedInTime ? await otherTask.ConfigureAwait(false) : (RelayDirectionResult?)null;
 
         cancellationSource.Cancel();
