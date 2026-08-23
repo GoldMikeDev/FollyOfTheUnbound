@@ -140,3 +140,27 @@ expected `SENTINEL:Inaccessible` on an actual Windows CI run (GoldMikeDev/roslyn
 has run and `DeleteProcThreadAttributeList` has been called -- the same lifetime as the attribute
 list's own backing buffer. `TryCreateHandleListAttributeList` now `Marshal.AllocHGlobal`s the handle
 array alongside the attribute-list buffer and frees both together in `TryStart`'s `finally` block.
+
+## `NamedPipeServerStream.RunAsClient` requires a prior read -- elevation check must run after the handshake
+
+**Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/LanguageServer/NamedPipeDaemonConnectionSource.cs`
+**Description:** `NamedPipeUtil.CheckClientElevationMatches` impersonates the connecting client via
+`NamedPipeServerStream.RunAsClient` to compare its elevation against the daemon's own. On Windows,
+`RunAsClient` throws `IOException: "Unable to impersonate using a named pipe until data has been
+read from that pipe."` if nothing has been read from that pipe instance yet. `ProcessAcceptedConnectionAsync`
+originally ran this elevation check *before* reading the per-connection `ConnectionHandshake`, so
+every single daemon connection failed elevation and was rejected -- not a race or a cold-start issue,
+a deterministic 100% failure once a client got as far as being accepted. This wasn't caught by unit
+tests (`CheckClientElevationMatches` returns `true` without calling `RunAsClient` at all on
+non-Windows, so Linux CI and this repo's Linux dev sandbox can't exercise the failure) and surfaced
+via `daemon-diagnostic-*.log` files (see `ROSLYN_DAEMON_DIAGNOSTIC_LOG=1` in `Program.cs`) captured
+from a real Windows run, where every one of 15 daemon processes hit the same exception at the same
+call site. It's the root cause behind the `DaemonServerLifecycleTests` connection failures this fork
+investigated across several sessions.
+**Workaround:** Any code path that validates a newly-accepted `NamedPipeServerStream` must perform at
+least one real read from that stream before calling `NamedPipeUtil.CheckClientElevationMatches` on
+it -- see `NamedPipeClientConnection.ReadBuildRequestAsync` in the compiler server (`src/Compilers/Server/VBCSCompiler/NamedPipeClientConnection.cs`)
+for the same shared `NamedPipeUtil` used in the correct order, with a comment explaining why. Future
+refactors of `ProcessAcceptedConnectionAsync` (or any other consumer of `CheckClientElevationMatches`)
+must preserve "read first, then check elevation" -- reordering it back regresses this silently on
+Linux, since nothing there will ever throw to catch it.
