@@ -158,11 +158,20 @@ internal static class LspRelay
                 }
                 catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                 {
-                    return (StreamCopyCompletion.SourceException, SentinelSeen: false);
+                    // If the destination already failed, that's the more specific fact: it's what actually
+                    // caused this drain, and this source failure could just as easily be a consequence of the
+                    // same underlying disconnect racing to be observed on both ends -- reporting SourceException
+                    // here would blame the wrong endpoint.
+                    return (destinationAlive ? StreamCopyCompletion.SourceException : StreamCopyCompletion.DestinationException, SentinelSeen: false);
                 }
 
                 if (bytesRead == 0)
-                    return (StreamCopyCompletion.SourceClosed, SentinelSeen: false);
+                {
+                    // Same reasoning as the source-exception case above: a dead destination is the more specific,
+                    // earlier fact, so a graceful source close discovered only while draining for the sentinel
+                    // must not overwrite it.
+                    return (destinationAlive ? StreamCopyCompletion.SourceClosed : StreamCopyCompletion.DestinationException, SentinelSeen: false);
+                }
 
                 var sentinelIndex = Array.IndexOf(buffer, CleanExitSentinel.Value, 0, bytesRead);
                 var sawSentinel = sentinelIndex >= 0;
