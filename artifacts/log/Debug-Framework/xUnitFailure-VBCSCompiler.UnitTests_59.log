@@ -1,0 +1,37 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\VBCSCompiler.UnitTests\Debug\net472\VBCSCompiler.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_59_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_59_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\dumps\59
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (55880).
+[xUnit.net 00:00:38.24]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost [SKIP]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost [1 ms]
+[xUnit.net 00:01:00.26]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [SKIP]
+[xUnit.net 00:01:00.26]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [SKIP]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [1 ms]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [1 ms]
+[xUnit.net 00:01:13.09]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_CoreClr [SKIP]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_CoreClr [1 ms]
+  Failed Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent [66 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Server\VBCSCompilerTests\CompilationCacheTests.cs:line 366
+  Standard Output Messages:
+ Cache store failed for MyLib.dll [2c70e12b7a0646f92279f427c7b38e7334d8e5389cff167a1dc30e73f826b683]: Access to the path 'C:\Users\mhole\AppData\Local\Temp\RoslynTests\6cba0fa3-b27a-4ca1-8692-6f7f5dc31f46\MyLib.dll\2c70e12b7a0646f92279f427c7b38e7334d8e5389cff167a1dc30e73f826b683.61cb2da02238433cbc675af40fcbbd53.tmp' is denied.
+
+
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_59_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_59_x64_test_results.html
+
+Failed!  - Failed:     1, Passed:   187, Skipped:     4, Total:   192, Duration: 1 m 32 s - VBCSCompiler.UnitTests.dll (net472)
