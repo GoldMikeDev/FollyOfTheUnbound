@@ -116,6 +116,17 @@ internal sealed partial class ProjectSystemProject
 
     private readonly AsyncBatchingWorkQueue<string> _fileChangesToProcess;
 
+    /// <summary>
+    /// Guards <see cref="_fileChangesToProcess"/> and <see cref="_documentFileChangeContext"/> against being
+    /// disposed more than once. Set under <see cref="_gate"/> the first time
+    /// <see cref="RemoveFromWorkspaceMaybeAsync(bool)"/> runs; a caller that races to remove this project a
+    /// second time (see that method's remarks) must not re-dispose these -- e.g. <see cref="_documentFileChangeContext"/>
+    /// disposal is not itself idempotent for every <see cref="IFileChangeContext"/> implementation (an LSP-backed
+    /// one issues a <c>client/unregisterCapability</c> request per disposal), so disposing it twice can surface as
+    /// a client-visible protocol error during teardown rather than a harmless no-op.
+    /// </summary>
+    private bool _removedFromWorkspace;
+
     public ProjectId Id { get; }
     public string Language { get; }
 
@@ -1223,8 +1234,17 @@ internal sealed partial class ProjectSystemProject
         // Previously these were released only after the "already removed" check below, so hitting that race
         // leaked this context (and kept the file-change queue alive) for the rest of the process's lifetime,
         // since nothing else ever retries releasing them for an instance whose RemoveFromWorkspace already threw.
+        // _removedFromWorkspace guards against the opposite failure mode this reordering would otherwise
+        // introduce: a second racing call reaching this method for the same instance must not re-dispose these,
+        // since disposal isn't idempotent for every IFileChangeContext implementation (see that field's remarks).
         using (useAsync ? await _gate.DisposableWaitAsync().ConfigureAwait(false) : _gate.DisposableWait())
         {
+            if (_removedFromWorkspace)
+            {
+                throw new InvalidOperationException("The project has already been removed.");
+            }
+
+            _removedFromWorkspace = true;
             _fileChangesToProcess.Dispose();
         }
 

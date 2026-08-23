@@ -51,8 +51,25 @@ public abstract class AbstractLspMiscellaneousFilesWorkspaceTests : AbstractLang
         // Projects created via AddDocumentAsync are created directly against the host project factory and bypass the
         // project loader, so nothing else removes them. Remove them now (while the host workspace is still alive) to
         // release the file watches they hold, mirroring what LoadedProject.Dispose does for loader-managed projects.
+        //
+        // The test body's own TestLspServer(s) are disposed before this runs (via 'await using' in the test method),
+        // which tears down the host workspace itself -- clearing its CurrentSolution and so, from
+        // ProjectSystemProject's perspective, removing every project still registered in it. That races this
+        // explicit removal the same way LanguageServerProjectLoader.Dispose's remarks describe for the daemon:
+        // whichever runs second sees its project already gone from the solution and throws. Since
+        // ProjectSystemProject.RemoveFromWorkspaceMaybeAsync releases this project's own file-watch resources
+        // unconditionally before that throw, they're released exactly once either way; this catch just tolerates
+        // losing the race so one test's ordering doesn't fail teardown for a project that's already gone.
         foreach (var project in _projectsToRemoveOnDispose)
-            project.RemoveFromWorkspace();
+        {
+            try
+            {
+                project.RemoveFromWorkspace();
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
 
         TempRoot.Dispose();
         _loggerProvider.Dispose();
