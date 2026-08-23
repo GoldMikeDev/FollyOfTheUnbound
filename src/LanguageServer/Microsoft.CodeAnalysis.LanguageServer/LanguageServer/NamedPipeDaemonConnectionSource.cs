@@ -292,8 +292,16 @@ internal sealed class NamedPipeDaemonConnectionSource : ILanguageServerConnectio
         // The accepted stream is both input and output, and is disposed when its language server exits.
         var connection = new LanguageServerConnection(pipeStream, pipeStream, new ConnectionResource(pipeStream, this), handshake);
 
-        // Unbounded channel: TryWrite always succeeds (never actually awaits), matching the unbounded capacity.
-        writer.TryWrite(connection);
+        // Unbounded channel: TryWrite only ever fails if the writer was already completed -- the accept loop can
+        // do that (cancellation, or a committed idle timeout) while this validation was still in flight, in which
+        // case nobody will ever consume this connection via AcceptConnectionsAsync's foreach. Dispose it ourselves
+        // in that case rather than leaking the pipe and leaving OpenConnection's count never balanced by a
+        // matching CloseConnection -- ConnectionResource.Dispose does both.
+        if (!writer.TryWrite(connection))
+        {
+            _logger.LogWarning("Daemon dropped a validated client connection because it was shutting down.");
+            connection.Resource?.Dispose();
+        }
     }
 
     internal TestAccessor GetTestAccessor() => new(this);
