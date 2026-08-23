@@ -113,6 +113,32 @@ public abstract class AbstractLspMiscellaneousFilesWorkspaceTests : AbstractLang
         return workspaceFactory.HostWorkspace.CurrentSolution.GetRequiredProject(project.Id).Documents.Single();
     }
 
+    /// <summary>
+    /// Regression test for the <c>_removedFromWorkspace</c> guard in <see cref="ProjectSystemProject.RemoveFromWorkspace"/>:
+    /// a second call for the same project must throw immediately rather than re-running (and so re-disposing) the
+    /// removal it already completed. Without that guard, a second call would re-dispose this project's file-watch
+    /// context -- harmless for the plain in-process watcher this test harness uses, but not for an LSP-backed one,
+    /// where each disposal issues its own <c>client/unregisterCapability</c> request (see the "already removed"
+    /// entry in <c>.github/memory/known-issues/ide.md</c>).
+    /// </summary>
+    [Theory, CombinatorialData]
+    public async Task TestRemoveFromWorkspace_CalledTwice_SecondCallThrowsWithoutReDisposing(bool mutatingLspWorkspace)
+    {
+        await using var testLspServer = await CreateTestLspServerAsync("", mutatingLspWorkspace, new InitializationOptions { ServerKind = WellKnownLspServerKinds.CSharpVisualBasicLspServer });
+
+        var workspaceFactory = testLspServer.GetRequiredLspService<LanguageServerWorkspaceFactory>();
+        var project = await workspaceFactory.HostProjectFactory.CreateAndAddToWorkspaceAsync(
+            Guid.NewGuid().ToString(),
+            LanguageNames.CSharp,
+            new ProjectSystemProjectCreationInfo { AssemblyName = Guid.NewGuid().ToString() },
+            workspaceFactory.ProjectSystemHostInfo);
+
+        project.RemoveFromWorkspace();
+
+        var exception = Assert.Throws<InvalidOperationException>(project.RemoveFromWorkspace);
+        Assert.Equal("The project has already been removed.", exception.Message);
+    }
+
     private protected static async Task<(Workspace? workspace, Document? document)> GetLspWorkspaceAndDocumentAsync(DocumentUri uri, TestLspServer testLspServer)
     {
         var (workspace, _, document) = await testLspServer.GetManager().GetLspDocumentInfoAsync(CreateTextDocumentIdentifier(uri), CancellationToken.None).ConfigureAwait(false);

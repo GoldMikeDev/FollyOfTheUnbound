@@ -31,6 +31,18 @@ internal static class LspRelay
     /// </summary>
     private static readonly TimeSpan s_secondCloseGracePeriod = TimeSpan.FromSeconds(5);
 
+    /// <summary>
+    /// Bound on how long <see cref="CopyStreamDetectingSentinelAsync"/> keeps reading the source purely to look
+    /// for <see cref="CleanExitSentinel"/> after a forward to the destination has already failed. Without this,
+    /// a destination that dies asymmetrically from its paired read direction (e.g. stdio transport, where
+    /// <c>EditorConnection.Input</c>/<c>Output</c> are independent streams and only the write side breaks) would
+    /// leave this loop blocked on the next source read forever, since nothing else would ever cancel it -- the
+    /// other relay direction can be blocked the same way on its own read, so <see cref="RelayAsync"/>'s
+    /// <c>Task.WhenAny</c> would never observe either task complete. Same duration as
+    /// <see cref="s_secondCloseGracePeriod"/> for consistency, not because the two bounds are otherwise related.
+    /// </summary>
+    private static readonly TimeSpan s_deadDestinationDrainTimeout = TimeSpan.FromSeconds(5);
+
     public static async Task<RelayCompletionKind> RelayAsync(
         Stream fromEditor,
         Stream toEditor,
@@ -123,17 +135,26 @@ internal static class LspRelay
         // side of the relay right after telling the server to exit, without waiting for any response -- the
         // failed write can easily land on an earlier, unrelated chunk than the one that would have carried the
         // sentinel). Whether the daemon's exit was clean is a fact about what it wrote to the source; it doesn't
-        // depend on whether anyone was still listening for the courtesy forward.
+        // depend on whether anyone was still listening for the courtesy forward. That drain is bounded by
+        // drainCancellation below so a source that never itself closes can't block this forever.
         var destinationAlive = true;
+        CancellationTokenSource? drainCancellation = null;
 
         try
         {
             while (true)
             {
+                var readToken = drainCancellation?.Token ?? cancellationToken;
                 int bytesRead;
                 try
                 {
-                    bytesRead = await source.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken).ConfigureAwait(false);
+                    bytesRead = await source.ReadAsync(buffer.AsMemory(0, buffer.Length), readToken).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) when (drainCancellation is not null && !cancellationToken.IsCancellationRequested)
+                {
+                    // The bounded post-failure drain timed out without ever seeing the sentinel -- report the
+                    // destination failure that started it, the same outcome as if we'd given up immediately.
+                    return (StreamCopyCompletion.DestinationException, SentinelSeen: false);
                 }
                 catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                 {
@@ -160,6 +181,8 @@ internal static class LspRelay
                     catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                     {
                         destinationAlive = false;
+                        drainCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                        drainCancellation.CancelAfter(s_deadDestinationDrainTimeout);
                     }
                 }
 
@@ -174,6 +197,10 @@ internal static class LspRelay
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             return (StreamCopyCompletion.Cancelled, SentinelSeen: false);
+        }
+        finally
+        {
+            drainCancellation?.Dispose();
         }
     }
 }
