@@ -43,6 +43,17 @@ internal static class LspRelay
     /// </summary>
     private static readonly TimeSpan s_deadDestinationDrainTimeout = TimeSpan.FromSeconds(5);
 
+    /// <summary>
+    /// Upper bound on how long <see cref="RelayAsync"/> can legitimately still be waiting to conclude once one
+    /// direction has already closed -- <see cref="s_secondCloseGracePeriod"/> plus
+    /// <see cref="s_deadDestinationDrainTimeout"/>, the worst case when <c>serverToEditor</c>'s destination write
+    /// fails right at the end of the base grace period and its own drain then runs its full course. Anything
+    /// that force-exits the process on a shorter deadline than this (e.g. <c>Program.StartClientProcessMonitorAsync</c>'s
+    /// editor-exit grace window) can kill this relay out from under a shutdown that was only seconds away from
+    /// concluding cleanly, clobbering its exit code with a spurious <see cref="RelayCompletionKind.EditorConnectionLost"/>.
+    /// </summary>
+    public static readonly TimeSpan MaximumShutdownWait = s_secondCloseGracePeriod + s_deadDestinationDrainTimeout;
+
     public static async Task<RelayCompletionKind> RelayAsync(
         Stream fromEditor,
         Stream toEditor,

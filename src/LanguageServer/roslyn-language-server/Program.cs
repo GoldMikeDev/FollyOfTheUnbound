@@ -132,8 +132,10 @@ internal static class Program
     }
 
     /// <summary>Bound on how long a detected editor-process exit waits for <see cref="Main"/>'s own conclusive
-    /// result before force-exiting over it; see <see cref="StartClientProcessMonitorAsync"/>'s remarks.</summary>
-    private static readonly TimeSpan s_editorExitForceExitGracePeriod = TimeSpan.FromSeconds(5);
+    /// result before force-exiting over it; see <see cref="StartClientProcessMonitorAsync"/>'s remarks. Must be at
+    /// least <see cref="LspRelay.MaximumShutdownWait"/> -- a shorter deadline here can force-exit a daemon-mode
+    /// relay that was still within its own legitimate wait for a clean-exit sentinel, clobbering its exit code.</summary>
+    private static readonly TimeSpan s_editorExitForceExitGracePeriod = LspRelay.MaximumShutdownWait;
 
     /// <summary>
     /// Force-exits if the monitored editor process disappears out from under us -- the normal signal for "the
