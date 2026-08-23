@@ -204,8 +204,14 @@ before it ever reaches the sentinel, so `LspRelay.RelayAsync` classifies a perfe
 observed flake (`Assert.Equal(0, ...)` failing with `Actual: 2`), reproducible locally at roughly a
 1-in-6 rate before this fix.
 **Invariant:** `CopyStreamDetectingSentinelAsync` keeps reading `source` after a destination-write
-failure -- it only stops forwarding (via the `destinationAlive` flag), never stops reading. Whether the
-daemon's exit was clean is determined entirely by what it wrote to the source stream; a dead
-destination does not change that fact and must not short-circuit the search for the sentinel. A future
-edit that reintroduces an early return on the first destination-write exception regresses this
-silently, since nothing in CI reliably reproduces a race this timing-sensitive on a single run.
+failure instead of returning immediately -- it only stops forwarding (via the `destinationAlive` flag).
+That drain is bounded by `s_deadDestinationDrainTimeout` (5s, on a `CancellationTokenSource` linked to
+the caller's token): a source that never produces the sentinel and never itself closes is a real
+possibility (e.g. stdio transport, where the editor's read and write streams are independent and only
+one side has broken), so the drain cannot run unbounded either -- if the timeout elapses first, the
+method falls back to the original `DestinationException` outcome. Whether the daemon's exit was clean
+is determined by what it wrote to the source stream within that window; a dead destination alone does
+not change that fact and must not short-circuit the search for the sentinel before the window expires.
+A future edit that reintroduces an unconditional early return on the first destination-write exception,
+or removes the timeout bound, regresses this silently, since nothing in CI reliably reproduces a race
+this timing-sensitive on a single run.
