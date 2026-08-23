@@ -91,17 +91,30 @@ internal static class LspRelay
         // which endpoint they're attributed to.
         var otherTask = completedTask == editorToServer ? serverToEditor : editorToServer;
 
-        // serverToEditor can start its own s_deadDestinationDrainTimeout-bounded drain at any point up to
-        // s_secondCloseGracePeriod into this wait (whenever its destination write happens to fail), and that
-        // drain then needs its own full window from there. Racing it against a second, independently-running
-        // s_secondCloseGracePeriod timer here would double-bound it -- if the destination failure happens
-        // partway through this outer wait, the inner drain's own fresh timeout can still be running when this
-        // outer one expires first, cutting off a drain that would otherwise have found the sentinel within its
-        // own allotted window. Give serverToEditor the sum of both windows so its internal timeout is always
-        // the one that actually governs; editorToServer -- backed by the plain, unbounded
-        // ProcessUtilities.CopyStreamAsync -- still gets only the base grace period as its sole timeout.
-        var otherGracePeriod = otherTask == serverToEditor ? s_secondCloseGracePeriod + s_deadDestinationDrainTimeout : s_secondCloseGracePeriod;
-        var otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(otherGracePeriod)).ConfigureAwait(false) == otherTask;
+        // serverToEditor's destination write can fail at any point during this wait -- there's no way to bound
+        // "when" in advance -- and once it does, CopyStreamDetectingSentinelAsync starts its own fresh
+        // s_deadDestinationDrainTimeout-bounded drain from that moment. Any separate, independently-running
+        // outer timer here -- fixed-duration or even (as an earlier version of this code tried)
+        // s_secondCloseGracePeriod plus s_deadDestinationDrainTimeout -- can still expire before that drain's
+        // own window does, since the failure isn't constrained to happen early: a write that fails near the end
+        // of an outer window leaves the drain needing nearly a full extra s_deadDestinationDrainTimeout beyond
+        // it. So serverToEditor gets no outer race at all here -- its own internal timeout, once started, is
+        // unconditionally the one that governs, however late it begins. The accepted tradeoff is the case where
+        // the destination never fails and the daemon simply never produces anything and never closes (no writes
+        // are ever attempted, so no drain ever starts): that leaves this wait genuinely unbounded, same as
+        // editorToServer already is via the plain, unbounded ProcessUtilities.CopyStreamAsync, which still races
+        // the base grace period below as its sole timeout since it has no internal bound of its own to defer to.
+        bool otherCompletedInTime;
+        if (otherTask == serverToEditor)
+        {
+            await otherTask.ConfigureAwait(false);
+            otherCompletedInTime = true;
+        }
+        else
+        {
+            otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(s_secondCloseGracePeriod)).ConfigureAwait(false) == otherTask;
+        }
+
         var otherResult = otherCompletedInTime ? await otherTask.ConfigureAwait(false) : (RelayDirectionResult?)null;
 
         cancellationSource.Cancel();

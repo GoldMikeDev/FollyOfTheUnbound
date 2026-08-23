@@ -215,3 +215,28 @@ not change that fact and must not short-circuit the search for the sentinel befo
 A future edit that reintroduces an unconditional early return on the first destination-write exception,
 or removes the timeout bound, regresses this silently, since nothing in CI reliably reproduces a race
 this timing-sensitive on a single run.
+
+## `LspRelay.RelayAsync` must not race `serverToEditor`'s wait against a second, independent timer
+
+**Affected area:** `src/LanguageServer/roslyn-language-server/LspRelay.cs`
+**Description:** When `serverToEditor` is the direction `RelayAsync` is still waiting on (the other one
+already completed), its destination write can fail at *any* point during that wait -- there's no way to
+bound when in advance, since `serverToEditor` keeps trying to forward whatever the daemon sends for as
+long as it's running. Once it does fail, `CopyStreamDetectingSentinelAsync` starts its own fresh
+`s_deadDestinationDrainTimeout`-bounded drain from that moment (see the entry above). Two earlier
+attempts at bounding `RelayAsync`'s own outer wait both under-covered this: racing `serverToEditor`
+against a fixed `s_secondCloseGracePeriod` timer cut off a drain that started partway through it, and
+racing it against `s_secondCloseGracePeriod + s_deadDestinationDrainTimeout` still under-covered a
+failure that started late in that combined window (a write failing near the end still needs nearly a
+full extra `s_deadDestinationDrainTimeout` beyond it). Both produced a spurious `EditorConnectionLost`
+for what was actually a clean shutdown whose sentinel arrived just after the outer deadline.
+**Invariant:** `RelayAsync` places no independent timer race on `serverToEditor` at all when waiting for
+it as the "other" direction -- it's simply awaited directly, trusting `CopyStreamDetectingSentinelAsync`'s
+own internal timeout to be the sole bound, however late within the wait it happens to start. The accepted
+tradeoff: if the destination never fails and the daemon simply never produces anything and never closes
+(no write is ever attempted, so no drain ever starts), this wait is genuinely unbounded -- the same
+degree of protection `editorToServer` already lacks via its own unbounded `ProcessUtilities.CopyStreamAsync`,
+which is why only `editorToServer` still races the base `s_secondCloseGracePeriod` here (it has no
+internal timeout of its own to defer to). A future edit that reintroduces any outer timeout for
+`serverToEditor` specifically -- fixed or computed -- reintroduces this same class of bug, since no fixed
+formula can account for a failure that can start arbitrarily late within the wait.
