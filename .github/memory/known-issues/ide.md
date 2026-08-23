@@ -164,3 +164,24 @@ for the same shared `NamedPipeUtil` used in the correct order, with a comment ex
 refactors of `ProcessAcceptedConnectionAsync` (or any other consumer of `CheckClientElevationMatches`)
 must preserve "read first, then check elevation" -- reordering it back regresses this silently on
 Linux, since nothing there will ever throw to catch it.
+
+## `ProjectSystemProject.RemoveFromWorkspaceMaybeAsync` must release its own resources before the "already removed" check
+
+**Affected area:** `src/Workspaces/Core/Portable/Workspace/ProjectSystem/ProjectSystemProject.cs`
+**Description:** `RemoveFromWorkspaceMaybeAsync` can be entered concurrently for the same project --
+e.g. the LSP daemon's `Workspace` being disposed at the same time as, and before, the
+`LanguageServerProjectLoader` that owns the project (see that type's `Dispose` for the same race
+already anticipated there). When that happens, `_projectSystemProjectFactory.Workspace.CurrentSolution.ContainsProject(Id)`
+is `false` and the method throws `InvalidOperationException("The project has already been removed.")`.
+Nothing ever retries cleanup for an instance whose removal already threw once. If that throw runs
+before this project's own `_fileChangesToProcess` and `_documentFileChangeContext` are disposed, both
+are leaked for the rest of the process's lifetime -- `_documentFileChangeContext` in particular stays
+registered as an active file-watch context, which `FileWatcherReleaseTracker`
+(`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.UnitTests/Utilities/FileWatcherReleaseTracker.cs`)
+asserts against after every test, so one project hitting this race can fail every later test that
+shares the xUnit test-host process.
+**Workaround:** `_fileChangesToProcess.Dispose()` and `_documentFileChangeContext.Dispose()` must run
+unconditionally, before the `ContainsProject` check that can throw -- they belong to this
+`ProjectSystemProject` instance and aren't tied to solution membership, so they must be released
+exactly once regardless of which caller wins the race to remove the project. Future edits to
+`RemoveFromWorkspaceMaybeAsync` must keep both disposals ahead of that check.
