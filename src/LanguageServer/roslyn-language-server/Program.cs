@@ -131,11 +131,24 @@ internal static class Program
         }
     }
 
+    /// <summary>
+    /// Extra slack added on top of <see cref="LspRelay.MaximumShutdownWait"/> in
+    /// <see cref="s_editorExitForceExitGracePeriod"/>. The two deadlines are measured from different starting
+    /// points: <see cref="LspRelay.MaximumShutdownWait"/> is the worst case measured from when the *first* relay
+    /// direction completes (typically <c>editorToServer</c> observing EOF once the editor closes its transport),
+    /// while this grace period is measured from <see cref="Process.WaitForExitAsync"/> observing the editor's OS
+    /// process actually exit. Those aren't the same instant -- the editor's process can linger briefly after
+    /// closing its transport (or vice versa) -- so an equal-duration deadline here doesn't actually guarantee this
+    /// monitor waits at least as long as the relay's own legitimate wait; this slack covers that gap.
+    /// </summary>
+    private static readonly TimeSpan s_editorExitForceExitGraceSlack = TimeSpan.FromSeconds(2);
+
     /// <summary>Bound on how long a detected editor-process exit waits for <see cref="Main"/>'s own conclusive
     /// result before force-exiting over it; see <see cref="StartClientProcessMonitorAsync"/>'s remarks. Must be at
     /// least <see cref="LspRelay.MaximumShutdownWait"/> -- a shorter deadline here can force-exit a daemon-mode
-    /// relay that was still within its own legitimate wait for a clean-exit sentinel, clobbering its exit code.</summary>
-    private static readonly TimeSpan s_editorExitForceExitGracePeriod = LspRelay.MaximumShutdownWait;
+    /// relay that was still within its own legitimate wait for a clean-exit sentinel, clobbering its exit code --
+    /// plus <see cref="s_editorExitForceExitGraceSlack"/>, since the two deadlines start from different events.</summary>
+    private static readonly TimeSpan s_editorExitForceExitGracePeriod = LspRelay.MaximumShutdownWait + s_editorExitForceExitGraceSlack;
 
     /// <summary>
     /// Force-exits if the monitored editor process disappears out from under us -- the normal signal for "the

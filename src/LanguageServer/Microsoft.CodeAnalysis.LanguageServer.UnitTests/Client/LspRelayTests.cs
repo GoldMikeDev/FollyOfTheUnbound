@@ -263,19 +263,22 @@ public sealed class LspRelayTests
         // Regression guard for the destinationFailedSignal race added to RelayAsync: a fixed outer timer
         // covering the *whole* wait (whether s_secondCloseGracePeriod alone or summed with
         // s_deadDestinationDrainTimeout) would cut off a drain that starts close to its own deadline. Here
-        // the destination failure is delayed until just before s_secondCloseGracePeriod elapses, and the
-        // sentinel arrives after that original deadline has passed but well within the fresh drain the
-        // failure itself started -- this must still resolve to CleanShutdown, not EditorConnectionLost.
+        // the destination failure is delayed until partway through s_secondCloseGracePeriod (3s of the 5s
+        // window -- a comfortable 2s margin so ordinary CI scheduler jitter can't push the write past the
+        // deadline and collapse this into the "failure observed after the deadline" case the other tests
+        // already cover), and the sentinel arrives 2.5s after that -- past the original 5s deadline, but
+        // well within the fresh 5s drain the failure itself started. This must still resolve to
+        // CleanShutdown, not EditorConnectionLost.
         var harness = new RelayHarness();
         var faultingStream = new AlwaysFaultingStream();
         var relayTask = harness.RelayAsync(toEditorOverride: faultingStream);
 
         harness.EditorWriter.Complete();
-        await Task.Delay(TimeSpan.FromSeconds(4.5));
+        await Task.Delay(TimeSpan.FromSeconds(3));
         await harness.ServerWriter.WriteAsync("Content-Length: 2\r\n\r\n{}"u8.ToArray());
-        // Confirms the write was attempted (and failed) before the original 5s grace deadline passes.
+        // Confirms the write was attempted (and failed) with margin to spare before the 5s grace deadline.
         await faultingStream.WriteAttempted;
-        await Task.Delay(TimeSpan.FromSeconds(1));
+        await Task.Delay(TimeSpan.FromSeconds(2.5));
         await harness.WriteServerCleanExitSentinelAsync();
         harness.ServerWriter.Complete();
 
