@@ -1,25 +1,25 @@
-<assemblies timestamp="08/24/2026 07:57:20">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.ResultProvider.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll" run-date="2026-08-24" run-time="07:57:20" total="6" passed="6" failed="0" skipped="0" time="7.152" errors="0">
+<assemblies timestamp="08/24/2026 12:57:16">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.ResultProvider.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll" run-date="2026-08-24" run-time="12:57:16" total="6" passed="6" failed="0" skipped="0" time="15.583" errors="0">
     <errors />
     <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.InlineArrayExpansionTests" time="0.007">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.InlineArrayExpansionTests.InlineArrayExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.InlineArrayExpansionTests" method="InlineArrayExpansion" time="0.0071357" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.InlineArrayExpansionTests.InlineArrayExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.InlineArrayExpansionTests" method="InlineArrayExpansion" time="0.0068162" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" time="3.554">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_RawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_RawView" time="2.9714081" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" time="9.566">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_RawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_RawView" time="8.6239130" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_Core" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_Core" time="0.2016272" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_Core" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_Core" time="0.4825593" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_DynamicElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_DynamicElement" time="0.0330547" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_DynamicElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_DynamicElement" time="0.0708252" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_NestedArrayElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_NestedArrayElement" time="0.0073446" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_NestedArrayElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_NestedArrayElement" time="0.0083696" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_TupleElementNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_TupleElementNames" time="0.3403632" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests.SynthesizedCollections_TupleElementNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NetCoreTests.SynthesizedCollectionExpansionTests" method="SynthesizedCollections_TupleElementNames" time="0.3803520" result="Pass">
         <traits />
       </test>
     </collection>
