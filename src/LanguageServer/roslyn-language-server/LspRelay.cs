@@ -31,6 +31,30 @@ internal static class LspRelay
     /// </summary>
     private static readonly TimeSpan s_secondCloseGracePeriod = TimeSpan.FromSeconds(5);
 
+    /// <summary>
+    /// Bound on how long <see cref="CopyStreamDetectingSentinelAsync"/> keeps reading the source purely to look
+    /// for <see cref="CleanExitSentinel"/> after a forward to the destination has already failed. Without this,
+    /// a destination that dies asymmetrically from its paired read direction (e.g. stdio transport, where
+    /// <c>EditorConnection.Input</c>/<c>Output</c> are independent streams and only the write side breaks) would
+    /// leave this loop blocked on the next source read forever, since nothing else would ever cancel it -- the
+    /// other relay direction can be blocked the same way on its own read, so <see cref="RelayAsync"/>'s
+    /// <c>Task.WhenAny</c> would never observe either task complete. Same duration as
+    /// <see cref="s_secondCloseGracePeriod"/> for consistency, not because the two bounds are otherwise related.
+    /// </summary>
+    private static readonly TimeSpan s_deadDestinationDrainTimeout = TimeSpan.FromSeconds(5);
+
+    /// <summary>
+    /// Upper bound on how long <see cref="RelayAsync"/> can legitimately still be waiting to conclude once one
+    /// direction has already closed -- <see cref="s_secondCloseGracePeriod"/> plus
+    /// <see cref="s_deadDestinationDrainTimeout"/>, the worst case when <c>serverToEditor</c>'s destination write
+    /// fails right at the end of the base grace period (the latest point <see cref="RelayAsync"/> still honors a
+    /// newly-started drain -- see its outer-wait handling) and its own drain then runs its full course. Anything
+    /// that force-exits the process on a shorter deadline than this (e.g. <c>Program.StartClientProcessMonitorAsync</c>'s
+    /// editor-exit grace window) can kill this relay out from under a shutdown that was only seconds away from
+    /// concluding cleanly, clobbering its exit code with a spurious <see cref="RelayCompletionKind.EditorConnectionLost"/>.
+    /// </summary>
+    public static readonly TimeSpan MaximumShutdownWait = s_secondCloseGracePeriod + s_deadDestinationDrainTimeout;
+
     public static async Task<RelayCompletionKind> RelayAsync(
         Stream fromEditor,
         Stream toEditor,
@@ -38,8 +62,12 @@ internal static class LspRelay
         Stream toServer)
     {
         using var cancellationSource = new CancellationTokenSource();
-        var editorToServer = CopyUntilClosedAsync(fromEditor, toServer, RelayEndpoint.Editor, RelayEndpoint.Server, detectCleanExitSentinel: false, cancellationSource.Token);
-        var serverToEditor = CopyUntilClosedAsync(fromServer, toEditor, RelayEndpoint.Server, RelayEndpoint.Editor, detectCleanExitSentinel: true, cancellationSource.Token);
+        // Completed (TrySetResult) the moment serverToEditor's destination write first fails and its own
+        // post-failure drain begins -- see the outer-wait handling below for why RelayAsync needs to observe
+        // that moment rather than just racing a fixed timer against serverToEditor as a whole.
+        var destinationFailedSignal = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var editorToServer = CopyUntilClosedAsync(fromEditor, toServer, RelayEndpoint.Editor, RelayEndpoint.Server, detectCleanExitSentinel: false, destinationFailedSignal: null, cancellationSource.Token);
+        var serverToEditor = CopyUntilClosedAsync(fromServer, toEditor, RelayEndpoint.Server, RelayEndpoint.Editor, detectCleanExitSentinel: true, destinationFailedSignal, cancellationSource.Token);
         var completedTask = await Task.WhenAny(editorToServer, serverToEditor).ConfigureAwait(false);
         var result = await completedTask.ConfigureAwait(false);
 
@@ -67,7 +95,50 @@ internal static class LspRelay
         // a crash that tears down the connection produces ungraceful closures on both directions, regardless of
         // which endpoint they're attributed to.
         var otherTask = completedTask == editorToServer ? serverToEditor : editorToServer;
-        var otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(s_secondCloseGracePeriod)).ConfigureAwait(false) == otherTask;
+
+        // serverToEditor's destination write can fail at any point during this wait -- there's no way to bound
+        // "when" in advance -- and once it does, CopyStreamDetectingSentinelAsync starts its own fresh
+        // s_deadDestinationDrainTimeout-bounded drain from that moment. A fixed-duration outer race against
+        // serverToEditor as a whole can't accommodate that: it either cuts off a drain that started late (an
+        // earlier version of this code got this wrong twice -- see known-issues/ide.md), or, if simply removed,
+        // leaves this wait genuinely unbounded whenever the daemon never attempts a write at all (e.g. it never
+        // responds and never closes) -- which is exactly the case
+        // EditorClosesAloneWithoutServerFollowing_IsNotCleanShutdown exercises, and would hang that test (and a
+        // real thin client launched without --clientProcessId) forever. So the outer race here targets the
+        // *failure*, not the whole task: wait up to s_secondCloseGracePeriod for either serverToEditor to finish
+        // on its own or destinationFailedSignal to fire (meaning its post-failure drain has just started); once
+        // that drain has started, its own internal timeout is unconditionally the one that governs from then on,
+        // however close to the outer deadline it began.
+        bool otherCompletedInTime;
+        if (otherTask == serverToEditor)
+        {
+            var graceDelay = Task.Delay(s_secondCloseGracePeriod);
+            var firstSignal = await Task.WhenAny(otherTask, destinationFailedSignal.Task, graceDelay).ConfigureAwait(false);
+
+            // Task.WhenAny only guarantees it returns *a* completed task, not the one that completed first --
+            // if the destination fails right around the grace deadline, both destinationFailedSignal and
+            // graceDelay can already be complete by the time this continuation runs, and WhenAny is free to
+            // hand back graceDelay even though the failure (and its own fresh drain) is equally real. So
+            // treat the failure as observed whenever its signal is complete, regardless of which task WhenAny
+            // happened to return -- otherwise a failure that lands in this exact window would be wrongly
+            // timed out instead of given its full drain.
+            if (firstSignal == graceDelay && !destinationFailedSignal.Task.IsCompleted)
+            {
+                otherCompletedInTime = false;
+            }
+            else
+            {
+                // Either otherTask already finished, or its drain just started and will now run its own full
+                // course -- either way, awaiting it directly is now unconditionally safe and bounded.
+                await otherTask.ConfigureAwait(false);
+                otherCompletedInTime = true;
+            }
+        }
+        else
+        {
+            otherCompletedInTime = await Task.WhenAny(otherTask, Task.Delay(s_secondCloseGracePeriod)).ConfigureAwait(false) == otherTask;
+        }
+
         var otherResult = otherCompletedInTime ? await otherTask.ConfigureAwait(false) : (RelayDirectionResult?)null;
 
         cancellationSource.Cancel();
@@ -86,10 +157,11 @@ internal static class LspRelay
         RelayEndpoint inputEndpoint,
         RelayEndpoint outputEndpoint,
         bool detectCleanExitSentinel,
+        TaskCompletionSource<bool>? destinationFailedSignal,
         CancellationToken cancellationToken)
     {
         var (result, sentinelSeen) = detectCleanExitSentinel
-            ? await CopyStreamDetectingSentinelAsync(input, output, cancellationToken).ConfigureAwait(false)
+            ? await CopyStreamDetectingSentinelAsync(input, output, destinationFailedSignal, cancellationToken).ConfigureAwait(false)
             : (await ProcessUtilities.CopyStreamAsync(input, output, cancellationToken).ConfigureAwait(false), false);
 
         return result switch
@@ -113,60 +185,93 @@ internal static class LspRelay
     private static async Task<(StreamCopyCompletion Completion, bool SentinelSeen)> CopyStreamDetectingSentinelAsync(
         Stream source,
         Stream destination,
+        TaskCompletionSource<bool>? destinationFailedSignal,
         CancellationToken cancellationToken)
     {
         const int BufferSize = 64 * 1024;
         var buffer = new byte[BufferSize];
 
+        // Once a forward to the destination fails, stop trying to write to it but keep reading from the source:
+        // the daemon may still be about to write the sentinel in a later chunk (e.g. the editor disposed its
+        // side of the relay right after telling the server to exit, without waiting for any response -- the
+        // failed write can easily land on an earlier, unrelated chunk than the one that would have carried the
+        // sentinel). Whether the daemon's exit was clean is a fact about what it wrote to the source; it doesn't
+        // depend on whether anyone was still listening for the courtesy forward. That drain is bounded by
+        // drainCancellation below so a source that never itself closes can't block this forever.
+        var destinationAlive = true;
+        CancellationTokenSource? drainCancellation = null;
+
         try
         {
             while (true)
             {
+                var readToken = drainCancellation?.Token ?? cancellationToken;
                 int bytesRead;
                 try
                 {
-                    bytesRead = await source.ReadAsync(buffer.AsMemory(0, buffer.Length), cancellationToken).ConfigureAwait(false);
+                    bytesRead = await source.ReadAsync(buffer.AsMemory(0, buffer.Length), readToken).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) when (drainCancellation is not null && !cancellationToken.IsCancellationRequested)
+                {
+                    // The bounded post-failure drain timed out without ever seeing the sentinel -- report the
+                    // destination failure that started it, the same outcome as if we'd given up immediately.
+                    return (StreamCopyCompletion.DestinationException, SentinelSeen: false);
                 }
                 catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                 {
-                    return (StreamCopyCompletion.SourceException, SentinelSeen: false);
+                    // If the destination already failed, that's the more specific fact: it's what actually
+                    // caused this drain, and this source failure could just as easily be a consequence of the
+                    // same underlying disconnect racing to be observed on both ends -- reporting SourceException
+                    // here would blame the wrong endpoint.
+                    return (destinationAlive ? StreamCopyCompletion.SourceException : StreamCopyCompletion.DestinationException, SentinelSeen: false);
                 }
 
                 if (bytesRead == 0)
-                    return (StreamCopyCompletion.SourceClosed, SentinelSeen: false);
+                {
+                    // Same reasoning as the source-exception case above: a dead destination is the more specific,
+                    // earlier fact, so a graceful source close discovered only while draining for the sentinel
+                    // must not overwrite it.
+                    return (destinationAlive ? StreamCopyCompletion.SourceClosed : StreamCopyCompletion.DestinationException, SentinelSeen: false);
+                }
 
                 var sentinelIndex = Array.IndexOf(buffer, CleanExitSentinel.Value, 0, bytesRead);
+                var sawSentinel = sentinelIndex >= 0;
+                var forwardLength = sawSentinel ? sentinelIndex : bytesRead;
 
-                try
+                // Forward everything up to (but not including) the sentinel, if any -- the daemon writes it
+                // immediately before tearing down its JsonRpc connection, so nothing meaningful follows it in the
+                // same stream.
+                if (destinationAlive && forwardLength > 0)
                 {
-                    if (sentinelIndex < 0)
+                    try
                     {
-                        await destination.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken).ConfigureAwait(false);
+                        await destination.WriteAsync(buffer.AsMemory(0, forwardLength), cancellationToken).ConfigureAwait(false);
                         await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
                     }
-                    else
+                    catch (Exception ex) when (ex is IOException or ObjectDisposedException)
                     {
-                        // Forward everything up to (but not including) the sentinel, then treat it as the end
-                        // of this connection's traffic -- the daemon writes it immediately before tearing down
-                        // its JsonRpc connection, so nothing meaningful follows it in the same stream.
-                        if (sentinelIndex > 0)
-                        {
-                            await destination.WriteAsync(buffer.AsMemory(0, sentinelIndex), cancellationToken).ConfigureAwait(false);
-                            await destination.FlushAsync(cancellationToken).ConfigureAwait(false);
-                        }
-
-                        return (StreamCopyCompletion.SourceClosed, SentinelSeen: true);
+                        destinationAlive = false;
+                        drainCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+                        drainCancellation.CancelAfter(s_deadDestinationDrainTimeout);
+                        destinationFailedSignal?.TrySetResult(true);
                     }
                 }
-                catch (Exception ex) when (ex is IOException or ObjectDisposedException)
-                {
-                    return (StreamCopyCompletion.DestinationException, SentinelSeen: false);
-                }
+
+                if (sawSentinel)
+                    return (StreamCopyCompletion.SourceClosed, SentinelSeen: true);
+
+                // A dead destination alone isn't evidence of an unclean exit -- loop back and keep reading from
+                // the source (without further forwarding) until it either produces the sentinel or ends on its
+                // own, at which point the switch in CopyUntilClosedAsync reports that outcome normally.
             }
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {
             return (StreamCopyCompletion.Cancelled, SentinelSeen: false);
+        }
+        finally
+        {
+            drainCancellation?.Dispose();
         }
     }
 }
