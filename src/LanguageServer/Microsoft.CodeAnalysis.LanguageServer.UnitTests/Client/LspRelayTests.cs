@@ -51,12 +51,57 @@ public sealed class LspRelayTests
             Assert.Equal(payload, buffer);
         }
 
-        public Task<RelayCompletionKind> RelayAsync()
+        public Task<RelayCompletionKind> RelayAsync(Stream? toEditorOverride = null)
             => LspRelay.RelayAsync(
                 fromEditor: _editorSource.Reader.AsStream(),
-                toEditor: _editorSink.Writer.AsStream(),
+                toEditor: toEditorOverride ?? _editorSink.Writer.AsStream(),
                 fromServer: _serverSource.Reader.AsStream(),
                 toServer: new MemoryStream());
+    }
+
+    /// <summary>
+    /// A write-only stream that throws <see cref="IOException"/> on every <see cref="WriteAsync(ReadOnlyMemory{byte}, CancellationToken)"/>,
+    /// simulating the editor's transport having already broken -- e.g. the editor disposed its side of the relay
+    /// right after telling the server to exit, without waiting for any response.
+    /// </summary>
+    private sealed class AlwaysFaultingStream : Stream
+    {
+        private readonly TaskCompletionSource<bool> _writeAttempted = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        /// <summary>Completes once a write has actually been attempted (and failed), so a test can wait for the
+        /// failure to be observed before writing more data -- otherwise a <see cref="Pipe"/> may hand the relay
+        /// both writes in a single read, and the failing write would never be exercised on its own.</summary>
+        public Task WriteAttempted => _writeAttempted.Task;
+
+        public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            _writeAttempted.TrySetResult(true);
+            throw new IOException("Simulated destination failure.");
+        }
+
+        public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        {
+            _writeAttempted.TrySetResult(true);
+            throw new IOException("Simulated destination failure.");
+        }
+
+        public override void Write(byte[] buffer, int offset, int count)
+        {
+            _writeAttempted.TrySetResult(true);
+            throw new IOException("Simulated destination failure.");
+        }
+
+        public override Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+        public override void Flush() { }
+
+        public override bool CanRead => false;
+        public override bool CanSeek => false;
+        public override bool CanWrite => true;
+        public override long Length => throw new NotSupportedException();
+        public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+        public override int Read(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
     }
 
     [Fact]
@@ -183,5 +228,80 @@ public sealed class LspRelayTests
         var result = await harness.RelayAsync();
 
         Assert.Equal(RelayCompletionKind.ServerConnectionLost, result);
+    }
+
+    [Fact]
+    public async Task DestinationFailsThenServerSentinelArrives_IsStillCleanShutdown()
+    {
+        // The editor's transport can already be broken by the time the daemon writes its final response plus
+        // sentinel -- e.g. the editor disposed its side of the relay right after telling the server to exit,
+        // without waiting for any response (see CopyStreamDetectingSentinelAsync's remarks). A regression that
+        // gives up on the first failed forward, instead of continuing to read for the sentinel, would misreport
+        // this as EditorConnectionLost even though the daemon's own exit was perfectly clean.
+        var harness = new RelayHarness();
+        var faultingStream = new AlwaysFaultingStream();
+        var relayTask = harness.RelayAsync(toEditorOverride: faultingStream);
+
+        await harness.ServerWriter.WriteAsync("Content-Length: 2\r\n\r\n{}"u8.ToArray());
+        // Wait for the relay to actually attempt (and fail) forwarding this chunk before writing the sentinel --
+        // otherwise the Pipe could hand both writes to the relay in a single read, and the sentinel would be
+        // found before any forward was ever attempted, never exercising the failed-chunk-then-drain path this
+        // test is for.
+        await faultingStream.WriteAttempted;
+        await harness.WriteServerCleanExitSentinelAsync();
+        harness.ServerWriter.Complete();
+        harness.EditorWriter.Complete();
+
+        var result = await relayTask;
+
+        Assert.Equal(RelayCompletionKind.CleanShutdown, result);
+    }
+
+    [Fact]
+    public async Task DestinationFailsNearGraceDeadline_StillHonorsFullDrainForLateSentinel()
+    {
+        // Regression guard for the destinationFailedSignal race added to RelayAsync: a fixed outer timer
+        // covering the *whole* wait (whether s_secondCloseGracePeriod alone or summed with
+        // s_deadDestinationDrainTimeout) would cut off a drain that starts close to its own deadline. Here
+        // the destination failure is delayed until partway through s_secondCloseGracePeriod (3s of the 5s
+        // window -- a comfortable 2s margin so ordinary CI scheduler jitter can't push the write past the
+        // deadline and collapse this into the "failure observed after the deadline" case the other tests
+        // already cover), and the sentinel arrives 2.5s after that -- past the original 5s deadline, but
+        // well within the fresh 5s drain the failure itself started. This must still resolve to
+        // CleanShutdown, not EditorConnectionLost.
+        var harness = new RelayHarness();
+        var faultingStream = new AlwaysFaultingStream();
+        var relayTask = harness.RelayAsync(toEditorOverride: faultingStream);
+
+        harness.EditorWriter.Complete();
+        await Task.Delay(TimeSpan.FromSeconds(3));
+        await harness.ServerWriter.WriteAsync("Content-Length: 2\r\n\r\n{}"u8.ToArray());
+        // Confirms the write was attempted (and failed) with margin to spare before the 5s grace deadline.
+        await faultingStream.WriteAttempted;
+        await Task.Delay(TimeSpan.FromSeconds(2.5));
+        await harness.WriteServerCleanExitSentinelAsync();
+        harness.ServerWriter.Complete();
+
+        var result = await relayTask;
+
+        Assert.Equal(RelayCompletionKind.CleanShutdown, result);
+    }
+
+    [Fact]
+    public async Task DestinationFailsAndSentinelNeverArrives_TimesOutAsEditorConnectionLost()
+    {
+        // If the destination stays broken and the daemon never produces the sentinel, the bounded post-failure
+        // drain must eventually give up rather than hang forever -- the regression guard for that bound actually
+        // firing and producing a definite result instead of blocking RelayAsync indefinitely.
+        var harness = new RelayHarness();
+        var relayTask = harness.RelayAsync(toEditorOverride: new AlwaysFaultingStream());
+
+        harness.EditorWriter.Complete();
+        await harness.ServerWriter.WriteAsync("Content-Length: 2\r\n\r\n{}"u8.ToArray());
+        // Never write the sentinel and never complete the server writer -- the drain has to time out on its own.
+
+        var result = await relayTask;
+
+        Assert.Equal(RelayCompletionKind.EditorConnectionLost, result);
     }
 }

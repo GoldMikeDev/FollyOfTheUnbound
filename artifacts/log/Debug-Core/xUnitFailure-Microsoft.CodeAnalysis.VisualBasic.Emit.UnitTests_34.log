@@ -1,0 +1,523 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\34
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost (130220).
+[xUnit.net 00:00:50.11]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [1 ms]
+[xUnit.net 00:01:46.26]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithBlock.TestWith_MyBase [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithBlock.TestWith_MyBase [1 ms]
+[xUnit.net 00:01:52.63]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [1 ms]
+[xUnit.net 00:01:57.45]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorLinqQueryTest [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorLinqQueryTest [1 ms]
+[xUnit.net 00:01:57.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests [SKIP]
+[xUnit.net 00:01:58.10]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests [SKIP]
+[xUnit.net 00:01:58.23]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests [1 ms]
+[xUnit.net 00:02:05.45]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug_14402 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug_14402 [1 ms]
+[xUnit.net 00:02:08.09]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Checked_Like [SKIP]
+[xUnit.net 00:02:09.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Relaxation02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Checked_Like [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Relaxation02 [1 ms]
+[xUnit.net 00:02:18.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_02 [1 ms]
+[xUnit.net 00:03:14.73]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Unchecked_Like [SKIP]
+[xUnit.net 00:03:15.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Unchecked_Like [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_01 [1 ms]
+[xUnit.net 00:03:22.70]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274_1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274_1 [1 ms]
+[xUnit.net 00:03:23.40]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274 [SKIP]
+[xUnit.net 00:03:23.54]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Regress14722 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Regress14722 [1 ms]
+[xUnit.net 00:03:24.70]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.AssignArrayToArray [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.AssignArrayToArray [1 ms]
+[xUnit.net 00:03:25.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.InitializemultiDimensionalArray [SKIP]
+[xUnit.net 00:03:25.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.MixedArray [SKIP]
+[xUnit.net 00:03:25.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.ArrayCreateAsAnonymous [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.InitializemultiDimensionalArray [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.MixedArray [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.ArrayCreateAsAnonymous [1 ms]
+[xUnit.net 00:03:26.12]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.SingleFileWithNoMethodBody [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.SingleFileWithNoMethodBody [1 ms]
+[xUnit.net 00:03:26.49]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.InvalidCharacterInPdbPath [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.InvalidCharacterInPdbPath [1 ms]
+[xUnit.net 00:03:40.00]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.FilesOneWithNoMethodBody [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.FilesOneWithNoMethodBody [1 ms]
+[xUnit.net 00:03:41.68]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [1 ms]
+[xUnit.net 00:04:22.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [1 ms]
+[xUnit.net 00:04:24.38]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenConstLocal.TruncatePrecisionFloat [SKIP]
+[xUnit.net 00:04:24.51]     VisualBasicDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenConstLocal.TruncatePrecisionFloat [1 ms]
+Test Logger: Unable to parse one or more test names provided by your test runner. These will be logged using Namespace='UnknownNamespace', Type='UnknownType'. The entire test name will be used as the Method name. Please open a ticket so we can review this issue
+  Skipped VisualBasicDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [1 ms]
+[xUnit.net 00:04:28.74]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.LiftedBinaryConcatLikeWithNothingLiteral [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.LiftedBinaryConcatLikeWithNothingLiteral [1 ms]
+[xUnit.net 00:04:50.03]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_03 [1 ms]
+[xUnit.net 00:04:52.23]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_02 [1 ms]
+[xUnit.net 00:04:58.88]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericType [SKIP]
+[xUnit.net 00:04:58.96]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoLabels [SKIP]
+[xUnit.net 00:04:58.96]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [SKIP]
+[xUnit.net 00:04:58.96]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [SKIP]
+[xUnit.net 00:04:58.96]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [SKIP]
+[xUnit.net 00:04:58.97]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [SKIP]
+[xUnit.net 00:04:59.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericType [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoLabels [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [1 ms]
+[xUnit.net 00:04:59.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InheritanceScenario [SKIP]
+[xUnit.net 00:04:59.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonSequentialLineNumbers [SKIP]
+[xUnit.net 00:04:59.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [SKIP]
+[xUnit.net 00:04:59.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [SKIP]
+[xUnit.net 00:04:59.09]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [SKIP]
+[xUnit.net 00:04:59.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [SKIP]
+[xUnit.net 00:04:59.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InheritanceScenario [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonSequentialLineNumbers [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [1 ms]
+[xUnit.net 00:04:59.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericTypeSharedMethod [SKIP]
+[xUnit.net 00:04:59.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilCleared [SKIP]
+[xUnit.net 00:04:59.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_UnhandledErrorDontBubbleUp [SKIP]
+[xUnit.net 00:04:59.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelGreaterThanIntegerMaxValueValue [SKIP]
+[xUnit.net 00:04:59.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [SKIP]
+[xUnit.net 00:04:59.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [SKIP]
+[xUnit.net 00:04:59.24]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [SKIP]
+[xUnit.net 00:04:59.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericTypeSharedMethod [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilCleared [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_UnhandledErrorDontBubbleUp [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelGreaterThanIntegerMaxValueValue [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [1 ms]
+[xUnit.net 00:04:59.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_ThrowExceptionInsteadOfErrorRaiseLambdaInvocation [SKIP]
+[xUnit.net 00:04:59.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [SKIP]
+[xUnit.net 00:04:59.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [SKIP]
+[xUnit.net 00:04:59.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_ThrowExceptionInsteadOfErrorRaiseLambdaInvocation [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [1 ms]
+[xUnit.net 00:05:25.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [1 ms]
+[xUnit.net 00:05:25.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [SKIP]
+[xUnit.net 00:05:25.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [1 ms]
+[xUnit.net 00:05:26.79]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [1 ms]
+[xUnit.net 00:05:55.77]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [1 ms]
+[xUnit.net 00:05:56.49]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.ErrorHandler_Error_InMethodWithSyncLockBlock [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.ErrorHandler_Error_InMethodWithSyncLockBlock [1 ms]
+[xUnit.net 00:06:05.75]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.TestMSVBTypeNameAPI [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.TestMSVBTypeNameAPI [1 ms]
+[xUnit.net 00:06:11.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.ParameterByRefVal [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.ParameterByRefVal [1 ms]
+[xUnit.net 00:06:14.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.Bug529162 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.Bug529162 [1 ms]
+[xUnit.net 00:06:43.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.MidAssignment [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.MidAssignment [1 ms]
+[xUnit.net 00:06:43.98]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [1 ms]
+[xUnit.net 00:07:42.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.AnonymousTypesCodeGenTests.TestAnonymousTypeWithOptionInferOn [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.AnonymousTypesCodeGenTests.TestAnonymousTypeWithOptionInferOn [1 ms]
+[xUnit.net 00:07:43.85]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalWithNothing [SKIP]
+[xUnit.net 00:07:43.87]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDecimal [SKIP]
+[xUnit.net 00:07:43.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDateTime [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalWithNothing [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDecimal [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDateTime [1 ms]
+[xUnit.net 00:07:43.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestPropertyIntegerOptionalDouble [SKIP]
+[xUnit.net 00:07:44.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeConstantAttribute [SKIP]
+[xUnit.net 00:07:44.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeOptionalAttributeConstantAttribute [SKIP]
+[xUnit.net 00:07:44.08]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestMultipleEnumDefaultValuesFromMetadata [SKIP]
+[xUnit.net 00:07:44.44]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestIntegerOptionalAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestPropertyIntegerOptionalDouble [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeConstantAttribute [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeOptionalAttributeConstantAttribute [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestMultipleEnumDefaultValuesFromMetadata [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestIntegerOptionalAttribute [1 ms]
+[xUnit.net 00:07:45.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalInteger [SKIP]
+[xUnit.net 00:07:45.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalString [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalInteger [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalString [1 ms]
+[xUnit.net 00:08:00.75]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Implicit_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Implicit_01 [1 ms]
+[xUnit.net 00:08:00.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Checked_01 [SKIP]
+[xUnit.net 00:08:01.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_CheckedImplicit_01 [SKIP]
+[xUnit.net 00:08:01.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_CheckedImplicit_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Checked_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_CheckedImplicit_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_CheckedImplicit_01 [1 ms]
+[xUnit.net 00:08:01.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Implicit_01 [SKIP]
+[xUnit.net 00:08:01.93]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Checked_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Implicit_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Checked_01 [1 ms]
+[xUnit.net 00:08:02.33]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_01 [SKIP]
+[xUnit.net 00:08:02.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_01 [1 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [96 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 990
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [84 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 990
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [179 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(Stream moduleContents, AttributeDescription expectedModuleAttr, VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1445
+   at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1528
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [236 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(Stream moduleContents, AttributeDescription expectedModuleAttr, VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1445
+   at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1528
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [168 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(Stream moduleContents, AttributeDescription expectedModuleAttr, VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1445
+   at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1500
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [99 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(Stream moduleContents, AttributeDescription expectedModuleAttr, VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1445
+   at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1500
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [231 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+    Diagnostic(ERRID.ERR_InaccessibleSymbol2, "C").WithArguments("C", "Friend").WithLocation(2, 26)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+++>     Diagnostic(ERRID.ERR_InaccessibleSymbol2, "C").WithArguments("C", "Friend").WithLocation(2, 26)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.VisualBasic.DiagnosticsExtensions.VerifyDiagnostics(VisualBasicCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\DiagnosticExtensions.vb:line 18
+   at InternalsVisibleToAndStrongNameTests.IVTSigned(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 754
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [73 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1),
+    Diagnostic(ERRID.ERR_InaccessibleSymbol2, "C").WithArguments("C", "Friend").WithLocation(2, 26)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+++>     Diagnostic(ERRID.ERR_InaccessibleSymbol2, "C").WithArguments("C", "Friend").WithLocation(2, 26)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.VisualBasic.DiagnosticsExtensions.VerifyDiagnostics(VisualBasicCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\DiagnosticExtensions.vb:line 18
+   at InternalsVisibleToAndStrongNameTests.IVTSigned(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 754
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSigned(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [94 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 891
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [125 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 891
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [241 ms]
+  Error Message:
+   System.AggregateException : One or more errors occurred. (
+MISSING ERROR MESSAGES:
+BC36958: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the strong name signing state of the output assembly does not match that of the granting assembly.
+UNEXPECTED ERROR MESSAGES:
+BC36957: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the public key of the output assembly does not match that specified by the attribute in the granting assembly.
+BC36981: Error extracting public key from container 'roslynTestContainer': Keyset does not exist (0x80090016)
+) (Pool leak detected! The following pooled objects were not returned:
+  Microsoft.CodeAnalysis.PooledObjects.PooledStringBuilder (from PooledStringBuilder.cs:92) (allocated at CompilationTestUtils.vb:883): 1
+)
+---- 
+MISSING ERROR MESSAGES:
+BC36958: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the strong name signing state of the output assembly does not match that of the granting assembly.
+UNEXPECTED ERROR MESSAGES:
+BC36957: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the public key of the output assembly does not match that specified by the attribute in the granting assembly.
+BC36981: Error extracting public key from container 'roslynTestContainer': Keyset does not exist (0x80090016)
+
+---- Pool leak detected! The following pooled objects were not returned:
+  Microsoft.CodeAnalysis.PooledObjects.PooledStringBuilder (from PooledStringBuilder.cs:92) (allocated at CompilationTestUtils.vb:883): 1
+
+  Stack Trace:
+  
+----- Inner Stack Trace #1 (Xunit.Sdk.FailException) -----
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.AssertTheseDiagnostics(ImmutableArray`1 errors, String expectedText, Boolean suppressInfos) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 915
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.AssertTheseDiagnostics(ImmutableArray`1 errors, XElement errs, Boolean suppressInfos) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 871
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.AssertTheseDiagnostics(Compilation compilation, XElement errs, Boolean suppressInfos) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 846
+   at InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 924
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
+   at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 115
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [233 ms]
+  Error Message:
+   System.AggregateException : One or more errors occurred. (
+MISSING ERROR MESSAGES:
+BC36958: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the strong name signing state of the output assembly does not match that of the granting assembly.
+UNEXPECTED ERROR MESSAGES:
+BC36957: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the public key of the output assembly does not match that specified by the attribute in the granting assembly.
+BC36981: Error extracting public key from container 'roslynTestContainer': Keyset does not exist (0x80090016)
+) (Pool leak detected! The following pooled objects were not returned:
+  Microsoft.CodeAnalysis.PooledObjects.PooledStringBuilder (from PooledStringBuilder.cs:92) (allocated at CompilationTestUtils.vb:883): 1
+)
+---- 
+MISSING ERROR MESSAGES:
+BC36958: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the strong name signing state of the output assembly does not match that of the granting assembly.
+UNEXPECTED ERROR MESSAGES:
+BC36957: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null', but the public key of the output assembly does not match that specified by the attribute in the granting assembly.
+BC36981: Error extracting public key from container 'roslynTestContainer': Keyset does not exist (0x80090016)
+
+---- Pool leak detected! The following pooled objects were not returned:
+  Microsoft.CodeAnalysis.PooledObjects.PooledStringBuilder (from PooledStringBuilder.cs:92) (allocated at CompilationTestUtils.vb:883): 1
+
+  Stack Trace:
+  
+----- Inner Stack Trace #1 (Xunit.Sdk.FailException) -----
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.AssertTheseDiagnostics(ImmutableArray`1 errors, String expectedText, Boolean suppressInfos) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 915
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.AssertTheseDiagnostics(ImmutableArray`1 errors, XElement errs, Boolean suppressInfos) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 871
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.AssertTheseDiagnostics(Compilation compilation, XElement errs, Boolean suppressInfos) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 846
+   at InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 924
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
+   at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 115
+[xUnit.net 00:08:39.26]     InternalsVisibleToAndStrongNameTests.MaxSizeKey [SKIP]
+  Skipped InternalsVisibleToAndStrongNameTests.MaxSizeKey [1 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [381 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(Stream moduleContents, AttributeDescription expectedModuleAttr, VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1445
+   at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1476
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [330 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.ConfirmModuleAttributePresentAndAddingToAssemblyResultsInSignedOutput(Stream moduleContents, AttributeDescription expectedModuleAttr, VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1445
+   at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1476
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [133 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.VisualBasic.DiagnosticsExtensions.VerifyDiagnostics(VisualBasicCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\DiagnosticExtensions.vb:line 18
+   at InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 160
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [113 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.VisualBasic.DiagnosticsExtensions.VerifyDiagnostics(VisualBasicCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\DiagnosticExtensions.vb:line 18
+   at InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 160
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.BadInputStream [78 ms]
+  Error Message:
+   
+Expected:
+    Diagnostic(ERRID.ERR_PeWritingFailure).WithArguments("System.IO.IOException: This is a test IOException").WithLocation(1, 1)
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("RoslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+-->     Diagnostic(ERRID.ERR_PeWritingFailure).WithArguments("System.IO.IOException: This is a test IOException").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at InternalsVisibleToAndStrongNameTests.BadInputStream() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\EmitTestStrongNameProvider.vb:line 38
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [71 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.VisualBasic.DiagnosticsExtensions.VerifyDiagnostics(VisualBasicCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\DiagnosticExtensions.vb:line 18
+   at InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 944
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [70 ms]
+  Error Message:
+   
+Expected:
+Actual:
+    Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+Diff:
+++>     Diagnostic(ERRID.ERR_PublicKeyContainerFailure).WithArguments("roslynTestContainer", "Keyset does not exist (0x80090016)").WithLocation(1, 1)
+  Stack Trace:
+     at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected, Boolean errorCodeOnly) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 100
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(IEnumerable`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 48
+   at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
+   at Microsoft.CodeAnalysis.VisualBasic.DiagnosticsExtensions.VerifyDiagnostics(VisualBasicCompilation c, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\DiagnosticExtensions.vb:line 18
+   at InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 944
+   at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:09:23.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [1 ms]
+[xUnit.net 00:09:45.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [1 ms]
+[xUnit.net 00:09:48.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [1 ms]
+[xUnit.net 00:09:55.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [SKIP]
+[xUnit.net 00:09:55.44]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [1 ms]
+[xUnit.net 00:10:00.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [1 ms]
+[xUnit.net 00:10:10.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [SKIP]
+[xUnit.net 00:10:10.75]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.xml
+Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.html
+
+Failed!  - Failed:    19, Passed:  4217, Skipped:    95, Total:  4331, Duration: 10 m 17 s - Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll (net10.0)

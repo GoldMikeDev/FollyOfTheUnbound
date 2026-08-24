@@ -140,3 +140,110 @@ expected `SENTINEL:Inaccessible` on an actual Windows CI run (GoldMikeDev/roslyn
 has run and `DeleteProcThreadAttributeList` has been called -- the same lifetime as the attribute
 list's own backing buffer. `TryCreateHandleListAttributeList` now `Marshal.AllocHGlobal`s the handle
 array alongside the attribute-list buffer and frees both together in `TryStart`'s `finally` block.
+
+## `NamedPipeServerStream.RunAsClient` requires a prior read -- elevation check must run after the handshake
+
+**Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/LanguageServer/NamedPipeDaemonConnectionSource.cs`
+**Description:** `NamedPipeUtil.CheckClientElevationMatches` impersonates the connecting client via
+`NamedPipeServerStream.RunAsClient` to compare its elevation against the daemon's own. On Windows,
+`RunAsClient` throws `IOException: "Unable to impersonate using a named pipe until data has been
+read from that pipe."` if nothing has been read from that pipe instance yet. `ProcessAcceptedConnectionAsync`
+originally ran this elevation check *before* reading the per-connection `ConnectionHandshake`, so
+every single daemon connection failed elevation and was rejected -- not a race or a cold-start issue,
+a deterministic 100% failure once a client got as far as being accepted. This wasn't caught by unit
+tests (`CheckClientElevationMatches` returns `true` without calling `RunAsClient` at all on
+non-Windows, so Linux CI and this repo's Linux dev sandbox can't exercise the failure) and surfaced
+via `daemon-diagnostic-*.log` files (see `ROSLYN_DAEMON_DIAGNOSTIC_LOG=1` in `Program.cs`) captured
+from a real Windows run, where every one of 15 daemon processes hit the same exception at the same
+call site. It's the root cause behind the `DaemonServerLifecycleTests` connection failures this fork
+investigated across several sessions.
+**Workaround:** Any code path that validates a newly-accepted `NamedPipeServerStream` must perform at
+least one real read from that stream before calling `NamedPipeUtil.CheckClientElevationMatches` on
+it -- see `NamedPipeClientConnection.ReadBuildRequestAsync` in the compiler server (`src/Compilers/Server/VBCSCompiler/NamedPipeClientConnection.cs`)
+for the same shared `NamedPipeUtil` used in the correct order, with a comment explaining why. Future
+refactors of `ProcessAcceptedConnectionAsync` (or any other consumer of `CheckClientElevationMatches`)
+must preserve "read first, then check elevation" -- reordering it back regresses this silently on
+Linux, since nothing there will ever throw to catch it.
+
+## `ProjectSystemProject.RemoveFromWorkspaceMaybeAsync` releases its own resources independently of solution membership
+
+**Affected area:** `src/Workspaces/Core/Portable/Workspace/ProjectSystem/ProjectSystemProject.cs`
+**Description:** `RemoveFromWorkspaceMaybeAsync` can be entered concurrently for the same project --
+e.g. the LSP daemon's `Workspace` being disposed at the same time as, and before, the
+`LanguageServerProjectLoader` that owns the project (see that type's `Dispose` for the same race
+already anticipated there). When that happens,
+`_projectSystemProjectFactory.Workspace.CurrentSolution.ContainsProject(Id)` is `false` and the method
+throws `InvalidOperationException("The project has already been removed.")`. A `_removedFromWorkspace`
+flag, set under `_gate` the first time this method runs, guards against a second racing call
+re-entering cleanup: that second call throws the same exception immediately rather than proceeding.
+**Invariant:** `_fileChangesToProcess.Dispose()` and `_documentFileChangeContext.Dispose()` run
+unconditionally, guarded only by `_removedFromWorkspace`, before the `ContainsProject` check that can
+throw -- they belong to this `ProjectSystemProject` instance and aren't tied to solution membership, so
+the first call releases them exactly once regardless of which caller wins the race to remove the
+project. If a future edit moves either disposal after that check, or removes the
+`_removedFromWorkspace` guard, hitting this race leaks `_documentFileChangeContext` as an active
+file-watch context for the rest of the process's lifetime -- `FileWatcherReleaseTracker`
+(`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.UnitTests/Utilities/FileWatcherReleaseTracker.cs`)
+asserts against exactly that after every test, so one project hitting this race would fail every later
+test sharing the xUnit test-host process.
+
+## `LspRelay.CopyStreamDetectingSentinelAsync` must keep reading after a forward fails, not just after the sentinel's own chunk fails
+
+**Affected area:** `src/LanguageServer/roslyn-language-server/LspRelay.cs`
+**Description:** The thin client's editor-side transport can already be disposed by the time the
+daemon writes `CleanExitSentinel` -- `TestLspClient.ShutdownAndExitCoreAsync` (and any well-behaved
+LSP client following the same pattern) sends `exit` as a fire-and-forget notification and then
+immediately tears down its side of the connection without waiting for any response, so the relay's
+attempt to forward the daemon's *next* chunk back to the editor routinely lands after that pipe is
+already gone. The sentinel is not necessarily in that first failing chunk -- unrelated response bytes
+the daemon wrote just before shutting down commonly fail to forward first, one or more reads before
+the sentinel-carrying chunk even arrives. Treating any forwarding failure as conclusive (the original
+implementation returned immediately on the first destination-write exception) discards the read loop
+before it ever reaches the sentinel, so `LspRelay.RelayAsync` classifies a perfectly clean shutdown as
+`EditorConnectionLost` -- this was `DaemonServerLifecycleTests.KeepAlive_DaemonReusedWithinWindow_ThenExitsWhenIdle`'s
+observed flake (`Assert.Equal(0, ...)` failing with `Actual: 2`), reproducible locally at roughly a
+1-in-6 rate before this fix.
+**Invariant:** `CopyStreamDetectingSentinelAsync` keeps reading `source` after a destination-write
+failure instead of returning immediately -- it only stops forwarding (via the `destinationAlive` flag).
+That drain is bounded by `s_deadDestinationDrainTimeout` (5s, on a `CancellationTokenSource` linked to
+the caller's token): a source that never produces the sentinel and never itself closes is a real
+possibility (e.g. stdio transport, where the editor's read and write streams are independent and only
+one side has broken), so the drain cannot run unbounded either -- if the timeout elapses first, the
+method falls back to the original `DestinationException` outcome. Whether the daemon's exit was clean
+is determined by what it wrote to the source stream within that window; a dead destination alone does
+not change that fact and must not short-circuit the search for the sentinel before the window expires.
+A future edit that reintroduces an unconditional early return on the first destination-write exception,
+or removes the timeout bound, regresses this silently, since nothing in CI reliably reproduces a race
+this timing-sensitive on a single run.
+
+## `LspRelay.RelayAsync` must race `serverToEditor`'s wait against the *failure*, not a fixed timer covering the whole wait
+
+**Affected area:** `src/LanguageServer/roslyn-language-server/LspRelay.cs`
+**Description:** When `serverToEditor` is the direction `RelayAsync` is still waiting on (the other one
+already completed), its destination write can fail at *any* point during that wait -- there's no way to
+bound when in advance, since `serverToEditor` keeps trying to forward whatever the daemon sends for as
+long as it's running. Once it does fail, `CopyStreamDetectingSentinelAsync` starts its own fresh
+`s_deadDestinationDrainTimeout`-bounded drain from that moment (see the entry above). Three earlier
+attempts at bounding `RelayAsync`'s own outer wait all under- or over-covered this: racing `serverToEditor`
+against a fixed `s_secondCloseGracePeriod` timer cut off a drain that started partway through it; racing
+it against `s_secondCloseGracePeriod + s_deadDestinationDrainTimeout` still under-covered a failure that
+started late in that combined window (a write failing near the end still needs nearly a full extra
+`s_deadDestinationDrainTimeout` beyond it), both producing a spurious `EditorConnectionLost` for what was
+actually a clean shutdown; and removing the outer race entirely (awaiting `serverToEditor` unconditionally)
+overcorrected into a genuine hang whenever the destination never fails at all -- the daemon never responds
+and never closes, so no write is ever attempted and no drain ever starts -- exactly the case
+`EditorClosesAloneWithoutServerFollowing_IsNotCleanShutdown` exercises.
+**Invariant:** `RelayAsync` races `serverToEditor` against two things, not one: `s_secondCloseGracePeriod`
+itself, and a `destinationFailedSignal` (`TaskCompletionSource`) that `CopyStreamDetectingSentinelAsync`
+completes the instant a destination write first fails -- i.e. the moment its own post-failure drain
+begins. If the grace period elapses with no failure ever observed, the wait times out normally (the same
+outcome `editorToServer`'s unbounded `ProcessUtilities.CopyStreamAsync` already gets from that same grace
+period, since it has no internal timeout of its own to defer to). If a failure is observed at any point --
+even right at the boundary of the grace period -- `serverToEditor` is then awaited directly with no further
+outer bound, trusting `CopyStreamDetectingSentinelAsync`'s own internal timeout unconditionally from then
+on, however late within the original wait it started. `MaximumShutdownWait`
+(`s_secondCloseGracePeriod + s_deadDestinationDrainTimeout`) is accurate again as the true worst case under
+this design. A future edit that races `serverToEditor` against only a fixed-duration timer covering the
+*whole* wait (whether or not it sums the two constants) reintroduces the under-coverage bug; awaiting it
+with no bound at all reintroduces the hang. The fix has to target the failure's own start, not the wait as
+a whole.

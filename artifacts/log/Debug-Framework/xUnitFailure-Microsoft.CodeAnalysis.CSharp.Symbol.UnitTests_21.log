@@ -1,0 +1,184 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_21_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_21_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\dumps\21
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (105636).
+[xUnit.net 00:02:29.42]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ExtensionMethodTests.DelegateFromValueTypeExtensionMethod [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ExtensionMethodTests.DelegateFromValueTypeExtensionMethod [1 ms]
+[xUnit.net 00:02:32.68]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ExtensionMethodTests.InaccessibleAndAccessible [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ExtensionMethodTests.InaccessibleAndAccessible [1 ms]
+[xUnit.net 00:02:38.16]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ExtensionMethodTests.ParenthesizedMethodGroup [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.ExtensionMethodTests.ParenthesizedMethodGroup [1 ms]
+[xUnit.net 00:02:45.34]     Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.NestedLambdaReinference_LocalFunctionInLambda [SKIP]
+[xUnit.net 00:02:45.38]     Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.LocalFunction_GenericTypeParameters [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.NestedLambdaReinference_LocalFunctionInLambda [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.NullablePublicAPITests.LocalFunction_GenericTypeParameters [1 ms]
+[xUnit.net 00:03:10.68]     Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS0281ERR_FriendRefNotEqualToThis [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS0281ERR_FriendRefNotEqualToThis [1 ms]
+[xUnit.net 00:03:20.76]     Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS1768ERR_GenericsUsedInNoPIAType [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS1768ERR_GenericsUsedInNoPIAType [1 ms]
+[xUnit.net 00:03:24.08]     Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS1705ERR_AssemblyMatchBadVersion [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS1705ERR_AssemblyMatchBadVersion [1 ms]
+[xUnit.net 00:03:57.96]     Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS0722ERR_ReturnTypeIsStaticClass03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CompilationErrorTests.CS0722ERR_ReturnTypeIsStaticClass03 [1 ms]
+[xUnit.net 00:04:05.01]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.ExpressionBodiedMethodTests.Syntax01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.ExpressionBodiedMethodTests.Syntax01 [1 ms]
+[xUnit.net 00:04:15.46]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.IndexedPropertyTests.OverloadResolutionWithSimpleProperty [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.IndexedPropertyTests.OverloadResolutionWithSimpleProperty [1 ms]
+[xUnit.net 00:04:15.93]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.IndexedPropertyTests.GetAccessorMethodBug16439 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.IndexedPropertyTests.GetAccessorMethodBug16439 [1 ms]
+[xUnit.net 00:05:43.65]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.IndexerTests.EscapedIdentifierInIndexerNameAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.IndexerTests.EscapedIdentifierInIndexerNameAttribute [1 ms]
+[xUnit.net 00:09:12.67]     Microsoft.CodeAnalysis.CSharp.UnitTests.ExtendedPartialMethodsTests.Override_CustomModifiers [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.ExtendedPartialMethodsTests.Override_CustomModifiers [1 ms]
+[xUnit.net 00:09:36.15]     Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationCommentCompilerTests.WRN_XMLParseIncludeError_Source [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationCommentCompilerTests.WRN_XMLParseIncludeError_Source [1 ms]
+[xUnit.net 00:09:47.78]     Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationCommentCompilerTests.IncludedName_DuplicateNameAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationCommentCompilerTests.IncludedName_DuplicateNameAttribute [1 ms]
+[xUnit.net 00:10:00.68]     Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationCommentCompilerTests.PragmaDisableWarningInXmlFile [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationCommentCompilerTests.PragmaDisableWarningInXmlFile [1 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.MetadataDependsOnMetadataOrSource [524 ms]
+  Error Message:
+   System.ArgumentException : The provided IL cannot be compiled.
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ilasm.exe "C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a876f3c1-95e4-493d-8e65-6dcf45494e9f.il" -DLL  -out="C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a876f3c1-95e4-493d-8e65-6dcf45494e9f.dll"
+EXIT CODE: 1
+OUTPUT STREAM:
+
+Microsoft (R) .NET Framework IL Assembler.  Version 4.8.9221.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+Assembling 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a876f3c1-95e4-493d-8e65-6dcf45494e9f.il'  to DLL --> 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a876f3c1-95e4-493d-8e65-6dcf45494e9f.dll'
+Source file is ANSI
+
+Assembled method System.Windows.Controls.PrintDialog::Test
+Assembled method System.Windows.Controls.PrintDialog::.ctor
+Creating PE file
+Could not create output file, error code=0x8013141C
+
+***** FAILURE ***** 
+
+ERRORS:
+
+Parameter name: declarations
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Test.Utilities.IlasmUtilities.IlasmTempAssembly(String declarations, Boolean appendDefaultHeader, Boolean includePdb, Boolean autoInherit, String& assemblyPath, String& pdbPath) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Metadata\IlasmUtilities.cs:line 133
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.EmitILToArray(String ilSource, Boolean appendDefaultHeader, Boolean includePdb, ImmutableArray`1& assemblyBytes, ImmutableArray`1& pdbBytes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 220
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.CompileIL(String ilSource, Boolean prependDefaultHeader, Boolean embedInteropTypes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 245
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.MetadataDependsOnMetadataOrSource() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Symbol\Compilation\ReferenceManagerTests.cs:line 1644
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.MetadataDependsOnSource [465 ms]
+  Error Message:
+   System.ArgumentException : The provided IL cannot be compiled.
+C:\Windows\Microsoft.NET\Framework64\v4.0.30319\ilasm.exe "C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a23e1684-6581-4f1e-a812-29cec4f05f0f.il" -DLL  -out="C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a23e1684-6581-4f1e-a812-29cec4f05f0f.dll"
+EXIT CODE: 1
+OUTPUT STREAM:
+
+Microsoft (R) .NET Framework IL Assembler.  Version 4.8.9221.0
+Copyright (c) Microsoft Corporation.  All rights reserved.
+Assembling 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a23e1684-6581-4f1e-a812-29cec4f05f0f.il'  to DLL --> 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\_0_a23e1684-6581-4f1e-a812-29cec4f05f0f.dll'
+Source file is ANSI
+
+Assembled method System.Windows.Controls.PrintDialog::Test
+Assembled method System.Windows.Controls.PrintDialog::.ctor
+Creating PE file
+Could not create output file, error code=0x8013141C
+
+***** FAILURE ***** 
+
+ERRORS:
+
+Parameter name: declarations
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Test.Utilities.IlasmUtilities.IlasmTempAssembly(String declarations, Boolean appendDefaultHeader, Boolean includePdb, Boolean autoInherit, String& assemblyPath, String& pdbPath) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Metadata\IlasmUtilities.cs:line 133
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.EmitILToArray(String ilSource, Boolean appendDefaultHeader, Boolean includePdb, ImmutableArray`1& assemblyBytes, ImmutableArray`1& pdbBytes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 220
+   at Microsoft.CodeAnalysis.Test.Utilities.CommonTestBase.CompileIL(String ilSource, Boolean prependDefaultHeader, Boolean embedInteropTypes, Boolean autoInherit) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\CommonTestBase.cs:line 245
+   at Microsoft.CodeAnalysis.CSharp.UnitTests.ReferenceManagerTests.MetadataDependsOnSource() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Symbol\Compilation\ReferenceManagerTests.cs:line 1548
+[xUnit.net 00:33:40.37]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.StaticAbstractMembersInInterfacesTests.DelegateCaching_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.StaticAbstractMembersInInterfacesTests.DelegateCaching_01 [1 ms]
+[xUnit.net 00:34:47.44]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.StaticAbstractMembersInInterfacesTests.DelegateCaching_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.StaticAbstractMembersInInterfacesTests.DelegateCaching_02 [1 ms]
+[xUnit.net 00:35:39.94]     Microsoft.CodeAnalysis.CSharp.UnitTests.BaseClassTests.MissingNestedMemberInClassImplementsClause [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.BaseClassTests.MissingNestedMemberInClassImplementsClause [1 ms]
+[xUnit.net 00:35:44.73]     Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationModeTests.XmlSyntaxError_Included [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DocumentationModeTests.XmlSyntaxError_Included [1 ms]
+[xUnit.net 00:37:25.35]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.PE.LoadingMethods.MemberSignature_CycleTrhuTypeSpecInCustomModifiers [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.PE.LoadingMethods.MemberSignature_CycleTrhuTypeSpecInCustomModifiers [1 ms]
+[xUnit.net 00:38:38.72]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.InterfaceImplementationTests.StaticTypesCannotBeUsedAsTypeArgumentsInInterfacesImplementedThroughInterfaceInheritance [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.InterfaceImplementationTests.StaticTypesCannotBeUsedAsTypeArgumentsInInterfacesImplementedThroughInterfaceInheritance [1 ms]
+[xUnit.net 00:38:47.27]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.InterfaceImplementationTests.BaseInterfacesWithWeirdNamesCanBeImplementedThroughInterfaceInheritance [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.InterfaceImplementationTests.BaseInterfacesWithWeirdNamesCanBeImplementedThroughInterfaceInheritance [1 ms]
+[xUnit.net 00:38:48.75]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.InterfaceImplementationTests.InconsistentTypeParameters [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.InterfaceImplementationTests.InconsistentTypeParameters [1 ms]
+[xUnit.net 00:50:06.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.ExpressionBodiedPropertyTests.Syntax01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.ExpressionBodiedPropertyTests.Syntax01 [1 ms]
+[xUnit.net 00:50:25.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_02 [1 ms]
+[xUnit.net 00:50:39.64]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_034 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_034 [1 ms]
+[xUnit.net 00:50:59.64]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_05 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_05 [1 ms]
+[xUnit.net 00:51:02.38]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ImplicitImplementationOfNonPublicMethod_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ImplicitImplementationOfNonPublicMethod_02 [1 ms]
+[xUnit.net 00:51:10.09]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_03 [1 ms]
+[xUnit.net 00:51:22.42]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.EventReAbstraction_029 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.EventReAbstraction_029 [1 ms]
+[xUnit.net 00:52:03.97]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_035 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_035 [1 ms]
+[xUnit.net 00:52:23.10]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ImplicitImplementationOfNonPublicMethod_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ImplicitImplementationOfNonPublicMethod_01 [1 ms]
+[xUnit.net 00:52:40.86]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_04 [1 ms]
+[xUnit.net 00:52:49.87]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_08 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_08 [1 ms]
+[xUnit.net 00:53:11.11]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_09 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_09 [1 ms]
+[xUnit.net 00:53:15.73]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_033 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_033 [1 ms]
+[xUnit.net 00:53:37.98]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_030 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_030 [1 ms]
+[xUnit.net 00:53:45.27]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_031 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_031 [1 ms]
+[xUnit.net 00:53:46.26]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_029 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_029 [1 ms]
+[xUnit.net 00:53:50.50]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_04 [1 ms]
+[xUnit.net 00:54:10.42]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_036 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_036 [1 ms]
+[xUnit.net 00:54:10.66]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_07 [SKIP]
+[xUnit.net 00:54:12.13]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_07 [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_01 [1 ms]
+[xUnit.net 00:54:21.64]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_02 [1 ms]
+[xUnit.net 00:54:37.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.CheckForImplementationOfCorrespondingPropertyOrEvent_03 [1 ms]
+[xUnit.net 00:54:39.75]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_032 [SKIP]
+[xUnit.net 00:54:39.86]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_06 [SKIP]
+[xUnit.net 00:54:39.86]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.PropertyReAbstraction_032 [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_06 [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.DefaultInterfaceImplementationTests.ExplicitlyImplementedViaAccessors_01 [1 ms]
+[xUnit.net 00:54:51.67]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.Dev10IgnoresSentinelInPropertySignature [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.Dev10IgnoresSentinelInPropertySignature [1 ms]
+[xUnit.net 00:54:52.06]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.PropertyWithOpenGenericTypeAsTypeArgumentOfReturnTypeIsNotSupported [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.PropertyWithOpenGenericTypeAsTypeArgumentOfReturnTypeIsNotSupported [1 ms]
+[xUnit.net 00:54:53.48]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.CanReadNonModOptPropertyWithOpenGenericModOptGetter [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.CanReadNonModOptPropertyWithOpenGenericModOptGetter [1 ms]
+[xUnit.net 00:54:57.66]     Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.CanReadPropertyWithModOptInBaseClassOfReturnType [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Source.PropertyTests.CanReadPropertyWithModOptInBaseClassOfReturnType [1 ms]
+[xUnit.net 00:55:03.27]     Microsoft.CodeAnalysis.CSharp.UnitTests.SemanticTests.GetSpeculativeSymbolInfoForGenericNameInCref [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.SemanticTests.GetSpeculativeSymbolInfoForGenericNameInCref [1 ms]
+[xUnit.net 00:55:08.68]     Microsoft.CodeAnalysis.CSharp.UnitTests.FieldTests.RTSpecialName [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.FieldTests.RTSpecialName [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_21_x64_test_results.xml
+Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_21_x64_test_results.html
+
+Failed!  - Failed:     2, Passed: 13936, Skipped:    56, Total: 13994, Duration: 53 m 51 s - Microsoft.CodeAnalysis.CSharp.Symbol.UnitTests.dll (net472)
