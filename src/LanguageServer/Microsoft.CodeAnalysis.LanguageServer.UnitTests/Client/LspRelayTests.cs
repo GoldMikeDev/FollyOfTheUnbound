@@ -66,14 +66,30 @@ public sealed class LspRelayTests
     /// </summary>
     private sealed class AlwaysFaultingStream : Stream
     {
+        private readonly TaskCompletionSource<bool> _writeAttempted = new(TaskCreationOptions.RunContinuationsAsynchronously);
+
+        /// <summary>Completes once a write has actually been attempted (and failed), so a test can wait for the
+        /// failure to be observed before writing more data -- otherwise a <see cref="Pipe"/> may hand the relay
+        /// both writes in a single read, and the failing write would never be exercised on its own.</summary>
+        public Task WriteAttempted => _writeAttempted.Task;
+
         public override ValueTask WriteAsync(ReadOnlyMemory<byte> buffer, CancellationToken cancellationToken = default)
-            => throw new IOException("Simulated destination failure.");
+        {
+            _writeAttempted.TrySetResult(true);
+            throw new IOException("Simulated destination failure.");
+        }
 
         public override Task WriteAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
-            => throw new IOException("Simulated destination failure.");
+        {
+            _writeAttempted.TrySetResult(true);
+            throw new IOException("Simulated destination failure.");
+        }
 
         public override void Write(byte[] buffer, int offset, int count)
-            => throw new IOException("Simulated destination failure.");
+        {
+            _writeAttempted.TrySetResult(true);
+            throw new IOException("Simulated destination failure.");
+        }
 
         public override Task FlushAsync(CancellationToken cancellationToken) => Task.CompletedTask;
         public override void Flush() { }
@@ -223,9 +239,15 @@ public sealed class LspRelayTests
         // gives up on the first failed forward, instead of continuing to read for the sentinel, would misreport
         // this as EditorConnectionLost even though the daemon's own exit was perfectly clean.
         var harness = new RelayHarness();
-        var relayTask = harness.RelayAsync(toEditorOverride: new AlwaysFaultingStream());
+        var faultingStream = new AlwaysFaultingStream();
+        var relayTask = harness.RelayAsync(toEditorOverride: faultingStream);
 
         await harness.ServerWriter.WriteAsync("Content-Length: 2\r\n\r\n{}"u8.ToArray());
+        // Wait for the relay to actually attempt (and fail) forwarding this chunk before writing the sentinel --
+        // otherwise the Pipe could hand both writes to the relay in a single read, and the sentinel would be
+        // found before any forward was ever attempted, never exercising the failed-chunk-then-drain path this
+        // test is for.
+        await faultingStream.WriteAttempted;
         await harness.WriteServerCleanExitSentinelAsync();
         harness.ServerWriter.Complete();
         harness.EditorWriter.Complete();

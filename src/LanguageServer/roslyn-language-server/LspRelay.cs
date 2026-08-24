@@ -47,7 +47,8 @@ internal static class LspRelay
     /// Upper bound on how long <see cref="RelayAsync"/> can legitimately still be waiting to conclude once one
     /// direction has already closed -- <see cref="s_secondCloseGracePeriod"/> plus
     /// <see cref="s_deadDestinationDrainTimeout"/>, the worst case when <c>serverToEditor</c>'s destination write
-    /// fails right at the end of the base grace period and its own drain then runs its full course. Anything
+    /// fails right at the end of the base grace period (the latest point <see cref="RelayAsync"/> still honors a
+    /// newly-started drain -- see its outer-wait handling) and its own drain then runs its full course. Anything
     /// that force-exits the process on a shorter deadline than this (e.g. <c>Program.StartClientProcessMonitorAsync</c>'s
     /// editor-exit grace window) can kill this relay out from under a shutdown that was only seconds away from
     /// concluding cleanly, clobbering its exit code with a spurious <see cref="RelayCompletionKind.EditorConnectionLost"/>.
@@ -61,8 +62,12 @@ internal static class LspRelay
         Stream toServer)
     {
         using var cancellationSource = new CancellationTokenSource();
-        var editorToServer = CopyUntilClosedAsync(fromEditor, toServer, RelayEndpoint.Editor, RelayEndpoint.Server, detectCleanExitSentinel: false, cancellationSource.Token);
-        var serverToEditor = CopyUntilClosedAsync(fromServer, toEditor, RelayEndpoint.Server, RelayEndpoint.Editor, detectCleanExitSentinel: true, cancellationSource.Token);
+        // Completed (TrySetResult) the moment serverToEditor's destination write first fails and its own
+        // post-failure drain begins -- see the outer-wait handling below for why RelayAsync needs to observe
+        // that moment rather than just racing a fixed timer against serverToEditor as a whole.
+        var destinationFailedSignal = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var editorToServer = CopyUntilClosedAsync(fromEditor, toServer, RelayEndpoint.Editor, RelayEndpoint.Server, detectCleanExitSentinel: false, destinationFailedSignal: null, cancellationSource.Token);
+        var serverToEditor = CopyUntilClosedAsync(fromServer, toEditor, RelayEndpoint.Server, RelayEndpoint.Editor, detectCleanExitSentinel: true, destinationFailedSignal, cancellationSource.Token);
         var completedTask = await Task.WhenAny(editorToServer, serverToEditor).ConfigureAwait(false);
         var result = await completedTask.ConfigureAwait(false);
 
@@ -93,22 +98,33 @@ internal static class LspRelay
 
         // serverToEditor's destination write can fail at any point during this wait -- there's no way to bound
         // "when" in advance -- and once it does, CopyStreamDetectingSentinelAsync starts its own fresh
-        // s_deadDestinationDrainTimeout-bounded drain from that moment. Any separate, independently-running
-        // outer timer here -- fixed-duration or even (as an earlier version of this code tried)
-        // s_secondCloseGracePeriod plus s_deadDestinationDrainTimeout -- can still expire before that drain's
-        // own window does, since the failure isn't constrained to happen early: a write that fails near the end
-        // of an outer window leaves the drain needing nearly a full extra s_deadDestinationDrainTimeout beyond
-        // it. So serverToEditor gets no outer race at all here -- its own internal timeout, once started, is
-        // unconditionally the one that governs, however late it begins. The accepted tradeoff is the case where
-        // the destination never fails and the daemon simply never produces anything and never closes (no writes
-        // are ever attempted, so no drain ever starts): that leaves this wait genuinely unbounded, same as
-        // editorToServer already is via the plain, unbounded ProcessUtilities.CopyStreamAsync, which still races
-        // the base grace period below as its sole timeout since it has no internal bound of its own to defer to.
+        // s_deadDestinationDrainTimeout-bounded drain from that moment. A fixed-duration outer race against
+        // serverToEditor as a whole can't accommodate that: it either cuts off a drain that started late (an
+        // earlier version of this code got this wrong twice -- see known-issues/ide.md), or, if simply removed,
+        // leaves this wait genuinely unbounded whenever the daemon never attempts a write at all (e.g. it never
+        // responds and never closes) -- which is exactly the case
+        // EditorClosesAloneWithoutServerFollowing_IsNotCleanShutdown exercises, and would hang that test (and a
+        // real thin client launched without --clientProcessId) forever. So the outer race here targets the
+        // *failure*, not the whole task: wait up to s_secondCloseGracePeriod for either serverToEditor to finish
+        // on its own or destinationFailedSignal to fire (meaning its post-failure drain has just started); once
+        // that drain has started, its own internal timeout is unconditionally the one that governs from then on,
+        // however close to the outer deadline it began.
         bool otherCompletedInTime;
         if (otherTask == serverToEditor)
         {
-            await otherTask.ConfigureAwait(false);
-            otherCompletedInTime = true;
+            var graceDelay = Task.Delay(s_secondCloseGracePeriod);
+            var firstSignal = await Task.WhenAny(otherTask, destinationFailedSignal.Task, graceDelay).ConfigureAwait(false);
+            if (firstSignal == graceDelay)
+            {
+                otherCompletedInTime = false;
+            }
+            else
+            {
+                // Either otherTask already finished, or its drain just started and will now run its own full
+                // course -- either way, awaiting it directly is now unconditionally safe and bounded.
+                await otherTask.ConfigureAwait(false);
+                otherCompletedInTime = true;
+            }
         }
         else
         {
@@ -133,10 +149,11 @@ internal static class LspRelay
         RelayEndpoint inputEndpoint,
         RelayEndpoint outputEndpoint,
         bool detectCleanExitSentinel,
+        TaskCompletionSource<bool>? destinationFailedSignal,
         CancellationToken cancellationToken)
     {
         var (result, sentinelSeen) = detectCleanExitSentinel
-            ? await CopyStreamDetectingSentinelAsync(input, output, cancellationToken).ConfigureAwait(false)
+            ? await CopyStreamDetectingSentinelAsync(input, output, destinationFailedSignal, cancellationToken).ConfigureAwait(false)
             : (await ProcessUtilities.CopyStreamAsync(input, output, cancellationToken).ConfigureAwait(false), false);
 
         return result switch
@@ -160,6 +177,7 @@ internal static class LspRelay
     private static async Task<(StreamCopyCompletion Completion, bool SentinelSeen)> CopyStreamDetectingSentinelAsync(
         Stream source,
         Stream destination,
+        TaskCompletionSource<bool>? destinationFailedSignal,
         CancellationToken cancellationToken)
     {
         const int BufferSize = 64 * 1024;
@@ -227,6 +245,7 @@ internal static class LspRelay
                         destinationAlive = false;
                         drainCancellation = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
                         drainCancellation.CancelAfter(s_deadDestinationDrainTimeout);
+                        destinationFailedSignal?.TrySetResult(true);
                     }
                 }
 
