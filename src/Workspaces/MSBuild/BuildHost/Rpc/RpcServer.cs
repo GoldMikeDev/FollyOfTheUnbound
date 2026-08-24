@@ -194,8 +194,22 @@ internal sealed class RpcServer
 #endif
         using (await _sendingStreamSemaphore.DisposableWaitAsync().ConfigureAwait(false))
         {
-            await _streamWriter.WriteLineAsync(responseJson).ConfigureAwait(false);
-            await _streamWriter.FlushAsync().ConfigureAwait(false);
+            try
+            {
+                await _streamWriter.WriteLineAsync(responseJson).ConfigureAwait(false);
+                await _streamWriter.FlushAsync().ConfigureAwait(false);
+            }
+            catch (IOException)
+            {
+                // The pipe to our client (the process that spawned this build host) is already gone -- most
+                // commonly because that process is itself shutting down and tore down the pipe before this
+                // response could be delivered. There's nobody left to receive it, so this isn't actionable:
+                // letting it propagate would fault this request's task, which RunAsync's Task.WhenAll would
+                // then rethrow, crashing this entire process with an unhandled exception instead of just
+                // exiting once RunAsync's own read loop observes the same closed pipe and returns normally.
+                // Nudge that along explicitly rather than waiting for the next read to notice on its own.
+                Shutdown();
+            }
         }
     }
 

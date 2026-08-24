@@ -247,3 +247,36 @@ this design. A future edit that races `serverToEditor` against only a fixed-dura
 *whole* wait (whether or not it sums the two constants) reintroduces the under-coverage bug; awaiting it
 with no bound at all reintroduces the hang. The fix has to target the failure's own start, not the wait as
 a whole.
+
+## `RpcServer.ProcessRequestAsync` must swallow a broken-pipe response write, not let it crash the whole BuildHost process
+
+**Affected area:** `src/Workspaces/MSBuild/BuildHost/Rpc/RpcServer.cs`
+**Description:** Diagnosed from a real Core test-run crash dump (`WorkItem_24`, `MoveStaticMembersRefactoringTests`):
+`Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll` crashed with an unhandled `System.IO.IOException: "Pipe
+is broken."`. `ProcessRequestAsync`'s response write (`_streamWriter.WriteLineAsync`/`FlushAsync`) can race the
+client (the language server host process) tearing down and closing its end of the pipe -- most commonly because
+the client itself is shutting down while this BuildHost still has a response in flight. Before this fix, that
+write was unguarded: the `IOException` propagated out of `ProcessRequestAsync`'s `Task.Run` background task, into
+`RunAsync`'s `Task.WhenAll(remainingTasks)`, faulting `RunAsync`'s own task and crashing the entire BuildHost
+process with an unhandled exception instead of exiting quietly.
+**Invariant:** The response write in `ProcessRequestAsync` is wrapped in `try`/`catch (IOException)`. If the pipe
+is already gone, there is nobody left to receive the response, so the failure isn't actionable -- the catch calls
+`Shutdown()` so `RunAsync`'s read loop also winds down on its own (via its existing `_shutdownTokenSource`
+handling) rather than continuing to process requests against a dead pipe. A future refactor of this write path
+(e.g. removing the try/catch as "dead code" or replacing it with a broader catch that also swallows unrelated
+failures) must preserve this specific behavior: broken-pipe write failures during shutdown are expected and must
+not propagate to crash the process, while other exceptions from the write path should still surface normally.
+Regression test: `RpcTests.ResponseWriteAfterClientDisconnectsDoesNotCrashServer` (inherently racy like the
+neighboring `RequestThatClosesServerDoesNotThrow`, guarding dotnet/roslyn#77040 -- not guaranteed to reproduce the
+underlying race on every platform, see that test's own remarks). That test's `RpcPair` test harness itself is
+worth noting: `ServerCompletion` originally used `RunAsync().ContinueWith(_ => _serverStream.Dispose(), ...)`,
+whose default continuation discards the antecedent's exception -- so `RunAsync` faulting was previously
+invisible to every test in this file (`await rpcPair.ServerCompletion` would still complete successfully). Fixed
+via an `async` local function that awaits `RunAsync` directly (propagating any fault) and disposes the stream in
+a `finally`. That fix immediately exposed a second, pre-existing bug: `RpcPair.DisposeAsync` disposed
+`_serverStream` directly instead of calling `Server.Shutdown()` first (unlike every real production caller, e.g.
+`AbstractBuildHost`), which yanks the pipe out from under `RunAsync`'s blocked read and throws a raw
+`IOException`/`SocketException` instead of the graceful, expected `OperationCanceledException` `Shutdown()`'s
+cancellation produces -- this was failing on nearly every test's normal teardown, silently, the entire time.
+`DisposeAsync` now calls `Server.Shutdown()` before disposing the client stream, matching production shutdown
+order.
