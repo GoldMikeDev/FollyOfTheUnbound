@@ -46,9 +46,27 @@ public sealed class RpcTests
             Server = new RpcServer(_serverStream);
             Client = new RpcClient(_clientStream);
 
-            // Start the server, and shut the pipe down once it's done to simulate real behavior
-            ServerCompletion = Server.RunAsync().ContinueWith(_ => _serverStream.Dispose(), TaskScheduler.Default);
+            // Start the server, and shut the pipe down once it's done to simulate real behavior. Runs RunAsync
+            // and disposes the stream via an async local function rather than ContinueWith, so that a fault in
+            // RunAsync actually propagates through ServerCompletion instead of being silently swallowed --
+            // ContinueWith's default continuation runs regardless of the antecedent's outcome and, since the
+            // continuation body itself doesn't throw, produces a successfully-completed task even when RunAsync
+            // faulted. That would let a regression test await ServerCompletion and see it complete normally even
+            // when the exact crash it exists to catch reoccurs.
+            ServerCompletion = RunServerAndDisposeAsync();
             Client.Start();
+
+            async Task RunServerAndDisposeAsync()
+            {
+                try
+                {
+                    await Server.RunAsync().ConfigureAwait(false);
+                }
+                finally
+                {
+                    _serverStream.Dispose();
+                }
+            }
         }
 
         public RpcServer Server { get; }
@@ -64,8 +82,15 @@ public sealed class RpcTests
 
         public async ValueTask DisposeAsync()
         {
+            // Shut the server down gracefully (matching how the real product always tears RpcServer down --
+            // see AbstractBuildHost's own call to Shutdown()) rather than disposing _serverStream out from under
+            // RunAsync's blocked read: that yanks the pipe away mid-read, which throws a raw IOException/
+            // SocketException instead of the graceful OperationCanceledException Shutdown()'s cancellation
+            // produces -- exactly the kind of unexpected fault ServerCompletion now (correctly) surfaces instead
+            // of silently swallowing. RunServerAndDisposeAsync's own finally disposes _serverStream once
+            // RunAsync actually returns.
+            Server.Shutdown();
             _clientStream.Dispose();
-            _serverStream.Dispose();
 
             await ServerCompletion;
         }
