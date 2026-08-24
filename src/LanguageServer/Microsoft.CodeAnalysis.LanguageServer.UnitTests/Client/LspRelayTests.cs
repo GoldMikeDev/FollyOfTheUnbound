@@ -258,6 +258,33 @@ public sealed class LspRelayTests
     }
 
     [Fact]
+    public async Task DestinationFailsNearGraceDeadline_StillHonorsFullDrainForLateSentinel()
+    {
+        // Regression guard for the destinationFailedSignal race added to RelayAsync: a fixed outer timer
+        // covering the *whole* wait (whether s_secondCloseGracePeriod alone or summed with
+        // s_deadDestinationDrainTimeout) would cut off a drain that starts close to its own deadline. Here
+        // the destination failure is delayed until just before s_secondCloseGracePeriod elapses, and the
+        // sentinel arrives after that original deadline has passed but well within the fresh drain the
+        // failure itself started -- this must still resolve to CleanShutdown, not EditorConnectionLost.
+        var harness = new RelayHarness();
+        var faultingStream = new AlwaysFaultingStream();
+        var relayTask = harness.RelayAsync(toEditorOverride: faultingStream);
+
+        harness.EditorWriter.Complete();
+        await Task.Delay(TimeSpan.FromSeconds(4.5));
+        await harness.ServerWriter.WriteAsync("Content-Length: 2\r\n\r\n{}"u8.ToArray());
+        // Confirms the write was attempted (and failed) before the original 5s grace deadline passes.
+        await faultingStream.WriteAttempted;
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        await harness.WriteServerCleanExitSentinelAsync();
+        harness.ServerWriter.Complete();
+
+        var result = await relayTask;
+
+        Assert.Equal(RelayCompletionKind.CleanShutdown, result);
+    }
+
+    [Fact]
     public async Task DestinationFailsAndSentinelNeverArrives_TimesOutAsEditorConnectionLost()
     {
         // If the destination stays broken and the daemon never produces the sentinel, the bounded post-failure
