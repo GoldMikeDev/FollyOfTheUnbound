@@ -6,6 +6,7 @@ extern alias MSBuildWorkspaces;
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Pipes;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,6 +54,13 @@ public sealed class RpcTests
         public RpcServer Server { get; }
         public RpcClient Client { get; }
         public Task ServerCompletion { get; }
+
+        /// <summary>
+        /// Disposes only the client's end of the pipe, simulating the client process (e.g. the language server
+        /// host) going away while the server may still have work in flight -- without also disposing the
+        /// server's end, which <see cref="DisposeAsync"/> already does on test cleanup.
+        /// </summary>
+        public void DisconnectClient() => _clientStream.Dispose();
 
         public async ValueTask DisposeAsync()
         {
@@ -229,6 +237,40 @@ public sealed class RpcTests
         // Invoke the method, and ensure we don't get exceptions back due to the shutdown if the pipe closed too early.
         // This is not guaranteed to catch any bug, since any bug is fundamentally a race, but it at least ensures we aren't always broken.
         await rpcPair.Client.InvokeAsync(targetObject: 0, nameof(ObjectWithMethodThatShutsDownServer.Shutdown), [], CancellationToken.None);
+    }
+
+    /// <summary>
+    /// Regression test for a real BuildHost process crash: the client (the language server host process) can
+    /// disconnect its end of the pipe -- most commonly because it's shutting down -- while the server still has
+    /// a response pending. Writing that response to the now-broken pipe threw an unhandled <see cref="IOException"/>
+    /// out of <c>RpcServer.ProcessRequestAsync</c>'s background task, which faulted <c>RunAsync</c>'s
+    /// <c>Task.WhenAll</c> and crashed the whole BuildHost process instead of just letting it exit quietly. Unlike
+    /// <see cref="RequestThatClosesServerDoesNotThrow"/> above (a graceful, server-initiated <see cref="RpcServer.Shutdown"/>
+    /// with the pipe still intact), this deterministically breaks the pipe out from under a response write in
+    /// flight, which is what actually reproduces the crash.
+    /// </summary>
+    [Fact]
+    public async Task ResponseWriteAfterClientDisconnectsDoesNotCrashServer()
+    {
+        await using var rpcPair = new RpcPair();
+
+        var rpcTarget = new ObjectWithRealAsyncMethod();
+        rpcPair.Server.AddTarget(rpcTarget);
+
+        // Fire off a request but don't let it complete yet -- ObjectWithRealAsyncMethod.WaitAsync doesn't return
+        // until rpcTarget.Complete is called below, so the response write hasn't happened when we disconnect.
+        var call1 = rpcPair.Client.InvokeAsync(targetObject: 0, nameof(ObjectWithRealAsyncMethod.WaitAsync), [], CancellationToken.None);
+        rpcTarget.WaitUntilRequest(index: 0);
+
+        rpcPair.DisconnectClient();
+
+        // Now let the pending request complete, so the server attempts to write its response to the pipe whose
+        // other end is already gone.
+        rpcTarget.Complete(index: 0);
+
+        // The broken-pipe write must not crash the server (and, in the real product, the whole process) with an
+        // unhandled exception -- RunAsync's task must still complete normally.
+        await rpcPair.ServerCompletion;
     }
 
 #pragma warning disable CA1822 // Mark members as static
