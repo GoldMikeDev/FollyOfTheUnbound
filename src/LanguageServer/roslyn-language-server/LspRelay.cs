@@ -114,7 +114,15 @@ internal static class LspRelay
         {
             var graceDelay = Task.Delay(s_secondCloseGracePeriod);
             var firstSignal = await Task.WhenAny(otherTask, destinationFailedSignal.Task, graceDelay).ConfigureAwait(false);
-            if (firstSignal == graceDelay)
+
+            // Task.WhenAny only guarantees it returns *a* completed task, not the one that completed first --
+            // if the destination fails right around the grace deadline, both destinationFailedSignal and
+            // graceDelay can already be complete by the time this continuation runs, and WhenAny is free to
+            // hand back graceDelay even though the failure (and its own fresh drain) is equally real. So
+            // treat the failure as observed whenever its signal is complete, regardless of which task WhenAny
+            // happened to return -- otherwise a failure that lands in this exact window would be wrongly
+            // timed out instead of given its full drain.
+            if (firstSignal == graceDelay && !destinationFailedSignal.Task.IsCompleted)
             {
                 otherCompletedInTime = false;
             }
