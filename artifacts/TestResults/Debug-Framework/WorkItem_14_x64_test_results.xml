@@ -1,8 +1,8 @@
-<assemblies timestamp="08/21/2026 13:27:17">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll" run-date="2026-08-21" run-time="13:27:17" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll.config" total="28" passed="27" failed="0" skipped="1" time="320.285" errors="0">
+<assemblies timestamp="08/24/2026 08:28:39">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll" run-date="2026-08-24" run-time="08:28:39" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll.config" total="28" passed="27" failed="0" skipped="1" time="217.289" errors="0">
     <errors />
-    <collection total="28" passed="27" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" time="299.645">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.DeeplyNestedGeneric" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="DeeplyNestedGeneric" time="12.7620000" result="Pass">
+    <collection total="28" passed="27" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" time="193.872">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.DeeplyNestedGeneric" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="DeeplyNestedGeneric" time="8.0550000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="33909" />
           <trait name="WorkItemId" value="34880" />
@@ -12,48 +12,48 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/53361" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyUnreferencedSuppressMessageAttributes" time="44.0400000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyUnreferencedSuppressMessageAttributes" time="22.1530000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/pull/83087" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyTupleSwitchArms_01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyTupleSwitchArms_01" time="1.3700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyTupleSwitchArms_01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyTupleSwitchArms_01" time="2.2650000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" time="2.7030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" time="1.8070000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" time="0.0770000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" time="0.0780000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" time="0.4090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" time="0.2780000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" time="0.1610000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" time="0.1480000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" time="169.2850000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" time="88.8060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" time="2.5850000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" time="1.9810000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.LongInitializerList" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="LongInitializerList" time="0.6790000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.LongInitializerList" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="LongInitializerList" time="0.6100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1819416" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="OverflowOnFluentCall" time="3.1810000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="OverflowOnFluentCall" time="3.0450000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="16669" />
           <trait name="WorkItemId" value="34880" />
@@ -61,69 +61,69 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/34880" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" time="0.7660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" time="1.0280000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Interceptors" time="23.4630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Interceptors" time="18.5400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse(n: 2000)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedIfElse(n: 2000)" time="7.7010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse(n: 2000)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedIfElse(n: 2000)" time="7.5560000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72393" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse(n: 2)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedIfElse(n: 2)" time="0.2450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse(n: 2)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedIfElse(n: 2)" time="0.4980000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72393" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_03" time="9.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_03" time="13.1610000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfStatements" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedIfStatements" time="0.1480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfStatements" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedIfStatements" time="0.1760000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ForAttributeWithMetadataName_DeepRecursion" time="0.5340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ForAttributeWithMetadataName_DeepRecursion" time="0.9860000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/pull/70791" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: True)" time="0.6450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: True)" time="0.3090000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69093" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: False)" time="0.1860000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: False)" time="0.1800000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69093" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" time="0.8510000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" time="0.8860000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_02" time="18.1640000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_02" time="20.1570000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" time="0.1530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" time="0.3760000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" time="0.0420000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" time="0.1030000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" time="0.0280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" time="0.0620000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" time="0.0920000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" time="0.0380000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
@@ -134,7 +134,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1874763" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Constraints" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Constraints" time="0.3570000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Constraints" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Constraints" time="0.5890000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="42361" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/42361" />

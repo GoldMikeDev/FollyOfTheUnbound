@@ -3,310 +3,73 @@
     <h1>Test run details</h1>
     <div class="summary">
       <div class="block"><span>Total tests</span><div class="total-tests">192</div><br></div>
-      <div class="block"><span>Passed  : </span><span class="passedTests">187</span><br><span>Failed  : </span><span class="failedTests">1</span><br><span>Skipped : </span><span class="skippedTests">4</span><br></div>
+      <div class="block"><span>Passed  : </span><span class="passedTests">188</span><br><span>Failed  : </span><span class="failedTests">0</span><br><span>Skipped : </span><span class="skippedTests">4</span><br></div>
       <div class="block"><span>Pass percentage</span><div class="pass-percentage">97 %</div><br></div>
-      <div class="block"><span>Run duration</span><div class="test-run-time">1m 45s</div><br></div><br></div>
-    <h2>Failed Results</h2><details open=""><summary>C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\VBCSCompiler.UnitTests\Debug\net472\VBCSCompiler.UnitTests.dll</summary><div class="inner-row" Id="-876569197-failedResult">
+      <div class="block"><span>Run duration</span><div class="test-run-time">1m 40s</div><br></div><br></div>
+    <h2>All Results</h2><details><summary>C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\VBCSCompiler.UnitTests\Debug\net472\VBCSCompiler.UnitTests.dll</summary><div class="inner-row" Id="1472917048">
         <div class="leaf-division">
-          <div><span class="fail">✘</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent​</span><div class="duration"><span>66ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.RejectEmptyTempPath​</span><div class="duration"><span>1s 80ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_Desktop​</span><div class="duration"><span>22ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.IncorrectServerHashReturnsIncorrectHashResponse​</span><div class="duration"><span>32ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "8VDiJptv892LtWpeN86z76_YI0Yg0BV6j0SOv8CjQVA", userName: "ha\"ha", isAdmin: True, compilerExeDir: "basename")​</span><div class="duration"><span>8ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "wKSU9psJMbkw+5+TFKLEf94aeslpEb3dDRpAw+9j4nw", userName: "jared", isAdmin: True, compilerExeDir: "ha\"ha")​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "OLqrNgkgZRf14qL91MdaUn8coiKckUIZCIEkpy0Lt18", userName: "name with space", isAdmin: True, compilerExeDir: "basename")​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "0BDP4_GPWYQh9J_BknwhS9uAZAF_64PK4_VnNsddGZE", userName: "jared", isAdmin: False, compilerExeDir: "ha\"ha")​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "XroHfrjD1FTk7PcXcif2hZdmlVH_L0Pg+RUX01d_uQc", userName: "jared", isAdmin: False, compilerExeDir: "ha\\ha")​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.MutexAcquiredWhenRunningServer​</span><div class="duration"><span>157ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_CoreClr​</span><div class="duration"><span>1ms</span><br></div>
           </div>
           <div class="error-info">
-    Error: <span class="error-message"><pre>Assert.True() Failure
-Expected: True
-Actual:   False</pre></span><br>
-    Stack trace: <span class="error-stack-trace"><pre>   at Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Server\VBCSCompilerTests\CompilationCacheTests.cs:line 366</pre></span><br></div>
+    Error: <span class="error-message"><pre>Test only supported on CoreClr</pre></span><br></div>
         </div>
-      </div></details><h2>All Results</h2><details><summary>C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\VBCSCompiler.UnitTests\Debug\net472\VBCSCompiler.UnitTests.dll</summary><div class="inner-row" Id="-876569197">
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.CSharpTrivialMetadataCaching​</span><div class="duration"><span>6s 259ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.MutexStopsServerStarting​</span><div class="duration"><span>377ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.VisualBasicTrivialMetadataCaching​</span><div class="duration"><span>3s 474ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadLibraryWithMissingReference​</span><div class="duration"><span>82ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive4​</span><div class="duration"><span>51ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.UseLibVariableVB​</span><div class="duration"><span>2s 89ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismCallerInfo​</span><div class="duration"><span>923ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_On_Shared_VB​</span><div class="duration"><span>369ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8OutputInRspFileVbc​</span><div class="duration"><span>754ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CscFallBackOutputNoUtf8​</span><div class="duration"><span>385ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.VbcFallbackUtf8​</span><div class="duration"><span>406ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8OutputInRspFileCsc​</span><div class="duration"><span>356ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ExtraMSCorLibVB​</span><div class="duration"><span>1s 187ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive3​</span><div class="duration"><span>2ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.FallbackToVbc​</span><div class="duration"><span>1s 183ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MultipleSimultaneousCompiles​</span><div class="duration"><span>18s 100ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info">
-    Error: <span class="error-message"><pre>19213</pre></span><br></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismAnonType​</span><div class="duration"><span>1s 281ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_Off_Shared​</span><div class="duration"><span>683ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Bug1024619_02​</span><div class="duration"><span>694ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.InvalidMetadataFileErrorVB​</span><div class="duration"><span>819ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CscFallBackOutputUtf8​</span><div class="duration"><span>160ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Platformx86MscorlibVbc​</span><div class="duration"><span>674ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompileErrorsCS​</span><div class="duration"><span>1s 825ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingFileErrorCS​</span><div class="duration"><span>1s 401ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingReferenceErrorCS​</span><div class="duration"><span>304ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.AssemblyIdentityComparer1​</span><div class="duration"><span>1s 789ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.VbcFallbackNoUtf8​</span><div class="duration"><span>596ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.HelloWorldCS​</span><div class="duration"><span>1s 351ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingFileErrorVB​</span><div class="duration"><span>1s 601ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ExtraMSCorLibCS​</span><div class="duration"><span>1s 63ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.HelloWorldVB​</span><div class="duration"><span>1s 110ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingReferenceErrorVB​</span><div class="duration"><span>1s 426ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompileErrorsVB​</span><div class="duration"><span>239ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Bug1024619_01​</span><div class="duration"><span>668ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive2​</span><div class="duration"><span>2ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismLineDirective​</span><div class="duration"><span>1s 173ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.FallbackToCsc​</span><div class="duration"><span>1s 223ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.HelloWorldCSDashShared​</span><div class="duration"><span>991ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompilerBinariesAreNotX86​</span><div class="duration"><span>39ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Platformx86MscorlibCsc​</span><div class="duration"><span>619ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info">
-    Error: <span class="error-message"><pre>Test not supported on Windows</pre></span><br></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info">
-    Error: <span class="error-message"><pre>https://github.com/dotnet/roslyn/issues/20345</pre></span><br></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive1​</span><div class="duration"><span>2ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.UseLibVariableCS​</span><div class="duration"><span>833ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.InvalidMetadataFileErrorCS​</span><div class="duration"><span>444ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismHelloWorld​</span><div class="duration"><span>1s 333ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_On_Shared_CS​</span><div class="duration"><span>1s 237ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingCS​</span><div class="duration"><span>2s 808ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_Off_Share​</span><div class="duration"><span>77ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.UseExistingServer​</span><div class="duration"><span>470ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.GetServerEnvironmentVariables_ExcludesDotNetRootVariants​</span><div class="duration"><span>2ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.GetServerEnvironmentVariables_IncludesDotNetRoot​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.SimulateServerCrashingOnStartup​</span><div class="duration"><span>2s 118ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.FailedServer​</span><div class="duration"><span>4ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.WaitForServerProcessExitAsync_CompletesWhenServerMutexIsNotOpen​</span><div class="duration"><span>10ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.OnlyStartOneServer​</span><div class="duration"><span>507ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.LogException_NonFatal​</span><div class="duration"><span>14ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadLibraryWithMissingReference​</span><div class="duration"><span>57ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadingSimpleLibrary​</span><div class="duration"><span>178ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadingSimpleLibrary​</span><div class="duration"><span>149ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
@@ -316,32 +79,547 @@ Actual:   False</pre></span><br>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.AssemblyLoadException​</span><div class="duration"><span>23ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.AssemblyLoadException​</span><div class="duration"><span>234ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadingLibraryFromRuntime​</span><div class="duration"><span>18ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadingLibraryFromRuntime​</span><div class="duration"><span>47ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadLibraryAll​</span><div class="duration"><span>96ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.LoadLibraryAll​</span><div class="duration"><span>359ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.DifferingMvidsSameDirectory​</span><div class="duration"><span>132ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.DifferingMvidsSameDirectory​</span><div class="duration"><span>179ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.DifferingMvidsDifferentDirectory​</span><div class="duration"><span>123ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.AnalyzerConsistencyCheckerTests.DifferingMvidsDifferentDirectory​</span><div class="duration"><span>135ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ParseCommandLineTests.CacheStatsWithVerbosity2​</span><div class="duration"><span>12ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.NoServerMutex​</span><div class="duration"><span>3ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.ShutdownDoesNotAbortCompilation​</span><div class="duration"><span>38ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.ShutdownRepeated​</span><div class="duration"><span>97ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.ServerShutdownsDuringProcessing​</span><div class="duration"><span>30ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.Standard​</span><div class="duration"><span>111ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.NoServerConnection​</span><div class="duration"><span>74ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+StartupTests.ShadowCopyAnalyzerAssemblyLoaderMissingDirectory​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ReadWriteCompleted​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ReadWriteRequest​</span><div class="duration"><span>12ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ShutdownRequestWriteRead​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ShutdownMessage​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ShutdownResponseWriteRead​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.NoConnections​</span><div class="duration"><span>3s 18ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimultaneousConnections(connectionCount: 2)​</span><div class="duration"><span>3s 161ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimultaneousConnections(connectionCount: 3)​</span><div class="duration"><span>3s 156ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimpleCases(connectionCount: 1)​</span><div class="duration"><span>3s 55ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimpleCases(connectionCount: 2)​</span><div class="duration"><span>3s 117ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimpleCases(connectionCount: 3)​</span><div class="duration"><span>3s 222ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_HandlesMixedOldAndNewEntries​</span><div class="duration"><span>16ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_SkipsStagingDirectories​</span><div class="duration"><span>10ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsFalseAndLogs_WhenMissingEntryIsLocked​</span><div class="duration"><span>106ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryCreate_ReturnsNull_WhenFeatureFlagNotSet​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_RemovesEmptyDllDirectories​</span><div class="duration"><span>11ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetCacheStats_Verbosity2ShowsIndividualEntries​</span><div class="duration"><span>21ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_WritesCreatedFile​</span><div class="duration"><span>21ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_DeletesOldEntries​</span><div class="duration"><span>14ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryCreate_ReturnsCache_WhenFeatureFlagHasExplicitPath​</span><div class="duration"><span>2ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.ComputeHashKey_IsDeterministic​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_TouchesLastUsedFile​</span><div class="duration"><span>12ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.LogCacheMiss_LogsNothing_WhenNoPriorEntries​</span><div class="duration"><span>5ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.RoundTrip_StoreAndRetrieve​</span><div class="duration"><span>46ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsTrue_WhenEntryExists​</span><div class="duration"><span>12ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetCacheStats_CountsAllEntries​</span><div class="duration"><span>27ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_DoesNotThrow_WhenAssemblyFileNotFound​</span><div class="duration"><span>14ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsTrue_WhenPublishedEntryIsLocked​</span><div class="duration"><span>68ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsFalse_WhenEntryMissing​</span><div class="duration"><span>4ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_TouchesLastUsedFile​</span><div class="duration"><span>19ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent​</span><div class="duration"><span>20ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_KeepsAllRecentEntries​</span><div class="duration"><span>14ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.ComputeHashKey_DifferentInputs_ProduceDifferentHashes​</span><div class="duration"><span>5ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetDeterministicKey_DiffersWithDifferentSourceLinkContent​</span><div class="duration"><span>28ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetDeterministicKey_DiffersWithSourceLink​</span><div class="duration"><span>6ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_CopiesAndUpdatesOutputTimestamps​</span><div class="duration"><span>34ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetCacheStats_VerboseSummaryIncludesGroupedDlls​</span><div class="duration"><span>9ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsFalse_WhenRequestedOutputFileMissingFromCache​</span><div class="duration"><span>7ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_OnlyOneWriterStoresEntry​</span><div class="duration"><span>18ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_RestoresAllOutputFiles​</span><div class="duration"><span>31ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_WritesAllOutputFiles​</span><div class="duration"><span>33ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.LogCacheMiss_IncludesDiff_WhenPriorEntriesExist​</span><div class="duration"><span>70ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryCreate_ReturnsCache_WhenFeatureFlagUsesDefaultPath​</span><div class="duration"><span>2ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+MiscTests.CompilationExceptionShouldShutdown​</span><div class="duration"><span>145ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+MiscTests.AnalyzerInconsistencyShouldShutdown​</span><div class="duration"><span>68ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerControllerTests+GetDefaultKeepAliveTests.Simple​</span><div class="duration"><span>6ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerControllerTests+GetDefaultKeepAliveTests.NoSetting​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerControllerTests+GetDefaultKeepAliveTests.InvalidNumber​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.ConnectToServerFails​</span><div class="duration"><span>13ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.TestMutexConstructorException​</span><div class="duration"><span>3ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.ConnectToPipe​</span><div class="duration"><span>1s 77ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.TestIfMutexIsGlobal​</span><div class="duration"><span>2ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.FallbackToCsc​</span><div class="duration"><span>3ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithEmptySessionKey(optionPrefix: '-')​</span><div class="duration"><span>2ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithEmptySessionKey(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithSessionKey(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithSessionKey(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Basic(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Basic(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedPrefix(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedPrefix(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Shared(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Shared(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAliveBad(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAliveBad(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlive(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlive(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlivePrefix(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlivePrefix(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ShutdownRequest(allowCompilationRequests: True)​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ShutdownRequest(allowCompilationRequests: False)​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.CompilationsDisallowed​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ThrowWritingResponse​</span><div class="duration"><span>48ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ClientDisconnectDuringBuild​</span><div class="duration"><span>25ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ThrowReadingRequest​</span><div class="duration"><span>19ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ThrowDuringBuild​</span><div class="duration"><span>77ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.EndListenClosesQueuedConnections​</span><div class="duration"><span>83ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.CallAfterComplete​</span><div class="duration"><span>95ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.CallBeforeListen​</span><div class="duration"><span>4ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.ManyConnectsBeforeAcknowledged​</span><div class="duration"><span>22ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.SupportsMultipleBeginEndCycles​</span><div class="duration"><span>372ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.EndListenDoesNotDisposeCompletedConnection​</span><div class="duration"><span>40ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.EndListenCancelsIncompleteTask​</span><div class="duration"><span>10ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+MiscTest.GetPipeNameForPathOptSlashes​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+MiscTest.GetPipeNameForPath_Casing​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+MiscTest.GetPipeNameForPathOptLength​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.CSharpTrivialMetadataCaching​</span><div class="duration"><span>642ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.TouchedFileLoggingTests.VisualBasicTrivialMetadataCaching​</span><div class="duration"><span>3s 131ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.UseExistingServer​</span><div class="duration"><span>1s 345ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.GetServerEnvironmentVariables_ExcludesDotNetRootVariants​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.GetServerEnvironmentVariables_IncludesDotNetRoot​</span><div class="duration"><span>1ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.SimulateServerCrashingOnStartup​</span><div class="duration"><span>2s 78ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.FailedServer​</span><div class="duration"><span>4ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.WaitForServerProcessExitAsync_CompletesWhenServerMutexIsNotOpen​</span><div class="duration"><span>22ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.OnlyStartOneServer​</span><div class="duration"><span>785ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerConnectionTests.LogException_NonFatal​</span><div class="duration"><span>6ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ParseCommandLineTests.CacheStatsWithVerbosity2​</span><div class="duration"><span>9ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
@@ -421,7 +699,7 @@ Actual:   False</pre></span><br>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ParseCommandLineTests.AllArgs​</span><div class="duration"><span>9ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ParseCommandLineTests.AllArgs​</span><div class="duration"><span>7ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
@@ -461,534 +739,242 @@ Actual:   False</pre></span><br>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.NoServerMutex​</span><div class="duration"><span>4ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive4​</span><div class="duration"><span>41ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.ShutdownDoesNotAbortCompilation​</span><div class="duration"><span>50ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.UseLibVariableVB​</span><div class="duration"><span>1s 577ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.ShutdownRepeated​</span><div class="duration"><span>62ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismCallerInfo​</span><div class="duration"><span>761ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.ServerShutdownsDuringProcessing​</span><div class="duration"><span>51ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_On_Shared_VB​</span><div class="duration"><span>374ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.Standard​</span><div class="duration"><span>95ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8OutputInRspFileVbc​</span><div class="duration"><span>192ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+ShutdownTests.NoServerConnection​</span><div class="duration"><span>45ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CscFallBackOutputNoUtf8​</span><div class="duration"><span>406ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.RejectEmptyTempPath​</span><div class="duration"><span>56ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.VbcFallbackUtf8​</span><div class="duration"><span>237ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_Desktop​</span><div class="duration"><span>2ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8OutputInRspFileCsc​</span><div class="duration"><span>590ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.IncorrectServerHashReturnsIncorrectHashResponse​</span><div class="duration"><span>21ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ExtraMSCorLibVB​</span><div class="duration"><span>1s 160ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "8VDiJptv892LtWpeN86z76_YI0Yg0BV6j0SOv8CjQVA", userName: "ha\"ha", isAdmin: True, compilerExeDir: "basename")​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive3​</span><div class="duration"><span>2ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "wKSU9psJMbkw+5+TFKLEf94aeslpEb3dDRpAw+9j4nw", userName: "jared", isAdmin: True, compilerExeDir: "ha\"ha")​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.FallbackToVbc​</span><div class="duration"><span>1s 147ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "OLqrNgkgZRf14qL91MdaUn8coiKckUIZCIEkpy0Lt18", userName: "name with space", isAdmin: True, compilerExeDir: "basename")​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MultipleSimultaneousCompiles​</span><div class="duration"><span>20s 847ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "0BDP4_GPWYQh9J_BknwhS9uAZAF_64PK4_VnNsddGZE", userName: "jared", isAdmin: False, compilerExeDir: "ha\"ha")​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.GetPipeNameCore(expectedName: "XroHfrjD1FTk7PcXcif2hZdmlVH_L0Pg+RUX01d_uQc", userName: "jared", isAdmin: False, compilerExeDir: "ha\\ha")​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.MutexAcquiredWhenRunningServer​</span><div class="duration"><span>14ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_CoreClr​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost​</span><div class="duration"><span>1ms</span><br></div>
           </div>
           <div class="error-info">
-    Error: <span class="error-message"><pre>Test only supported on CoreClr</pre></span><br></div>
+    Error: <span class="error-message"><pre>19213</pre></span><br></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.MutexStopsServerStarting​</span><div class="duration"><span>233ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismAnonType​</span><div class="duration"><span>784ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_HandlesMixedOldAndNewEntries​</span><div class="duration"><span>21ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_Off_Shared​</span><div class="duration"><span>80ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_SkipsStagingDirectories​</span><div class="duration"><span>21ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Bug1024619_02​</span><div class="duration"><span>465ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsFalseAndLogs_WhenMissingEntryIsLocked​</span><div class="duration"><span>18ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.InvalidMetadataFileErrorVB​</span><div class="duration"><span>144ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryCreate_ReturnsNull_WhenFeatureFlagNotSet​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CscFallBackOutputUtf8​</span><div class="duration"><span>149ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_RemovesEmptyDllDirectories​</span><div class="duration"><span>13ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Platformx86MscorlibVbc​</span><div class="duration"><span>245ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetCacheStats_Verbosity2ShowsIndividualEntries​</span><div class="duration"><span>27ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompileErrorsCS​</span><div class="duration"><span>85ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_WritesCreatedFile​</span><div class="duration"><span>30ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingFileErrorCS​</span><div class="duration"><span>28ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_DeletesOldEntries​</span><div class="duration"><span>19ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingReferenceErrorCS​</span><div class="duration"><span>53ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryCreate_ReturnsCache_WhenFeatureFlagHasExplicitPath​</span><div class="duration"><span>3ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.AssemblyIdentityComparer1​</span><div class="duration"><span>556ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.ComputeHashKey_IsDeterministic​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.VbcFallbackNoUtf8​</span><div class="duration"><span>101ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_TouchesLastUsedFile​</span><div class="duration"><span>16ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.HelloWorldCS​</span><div class="duration"><span>831ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.LogCacheMiss_LogsNothing_WhenNoPriorEntries​</span><div class="duration"><span>6ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingFileErrorVB​</span><div class="duration"><span>150ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.RoundTrip_StoreAndRetrieve​</span><div class="duration"><span>64ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ExtraMSCorLibCS​</span><div class="duration"><span>1s 48ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsTrue_WhenEntryExists​</span><div class="duration"><span>16ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.HelloWorldVB​</span><div class="duration"><span>1s 15ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetCacheStats_CountsAllEntries​</span><div class="duration"><span>44ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingReferenceErrorVB​</span><div class="duration"><span>138ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_DoesNotThrow_WhenAssemblyFileNotFound​</span><div class="duration"><span>7ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompileErrorsVB​</span><div class="duration"><span>1s 464ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsTrue_WhenPublishedEntryIsLocked​</span><div class="duration"><span>35ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Bug1024619_01​</span><div class="duration"><span>510ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsFalse_WhenEntryMissing​</span><div class="duration"><span>4ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive2​</span><div class="duration"><span>1ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_TouchesLastUsedFile​</span><div class="duration"><span>25ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismLineDirective​</span><div class="duration"><span>2s 932ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="fail">✘</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent​</span><div class="duration"><span>66ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.FallbackToCsc​</span><div class="duration"><span>1s 243ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.HelloWorldCSDashShared​</span><div class="duration"><span>1s 5ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.CompilerBinariesAreNotX86​</span><div class="duration"><span>13ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Platformx86MscorlibCsc​</span><div class="duration"><span>466ms</span><br></div>
+          </div>
+          <div class="error-info"></div>
+        </div>
+        <div class="leaf-division">
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix​</span><div class="duration"><span>1ms</span><br></div>
           </div>
           <div class="error-info">
-    Error: <span class="error-message"><pre>Assert.True() Failure
-Expected: True
-Actual:   False</pre></span><br>
-    Stack trace: <span class="error-stack-trace"><pre>   at Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Server\VBCSCompilerTests\CompilationCacheTests.cs:line 366</pre></span><br></div>
+    Error: <span class="error-message"><pre>Test not supported on Windows</pre></span><br></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.PurgeEntries_KeepsAllRecentEntries​</span><div class="duration"><span>21ms</span><br></div>
+          <div><span class="skip">❢</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB​</span><div class="duration"><span>1ms</span><br></div>
           </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.ComputeHashKey_DifferentInputs_ProduceDifferentHashes​</span><div class="duration"><span>6ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetDeterministicKey_DiffersWithDifferentSourceLinkContent​</span><div class="duration"><span>34ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetDeterministicKey_DiffersWithSourceLink​</span><div class="duration"><span>8ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_CopiesAndUpdatesOutputTimestamps​</span><div class="duration"><span>42ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.GetCacheStats_VerboseSummaryIncludesGroupedDlls​</span><div class="duration"><span>13ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_ReturnsFalse_WhenRequestedOutputFileMissingFromCache​</span><div class="duration"><span>9ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_OnlyOneWriterStoresEntry​</span><div class="duration"><span>33ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryRestoreCachedResult_RestoresAllOutputFiles​</span><div class="duration"><span>36ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_WritesAllOutputFiles​</span><div class="duration"><span>54ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.LogCacheMiss_IncludesDiff_WhenPriorEntriesExist​</span><div class="duration"><span>36ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryCreate_ReturnsCache_WhenFeatureFlagUsesDefaultPath​</span><div class="duration"><span>3ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.NoConnections​</span><div class="duration"><span>3s 57ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimultaneousConnections(connectionCount: 2)​</span><div class="duration"><span>3s 74ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimultaneousConnections(connectionCount: 3)​</span><div class="duration"><span>3s 88ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimpleCases(connectionCount: 1)​</span><div class="duration"><span>3s 151ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimpleCases(connectionCount: 2)​</span><div class="duration"><span>3s 265ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+KeepAliveTests.SimpleCases(connectionCount: 3)​</span><div class="duration"><span>3s 240ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithEmptySessionKey(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithEmptySessionKey(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithSessionKey(optionPrefix: '/')​</span><div class="duration"><span>2ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedWithSessionKey(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Basic(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Basic(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedPrefix(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.SharedPrefix(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Shared(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.Shared(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAliveBad(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAliveBad(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlive(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlive(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlivePrefix(optionPrefix: '-')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+TryParseClientArgsTest.KeepAlivePrefix(optionPrefix: '/')​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerControllerTests+GetDefaultKeepAliveTests.Simple​</span><div class="duration"><span>10ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerControllerTests+GetDefaultKeepAliveTests.NoSetting​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildServerControllerTests+GetDefaultKeepAliveTests.InvalidNumber​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.EndListenClosesQueuedConnections​</span><div class="duration"><span>33ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.CallAfterComplete​</span><div class="duration"><span>29ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.CallBeforeListen​</span><div class="duration"><span>25ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.ManyConnectsBeforeAcknowledged​</span><div class="duration"><span>56ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.SupportsMultipleBeginEndCycles​</span><div class="duration"><span>188ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.EndListenDoesNotDisposeCompletedConnection​</span><div class="duration"><span>24ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.NamedPipeClientConnectionHostTests.EndListenCancelsIncompleteTask​</span><div class="duration"><span>45ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.ConnectToServerFails​</span><div class="duration"><span>19ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.TestMutexConstructorException​</span><div class="duration"><span>10ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.ConnectToPipe​</span><div class="duration"><span>1s 63ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.TestIfMutexIsGlobal​</span><div class="duration"><span>3ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+ServerTests.FallbackToCsc​</span><div class="duration"><span>5ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ShutdownRequest(allowCompilationRequests: True)​</span><div class="duration"><span>2ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ShutdownRequest(allowCompilationRequests: False)​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.CompilationsDisallowed​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ThrowWritingResponse​</span><div class="duration"><span>34ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ClientDisconnectDuringBuild​</span><div class="duration"><span>9ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ThrowReadingRequest​</span><div class="duration"><span>3ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.ClientConnectionHandlerTests.ThrowDuringBuild​</span><div class="duration"><span>12ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ReadWriteCompleted​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ReadWriteRequest​</span><div class="duration"><span>18ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ShutdownRequestWriteRead​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
-        </div>
-        <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ShutdownMessage​</span><div class="duration"><span>1ms</span><br></div>
-          </div>
-          <div class="error-info"></div>
+          <div class="error-info">
+    Error: <span class="error-message"><pre>https://github.com/dotnet/roslyn/issues/20345</pre></span><br></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildProtocolTest.ShutdownResponseWriteRead​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.BadKeepAlive1​</span><div class="duration"><span>2ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+MiscTests.CompilationExceptionShouldShutdown​</span><div class="duration"><span>23ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.UseLibVariableCS​</span><div class="duration"><span>535ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+MiscTests.AnalyzerInconsistencyShouldShutdown​</span><div class="duration"><span>83ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.InvalidMetadataFileErrorCS​</span><div class="duration"><span>365ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.VBCSCompilerServerTests+StartupTests.ShadowCopyAnalyzerAssemblyLoaderMissingDirectory​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.DeterminismHelloWorld​</span><div class="duration"><span>1s 203ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+MiscTest.GetPipeNameForPathOptSlashes​</span><div class="duration"><span>2ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_On_Shared_CS​</span><div class="duration"><span>2s 812ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+MiscTest.GetPipeNameForPath_Casing​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingCS​</span><div class="duration"><span>2s 233ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
         <div class="leaf-division">
-          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.BuildClientTests+MiscTest.GetPipeNameForPathOptLength​</span><div class="duration"><span>1ms</span><br></div>
+          <div><span class="pass">✔</span><span> Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.Utf8Output_WithRedirecting_Off_Share​</span><div class="duration"><span>58ms</span><br></div>
           </div>
           <div class="error-info"></div>
         </div>
       </div></details><div>
-      <h2>Informational messages</h2><span>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.3+b1b99bdeb3 (64-bit .NET Framework 4.8.9337.0)</span><br><span>[xUnit.net 00:00:01.01]   Discovering: VBCSCompiler.UnitTests</span><br><span>[xUnit.net 00:00:02.11]   Discovered:  VBCSCompiler.UnitTests</span><br><span>[xUnit.net 00:00:02.26]   Starting:    VBCSCompiler.UnitTests</span><br><span>[xUnit.net 00:00:38.24]       19213</span><br><span>[xUnit.net 00:01:00.26]       Test not supported on Windows</span><br><span>[xUnit.net 00:01:00.26]       https://github.com/dotnet/roslyn/issues/20345</span><br><span>[xUnit.net 00:01:13.09]       Test only supported on CoreClr</span><br><span>[xUnit.net 00:01:13.96]       Assert.True() Failure</span><br><span>[xUnit.net 00:01:13.96]       Expected: True</span><br><span>[xUnit.net 00:01:13.96]       Actual:   False</span><br><span>[xUnit.net 00:01:13.97]       Stack Trace:</span><br><span>[xUnit.net 00:01:13.97]         src\Compilers\Server\VBCSCompilerTests\CompilationCacheTests.cs(366,0): at Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent()</span><br><span>[xUnit.net 00:01:13.97]       Output:</span><br><span>[xUnit.net 00:01:13.97]         Cache store failed for MyLib.dll [2c70e12b7a0646f92279f427c7b38e7334d8e5389cff167a1dc30e73f826b683]: Access to the path 'C:\Users\mhole\AppData\Local\Temp\RoslynTests\6cba0fa3-b27a-4ca1-8692-6f7f5dc31f46\MyLib.dll\2c70e12b7a0646f92279f427c7b38e7334d8e5389cff167a1dc30e73f826b683.61cb2da02238433cbc675af40fcbbd53.tmp' is denied.</span><br><span>[xUnit.net 00:01:35.34]   Finished:    VBCSCompiler.UnitTests</span><br></div>
+      <h2>Informational messages</h2><span>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.3+b1b99bdeb3 (64-bit .NET Framework 4.8.9337.0)</span><br><span>[xUnit.net 00:00:01.18]   Discovering: VBCSCompiler.UnitTests</span><br><span>[xUnit.net 00:00:01.86]   Discovered:  VBCSCompiler.UnitTests</span><br><span>[xUnit.net 00:00:02.01]   Starting:    VBCSCompiler.UnitTests</span><br><span>[xUnit.net 00:00:03.63]       Test only supported on CoreClr</span><br><span>[xUnit.net 00:01:10.95]       19213</span><br><span>[xUnit.net 00:01:24.65]       Test not supported on Windows</span><br><span>[xUnit.net 00:01:24.66]       https://github.com/dotnet/roslyn/issues/20345</span><br><span>[xUnit.net 00:01:31.93]   Finished:    VBCSCompiler.UnitTests</span><br></div>
     <div>
-      <h2>Error and Warning messages</h2><span>[xUnit.net 00:00:38.24]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost [SKIP]</span><br><span>[xUnit.net 00:01:00.26]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [SKIP]</span><br><span>[xUnit.net 00:01:00.26]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [SKIP]</span><br><span>[xUnit.net 00:01:13.09]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_CoreClr [SKIP]</span><br><span>[xUnit.net 00:01:13.96]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_SkipsOptionalFiles_WhenNotPresent [FAIL]</span><br><span>Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.</span><br></div>
+      <h2>Error and Warning messages</h2><span>[xUnit.net 00:00:03.63]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerApiTest.QuotePipeName_CoreClr [SKIP]</span><br><span>[xUnit.net 00:01:10.95]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost [SKIP]</span><br><span>[xUnit.net 00:01:24.65]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [SKIP]</span><br><span>[xUnit.net 00:01:24.66]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [SKIP]</span><br><span>Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.</span><br></div>
   </body>
   <style>
         body { font-family: Calibri, Verdana, Arial, sans-serif; background-color: White; color: Black; }

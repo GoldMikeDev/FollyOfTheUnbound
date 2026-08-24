@@ -10,14 +10,314 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost (20736).
-Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
+Blame: Attaching crash dump utility to process testhost (23800).
+  Failed Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.MoveStaticMembersRefactoringTests.TestMoveStaticMembersActionMovesSelectedMembersToHelperClass(includeDevKitComponents: False) [18 s]
+  Error Message:
+   System.IO.EndOfStreamException : Attempted to read past the end of the stream.
+  Stack Trace:
+     at StreamJsonRpc.PipeMessageHandler.ReadAtLeastAsync(Int32 requiredBytes, Boolean allowEmpty, CancellationToken cancellationToken)
+   at StreamJsonRpc.PipeMessageHandler.DeserializeMessageAsync(Int32 contentLength, Encoding specificEncoding, Encoding defaultEncoding, CancellationToken cancellationToken)
+   at StreamJsonRpc.HeaderDelimitedMessageHandler.ReadCoreAsync(CancellationToken cancellationToken)
+   at StreamJsonRpc.MessageHandlerBase.ReadAsync(CancellationToken cancellationToken)
+   at StreamJsonRpc.JsonRpc.ReadAndHandleRequestsAsync()
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.ShutdownAndWaitForExitAsync(Process serverProcess) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 446
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.AbstractLanguageServerClientTests.TestLspClient.DisposeAsync() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Utilities\AbstractLanguageServerClientTests.TestLspClient.cs:line 425
+   at Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.CodeActions.MoveStaticMembersRefactoringTests.TestMoveStaticMembersActionMovesSelectedMembersToHelperClass(Boolean includeDevKitComponents) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\CodeActions\MoveStaticMembersRefactoringTests.cs:line 72
+--- End of stack trace from previous location ---
+  Standard Output Messages:
+ [07:56:53.678] [Error] [[ThinClient][stderr]] [Win32BreakawayProcessLauncher] Escaped job object launching 'C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe' (pid 39904).
+ [07:56:54.510] [Error] [[ThinClient][stdout]] info: Program[0]
+ [07:56:54.510] [Error] [[ThinClient][stdout]]       Server information:
+ [07:56:54.554] [Error] [[ThinClient][stdout]] info: Program[0]
+ [07:56:54.554] [Error] [[ThinClient][stdout]]         Assembly informational version: 5.11.0-dev
+ [07:56:54.554] [Error] [[ThinClient][stdout]] info: Program[0]
+ [07:56:54.554] [Error] [[ThinClient][stdout]]         Executable path: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe
+ [07:56:54.554] [Error] [[ThinClient][stdout]] info: Program[0]
+ [07:56:54.554] [Error] [[ThinClient][stdout]]         Process ID: 39904
+ [07:56:54.554] [Error] [[ThinClient][stdout]] trce: Program[0]
+ [07:56:54.554] [Error] [[ThinClient][stdout]]       .NET Runtime Version: .NET 10.0.10
+ [07:56:54.601] [Error] [[ThinClient][stdout]] trce: Microsoft.CodeAnalysis.Remote.ExportProviderBuilder[0]
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       Composing MEF catalog using:
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Workspaces.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.Features.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.Workspaces.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.CSharp.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Elfie.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.AspNetCore.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.CompilerDeveloperSDK.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.Copilot.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.Extensions.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Features.ExternalAccess.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.ExternalAccess.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.Protocol.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Razor.Compiler.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Remote.Workspaces.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Scripting.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.ServiceHub.Client.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.ServiceHub.Framework.dll    
+ [07:56:54.601] [Error] [[ThinClient][stdout]]       C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.VisualStudioCode.RazorExtension.dll.
+ [07:56:54.765] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.765] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:54.765] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.765] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:54.765] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.765] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:54.767] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.767] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.767] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.767] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Elfie, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.768] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.768] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.CSharp, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.768] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.768] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.ExternalAccess.AspNetCore, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.769] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.769] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.ExternalAccess.CompilerDeveloperSDK, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.769] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.769] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.ExternalAccess.Copilot, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.771] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.771] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.ExternalAccess.Extensions, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.771] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.771] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.772] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.772] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Features.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.772] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.772] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.772] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.772] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.773] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.773] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.773] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.773] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Remote.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.773] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.773] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Scripting, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.774] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.774] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.774] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.774] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Workspaces.MSBuild, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:54.774] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.774] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Razor.Compiler, Version=42.42.42.42, Culture=neutral, PublicKeyToken=adb9793829ddae60
+ [07:56:54.774] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.774] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.ServiceHub.Client, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+ [07:56:54.774] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.774] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.ServiceHub.Framework, Version=4.10.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+ [07:56:54.774] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.774] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.VisualStudioCode.RazorExtension, Version=42.42.42.42, Culture=neutral, PublicKeyToken=adb9793829ddae60
+ [07:56:54.799] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:54.799] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:55.995] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:55.995] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:55.996] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:55.996] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:55.996] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:55.996] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:55.997] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:55.997] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.016] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.016] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.016] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.016] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.016] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.016] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.016] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.016] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.VisualStudioCode.RazorExtension, Version=42.42.42.42, Culture=neutral, PublicKeyToken=adb9793829ddae60
+ [07:56:56.016] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.016] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.016] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.016] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.VisualStudioCode.RazorExtension, Version=42.42.42.42, Culture=neutral, PublicKeyToken=adb9793829ddae60
+ [07:56:56.017] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.017] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Features.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.018] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.018] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.019] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.019] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.019] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.019] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.VisualStudioCode.RazorExtension, Version=42.42.42.42, Culture=neutral, PublicKeyToken=adb9793829ddae60
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.020] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.020] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Features.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.021] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.021] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Workspaces, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.021] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.021] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.021] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.021] [Error] [[ThinClient][stdout]]       Loading assembly FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features, Version=42.42.42.42, Culture=neutral, PublicKeyToken=fb63bba87c641027
+ [07:56:56.021] [Error] [[ThinClient][stdout]] trce: MEF Assembly Loader[0]
+ [07:56:56.021] [Error] [[ThinClient][stdout]]       Loading assembly Microsoft.CodeAnalysis.Features.ExternalAccess, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.127] [Error] [[ThinClient][stdout]] trce: Program[0]
+ [07:56:56.127] [Error] [[ThinClient][stdout]]       Source generator execution preference set to Automatic
+ [07:56:56.244] [Error] [[ThinClient][stdout]] info: Program[0]
+ [07:56:56.244] [Error] [[ThinClient][stdout]]       Monitoring client process 23800 for exit
+ [07:56:56.244] [Error] [[ThinClient][stdout]] info: Program[0]
+ [07:56:56.244] [Error] [[ThinClient][stdout]]       Language server initialized
+ [07:56:56.615] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Features.dll added to workspace.
+ [07:56:56.615] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.Features.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.CSharp.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Elfie.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.Workspaces.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.AspNetCore.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.CompilerDeveloperSDK.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.Extensions.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.ExternalAccess.Copilot.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Razor.Compiler.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Razor.Workspaces.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Remote.Razor.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Remote.ServiceHub.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Remote.Workspaces.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Scripting.dll added to workspace.
+ [07:56:56.619] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll added to workspace.
+ [07:56:56.625] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll added to workspace.
+ [07:56:56.625] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.Features.ExternalAccess.dll added to workspace.
+ [07:56:56.625] [Debug] [LSP LogMessage] [LanguageServerWorkspaceFactory] Solution-level analyzer at C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.Workspaces.dll added to workspace.
+ [07:56:56.744] [Debug] [LSP LogMessage] [initialize] [Global] Resolving type, Roslyn.LanguageServer.Protocol.InitializeParams
+ [07:56:56.744] [Debug] [LSP LogMessage] [initialize] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.744] [Debug] [LSP LogMessage] [initialize] [Global] Resolving type, Roslyn.LanguageServer.Protocol.InitializeResult
+ [07:56:56.744] [Debug] [LSP LogMessage] [initialize] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:56.888] [Debug] [LSP LogMessage] [initialize]  Starting request handler
+ [07:56:57.109] [Debug] [LSP LogMessage] [initialize]  Request handler completed successfully.
+ [07:56:57.136] [Debug] [LSP LogMessage] [initialized] [Global] Resolving type, Roslyn.LanguageServer.Protocol.InitializedParams
+ [07:56:57.136] [Debug] [LSP LogMessage] [initialized] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:57.136] [Debug] [LSP LogMessage] [initialized]  Starting request handler
+ [07:56:57.227] [Debug] [LSP LogMessage] [initialized]  Request handler completed successfully.
+ [07:56:57.257] [Information] [LSP LogMessage] [initialized] [Microsoft.CodeAnalysis.LanguageServer.FileBasedPrograms.FileBasedProgramsEntryPointDiscovery] Finished discovery in 'C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452' in 12 milliseconds
+ [07:56:57.261] [Debug] [LSP LogMessage] [Services.VSCodeRemoteServicesInitializer] Initializing remote services.
+ [07:56:57.270] [Debug] [LSP LogMessage] [project/open]  Request did not contain a textDocument, using default language handler
+ [07:56:57.270] [Debug] [LSP LogMessage] [project/open] [Global] Resolving type, Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.OpenProjectHandler+NotificationParams
+ [07:56:57.270] [Debug] [LSP LogMessage] [project/open] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:57.270] [Debug] [LSP LogMessage] [project/open] [Global] Resolving type, Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.OpenProjectHandler
+ [07:56:57.270] [Debug] [LSP LogMessage] [project/open] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:56:57.272] [Debug] [LSP LogMessage] [project/open]  Starting request handler
+ [07:56:57.410] [Debug] [LSP LogMessage] [Services.VSCodeRemoteServicesInitializer] Initialized remote services.
+ [07:56:57.428] [Debug] [LSP LogMessage] [Endpoints.CohostConfigurationChangedService] Refreshing options from client.
+ [07:56:57.440] [Error] [LSP LogMessage] [initialized] [Razor]  Error initializing Razor startup service 'CohostConfigurationChangedService' StreamJsonRpc.RemoteMethodNotFoundException: No method by the name 'workspace/configuration' is found.
+    at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
+    at Microsoft.VisualStudioCode.RazorExtension.Endpoints.CohostConfigurationChangedService.RefreshOptionsAsync(RequestContext requestContext, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.VisualStudioCode.RazorExtension\Services\CohostConfigurationChangedService.cs:line 61
+    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
+ [07:56:57.453] [Information] [LSP LogMessage] [Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService] Requesting 1 Razor cohost registrations.
+ [07:56:57.485] [Error] [LSP LogMessage] [initialized] [Razor]  Error initializing Razor startup service 'RazorCohostDynamicRegistrationService' StreamJsonRpc.RemoteMethodNotFoundException: No method by the name 'client/registerCapability' is found.
+    at StreamJsonRpc.JsonRpc.InvokeCoreAsync[TResult](RequestId id, String targetName, IReadOnlyList`1 arguments, IReadOnlyList`1 positionalArgumentDeclaredTypes, IReadOnlyDictionary`2 namedArgumentDeclaredTypes, CancellationToken cancellationToken, Boolean isParameterObject)
+    at Microsoft.CodeAnalysis.LanguageServer.Handler.ClientLanguageServerManager.SendRequestAsync[TParams](String methodName, TParams params, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Protocol\Handler\LanguageServerNotificationManager.cs:line 33
+    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorCohostDynamicRegistrationService.StartupAsync(VSInternalClientCapabilities clientCapabilities, RequestContext requestContext, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorCohostDynamicRegistrationService.cs:line 65
+    at Microsoft.VisualStudio.Razor.LanguageClient.Cohost.RazorStartupServiceFactory.RazorStartupService.InitializeRazorAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.CohostingShared\RazorStartupServiceFactory.cs:line 127
+ [07:56:57.485] [Information] [LSP LogMessage] [initialized] [Razor]  Razor extension startup finished.
+ [07:56:57.930] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 39732] Message on stderr: info: BuildHost Runtime Version: .NET 11.0.0-preview.6.26359.118
+ [07:56:58.830] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 39732] Sending a Shutdown request to the BuildHost.
+ [07:56:58.830] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 39732] RpcClient has been shut down.
+ [07:56:58.834] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 39732] Message on stderr: info: RPC channel closed; process exiting.
+ [07:56:59.046] [Information] [LSP LogMessage] [project/open] [Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager] .NET BuildHost started from C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe reloading to start from C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe to match necessary SDK location.
+ [07:56:59.375] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47572] Message on stderr: info: BuildHost Runtime Version: .NET 11.0.0-preview.6.26359.118
+ [07:56:59.699] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47572] Message on stderr: info: Registered MSBuild 11.0.100 instance at C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118
+ [07:56:59.798] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47572] Message on stderr: info: Loading C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj
+ [07:57:01.745] [Warning] [LSP LogMessage] [project/open] [Microsoft.CodeAnalysis.LanguageServer.HostWorkspace.FileWatching.DelegatingFileChangeWatcher] We are unable to use LSP file watching; falling back to our in-process watcher.
+ [07:57:01.840] [Debug] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Project C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj (net8.0) now has 3 source file(s). (3 added, 0 removed.)
+ [07:57:01.845] [Debug] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Project C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj (net8.0) now has 2 analyzer reference(s). (2 added, 0 removed.)
+ [07:57:01.845] [Debug] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Project C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj (net8.0) now has 2 analyzer config file(s). (2 added, 0 removed.)
+ [07:57:01.845] [Warning] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Project C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj has unresolved dependencies
+ [07:57:01.962] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Successfully completed load of C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj
+ [07:57:01.962] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47572] Sending a Shutdown request to the BuildHost.
+ [07:57:01.999] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47572] RpcClient has been shut down.
+ [07:57:01.999] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47572] Message on stderr: info: RPC channel closed; process exiting.
+ [07:57:02.371] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Restoring Project.csproj: Running dotnet restore on C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj
+ [07:57:02.371] [Information] [LSP LogMessage] [project/open] [.NET CLI Helper] Using dotnet executable configured on the PATH
+ [07:57:02.371] [Debug] [LSP LogMessage] [project/open] [.NET CLI Helper] Running dotnet CLI command at C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe in directory C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452 with arguments 'restore C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj'
+ [07:57:03.607] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Restoring Project.csproj: 
+ [07:57:05.048] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Restoring Project.csproj:   Determining projects to restore...
+ [07:57:05.676] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Restoring Project.csproj:   Restored C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj (in 118 ms).
+ [07:57:06.007] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Restore complete
+ [07:57:06.007] [Information] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Completed (re)load of all projects in 00:00:08.5698195
+ [07:57:06.007] [Debug] [LSP LogMessage] [project/open]  Request handler completed successfully.
+ [07:57:06.113] [Debug] [LSP LogMessage] [textDocument/codeAction] [Global] Resolving type, Roslyn.LanguageServer.Protocol.CodeActionParams
+ [07:57:06.113] [Debug] [LSP LogMessage] [textDocument/codeAction] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:57:06.114] [Debug] [LSP LogMessage] [textDocument/codeAction] [Global] Resolving type, Roslyn.LanguageServer.Protocol.CodeAction[]
+ [07:57:06.114] [Debug] [LSP LogMessage] [textDocument/codeAction] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:57:06.114] [Debug] [LSP LogMessage] [textDocument/codeAction] [Global] Resolving type, Microsoft.CodeAnalysis.LanguageServer.Handler.CodeActionsHandler
+ [07:57:06.114] [Debug] [LSP LogMessage] [textDocument/codeAction] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:57:06.134] [Debug] [LSP LogMessage] [textDocument/codeAction]  C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Code.cs found in workspace Host; project Project (net8.0)
+ [07:57:06.134] [Debug] [LSP LogMessage] [textDocument/codeAction]  Starting request handler
+ [07:57:06.410] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47860] Message on stderr: info: BuildHost Runtime Version: .NET 11.0.0-preview.6.26359.118
+ [07:57:07.038] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47860] Sending a Shutdown request to the BuildHost.
+ [07:57:07.042] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47860] RpcClient has been shut down.
+ [07:57:07.042] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 47860] Message on stderr: info: RPC channel closed; process exiting.
+ [07:57:07.215] [Information] [LSP LogMessage] [project/open] [Microsoft.CodeAnalysis.MSBuild.BuildHostProcessManager] .NET BuildHost started from C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\RoslynLSP\Microsoft.CodeAnalysis.LanguageServer.exe reloading to start from C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\dotnet.exe to match necessary SDK location.
+ [07:57:07.594] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 23168] Message on stderr: info: BuildHost Runtime Version: .NET 11.0.0-preview.6.26359.118
+ [07:57:08.148] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 23168] Message on stderr: info: Registered MSBuild 11.0.100 instance at C:\Users\mhole\source\repos\FollyOfTheUnbound\.dotnet\sdk\11.0.100-preview.6.26359.118
+ [07:57:08.321] [Debug] [LSP LogMessage] [project/open] [BuildHost PID 23168] Message on stderr: info: Loading C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj
+ [07:57:09.057] [Debug] [LSP LogMessage] [textDocument/codeAction]  Request handler completed successfully.
+ [07:57:09.118] [Debug] [LSP LogMessage] [codeAction/resolve] [Global] Resolving type, Roslyn.LanguageServer.Protocol.CodeAction
+ [07:57:09.118] [Debug] [LSP LogMessage] [codeAction/resolve] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:57:09.118] [Debug] [LSP LogMessage] [codeAction/resolve] [Global] Resolving type, Microsoft.CodeAnalysis.LanguageServer.Handler.CodeActionResolveHandler
+ [07:57:09.118] [Debug] [LSP LogMessage] [codeAction/resolve] [Global] Loading assembly Microsoft.CodeAnalysis.LanguageServer.Protocol, Version=42.42.42.42, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+ [07:57:09.184] [Debug] [LSP LogMessage] [codeAction/resolve]  C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Code.cs found in workspace Host; project Project (net8.0)
+ [07:57:09.184] [Debug] [LSP LogMessage] [codeAction/resolve]  Starting request handler
+ [07:57:09.855] [Debug] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Project C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj (net8.0) now has 163 reference(s). (163 added, 0 removed.)
+ [07:57:09.855] [Debug] [LSP LogMessage] [project/open] [LanguageServerProjectSystem] Project C:\Users\mhole\AppData\Local\Temp\RoslynTests\7462d591-928b-42f1-90ea-c6a9113bc452\Project.csproj (net8.0) now has 8 analyzer reference(s). (6 added, 0 removed.)
+ [07:57:09.932] [Debug] [LSP LogMessage] [codeAction/resolve]  Request handler completed successfully.
+ [07:57:10.070] [Trace] [Shutdown] Sending a Shutdown request to the LSP.
+ [07:57:10.077] [Information] [LSP LogMessage] Shutting down
+
+
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
 
 
 Attachments:
-  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\13fa877a-4065-4d90-8077-ee059463fd8a\dotnet_30428_20260821T140657_hangdump.dmp
-  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\13fa877a-4065-4d90-8077-ee059463fd8a\testhost_20736_20260821T140657_hangdump.dmp
-  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\13fa877a-4065-4d90-8077-ee059463fd8a\Sequence_71b79a026f3d4f87a5e9c80212462431.xml
-Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 1 m 14 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\b2cdddf9-5cab-457c-a636-8ba8af3a77fa\Sequence_f7fc8069b6454eaf88adf8af3440beb3.xml
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\b2cdddf9-5cab-457c-a636-8ba8af3a77fa\testhost.exe_23800_1787558230_crashdump.dmp
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\b2cdddf9-5cab-457c-a636-8ba8af3a77fa\dotnet.exe_43108_1787558183_crashdump.dmp
+Failed!  - Failed:     1, Passed:     2, Skipped:     0, Total:     3, Duration: 1 m 7 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
