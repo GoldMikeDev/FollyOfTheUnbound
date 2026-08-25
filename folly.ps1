@@ -317,6 +317,16 @@ try {
 				if ($stoppedServerCount -gt 0) {
 					Write-Host "Stopped $stoppedServerCount build server process(es) (VBCSCompiler/Razor) via 'dotnet build-server shutdown'."
 				}
+				# `build-server shutdown` talks to the RPC pipe of servers registered by *this* SDK; a server started by a
+				# different dotnet install (or one whose RPC pipe is already wedged/orphaned) doesn't respond and survives
+				# silently. Anything still alive from the original snapshot is unconditionally stale (cleanse never
+				# launches a build itself) -- force-kill it directly rather than trusting the RPC path alone.
+				if ($afterServerPids.Count -gt 0) {
+					$forceKilledCount = @($afterServerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
+					if ($forceKilledCount -gt 0) {
+						Write-Host "Force-killed $forceKilledCount build server process(es) that ignored 'dotnet build-server shutdown'."
+					}
+				}
 			}
 		}
 		# Node-reuse MSBuild worker processes are a different mechanism from build servers above -- left behind
