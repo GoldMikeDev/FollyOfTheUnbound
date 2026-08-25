@@ -2,6 +2,7 @@
   "permissions": {
     "allow": [
       "Bash(git push *)",
+      "mcp__Claude_Code_Remote__get_session",
       "mcp__Claude_Code_Remote__set_session_title",
       "mcp__Claude_Code_Remote__send_later",
       "mcp__Claude_Code_Remote__create_trigger",
