@@ -80,24 +80,29 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         File.Copy(typeof(object).Assembly.Location, path);
         File.SetLastWriteTimeUtc(path, timestamp);
 
-        var reference1 = GetReference(cache, path);
-
         // CreateCacheableReference eagerly prefetches the PE image into native memory (see
         // MetadataReference.CreateFromFile's remarks), but on Windows that eager read is only guaranteed to
         // release its underlying memory-mapped section once the object holding it becomes unreachable and is
-        // collected -- there's no deterministic Dispose available to us here. Force a collection before
-        // overwriting this same file path below; otherwise this races GC/finalizer timing and can intermittently
-        // fail with "The requested operation cannot be performed on a file with a user-mapped section open."
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
+        // collected -- there's no deterministic Dispose available to us here. reference1 can't simply be
+        // GC.Collect()-ed away while a local still refers to it later in this method (the JIT keeps it rooted
+        // for as long as it's used, so an ordinary "GC.Collect() now, use reference1 later" doesn't actually
+        // release anything). Instead capture only the lightweight, reference1-independent MetadataId marker we
+        // actually need for the final assertion up front, then use ObjectReference (see its own remarks on why
+        // a plain local set to null isn't sufficient) to explicitly drop the only strong reference to
+        // reference1 and force a collection before overwriting this same file path below; otherwise this races
+        // GC/finalizer timing and can intermittently fail with "The requested operation cannot be performed on
+        // a file with a user-mapped section open."
+        MetadataId? metadataId1 = null;
+        var reference1 = ObjectReference.CreateFromFactory(() => GetReference(cache, path));
+        reference1.UseReference(r => metadataId1 = r.GetMetadataId());
+        reference1.ReleaseStrongReference();
 
         File.Copy(typeof(Enumerable).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
 
         var reference2 = GetReference(cache, path);
 
-        Assert.NotSame(reference1, reference2);
-        Assert.NotSame(reference1.GetMetadataId(), reference2.GetMetadataId());
+        Assert.NotSame(metadataId1, reference2.GetMetadataId());
     }
 
     [Fact]
@@ -177,19 +182,27 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         File.Copy(typeof(object).Assembly.Location, path);
         File.SetLastWriteTimeUtc(path, timestamp);
 
-        var firstReference = GetReference(cache, path);
         var otherReference = GetReference(cache, otherPath);
-        Assert.Same(firstReference, GetReference(cache, path));
 
-        // See ChangedTimestamp_DoesNotShareReference's remarks: force release of firstReference's eagerly-prefetched
-        // native memory before overwriting the same file path below, to avoid racing GC/finalizer timing.
-        GC.Collect();
-        GC.WaitForPendingFinalizers();
+        // See ChangedTimestamp_DoesNotShareReference's remarks: firstReference must not remain a rooted local
+        // across the file overwrite below, or its eagerly-prefetched native memory (and whatever OS resource
+        // backs it) never actually becomes eligible for release. Capture only the lightweight, independent
+        // MetadataId marker we need for the later "no longer the same reference" assertion up front, verify the
+        // "same cached reference" behavior while still safely inside the scoped call, then drop the only strong
+        // reference before forcing a collection.
+        MetadataId? metadataId1 = null;
+        var firstReference = ObjectReference.CreateFromFactory(() => GetReference(cache, path));
+        firstReference.UseReference(r =>
+        {
+            metadataId1 = r.GetMetadataId();
+            Assert.Same(r, GetReference(cache, path));
+        });
+        firstReference.ReleaseStrongReference();
 
         File.Copy(typeof(Uri).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
 
-        Assert.NotSame(firstReference, GetReference(cache, path));
+        Assert.NotSame(metadataId1, GetReference(cache, path).GetMetadataId());
         Assert.Same(otherReference, GetReference(cache, otherPath));
     }
 
