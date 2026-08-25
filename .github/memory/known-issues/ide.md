@@ -313,3 +313,25 @@ file that overwrite a loaded file in place (`ChangedTimestamp_DoesNotShareRefere
 plain strong references (`Assert.Same`/`Assert.NotSame` directly on the reference objects, no `ObjectReference`
 scaffolding needed); a new test with the same shape gets this for free by going through `GetReference`/
 `CreateCacheableReference` rather than calling `MetadataReference.CreateFromFile` itself.
+
+## `MaterializedLspWorkspace.Create`'s `dotnet restore` call had no timeout, causing a full Blame-timeout hang
+
+**Affected area:** `src/LanguageServer/Protocol.TestUtilities/LanguageServer/MaterializedLspWorkspace.cs`
+**Description:** Diagnosed from a real Windows hang: `AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen`
+(a test using `LspWorkspaceContent.WithRestore()`) hit the full 25-minute Blame `[HANG]` timeout instead of
+failing fast, unlike other tests in the same class already guarded with `TestHelpers.HangMitigatingTimeout`
+(see the entry above on `RestoreHandler.RestoreCoreAsync` for a related but distinct restore-hang path). The
+guarded waits in this file didn't help here because the hang wasn't in any of them: `WithRestore()` makes
+`MaterializedLspWorkspace.Create` shell out to a real `dotnet restore` subprocess synchronously, during test
+*setup*, before the LSP server or any `HangMitigatingTimeout`-wrapped wait is even created. It did so via the
+shared `ProcessUtilities.Run` helper (`src/Compilers/Test/Core/FX/ProcessUtilities.cs`), which blocks on
+`Process.WaitForExit()` with no timeout parameter at all -- a genuinely slow or hung restore (e.g. a flaky
+network) blocks indefinitely with nothing to catch it.
+**Invariant:** Don't use `ProcessUtilities.Run` (or any other timeout-less `Process.WaitForExit()`) for a
+subprocess call made directly in test setup/materialization code, where no later `HangMitigatingTimeout`-wrapped
+await can catch a hang. `MaterializedLspWorkspace.Create` now calls a local `RunRestoreWithTimeout` helper that
+starts the `dotnet restore` process directly and bounds it with `Process.WaitForExit(int)` using
+`TestHelpers.HangMitigatingTimeout`, killing the process tree and throwing a clear `TimeoutException` if it's
+exceeded, rather than reusing the shared unguarded `ProcessUtilities.Run`. `ProcessUtilities.Run` itself was left
+unchanged since it's a broadly-shared utility outside this fork's scope; new setup-time subprocess calls in LSP
+test infrastructure should follow this file's bounded pattern instead of calling it directly.
