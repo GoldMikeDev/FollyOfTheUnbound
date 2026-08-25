@@ -82,6 +82,15 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
 
         var reference1 = GetReference(cache, path);
 
+        // CreateCacheableReference eagerly prefetches the PE image into native memory (see
+        // MetadataReference.CreateFromFile's remarks), but on Windows that eager read is only guaranteed to
+        // release its underlying memory-mapped section once the object holding it becomes unreachable and is
+        // collected -- there's no deterministic Dispose available to us here. Force a collection before
+        // overwriting this same file path below; otherwise this races GC/finalizer timing and can intermittently
+        // fail with "The requested operation cannot be performed on a file with a user-mapped section open."
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
         File.Copy(typeof(Enumerable).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
 
@@ -171,6 +180,11 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         var firstReference = GetReference(cache, path);
         var otherReference = GetReference(cache, otherPath);
         Assert.Same(firstReference, GetReference(cache, path));
+
+        // See ChangedTimestamp_DoesNotShareReference's remarks: force release of firstReference's eagerly-prefetched
+        // native memory before overwriting the same file path below, to avoid racing GC/finalizer timing.
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
 
         File.Copy(typeof(Uri).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
