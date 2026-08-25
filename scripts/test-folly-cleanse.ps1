@@ -18,6 +18,8 @@ $pwshExe = (Get-Process -Id $PID).Path
 $workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("folly-cleanse-test-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Force -Path $workRoot | Out-Null
 
+$script:syntheticPids = @()  # PIDs of any detached background process this harness spawns (e.g. the synthetic build-server case below) -- appended to as each is launched, so the finally block can reap them even if the harness is interrupted or throws before its own explicit cleanup runs
+
 $script:passCount = 0
 $script:failCount = 0
 
@@ -189,6 +191,72 @@ try {
         Test-Fail "concurrent file removal (exit=$($result.ExitCode), output='$($result.Output)')"
     }
 
+    # --- build-server force-kill: scoped survivor gets killed, foreign one left alone
+    # Exercises the process-killing fallback itself (scoping the force-kill to this
+    # checkout's own .dotnet SDK root, and the TERM-then-KILL escalation with
+    # confirmed-exit counting), not just file deletion.
+    #
+    # Unix-only: reliably making a process ignore a graceful stop needs a POSIX
+    # signal trap (bash `trap '' TERM`), which Windows has no equivalent for --
+    # Stop-Process there doesn't distinguish a "graceful" signal a target process
+    # could choose to ignore, so this scenario can't be faithfully reproduced there.
+    if ($IsWindows) {
+        Write-Host "SKIP: build-server force-kill case (Unix-only; needs a POSIX signal trap to simulate a process ignoring a graceful stop)"
+    }
+    else {
+        $dir = New-TestCase "buildserver"
+        $dotnetSdkDir = Join-Path $dir ".dotnet/sdk"
+        New-Item -ItemType Directory -Force -Path $dotnetSdkDir | Out-Null
+        Set-Content -LiteralPath (Join-Path $dir ".dotnet/dotnet") -Value "#!/bin/bash`nexit 0`n" -NoNewline
+        & chmod +x (Join-Path $dir ".dotnet/dotnet")
+
+        $trappedScript = Join-Path $workRoot "trapped_vbcs.sh"
+        $trappedVbcsPath = Join-Path $dotnetSdkDir "VBCSCompiler.dll"
+        Set-Content -LiteralPath $trappedScript -Value @"
+#!/bin/bash
+exec -a "dotnet exec $trappedVbcsPath -pipename:pstrapped" bash -c 'trap "" TERM; while true; do sleep 1; done'
+"@ -NoNewline
+        & chmod +x $trappedScript
+
+        $foreignScript = Join-Path $workRoot "foreign_vbcs.sh"
+        Set-Content -LiteralPath $foreignScript -Value @'
+#!/bin/bash
+exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename:psforeign" sleep 300
+'@ -NoNewline
+        & chmod +x $foreignScript
+
+        $trappedProc = Start-Process -FilePath $trappedScript -PassThru  # -PassThru's own .Id is already the final PID -- the script it launches `exec -a`s into bash without forking, so no ps lookup/race is needed to discover it
+        $trappedPid = $trappedProc.Id
+        $script:syntheticPids += $trappedPid  # registered with the finally block the instant the PID is known -- before the second launch or the sleep/verify below can throw/exit and leave it orphaned
+        $foreignProc = Start-Process -FilePath $foreignScript -PassThru
+        $foreignPid = $foreignProc.Id
+        $script:syntheticPids += $foreignPid
+        Start-Sleep -Milliseconds 500
+
+        # Verify each PID is actually the process we think it is (matches its pipename marker), not just that Start-Process succeeded.
+        if (-not (& bash -c "ps -eo pid,command | grep '^[[:space:]]*$trappedPid[[:space:]]' | grep 'pipename:pstrapped'")) { $trappedPid = $null }
+        if (-not (& bash -c "ps -eo pid,command | grep '^[[:space:]]*$foreignPid[[:space:]]' | grep 'pipename:psforeign'")) { $foreignPid = $null }
+
+        if ($trappedPid -and $foreignPid) {
+            $result = Invoke-Cleanse -Dir $dir
+            Start-Sleep -Milliseconds 300
+            $trappedAlive = ((& bash -c "kill -0 $trappedPid 2>/dev/null && echo alive") -eq "alive")
+            $foreignAlive = ((& bash -c "kill -0 $foreignPid 2>/dev/null && echo alive") -eq "alive")
+            & bash -c "kill -9 $trappedPid 2>/dev/null; kill -9 $foreignPid 2>/dev/null"
+            if ($result.ExitCode -eq 0 -and $result.Output -match "Force-killed 1 build server" -and -not $trappedAlive -and $foreignAlive) {
+                Test-Pass "build-server force-kill escalates a same-checkout trapped survivor and leaves a foreign-checkout one alone"
+            }
+            else {
+                Test-Fail "build-server force-kill scoping/escalation (exit=$($result.ExitCode), output='$($result.Output)', trappedAlive=$trappedAlive, foreignAlive=$foreignAlive)"
+            }
+        }
+        else {
+            Write-Host "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)"
+            if ($trappedPid) { & bash -c "kill -9 $trappedPid 2>/dev/null" }
+            if ($foreignPid) { & bash -c "kill -9 $foreignPid 2>/dev/null" }
+        }
+    }
+
     # --- no artifacts/ at all -------------------------------------------------
     $dir = New-TestCase "nothing"
     $result = Invoke-Cleanse -Dir $dir
@@ -207,5 +275,8 @@ try {
     exit 0
 }
 finally {
+    foreach ($p in $script:syntheticPids) {
+        & bash -c "kill -9 $p 2>/dev/null"
+    }
     Remove-Item -Recurse -Force -LiteralPath $workRoot -ErrorAction SilentlyContinue
 }

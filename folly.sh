@@ -155,6 +155,39 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  printf '%s\n' "$lines" | awk 'NF{print $1}'
 	}
 	build_server_pattern='VBCSCompiler|Microsoft\.CodeAnalysis\.Razor\.[A-Za-z.]*Server|[[:space:]]rzc(\.dll)?([[:space:]]|$)'
+	_cleanse_pids_matching_regex_and_substring() {  # PIDs (from a snapshot already on stdin) whose command line matches an extended regex AND contains a literal substring -- used to scope the build-server name pattern to this checkout's own bootstrapped SDK, so a force-kill can never reach some other checkout's or tool's build server
+	  local pattern="$1" substr="$2"
+	  grep -Ei -- "$pattern" | grep -F -- "$substr" | awk 'NF{print $1}' || true
+	}
+	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to and including PID 1 (or as far as `ps` can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
+	  local pid="$$" ppid seen=" "
+	  while [[ -n "$pid" && "$pid" != "0" && "$seen" != *" $pid "* ]]; do
+		printf '%s\n' "$pid"
+		seen="$seen$pid "
+		[[ "$pid" == "1" ]] && break
+		ppid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]')
+		pid="$ppid"
+	  done
+	}
+	_cleanse_kill_pid_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM), and a candidate that exited on its own between snapshot and kill attempt (e.g. the shutdown RPC took effect a little late) was never force-killed by cleanse at all
+	  local pid="$1" child deadline
+	  [[ -z "$pid" ]] && return 1
+	  for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+		_cleanse_kill_pid_tree "$child"
+	  done
+	  kill -0 "$pid" 2>/dev/null || return 1  # already gone on its own -- nothing for this call to count as killed
+	  kill -TERM "$pid" 2>/dev/null
+	  deadline=$((SECONDS + 5))
+	  while kill -0 "$pid" 2>/dev/null && (( SECONDS < deadline )); do
+		sleep 0.2
+	  done
+	  if kill -0 "$pid" 2>/dev/null; then
+		kill -KILL "$pid" 2>/dev/null
+		sleep 0.2
+	  fi
+	  ! kill -0 "$pid" 2>/dev/null
+	}
+	ancestor_pids=$(_cleanse_ancestor_pids)
 	if [[ -n "$dotnet_exe" ]]; then  # `build-server shutdown` always reports success whether or not a server was actually running, so its own output can't say what happened -- diff the PIDs before/after instead
 	  before_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex "$build_server_pattern")
 	  "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
@@ -164,6 +197,32 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		if [[ "${stopped:-0}" -gt 0 ]]; then
 		  echo "Stopped $stopped build server process(es) (VBCSCompiler/Razor) via 'dotnet build-server shutdown'."
 		fi
+		# `build-server shutdown` talks to the RPC pipe of servers registered by *this* SDK; a server started
+		# by a different dotnet install (or one whose RPC pipe is already wedged/orphaned) doesn't respond to
+		# it and survives silently. Force-killing is scoped tightly to avoid collateral damage: only a PID that
+		# (a) was already alive in the *original* before_pids snapshot -- never one that merely appears in a
+		# later snapshot, which could be an unrelated process that started in between -- (b) is still alive
+		# after the shutdown call, and (c) belongs to this checkout's own bootstrapped `.dotnet` SDK (the same
+		# scope MSBuild node-reuse workers below are held to) is unconditionally stale and gets force-killed.
+		# A build server for a different repo/SDK is left alone even if its name matches the pattern. The
+		# trailing "/" on the scope substring is required, not cosmetic: without it, a sibling directory whose
+		# name merely starts with ".dotnet" (e.g. a ".dotnet-old" leftover from a prior bootstrap) would also
+		# match, since "$scriptroot/.dotnet-old/..." contains "$scriptroot/.dotnet" as a plain substring.
+		scoped_after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex_and_substring "$build_server_pattern" "$scriptroot/.dotnet/")
+		survivor_pids=$(comm -12 <(sort -u <<<"$before_pids") <(sort -u <<<"$scoped_after_pids"))
+		# Never kill this script's own invoking shell/CI agent, even if it happens to match the scoped
+		# pattern above (e.g. an automation wrapper whose own command line embeds the search text).
+		survivor_pids=$(comm -23 <(sort -u <<<"$survivor_pids") <(sort -u <<<"$ancestor_pids"))
+		if [[ -n "$survivor_pids" ]]; then
+		  force_killed=0
+		  while IFS= read -r pid; do
+			[[ -z "$pid" ]] && continue
+			_cleanse_kill_pid_tree "$pid" && force_killed=$((force_killed + 1))
+		  done <<< "$survivor_pids"
+		  if [[ "$force_killed" -gt 0 ]]; then
+			echo "Force-killed $force_killed build server process(es) that ignored 'dotnet build-server shutdown'."
+		  fi
+		fi
 	  fi
 	fi
 	# Node-reuse MSBuild worker processes are a different mechanism from build servers above -- left behind by
@@ -171,27 +230,15 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# `dotnet test`, `dotnet run --file eng/generate-compiler-code.cs`, ...) -- and are never registered as
 	# build servers, so `build-server shutdown` can't see or stop them. cleanse itself never launches a build,
 	# so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is unconditionally stale.
-	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet" "MSBuild.dll")
+	# Trailing "/" on the scope substring is required for the same reason as the build-server scope above --
+	# without it, a ".dotnet-old"-style sibling directory would falsely match too.
+	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet/" "MSBuild.dll")
+	node_worker_pids=$(comm -23 <(sort -u <<<"$node_worker_pids") <(sort -u <<<"$ancestor_pids"))  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 	if [[ -n "$node_worker_pids" ]]; then
-	  _cleanse_kill_node_children() {  # best-effort: kills a pid's children first (recursively, portable ps -eo pid,ppid), swallowing all errors -- must never itself fail, since a child that's already gone (or was never killable) shouldn't stop the parent from still being killed below
-		local pid="$1" child
-		[[ -z "$pid" ]] && return 0
-		for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
-		  _cleanse_kill_node_children "$child"
-		  kill "$child" 2>/dev/null || true
-		done
-		return 0
-	  }
-	  _cleanse_kill_node_tree() {  # kills a pid's children first, then the pid itself -- returns the *target* pid's own kill result (not forced to 0), so a caller can count only workers actually terminated (a process that already exited, or one `kill` couldn't touch due to permissions, must not be counted as killed)
-		local pid="$1"
-		[[ -z "$pid" ]] && return 1
-		_cleanse_kill_node_children "$pid"
-		kill "$pid" 2>/dev/null
-	  }
 	  killed=0
 	  while IFS= read -r pid; do
 		[[ -z "$pid" ]] && continue
-		_cleanse_kill_node_tree "$pid" && killed=$((killed + 1))
+		_cleanse_kill_pid_tree "$pid" && killed=$((killed + 1))
 	  done <<< "$node_worker_pids"
 	  if [[ "$killed" -gt 0 ]]; then
 		echo "Killed $killed leftover MSBuild node-reuse worker process(es)."
