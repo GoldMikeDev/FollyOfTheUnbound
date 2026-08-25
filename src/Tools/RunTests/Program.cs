@@ -267,6 +267,38 @@ namespace RunTests
                 }
             }
 
+            // Dumping above is diagnostic only -- it never terminates anything, so every test host that was
+            // still alive to be dumped (or that CollectDumps skipped dumping) is still running at this point.
+            // The cancellation this method's caller triggers right after returning kills the runner's own
+            // process tree, but a test host that got reparented (e.g. its vstest.console parent already exited)
+            // or that's outside that tree for some other reason would otherwise survive as an orphan. Kill
+            // whatever's still here directly rather than relying on that.
+            var remainingTestHosts = ProcessUtil.GetTestHostProcesses();
+            if (remainingTestHosts.Count > 0)
+            {
+                var killedCount = 0;
+                foreach (var proc in remainingTestHosts)
+                {
+                    try
+                    {
+                        if (!proc.HasExited)
+                        {
+                            proc.Kill(entireProcessTree: true);
+                            killedCount++;
+                        }
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // Already exited between enumeration and kill.
+                    }
+                }
+
+                if (killedCount > 0)
+                {
+                    ConsoleUtil.WriteLine($"Killed {killedCount} remaining test host process(es) after timeout.");
+                }
+            }
+
             WriteLogFile(options);
         }
 

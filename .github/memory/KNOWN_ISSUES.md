@@ -40,11 +40,21 @@ per-layer files (load only the one for your area):
 **Description:** CI flags `TODO` comments; PROTOTYPE comments are disallowed in PRs to `main`.
 **Guidance:** Do **not** add new `TODO` or `TODO2` comments. Track follow-up work as a GitHub issue and link it in code (e.g. `// See https://github.com/dotnet/roslyn/issues/NNNN`). Existing `TODO2` markers are only a frozen baseline from when enforcement was introduced — they are not a pattern to copy. Remove all `PROTOTYPE` markers before merging to `main` (allowed only on feature branches).
 
-## `artifacts/` DLLs can be locked by lingering build servers on Windows
+## `artifacts/` DLLs can be locked by lingering build servers or MSBuild node-reuse workers
 
 **Affected area:** `folly.sh cleanse` / `folly.ps1 cleanse`
-**Description:** VBCSCompiler, the MSBuild build server, and the Razor build server keep running between `folly` invocations and can hold an out-of-process BuildHost alive with `Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll` / `...MSBuild.BuildHost.dll` loaded from `artifacts/`. On Windows an open handle blocks deleting the DLL outright; on Unix the file is simply unlinked out from under the process, so this is invisible there.
-**Workaround:** `cleanse` runs `dotnet build-server shutdown` (resolving the repo-local `.dotnet/dotnet[.exe]` first, falling back to a global `dotnet` on `PATH`) before deleting `artifacts/`. Don't remove that shutdown step when touching cleanse — without it, deletion can intermittently fail on those two files with no other symptom.
+**Description:** Two independent mechanisms can leave a process holding `artifacts/` DLLs open across `folly` invocations, and they need two different fixes:
+1. VBCSCompiler, the MSBuild build server, and the Razor build server register themselves as build servers and can hold an out-of-process BuildHost alive with `Microsoft.CodeAnalysis.Workspaces.MSBuild.Contracts.dll` / `...MSBuild.BuildHost.dll` loaded from `artifacts/`.
+2. MSBuild node-reuse (`/nodeReuse`, default `true` when running locally, per `eng/common/tools.sh`/`.ps1`) leaves worker processes running after a build so the next one can reuse them. These are a completely separate mechanism from (1) — they never register as build servers, so nothing about build-server shutdown can see or stop them. Every `folly.sh`/`folly.ps1` build action passes `--nodeReuse false`/`-nodeReuse:$false` so folly's own builds clean up after themselves, but anything that builds/tests this repo outside `folly` (a bare `dotnet build`/`dotnet test`, an IDE background build, `dotnet run --file eng/generate-compiler-code.cs`) inherits the local default and leaves worker nodes resident.
+
+On Windows an open handle blocks deleting the DLL outright; on Unix the file is simply unlinked out from under the process, so this is invisible there.
+**Workaround:** `cleanse` runs `dotnet build-server shutdown` (resolving the repo-local `.dotnet/dotnet[.exe]` first, falling back to a global `dotnet` on `PATH`) for (1), then separately pattern-matches and kills any process whose command line references both this repo's own `.dotnet` SDK root and `MSBuild.dll` for (2) — cleanse never launches a build itself, so any such match is unconditionally stale. Both steps snapshot matching PIDs before/after (since `build-server shutdown` always reports success whether or not anything was actually running) and print what was actually stopped/killed, or nothing if there was nothing to report. Don't remove either step when touching cleanse — without them, deletion can intermittently fail on locked files with no other symptom.
+
+## `RunTests` can orphan `testhost` processes on timeout or Ctrl+C
+
+**Affected area:** `src/Tools/RunTests` (used by `folly.sh scry` / `folly.ps1 scry`)
+**Description:** `ProcessRunner.CreateProcess`'s cancellation handler used to call plain `process.Kill()` on the tracked child process. For a test run, that tracked child is `dotnet test`/vstest.console, which itself spawns a `testhost` child process to actually run the tests — killing only the parent orphaned the `testhost`. This fired on both the watchdog timeout path (`Program.HandleTimeout` cancels the run after dumping diagnostics) and a manual Ctrl+C, and was invisible in `folly cleanse` since orphaned `testhost` processes are neither build servers nor MSBuild node-reuse workers.
+**Fix:** `ProcessRunner.CreateProcess`'s cancellation handler now calls `process.Kill(entireProcessTree: true)`. `Program.HandleTimeout` additionally re-enumerates `ProcessUtil.GetTestHostProcesses()` after its diagnostic-dump loop and kills whatever is still alive directly, as a safety net for a test host that ends up outside the tracked process tree (e.g. reparented after its immediate parent already exited).
 
 ## `eng/build.ps1`-only test-runner switches are not portable to bash
 

@@ -283,8 +283,54 @@ try {
 			$cmd = Get-Command dotnet -ErrorAction SilentlyContinue
 			if ($cmd) { $cmd.Source } else { $null }
 		}
-		if ($dotnetExe) {
+		function Get-PidsMatchingRegex([string]$Pattern) {  # PIDs of processes whose command line matches an extended regex (Win32_Process is the only source PowerShell has for another process's full command line)
+			Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
+				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) } |
+				Select-Object -ExpandProperty ProcessId
+		}
+		function Get-PidsMatchingAll([string[]]$Substrings) {  # PIDs of processes whose command line contains every literal substring given (no regex escaping needed for paths)
+			Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
+				Where-Object {
+					$cmd = $_.CommandLine
+					if (-not $cmd) { return $false }
+					foreach ($s in $Substrings) {
+						if ($cmd.IndexOf($s, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) { return $false }
+					}
+					return $true
+				} |
+				Select-Object -ExpandProperty ProcessId
+		}
+		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself -- Stop-Process alone would only orphan any child a worker itself spawned (e.g. a compiler worker under it)
+			$children = Get-CimInstance Win32_Process -Filter "ParentProcessId=$ProcessId" -ErrorAction SilentlyContinue
+			foreach ($child in $children) {
+				Stop-ProcessTree -ProcessId $child.ProcessId
+			}
+			try { Stop-Process -Id $ProcessId -Force -ErrorAction Stop; return $true } catch { return $false }
+		}
+		if ($dotnetExe) {  # `build-server shutdown` always reports success whether or not a server was actually running, so its own output can't say what happened -- diff the PIDs before/after instead
+			$buildServerPattern = 'VBCSCompiler|Microsoft\.CodeAnalysis\.Razor\.[A-Za-z.]*Server|(^|\s)rzc(\.dll)?(\s|$)'
+			$beforeServerPids = @(Get-PidsMatchingRegex $buildServerPattern)
 			try { & $dotnetExe build-server shutdown *> $null } catch {}  # best-effort under ErrorActionPreference=Stop -- a failed shutdown must never block cleanup outright
+			if ($beforeServerPids.Count -gt 0) {
+				$afterServerPids = @(Get-PidsMatchingRegex $buildServerPattern)
+				$stoppedServerCount = @($beforeServerPids | Where-Object { $afterServerPids -notcontains $_ }).Count
+				if ($stoppedServerCount -gt 0) {
+					Write-Host "Stopped $stoppedServerCount build server process(es) (VBCSCompiler/Razor) via 'dotnet build-server shutdown'."
+				}
+			}
+		}
+		# Node-reuse MSBuild worker processes are a different mechanism from build servers above -- left behind
+		# by any dotnet/MSBuild invocation that didn't pass --nodeReuse false (an IDE build, a bare `dotnet
+		# build`/`dotnet test`, `dotnet run --file eng/generate-compiler-code.cs`, ...) -- and are never
+		# registered as build servers, so `build-server shutdown` can't see or stop them. cleanse itself never
+		# launches a build, so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is
+		# unconditionally stale.
+		$nodeWorkerPids = @(Get-PidsMatchingAll @((Join-Path $PSScriptRoot ".dotnet"), "MSBuild.dll"))
+		if ($nodeWorkerPids.Count -gt 0) {
+			$killedNodeCount = @($nodeWorkerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
+			if ($killedNodeCount -gt 0) {
+				Write-Host "Killed $killedNodeCount leftover MSBuild node-reuse worker process(es)."
+			}
 		}
 		if (Test-Path -LiteralPath $artifactsDir) {
 			function Format-ByteSize([long]$bytes) {  # binary units throughout (1MB/1GB are PowerShell's built-in 1048576/1073741824 literals) -- labelled MiB/GiB, never MB/GB
