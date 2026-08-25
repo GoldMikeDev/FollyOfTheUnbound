@@ -202,13 +202,17 @@ EOF
 chmod +x "$foreign_script"
 
 nohup "$trapped_script" >/dev/null 2>&1 &
+trapped_pid=$!  # nohup execs straight into trapped_script, which itself `exec -a`s into bash -- exec replaces the process image without forking, so this $! is already the final PID we need, no ps lookup or race required
+synthetic_pids="$synthetic_pids $trapped_pid"  # registered with the EXIT trap the instant the PID is known -- before disown, the second launch, or the sleep/ps-verify below can be interrupted and leave it orphaned
 disown
 nohup "$foreign_script" >/dev/null 2>&1 &
+foreign_pid=$!
+synthetic_pids="$synthetic_pids $foreign_pid"
 disown
 sleep 0.5
-trapped_pid=$(ps -eo pid,command | grep 'pipename:test-trapped' | grep -v grep | awk '{print $1}')
-foreign_pid=$(ps -eo pid,command | grep 'pipename:test-foreign' | grep -v grep | awk '{print $1}')
-synthetic_pids="$synthetic_pids $trapped_pid $foreign_pid"  # register with the EXIT trap immediately -- before any assertion below might exit/interrupt the harness and leave these orphaned
+# Verify each PID is actually the process we think it is (matches its pipename marker), not just that nohup/exec succeeded -- cheap sanity check now that the PIDs themselves no longer depend on this lookup.
+[[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$trapped_pid[[:space:]]" | grep 'pipename:test-trapped')" ]] || trapped_pid=""
+[[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$foreign_pid[[:space:]]" | grep 'pipename:test-foreign')" ]] || foreign_pid=""
 
 if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
   out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
@@ -227,6 +231,60 @@ else
   echo "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)"
   [[ -n "$trapped_pid" ]] && kill -9 "$trapped_pid" 2>/dev/null
   [[ -n "$foreign_pid" ]] && kill -9 "$foreign_pid" 2>/dev/null
+fi
+
+# --- ancestor exclusion: a wrapper matching the scoped pattern must survive
+# cleanse running beneath it -----------------------------------------------
+# The case above proves scoping/escalation on *sibling* processes, not the
+# ancestor-exclusion path itself: it never puts a matching process in
+# cleanse's own parent chain. This launches cleanse as a child of a wrapper
+# process whose own command line matches the build-server pattern and this
+# checkout's .dotnet path -- exactly the self-kill scenario a prior review
+# round caught -- and asserts the wrapper (cleanse's own ancestor) survives.
+dir=$(new_case ancestor)
+mkdir -p "$dir/.dotnet"
+cat > "$dir/.dotnet/dotnet" <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+chmod +x "$dir/.dotnet/dotnet"
+
+done_marker="$work_root/ancestor_cleanse_done"
+wrapper_script="$work_root/ancestor_wrapper.sh"
+cat > "$wrapper_script" <<EOF
+#!/bin/bash
+exec -a "dotnet exec $dir/.dotnet/sdk/VBCSCompiler.dll -pipename:test-ancestor" bash -c '
+  sleep 1 &          # keeps this exec-ed bash -c process itself (not yet its final command) foregrounded/observable under its custom name for a moment, so the check below cannot race a tail-call exec optimization into replacing it early
+  wait
+  cd "$dir"
+  bash folly.sh cleanse >/dev/null 2>&1
+  touch "$done_marker"
+  sleep 5
+'
+EOF
+chmod +x "$wrapper_script"
+
+nohup "$wrapper_script" >/dev/null 2>&1 &
+wrapper_pid=$!
+synthetic_pids="$synthetic_pids $wrapper_pid"  # registered with the EXIT trap immediately, before either check below can be interrupted
+disown
+sleep 0.5
+if [[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | grep 'pipename:test-ancestor')" ]]; then
+  # Wait for cleanse (running as this wrapper's own child) to actually finish, rather than guessing a fixed delay.
+  for _i in $(seq 1 50); do
+    [[ -f "$done_marker" ]] && break
+    sleep 0.1
+  done
+  wrapper_alive=0; kill -0 "$wrapper_pid" 2>/dev/null && wrapper_alive=1
+  kill -9 "$wrapper_pid" 2>/dev/null
+  if [[ -f "$done_marker" ]] && (( wrapper_alive == 1 )); then
+    pass "ancestor exclusion: a wrapper whose own command line matches the scoped pattern survives cleanse running beneath it"
+  else
+    fail "ancestor exclusion: wrapper matching the scoped pattern did not survive cleanse running beneath it (cleanse_ran=$([[ -f "$done_marker" ]] && echo yes || echo no), wrapper_alive=$wrapper_alive)"
+  fi
+else
+  echo "SKIP: ancestor exclusion case (couldn't spawn synthetic wrapper process in this environment)"
+  kill -9 "$wrapper_pid" 2>/dev/null
 fi
 
 # --- no artifacts/ at all -------------------------------------------------

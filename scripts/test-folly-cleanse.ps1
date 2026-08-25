@@ -225,14 +225,17 @@ exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename
 '@ -NoNewline
         & chmod +x $foreignScript
 
-        Start-Process -FilePath $trappedScript | Out-Null
-        Start-Process -FilePath $foreignScript | Out-Null
+        $trappedProc = Start-Process -FilePath $trappedScript -PassThru  # -PassThru's own .Id is already the final PID -- the script it launches `exec -a`s into bash without forking, so no ps lookup/race is needed to discover it
+        $trappedPid = $trappedProc.Id
+        $script:syntheticPids += $trappedPid  # registered with the finally block the instant the PID is known -- before the second launch or the sleep/verify below can throw/exit and leave it orphaned
+        $foreignProc = Start-Process -FilePath $foreignScript -PassThru
+        $foreignPid = $foreignProc.Id
+        $script:syntheticPids += $foreignPid
         Start-Sleep -Milliseconds 500
 
-        $trappedPid = & bash -c "ps -eo pid,command | grep 'pipename:pstrapped' | grep -v grep | awk '{print `$1}'"
-        $foreignPid = & bash -c "ps -eo pid,command | grep 'pipename:psforeign' | grep -v grep | awk '{print `$1}'"
-        if ($trappedPid) { $script:syntheticPids += $trappedPid }  # register with the finally block immediately -- before any assertion below might throw/exit and leave these orphaned
-        if ($foreignPid) { $script:syntheticPids += $foreignPid }
+        # Verify each PID is actually the process we think it is (matches its pipename marker), not just that Start-Process succeeded.
+        if (-not (& bash -c "ps -eo pid,command | grep '^[[:space:]]*$trappedPid[[:space:]]' | grep 'pipename:pstrapped'")) { $trappedPid = $null }
+        if (-not (& bash -c "ps -eo pid,command | grep '^[[:space:]]*$foreignPid[[:space:]]' | grep 'pipename:psforeign'")) { $foreignPid = $null }
 
         if ($trappedPid -and $foreignPid) {
             $result = Invoke-Cleanse -Dir $dir
