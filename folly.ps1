@@ -322,7 +322,7 @@ try {
 		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself, escalating from a graceful stop to -Force if it's still alive after a short wait -- only reports success once the pid is confirmed gone, since Stop-Process not throwing doesn't mean the process actually died (e.g. it ignores the initial signal)
 			$children = Get-ProcessSnapshot | Where-Object { $_.PPid -eq $ProcessId }
 			foreach ($child in $children) {
-				Stop-ProcessTree -ProcessId $child.Pid
+				Stop-ProcessTree -ProcessId $child.Pid | Out-Null  # discard -- an uncaptured call's return value is implicit function output, and a multi-element array (this call's $true/$false alongside the parent's own) is *always* truthy to a caller's `Where-Object { Stop-ProcessTree ... }` regardless of the parent's real outcome
 			}
 			if (-not (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue)) { return $true }
 			try { Stop-Process -Id $ProcessId -ErrorAction Stop } catch {}

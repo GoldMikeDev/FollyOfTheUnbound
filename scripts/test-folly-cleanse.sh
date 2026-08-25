@@ -171,6 +171,62 @@ else
   fail "artifacts/ as a regular file (exit=$ec, output='$out')"
 fi
 
+# --- build-server force-kill: scoped survivor gets killed, foreign one left alone
+# Exercises the process-killing fallback itself (scoping the force-kill to this
+# checkout's own .dotnet SDK root, and the TERM-then-KILL escalation with
+# confirmed-exit counting), not just file deletion. A same-checkout build server
+# that traps SIGTERM (simulating one that ignores the graceful stop) must still
+# end up force-killed and confirmed dead; a foreign-checkout one matching the same
+# name pattern must survive untouched.
+dir=$(new_case buildserver)
+mkdir -p "$dir/.dotnet/sdk"
+cat > "$dir/.dotnet/dotnet" <<'EOF'
+#!/bin/bash
+exit 0
+EOF
+chmod +x "$dir/.dotnet/dotnet"
+
+trapped_script="$work_root/trapped_vbcs.sh"
+cat > "$trapped_script" <<EOF
+#!/bin/bash
+exec -a "dotnet exec $dir/.dotnet/sdk/VBCSCompiler.dll -pipename:test-trapped" bash -c 'trap "" TERM; while true; do sleep 1; done'
+EOF
+chmod +x "$trapped_script"
+
+foreign_script="$work_root/foreign_vbcs.sh"
+cat > "$foreign_script" <<'EOF'
+#!/bin/bash
+exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename:test-foreign" sleep 300
+EOF
+chmod +x "$foreign_script"
+
+nohup "$trapped_script" >/dev/null 2>&1 &
+disown
+nohup "$foreign_script" >/dev/null 2>&1 &
+disown
+sleep 0.5
+trapped_pid=$(ps -eo pid,command | grep 'pipename:test-trapped' | grep -v grep | awk '{print $1}')
+foreign_pid=$(ps -eo pid,command | grep 'pipename:test-foreign' | grep -v grep | awk '{print $1}')
+
+if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
+  out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
+  ec=$?
+  sleep 0.3
+  trapped_alive=0; kill -0 "$trapped_pid" 2>/dev/null && trapped_alive=1
+  foreign_alive=0; kill -0 "$foreign_pid" 2>/dev/null && foreign_alive=1
+  kill -9 "$trapped_pid" 2>/dev/null
+  kill -9 "$foreign_pid" 2>/dev/null
+  if (( ec == 0 )) && [[ "$out" == *"Force-killed 1 build server"* ]] && (( trapped_alive == 0 )) && (( foreign_alive == 1 )); then
+    pass "build-server force-kill escalates a same-checkout trapped survivor and leaves a foreign-checkout one alone"
+  else
+    fail "build-server force-kill scoping/escalation (exit=$ec, output='$out', trapped_alive=$trapped_alive, foreign_alive=$foreign_alive)"
+  fi
+else
+  echo "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)"
+  [[ -n "$trapped_pid" ]] && kill -9 "$trapped_pid" 2>/dev/null
+  [[ -n "$foreign_pid" ]] && kill -9 "$foreign_pid" 2>/dev/null
+fi
+
 # --- no artifacts/ at all -------------------------------------------------
 dir=$(new_case nothing)
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
