@@ -10,16 +10,58 @@ vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\b
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost (206304).
-[xUnit.net 00:00:13.33] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID 'b04fbbac70f8fe46403e557717b3d599c235f074' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)')
-[xUnit.net 00:00:13.33] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID '3031882be867753fd71f39f7f0bf1aa5f64ebee0' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)')
-[xUnit.net 00:01:33.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InAnonymousMethods [SKIP]
+Blame: Attaching crash dump utility to process testhost (259472).
+[xUnit.net 00:00:13.28] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID 'b04fbbac70f8fe46403e557717b3d599c235f074' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: True)')
+[xUnit.net 00:00:13.28] Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests: Skipping test case with duplicate ID '3031882be867753fd71f39f7f0bf1aa5f64ebee0' ('Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)' and 'Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_UnexpectedSignature_01(methodDeclaration: "public static MyCollection<T> Create<T>(ReadOnlySp"···, useCompilationReference: False)')
+[xUnit.net 00:00:43.46]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_CallerInfoAttributes.TestCallerMemberName_ConstructorDestructor [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_CallerInfoAttributes.TestCallerMemberName_ConstructorDestructor [1 ms]
+[xUnit.net 00:00:54.63]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestUnicodeAttributeArgumentsStrings [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestUnicodeAttributeArgumentsStrings [1 ms]
+[xUnit.net 00:01:01.21]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestWellKnownAttributeOnProperty_DynamicAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestWellKnownAttributeOnProperty_DynamicAttribute [1 ms]
+[xUnit.net 00:01:01.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifierOnInvalidAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifierOnInvalidAttribute [1 ms]
+[xUnit.net 00:01:02.58]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifier [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifier [1 ms]
+[xUnit.net 00:01:16.05]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_03 [1 ms]
+[xUnit.net 00:01:17.17]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Scope_Query_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Scope_Query_01 [1 ms]
+[xUnit.net 00:01:18.75]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_01 [1 ms]
+[xUnit.net 00:01:20.02]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_LabeledStatement_06_Script [SKIP]
+[xUnit.net 00:01:20.61]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Query_01 [SKIP]
+[xUnit.net 00:01:20.61]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_InferenceFailure_07 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_LabeledStatement_06_Script [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Query_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_InferenceFailure_07 [1 ms]
+[xUnit.net 00:01:34.14]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_02 [1 ms]
+[xUnit.net 00:01:42.63]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.DiscardAndArgList [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.DiscardAndArgList [1 ms]
+[xUnit.net 00:01:54.83]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_ArraysAndSpans.WithElement_ReadOnlySpan_WithOutVar [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_ArraysAndSpans.WithElement_ReadOnlySpan_WithOutVar [1 ms]
+[xUnit.net 00:03:07.94]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.InterpolationHandler_Indexer_InObjectInitializer [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.InterpolationHandler_Indexer_InObjectInitializer [1 ms]
+[xUnit.net 00:05:00.95]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.UseSiteInfoTracking_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.UseSiteInfoTracking_01 [1 ms]
+[xUnit.net 00:05:08.24]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_WellKnownAttributes.TestPseudoAttributes1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_WellKnownAttributes.TestPseudoAttributes1 [1 ms]
+[xUnit.net 00:05:25.25]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InAnonymousMethods [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InAnonymousMethods [1 ms]
-[xUnit.net 00:01:40.95]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InLocalFunctions [SKIP]
+[xUnit.net 00:05:29.15]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InLocalFunctions [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_InLocalFunctions [1 ms]
-[xUnit.net 00:01:45.85]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_Lambdas [SKIP]
+[xUnit.net 00:05:31.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_Lambdas [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticAnalyzerTests.TestParametersAnalyzer_Lambdas [1 ms]
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [642 ms]
+[xUnit.net 00:05:42.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests_Global.GlobalCode_LabeledStatement_06 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests_Global.GlobalCode_LabeledStatement_06 [1 ms]
+[xUnit.net 00:07:21.82]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_02B [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_02B [1 ms]
+[xUnit.net 00:07:59.71]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.RestrictedTypes [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.RestrictedTypes [1 ms]
+[xUnit.net 00:09:00.16]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.AddMethod_RefOmittedArguments [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.AddMethod_RefOmittedArguments [1 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [256 ms]
   Error Message:
    
 Expected:
@@ -37,7 +79,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [325 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [72 ms]
   Error Message:
    
 Expected:
@@ -54,7 +96,7 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1688
    at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [225 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [58 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -64,7 +106,7 @@ Actual:   False
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [171 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [40 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -73,7 +115,7 @@ Actual:   False
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1234
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch_AssemblyKeyName(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [211 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [101 ms]
   Error Message:
    
 Expected:
@@ -100,7 +142,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [177 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [51 ms]
   Error Message:
    
 Expected:
@@ -126,7 +168,7 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1343
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly_AssemblyKeyName(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [240 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [48 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -136,7 +178,7 @@ Actual:   False
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [179 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [43 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -145,8 +187,7 @@ Actual:   False
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1138
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-[xUnit.net 00:03:18.07]     Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.MaxSizeKey [SKIP]
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [241 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [226 ms]
   Error Message:
    
 Expected:
@@ -164,7 +205,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [196 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [185 ms]
   Error Message:
    
 Expected:
@@ -181,8 +222,9 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1592
    at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:11:51.62]     Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.MaxSizeKey [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.MaxSizeKey [1 ms]
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [73 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [61 ms]
   Error Message:
    
 Expected:
@@ -203,7 +245,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [60 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerSigningTempPathMissing(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [32 ms]
   Error Message:
    
 Expected:
@@ -242,7 +284,7 @@ Actual:   False
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1109
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [73 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [40 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -252,7 +294,7 @@ Actual:   False
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [40 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [49 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -261,7 +303,7 @@ Actual:   False
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1274
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [70 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [42 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -271,7 +313,7 @@ Actual:   False
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [108 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [36 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -280,7 +322,7 @@ Actual:   False
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1199
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [209 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [72 ms]
   Error Message:
    
 Expected:
@@ -298,7 +340,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [185 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [80 ms]
   Error Message:
    
 Expected:
@@ -315,7 +357,7 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1668
    at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [132 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [36 ms]
   Error Message:
    
 Expected:
@@ -336,7 +378,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [114 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [49 ms]
   Error Message:
    
 Expected:
@@ -356,7 +398,7 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 429
    at InvokeStub_InternalsVisibleToAndStrongNameTests.KeyContainerAttributeOptionConflict(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [62 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [39 ms]
   Error Message:
    
 Expected:
@@ -374,7 +416,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [83 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [30 ms]
   Error Message:
    
 Expected:
@@ -391,7 +433,7 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 256
    at InvokeStub_InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [120 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [97 ms]
   Error Message:
    Assert.Empty() Failure: Collection was not empty
 Collection: [error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016), (7,15): error CS0281: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2', but the public key of the output assembly ('') does not match that specified by the InternalsVisibleTo attribute in the granting assembly.]
@@ -400,7 +442,7 @@ Collection: [error CS7028: Error signing output with public key from container '
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [132 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [89 ms]
   Error Message:
    Assert.Empty() Failure: Collection was not empty
 Collection: [error CS7028: Error signing output with public key from container 'roslynTestContainer' -- Keyset does not exist (0x80090016), (7,15): error CS0281: Friend access was granted by 'Paul, Version=0.0.0.0, Culture=neutral, PublicKeyToken=ce65828c82a341f2', but the public key of the output assembly ('') does not match that specified by the InternalsVisibleTo attribute in the granting assembly.]
@@ -408,7 +450,7 @@ Collection: [error CS7028: Error signing output with public key from container '
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTSigned(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 921
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSigned(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [79 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [46 ms]
   Error Message:
    
 Expected:
@@ -430,7 +472,7 @@ Diff:
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [132 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [44 ms]
   Error Message:
    
 Expected:
@@ -451,7 +493,7 @@ Diff:
    at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1307
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatchIAssembly(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [51 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "C#", ··· }) [50 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -461,7 +503,7 @@ Actual:   False
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [45 ms]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(parseOptions: CSharpParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "true"], Kind = Regular, Language = "C#", ··· }) [40 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -470,96 +512,54 @@ Actual:   False
      at Microsoft.CodeAnalysis.CSharp.UnitTests.InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(CSharpParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\Emit3\Attributes\InternalsVisibleToAndStrongNameTests.cs:line 1167
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch_AssemblyKeyName(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-[xUnit.net 00:03:54.74]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr4 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr4 [1 ms]
-[xUnit.net 00:04:01.56]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NotNullClone [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NotNullClone [1 ms]
-[xUnit.net 00:04:32.17]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprCloneReturnDifferent [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprCloneReturnDifferent [1 ms]
-[xUnit.net 00:04:55.83]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr18 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr18 [1 ms]
-[xUnit.net 00:04:57.09]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprStaticWithMethod2 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprStaticWithMethod2 [1 ms]
-[xUnit.net 00:05:12.33]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_RefProperty [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_RefProperty [1 ms]
-[xUnit.net 00:05:13.11]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_ObsoleteProperty [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_ObsoleteProperty [1 ms]
-[xUnit.net 00:05:19.20]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_MaybeNullClone [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_MaybeNullClone [1 ms]
-[xUnit.net 00:06:28.32]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr17 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr17 [1 ms]
-[xUnit.net 00:06:30.19]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [1 ms]
-[xUnit.net 00:06:31.58]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [1 ms]
-[xUnit.net 00:06:55.69]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_03 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_03 [1 ms]
-[xUnit.net 00:06:57.73]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Scope_Query_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Scope_Query_01 [1 ms]
-[xUnit.net 00:07:00.27]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_01 [1 ms]
-[xUnit.net 00:07:02.23]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_LabeledStatement_06_Script [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_LabeledStatement_06_Script [1 ms]
-[xUnit.net 00:07:03.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Query_01 [SKIP]
-[xUnit.net 00:07:03.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_InferenceFailure_07 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.Query_01 [1 ms]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.GlobalCode_InferenceFailure_07 [1 ms]
-[xUnit.net 00:07:25.23]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_02 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.RestrictedTypes_02 [1 ms]
-[xUnit.net 00:07:39.69]     Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.DiscardAndArgList [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.OutVarTests.DiscardAndArgList [1 ms]
-[xUnit.net 00:08:34.11]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Query_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Query_01 [1 ms]
-[xUnit.net 00:08:43.95]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.MultiFuzz [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.MultiFuzz [1 ms]
-[xUnit.net 00:08:45.83]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Fuzz [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Fuzz [1 ms]
-[xUnit.net 00:08:45.84]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.PatternInFieldInitializer [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.PatternInFieldInitializer [1 ms]
-[xUnit.net 00:10:31.89]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_02B [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.CollectionBuilder_02B [1 ms]
-[xUnit.net 00:11:05.21]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.RestrictedTypes [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.RestrictedTypes [1 ms]
-[xUnit.net 00:12:05.13]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.AddMethod_RefOmittedArguments [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests.AddMethod_RefOmittedArguments [1 ms]
-[xUnit.net 00:12:11.19]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestInvalidDiagnosticSuppressionReported [SKIP]
+[xUnit.net 00:19:03.18]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestInvalidDiagnosticSuppressionReported [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestInvalidDiagnosticSuppressionReported [1 ms]
-[xUnit.net 00:12:12.88]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestNonReportedDiagnosticCannotBeSuppressed [SKIP]
-[xUnit.net 00:12:12.99]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestUnsupportedSuppressionReported [SKIP]
+[xUnit.net 00:19:03.59]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestNonReportedDiagnosticCannotBeSuppressed [SKIP]
+[xUnit.net 00:19:03.61]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestUnsupportedSuppressionReported [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestNonReportedDiagnosticCannotBeSuppressed [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestUnsupportedSuppressionReported [1 ms]
-[xUnit.net 00:12:13.18]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestExceptionFromSuppressor [SKIP]
+[xUnit.net 00:19:03.66]     Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestExceptionFromSuppressor [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.DiagnosticSuppressorTests.TestExceptionFromSuppressor [1 ms]
-[xUnit.net 00:14:13.09]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_ArraysAndSpans.WithElement_ReadOnlySpan_WithOutVar [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_ArraysAndSpans.WithElement_ReadOnlySpan_WithOutVar [1 ms]
-[xUnit.net 00:21:16.56]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests_Global.GlobalCode_LabeledStatement_06 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests_Global.GlobalCode_LabeledStatement_06 [1 ms]
-[xUnit.net 00:21:37.16]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_WellKnownAttributes.TestPseudoAttributes1 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_WellKnownAttributes.TestPseudoAttributes1 [1 ms]
-[xUnit.net 00:21:45.95]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_MultipleOutParameters [SKIP]
+[xUnit.net 00:19:52.72]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_MultipleOutParameters [SKIP]
+[xUnit.net 00:19:52.72]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutParameters [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_MultipleOutParameters [1 ms]
-[xUnit.net 00:21:45.96]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutParameters [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutParameters [1 ms]
-[xUnit.net 00:21:47.39]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutVar_UsedInLaterElements [SKIP]
+[xUnit.net 00:19:53.81]     Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutVar_UsedInLaterElements [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.CollectionExpressionTests_WithElement_Constructors.WithElement_OutVar_UsedInLaterElements [1 ms]
-[xUnit.net 00:21:47.77]     Microsoft.CodeAnalysis.CSharp.UnitTests.AssemblyAttributeTests.Bug16465 [SKIP]
+[xUnit.net 00:19:58.38]     Microsoft.CodeAnalysis.CSharp.UnitTests.AssemblyAttributeTests.Bug16465 [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AssemblyAttributeTests.Bug16465 [1 ms]
-[xUnit.net 00:23:27.41]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_CallerInfoAttributes.TestCallerMemberName_ConstructorDestructor [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests_CallerInfoAttributes.TestCallerMemberName_ConstructorDestructor [1 ms]
-[xUnit.net 00:24:31.18]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.InterpolationHandler_Indexer_InObjectInitializer [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.InterpolationHandler_Indexer_InObjectInitializer [1 ms]
-[xUnit.net 00:25:52.27]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.UseSiteInfoTracking_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.ExtensionTests.UseSiteInfoTracking_01 [1 ms]
-[xUnit.net 00:27:25.22]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestUnicodeAttributeArgumentsStrings [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestUnicodeAttributeArgumentsStrings [1 ms]
-[xUnit.net 00:27:27.91]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestWellKnownAttributeOnProperty_DynamicAttribute [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.TestWellKnownAttributeOnProperty_DynamicAttribute [1 ms]
-[xUnit.net 00:27:28.21]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifierOnInvalidAttribute [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifierOnInvalidAttribute [1 ms]
-[xUnit.net 00:27:28.38]     Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifier [SKIP]
-  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.AttributeTests.AttributeInvalidTargetSpecifier [1 ms]
+[xUnit.net 00:20:26.83]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr4 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr4 [1 ms]
+[xUnit.net 00:20:30.49]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NotNullClone [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NotNullClone [1 ms]
+[xUnit.net 00:20:41.63]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprCloneReturnDifferent [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprCloneReturnDifferent [1 ms]
+[xUnit.net 00:20:49.83]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr18 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr18 [1 ms]
+[xUnit.net 00:20:50.18]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprStaticWithMethod2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExprStaticWithMethod2 [1 ms]
+[xUnit.net 00:20:54.86]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_RefProperty [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_RefProperty [1 ms]
+[xUnit.net 00:20:55.04]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_ObsoleteProperty [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.Deconstruct_ObsoleteProperty [1 ms]
+[xUnit.net 00:20:57.20]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_MaybeNullClone [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_MaybeNullClone [1 ms]
+[xUnit.net 00:21:18.37]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr17 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr17 [1 ms]
+[xUnit.net 00:21:18.82]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone_NoInitializers [1 ms]
+[xUnit.net 00:21:19.30]     Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics.RecordTests.WithExpr_NullableAnalysis_NullableClone [1 ms]
+[xUnit.net 00:21:35.74]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Query_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Query_01 [1 ms]
+[xUnit.net 00:21:38.15]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.MultiFuzz [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.MultiFuzz [1 ms]
+[xUnit.net 00:21:38.52]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Fuzz [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.Fuzz [1 ms]
+[xUnit.net 00:21:38.52]     Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.PatternInFieldInitializer [SKIP]
+  Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.PatternMatchingTests.PatternInFieldInitializer [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.xml
 Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_12_x64_test_results.html
 
-Failed!  - Failed:    30, Passed: 27971, Skipped:    48, Total: 28049, Duration: 27 m 5 s - Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests.dll (net10.0)
+Failed!  - Failed:    30, Passed: 27971, Skipped:    48, Total: 28049, Duration: 22 m 12 s - Microsoft.CodeAnalysis.CSharp.Emit3.UnitTests.dll (net10.0)

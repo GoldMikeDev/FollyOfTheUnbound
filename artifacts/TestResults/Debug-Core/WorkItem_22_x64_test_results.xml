@@ -1,8 +1,8 @@
-<assemblies timestamp="08/24/2026 19:00:05">
-  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll" run-date="2026-08-24" run-time="19:00:05" total="1" passed="1" failed="0" skipped="0" time="6.505" errors="0">
+<assemblies timestamp="08/25/2026 07:26:04">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll" run-date="2026-08-25" run-time="07:26:04" total="1" passed="1" failed="0" skipped="0" time="6.274" errors="0">
     <errors />
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" time="2.974">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests.Added" type="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" method="Added" time="2.9744209" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" time="2.388">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests.Added" type="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" method="Added" time="2.3883532" result="Pass">
         <traits />
       </test>
     </collection>

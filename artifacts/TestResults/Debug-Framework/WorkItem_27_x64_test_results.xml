@@ -1,8 +1,8 @@
-<assemblies timestamp="08/24/2026 19:42:14">
-  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll" run-date="2026-08-24" run-time="19:42:14" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll.config" total="1" passed="1" failed="0" skipped="0" time="25.235" errors="0">
+<assemblies timestamp="08/25/2026 07:58:22">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll" run-date="2026-08-25" run-time="07:58:22" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests\Debug\net472\Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.dll.config" total="1" passed="1" failed="0" skipped="0" time="20.422" errors="0">
     <errors />
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" time="5.581">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests.Added" type="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" method="Added" time="5.5810000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" time="6.401">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests.Added" type="Microsoft.CodeAnalysis.ExternalAccess.RazorCompiler.UnitTests.HostOutputsTests" method="Added" time="6.4010000" result="Pass">
         <traits />
       </test>
     </collection>

@@ -1,11 +1,11 @@
-<assemblies timestamp="08/24/2026 19:39:31">
-  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll" run-date="2026-08-24" run-time="19:39:31" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll.config" total="481" passed="481" failed="0" skipped="0" time="54.443" errors="0">
+<assemblies timestamp="08/25/2026 07:56:25">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll" run-date="2026-08-25" run-time="07:56:25" config-file="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.Razor.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Remote.Razor.UnitTests.dll.config" total="481" passed="481" failed="0" skipped="0" time="52.799" errors="0">
     <errors />
-    <collection total="36" passed="36" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" time="0.142">
+    <collection total="36" passed="36" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" time="0.050">
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationString_ReturnsExpectedString(indentation: 8, insertSpaces: False, tabSize: 4, expected: &quot;\t\t&quot;)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationString_ReturnsExpectedString(indentation: 8, insertSpaces: False, tabSize: 4, expected: &quot;\t\t&quot;)" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationString_ReturnsExpectedString(indentation: 6, insertSpaces: False, tabSize: 4, expected: &quot;\t  &quot;)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationString_ReturnsExpectedString(indentation: 6, insertSpaces: False, tabSize: 4, expected: &quot;\t  &quot;)" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationString_ReturnsExpectedString(indentation: 6, insertSpaces: False, tabSize: 4, expected: &quot;\t  &quot;)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationString_ReturnsExpectedString(indentation: 6, insertSpaces: False, tabSize: 4, expected: &quot;\t  &quot;)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationString_ReturnsExpectedString(indentation: 8, insertSpaces: True, tabSize: 4, expected: &quot;        &quot;)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationString_ReturnsExpectedString(indentation: 8, insertSpaces: True, tabSize: 4, expected: &quot;        &quot;)" time="0.0010000" result="Pass">
@@ -29,7 +29,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationString_ReturnsExpectedString(indentation: 3, insertSpaces: False, tabSize: 4, expected: &quot;   &quot;)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationString_ReturnsExpectedString(indentation: 3, insertSpaces: False, tabSize: 4, expected: &quot;   &quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationLevel_Tabs(level: 4, additional: 6)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationLevel_Tabs(level: 4, additional: 6)" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationLevel_Tabs(level: 4, additional: 6)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationLevel_Tabs(level: 4, additional: 6)" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.GetIndentationLevel_Tabs(level: 3, additional: 3)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="GetIndentationLevel_Tabs(level: 3, additional: 3)" time="0.0010000" result="Pass">
@@ -98,26 +98,26 @@
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.CountNonWhitespaceCharacters(input: &quot;012345\n    6789&quot;)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="CountNonWhitespaceCharacters(input: &quot;012345\n    6789&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.ContentEqualIgnoringWhitespace" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="ContentEqualIgnoringWhitespace" time="0.0840000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.ContentEqualIgnoringWhitespace" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="ContentEqualIgnoringWhitespace" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: 0)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: 0)" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: 0)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: 0)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: -1)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: -1)" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: -1)" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="FormattingIndentCache_GetIndentString_InvalidTabSize_Throws(tabSize: -1)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest.ContentEqualIgnoringWhitespace_ChangedCode" type="Microsoft.CodeAnalysis.Razor.Formatting.FormattingUtilitiesTest" method="ContentEqualIgnoringWhitespace_ChangedCode" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest" time="1.037">
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest.ClientSettings_RoundTripsWithExpectedPropertyNames" type="Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest" method="ClientSettings_RoundTripsWithExpectedPropertyNames" time="1.0370000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest" time="1.461">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest.ClientSettings_RoundTripsWithExpectedPropertyNames" type="Microsoft.CodeAnalysis.Razor.Remote.ClientSettingsJsonSerializationTest" method="ClientSettings_RoundTripsWithExpectedPropertyNames" time="1.4610000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="56" passed="56" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" time="0.165">
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), _: null)" time="0.0020000" result="Pass">
+    <collection total="56" passed="56" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" time="0.643">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteInlayHintService), _: null)" time="0.0880000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToDefinitionService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteGoToDefinitionService), _: null)" time="0.0010000" result="Pass">
@@ -144,7 +144,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDataTipRangeService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDataTipRangeService), _: null)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), _: null)" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteCompletionService), _: null)" time="0.0120000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentSymbolService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteDocumentSymbolService), _: null)" time="0.0010000" result="Pass">
@@ -177,7 +177,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteTypeHierarchyService), _: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesHaveTheRightParameters(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteTypeHierarchyService), _: null)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), callbackType: null)" time="0.1030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteMEFInitializationService), callbackType: null)" time="0.4850000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFindAllReferencesService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="JsonServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteFindAllReferencesService), callbackType: null)" time="0.0010000" result="Pass">
@@ -282,34 +282,34 @@
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHtmlDocumentService), callbackType: null)" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="MessagePackServicesAreListedProperly(serviceType: typeof(Microsoft.CodeAnalysis.Razor.Remote.IRemoteHtmlDocumentService), callbackType: null)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.RazorServicesContainsAllServices" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="RazorServicesContainsAllServices" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest.RazorServicesContainsAllServices" type="Microsoft.CodeAnalysis.Razor.Remote.RazorServicesTest" method="RazorServicesContainsAllServices" time="0.0060000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" time="1.249">
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CleansOldCacheFiles" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CleansOldCacheFiles" time="1.1480000" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" time="1.242">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CleansOldCacheFiles" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CleansOldCacheFiles" time="1.1190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CacheFileIsUsed" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CacheFileIsUsed" time="0.0500000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CacheFileIsUsed" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CacheFileIsUsed" time="0.0660000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CompositionIsCached" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CompositionIsCached" time="0.0170000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CorruptCacheFileIsOverwritten" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CorruptCacheFileIsOverwritten" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.CorruptCacheFileIsOverwritten" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="CorruptCacheFileIsOverwritten" time="0.0360000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.NoCacheDirectoryCreatesFreshProviders" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="NoCacheDirectoryCreatesFreshProviders" time="0.0050000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest" time="0.046">
-      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest.InitializeRemoteExportProviderBuilderAsync_OnlyInitializesOnce" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest" method="InitializeRemoteExportProviderBuilderAsync_OnlyInitializesOnce" time="0.0460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest.NoCacheDirectoryCreatesFreshProviders" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteMefCompositionTest" method="NoCacheDirectoryCreatesFreshProviders" time="0.0040000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" time="0.010">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_BlankLines" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_BlankLines" time="0.0050000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest" time="0.074">
+      <test name="Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest.InitializeRemoteExportProviderBuilderAsync_OnlyInitializesOnce" type="Microsoft.CodeAnalysis.Razor.Remote.RemoteWorkspaceProviderTest" method="InitializeRemoteExportProviderBuilderAsync_OnlyInitializesOnce" time="0.0740000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" time="0.015">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_BlankLines" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_BlankLines" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest.GetLastLineNumberAndLength_LastLineExceedsBuffer" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.ExtractToCssCodeActionResolverTest" method="GetLastLineNumberAndLength_LastLineExceedsBuffer" time="0.0010000" result="Pass">
@@ -328,243 +328,243 @@
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" time="0.223">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest.ProvideAsync_WrapsResolvableCodeActions" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" method="ProvideAsync_WrapsResolvableCodeActions" time="0.1670000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" time="1.777">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest.ProvideAsync_WrapsResolvableCodeActions" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" method="ProvideAsync_WrapsResolvableCodeActions" time="0.3310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest.ProvideAsync_RemapsAndFixesEdits" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" method="ProvideAsync_RemapsAndFixesEdits" time="0.0560000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest" time="6.978">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest.ResolveAsync_RemapsAndFixesEdits" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest" method="ResolveAsync_RemapsAndFixesEdits" time="6.9780000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest.ProvideAsync_RemapsAndFixesEdits" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionProviderTest" method="ProvideAsync_RemapsAndFixesEdits" time="1.4460000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" time="1.148">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnFormElement_ReturnsDataEnhance" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnFormElement_ReturnsDataEnhance" time="0.1210000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnNonFormElement_DoesNotReturnDataEnhance" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnNonFormElement_DoesNotReturnDataEnhance" time="0.1260000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnDivElement_ReturnsDataEnhanceNav" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDivElement_ReturnsDataEnhanceNav" time="0.0750000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnDivElement_ReturnsDataPermanent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDivElement_ReturnsDataPermanent" time="0.0830000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttribute_ReturnsEmpty" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttribute_ReturnsEmpty" time="0.0700000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnNonComponentFile_ReturnsEmpty" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnNonComponentFile_ReturnsEmpty" time="0.4630000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_ExistingDataEnhanceAttribute_DoesNotDuplicateOnDifferentAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingDataEnhanceAttribute_DoesNotDuplicateOnDifferentAttribute" time="0.0470000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_WithSnippetsDisabled_ReturnsPlainText" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_WithSnippetsDisabled_ReturnsPlainText" time="0.0780000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnAnchorElement_ReturnsDataEnhanceNav" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnAnchorElement_ReturnsDataEnhanceNav" time="0.0850000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest" time="8.265">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest.ResolveAsync_RemapsAndFixesEdits" type="Microsoft.CodeAnalysis.Remote.Razor.CodeActions.HtmlCodeActionResolverTest" method="ResolveAsync_RemapsAndFixesEdits" time="8.2650000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" time="0.976">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.CSharpRazorKeywordCompletionItems_ReturnsAllCSharpRazorKeywords" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="CSharpRazorKeywordCompletionItems_ReturnsAllCSharpRazorKeywords" time="0.2330000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" time="1.762">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnFormElement_ReturnsDataEnhance" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnFormElement_ReturnsDataEnhance" time="1.1290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsTrueForSimpleImplicitExpressions_WhenInvoked" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsTrueForSimpleImplicitExpressions_WhenInvoked" time="0.6940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnNonFormElement_DoesNotReturnDataEnhance" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnNonFormElement_DoesNotReturnDataEnhance" time="0.0540000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsFalseWhenOwnerIsExplicitExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsFalseWhenOwnerIsExplicitExpression" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnDivElement_ReturnsDataEnhanceNav" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDivElement_ReturnsDataEnhanceNav" time="0.0390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsFalseWhenOwnerIsNotExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsFalseWhenOwnerIsNotExpression" time="0.0350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnDivElement_ReturnsDataPermanent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDivElement_ReturnsDataPermanent" time="0.0490000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsFalseWhenOwnerIsComplexExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsFalseWhenOwnerIsComplexExpression" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttribute_ReturnsEmpty" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttribute_ReturnsEmpty" time="0.0620000" result="Pass">
         <traits />
       </test>
-    </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DefaultRazorCompletionFactsServiceTest" time="0.688">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DefaultRazorCompletionFactsServiceTest.GetDirectiveCompletionItems_AllProvidersCompletionItems" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DefaultRazorCompletionFactsServiceTest" method="GetDirectiveCompletionItems_AllProvidersCompletionItems" time="0.6880000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnNonComponentFile_ReturnsEmpty" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnNonComponentFile_ReturnsEmpty" time="0.2680000" result="Pass">
         <traits />
       </test>
-    </collection>
-    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" time="1.649">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_PartialAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_PartialAttribute_ReturnsTrue" time="0.1480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_ExistingDataEnhanceAttribute_DoesNotDuplicateOnDifferentAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingDataEnhanceAttribute_DoesNotDuplicateOnDifferentAttribute" time="0.0320000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_DirectiveAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_DirectiveAttribute_ReturnsTrue" time="0.5260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_WithSnippetsDisabled_ReturnsPlainText" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_WithSnippetsDisabled_ReturnsPlainText" time="0.0510000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_NoAttributes_ReturnsEmptyAttributeCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_NoAttributes_ReturnsEmptyAttributeCollection" time="0.0800000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_PartialTransitionedAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_PartialTransitionedAttribute_ReturnsTrue" time="0.0760000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_EmptyAttribute_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_EmptyAttribute_ReturnsFalse" time="0.0880000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_NonAttribute_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_NonAttribute_ReturnsFalse" time="0.0630000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_PartialDirectiveAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_PartialDirectiveAttribute_ReturnsTrue" time="0.0850000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_SingleAttribute_ReturnsAttributeName" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_SingleAttribute_ReturnsAttributeName" time="0.1260000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_FullAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_FullAttribute_ReturnsTrue" time="0.0910000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_DirectiveAttributeWithParameter_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_DirectiveAttributeWithParameter_ReturnsTrue" time="0.1090000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_MixedAttributes_ReturnsStringifiedAttributesResult" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_MixedAttributes_ReturnsStringifiedAttributesResult" time="0.0940000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_TagHelperParent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_TagHelperParent" time="0.0920000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_MarkupTagParent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_MarkupTagParent" time="0.0710000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest.GetCompletionItems_OnAnchorElement_ReturnsDataEnhanceNav" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.BlazorDataAttributeCompletionItemProviderTest" method="GetCompletionItems_OnAnchorElement_ReturnsDataEnhanceNav" time="0.0780000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="34" passed="34" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" time="12.738">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_VsCode_ReturnsEmptyCommitCharacters" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_VsCode_ReturnsEmptyCommitCharacters" time="8.5320000" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" time="0.008">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.CSharpRazorKeywordCompletionItems_ReturnsAllCSharpRazorKeywords" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="CSharpRazorKeywordCompletionItems_ReturnsAllCSharpRazorKeywords" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_WithNoSnippetsOption_ReturnsNoSnippets" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_WithNoSnippetsOption_ReturnsNoSnippets" time="0.0590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsTrueForSimpleImplicitExpressions_WhenInvoked" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsTrueForSimpleImplicitExpressions_WhenInvoked" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_WithExistingParameter_SetsReplacementRange" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_WithExistingParameter_SetsReplacementRange" time="0.3530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsFalseWhenOwnerIsExplicitExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsFalseWhenOwnerIsExplicitExpression" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_Parameter_IsIncludedInCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_Parameter_IsIncludedInCompletions" time="0.0880000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsFalseWhenOwnerIsNotExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsFalseWhenOwnerIsNotExpression" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsSameParameterCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsSameParameterCompletions" time="0.7500000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests.ShouldProvideCompletions_ReturnsFalseWhenOwnerIsComplexExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.CSharpRazorKeywordCompletionItemProviderTests" method="ShouldProvideCompletions_ReturnsFalseWhenOwnerIsComplexExpression" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterCompletions" time="0.1630000" result="Pass">
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DefaultRazorCompletionFactsServiceTest" time="0.137">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DefaultRazorCompletionFactsServiceTest.GetDirectiveCompletionItems_AllProvidersCompletionItems" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DefaultRazorCompletionFactsServiceTest" method="GetDirectiveCompletionItems_AllProvidersCompletionItems" time="0.1370000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_SelectedDirectiveAttribute_IsIncludedInCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_SelectedDirectiveAttribute_IsIncludedInCompletions" time="0.0520000" result="Pass">
+    </collection>
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" time="1.190">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_PartialAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_PartialAttribute_ReturnsTrue" time="0.0910000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsCompletions" time="0.1080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_DirectiveAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_DirectiveAttribute_ReturnsTrue" time="0.4950000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" time="0.0610000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_NoAttributes_ReturnsEmptyAttributeCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_NoAttributes_ReturnsEmptyAttributeCollection" time="0.0420000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" time="0.0740000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_PartialTransitionedAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_PartialTransitionedAttribute_ReturnsTrue" time="0.0530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeParameter_ReturnsCompletions" time="0.1140000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_EmptyAttribute_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_EmptyAttribute_ReturnsFalse" time="0.0450000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_AttributeAreaEndOfSelfClosingTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaEndOfSelfClosingTag_ReturnsEmptyCollection" time="0.1060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_NonAttribute_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_NonAttribute_ReturnsFalse" time="0.0390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_ReturnsSnippetCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_ReturnsSnippetCompletion" time="0.0510000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_PartialDirectiveAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_PartialDirectiveAttribute_ReturnsTrue" time="0.0530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_Indexer_ReturnsCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_Indexer_ReturnsCompletion" time="0.0600000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_SingleAttribute_ReturnsAttributeName" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_SingleAttribute_ReturnsAttributeName" time="0.0510000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" time="0.0750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_FullAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_FullAttribute_ReturnsTrue" time="0.0470000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_Partial_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_Partial_ReturnsEmptyCollection" time="0.1430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetAttributeInfo_DirectiveAttributeWithParameter_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetAttributeInfo_DirectiveAttributeWithParameter_ReturnsTrue" time="0.0730000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" time="0.0580000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_MixedAttributes_ReturnsStringifiedAttributesResult" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_MixedAttributes_ReturnsStringifiedAttributesResult" time="0.0830000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_attributes_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_attributes_ReturnsCompletions" time="0.1390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_TagHelperParent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_TagHelperParent" time="0.0720000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NonIndexer_ReturnsCompletionWithEqualsCommitInsertFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NonIndexer_ReturnsCompletionWithEqualsCommitInsertFalse" time="0.1120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest.TryGetElementInfo_MarkupTagParent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderBaseTest" method="TryGetElementInfo_MarkupTagParent" time="0.0460000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterSnippetCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterSnippetCompletions" time="0.1770000" result="Pass">
+    </collection>
+    <collection total="34" passed="34" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" time="3.502">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_VsCode_ReturnsEmptyCommitCharacters" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_VsCode_ReturnsEmptyCommitCharacters" time="0.2130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_WithNoAutoQuotesOption_ReturnsNonQuotedSnippet" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_WithNoAutoQuotesOption_ReturnsNonQuotedSnippet" time="0.0650000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_WithNoSnippetsOption_ReturnsNoSnippets" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_WithNoSnippetsOption_ReturnsNoSnippets" time="0.0480000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_ReturnsCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_ReturnsCompletion" time="0.0680000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_WithExistingParameter_SetsReplacementRange" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_WithExistingParameter_SetsReplacementRange" time="0.1360000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" time="0.0490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_Parameter_IsIncludedInCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_Parameter_IsIncludedInCompletions" time="0.0680000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NonIndexer_ReturnsCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NonIndexer_ReturnsCompletion" time="0.0470000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsSameParameterCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsSameParameterCompletions" time="0.1720000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_SelectedDirectiveAttributeParameter_IsExcludedInCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_SelectedDirectiveAttributeParameter_IsExcludedInCompletions" time="0.0730000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterCompletions" time="0.0950000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_BaseDirectiveAttributeAlreadyExists_IncludesBaseAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_BaseDirectiveAttributeAlreadyExists_IncludesBaseAttribute" time="0.0620000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_SelectedDirectiveAttribute_IsIncludedInCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_SelectedDirectiveAttribute_IsIncludedInCompletions" time="0.0480000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyCollection" time="0.1260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsCompletions" time="0.1050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeParameterEndBeforeEquals_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeParameterEndBeforeEquals_ReturnsCompletions" time="0.1320000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" time="0.0500000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" time="0.0570000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_BaseDirectiveAttributeAndParameterVariationsExist_ExcludesCompletion" time="0.0630000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeParameter_ReturnsCompletions" time="0.1820000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_AttributeAreaEndOfSelfClosingTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaEndOfSelfClosingTag_ReturnsEmptyCollection" time="0.1100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_ReturnsSnippetCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_ReturnsSnippetCompletion" time="0.0620000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_Indexer_ReturnsCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_Indexer_ReturnsCompletion" time="0.0450000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" time="0.0430000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_Partial_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_Partial_ReturnsEmptyCollection" time="0.1470000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" time="0.0480000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_attributes_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_attributes_ReturnsCompletions" time="0.1130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NonIndexer_ReturnsCompletionWithEqualsCommitInsertFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NonIndexer_ReturnsCompletionWithEqualsCommitInsertFalse" time="0.0830000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterSnippetCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeName_bind_ReturnsParameterSnippetCompletions" time="0.2390000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_WithNoAutoQuotesOption_ReturnsNonQuotedSnippet" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_WithNoAutoQuotesOption_ReturnsNonQuotedSnippet" time="0.0600000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_ReturnsCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_ReturnsCompletion" time="0.0780000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_NoDirectiveAttributesForTag_ReturnsEmptyCollection" time="0.1370000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NonIndexer_ReturnsCompletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NonIndexer_ReturnsCompletion" time="0.0660000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeParameterCompletions_SelectedDirectiveAttributeParameter_IsExcludedInCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeParameterCompletions_SelectedDirectiveAttributeParameter_IsExcludedInCompletions" time="0.0760000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_BaseDirectiveAttributeAlreadyExists_IncludesBaseAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_BaseDirectiveAttributeAlreadyExists_IncludesBaseAttribute" time="0.0650000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyCollection" time="0.1770000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeParameterEndBeforeEquals_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeParameterEndBeforeEquals_ReturnsCompletions" time="0.1840000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_NoDescriptorsForTag_ReturnsEmptyCollection" time="0.0560000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetAttributeCompletions_ExistingAttributeWithValue_ReturnsNoSnippets" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetAttributeCompletions_ExistingAttributeWithValue_ReturnsNoSnippets" time="0.0690000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeParameterImmediatelyAfterColon_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeParameterImmediatelyAfterColon_ReturnsCompletions" time="0.1790000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnDirectiveAttributeParameterImmediatelyAfterColon_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnDirectiveAttributeParameterImmediatelyAfterColon_ReturnsCompletions" time="0.1200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_AttributeAreaEndOfOpeningTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaEndOfOpeningTag_ReturnsEmptyCollection" time="0.2190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_AttributeAreaEndOfOpeningTag_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaEndOfOpeningTag_ReturnsEmptyCollection" time="0.1080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyCollection" time="0.1410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyCollection" time="0.0970000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnNonAttributeArea_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnNonAttributeArea_ReturnsEmptyCollection" time="0.1760000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" time="0.653">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnHtmlEventAttribute_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnHtmlEventAttribute_DoesNotReturnCompletions" time="0.1870000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnBindDirectiveAttribute_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnBindDirectiveAttribute_DoesNotReturnCompletions" time="0.0520000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnEmptyButNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnEmptyButNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0930000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_AfterDirectiveAttributeEventParameterAttributeSuffix_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_AfterDirectiveAttributeEventParameterAttributeSuffix_DoesNotReturnCompletions" time="0.0870000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnNonEmptyAndNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnNonEmptyAndNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0440000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnNonEmptyDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnNonEmptyDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0450000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_BeforeDirectiveAttributeEventParameterAttributePrefix_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_BeforeDirectiveAttributeEventParameterAttributePrefix_DoesNotReturnCompletions" time="0.0580000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnEmptyDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnEmptyDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0870000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest.GetCompletionItems_OnNonAttributeArea_ReturnsEmptyCollection" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeCompletionItemProviderTest" method="GetCompletionItems_OnNonAttributeArea_ReturnsEmptyCollection" time="0.1390000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" time="0.067">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_WithAvoidExplicitCommitOption_ReturnsAppropriateCommitCharacters(supportsSoftSelection: True)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_WithAvoidExplicitCommitOption_ReturnsAppropriateCommitCharacters(supportsSoftSelection: True)" time="0.0310000" result="Pass">
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" time="7.432">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnHtmlEventAttribute_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnHtmlEventAttribute_DoesNotReturnCompletions" time="6.9960000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnBindDirectiveAttribute_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnBindDirectiveAttribute_DoesNotReturnCompletions" time="0.0880000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnEmptyButNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnEmptyButNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0770000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_AfterDirectiveAttributeEventParameterAttributeSuffix_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_AfterDirectiveAttributeEventParameterAttributeSuffix_DoesNotReturnCompletions" time="0.0500000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnNonEmptyAndNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnNonEmptyAndNotClosedDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0960000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnNonEmptyDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnNonEmptyDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0530000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_BeforeDirectiveAttributeEventParameterAttributePrefix_DoesNotReturnCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_BeforeDirectiveAttributeEventParameterAttributePrefix_DoesNotReturnCompletions" time="0.0340000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest.GetCompletionItems_OnEmptyDirectiveAttributeEventParameter_ReturnsCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeEventParameterCompletionItemProviderTest" method="GetCompletionItems_OnEmptyDirectiveAttributeEventParameter_ReturnsCompletions" time="0.0380000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" time="0.046">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_WithAvoidExplicitCommitOption_ReturnsAppropriateCommitCharacters(supportsSoftSelection: True)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_WithAvoidExplicitCommitOption_ReturnsAppropriateCommitCharacters(supportsSoftSelection: True)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_WithAvoidExplicitCommitOption_ReturnsAppropriateCommitCharacters(supportsSoftSelection: False)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_WithAvoidExplicitCommitOption_ReturnsAppropriateCommitCharacters(supportsSoftSelection: False)" time="0.0030000" result="Pass">
@@ -573,7 +573,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_AttributeAreaInIncompleteAttributeTransition_ReturnsTransitionCompletionItem" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaInIncompleteAttributeTransition_ReturnsTransitionCompletionItem" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_TrailingEdgeOnSpace_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_TrailingEdgeOnSpace_ReturnsEmptyList" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_TrailingEdgeOnSpace_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_TrailingEdgeOnSpace_ReturnsEmptyList" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_AttributeAreaInIncompleteComponent_ReturnsTransitionCompletionItem" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaInIncompleteComponent_ReturnsTransitionCompletionItem" time="0.0020000" result="Pass">
@@ -594,7 +594,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.IsValidCompletionPoint_WithinPrefix_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="IsValidCompletionPoint_WithinPrefix_ReturnsTrue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyList" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_TrailingEdge_ReturnsEmptyList" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.IsValidCompletionPoint_OutsideOfNameAndPrefix_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="IsValidCompletionPoint_OutsideOfNameAndPrefix_ReturnsFalse" time="0.0010000" result="Pass">
@@ -609,13 +609,13 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_AttributeAreaEndOfSelfClosingTag_ReturnsTransitionCompletionItem" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_AttributeAreaEndOfSelfClosingTag_ReturnsTransitionCompletionItem" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyList" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_LeadingEdge_ReturnsEmptyList" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.IsValidCompletionPoint_AtPrefixLeadingEdge_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="IsValidCompletionPoint_AtPrefixLeadingEdge_ReturnsFalse" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_InbetweenSelfClosingEnd_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_InbetweenSelfClosingEnd_ReturnsEmptyList" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_InbetweenSelfClosingEnd_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_InbetweenSelfClosingEnd_ReturnsEmptyList" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest.GetCompletionItems_ExistingAttribute_Partial_ReturnsEmptyList" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveAttributeTransitionCompletionItemProviderTest" method="GetCompletionItems_ExistingAttribute_Partial_ReturnsEmptyList" time="0.0020000" result="Pass">
@@ -628,11 +628,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" time="0.041">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.IsDirectiveCompletableToken_ReturnsFalseForInvalidCSharpTokens" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="IsDirectiveCompletableToken_ReturnsFalseForInvalidCSharpTokens" time="0.0020000" result="Pass">
+    <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" time="0.087">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.IsDirectiveCompletableToken_ReturnsFalseForInvalidCSharpTokens" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="IsDirectiveCompletableToken_ReturnsFalseForInvalidCSharpTokens" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.GetDirectiveCompletionItems_UsesDisplayNamesWhenNotNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="GetDirectiveCompletionItems_UsesDisplayNamesWhenNotNull" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.GetDirectiveCompletionItems_UsesDisplayNamesWhenNotNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="GetDirectiveCompletionItems_UsesDisplayNamesWhenNotNull" time="0.0410000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.GetDirectiveCompletionItems_ReturnsKnownDirectivesAsSnippets_SingleLine_Component(knownDirective: &quot;inject&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="GetDirectiveCompletionItems_ReturnsKnownDirectivesAsSnippets_SingleLine_Component(knownDirective: &quot;inject&quot;)" time="0.0020000" result="Pass">
@@ -662,7 +662,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.GetDirectiveCompletionItems_ReturnsKnownDirectivesAsSnippets_SingleLine_Component(knownDirective: &quot;attribute&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="GetDirectiveCompletionItems_ReturnsKnownDirectivesAsSnippets_SingleLine_Component(knownDirective: &quot;attribute&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseWhenInsideAttributeArea" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseWhenInsideAttributeArea" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseWhenInsideAttributeArea" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseWhenInsideAttributeArea" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.IsDirectiveCompletableToken_ReturnsTrueForCSharpMarkerTokens" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="IsDirectiveCompletableToken_ReturnsTrueForCSharpMarkerTokens" time="0.0010000" result="Pass">
@@ -695,10 +695,10 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.IsDirectiveCompletableToken_ReturnsFalseForNonCSharpTokens" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="IsDirectiveCompletableToken_ReturnsFalseForNonCSharpTokens" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseWhenInsideDirective" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseWhenInsideDirective" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseWhenInsideDirective" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseWhenInsideDirective" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseWhenInsideStatement" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseWhenInsideStatement" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseWhenInsideStatement" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseWhenInsideStatement" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest.ShouldProvideCompletions_ReturnsFalseForSimpleImplicitExpressions_WhenNotInvoked" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.DirectiveCompletionItemProviderTest" method="ShouldProvideCompletions_ReturnsFalseForSimpleImplicitExpressions_WhenNotInvoked" time="0.0010000" result="Pass">
@@ -723,29 +723,29 @@
         <traits />
       </test>
     </collection>
-    <collection total="39" passed="39" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" time="0.122">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_AppliedTagOutputHintDescriptorsReturnBoundAttributesWithExistingCompletionsForNonSchemaTags" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_AppliedTagOutputHintDescriptorsReturnBoundAttributesWithExistingCompletionsForNonSchemaTags" time="0.0280000" result="Pass">
+    <collection total="39" passed="39" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" time="0.114">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_AppliedTagOutputHintDescriptorsReturnBoundAttributesWithExistingCompletionsForNonSchemaTags" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_AppliedTagOutputHintDescriptorsReturnBoundAttributesWithExistingCompletionsForNonSchemaTags" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_AppliedDescriptorsReturnAllBoundAttributesWithExistingCompletionsForSchemaTags" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_AppliedDescriptorsReturnAllBoundAttributesWithExistingCompletionsForSchemaTags" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_AppliedDescriptorsReturnAllBoundAttributesWithExistingCompletionsForSchemaTags" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_AppliedDescriptorsReturnAllBoundAttributesWithExistingCompletionsForSchemaTags" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_DoesNotReturnAlreadySuppliedAttribute_IfCurrentAttributeDoesNotMatch" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_DoesNotReturnAlreadySuppliedAttribute_IfCurrentAttributeDoesNotMatch" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CatchAllsOnlyApplyToCompletionsStartingWithPrefix" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CatchAllsOnlyApplyToCompletionsStartingWithPrefix" time="0.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CatchAllsOnlyApplyToCompletionsStartingWithPrefix" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CatchAllsOnlyApplyToCompletionsStartingWithPrefix" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_EnsuresDescriptorsHaveSatisfiedParent" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_EnsuresDescriptorsHaveSatisfiedParent" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CombinesDescriptorsOnExistingCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CombinesDescriptorsOnExistingCompletions" time="0.0200000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CombinesDescriptorsOnExistingCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CombinesDescriptorsOnExistingCompletions" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_MustSatisfyAttributeRules_NoAttributes_AllowedIfNotHtml" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_MustSatisfyAttributeRules_NoAttributes_AllowedIfNotHtml" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_SomeTagHelpers" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_SomeTagHelpers" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_SomeTagHelpers" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_SomeTagHelpers" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_PossibleDescriptorsReturnBoundRequiredAttributesWithExistingCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_PossibleDescriptorsReturnBoundRequiredAttributesWithExistingCompletions" time="0.0020000" result="Pass">
@@ -760,10 +760,10 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_TagHelperPrefixIsPrependedToTagHelperCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_TagHelperPrefixIsPrependedToTagHelperCompletions" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_FiltersFullyQualifiedElementsIfShortNameExists" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_FiltersFullyQualifiedElementsIfShortNameExists" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_FiltersFullyQualifiedElementsIfShortNameExists" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_FiltersFullyQualifiedElementsIfShortNameExists" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_AppliedDescriptorsReturnBoundAttributesCompletionsForNonSchemaTags" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_AppliedDescriptorsReturnBoundAttributesCompletionsForNonSchemaTags" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_AppliedDescriptorsReturnBoundAttributesCompletionsForNonSchemaTags" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_AppliedDescriptorsReturnBoundAttributesCompletionsForNonSchemaTags" time="0.0320000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_DoesNotReturnCompletionsForAlreadySuppliedAttributes" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_DoesNotReturnCompletionsForAlreadySuppliedAttributes" time="0.0020000" result="Pass">
@@ -808,7 +808,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_AllowedChildrenAreIgnoredWhenAtRoot" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_AllowedChildrenAreIgnoredWhenAtRoot" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_MustSatisfyAttributeRules_WithAttributes" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_MustSatisfyAttributeRules_WithAttributes" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_MustSatisfyAttributeRules_WithAttributes" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_MustSatisfyAttributeRules_WithAttributes" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_IgnoresDirectiveAttributes" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_IgnoresDirectiveAttributes" time="0.0010000" result="Pass">
@@ -817,7 +817,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_NoContainingParentTag_DoesNotGetCompletionForRuleWithParentTag" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_NoContainingParentTag_DoesNotGetCompletionForRuleWithParentTag" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_OnlyIndexerNamePrefix" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_OnlyIndexerNamePrefix" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_OnlyIndexerNamePrefix" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_OnlyIndexerNamePrefix" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_NoDescriptorsReturnsExistingCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_NoDescriptorsReturnsExistingCompletions" time="0.0010000" result="Pass">
@@ -832,30 +832,30 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_NewCompletionsForSchemaTagsNotInExistingCompletionsAreIgnored" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_NewCompletionsForSchemaTagsNotInExistingCompletionsAreIgnored" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_AllowsMultiTargetingTagHelpers" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_AllowsMultiTargetingTagHelpers" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_AllowsMultiTargetingTagHelpers" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_AllowsMultiTargetingTagHelpers" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_AllTagHelpers" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_AllTagHelpers" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_AllTagHelpers" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetElementCompletions_CapturesAllAllowedChildTagsFromParentTagHelpers_AllTagHelpers" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_PossibleDescriptorsReturnUnboundRequiredAttributesWithExistingCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_PossibleDescriptorsReturnUnboundRequiredAttributesWithExistingCompletions" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest.GetAttributeCompletions_PossibleDescriptorsReturnUnboundRequiredAttributesWithExistingCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LanguageServerTagHelperCompletionServiceTest" method="GetAttributeCompletions_PossibleDescriptorsReturnUnboundRequiredAttributesWithExistingCompletions" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="68" passed="68" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" time="0.273">
+    <collection total="68" passed="68" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" time="0.281">
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.CreateDocumentation_PlainText_RendersUrlDirectly" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="CreateDocumentation_PlainText_RendersUrlDirectly" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ElementInfo_Baseline_NewerElement_HasLaterDate" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ElementInfo_Baseline_NewerElement_HasLaterDate" time="0.1480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ElementInfo_Baseline_NewerElement_HasLaterDate" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ElementInfo_Baseline_NewerElement_HasLaterDate" time="0.1460000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;table&gt;&lt;/t$$&quot;, itemLabel: &quot;/table&gt;&quot;, expected: &quot;&lt;table&gt;&lt;/table&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;table&gt;&lt;/t$$&quot;, itemLabel: &quot;/table&gt;&quot;, expected: &quot;&lt;table&gt;&lt;/table&gt;&quot;)" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;table&gt;&lt;/t$$&quot;, itemLabel: &quot;/table&gt;&quot;, expected: &quot;&lt;table&gt;&lt;/table&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;table&gt;&lt;/t$$&quot;, itemLabel: &quot;/table&gt;&quot;, expected: &quot;&lt;table&gt;&lt;/table&gt;&quot;)" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;$$&quot;, itemLabel: &quot;/div&gt;&quot;, expected: &quot;&lt;div&gt;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;$$&quot;, itemLabel: &quot;/div&gt;&quot;, expected: &quot;&lt;div&gt;&lt;/div&gt;&quot;)" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;$$&quot;, itemLabel: &quot;/div&gt;&quot;, expected: &quot;&lt;div&gt;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;$$&quot;, itemLabel: &quot;/div&gt;&quot;, expected: &quot;&lt;div&gt;&lt;/div&gt;&quot;)" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div dr$$&gt;&lt;/div&gt;&quot;, itemLabel: &quot;draggable&quot;, expected: &quot;&lt;div draggable=\&quot;$0\&quot;&gt;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div dr$$&gt;&lt;/div&gt;&quot;, itemLabel: &quot;draggable&quot;, expected: &quot;&lt;div draggable=\&quot;$0\&quot;&gt;&lt;/div&gt;&quot;)" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div dr$$&gt;&lt;/div&gt;&quot;, itemLabel: &quot;draggable&quot;, expected: &quot;&lt;div draggable=\&quot;$0\&quot;&gt;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div dr$$&gt;&lt;/div&gt;&quot;, itemLabel: &quot;draggable&quot;, expected: &quot;&lt;div draggable=\&quot;$0\&quot;&gt;&lt;/div&gt;&quot;)" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;input $$&gt;&quot;, itemLabel: &quot;disabled&quot;, expected: &quot;&lt;input disabled&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;input $$&gt;&quot;, itemLabel: &quot;disabled&quot;, expected: &quot;&lt;input disabled&gt;&quot;)" time="0.0010000" result="Pass">
@@ -867,10 +867,10 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;/$$&quot;, itemLabel: &quot;/div&gt;&quot;, expected: &quot;&lt;div&gt;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;/$$&quot;, itemLabel: &quot;/div&gt;&quot;, expected: &quot;&lt;div&gt;&lt;/div&gt;&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&amp;am$$;&lt;/div&gt;&quot;, itemLabel: &quot;&amp;amp; (&amp;)&quot;, expected: &quot;&lt;div&gt;&amp;amp;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&amp;am$$;&lt;/div&gt;&quot;, itemLabel: &quot;&amp;amp; (&amp;)&quot;, expected: &quot;&lt;div&gt;&amp;amp;&lt;/div&gt;&quot;)" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&amp;am$$;&lt;/div&gt;&quot;, itemLabel: &quot;&amp;amp; (&amp;)&quot;, expected: &quot;&lt;div&gt;&amp;amp;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&amp;am$$;&lt;/div&gt;&quot;, itemLabel: &quot;&amp;amp; (&amp;)&quot;, expected: &quot;&lt;div&gt;&amp;amp;&lt;/div&gt;&quot;)" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/$$&quot;, itemLabel: &quot;/span&gt;&quot;, expected: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/span&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/$$&quot;, itemLabel: &quot;/span&gt;&quot;, expected: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/span&gt;&quot;)" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/$$&quot;, itemLabel: &quot;/span&gt;&quot;, expected: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/span&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/$$&quot;, itemLabel: &quot;/span&gt;&quot;, expected: &quot;&lt;div&gt;&lt;p&gt;&lt;span&gt;&lt;/span&gt;&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div dr$$opzone=\&quot;\&quot;&gt;&lt;/div&gt;&quot;, itemLabel: &quot;draggable&quot;, expected: &quot;&lt;div draggable=\&quot;\&quot;&gt;&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ApplyCompletion_ProducesExpectedBuffer(markup: &quot;&lt;div dr$$opzone=\&quot;\&quot;&gt;&lt;/div&gt;&quot;, itemLabel: &quot;draggable&quot;, expected: &quot;&lt;div draggable=\&quot;\&quot;&gt;&lt;/div&gt;&quot;)" time="0.0010000" result="Pass">
@@ -903,7 +903,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ElementCompletion_InsideUnknownElement_ReturnsAllElements" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ElementCompletion_InsideUnknownElement_ReturnsAllElements" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_UnknownElement_UnknownAttribute_ReturnsEmpty" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_UnknownElement_UnknownAttribute_ReturnsEmpty" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_UnknownElement_UnknownAttribute_ReturnsEmpty" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_UnknownElement_UnknownAttribute_ReturnsEmpty" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeCompletion_NonBrowseableAttributes_NotShown" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeCompletion_NonBrowseableAttributes_NotShown" time="0.0010000" result="Pass">
@@ -921,7 +921,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ElementCompletion_InsideScript_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ElementCompletion_InsideScript_ReturnsNull" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_DataAttribute_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_DataAttribute_ReturnsNull" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_DataAttribute_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_DataAttribute_ReturnsNull" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_HasExternalCompletion_MultiValueAttribute_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_HasExternalCompletion_MultiValueAttribute_ReturnsNull" time="0.0010000" result="Pass">
@@ -939,7 +939,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_HasExternalCompletion_StyleAttribute_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_HasExternalCompletion_StyleAttribute_ReturnsNull" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_NonExternalCompletion_ReturnsValues" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_NonExternalCompletion_ReturnsValues" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_NonExternalCompletion_ReturnsValues" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_NonExternalCompletion_ReturnsValues" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_SvgElement_InsideSvg_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_SvgElement_InsideSvg_ReturnsNull" time="0.0010000" result="Pass">
@@ -987,7 +987,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_HasExternalCompletion_FilePathAttribute_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_HasExternalCompletion_FilePathAttribute_ReturnsNull" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_EnumeratedValues_ReturnsAll" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_EnumeratedValues_ReturnsAll" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.AttributeValueCompletion_EnumeratedValues_ReturnsAll" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="AttributeValueCompletion_EnumeratedValues_ReturnsAll" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest.ElementCompletion_DisallowedAncestor_AllowedOutsideAncestor" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.LocalHtmlCompletionProviderTest" method="ElementCompletion_DisallowedAncestor_AllowedOutsideAncestor" time="0.0010000" result="Pass">
@@ -1048,11 +1048,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="18" passed="18" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" time="0.045">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsMarkupTransitionCompletionItemInCodeBlockStartingTag" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsMarkupTransitionCompletionItemInCodeBlockStartingTag" time="0.0040000" result="Pass">
+    <collection total="18" passed="18" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" time="0.085">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsMarkupTransitionCompletionItemInCodeBlockStartingTag" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsMarkupTransitionCompletionItemInCodeBlockStartingTag" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInSingleLineTransitions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInSingleLineTransitions" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInSingleLineTransitions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInSingleLineTransitions" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsMarkupTransitionCompletionItemWithUnrelatedClosingTag" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsMarkupTransitionCompletionItemWithUnrelatedClosingTag" time="0.0010000" result="Pass">
@@ -1064,13 +1064,13 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemWhenOwnerIsExplicitExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemWhenOwnerIsExplicitExpression" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInNestedMarkupBlock" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInNestedMarkupBlock" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInNestedMarkupBlock" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInNestedMarkupBlock" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemWithSpaceAfterStartTag" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemWithSpaceAfterStartTag" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemWithSpaceAfterStartTag" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemWithSpaceAfterStartTag" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInExpression" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInExpression" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemWhenOwnerIsComplexExpression" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemWhenOwnerIsComplexExpression" time="0.0010000" result="Pass">
@@ -1079,7 +1079,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemWithSpaceAfterStartTagAndAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemWithSpaceAfterStartTagAndAttribute" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsMarkupTransitionCompletionItemInNestedCSharpBlock" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsMarkupTransitionCompletionItemInNestedCSharpBlock" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsMarkupTransitionCompletionItemInNestedCSharpBlock" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsMarkupTransitionCompletionItemInNestedCSharpBlock" time="0.0300000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest.GetCompletionItems_ReturnsEmptyCompletionItemInNestedMarkupContext" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.MarkupTransitionCompletionItemProviderTest" method="GetCompletionItems_ReturnsEmptyCompletionItemInNestedMarkupContext" time="0.0010000" result="Pass">
@@ -1104,83 +1104,83 @@
         <traits />
       </test>
     </collection>
-    <collection total="30" passed="30" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" time="0.574">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperAttribute_ForHtml_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperAttribute_ForHtml_ReturnsTrue" time="0.0560000" result="Pass">
+    <collection total="30" passed="30" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" time="0.752">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperAttribute_ForHtml_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperAttribute_ForHtml_ReturnsTrue" time="0.0580000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeTransition_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeTransition_ReturnsTrue" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeTransition_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeTransition_ReturnsTrue" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" time="0.1410000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.4745704] Resolved 8 completion items.
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$&quot;)" time="0.2180000" result="Pass">
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.4238673] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" time="0.0020000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.5949877] Resolved 8 completion items.
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$&quot;)" time="0.0090000" result="Pass">
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.5664470] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n&lt;div&gt;&lt;/div&gt;\r\n@f$$\r\n&quot;)" time="0.0020000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6050597] Resolved 8 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.5782968] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@$$\r\n&quot;)" time="0.0020000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6169218] Resolved 8 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.5881137] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" time="0.0020000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6267566] Resolved 8 completion items.
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$\r\n&quot;)" time="0.0010000" result="Pass">
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.5961674] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" time="0.0010000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6348278] Resolved 8 completion items.
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesDirectiveCompletionItems(documentText: &quot;@page\r\n@$$&quot;)" time="0.0020000" result="Pass">
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.6100168] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_DoesNotProvideInjectOnInvoked" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_DoesNotProvideInjectOnInvoked" time="0.0030000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6466532] Resolved 0 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.6238792] Resolved 0 completion items.
 
 </output>
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesInjectOnIncomplete_KeywordIn" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesInjectOnIncomplete_KeywordIn" time="0.0030000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6665432] Resolved 8 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.6352020] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" time="0.0110000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.6861971] Resolved 1 completion items.
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems_AttributeQuotesOff" time="0.0050000" result="Pass">
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:03.6478196] Resolved 1 completion items.
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" time="0.2390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeTransition_SerializationDoesNotThrow" time="0.3140000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperAttribute_ForBool_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperAttribute_ForBool_ReturnsTrue" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeParameter_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeParameter_ReturnsTrue" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttributeParameter_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttributeParameter_ReturnsTrue" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperAttributeItems" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperAttributeItems" time="0.0030000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:13.9797332] Resolved 1 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:04.0229777] Resolved 1 completion items.
 
 </output>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_PatternMatches_FilterText" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_PatternMatches_FilterText" time="0.0660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_PatternMatches_FilterText" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_PatternMatches_FilterText" time="0.0810000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperAttribute_ReturnsTrue" time="0.0010000" result="Pass">
@@ -1195,10 +1195,10 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_IncludesPreselectItems_BeyondCap" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_IncludesPreselectItems_BeyondCap" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_CapsAt1000Items_ByDefault" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_CapsAt1000Items_ByDefault" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_CapsAt1000Items_ByDefault" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_CapsAt1000Items_ByDefault" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttribute_ReturnsTrue" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_DirectiveAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_DirectiveAttribute_ReturnsTrue" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.TryConvert_TagHelperElement_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="TryConvert_TagHelperElement_ReturnsTrue" time="0.0010000" result="Pass">
@@ -1210,8 +1210,8 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.FilterCompletionItems_DoesNotFilter_WhenUnderLimit" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="FilterCompletionItems_DoesNotFilter_WhenUnderLimit" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperElementCompletionItems" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperElementCompletionItems" time="0.0080000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:14.1932157] Resolved 1 completion items.
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesTagHelperElementCompletionItems" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesTagHelperElementCompletionItems" time="0.0090000" result="Pass">
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:04.2624764] Resolved 1 completion items.
 
 </output>
         <traits />
@@ -1220,7 +1220,7 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionListAsync_ProvidesDirectiveCompletions_IncompleteTriggerOnDeletion" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionListAsync_ProvidesDirectiveCompletions_IncompleteTriggerOnDeletion" time="0.0030000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:14.2164149] Resolved 8 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:04.2874510] Resolved 8 completion items.
 
 </output>
         <traits />
@@ -1229,25 +1229,25 @@
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest.GetCompletionList_ProvidesInjectOnIncomplete" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProviderTest" method="GetCompletionList_ProvidesInjectOnIncomplete" time="0.0020000" result="Pass">
-        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [20:40:14.2372147] Resolved 8 completion items.
+        <output>[Microsoft.CodeAnalysis.Remote.Razor.Completion.RazorCompletionListProvider] [08:57:04.3093663] Resolved 8 completion items.
 
 </output>
         <traits />
       </test>
     </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" time="0.010">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest.GetCompletionItems_ParentTagConstraint_AttributeCompletedWhenParentMatches" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" method="GetCompletionItems_ParentTagConstraint_AttributeCompletedWhenParentMatches" time="0.0040000" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" time="0.212">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest.GetCompletionItems_ParentTagConstraint_AttributeCompletedWhenParentMatches" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" method="GetCompletionItems_ParentTagConstraint_AttributeCompletedWhenParentMatches" time="0.1950000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest.GetCompletionItems_EndTag_NoElementCompletions" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" method="GetCompletionItems_EndTag_NoElementCompletions" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest.GetCompletionItems_ParentTagConstraint_AttributeNotCompletedWhenParentDoesNotMatch" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" method="GetCompletionItems_ParentTagConstraint_AttributeNotCompletedWhenParentDoesNotMatch" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest.GetCompletionItems_ParentTagConstraint_AttributeNotCompletedWhenParentDoesNotMatch" type="Microsoft.CodeAnalysis.Remote.Razor.Completion.TagHelperCompletionProviderTest" method="GetCompletionItems_ParentTagConstraint_AttributeNotCompletedWhenParentDoesNotMatch" time="0.0140000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" time="0.069">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_ReturnsConvertedRange" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_ReturnsConvertedRange" time="0.0020000" result="Pass">
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" time="0.063">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_ReturnsConvertedRange" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_ReturnsConvertedRange" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_EndsOutsideOfDocument_NormalizesToEnd" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_EndsOutsideOfDocument_NormalizesToEnd" time="0.0010000" result="Pass">
@@ -1256,7 +1256,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_StartsOutsideOfDocument_NormalizesToEnd" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_StartsOutsideOfDocument_NormalizesToEnd" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.Convert_Converts" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="Convert_Converts" time="0.0490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.Convert_Converts" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="Convert_Converts" time="0.0410000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_ReturnsNullIfSpanIsUndefined" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_ReturnsNullIfSpanIsUndefined" time="0.0010000" result="Pass">
@@ -1265,15 +1265,15 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSpanToRange_StartsOutsideOfDocument_EmptyDocument_NormalizesTo0" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSpanToRange_StartsOutsideOfDocument_EmptyDocument_NormalizesTo0" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSeverity_WarningReturnsWarning" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSeverity_WarningReturnsWarning" time="0.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSeverity_WarningReturnsWarning" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSeverity_WarningReturnsWarning" time="0.0140000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest.ConvertSeverity_ErrorReturnsError" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.RazorDiagnosticHelperTest" method="ConvertSeverity_ErrorReturnsError" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" time="0.018">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.TODO_Multiline" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="TODO_Multiline" time="0.0150000" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" time="0.020">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.TODO_Multiline" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="TODO_Multiline" time="0.0170000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest.TODO" type="Microsoft.CodeAnalysis.Remote.Razor.Diagnostics.TaskListDiagnosticProviderTest" method="TODO" time="0.0010000" result="Pass">
@@ -1286,35 +1286,35 @@
         <traits />
       </test>
     </collection>
-    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" time="0.511">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element" time="0.1510000" result="Pass">
+    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" time="0.407">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element" time="0.0520000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Attribute_VSClient_ReturnVSHover" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Attribute_VSClient_ReturnVSHover" time="0.0560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Attribute_VSClient_ReturnVSHover" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Attribute_VSClient_ReturnVSHover" time="0.1020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AttributeEnd_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AttributeEnd_ReturnsNull" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AttributeEnd_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AttributeEnd_ReturnsNull" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_PlainTextAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_PlainTextAttribute" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_PlainTextAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_PlainTextAttribute" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_TextComponent_NestedInCSharpAndText" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_TextComponent_NestedInCSharpAndText" time="0.0820000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_TextComponent_NestedInCSharpAndText" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_TextComponent_NestedInCSharpAndText" time="0.0860000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AfterAttributeEquals_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AfterAttributeEquals_ReturnsNull" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AfterAttributeEquals_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AfterAttributeEquals_ReturnsNull" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Attribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Attribute" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Attribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Attribute" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_HTML_MarkupElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_HTML_MarkupElement" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_HTML_MarkupElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_HTML_MarkupElement" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_HTML_PlainTextElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_HTML_PlainTextElement" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_HTML_PlainTextElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_HTML_PlainTextElement" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_MalformedElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_MalformedElement" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_MalformedElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_MalformedElement" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_HTML_PlainTextAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_HTML_PlainTextAttribute" time="0.0050000" result="Pass">
@@ -1323,19 +1323,19 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_MalformedAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_MalformedAttribute" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_DirectiveAttribute_HasResult" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_DirectiveAttribute_HasResult" time="0.0440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_DirectiveAttribute_HasResult" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_DirectiveAttribute_HasResult" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AttributeValue_ReturnsNull" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AttributeValue_ReturnsNull" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element_EndTag" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element_EndTag" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element_EndTag" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element_EndTag" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AttributeTrailingEdge" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AttributeTrailingEdge" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_AttributeTrailingEdge" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_AttributeTrailingEdge" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Attribute_WithParent" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Attribute_WithParent" time="0.0310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Attribute_WithParent" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Attribute_WithParent" time="0.0300000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element_WithParent" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element_WithParent" time="0.0060000" result="Pass">
@@ -1344,16 +1344,16 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_PlainTextElement_EndTag" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_PlainTextElement_EndTag" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element_VSClient_ReturnVSHover" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element_VSClient_ReturnVSHover" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_Element_VSClient_ReturnVSHover" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_Element_VSClient_ReturnVSHover" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_TextComponent" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_TextComponent" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_TextComponent" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_TextComponent" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_TextComponent_NestedInCSharp" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_TextComponent_NestedInCSharp" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_MinimizedAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_MinimizedAttribute" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_MinimizedAttribute" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_MinimizedAttribute" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest.GetHoverAsync_TagHelper_PlainTextElement" type="Microsoft.CodeAnalysis.Remote.Razor.Hover.HoverFactoryTest" method="GetHoverAsync_TagHelper_PlainTextElement" time="0.0050000" result="Pass">
@@ -1363,26 +1363,26 @@
         <traits />
       </test>
     </collection>
-    <collection total="17" passed="17" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" time="0.171">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanSummaryContent_ClassifiedTextElement_TrimsSurroundingWhitespace" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanSummaryContent_ClassifiedTextElement_TrimsSurroundingWhitespace" time="0.0360000" result="Pass">
+    <collection total="17" passed="17" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" time="0.060">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanSummaryContent_ClassifiedTextElement_TrimsSurroundingWhitespace" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanSummaryContent_ClassifiedTextElement_TrimsSurroundingWhitespace" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_NoAssociatedAttributeDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_NoAssociatedAttributeDescriptions_ReturnsFalse" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_NoAssociatedAttributeDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_NoAssociatedAttributeDescriptions_ReturnsFalse" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" time="0.0350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanSummaryContent_ClassifiedTextElement_ReplacesSeeAlsoCrefs" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanSummaryContent_ClassifiedTextElement_ReplacesSeeAlsoCrefs" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanSummaryContent_ClassifiedTextElement_ReplacesSeeAlsoCrefs" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanSummaryContent_ClassifiedTextElement_ReplacesSeeAlsoCrefs" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_Attribute_SingleAssociatedAttribute_ReturnsTrue_NestedTypes" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_Attribute_SingleAssociatedAttribute_ReturnsTrue_NestedTypes" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ContainerElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ContainerElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" time="0.0360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ContainerElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ContainerElement_Attribute_MultipleAssociatedAttributes_ReturnsTrue" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_Element_MultipleAssociatedTagHelpers_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_Element_MultipleAssociatedTagHelpers_ReturnsTrue" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_Element_MultipleAssociatedTagHelpers_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_Element_MultipleAssociatedTagHelpers_ReturnsTrue" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ContainerElement_NoAssociatedAttributeDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ContainerElement_NoAssociatedAttributeDescriptions_ReturnsFalse" time="0.0010000" result="Pass">
@@ -1397,13 +1397,13 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanSummaryContent_ClassifiedTextElement_ClassifiesCodeBlocks" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanSummaryContent_ClassifiedTextElement_ClassifiesCodeBlocks" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ClassifiedTextElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ClassifiedTextElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ContainerElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ContainerElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.TryCreateTooltip_ContainerElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="TryCreateTooltip_ContainerElement_NoAssociatedTagHelperDescriptions_ReturnsFalse" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanAndClassifySummaryContent_ClassifiedTextElement_ReplacesSeeCrefs" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanAndClassifySummaryContent_ClassifiedTextElement_ReplacesSeeCrefs" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanAndClassifySummaryContent_ClassifiedTextElement_ReplacesSeeCrefs" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanAndClassifySummaryContent_ClassifiedTextElement_ReplacesSeeCrefs" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest.CleanSummaryContent_ClassifiedTextElement_ParasCreateNewLines" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.ClassifiedTagHelperTooltipFactoryTest" method="CleanSummaryContent_ClassifiedTextElement_ParasCreateNewLines" time="0.0010000" result="Pass">
@@ -1416,8 +1416,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests" time="0.028">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests.ReduceMemberName_Generics" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests" method="ReduceMemberName_Generics" time="0.0040000" result="Pass">
+    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests" time="0.029">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests.ReduceMemberName_Generics" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests" method="ReduceMemberName_Generics" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests.TryExtractSummary_XMLButNoSummary_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.DocCommentHelperTests" method="TryExtractSummary_XMLButNoSummary_ReturnsFalse" time="0.0010000" result="Pass">
@@ -1493,14 +1493,14 @@
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" time="0.015">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_NoAssociatedTagHelperDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_NoAssociatedTagHelperDescriptions_ReturnsFalse" time="0.0020000" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" time="0.059">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_NoAssociatedTagHelperDescriptions_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_NoAssociatedTagHelperDescriptions_ReturnsFalse" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.CleanSummaryContent_Markup_TrimsSurroundingWhitespace" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="CleanSummaryContent_Markup_TrimsSurroundingWhitespace" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.CleanSummaryContent_Markup_TrimsSurroundingWhitespace" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="CleanSummaryContent_Markup_TrimsSurroundingWhitespace" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_Element_PlainText_NoBold" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_Element_PlainText_NoBold" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_Element_PlainText_NoBold" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_Element_PlainText_NoBold" time="0.0390000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_Element_SingleAssociatedTagHelper_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_Element_SingleAssociatedTagHelper_ReturnsTrue" time="0.0020000" result="Pass">
@@ -1509,7 +1509,7 @@
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.CleanSummaryContent_Markup_ReplacesSeeCrefs" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="CleanSummaryContent_Markup_ReplacesSeeCrefs" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_Attribute_SingleAssociatedAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_Attribute_SingleAssociatedAttribute_ReturnsTrue" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_Attribute_SingleAssociatedAttribute_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_Attribute_SingleAssociatedAttribute_ReturnsTrue" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest.TryCreateTooltip_Markup_Attribute_MultipleAssociatedAttributes_ReturnsTrue" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.MarkupTagHelperTooltipFactoryTest" method="TryCreateTooltip_Markup_Attribute_MultipleAssociatedAttributes_ReturnsTrue" time="0.0010000" result="Pass">
@@ -1525,8 +1525,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest" time="0.006">
-      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest.TryGetSimpleName_NonPrimitiveType_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest" method="TryGetSimpleName_NonPrimitiveType_ReturnsFalse" time="0.0030000" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest" time="0.005">
+      <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest.TryGetSimpleName_NonPrimitiveType_ReturnsFalse" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest" method="TryGetSimpleName_NonPrimitiveType_ReturnsFalse" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest.GetSimpleName_SimplifiesPrimitiveTypes_ReturnsTrue(typeName: &quot;System.Int32&quot;, expectedTypeName: &quot;int&quot;)" type="Microsoft.CodeAnalysis.Remote.Razor.Tooltip.TypeNameStringResolverTest" method="GetSimpleName_SimplifiesPrimitiveTypes_ReturnsTrue(typeName: &quot;System.Int32&quot;, expectedTypeName: &quot;int&quot;)" time="0.0010000" result="Pass">

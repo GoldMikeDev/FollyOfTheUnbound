@@ -10,53 +10,57 @@ vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\b
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost (35468).
-[xUnit.net 00:01:07.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [1 ms]
-[xUnit.net 00:01:51.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.AnonymousTypesCodeGenTests.TestAnonymousTypeWithOptionInferOn [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.AnonymousTypesCodeGenTests.TestAnonymousTypeWithOptionInferOn [1 ms]
-[xUnit.net 00:01:58.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalWithNothing [SKIP]
-[xUnit.net 00:01:58.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDecimal [SKIP]
-[xUnit.net 00:01:58.60]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDateTime [SKIP]
-[xUnit.net 00:01:58.60]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestPropertyIntegerOptionalDouble [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalWithNothing [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDecimal [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDateTime [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestPropertyIntegerOptionalDouble [1 ms]
-[xUnit.net 00:01:58.68]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeConstantAttribute [SKIP]
-[xUnit.net 00:01:58.68]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeOptionalAttributeConstantAttribute [SKIP]
-[xUnit.net 00:01:58.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestMultipleEnumDefaultValuesFromMetadata [SKIP]
-[xUnit.net 00:01:58.85]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestIntegerOptionalAttribute [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeConstantAttribute [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeOptionalAttributeConstantAttribute [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestMultipleEnumDefaultValuesFromMetadata [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestIntegerOptionalAttribute [1 ms]
-[xUnit.net 00:01:59.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalInteger [SKIP]
-[xUnit.net 00:01:59.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalString [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalInteger [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalString [1 ms]
-[xUnit.net 00:02:04.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.TestMSVBTypeNameAPI [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.TestMSVBTypeNameAPI [1 ms]
-[xUnit.net 00:02:08.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.ParameterByRefVal [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.ParameterByRefVal [1 ms]
-[xUnit.net 00:02:10.74]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.Bug529162 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.Bug529162 [1 ms]
-[xUnit.net 00:02:27.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenConstLocal.TruncatePrecisionFloat [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenConstLocal.TruncatePrecisionFloat [1 ms]
-[xUnit.net 00:02:31.38]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [1 ms]
-[xUnit.net 00:02:33.36]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [1 ms]
-[xUnit.net 00:02:33.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.ErrorHandler_Error_InMethodWithSyncLockBlock [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.ErrorHandler_Error_InMethodWithSyncLockBlock [1 ms]
-[xUnit.net 00:02:34.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.SingleFileWithNoMethodBody [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.SingleFileWithNoMethodBody [1 ms]
-[xUnit.net 00:02:34.79]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.InvalidCharacterInPdbPath [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.InvalidCharacterInPdbPath [1 ms]
-[xUnit.net 00:02:46.59]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.FilesOneWithNoMethodBody [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.FilesOneWithNoMethodBody [1 ms]
+Blame: Attaching crash dump utility to process testhost (282548).
+[xUnit.net 00:01:04.85]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [1 ms]
+[xUnit.net 00:01:19.33]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [1 ms]
+[xUnit.net 00:01:20.40]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [1 ms]
+[xUnit.net 00:01:23.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [SKIP]
+[xUnit.net 00:01:23.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [1 ms]
+[xUnit.net 00:01:26.44]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [1 ms]
+[xUnit.net 00:01:29.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [1 ms]
+[xUnit.net 00:01:29.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [1 ms]
+[xUnit.net 00:02:37.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.MidAssignment [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.MidAssignment [1 ms]
+[xUnit.net 00:02:38.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [1 ms]
 Test Logger: Unable to parse one or more test names provided by your test runner. These will be logged using Namespace='UnknownNamespace', Type='UnknownType'. The entire test name will be used as the Method name. Please open a ticket so we can review this issue
-  Failed InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [96 ms]
+[xUnit.net 00:03:23.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.AnonymousTypesCodeGenTests.TestAnonymousTypeWithOptionInferOn [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.AnonymousTypesCodeGenTests.TestAnonymousTypeWithOptionInferOn [1 ms]
+[xUnit.net 00:03:47.30]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug_14402 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug_14402 [1 ms]
+[xUnit.net 00:03:49.83]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Checked_Like [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Checked_Like [1 ms]
+[xUnit.net 00:03:50.79]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Relaxation02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Relaxation02 [1 ms]
+[xUnit.net 00:04:00.96]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_02 [1 ms]
+[xUnit.net 00:04:58.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Unchecked_Like [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Unchecked_Like [1 ms]
+[xUnit.net 00:04:59.52]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_01 [1 ms]
+[xUnit.net 00:05:13.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.TestMSVBTypeNameAPI [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.TestMSVBTypeNameAPI [1 ms]
+[xUnit.net 00:05:18.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.ParameterByRefVal [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.ParameterByRefVal [1 ms]
+[xUnit.net 00:05:21.32]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.Bug529162 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.Bug529162 [1 ms]
+[xUnit.net 00:05:43.04]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [SKIP]
+[xUnit.net 00:05:43.04]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [1 ms]
+[xUnit.net 00:05:43.16]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [1 ms]
+[xUnit.net 00:05:44.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [1 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [36 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -65,7 +69,7 @@ Actual:   False
      at InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 990
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [33 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [38 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -74,7 +78,7 @@ Actual:   False
      at InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 990
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSuccessThroughIAssembly(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [110 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [121 ms]
   Error Message:
    
 Expected:
@@ -90,7 +94,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1528
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [59 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [79 ms]
   Error Message:
    
 Expected:
@@ -106,7 +110,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1528
    at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine_1(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [57 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [64 ms]
   Error Message:
    
 Expected:
@@ -122,7 +126,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1500
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [81 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [62 ms]
   Error Message:
    
 Expected:
@@ -138,7 +142,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1500
    at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerCmdLine(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [31 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [70 ms]
   Error Message:
    
 Expected:
@@ -156,7 +160,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.IVTSigned(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 754
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [28 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTSigned(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [55 ms]
   Error Message:
    
 Expected:
@@ -174,7 +178,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.IVTSigned(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 754
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTSigned(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [34 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [31 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -183,7 +187,7 @@ Actual:   False
      at InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 891
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [28 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [43 ms]
   Error Message:
    Assert.True() Failure
 Expected: True
@@ -192,7 +196,7 @@ Actual:   False
      at InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 891
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredSuccess(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [64 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [56 ms]
   Error Message:
    System.AggregateException : One or more errors occurred. (
 MISSING ERROR MESSAGES:
@@ -224,7 +228,7 @@ BC36981: Error extracting public key from container 'roslynTestContainer': Keyse
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
 ----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
    at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 115
-  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [28 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailSignMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [36 ms]
   Error Message:
    System.AggregateException : One or more errors occurred. (
 MISSING ERROR MESSAGES:
@@ -256,9 +260,9 @@ BC36981: Error extracting public key from container 'roslynTestContainer': Keyse
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
 ----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
    at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 115
-[xUnit.net 00:04:21.12]     InternalsVisibleToAndStrongNameTests.MaxSizeKey [SKIP]
+[xUnit.net 00:05:53.90]     InternalsVisibleToAndStrongNameTests.MaxSizeKey [SKIP]
   Skipped InternalsVisibleToAndStrongNameTests.MaxSizeKey [1 ms]
-  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [70 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [120 ms]
   Error Message:
    
 Expected:
@@ -274,7 +278,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1476
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [60 ms]
+  Failed InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [133 ms]
   Error Message:
    
 Expected:
@@ -290,7 +294,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 1476
    at InvokeStub_InternalsVisibleToAndStrongNameTests.SignModuleKeyContainerAttr(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [25 ms]
+  Failed InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [34 ms]
   Error Message:
    
 Expected:
@@ -306,7 +310,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 160
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [28 ms]
+  Failed InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [27 ms]
   Error Message:
    
 Expected:
@@ -322,7 +326,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 160
    at InvokeStub_InternalsVisibleToAndStrongNameTests.PubKeyFromKeyContainerAttribute(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-  Failed InternalsVisibleToAndStrongNameTests.BadInputStream [30 ms]
+  Failed InternalsVisibleToAndStrongNameTests.BadInputStream [38 ms]
   Error Message:
    
 Expected:
@@ -338,8 +342,9 @@ Diff:
    at Microsoft.CodeAnalysis.DiagnosticExtensions.Verify(ImmutableArray`1 actual, DiagnosticDescription[] expected) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Diagnostics\DiagnosticExtensions.cs:line 63
    at InternalsVisibleToAndStrongNameTests.BadInputStream() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\EmitTestStrongNameProvider.vb:line 38
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [42 ms]
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [], Kind = Regular, Language = "Visual Basic", ··· }) [64 ms]
   Error Message:
    
 Expected:
@@ -355,7 +360,7 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 944
    at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
    at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
-  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [49 ms]
+  Failed InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(parseOptions: VisualBasicParseOptions { DocumentationMode = Parse, Errors = [], Features = [["UseLegacyStrongNameProvider"] = "True"], Kind = Regular, Language = "Visual Basic", ··· }) [80 ms]
   Error Message:
    
 Expected:
@@ -371,152 +376,148 @@ Diff:
    at InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(VisualBasicParseOptions parseOptions) in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\Attributes\InternalsVisibleToAndStrongNameTests.vb:line 944
    at InvokeStub_InternalsVisibleToAndStrongNameTests.IVTDeferredFailKeyMismatch(Object, Span`1)
    at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
-[xUnit.net 00:04:26.12]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericType [SKIP]
-[xUnit.net 00:04:26.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoLabels [SKIP]
-[xUnit.net 00:04:26.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [SKIP]
+[xUnit.net 00:05:58.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.Error_ErrorHandler_WithGoto1andMatchingLabel [1 ms]
+[xUnit.net 00:05:59.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.ErrorHandler_Error_InMethodWithSyncLockBlock [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ErrorHandlingTests.ErrorHandler_Error_InMethodWithSyncLockBlock [1 ms]
+[xUnit.net 00:06:02.82]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.LiftedBinaryConcatLikeWithNothingLiteral [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.LiftedBinaryConcatLikeWithNothingLiteral [1 ms]
+[xUnit.net 00:06:25.59]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_03 [1 ms]
+[xUnit.net 00:06:28.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_02 [1 ms]
+[xUnit.net 00:06:34.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenConstLocal.TruncatePrecisionFloat [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenConstLocal.TruncatePrecisionFloat [1 ms]
+[xUnit.net 00:06:35.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithBlock.TestWith_MyBase [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithBlock.TestWith_MyBase [1 ms]
+[xUnit.net 00:06:51.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [1 ms]
+[xUnit.net 00:07:06.86]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_WellKnownAttributes.TestWindowsRuntimeImportAttribute [1 ms]
+[xUnit.net 00:07:18.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalWithNothing [SKIP]
+[xUnit.net 00:07:18.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDecimal [SKIP]
+[xUnit.net 00:07:18.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDateTime [SKIP]
+[xUnit.net 00:07:19.00]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestPropertyIntegerOptionalDouble [SKIP]
+[xUnit.net 00:07:19.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeConstantAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalWithNothing [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDecimal [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalDateTime [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestPropertyIntegerOptionalDouble [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeConstantAttribute [1 ms]
+[xUnit.net 00:07:19.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeOptionalAttributeConstantAttribute [SKIP]
+[xUnit.net 00:07:19.07]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestMultipleEnumDefaultValuesFromMetadata [SKIP]
+[xUnit.net 00:07:19.50]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestIntegerOptionalAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestDateTimeOptionalAttributeConstantAttribute [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestMultipleEnumDefaultValuesFromMetadata [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestIntegerOptionalAttribute [1 ms]
+[xUnit.net 00:07:20.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalInteger [SKIP]
+[xUnit.net 00:07:20.20]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalString [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalInteger [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestOptionalString [1 ms]
+[xUnit.net 00:07:34.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [1 ms]
+[xUnit.net 00:07:58.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [1 ms]
+[xUnit.net 00:08:00.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorLinqQueryTest [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorLinqQueryTest [1 ms]
+[xUnit.net 00:08:00.87]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests [SKIP]
+[xUnit.net 00:08:01.26]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests [SKIP]
+[xUnit.net 00:08:01.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests [1 ms]
+[xUnit.net 00:08:03.79]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.AssignArrayToArray [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.AssignArrayToArray [1 ms]
+[xUnit.net 00:08:04.54]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.InitializemultiDimensionalArray [SKIP]
+[xUnit.net 00:08:04.54]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.MixedArray [SKIP]
+[xUnit.net 00:08:04.54]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.ArrayCreateAsAnonymous [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.InitializemultiDimensionalArray [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.MixedArray [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.ArrayCreateAsAnonymous [1 ms]
+[xUnit.net 00:08:06.28]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.SingleFileWithNoMethodBody [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.SingleFileWithNoMethodBody [1 ms]
+[xUnit.net 00:08:06.62]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.InvalidCharacterInPdbPath [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.InvalidCharacterInPdbPath [1 ms]
+[xUnit.net 00:08:18.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.FilesOneWithNoMethodBody [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.FilesOneWithNoMethodBody [1 ms]
+[xUnit.net 00:08:59.16]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274_1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274_1 [1 ms]
+[xUnit.net 00:09:00.10]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274 [1 ms]
+[xUnit.net 00:09:00.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Regress14722 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Regress14722 [1 ms]
+[xUnit.net 00:09:03.03]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Implicit_01 [SKIP]
+[xUnit.net 00:09:03.11]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Checked_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Implicit_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Checked_01 [1 ms]
+[xUnit.net 00:09:03.23]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_CheckedImplicit_01 [SKIP]
+[xUnit.net 00:09:03.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_CheckedImplicit_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_CheckedImplicit_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_CheckedImplicit_01 [1 ms]
+[xUnit.net 00:09:03.63]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Implicit_01 [SKIP]
+[xUnit.net 00:09:03.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Checked_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Implicit_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Checked_01 [1 ms]
+[xUnit.net 00:09:03.93]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_01 [SKIP]
+[xUnit.net 00:09:04.00]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_01 [1 ms]
+[xUnit.net 00:09:16.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericType [SKIP]
+[xUnit.net 00:09:16.12]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoLabels [SKIP]
+[xUnit.net 00:09:16.12]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [SKIP]
+[xUnit.net 00:09:16.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [SKIP]
+[xUnit.net 00:09:16.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [SKIP]
+[xUnit.net 00:09:16.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [SKIP]
+[xUnit.net 00:09:16.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericType [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.ERL_Property_CodeGenVerify [1 ms]
-[xUnit.net 00:04:26.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [SKIP]
-[xUnit.net 00:04:26.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [SKIP]
-[xUnit.net 00:04:26.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [SKIP]
-[xUnit.net 00:04:26.16]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [SKIP]
-[xUnit.net 00:04:26.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InheritanceScenario [SKIP]
-[xUnit.net 00:04:26.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonSequentialLineNumbers [SKIP]
-[xUnit.net 00:04:26.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [SKIP]
-[xUnit.net 00:04:26.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NoHandlerOnInner_WithDuplicateLabelInDifferentMethod [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlersWithResume [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedLambdasAndLabelInLambdaSameLabelInCallerAndLambda [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinAsyncMethods [1 ms]
+[xUnit.net 00:09:16.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InheritanceScenario [SKIP]
+[xUnit.net 00:09:16.17]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonSequentialLineNumbers [SKIP]
+[xUnit.net 00:09:16.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [SKIP]
+[xUnit.net 00:09:16.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [SKIP]
+[xUnit.net 00:09:16.19]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [SKIP]
+[xUnit.net 00:09:16.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [SKIP]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InheritanceScenario [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonSequentialLineNumbers [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelIntegerMaxValueValue [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_MultipleHandlers [1 ms]
-[xUnit.net 00:04:26.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [SKIP]
-[xUnit.net 00:04:26.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [SKIP]
-[xUnit.net 00:04:26.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [SKIP]
-[xUnit.net 00:04:26.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericTypeSharedMethod [SKIP]
-[xUnit.net 00:04:26.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilCleared [SKIP]
-[xUnit.net 00:04:26.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_UnhandledErrorDontBubbleUp [SKIP]
-[xUnit.net 00:04:26.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelGreaterThanIntegerMaxValueValue [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatchNoPropagateToOuter [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodWithDelegate [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InClassAndStructureTypes [1 ms]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericTypeSharedMethod [SKIP]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilCleared [SKIP]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_UnhandledErrorDontBubbleUp [SKIP]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelGreaterThanIntegerMaxValueValue [SKIP]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [SKIP]
+[xUnit.net 00:09:16.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [SKIP]
+[xUnit.net 00:09:16.30]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [SKIP]
+[xUnit.net 00:09:16.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_InGenericTypeSharedMethod [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilCleared [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_UnhandledErrorDontBubbleUp [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_LabelGreaterThanIntegerMaxValueValue [1 ms]
-[xUnit.net 00:04:26.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [SKIP]
-[xUnit.net 00:04:26.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [SKIP]
-[xUnit.net 00:04:26.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [SKIP]
-[xUnit.net 00:04:26.34]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [SKIP]
-[xUnit.net 00:04:26.34]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_ThrowExceptionInsteadOfErrorRaiseLambdaInvocation [SKIP]
-[xUnit.net 00:04:26.34]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [SKIP]
-[xUnit.net 00:04:26.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [SKIP]
-[xUnit.net 00:04:26.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_WithinIteratorMethods [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NonNumericLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CollectionInitializer [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_OnErrorRetainsValueUntilClearedWithClear [1 ms]
+[xUnit.net 00:09:16.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_ThrowExceptionInsteadOfErrorRaiseLambdaInvocation [SKIP]
+[xUnit.net 00:09:16.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [SKIP]
+[xUnit.net 00:09:16.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [SKIP]
+[xUnit.net 00:09:16.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [SKIP]
+[xUnit.net 00:09:16.32]     VisualBasicDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [SKIP]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_ThrowExceptionInsteadOfErrorRaiseLambdaInvocation [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_SimpleBehaviourMultipleLabels [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_CallingMethodThroughInterface [1 ms]
   Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenUnstructuredErrorHandling.Erl_Property_NestedTryCatch [1 ms]
-[xUnit.net 00:04:32.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.MidAssignment [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.MidAssignment [1 ms]
-[xUnit.net 00:04:32.90]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [1 ms]
-[xUnit.net 00:07:00.30]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorLinqQueryTest [SKIP]
-[xUnit.net 00:07:00.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorLinqQueryTest [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests [1 ms]
-[xUnit.net 00:07:00.95]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests [SKIP]
-[xUnit.net 00:07:01.16]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests [1 ms]
-[xUnit.net 00:07:01.54]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.LiftedBinaryConcatLikeWithNothingLiteral [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.LiftedBinaryConcatLikeWithNothingLiteral [1 ms]
-[xUnit.net 00:07:24.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_03 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_03 [1 ms]
-[xUnit.net 00:07:25.98]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_02 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenNullable.BooleanExpression_02 [1 ms]
-[xUnit.net 00:09:24.79]     VisualBasicDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [SKIP]
   Skipped VisualBasicDeterministicBuildCompilationTests.PortablePdb_DeterministicCompilationWithSJIS [1 ms]
-[xUnit.net 00:09:33.46]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug_14402 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug_14402 [1 ms]
-[xUnit.net 00:09:36.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Checked_Like [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Checked_Like [1 ms]
-[xUnit.net 00:09:38.49]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Relaxation02 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Relaxation02 [1 ms]
-[xUnit.net 00:09:50.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_02 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_02 [1 ms]
-[xUnit.net 00:11:00.24]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Unchecked_Like [SKIP]
-[xUnit.net 00:11:01.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.TestBinaryOperator_Unchecked_Like [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExprLambda.Bug808608_01 [1 ms]
-[xUnit.net 00:11:35.04]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWinMdEvents.FieldLikeEventSerialization [1 ms]
-[xUnit.net 00:11:42.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [SKIP]
-[xUnit.net 00:11:42.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [SKIP]
-[xUnit.net 00:11:42.39]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [1 ms]
-[xUnit.net 00:11:43.64]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [1 ms]
-[xUnit.net 00:11:49.56]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.StaticLocalsSemanticTests.Semantic_InFinalizer [1 ms]
-[xUnit.net 00:12:04.10]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Implicit_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Implicit_01 [1 ms]
-[xUnit.net 00:12:04.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Checked_01 [SKIP]
-[xUnit.net 00:12:04.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_CheckedImplicit_01 [SKIP]
-[xUnit.net 00:12:04.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_CheckedImplicit_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_Checked_01 [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_CheckedImplicit_01 [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_CheckedImplicit_01 [1 ms]
-[xUnit.net 00:12:04.99]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Implicit_01 [SKIP]
-[xUnit.net 00:12:05.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Checked_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Implicit_01 [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Checked_01 [1 ms]
-[xUnit.net 00:12:05.42]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_01 [SKIP]
-[xUnit.net 00:12:05.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_01 [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenExpression.CIntInt_Single_01 [1 ms]
-[xUnit.net 00:12:07.97]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.AssignArrayToArray [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.AssignArrayToArray [1 ms]
-[xUnit.net 00:12:08.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.InitializemultiDimensionalArray [SKIP]
-[xUnit.net 00:12:08.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.MixedArray [SKIP]
-[xUnit.net 00:12:08.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.ArrayCreateAsAnonymous [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.InitializemultiDimensionalArray [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.MixedArray [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenMultiDimensionalArray.ArrayCreateAsAnonymous [1 ms]
-[xUnit.net 00:12:09.04]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274_1 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274_1 [1 ms]
-[xUnit.net 00:12:11.01]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Bug18274 [1 ms]
-[xUnit.net 00:12:11.19]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Regress14722 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenLateBound.Regress14722 [1 ms]
-[xUnit.net 00:12:13.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithBlock.TestWith_MyBase [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithBlock.TestWith_MyBase [1 ms]
-[xUnit.net 00:12:45.42]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [1 ms]
-[xUnit.net 00:13:03.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [1 ms]
-[xUnit.net 00:13:05.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [1 ms]
-[xUnit.net 00:13:09.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [SKIP]
-[xUnit.net 00:13:09.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [1 ms]
-[xUnit.net 00:13:12.88]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [1 ms]
-[xUnit.net 00:13:18.18]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [1 ms]
-[xUnit.net 00:13:18.26]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.xml
 Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_34_x64_test_results.html
 
-Failed!  - Failed:    19, Passed:  4217, Skipped:    95, Total:  4331, Duration: 13 m 23 s - Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll (net10.0)
+Failed!  - Failed:    19, Passed:  4217, Skipped:    95, Total:  4331, Duration: 9 m 14 s - Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll (net10.0)
