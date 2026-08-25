@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -60,10 +61,38 @@ internal sealed class MaterializedLspWorkspace
         if (content.ShouldRestore)
         {
             foreach (var projectPath in content.Files.Keys.Where(static path => PathUtilities.GetExtension(path) == ".csproj"))
-                ProcessUtilities.Run("dotnet", $"restore --project \"{GetFullPath(rootPath, projectPath)}\"");
+                RunRestoreWithTimeout(GetFullPath(rootPath, projectPath));
         }
 
         return new MaterializedLspWorkspace(content, rootPath, annotatedLocations);
+    }
+
+    /// <summary>
+    /// Runs `dotnet restore` for a project, bounded by <see cref="TestHelpers.HangMitigatingTimeout"/>.
+    /// This intentionally does not use the shared <see cref="ProcessUtilities.Run(string, string, string, System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{string, string}}, string, bool)"/>
+    /// helper, which blocks on <see cref="Process.WaitForExit()"/> with no timeout at all: a genuinely hung or
+    /// slow `dotnet restore` (e.g. a flaky network) would otherwise block this call for the entire test-host
+    /// Blame timeout (tens of minutes) rather than failing fast with a clear assertion.
+    /// </summary>
+    private static void RunRestoreWithTimeout(string projectPath)
+    {
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = "dotnet",
+            Arguments = $"restore --project \"{projectPath}\"",
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+        };
+
+        using var process = Process.Start(startInfo)!;
+
+        if (!process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds))
+        {
+            process.Kill(entireProcessTree: true);
+            throw new TimeoutException($"'dotnet restore' for '{projectPath}' did not complete within {TestHelpers.HangMitigatingTimeout}.");
+        }
     }
 
     public string GetFullPath(string relativePath)
