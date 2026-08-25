@@ -1,0 +1,29 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_26_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_26_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\26
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost (183760).
+[xUnit.net 00:03:50.00]     Microsoft.CodeAnalysis.LanguageServer.UnitTests.SharedMetadataReferenceCacheTests.PathsDifferingOnlyByCase_DoNotShareReferenceOnCaseSensitiveFileSystem [SKIP]
+  Skipped Microsoft.CodeAnalysis.LanguageServer.UnitTests.SharedMetadataReferenceCacheTests.PathsDifferingOnlyByCase_DoNotShareReferenceOnCaseSensitiveFileSystem [1 ms]
+  Failed Microsoft.CodeAnalysis.LanguageServer.UnitTests.SharedMetadataReferenceCacheTests.ChangedTimestamp_DoesNotShareReference [754 ms]
+  Error Message:
+   System.IO.IOException : The requested operation cannot be performed on a file with a user-mapped section open. : 'C:\Users\LA_mhole\AppData\Local\Temp\RoslynTests\a69b89e0-248d-4b04-8547-8d4c86395fd2\reference.dll'.
+  Stack Trace:
+     at System.IO.FileSystem.CopyFile(String sourceFullPath, String destFullPath, Boolean overwrite)
+   at Microsoft.CodeAnalysis.LanguageServer.UnitTests.SharedMetadataReferenceCacheTests.ChangedTimestamp_DoesNotShareReference() in C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\src\LanguageServer\Microsoft.CodeAnalysis.LanguageServer.UnitTests\HostWorkspace\SharedMetadataReferenceCacheTests.cs:line 85
+   at System.RuntimeMethodHandle.InvokeMethod(ObjectHandleOnStack target, Void** arguments, ObjectHandleOnStack sig, BOOL isConstructor, ObjectHandleOnStack result)
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_26_x64_test_results.xml
+Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_26_x64_test_results.html
+
+Failed!  - Failed:     1, Passed:   396, Skipped:     1, Total:   398, Duration: 23 m 37 s - Microsoft.CodeAnalysis.LanguageServer.UnitTests.dll (net10.0)

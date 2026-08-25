@@ -1,0 +1,23 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost (111508).
+Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
+Results File: C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
+Html test results file : C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
+
+
+Attachments:
+  C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\6146885e-ccdd-4e1a-8bd9-1454925f2c6e\dotnet_115668_20260824T203548_hangdump.dmp
+  C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\6146885e-ccdd-4e1a-8bd9-1454925f2c6e\testhost_111508_20260824T203548_hangdump.dmp
+  C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\6146885e-ccdd-4e1a-8bd9-1454925f2c6e\Sequence_8dcb319b704445e0b8111d8fa0f5549d.xml
+Passed!  - Failed:     0, Passed:    25, Skipped:     0, Total:    25, Duration: 12 m 6 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)

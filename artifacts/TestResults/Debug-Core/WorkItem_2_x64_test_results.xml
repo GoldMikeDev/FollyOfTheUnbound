@@ -1,488 +1,488 @@
-<assemblies timestamp="08/24/2026 13:04:37">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests.dll" run-date="2026-08-24" run-time="13:04:37" total="149" passed="149" failed="0" skipped="0" time="10.313" errors="0">
+<assemblies timestamp="08/24/2026 19:18:28">
+  <assembly name="C:\Users\LA_mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests\Debug\net10.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.UnitTests.dll" run-date="2026-08-24" run-time="19:18:28" total="149" passed="149" failed="0" skipped="0" time="18.333" errors="0">
     <errors />
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" time="0.012">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_EscapesViewPathWhenAddingAttributeToViews" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_EscapesViewPathWhenAddingAttributeToViews" time="0.0033546" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" time="0.010">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_EscapesViewPathWhenAddingAttributeToViews" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_EscapesViewPathWhenAddingAttributeToViews" time="0.0021001" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfNamespaceNodeHasEmptyContent" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfNamespaceNodeHasEmptyContent" time="0.0003021" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfNamespaceNodeHasEmptyContent" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfNamespaceNodeHasEmptyContent" time="0.0006485" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_AddsRazorPagettribute_ToPage" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_AddsRazorPagettribute_ToPage" time="0.0056544" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_AddsRazorPagettribute_ToPage" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_AddsRazorPagettribute_ToPage" time="0.0015827" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfClassNameNodeIsMissing" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfClassNameNodeIsMissing" time="0.0003052" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfClassNameNodeIsMissing" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfClassNameNodeIsMissing" time="0.0007321" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfDocumentIsNotViewOrPage" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfDocumentIsNotViewOrPage" time="0.0003326" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfDocumentIsNotViewOrPage" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfDocumentIsNotViewOrPage" time="0.0007371" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfNamespaceNodeIsMissing" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfNamespaceNodeIsMissing" time="0.0005410" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfNamespaceNodeIsMissing" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfNamespaceNodeIsMissing" time="0.0008319" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_EscapesViewPathAndRouteWhenAddingAttributeToPage" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_EscapesViewPathAndRouteWhenAddingAttributeToPage" time="0.0007071" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_EscapesViewPathAndRouteWhenAddingAttributeToPage" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_EscapesViewPathAndRouteWhenAddingAttributeToPage" time="0.0014875" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfClassNameIsEmpty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfClassNameIsEmpty" time="0.0003289" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_NoOps_IfClassNameIsEmpty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_NoOps_IfClassNameIsEmpty" time="0.0007421" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_AddsRazorViewAttribute_ToViews" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_AddsRazorViewAttribute_ToViews" time="0.0005865" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" time="0.010">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_DedupesPropertiesByName" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_DedupesPropertiesByName" time="0.0067228" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" time="0.0018870" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithModelTypeFirst" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithModelTypeFirst" time="0.0006951" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithModelType" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithModelType" time="0.0005404" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_DefinesProperty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_DefinesProperty" time="0.0005786" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest.Execute_AddsRazorViewAttribute_ToViews" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.AssemblyAttributeInjectionPassTest" method="Execute_AddsRazorViewAttribute_ToViews" time="0.0015867" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest" time="0.001">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest.InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest" method="InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" time="0.0004322" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" time="0.020">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_DedupesPropertiesByName" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_DedupesPropertiesByName" time="0.0147130" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest.InjectDirectiveTargetExtension_WritesProperty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest" method="InjectDirectiveTargetExtension_WritesProperty" time="0.0002727" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithDynamic" time="0.0019944" result="Pass">
         <traits />
       </test>
-    </collection>
-    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" time="0.011">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsCSharpExpression_InsideTagHelperAttribute" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsCSharpExpression_InsideTagHelperAttribute" time="0.0037932" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithModelTypeFirst" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithModelTypeFirst" time="0.0012264" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsTagHelper_WithoutLocation" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsTagHelper_WithoutLocation" time="0.0004463" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_ExpandsTModel_WithModelType" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_ExpandsTModel_WithModelType" time="0.0012646" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_InstrumentsHtml" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_InstrumentsHtml" time="0.0030921" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_InstrumentsCSharpExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_InstrumentsCSharpExpression" time="0.0007276" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsHtml_WithoutLocation" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsHtml_WithoutLocation" time="0.0004613" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_InstrumentsTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_InstrumentsTagHelper" time="0.0006875" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsCSharpExpression_WithoutLocation" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsCSharpExpression_WithoutLocation" time="0.0004310" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsCSharpExpression_InsideTagHelperProperty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsCSharpExpression_InsideTagHelperProperty" time="0.0009532" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest.InjectDirectivePass_Execute_DefinesProperty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectDirectiveTest" method="InjectDirectivePass_Execute_DefinesProperty" time="0.0011053" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" time="4.085">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPageWithNoLeadingPageDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPageWithNoLeadingPageDirective" time="0.2707268" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest" time="0.004">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest.InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest" method="InjectDirectiveTargetExtension_WritesPropertyWithLinePragma_WhenSourceIsSet" time="0.0028639" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.IncompleteDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="IncompleteDirectives" time="0.5092153" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.ModelExpressionTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="ModelExpressionTagHelper" time="1.9230881" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.ViewWithNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="ViewWithNamespace" time="0.0277406" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Sections" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Sections" time="0.1046107" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InjectWithSemicolon" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InjectWithSemicolon" time="0.0738557" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.PageWithNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="PageWithNamespace" time="0.0519186" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InheritsViewModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InheritsViewModel" time="0.0289901" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InjectWithModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InjectWithModel" time="0.0404823" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Inject" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Inject" time="0.0211771" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.ViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="ViewComponentTagHelper" time="0.3196759" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPagesWithRouteTemplate" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPagesWithRouteTemplate" time="0.0779340" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.UsingDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="UsingDirectives" time="0.1075879" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Model" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Model" time="0.0301995" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPages" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPages" time="0.0981752" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPagesWithoutModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPagesWithoutModel" time="0.1530588" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Basic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Basic" time="0.1844917" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InheritsWithViewImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InheritsWithViewImports" time="0.0249674" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InvalidNamespaceAtEOF" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InvalidNamespaceAtEOF" time="0.0061226" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.MalformedPageDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="MalformedPageDirective" time="0.0065951" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest._ViewImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="_ViewImports" time="0.0240532" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest.InjectDirectiveTargetExtension_WritesProperty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InjectTargetExtensionTest" method="InjectDirectiveTargetExtension_WritesProperty" time="0.0006625" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.InstrumentationPassIntegrationTest" time="0.021">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.InstrumentationPassIntegrationTest.BasicTest" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.InstrumentationPassIntegrationTest" method="BasicTest" time="0.0207967" result="Pass">
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" time="0.014">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsCSharpExpression_InsideTagHelperAttribute" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsCSharpExpression_InsideTagHelperAttribute" time="0.0042834" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsTagHelper_WithoutLocation" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsTagHelper_WithoutLocation" time="0.0008346" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_InstrumentsHtml" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_InstrumentsHtml" time="0.0027577" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_InstrumentsCSharpExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_InstrumentsCSharpExpression" time="0.0012284" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsHtml_WithoutLocation" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsHtml_WithoutLocation" time="0.0010032" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_InstrumentsTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_InstrumentsTagHelper" time="0.0012091" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsCSharpExpression_WithoutLocation" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsCSharpExpression_WithoutLocation" time="0.0008437" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest.InstrumentationPass_SkipsCSharpExpression_InsideTagHelperProperty" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.InstrumentationPassTest" method="InstrumentationPass_SkipsCSharpExpression_InsideTagHelperProperty" time="0.0014231" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" time="1.309">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_GenericViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_GenericViewComponent_ReturnsFalse" time="1.2743071" result="Pass">
+    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" time="11.821">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPageWithNoLeadingPageDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPageWithNoLeadingPageDirective" time="4.1096047" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_DecoratedViewComponent_ReturnsTrue" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_DecoratedViewComponent_ReturnsTrue" time="0.0103370" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.IncompleteDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="IncompleteDirectives" time="1.3936057" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_PlainViewComponent_ReturnsTrue" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_PlainViewComponent_ReturnsTrue" time="0.0040191" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.ModelExpressionTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="ModelExpressionTagHelper" time="3.5496124" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_AbstractViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_AbstractViewComponent_ReturnsFalse" time="0.0042008" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.ViewWithNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="ViewWithNamespace" time="0.1148706" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_InternalViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_InternalViewComponent_ReturnsFalse" time="0.0040121" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Sections" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Sections" time="0.2274563" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_InheritedViewComponent_ReturnsTrue" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_InheritedViewComponent_ReturnsTrue" time="0.0039840" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InjectWithSemicolon" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InjectWithSemicolon" time="0.1621418" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_DecoratedNonViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_DecoratedNonViewComponent_ReturnsFalse" time="0.0039349" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.PageWithNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="PageWithNamespace" time="0.1857781" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_InheritedNonViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_InheritedNonViewComponent_ReturnsFalse" time="0.0038231" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InheritsViewModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InheritsViewModel" time="0.0974240" result="Pass">
         <traits />
       </test>
-    </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" time="0.004">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType_DifferentOrdering" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType_DifferentOrdering" time="0.0011699" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InjectWithModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InjectWithModel" time="0.0670384" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType" time="0.0006122" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Inject" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Inject" time="0.0683755" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" time="0.0005565" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.ViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="ViewComponentTagHelper" time="0.6033724" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirective_GetModelType_DefaultsToDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirective_GetModelType_DefaultsToDynamic" time="0.0003181" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPagesWithRouteTemplate" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPagesWithRouteTemplate" time="0.0920560" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" time="0.0007002" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.UsingDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="UsingDirectives" time="0.0829768" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_NoOpWithoutTModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_NoOpWithoutTModel" time="0.0006656" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Model" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Model" time="0.0430963" result="Pass">
         <traits />
       </test>
-    </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" time="0.197">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest.ModelExpressionPass_NonModelExpressionProperty_Ignored" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" method="ModelExpressionPass_NonModelExpressionProperty_Ignored" time="0.1884361" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPages" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPages" time="0.2348614" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest.ModelExpressionPass_ModelExpressionProperty_ComplexExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" method="ModelExpressionPass_ModelExpressionProperty_ComplexExpression" time="0.0071644" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.RazorPagesWithoutModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="RazorPagesWithoutModel" time="0.2403994" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest.ModelExpressionPass_ModelExpressionProperty_SimpleExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" method="ModelExpressionPass_ModelExpressionProperty_SimpleExpression" time="0.0018743" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.Basic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="Basic" time="0.3873816" result="Pass">
         <traits />
       </test>
-    </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" time="0.006">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest.AddHierarchicalImports_AddsViewImportSourceDocumentsNotOnDisk" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" method="AddHierarchicalImports_AddsViewImportSourceDocumentsNotOnDisk" time="0.0045469" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InheritsWithViewImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InheritsWithViewImports" time="0.0886751" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest.AddHierarchicalImports_AddsViewImportSourceDocumentsOnDisk" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" method="AddHierarchicalImports_AddsViewImportSourceDocumentsOnDisk" time="0.0011439" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.InvalidNamespaceAtEOF" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="InvalidNamespaceAtEOF" time="0.0130371" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest.AddDefaultDirectivesImport_AddsSingleDynamicImport" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" method="AddDefaultDirectivesImport_AddsSingleDynamicImport" time="0.0003325" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest.MalformedPageDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="MalformedPageDirective" time="0.0131003" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest._ViewImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.CodeGenerationIntegrationTest" method="_ViewImports" time="0.0458584" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" time="0.238">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsUpExecuteAsyncMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsUpExecuteAsyncMethod" time="0.1827289" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" time="0.0015203" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" time="0.0004942" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsClass" time="0.0014836" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsDocumentKind" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsDocumentKind" time="0.0003307" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_NullFilePath_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_NullFilePath_SetsClass" time="0.0024042" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SanitizesClassName" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SanitizesClassName" time="0.0473898" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsNamespace" time="0.0006723" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" time="0.0003591" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" time="0.0005613" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.InstrumentationPassIntegrationTest" time="0.054">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.InstrumentationPassIntegrationTest.BasicTest" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IntegrationTests.InstrumentationPassIntegrationTest" method="BasicTest" time="0.0541890" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" time="0.006">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_ComputedFromSource_ForView" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_ComputedFromSource_ForView" time="0.0013957" result="Pass">
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" time="0.766">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_GenericViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_GenericViewComponent_ReturnsFalse" time="0.6888582" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_ComputedFromImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_ComputedFromImports" time="0.0004846" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_DecoratedViewComponent_ReturnsTrue" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_DecoratedViewComponent_ReturnsTrue" time="0.0100018" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" time="0.0002448" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_PlainViewComponent_ReturnsTrue" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_PlainViewComponent_ReturnsTrue" time="0.0209743" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\Foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\Foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0003297" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_AbstractViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_AbstractViewComponent_ReturnsFalse" time="0.0091286" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" time="0.0000193" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_InternalViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_InternalViewComponent_ReturnsFalse" time="0.0092598" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000251" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_InheritedViewComponent_ReturnsTrue" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_InheritedViewComponent_ReturnsTrue" time="0.0088949" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" time="0.0000200" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_DecoratedNonViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_DecoratedNonViewComponent_ReturnsFalse" time="0.0094915" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000198" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0000220" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" time="0.0000257" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0000264" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/Foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/Foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0000259" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;d:\\foo\\bar.cshtml&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;d:\\foo\\bar.cshtml&quot;)" time="0.0002619" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo.cshtml&quot;, imports: &quot;/foo/bar.cshtml&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo.cshtml&quot;, imports: &quot;/foo/bar.cshtml&quot;)" time="0.0002516" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo\\bar\\bleh.cshtml&quot;, imports: &quot;c:\\foo\\baz\\bleh.cshtml&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo\\bar\\bleh.cshtml&quot;, imports: &quot;c:\\foo\\baz\\bleh.cshtml&quot;)" time="0.0000191" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: &quot;/foo/bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: &quot;/foo/bar&quot;)" time="0.0000178" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: null)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: null)" time="0.0000131" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;&quot;, imports: &quot;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;&quot;, imports: &quot;&quot;)" time="0.0000127" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo/baz&quot;, imports: &quot;/foo/bar/bleh&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo/baz&quot;, imports: &quot;/foo/bar/bleh&quot;)" time="0.0000191" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_ComputedFromSource" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_ComputedFromSource" time="0.0004807" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_VerbatimFromImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_VerbatimFromImports" time="0.0005090" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_SanitizesClassAndNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_SanitizesClassAndNamespace" time="0.0003777" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_IncompleteDirective_UsesEmptyNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_IncompleteDirective_UsesEmptyNamespace" time="0.0002363" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_EmptyDirective_UsesEmptyNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_EmptyDirective_UsesEmptyNamespace" time="0.0002421" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_DoesNothing_ForUnknownDocumentKind" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_DoesNothing_ForUnknownDocumentKind" time="0.0004618" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest.IsViewComponent_InheritedNonViewComponent_ReturnsFalse" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.IsViewComponentTest" method="IsViewComponent_InheritedNonViewComponent_ReturnsFalse" time="0.0096230" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" time="0.036">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfPageIsImported" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfPageIsImported" time="0.0164377" result="Pass">
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" time="0.009">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType_DifferentOrdering" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType_DifferentOrdering" time="0.0021724" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfPageDoesStartWithDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfPageDoesStartWithDirective" time="0.0125950" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType" time="0.0013848" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfContentHasDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfContentHasDirective" time="0.0004955" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirective_GetModelType_GetsTypeFromFirstWellFormedDirective" time="0.0013353" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfPageIsMalformed" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfPageIsMalformed" time="0.0054676" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirective_GetModelType_DefaultsToDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirective_GetModelType_DefaultsToDynamic" time="0.0009935" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsFalse_IfPageDoesNotHaveDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsFalse_IfPageDoesNotHaveDirective" time="0.0004189" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_ReplacesTModelInBaseType_DefaultDynamic" time="0.0015881" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ParsesRouteTemplate" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ParsesRouteTemplate" time="0.0007611" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" time="0.030">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" time="0.0029637" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" time="0.0007034" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_NoOpsIfPageDirectiveIsMalformed" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_NoOpsIfPageDirectiveIsMalformed" time="0.0007999" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_LogsErrorForImportedPageDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_LogsErrorForImportedPageDirectives" time="0.0063318" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsNamespace" time="0.0006972" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_NullFilePath_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_NullFilePath_SetsClass" time="0.0007858" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" time="0.0005616" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsUpExecuteAsyncMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsUpExecuteAsyncMethod" time="0.0005840" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SanitizesClassName" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SanitizesClassName" time="0.0004631" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsClass" time="0.0005544" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsDocumentKind" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsDocumentKind" time="0.0004109" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" time="0.0004296" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_LogsErrorIfDirectiveNotAtTopOfFile" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_LogsErrorIfDirectiveNotAtTopOfFile" time="0.0079663" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_DoesNotLogErrorIfCommentAndWhitespaceBeforeDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_DoesNotLogErrorIfCommentAndWhitespaceBeforeDirective" time="0.0053050" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_AddsRouteTemplateMetadata" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_AddsRouteTemplateMetadata" time="0.0012359" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest.ModelDirectivePass_Execute_NoOpWithoutTModel" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelDirectiveTest" method="ModelDirectivePass_Execute_NoOpWithoutTModel" time="0.0015141" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" time="0.001">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.IsViewComponentKind_ReturnsFalse_ForNonVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="IsViewComponentKind_ReturnsFalse_ForNonVCTHDescriptor" time="0.0004922" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" time="0.017">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest.ModelExpressionPass_NonModelExpressionProperty_Ignored" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" method="ModelExpressionPass_NonModelExpressionProperty_Ignored" time="0.0066920" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.ViewComponentName_ReturnsName_ForVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="ViewComponentName_ReturnsName_ForVCTHDescriptor" time="0.0004557" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest.ModelExpressionPass_ModelExpressionProperty_ComplexExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" method="ModelExpressionPass_ModelExpressionProperty_ComplexExpression" time="0.0075930" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.IsViewComponentKind_ReturnsTrue_ForVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="IsViewComponentKind_ReturnsTrue_ForVCTHDescriptor" time="0.0001613" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.ViewComponentName_ReturnsNull_ForNonVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="ViewComponentName_ReturnsNull_ForNonVCTHDescriptor" time="0.0001589" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest.ModelExpressionPass_ModelExpressionProperty_SimpleExpression" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ModelExpressionPassTest" method="ModelExpressionPass_ModelExpressionProperty_SimpleExpression" time="0.0025799" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="16" passed="16" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" time="0.090">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInstanceInvokeMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInstanceInvokeMethod" time="0.0130916" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" time="0.014">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest.AddHierarchicalImports_AddsViewImportSourceDocumentsNotOnDisk" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" method="AddHierarchicalImports_AddsViewImportSourceDocumentsNotOnDisk" time="0.0114528" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandGenericTask" time="0.0043203" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest.AddHierarchicalImports_AddsViewImportSourceDocumentsOnDisk" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" method="AddHierarchicalImports_AddsViewImportSourceDocumentsOnDisk" time="0.0018363" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsNonGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsNonGenericTask" time="0.0041531" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_UnderstandsGenericParameters" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_UnderstandsGenericParameters" time="0.0064552" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForSyncViewComponentWithInvokeInBaseType_Works" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForSyncViewComponentWithInvokeInBaseType_Works" time="0.0046116" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandString" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandString" time="0.0040113" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandVoid" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandVoid" time="0.0043064" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_UnderstandsStringParameters" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_UnderstandsStringParameters" time="0.0042461" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponent_WithAmbiguousMethods" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponent_WithAmbiguousMethods" time="0.0040366" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsGenericTask" time="0.0037512" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_UnderstandsVariousParameterTypes" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_UnderstandsVariousParameterTypes" time="0.0066153" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandNonGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandNonGenericTask" time="0.0039631" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInvokeMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInvokeMethod" time="0.0043422" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandVoid" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandVoid" time="0.0140952" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoPublicInvokeMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoPublicInvokeMethod" time="0.0040676" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForAsyncViewComponentWithInvokeInBaseType_Works" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForAsyncViewComponentWithInvokeInBaseType_Works" time="0.0044181" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest.AddDefaultDirectivesImport_AddsSingleDynamicImport" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcImportProjectFeatureTest" method="AddDefaultDirectivesImport_AddsSingleDynamicImport" time="0.0005931" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" time="0.028">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_WithIndexer" time="0.0088001" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" time="0.010">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsUpExecuteAsyncMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsUpExecuteAsyncMethod" time="0.0017052" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper" time="0.0024478" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" time="0.0008383" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_IgnoresRegularTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_IgnoresRegularTagHelper" time="0.0020301" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" time="0.0008334" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_Nested" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_Nested" time="0.0142824" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsClass" time="0.0010831" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsDocumentKind" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsDocumentKind" time="0.0007274" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_NullFilePath_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_NullFilePath_SetsClass" time="0.0010924" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SanitizesClassName" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SanitizesClassName" time="0.0008321" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_SetsNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_SetsNamespace" time="0.0007965" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" time="0.0006957" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest.MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.MvcViewDocumentClassifierPassTest" method="MvcViewDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" time="0.0009575" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperProducerTest" time="0.675">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperProducerTest.DescriptorProvider_FindsVCTH" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperProducerTest" method="DescriptorProvider_FindsVCTH" time="0.6753645" result="Pass">
+    <collection total="25" passed="25" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" time="0.009">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_ComputedFromSource_ForView" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_ComputedFromSource_ForView" time="0.0012622" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_ComputedFromImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_ComputedFromImports" time="0.0010042" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" time="0.0004399" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\Foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\Foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0005540" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" time="0.0000529" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000699" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo&quot;)" time="0.0000664" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base.foo.bar&quot;)" time="0.0000683" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0000703" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;c:\\_ViewImports.cshtml&quot;, expected: &quot;Base&quot;)" time="0.0000537" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;c:\\foo\\bar\\baz.cshtml&quot;, imports: &quot;c:\\foo\\_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0000658" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/Foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForRelatedFiles_ComputesNamespaceWithSuffix(source: &quot;/Foo/bar/baz.cshtml&quot;, imports: &quot;/foo/_ViewImports.cshtml&quot;, expected: &quot;Base.bar&quot;)" time="0.0000611" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;d:\\foo\\bar.cshtml&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo.cshtml&quot;, imports: &quot;d:\\foo\\bar.cshtml&quot;)" time="0.0004288" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo.cshtml&quot;, imports: &quot;/foo/bar.cshtml&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo.cshtml&quot;, imports: &quot;/foo/bar.cshtml&quot;)" time="0.0005024" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo\\bar\\bleh.cshtml&quot;, imports: &quot;c:\\foo\\baz\\bleh.cshtml&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;c:\\foo\\bar\\bleh.cshtml&quot;, imports: &quot;c:\\foo\\baz\\bleh.cshtml&quot;)" time="0.0000597" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: &quot;/foo/bar&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: &quot;/foo/bar&quot;)" time="0.0000580" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: null)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: null, imports: null)" time="0.0000503" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;&quot;, imports: &quot;&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;&quot;, imports: &quot;&quot;)" time="0.0000451" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo/baz&quot;, imports: &quot;/foo/bar/bleh&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_ForNonRelatedFiles_UsesNamespaceVerbatim(source: &quot;/foo/baz&quot;, imports: &quot;/foo/bar/bleh&quot;)" time="0.0000405" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_ComputedFromSource" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_ComputedFromSource" time="0.0009331" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_VerbatimFromImports" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_VerbatimFromImports" time="0.0010451" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_SetsNamespace_SanitizesClassAndNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_SetsNamespace_SanitizesClassAndNamespace" time="0.0007813" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_IncompleteDirective_UsesEmptyNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_IncompleteDirective_UsesEmptyNamespace" time="0.0003931" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.GetNamespace_EmptyDirective_UsesEmptyNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="GetNamespace_EmptyDirective_UsesEmptyNamespace" time="0.0004127" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest.Pass_DoesNothing_ForUnknownDocumentKind" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.NamespaceDirectiveTest" method="Pass_DoesNothing_ForUnknownDocumentKind" time="0.0007459" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" time="0.016">
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" time="0.0148149" result="Pass">
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" time="0.009">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfPageIsImported" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfPageIsImported" time="0.0031586" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" time="0.0011075" result="Pass">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfPageDoesStartWithDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfPageDoesStartWithDirective" time="0.0012125" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfContentHasDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfContentHasDirective" time="0.0008640" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsTrue_IfPageIsMalformed" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsTrue_IfPageIsMalformed" time="0.0015409" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ReturnsFalse_IfPageDoesNotHaveDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ReturnsFalse_IfPageDoesNotHaveDirective" time="0.0009213" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest.TryGetPageDirective_ParsesRouteTemplate" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.PageDirectiveTest" method="TryGetPageDirective_ParsesRouteTemplate" time="0.0011867" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" time="0.044">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Areas/MyArea/Views/Home/About.cshtml&quot;, expected: &quot;_Areas_MyArea_Views_Home_About&quot;)" time="0.0016962" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_UsesRelativePathToGenerateTypeName(relativePath: &quot;/Views/Home/Index.cshtml&quot;, expected: &quot;_Views_Home_Index&quot;)" time="0.0012537" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_NoOpsIfPageDirectiveIsMalformed" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_NoOpsIfPageDirectiveIsMalformed" time="0.0014720" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_LogsErrorForImportedPageDirectives" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_LogsErrorForImportedPageDirectives" time="0.0071202" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsNamespace" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsNamespace" time="0.0017107" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_NullFilePath_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_NullFilePath_SetsClass" time="0.0174375" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_NoOpsIfDocumentKindIsAlreadySet" time="0.0008627" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsUpExecuteAsyncMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsUpExecuteAsyncMethod" time="0.0020587" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SanitizesClassName" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SanitizesClassName" time="0.0011460" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsClass" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsClass" time="0.0013606" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_SetsDocumentKind" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_SetsDocumentKind" time="0.0010070" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_UsesAbsolutePath_IfRelativePathIsNotSet" time="0.0016534" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_LogsErrorIfDirectiveNotAtTopOfFile" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_LogsErrorIfDirectiveNotAtTopOfFile" time="0.0019721" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_DoesNotLogErrorIfCommentAndWhitespaceBeforeDirective" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_DoesNotLogErrorIfCommentAndWhitespaceBeforeDirective" time="0.0013445" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest.RazorPageDocumentClassifierPass_AddsRouteTemplateMetadata" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.RazorPageDocumentClassifierPassTest" method="RazorPageDocumentClassifierPass_AddsRouteTemplateMetadata" time="0.0015830" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" time="0.106">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.IsViewComponentKind_ReturnsFalse_ForNonVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="IsViewComponentKind_ReturnsFalse_ForNonVCTHDescriptor" time="0.1011581" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.ViewComponentName_ReturnsName_ForVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="ViewComponentName_ReturnsName_ForVCTHDescriptor" time="0.0039994" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.IsViewComponentKind_ReturnsTrue_ForVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="IsViewComponentKind_ReturnsTrue_ForVCTHDescriptor" time="0.0004494" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest.ViewComponentName_ReturnsNull_ForNonVCTHDescriptor" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.TagHelperDescriptorExtensionsTest" method="ViewComponentName_ReturnsNull_ForNonVCTHDescriptor" time="0.0004177" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="16" passed="16" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" time="0.192">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInstanceInvokeMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInstanceInvokeMethod" time="0.0133611" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandGenericTask" time="0.0307509" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsNonGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsNonGenericTask" time="0.0092222" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_UnderstandsGenericParameters" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_UnderstandsGenericParameters" time="0.0182159" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForSyncViewComponentWithInvokeInBaseType_Works" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForSyncViewComponentWithInvokeInBaseType_Works" time="0.0109772" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandString" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandString" time="0.0094022" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandVoid" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandVoid" time="0.0086743" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_UnderstandsStringParameters" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_UnderstandsStringParameters" time="0.0094102" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponent_WithAmbiguousMethods" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponent_WithAmbiguousMethods" time="0.0089695" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_UnderstandsGenericTask" time="0.0088322" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_UnderstandsVariousParameterTypes" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_UnderstandsVariousParameterTypes" time="0.0167041" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandNonGenericTask" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvoke_DoesNotUnderstandNonGenericTask" time="0.0121133" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInvokeMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoInvokeMethod" time="0.0088362" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandVoid" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForViewComponentWithInvokeAsync_DoesNotUnderstandVoid" time="0.0080831" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoPublicInvokeMethod" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_AddsDiagnostic_ForViewComponentWithNoPublicInvokeMethod" time="0.0094419" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest.CreateDescriptor_ForAsyncViewComponentWithInvokeInBaseType_Works" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperDescriptorFactoryTest" method="CreateDescriptor_ForAsyncViewComponentWithInvokeInBaseType_Works" time="0.0092256" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" time="0.016">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_WithIndexer" time="0.0042255" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper" time="0.0030044" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_IgnoresRegularTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_IgnoresRegularTagHelper" time="0.0035397" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest.ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_Nested" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperPassTest" method="ViewComponentTagHelperPass_Execute_CreatesViewComponentTagHelper_Nested" time="0.0050107" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperProducerTest" time="0.010">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperProducerTest.DescriptorProvider_FindsVCTH" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperProducerTest" method="DescriptorProvider_FindsVCTH" time="0.0097925" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" time="0.003">
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper" time="0.0018341" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest.WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" type="Microsoft.AspNetCore.Mvc.Razor.Extensions.Version2_X.ViewComponentTagHelperTargetExtensionTest" method="WriteViewComponentTagHelper_GeneratesViewComponentTagHelper_WithIndexer" time="0.0012935" result="Pass">
         <traits />
       </test>
     </collection>
