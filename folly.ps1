@@ -314,12 +314,27 @@ try {
 				} |
 				Select-Object -ExpandProperty Pid
 		}
-		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself -- Stop-Process alone would only orphan any child a worker itself spawned (e.g. a compiler worker under it)
+		function Get-PidsMatchingRegexAndSubstring([string]$Pattern, [string]$Substring) {  # PIDs whose command line matches an extended regex AND contains a literal substring -- scopes the build-server name pattern to this checkout's own bootstrapped SDK, so a force-kill can never reach some other checkout's or tool's build server
+			Get-ProcessSnapshot |
+				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) -and ($_.CommandLine.IndexOf($Substring, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) } |
+				Select-Object -ExpandProperty Pid
+		}
+		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself, escalating from a graceful stop to -Force if it's still alive after a short wait -- only reports success once the pid is confirmed gone, since Stop-Process not throwing doesn't mean the process actually died (e.g. it ignores the initial signal)
 			$children = Get-ProcessSnapshot | Where-Object { $_.PPid -eq $ProcessId }
 			foreach ($child in $children) {
 				Stop-ProcessTree -ProcessId $child.Pid
 			}
-			try { Stop-Process -Id $ProcessId -Force -ErrorAction Stop; return $true } catch { return $false }
+			if (-not (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue)) { return $true }
+			try { Stop-Process -Id $ProcessId -ErrorAction Stop } catch {}
+			$deadline = (Get-Date).AddSeconds(5)
+			while ((Get-Process -Id $ProcessId -ErrorAction SilentlyContinue) -and (Get-Date) -lt $deadline) {
+				Start-Sleep -Milliseconds 200
+			}
+			if (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue) {
+				try { Stop-Process -Id $ProcessId -Force -ErrorAction Stop } catch {}
+				Start-Sleep -Milliseconds 200
+			}
+			return -not (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue)
 		}
 		if ($dotnetExe) {  # `build-server shutdown` always reports success whether or not a server was actually running, so its own output can't say what happened -- diff the PIDs before/after instead
 			$buildServerPattern = 'VBCSCompiler|Microsoft\.CodeAnalysis\.Razor\.[A-Za-z.]*Server|(^|\s)rzc(\.dll)?(\s|$)'
@@ -333,10 +348,16 @@ try {
 				}
 				# `build-server shutdown` talks to the RPC pipe of servers registered by *this* SDK; a server started by a
 				# different dotnet install (or one whose RPC pipe is already wedged/orphaned) doesn't respond and survives
-				# silently. Anything still alive from the original snapshot is unconditionally stale (cleanse never
-				# launches a build itself) -- force-kill it directly rather than trusting the RPC path alone.
-				if ($afterServerPids.Count -gt 0) {
-					$forceKilledCount = @($afterServerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
+				# silently. Force-killing is scoped tightly to avoid collateral damage: only a PID that (a) was already
+				# alive in the *original* beforeServerPids snapshot -- never one that merely appears in a later snapshot,
+				# which could be an unrelated process that started in between -- (b) is still alive after the shutdown
+				# call, and (c) belongs to this checkout's own bootstrapped `.dotnet` SDK (the same scope MSBuild
+				# node-reuse workers below are held to) is unconditionally stale and gets force-killed. A build server
+				# for a different repo/SDK is left alone even if its name matches the pattern.
+				$scopedAfterServerPids = @(Get-PidsMatchingRegexAndSubstring $buildServerPattern (Join-Path $PSScriptRoot ".dotnet"))
+				$survivorServerPids = @($beforeServerPids | Where-Object { $scopedAfterServerPids -contains $_ })
+				if ($survivorServerPids.Count -gt 0) {
+					$forceKilledCount = @($survivorServerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
 					if ($forceKilledCount -gt 0) {
 						Write-Host "Force-killed $forceKilledCount build server process(es) that ignored 'dotnet build-server shutdown'."
 					}
