@@ -112,7 +112,10 @@ internal sealed class MaterializedLspWorkspace
     private static void KillProcessTree(Process process)
     {
 #if NET
+        // Kill() only initiates termination asynchronously; wait for it to actually complete so the killed
+        // process (and its tree) isn't still holding workspace files by the time this method returns.
         process.Kill(entireProcessTree: true);
+        process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds);
 #else
         // Process.Kill(bool) isn't available on net472, which this project also targets. net472 only ever runs
         // on Windows, so shell out to `taskkill /T` (kill the tree) instead.
