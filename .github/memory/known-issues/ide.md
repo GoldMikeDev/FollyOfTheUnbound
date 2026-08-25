@@ -281,27 +281,35 @@ cancellation produces -- this was failing on nearly every test's normal teardown
 `DisposeAsync` now calls `Server.Shutdown()` before disposing the client stream, matching production shutdown
 order.
 
-## A `PortableExecutableReference` from `MetadataReference.CreateFromFile` must become unreachable before its backing file is overwritten in place
+## Test `PortableExecutableReference`s that overwrite their own backing file must not be tied to that file at all
 
 **Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.UnitTests/HostWorkspace/SharedMetadataReferenceCacheTests.cs`
 **Description:** Diagnosed from a real Windows failure: `ChangedTimestamp_DoesNotShareReference` failed with
 `System.IO.IOException: The requested operation cannot be performed on a file with a user-mapped section open.`
-`MetadataReference.CreateFromFile` eagerly prefetches the entire PE image into native memory and closes the
-input stream immediately, but per its own doc remarks, "the native memory block is released when the resulting
-reference becomes unreachable and GC collects it" -- there is no deterministic `Dispose` available to a caller
-holding only the `PortableExecutableReference`. A test that obtains such a reference and then overwrites the
-same file path in place (a common pattern in this file, used to simulate an on-disk assembly changing) races
-that GC/finalizer timing on Windows.
-**Invariant:** Any test overwriting a file it has already loaded via `MetadataReference.CreateFromFile` (directly
-or through `SharedMetadataReferenceCache`) must not keep a strong reference to the old
-`PortableExecutableReference` rooted across the overwrite -- an ordinary "`GC.Collect()` now, use the old
-reference later for an assertion" does **not** work, since a reference still used later in the method stays
-reachable and therefore ineligible for collection at the point of the collection call. Use
-`ObjectReference.CreateFromFactory` (`src/Compilers/Test/Core/ObjectReference.cs`, the codebase's existing
-tool for this exact "don't accidentally keep something rooted" problem) to obtain the reference, extract only
-the lightweight, image-independent `MetadataId` marker needed for later assertions via a scoped `UseReference`
-call, then call `ReleaseStrongReference()` (which performs the actual `GC.Collect()`/`WaitForPendingFinalizers()`
-loop) before the overwrite -- and compare `MetadataId` afterward instead of the old reference's own identity.
-All three tests in this file with this overwrite-in-place pattern (`ChangedTimestamp_DoesNotShareReference`,
-`ChangedTimestamp_InvalidatesAllPropertyVariants`, `ChangedFileReplacesPreviousVersion`) follow this pattern;
-a new test with the same shape must too.
+`MetadataReference.CreateFromFile` eagerly prefetches the entire PE image into native memory but keeps that
+memory tied to the source file until the resulting `PortableExecutableReference` becomes unreachable and GC
+collects it -- there is no deterministic `Dispose` available to a caller. A test that obtains such a reference
+and then overwrites the same file path in place (a common pattern in this file, used to simulate an on-disk
+assembly changing) races that GC/finalizer timing on Windows.
+
+The first fix attempt released the old reference (via `ObjectReference.CreateFromFactory`/`ReleaseStrongReference`,
+forcing a blocking `GC.Collect()`) before the overwrite, comparing only the surviving `MetadataId` afterward.
+That is invalid for this file specifically: `SharedMetadataReferenceCache` stores its cache entries as
+`WeakReference<PortableExecutableReference>` (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/HostWorkspace/SharedMetadataReferenceCache.cs`).
+Forcing the old reference to be collected before the second lookup makes its weak reference go dead regardless
+of whether the cache's actual timestamp-invalidation logic (`_timestamp == timestamp` in `ReferenceSet.TryGetReference`)
+still works -- the test would pass even if that comparison were deleted entirely.
+**Invariant:** Never solve the file-lock race for this file by releasing/collecting the loaded reference --
+that reintroduces the exact vacuous-test bug described above given the cache's `WeakReference` storage. Instead,
+decouple the reference's backing memory from the real file: `CreateCacheableReference` (this file's shared test
+factory) reads the file's bytes into a `MemoryStream` up front and builds the reference via
+`MetadataReference.CreateFromStream(stream, properties, DocumentationProvider.Default, filePath: path)` instead
+of `MetadataReference.CreateFromFile(path, ...)`. The reference still carries `path` as its display/identity
+`filePath` (so cache keying and `SharedMetadataReferenceCache` behavior are unaffected), but its native memory
+has no OS-level handle or mapping tied to `path` once the method returns, so overwriting `path` afterward is
+safe even while old references are kept genuinely, strongly alive for the rest of the test. All tests in this
+file that overwrite a loaded file in place (`ChangedTimestamp_DoesNotShareReference`,
+`ChangedTimestamp_InvalidatesAllPropertyVariants`, `ChangedFileReplacesPreviousVersion`) rely on this and keep
+plain strong references (`Assert.Same`/`Assert.NotSame` directly on the reference objects, no `ObjectReference`
+scaffolding needed); a new test with the same shape gets this for free by going through `GetReference`/
+`CreateCacheableReference` rather than calling `MetadataReference.CreateFromFile` itself.

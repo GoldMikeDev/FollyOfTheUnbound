@@ -80,29 +80,15 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         File.Copy(typeof(object).Assembly.Location, path);
         File.SetLastWriteTimeUtc(path, timestamp);
 
-        // CreateCacheableReference eagerly prefetches the PE image into native memory (see
-        // MetadataReference.CreateFromFile's remarks), but on Windows that eager read is only guaranteed to
-        // release its underlying memory-mapped section once the object holding it becomes unreachable and is
-        // collected -- there's no deterministic Dispose available to us here. reference1 can't simply be
-        // GC.Collect()-ed away while a local still refers to it later in this method (the JIT keeps it rooted
-        // for as long as it's used, so an ordinary "GC.Collect() now, use reference1 later" doesn't actually
-        // release anything). Instead capture only the lightweight, reference1-independent MetadataId marker we
-        // actually need for the final assertion up front, then use ObjectReference (see its own remarks on why
-        // a plain local set to null isn't sufficient) to explicitly drop the only strong reference to
-        // reference1 and force a collection before overwriting this same file path below; otherwise this races
-        // GC/finalizer timing and can intermittently fail with "The requested operation cannot be performed on
-        // a file with a user-mapped section open."
-        MetadataId? metadataId1 = null;
-        var reference1 = ObjectReference.CreateFromFactory(() => GetReference(cache, path));
-        reference1.UseReference(r => metadataId1 = r.GetMetadataId());
-        reference1.ReleaseStrongReference();
+        var reference1 = GetReference(cache, path);
 
         File.Copy(typeof(Enumerable).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
 
         var reference2 = GetReference(cache, path);
 
-        Assert.NotSame(metadataId1, reference2.GetMetadataId());
+        Assert.NotSame(reference1, reference2);
+        Assert.NotSame(reference1.GetMetadataId(), reference2.GetMetadataId());
     }
 
     [Fact]
@@ -116,17 +102,8 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         File.Copy(typeof(object).Assembly.Location, path);
         File.SetLastWriteTimeUtc(path, timestamp);
 
-        // See ChangedTimestamp_DoesNotShareReference's remarks: capture only the MetadataId markers needed for
-        // the later assertions, then release the only strong references before overwriting this same file path.
-        MetadataId? defaultMetadataId1 = null;
-        var defaultReference1 = ObjectReference.CreateFromFactory(() => GetReference(cache, path, defaultProperties));
-        defaultReference1.UseReference(r => defaultMetadataId1 = r.GetMetadataId());
-        defaultReference1.ReleaseStrongReference();
-
-        MetadataId? aliasedMetadataId1 = null;
-        var aliasedReference1 = ObjectReference.CreateFromFactory(() => GetReference(cache, path, aliasedProperties));
-        aliasedReference1.UseReference(r => aliasedMetadataId1 = r.GetMetadataId());
-        aliasedReference1.ReleaseStrongReference();
+        var defaultReference1 = GetReference(cache, path, defaultProperties);
+        var aliasedReference1 = GetReference(cache, path, aliasedProperties);
 
         File.Copy(typeof(Enumerable).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
@@ -134,8 +111,8 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         var defaultReference2 = GetReference(cache, path, defaultProperties);
         var aliasedReference2 = GetReference(cache, path, aliasedProperties);
 
-        Assert.NotSame(defaultMetadataId1, defaultReference2.GetMetadataId());
-        Assert.NotSame(aliasedMetadataId1, aliasedReference2.GetMetadataId());
+        Assert.NotSame(defaultReference1.GetMetadataId(), defaultReference2.GetMetadataId());
+        Assert.NotSame(aliasedReference1.GetMetadataId(), aliasedReference2.GetMetadataId());
         Assert.Same(defaultReference2.GetMetadataId(), aliasedReference2.GetMetadataId());
     }
 
@@ -193,25 +170,14 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
 
         var otherReference = GetReference(cache, otherPath);
 
-        // See ChangedTimestamp_DoesNotShareReference's remarks: firstReference must not remain a rooted local
-        // across the file overwrite below, or its eagerly-prefetched native memory (and whatever OS resource
-        // backs it) never actually becomes eligible for release. Capture only the lightweight, independent
-        // MetadataId marker we need for the later "no longer the same reference" assertion up front, verify the
-        // "same cached reference" behavior while still safely inside the scoped call, then drop the only strong
-        // reference before forcing a collection.
-        MetadataId? metadataId1 = null;
-        var firstReference = ObjectReference.CreateFromFactory(() => GetReference(cache, path));
-        firstReference.UseReference(r =>
-        {
-            metadataId1 = r.GetMetadataId();
-            Assert.Same(r, GetReference(cache, path));
-        });
-        firstReference.ReleaseStrongReference();
+        var firstReference = GetReference(cache, path);
+        Assert.Same(firstReference, GetReference(cache, path));
 
         File.Copy(typeof(Uri).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
 
-        Assert.NotSame(metadataId1, GetReference(cache, path).GetMetadataId());
+        Assert.NotSame(firstReference, GetReference(cache, path));
+        Assert.NotSame(firstReference.GetMetadataId(), GetReference(cache, path).GetMetadataId());
         Assert.Same(otherReference, GetReference(cache, otherPath));
     }
 
@@ -293,8 +259,19 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
     private static PortableExecutableReference CreateCacheableReference(
         string path, MetadataReferenceProperties properties)
     {
-        var reference = MetadataReference.CreateFromFile(
-            path, properties, DocumentationProvider.Default);
+        // Read the file's bytes into memory up front rather than letting MetadataReference.CreateFromFile hold
+        // any OS-level handle or mapping open against `path` itself. Several tests in this file intentionally
+        // overwrite the same path in place immediately after loading it (to simulate an on-disk assembly
+        // changing) while keeping the original reference alive -- on Windows, a reference still tied to that
+        // exact file can make the overwrite fail with "The requested operation cannot be performed on a file
+        // with a user-mapped section open," and releasing the reference first to dodge that isn't a valid fix
+        // either: SharedMetadataReferenceCache stores entries as WeakReference, so a reference collected purely
+        // to avoid the file lock would make timestamp-invalidation tests pass even if that invalidation logic
+        // were removed entirely. Backing the reference with a MemoryStream copy instead means it has no ties to
+        // the file at all once this method returns, so it's safe to keep genuinely alive indefinitely.
+        using var stream = new MemoryStream(File.ReadAllBytes(path));
+        var reference = MetadataReference.CreateFromStream(
+            stream, properties, DocumentationProvider.Default, filePath: path);
         _ = reference.GetMetadata();
 
         return reference;
