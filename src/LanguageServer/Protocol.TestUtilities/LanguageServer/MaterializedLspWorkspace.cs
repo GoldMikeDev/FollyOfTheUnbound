@@ -99,7 +99,12 @@ internal sealed class MaterializedLspWorkspace
 
         if (!process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds))
         {
+            // Process.Kill(bool) isn't available on net472, which this project also targets.
+#if NET
             process.Kill(entireProcessTree: true);
+#else
+            process.Kill();
+#endif
             throw new TimeoutException($"'dotnet restore' for '{projectPath}' did not complete within {TestHelpers.HangMitigatingTimeout}.");
         }
     }
