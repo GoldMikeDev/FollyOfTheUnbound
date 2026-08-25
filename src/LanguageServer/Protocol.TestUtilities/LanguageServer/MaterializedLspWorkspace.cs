@@ -99,14 +99,30 @@ internal sealed class MaterializedLspWorkspace
 
         if (!process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds))
         {
-            // Process.Kill(bool) isn't available on net472, which this project also targets.
-#if NET
-            process.Kill(entireProcessTree: true);
-#else
-            process.Kill();
-#endif
+            KillProcessTree(process);
             throw new TimeoutException($"'dotnet restore' for '{projectPath}' did not complete within {TestHelpers.HangMitigatingTimeout}.");
         }
+    }
+
+    /// <summary>
+    /// Kills <paramref name="process"/> along with any descendants it spawned (e.g. MSBuild nodes or NuGet
+    /// credential providers started by `dotnet restore`), so a killed-on-timeout restore doesn't leave orphaned
+    /// processes holding files or resources for the rest of the test run.
+    /// </summary>
+    private static void KillProcessTree(Process process)
+    {
+#if NET
+        process.Kill(entireProcessTree: true);
+#else
+        // Process.Kill(bool) isn't available on net472, which this project also targets. net472 only ever runs
+        // on Windows, so shell out to `taskkill /T` (kill the tree) instead.
+        using var taskkill = Process.Start(new ProcessStartInfo("taskkill", $"/T /F /PID {process.Id}")
+        {
+            UseShellExecute = false,
+            CreateNoWindow = true,
+        });
+        taskkill?.WaitForExit();
+#endif
     }
 
     public string GetFullPath(string relativePath)
