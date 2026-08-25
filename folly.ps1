@@ -369,8 +369,11 @@ try {
 				# which could be an unrelated process that started in between -- (b) is still alive after the shutdown
 				# call, and (c) belongs to this checkout's own bootstrapped `.dotnet` SDK (the same scope MSBuild
 				# node-reuse workers below are held to) is unconditionally stale and gets force-killed. A build server
-				# for a different repo/SDK is left alone even if its name matches the pattern.
-				$scopedAfterServerPids = @(Get-PidsMatchingRegexAndSubstring $buildServerPattern (Join-Path $PSScriptRoot ".dotnet"))
+				# for a different repo/SDK is left alone even if its name matches the pattern. The trailing
+				# separator on the scope substring is required, not cosmetic: without it, a sibling directory
+				# whose name merely starts with ".dotnet" (e.g. a ".dotnet-old" leftover from a prior bootstrap)
+				# would also match, since "...\.dotnet-old\..." contains "...\.dotnet" as a plain substring.
+				$scopedAfterServerPids = @(Get-PidsMatchingRegexAndSubstring $buildServerPattern ((Join-Path $PSScriptRoot ".dotnet") + [System.IO.Path]::DirectorySeparatorChar))
 				$survivorServerPids = @($beforeServerPids | Where-Object { ($scopedAfterServerPids -contains $_) -and (-not $ancestorPids.Contains($_)) })  # never kill this script's own invoking shell/CI agent, even if it happens to match the scoped pattern above (e.g. an automation wrapper whose own command line embeds the search text)
 				if ($survivorServerPids.Count -gt 0) {
 					$forceKilledCount = @($survivorServerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
@@ -385,8 +388,9 @@ try {
 		# build`/`dotnet test`, `dotnet run --file eng/generate-compiler-code.cs`, ...) -- and are never
 		# registered as build servers, so `build-server shutdown` can't see or stop them. cleanse itself never
 		# launches a build, so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is
-		# unconditionally stale.
-		$nodeWorkerPids = @(Get-PidsMatchingAll @((Join-Path $PSScriptRoot ".dotnet"), "MSBuild.dll") | Where-Object { -not $ancestorPids.Contains($_) })  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
+		# unconditionally stale. Trailing separator on the scope substring is required for the same reason as
+		# the build-server scope above -- without it, a ".dotnet-old"-style sibling directory would falsely match too.
+		$nodeWorkerPids = @(Get-PidsMatchingAll @(((Join-Path $PSScriptRoot ".dotnet") + [System.IO.Path]::DirectorySeparatorChar), "MSBuild.dll") | Where-Object { -not $ancestorPids.Contains($_) })  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 		if ($nodeWorkerPids.Count -gt 0) {
 			$killedNodeCount = @($nodeWorkerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
 			if ($killedNodeCount -gt 0) {

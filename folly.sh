@@ -204,8 +204,11 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		# later snapshot, which could be an unrelated process that started in between -- (b) is still alive
 		# after the shutdown call, and (c) belongs to this checkout's own bootstrapped `.dotnet` SDK (the same
 		# scope MSBuild node-reuse workers below are held to) is unconditionally stale and gets force-killed.
-		# A build server for a different repo/SDK is left alone even if its name matches the pattern.
-		scoped_after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex_and_substring "$build_server_pattern" "$scriptroot/.dotnet")
+		# A build server for a different repo/SDK is left alone even if its name matches the pattern. The
+		# trailing "/" on the scope substring is required, not cosmetic: without it, a sibling directory whose
+		# name merely starts with ".dotnet" (e.g. a ".dotnet-old" leftover from a prior bootstrap) would also
+		# match, since "$scriptroot/.dotnet-old/..." contains "$scriptroot/.dotnet" as a plain substring.
+		scoped_after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex_and_substring "$build_server_pattern" "$scriptroot/.dotnet/")
 		survivor_pids=$(comm -12 <(sort -u <<<"$before_pids") <(sort -u <<<"$scoped_after_pids"))
 		# Never kill this script's own invoking shell/CI agent, even if it happens to match the scoped
 		# pattern above (e.g. an automation wrapper whose own command line embeds the search text).
@@ -227,7 +230,9 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# `dotnet test`, `dotnet run --file eng/generate-compiler-code.cs`, ...) -- and are never registered as
 	# build servers, so `build-server shutdown` can't see or stop them. cleanse itself never launches a build,
 	# so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is unconditionally stale.
-	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet" "MSBuild.dll")
+	# Trailing "/" on the scope substring is required for the same reason as the build-server scope above --
+	# without it, a ".dotnet-old"-style sibling directory would falsely match too.
+	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet/" "MSBuild.dll")
 	node_worker_pids=$(comm -23 <(sort -u <<<"$node_worker_pids") <(sort -u <<<"$ancestor_pids"))  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 	if [[ -n "$node_worker_pids" ]]; then
 	  killed=0
