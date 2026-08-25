@@ -140,7 +140,63 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ ! -x "$dotnet_exe" ]]; then
 	  dotnet_exe=$(command -v dotnet 2>/dev/null) || dotnet_exe=""  # fall back to a global dotnet only if this repo's own bootstrapped SDK under .dotnet/ isn't there
 	fi
-	[[ -n "$dotnet_exe" ]] && "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
+	_cleanse_ps_snapshot() {  # `ps -eo pid,command` with the header stripped and our own transient grep rows excluded -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command searching for it
+	  ps -eo pid,command 2>/dev/null | tail -n +2 | grep -v '^[[:space:]]*[0-9]\+[[:space:]]\+grep ' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
+	}
+	_cleanse_pids_matching_regex() {  # PIDs of processes (from a snapshot already on stdin) whose command line matches an extended regex
+	  grep -Ei -- "$1" | awk 'NF{print $1}' || true  # `|| true`: zero matches is the common case, not a failure
+	}
+	_cleanse_pids_matching_all() {  # PIDs of processes (from a snapshot already on stdin) whose command line contains every literal substring given as an argument (no regex escaping needed for paths)
+	  local lines pat
+	  lines=$(cat)
+	  for pat in "$@"; do
+		lines=$(printf '%s\n' "$lines" | grep -F -- "$pat" || true)
+	  done
+	  printf '%s\n' "$lines" | awk 'NF{print $1}'
+	}
+	build_server_pattern='VBCSCompiler|Microsoft\.CodeAnalysis\.Razor\.[A-Za-z.]*Server|[[:space:]]rzc(\.dll)?([[:space:]]|$)'
+	if [[ -n "$dotnet_exe" ]]; then  # `build-server shutdown` always reports success whether or not a server was actually running, so its own output can't say what happened -- diff the PIDs before/after instead
+	  before_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex "$build_server_pattern")
+	  "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
+	  if [[ -n "$before_pids" ]]; then
+		after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex "$build_server_pattern")
+		stopped=$(comm -23 <(sort -u <<<"$before_pids") <(sort -u <<<"$after_pids") | grep -c '^[0-9]\+$' || true)
+		if [[ "${stopped:-0}" -gt 0 ]]; then
+		  echo "Stopped $stopped build server process(es) (VBCSCompiler/Razor) via 'dotnet build-server shutdown'."
+		fi
+	  fi
+	fi
+	# Node-reuse MSBuild worker processes are a different mechanism from build servers above -- left behind by
+	# any dotnet/MSBuild invocation that didn't pass --nodeReuse false (an IDE build, a bare `dotnet build`/
+	# `dotnet test`, `dotnet run --file eng/generate-compiler-code.cs`, ...) -- and are never registered as
+	# build servers, so `build-server shutdown` can't see or stop them. cleanse itself never launches a build,
+	# so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is unconditionally stale.
+	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet" "MSBuild.dll")
+	if [[ -n "$node_worker_pids" ]]; then
+	  _cleanse_kill_node_children() {  # best-effort: kills a pid's children first (recursively, portable ps -eo pid,ppid), swallowing all errors -- must never itself fail, since a child that's already gone (or was never killable) shouldn't stop the parent from still being killed below
+		local pid="$1" child
+		[[ -z "$pid" ]] && return 0
+		for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+		  _cleanse_kill_node_children "$child"
+		  kill "$child" 2>/dev/null || true
+		done
+		return 0
+	  }
+	  _cleanse_kill_node_tree() {  # kills a pid's children first, then the pid itself -- returns the *target* pid's own kill result (not forced to 0), so a caller can count only workers actually terminated (a process that already exited, or one `kill` couldn't touch due to permissions, must not be counted as killed)
+		local pid="$1"
+		[[ -z "$pid" ]] && return 1
+		_cleanse_kill_node_children "$pid"
+		kill "$pid" 2>/dev/null
+	  }
+	  killed=0
+	  while IFS= read -r pid; do
+		[[ -z "$pid" ]] && continue
+		_cleanse_kill_node_tree "$pid" && killed=$((killed + 1))
+	  done <<< "$node_worker_pids"
+	  if [[ "$killed" -gt 0 ]]; then
+		echo "Killed $killed leftover MSBuild node-reuse worker process(es)."
+	  fi
+	fi
 	if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]] && { [[ ! -d "$artifacts_dir" ]] || [[ -L "$artifacts_dir" ]]; }; then
 	  rm -rf -- "$artifacts_dir" || true  # a regular file or a symlink doesn't need the enumeration/progress machinery below -- just remove the single entry
 	  if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]]; then

@@ -267,6 +267,13 @@ namespace RunTests
                 }
             }
 
+            // Dumping above is diagnostic only -- it never terminates anything. Actual termination is handled by
+            // the cancellation this method's caller triggers right after returning: that kills the runner's own
+            // process tree (see ProcessRunner.CreateProcess's cancellation handler), which reliably reaps each
+            // test host as a descendant of the runner process that started it. GetTestHostProcesses() itself
+            // can't be used to kill here -- it enumerates every testhost-like process on the machine by name,
+            // not just ones this run started, so doing so would risk killing an unrelated test host from a
+            // concurrent RunTests invocation or an IDE.
             WriteLogFile(options);
         }
 

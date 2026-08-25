@@ -141,12 +141,16 @@ namespace RunTests
             {
                 if (tcs.TrySetCanceled())
                 {
-                    // If the underlying process is still running, we should kill it
+                    // If the underlying process is still running, we should kill it. Kill the whole tree, not
+                    // just this process: the direct child here is `dotnet test`/vstest.console, which itself
+                    // spawns a `testhost` child process to actually run the tests -- Kill() alone leaves that
+                    // testhost orphaned and running (this is what ProcessUtil.GetTestHostProcesses() exists to
+                    // find after the fact).
                     if (!process.HasExited)
                     {
                         try
                         {
-                            process.Kill();
+                            process.Kill(entireProcessTree: true);
                         }
                         catch (InvalidOperationException)
                         {
