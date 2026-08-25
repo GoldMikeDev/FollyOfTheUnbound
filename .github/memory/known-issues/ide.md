@@ -280,3 +280,28 @@ a `finally`. That fix immediately exposed a second, pre-existing bug: `RpcPair.D
 cancellation produces -- this was failing on nearly every test's normal teardown, silently, the entire time.
 `DisposeAsync` now calls `Server.Shutdown()` before disposing the client stream, matching production shutdown
 order.
+
+## A `PortableExecutableReference` from `MetadataReference.CreateFromFile` must become unreachable before its backing file is overwritten in place
+
+**Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.UnitTests/HostWorkspace/SharedMetadataReferenceCacheTests.cs`
+**Description:** Diagnosed from a real Windows failure: `ChangedTimestamp_DoesNotShareReference` failed with
+`System.IO.IOException: The requested operation cannot be performed on a file with a user-mapped section open.`
+`MetadataReference.CreateFromFile` eagerly prefetches the entire PE image into native memory and closes the
+input stream immediately, but per its own doc remarks, "the native memory block is released when the resulting
+reference becomes unreachable and GC collects it" -- there is no deterministic `Dispose` available to a caller
+holding only the `PortableExecutableReference`. A test that obtains such a reference and then overwrites the
+same file path in place (a common pattern in this file, used to simulate an on-disk assembly changing) races
+that GC/finalizer timing on Windows.
+**Invariant:** Any test overwriting a file it has already loaded via `MetadataReference.CreateFromFile` (directly
+or through `SharedMetadataReferenceCache`) must not keep a strong reference to the old
+`PortableExecutableReference` rooted across the overwrite -- an ordinary "`GC.Collect()` now, use the old
+reference later for an assertion" does **not** work, since a reference still used later in the method stays
+reachable and therefore ineligible for collection at the point of the collection call. Use
+`ObjectReference.CreateFromFactory` (`src/Compilers/Test/Core/ObjectReference.cs`, the codebase's existing
+tool for this exact "don't accidentally keep something rooted" problem) to obtain the reference, extract only
+the lightweight, image-independent `MetadataId` marker needed for later assertions via a scoped `UseReference`
+call, then call `ReleaseStrongReference()` (which performs the actual `GC.Collect()`/`WaitForPendingFinalizers()`
+loop) before the overwrite -- and compare `MetadataId` afterward instead of the old reference's own identity.
+All three tests in this file with this overwrite-in-place pattern (`ChangedTimestamp_DoesNotShareReference`,
+`ChangedTimestamp_InvalidatesAllPropertyVariants`, `ChangedFileReplacesPreviousVersion`) follow this pattern;
+a new test with the same shape must too.

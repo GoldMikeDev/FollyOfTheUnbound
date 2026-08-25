@@ -116,8 +116,17 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         File.Copy(typeof(object).Assembly.Location, path);
         File.SetLastWriteTimeUtc(path, timestamp);
 
-        var defaultReference1 = GetReference(cache, path, defaultProperties);
-        var aliasedReference1 = GetReference(cache, path, aliasedProperties);
+        // See ChangedTimestamp_DoesNotShareReference's remarks: capture only the MetadataId markers needed for
+        // the later assertions, then release the only strong references before overwriting this same file path.
+        MetadataId? defaultMetadataId1 = null;
+        var defaultReference1 = ObjectReference.CreateFromFactory(() => GetReference(cache, path, defaultProperties));
+        defaultReference1.UseReference(r => defaultMetadataId1 = r.GetMetadataId());
+        defaultReference1.ReleaseStrongReference();
+
+        MetadataId? aliasedMetadataId1 = null;
+        var aliasedReference1 = ObjectReference.CreateFromFactory(() => GetReference(cache, path, aliasedProperties));
+        aliasedReference1.UseReference(r => aliasedMetadataId1 = r.GetMetadataId());
+        aliasedReference1.ReleaseStrongReference();
 
         File.Copy(typeof(Enumerable).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
@@ -125,8 +134,8 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         var defaultReference2 = GetReference(cache, path, defaultProperties);
         var aliasedReference2 = GetReference(cache, path, aliasedProperties);
 
-        Assert.NotSame(defaultReference1.GetMetadataId(), defaultReference2.GetMetadataId());
-        Assert.NotSame(aliasedReference1.GetMetadataId(), aliasedReference2.GetMetadataId());
+        Assert.NotSame(defaultMetadataId1, defaultReference2.GetMetadataId());
+        Assert.NotSame(aliasedMetadataId1, aliasedReference2.GetMetadataId());
         Assert.Same(defaultReference2.GetMetadataId(), aliasedReference2.GetMetadataId());
     }
 
