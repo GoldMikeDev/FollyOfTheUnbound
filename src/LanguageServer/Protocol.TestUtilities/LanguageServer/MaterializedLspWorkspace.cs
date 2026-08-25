@@ -88,6 +88,15 @@ internal sealed class MaterializedLspWorkspace
 
         using var process = Process.Start(startInfo)!;
 
+        // Redirecting stdout/stderr without draining them risks deadlock: if `dotnet restore` writes enough
+        // output to fill the OS pipe buffer (e.g. SDK/NuGet warnings), it blocks on the write and never exits,
+        // so WaitForExit below would always hit the full timeout even for an otherwise-successful restore.
+        // Drain both streams asynchronously, matching the pattern ProcessUtilities.Run uses.
+        process.OutputDataReceived += static (_, _) => { };
+        process.ErrorDataReceived += static (_, _) => { };
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+
         if (!process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds))
         {
             process.Kill(entireProcessTree: true);
