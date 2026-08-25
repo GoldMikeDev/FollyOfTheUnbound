@@ -297,17 +297,18 @@ try {
 				}
 			}
 		}
-		function Get-AncestorPids {  # walks the PPid chain from this script's own process up to PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv)
+		function Get-AncestorPids {  # walks the PPid chain from this script's own process up to and including PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just excluded as a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
 			$snapshot = Get-ProcessSnapshot
 			$result = New-Object System.Collections.Generic.HashSet[int]
 			$current = $PID
-			while ($current -and $current -ne 0 -and $current -ne 1 -and -not $result.Contains($current)) {
+			while ($current -and $current -ne 0 -and -not $result.Contains($current)) {
 				[void]$result.Add($current)
+				if ($current -eq 1) { break }
 				$proc = $snapshot | Where-Object { $_.Pid -eq $current } | Select-Object -First 1
 				if (-not $proc) { break }
 				$current = $proc.PPid
 			}
-			return $result
+			return ,$result  # the leading comma prevents PowerShell's pipeline output from enumerating the HashSet -- without it, a single-element set is unrolled and returned as a bare scalar (or $null if empty), and callers' `.Contains()` calls would throw under ErrorActionPreference=Stop
 		}
 		function Get-PidsMatchingRegex([string]$Pattern) {  # PIDs of processes whose command line matches an extended regex
 			Get-ProcessSnapshot |
@@ -315,12 +316,13 @@ try {
 				Select-Object -ExpandProperty Pid
 		}
 		function Get-PidsMatchingAll([string[]]$Substrings) {  # PIDs of processes whose command line contains every literal substring given (no regex escaping needed for paths)
+			$comparison = if ($onWindows) { [System.StringComparison]::OrdinalIgnoreCase } else { [System.StringComparison]::Ordinal }  # same reasoning as Get-PidsMatchingRegexAndSubstring's $scopeComparison: this is also used to scope node-reuse worker matches to this checkout's own .dotnet path, and two Unix checkouts differing only by casing must not be treated as the same scope
 			Get-ProcessSnapshot |
 				Where-Object {
 					$cmd = $_.CommandLine
 					if (-not $cmd) { return $false }
 					foreach ($s in $Substrings) {
-						if ($cmd.IndexOf($s, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) { return $false }
+						if ($cmd.IndexOf($s, $comparison) -lt 0) { return $false }
 					}
 					return $true
 				} |
@@ -332,12 +334,12 @@ try {
 				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) -and ($_.CommandLine.IndexOf($Substring, $scopeComparison) -ge 0) } |
 				Select-Object -ExpandProperty Pid
 		}
-		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself, escalating from a graceful stop to -Force if it's still alive after a short wait -- only reports success once the pid is confirmed gone, since Stop-Process not throwing doesn't mean the process actually died (e.g. it ignores the initial signal)
+		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself, escalating from a graceful stop to -Force if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since Stop-Process not throwing doesn't mean the process actually died (e.g. it ignores the initial signal), and a candidate that exited on its own between snapshot and kill attempt was never force-killed by cleanse at all
 			$children = Get-ProcessSnapshot | Where-Object { $_.PPid -eq $ProcessId }
 			foreach ($child in $children) {
 				Stop-ProcessTree -ProcessId $child.Pid | Out-Null  # discard -- an uncaptured call's return value is implicit function output, and a multi-element array (this call's $true/$false alongside the parent's own) is *always* truthy to a caller's `Where-Object { Stop-ProcessTree ... }` regardless of the parent's real outcome
 			}
-			if (-not (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue)) { return $true }
+			if (-not (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue)) { return $false }  # already gone on its own -- nothing for this call to count as killed
 			try { Stop-Process -Id $ProcessId -ErrorAction Stop } catch {}
 			$deadline = (Get-Date).AddSeconds(5)
 			while ((Get-Process -Id $ProcessId -ErrorAction SilentlyContinue) -and (Get-Date) -lt $deadline) {

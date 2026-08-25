@@ -17,7 +17,8 @@ set -uo pipefail
 script_root="$(cd -P "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 folly_sh="$script_root/folly.sh"
 work_root="$(mktemp -d)"
-trap 'chmod -R u+rwX "$work_root" 2>/dev/null; chattr -R -i "$work_root" 2>/dev/null; rm -rf "$work_root"' EXIT
+synthetic_pids=""  # PIDs of any detached background process this harness spawns (e.g. the synthetic build-server case below) -- appended to as each is launched, so the EXIT trap can reap them even if the harness is interrupted or dies before its own explicit cleanup runs
+trap 'for _p in $synthetic_pids; do kill -9 "$_p" 2>/dev/null; done; chmod -R u+rwX "$work_root" 2>/dev/null; chattr -R -i "$work_root" 2>/dev/null; rm -rf "$work_root"' EXIT
 
 pass_count=0
 fail_count=0
@@ -207,6 +208,7 @@ disown
 sleep 0.5
 trapped_pid=$(ps -eo pid,command | grep 'pipename:test-trapped' | grep -v grep | awk '{print $1}')
 foreign_pid=$(ps -eo pid,command | grep 'pipename:test-foreign' | grep -v grep | awk '{print $1}')
+synthetic_pids="$synthetic_pids $trapped_pid $foreign_pid"  # register with the EXIT trap immediately -- before any assertion below might exit/interrupt the harness and leave these orphaned
 
 if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
   out=$(cd "$dir" && bash folly.sh cleanse 2>&1)

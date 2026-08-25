@@ -18,6 +18,8 @@ $pwshExe = (Get-Process -Id $PID).Path
 $workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("folly-cleanse-test-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Force -Path $workRoot | Out-Null
 
+$script:syntheticPids = @()  # PIDs of any detached background process this harness spawns (e.g. the synthetic build-server case below) -- appended to as each is launched, so the finally block can reap them even if the harness is interrupted or throws before its own explicit cleanup runs
+
 $script:passCount = 0
 $script:failCount = 0
 
@@ -229,6 +231,8 @@ exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename
 
         $trappedPid = & bash -c "ps -eo pid,command | grep 'pipename:pstrapped' | grep -v grep | awk '{print `$1}'"
         $foreignPid = & bash -c "ps -eo pid,command | grep 'pipename:psforeign' | grep -v grep | awk '{print `$1}'"
+        if ($trappedPid) { $script:syntheticPids += $trappedPid }  # register with the finally block immediately -- before any assertion below might throw/exit and leave these orphaned
+        if ($foreignPid) { $script:syntheticPids += $foreignPid }
 
         if ($trappedPid -and $foreignPid) {
             $result = Invoke-Cleanse -Dir $dir
@@ -268,5 +272,8 @@ exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename
     exit 0
 }
 finally {
+    foreach ($p in $script:syntheticPids) {
+        & bash -c "kill -9 $p 2>/dev/null"
+    }
     Remove-Item -Recurse -Force -LiteralPath $workRoot -ErrorAction SilentlyContinue
 }

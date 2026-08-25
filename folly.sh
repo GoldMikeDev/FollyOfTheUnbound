@@ -159,22 +159,23 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  local pattern="$1" substr="$2"
 	  grep -Ei -- "$pattern" | grep -F -- "$substr" | awk 'NF{print $1}' || true
 	}
-	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to PID 1 (or as far as `ps` can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv)
+	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to and including PID 1 (or as far as `ps` can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
 	  local pid="$$" ppid seen=" "
-	  while [[ -n "$pid" && "$pid" != "0" && "$pid" != "1" && "$seen" != *" $pid "* ]]; do
+	  while [[ -n "$pid" && "$pid" != "0" && "$seen" != *" $pid "* ]]; do
 		printf '%s\n' "$pid"
 		seen="$seen$pid "
+		[[ "$pid" == "1" ]] && break
 		ppid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]')
 		pid="$ppid"
 	  done
 	}
-	_cleanse_kill_pid_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM)
+	_cleanse_kill_pid_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM), and a candidate that exited on its own between snapshot and kill attempt (e.g. the shutdown RPC took effect a little late) was never force-killed by cleanse at all
 	  local pid="$1" child deadline
 	  [[ -z "$pid" ]] && return 1
 	  for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
 		_cleanse_kill_pid_tree "$child"
 	  done
-	  kill -0 "$pid" 2>/dev/null || return 0  # already gone
+	  kill -0 "$pid" 2>/dev/null || return 1  # already gone on its own -- nothing for this call to count as killed
 	  kill -TERM "$pid" 2>/dev/null
 	  deadline=$((SECONDS + 5))
 	  while kill -0 "$pid" 2>/dev/null && (( SECONDS < deadline )); do
