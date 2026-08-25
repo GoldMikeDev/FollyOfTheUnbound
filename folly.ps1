@@ -283,13 +283,27 @@ try {
 			$cmd = Get-Command dotnet -ErrorAction SilentlyContinue
 			if ($cmd) { $cmd.Source } else { $null }
 		}
-		function Get-PidsMatchingRegex([string]$Pattern) {  # PIDs of processes whose command line matches an extended regex (Win32_Process is the only source PowerShell has for another process's full command line)
-			Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
+		$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
+		function Get-ProcessSnapshot {  # Pid/PPid/CommandLine for every process -- Win32_Process (WMI/CIM) is Windows-only and PowerShell Core on Linux/macOS has no CIM server here, so non-Windows falls back to `ps -eo pid,ppid,command`, mirroring folly.sh's own ps-based approach
+			if ($onWindows) {
+				return Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
+					ForEach-Object { [PSCustomObject]@{ Pid = $_.ProcessId; PPid = $_.ParentProcessId; CommandLine = $_.CommandLine } }
+			}
+			$lines = & ps -eo pid,ppid,command 2>$null
+			if (-not $lines) { return @() }
+			$lines | Select-Object -Skip 1 | ForEach-Object {
+				if ($_ -match '^\s*(\d+)\s+(\d+)\s+(.*)$') {
+					[PSCustomObject]@{ Pid = [int]$Matches[1]; PPid = [int]$Matches[2]; CommandLine = $Matches[3] }
+				}
+			}
+		}
+		function Get-PidsMatchingRegex([string]$Pattern) {  # PIDs of processes whose command line matches an extended regex
+			Get-ProcessSnapshot |
 				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) } |
-				Select-Object -ExpandProperty ProcessId
+				Select-Object -ExpandProperty Pid
 		}
 		function Get-PidsMatchingAll([string[]]$Substrings) {  # PIDs of processes whose command line contains every literal substring given (no regex escaping needed for paths)
-			Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
+			Get-ProcessSnapshot |
 				Where-Object {
 					$cmd = $_.CommandLine
 					if (-not $cmd) { return $false }
@@ -298,12 +312,12 @@ try {
 					}
 					return $true
 				} |
-				Select-Object -ExpandProperty ProcessId
+				Select-Object -ExpandProperty Pid
 		}
 		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself -- Stop-Process alone would only orphan any child a worker itself spawned (e.g. a compiler worker under it)
-			$children = Get-CimInstance Win32_Process -Filter "ParentProcessId=$ProcessId" -ErrorAction SilentlyContinue
+			$children = Get-ProcessSnapshot | Where-Object { $_.PPid -eq $ProcessId }
 			foreach ($child in $children) {
-				Stop-ProcessTree -ProcessId $child.ProcessId
+				Stop-ProcessTree -ProcessId $child.Pid
 			}
 			try { Stop-Process -Id $ProcessId -Force -ErrorAction Stop; return $true } catch { return $false }
 		}
