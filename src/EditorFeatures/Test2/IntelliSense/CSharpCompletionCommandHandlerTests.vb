@@ -14051,6 +14051,11 @@ namespace NS2
                 state.SendBackspaces("Bar".Length)
                 state.SendEscape()
 
+                ' As with the cache warm-up before the first invocation above, wait for outstanding async work
+                ' (e.g. the unimported-types cache) to settle before re-invoking completion, rather than relying
+                ' solely on AssertSelectedCompletionItem's own internal wait below.
+                Await state.WaitForAsynchronousOperationsAsync()
+
                 state.SendTypeChars("bar")
                 Await state.SendInvokeCompletionListAndWaitForUiRenderAsync()
 

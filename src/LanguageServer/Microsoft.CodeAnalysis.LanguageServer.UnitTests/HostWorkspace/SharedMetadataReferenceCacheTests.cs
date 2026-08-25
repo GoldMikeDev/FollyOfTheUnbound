@@ -168,14 +168,16 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
         File.Copy(typeof(object).Assembly.Location, path);
         File.SetLastWriteTimeUtc(path, timestamp);
 
-        var firstReference = GetReference(cache, path);
         var otherReference = GetReference(cache, otherPath);
+
+        var firstReference = GetReference(cache, path);
         Assert.Same(firstReference, GetReference(cache, path));
 
         File.Copy(typeof(Uri).Assembly.Location, path, overwrite: true);
         File.SetLastWriteTimeUtc(path, timestamp.AddSeconds(1));
 
         Assert.NotSame(firstReference, GetReference(cache, path));
+        Assert.NotSame(firstReference.GetMetadataId(), GetReference(cache, path).GetMetadataId());
         Assert.Same(otherReference, GetReference(cache, otherPath));
     }
 
@@ -257,8 +259,19 @@ public sealed class SharedMetadataReferenceCacheTests : TestBase
     private static PortableExecutableReference CreateCacheableReference(
         string path, MetadataReferenceProperties properties)
     {
-        var reference = MetadataReference.CreateFromFile(
-            path, properties, DocumentationProvider.Default);
+        // Read the file's bytes into memory up front rather than letting MetadataReference.CreateFromFile hold
+        // any OS-level handle or mapping open against `path` itself. Several tests in this file intentionally
+        // overwrite the same path in place immediately after loading it (to simulate an on-disk assembly
+        // changing) while keeping the original reference alive -- on Windows, a reference still tied to that
+        // exact file can make the overwrite fail with "The requested operation cannot be performed on a file
+        // with a user-mapped section open," and releasing the reference first to dodge that isn't a valid fix
+        // either: SharedMetadataReferenceCache stores entries as WeakReference, so a reference collected purely
+        // to avoid the file lock would make timestamp-invalidation tests pass even if that invalidation logic
+        // were removed entirely. Backing the reference with a MemoryStream copy instead means it has no ties to
+        // the file at all once this method returns, so it's safe to keep genuinely alive indefinitely.
+        using var stream = new MemoryStream(File.ReadAllBytes(path));
+        var reference = MetadataReference.CreateFromStream(
+            stream, properties, DocumentationProvider.Default, filePath: path);
         _ = reference.GetMetadata();
 
         return reference;
