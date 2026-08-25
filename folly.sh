@@ -159,6 +159,15 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  local pattern="$1" substr="$2"
 	  grep -Ei -- "$pattern" | grep -F -- "$substr" | awk 'NF{print $1}' || true
 	}
+	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to PID 1 (or as far as `ps` can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv)
+	  local pid="$$" ppid seen=" "
+	  while [[ -n "$pid" && "$pid" != "0" && "$pid" != "1" && "$seen" != *" $pid "* ]]; do
+		printf '%s\n' "$pid"
+		seen="$seen$pid "
+		ppid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]')
+		pid="$ppid"
+	  done
+	}
 	_cleanse_kill_pid_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM)
 	  local pid="$1" child deadline
 	  [[ -z "$pid" ]] && return 1
@@ -177,6 +186,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  fi
 	  ! kill -0 "$pid" 2>/dev/null
 	}
+	ancestor_pids=$(_cleanse_ancestor_pids)
 	if [[ -n "$dotnet_exe" ]]; then  # `build-server shutdown` always reports success whether or not a server was actually running, so its own output can't say what happened -- diff the PIDs before/after instead
 	  before_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex "$build_server_pattern")
 	  "$dotnet_exe" build-server shutdown >/dev/null 2>&1 || true
@@ -196,6 +206,9 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		# A build server for a different repo/SDK is left alone even if its name matches the pattern.
 		scoped_after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex_and_substring "$build_server_pattern" "$scriptroot/.dotnet")
 		survivor_pids=$(comm -12 <(sort -u <<<"$before_pids") <(sort -u <<<"$scoped_after_pids"))
+		# Never kill this script's own invoking shell/CI agent, even if it happens to match the scoped
+		# pattern above (e.g. an automation wrapper whose own command line embeds the search text).
+		survivor_pids=$(comm -23 <(sort -u <<<"$survivor_pids") <(sort -u <<<"$ancestor_pids"))
 		if [[ -n "$survivor_pids" ]]; then
 		  force_killed=0
 		  while IFS= read -r pid; do
@@ -214,6 +227,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# build servers, so `build-server shutdown` can't see or stop them. cleanse itself never launches a build,
 	# so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is unconditionally stale.
 	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet" "MSBuild.dll")
+	node_worker_pids=$(comm -23 <(sort -u <<<"$node_worker_pids") <(sort -u <<<"$ancestor_pids"))  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 	if [[ -n "$node_worker_pids" ]]; then
 	  killed=0
 	  while IFS= read -r pid; do

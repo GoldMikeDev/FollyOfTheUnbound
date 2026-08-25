@@ -297,6 +297,18 @@ try {
 				}
 			}
 		}
+		function Get-AncestorPids {  # walks the PPid chain from this script's own process up to PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv)
+			$snapshot = Get-ProcessSnapshot
+			$result = New-Object System.Collections.Generic.HashSet[int]
+			$current = $PID
+			while ($current -and $current -ne 0 -and $current -ne 1 -and -not $result.Contains($current)) {
+				[void]$result.Add($current)
+				$proc = $snapshot | Where-Object { $_.Pid -eq $current } | Select-Object -First 1
+				if (-not $proc) { break }
+				$current = $proc.PPid
+			}
+			return $result
+		}
 		function Get-PidsMatchingRegex([string]$Pattern) {  # PIDs of processes whose command line matches an extended regex
 			Get-ProcessSnapshot |
 				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) } |
@@ -315,8 +327,9 @@ try {
 				Select-Object -ExpandProperty Pid
 		}
 		function Get-PidsMatchingRegexAndSubstring([string]$Pattern, [string]$Substring) {  # PIDs whose command line matches an extended regex AND contains a literal substring -- scopes the build-server name pattern to this checkout's own bootstrapped SDK, so a force-kill can never reach some other checkout's or tool's build server
+			$scopeComparison = if ($onWindows) { [System.StringComparison]::OrdinalIgnoreCase } else { [System.StringComparison]::Ordinal }  # Windows paths are case-insensitive at the OS level so the scope check must match that; Unix paths are case-sensitive, so two checkouts differing only by casing (e.g. /work/repo vs /work/Repo) are genuinely different roots and must not be treated as the same scope -- matches folly.sh's plain (case-sensitive) `grep -F` scope check
 			Get-ProcessSnapshot |
-				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) -and ($_.CommandLine.IndexOf($Substring, [System.StringComparison]::OrdinalIgnoreCase) -ge 0) } |
+				Where-Object { $_.CommandLine -and ($_.CommandLine -match $Pattern) -and ($_.CommandLine.IndexOf($Substring, $scopeComparison) -ge 0) } |
 				Select-Object -ExpandProperty Pid
 		}
 		function Stop-ProcessTree([int]$ProcessId) {  # kills a process's children first, then the process itself, escalating from a graceful stop to -Force if it's still alive after a short wait -- only reports success once the pid is confirmed gone, since Stop-Process not throwing doesn't mean the process actually died (e.g. it ignores the initial signal)
@@ -336,6 +349,7 @@ try {
 			}
 			return -not (Get-Process -Id $ProcessId -ErrorAction SilentlyContinue)
 		}
+		$ancestorPids = Get-AncestorPids
 		if ($dotnetExe) {  # `build-server shutdown` always reports success whether or not a server was actually running, so its own output can't say what happened -- diff the PIDs before/after instead
 			$buildServerPattern = 'VBCSCompiler|Microsoft\.CodeAnalysis\.Razor\.[A-Za-z.]*Server|(^|\s)rzc(\.dll)?(\s|$)'
 			$beforeServerPids = @(Get-PidsMatchingRegex $buildServerPattern)
@@ -355,7 +369,7 @@ try {
 				# node-reuse workers below are held to) is unconditionally stale and gets force-killed. A build server
 				# for a different repo/SDK is left alone even if its name matches the pattern.
 				$scopedAfterServerPids = @(Get-PidsMatchingRegexAndSubstring $buildServerPattern (Join-Path $PSScriptRoot ".dotnet"))
-				$survivorServerPids = @($beforeServerPids | Where-Object { $scopedAfterServerPids -contains $_ })
+				$survivorServerPids = @($beforeServerPids | Where-Object { ($scopedAfterServerPids -contains $_) -and (-not $ancestorPids.Contains($_)) })  # never kill this script's own invoking shell/CI agent, even if it happens to match the scoped pattern above (e.g. an automation wrapper whose own command line embeds the search text)
 				if ($survivorServerPids.Count -gt 0) {
 					$forceKilledCount = @($survivorServerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
 					if ($forceKilledCount -gt 0) {
@@ -370,7 +384,7 @@ try {
 		# registered as build servers, so `build-server shutdown` can't see or stop them. cleanse itself never
 		# launches a build, so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is
 		# unconditionally stale.
-		$nodeWorkerPids = @(Get-PidsMatchingAll @((Join-Path $PSScriptRoot ".dotnet"), "MSBuild.dll"))
+		$nodeWorkerPids = @(Get-PidsMatchingAll @((Join-Path $PSScriptRoot ".dotnet"), "MSBuild.dll") | Where-Object { -not $ancestorPids.Contains($_) })  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 		if ($nodeWorkerPids.Count -gt 0) {
 			$killedNodeCount = @($nodeWorkerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
 			if ($killedNodeCount -gt 0) {
