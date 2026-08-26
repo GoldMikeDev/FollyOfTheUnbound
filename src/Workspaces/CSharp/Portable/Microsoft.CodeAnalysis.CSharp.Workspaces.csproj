@@ -18,6 +18,14 @@
 
     <!-- NuGet -->
     <IsPackable>true</IsPackable>
+    <!-- Keep the real upstream PackageId even though AssemblyName above is renamed: PackageId only
+         affects NuGet's dependency graph, not the CLR/VS-visible assembly identity, and matching it
+         lets NuGet auto-substitute this project for the real Microsoft.CodeAnalysis.CSharp.Workspaces
+         package everywhere in the graph, avoiding the CS0433 identity collision that otherwise
+         requires excluding the real package's compile assets project-by-project (see
+         Microsoft.CodeAnalysis.Workspaces.Test.Utilities.csproj's now-removed workaround). Mirrors the
+         same pattern already used by the base Microsoft.CodeAnalysis.Workspaces.csproj. -->
+    <PackageId>Microsoft.CodeAnalysis.CSharp.Workspaces</PackageId>
     <PackageDescription>
       .NET Compiler Platform ("Roslyn") support for analyzing C# projects and solutions.
     </PackageDescription>
