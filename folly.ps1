@@ -190,11 +190,14 @@ try {
 		}
 		# Runs one leg's build.ps1 invocation and lets its per-work-item progress (the bulk of a leg's output,
 		# potentially most of the --timeout watchdog's 90 minutes) print live as it arrives, same as it always
-		# has -- only its epilogue (any failed-test dumps, then RunTests' own final PASSED/FAILED/TIMEOUT table,
-		# via TestRunner.Print -- see src/Tools/RunTests/TestRunner.cs) is held back instead of printing
-		# immediately, so that epilogue can be shown together with the other leg's once both have finished (see
-		# the "results together" block below) instead of one leg's getting buried under the other leg's own
-		# subsequent build/progress output.
+		# has -- only RunTests' final PASSED/FAILED/TIMEOUT table itself (the divider/rows/divider/footer span
+		# TestRunner.Print writes -- see src/Tools/RunTests/TestRunner.cs) is held back instead of printing
+		# immediately, so that table can be shown together with the other leg's once both have finished (see the
+		# "results together" block below) instead of one leg's getting buried under the other leg's own
+		# subsequent build/progress output. Note this does NOT cover Print's PrintFailedTestResult dumps for
+		# failed tests, which it writes just before that span (still live, undeferred, same as always) -- there's
+		# no marker distinguishing where those begin from ordinary progress output, so unlike the table itself
+		# they can't be reliably held back without risking swallowing real progress lines too.
 		#
 		# The real epilogue is always the *last* "================"/rows/"================" span immediately
 		# followed by RunTests' exact footer line -- not the first divider seen. A failed test's own captured
@@ -233,12 +236,16 @@ try {
 				if ($line -eq $footerText) {
 					# The current (most recent) span holds just its own opening divider -- straight into the footer,
 					# no rows -- so it's the real table's *end* marker, and the real table itself (begin marker +
-					# rows) is the span immediately before it, if any. Everything older than that is stale and goes
-					# live now; the real span, the end-marker span, and this footer line are the deferred output.
-					for ($i = 0; $i -lt $spans.Count - 1; $i++) {
+					# rows) is the span immediately *before* it (index Count-2), if there is one. Everything older
+					# than that (index 0 .. Count-3) is stale and goes live now; the real span, the end-marker span,
+					# and this footer line are the deferred output.
+					$realSpanIndex = $spans.Count - 2
+					for ($i = 0; $i -lt $realSpanIndex; $i++) {
 						foreach ($l in $spans[$i]) { Write-Host $l }
 					}
-					foreach ($l in $spans[$spans.Count - 1]) { $deferredLines.Add($l) }
+					for ($i = [Math]::Max($realSpanIndex, 0); $i -lt $spans.Count; $i++) {
+						foreach ($l in $spans[$i]) { $deferredLines.Add($l) }
+					}
 					$deferredLines.Add($line)
 					$sawFooter = $true
 					return
