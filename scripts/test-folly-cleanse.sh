@@ -43,6 +43,28 @@ skip() {
   echo "${color_yellow}SKIP: $1${color_reset}"
 }
 
+# Invoked immediately after a skip() whose cause is a genuine Git-Bash/MSYS2
+# limitation (not present on real Windows) rather than a fundamental one --
+# runs test-folly-cleanse.ps1's Windows-native equivalent of that single case
+# via pwsh and folds its pass/fail into this script's own counts, prefixing
+# its output so it's clearly a pwsh invocation and not bash's own. On
+# anything but Windows-with-pwsh this is a silent no-op: no pwsh version, no
+# equivalent case.
+pwsh_crossover() {
+  local case_name="$1"
+  if [[ "${OS:-}" != "Windows_NT" ]] || ! command -v pwsh >/dev/null 2>&1; then
+    return
+  fi
+  echo "pwsh: test-folly-cleanse.ps1 -Only $case_name (Windows-native equivalent of the case above)"
+  pwsh -NoProfile -File "$script_root/scripts/test-folly-cleanse.ps1" -Only "$case_name" 2>&1 | sed 's/^/pwsh: /'
+  local pwsh_ec=${PIPESTATUS[0]}
+  if (( pwsh_ec == 0 )); then
+    pass_count=$(( pass_count + 1 ))
+  else
+    fail_count=$(( fail_count + 1 ))
+  fi
+}
+
 new_case() {
   local name="$1"
   local dir="$work_root/$name"
@@ -119,6 +141,7 @@ if command -v chattr >/dev/null 2>&1 && [[ "$(id -u)" == "0" ]]; then
   fi
 else
   skip "permission-failure case (needs root + chattr)"
+  pwsh_crossover locked
 fi
 
 # --- file vanishing mid-enumeration/sizing (concurrent writer) -----------
@@ -159,6 +182,7 @@ else
   if ls "$dir/artifacts/locked" >/dev/null 2>&1; then
     skip "unreadable-subtree case (this filesystem/shell does not enforce chmod as real access control)"
     chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
+    pwsh_crossover unreadable
   else
     out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
     ec=$?
