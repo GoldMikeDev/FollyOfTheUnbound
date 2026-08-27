@@ -137,18 +137,25 @@ fi
 if [[ -n "$verbosity" ]]; then
   extra_build_args+=(--verbosity "$verbosity")
 fi
+# Passed as a raw MSBuild property (not one of eng/build.sh's own named switches, so via its
+# "properties" passthrough, not extra_build_args above) on every build this script runs:
+# eng/build.sh's BuildSolution invokes MSBuild on Arcade's toolset Build.proj, passing the .slnx only
+# via /p:Projects=..., so the built-in $(SolutionName) is never actually "FollyOfTheUnbound" here --
+# see the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj for the RoslynSdk
+# collision this was added to fix.
+identity_args=(/p:FollyOfTheUnboundBuild=true)
 case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh defaults nodeReuse true locally, leaving MSBuild worker nodes running after exit, still holding DLLs open under artifacts/ (`build-server shutdown` in cleanse only stops VBCSCompiler/Razor, not these)
   attune)
-	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
+	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   weave)
-	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
+	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   reweave)
-	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
+	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   bind)
-	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
+	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   scry)
 	if [[ "$reflection" -eq 1 ]]; then
@@ -166,6 +173,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  scry_args+=(--testTimeout "$test_timeout")
 	fi
 	scry_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
+	scry_args+=("${identity_args[@]}")
 	"$build_script" "${scry_args[@]}"
 	;;
   cleanse)

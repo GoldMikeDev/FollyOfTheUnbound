@@ -23,20 +23,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- When built as part of this fork's own solution (FollyOfTheUnbound.slnx), reference our renamed
-         Microsoft.CodeAnalysis.Workspaces.csproj directly instead of the real, un-renamed
-         Microsoft.CodeAnalysis.Workspaces.Common package below: its PackageId still matches that real
-         package, so NuGet's project-substitution mechanism picks this up automatically, making this
-         library's own compiled types (e.g. via Microsoft.CodeAnalysis.CodeFix.Testing's CodeFixTest<T>)
-         resolve against our renamed assembly rather than the real one, see
-         Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj's exclusion comment in FollyOfTheUnbound.slnx
-         for the identity-collision this fixes. $(SolutionName) is only set when actually building via a
-         .sln/.slnx, and only equals "FollyOfTheUnbound" for this fork's own solution, so a standalone
+    <!-- When built as part of this fork's own build (folly.ps1/folly.sh, which always pass
+         /p:FollyOfTheUnboundBuild=true; see BuildSolution's own MSBuild invocation in
+         eng/build.ps1/eng/build.sh), reference our renamed Microsoft.CodeAnalysis.Workspaces.csproj
+         directly instead of the real, un-renamed Microsoft.CodeAnalysis.Workspaces.Common package
+         below, see Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj's exclusion comment in
+         FollyOfTheUnbound.slnx for the identity-collision this fixes.
+
+         Not conditioned on $(SolutionName): eng/build.ps1's BuildSolution invokes MSBuild on Arcade's
+         toolset Build.proj (passing the .slnx path only via /p:Projects=...), not on the .slnx file
+         itself, so MSBuild's own $(SolutionName) (only auto-derived when the entry file IS a
+         .sln/.slnx) is never actually "FollyOfTheUnbound" in a real folly.ps1/folly.sh build; it
+         silently falls back to Microsoft.Common.CurrentVersion.targets' "*Undefined*" default, so a
+         Condition keyed on it never fires (confirmed via `dotnet nuget why`, which showed the real
+         package still resolved directly for every TargetFramework despite that condition). A standalone
          build of this project (e.g. via Roslyn.slnx, which is what actually publishes the real,
-         externally-consumed Microsoft.CodeAnalysis.Analyzer.Testing NuGet package) is entirely
-         unaffected: it keeps using the real package below, unchanged. -->
+         externally-consumed Microsoft.CodeAnalysis.Analyzer.Testing NuGet package) never passes that
+         property and is entirely unaffected: it keeps using the real package below, unchanged. -->
     <ProjectReference Include="..\..\..\Workspaces\Core\Portable\Microsoft.CodeAnalysis.Workspaces.csproj"
-                       Condition="'$(SolutionName)' == 'FollyOfTheUnbound'" />
+                       Condition="'$(FollyOfTheUnboundBuild)' == 'true'" />
     <!-- Excluded (not just left to NuGet's automatic project/package substitution) when building this
          fork: substitution is keyed off matching PackageIds within the SAME restore's TargetFramework
          node, but Microsoft.CodeAnalysis.Workspaces.csproj above doesn't target net472 (only
@@ -45,7 +50,7 @@
          so the real package still gets pulled in alongside it, causing CS0433 (Project/Solution/etc.
          defined in both assemblies). Excluding the PackageReference outright avoids depending on that
          TFM-matching behavior instead of trying to satisfy it. -->
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Condition="'$(SolutionName)' != 'FollyOfTheUnbound'" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Condition="'$(FollyOfTheUnboundBuild)' != 'true'" />
     <PackageReference Include="Microsoft.VisualBasic" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'" />
     <PackageReference Include="Microsoft.VisualStudio.Composition" VersionOverride="16.1.8" />
     <PackageReference Include="Nullable" PrivateAssets="all" />

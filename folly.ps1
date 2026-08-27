@@ -135,17 +135,24 @@ try {
 	if ($verbosity) {
 		$extraBuildArgs["verbosity"] = $verbosity
 	}
+	# Passed as a raw MSBuild property (not a named eng/build.ps1 parameter, so via $properties'
+	# ValueFromRemainingArguments passthrough, not the $extraBuildArgs splat above) on every build this
+	# script runs: eng/build.ps1's BuildSolution invokes MSBuild on Arcade's toolset Build.proj, passing
+	# the .slnx only via /p:Projects=..., so the built-in $(SolutionName) is never actually
+	# "FollyOfTheUnbound" here -- see the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj
+	# for the RoslynSdk collision this was added to fix.
+	$identityArgs = @("/p:FollyOfTheUnboundBuild=true")
 	if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
-		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
+		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "weave") {
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "reweave") {
-		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
+		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "bind") {
-		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
+		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "scry" -and $reflection) {
 		$pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
@@ -163,7 +170,7 @@ try {
 		$runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one
 		$runFramework = $framework -or -not ($core -or $framework)
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
@@ -225,7 +232,7 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs
+				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -241,7 +248,7 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs
+				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
