@@ -16,6 +16,9 @@ try {
 	$reflection = $false
 	$testTimeout = 0
 	$expectTimeoutValue = $false
+	$binaryLog = $false
+	$verbosity = $null
+	$expectVerbosityValue = $false
 	foreach ($arg in $remainingArgs) {
 		if ($expectTimeoutValue) {
 			if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0 -or $testTimeout -gt 71582) {  # 71582 min = Task.Delay's ms ceiling, which Program.RunCoreAsync forwards this straight into
@@ -23,6 +26,10 @@ try {
 				exit 1
 			}
 			$expectTimeoutValue = $false
+		}
+		elseif ($expectVerbosityValue) {
+			$verbosity = $arg
+			$expectVerbosityValue = $false
 		}
 		elseif ($arg -eq "--core") {
 			$core = $true
@@ -32,6 +39,12 @@ try {
 		}
 		elseif ($arg -eq "--timeout") {
 			$expectTimeoutValue = $true
+		}
+		elseif ($arg -eq "--binaryLog" -or $arg -eq "-bl") {
+			$binaryLog = $true
+		}
+		elseif ($arg -eq "--verbosity" -or $arg -eq "-v") {
+			$expectVerbosityValue = $true
 		}
 		elseif ($arg -eq "reflection") {
 			$reflection = $true
@@ -46,6 +59,10 @@ try {
 	}
 	if ($expectTimeoutValue) {
 		Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
+		exit 1
+	}
+	if ($expectVerbosityValue) {
+		Write-Host "'--verbosity' requires a value: q[uiet], m[inimal], n[ormal], d[etailed], or diag[nostic]." -ForegroundColor Red
 		exit 1
 	}
 	if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
@@ -67,6 +84,8 @@ try {
 		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core)."
 		Write-Host "Tertiary args:"
 		Write-Host "    '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90)."
+		Write-Host "    '<command> [secondary] --binaryLog'                 Write an MSBuild binary log under artifacts\log\<config>\Build.binlog."
+		Write-Host "    '<command> [secondary] --verbosity <level>'         MSBuild console verbosity: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic]."
 		Write-Host ""
 		exit 0
 	}
@@ -90,6 +109,14 @@ try {
 		Write-Host "'reflection' doesn't take '--core'/'--framework'/'--timeout' -- it runs folly's own test harnesses, not RunTests." -ForegroundColor Red
 		exit 1
 	}
+	if (($binaryLog -or $verbosity) -and $action -eq "cleanse") {
+		Write-Host "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." -ForegroundColor Red
+		exit 1
+	}
+	if (($binaryLog -or $verbosity) -and $action -eq "scry" -and $reflection) {
+		Write-Host "'reflection' doesn't take '--binaryLog'/'--verbosity' -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
+		exit 1
+	}
 	if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {
 		$configuration = $null
 		$nupkgDir = $null
@@ -110,17 +137,24 @@ try {
 		Write-Host "Unrecognised configuration '$config'. Expected 'research' or 'truth'." -ForegroundColor Red
 		exit 1
 	}
+	$extraBuildArgs = @{}  # --binaryLog/--verbosity: forwarded as-is to eng/build.ps1, which already validates/handles them (see its own -verbosity/-bl); folly.ps1 only gatekeeps which actions accept them, above. A hashtable splat, not an array: splatting a bare "-binaryLog" string in an array does NOT bind a [switch] parameter to $true (PowerShell only recognizes that shorthand when the token is typed literally on the command line, not when it arrives via array splatting) -- a hashtable splat maps the parameter name to its value explicitly and works correctly for switches.
+	if ($binaryLog) {
+		$extraBuildArgs["binaryLog"] = $true
+	}
+	if ($verbosity) {
+		$extraBuildArgs["verbosity"] = $verbosity
+	}
 	if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
-		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
 	}
 	elseif ($action -eq "weave") {
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
 	}
 	elseif ($action -eq "reweave") {
-		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
 	}
 	elseif ($action -eq "bind") {
-		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs
 	}
 	elseif ($action -eq "scry" -and $reflection) {
 		$pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
@@ -199,7 +233,7 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -215,7 +249,7 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue

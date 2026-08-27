@@ -142,6 +142,75 @@ else
   test_fail "timeout on non-scry action (exit=$exit_code): $output"
 fi
 
+# --- --binaryLog is forwarded to eng/build.sh ---
+dir="$(new_test_case "binarylog-forwarded")"
+result="$(run_case "$dir" weave research --binaryLog)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--binaryLog" <<<"$args_log"; then
+  test_pass "'--binaryLog' is forwarded to eng/build.sh"
+else
+  test_fail "binaryLog forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- -bl is accepted as a short alias, forwarded as the long form ---
+dir="$(new_test_case "binarylog-short-alias")"
+result="$(run_case "$dir" weave research -bl)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--binaryLog" <<<"$args_log"; then
+  test_pass "'-bl' is forwarded to eng/build.sh as --binaryLog"
+else
+  test_fail "binaryLog short alias (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --verbosity is forwarded to eng/build.sh with its value ---
+dir="$(new_test_case "verbosity-forwarded")"
+result="$(run_case "$dir" scry research --verbosity diag)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--verbosity" <<<"$args_log" && grep -qx "diag" <<<"$args_log"; then
+  test_pass "'--verbosity diag' is forwarded to eng/build.sh"
+else
+  test_fail "verbosity forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --verbosity with a missing value is rejected ---
+dir="$(new_test_case "verbosity-missing-value")"
+result="$(run_case "$dir" weave --verbosity)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires a value"* ]]; then
+  test_pass "'--verbosity' with no value is rejected"
+else
+  test_fail "verbosity missing value (exit=$exit_code): $output"
+fi
+
+# --- --binaryLog is rejected on 'cleanse' ---
+dir="$(new_test_case "binarylog-on-cleanse")"
+result="$(run_case "$dir" cleanse --binaryLog)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"aren't valid with 'cleanse'"* ]]; then
+  test_pass "'--binaryLog' is rejected on 'cleanse'"
+else
+  test_fail "binaryLog on cleanse (exit=$exit_code): $output"
+fi
+
+# --- --verbosity is rejected alongside 'scry reflection' ---
+dir="$(new_test_case "verbosity-on-reflection")"
+result="$(run_case "$dir" scry reflection --verbosity diag)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take '--binaryLog'/'--verbosity'"* ]]; then
+  test_pass "'--verbosity' is rejected alongside 'scry reflection'"
+else
+  test_fail "verbosity on reflection (exit=$exit_code): $output"
+fi
+
 # --- rejected argument ---
 dir="$(new_test_case "rejected-arg")"
 result="$(run_case "$dir" scry --bogus)"

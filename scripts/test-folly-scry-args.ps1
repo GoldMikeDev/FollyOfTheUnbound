@@ -40,7 +40,8 @@ param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
     [int]$testTimeout,
-    [string]$solution,[string]$configuration
+    [string]$solution,[string]$configuration,
+    [switch]$binaryLog,[string]$verbosity
 )
 $scriptroot = $PSScriptRoot
 $repoRoot = Split-Path $scriptroot -Parent
@@ -50,6 +51,9 @@ $logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
 # Records the -testTimeout value this mock actually received, so the test harness can assert
 # folly.ps1 forwarded the value the caller asked for instead of silently dropping it.
 Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value "$suffix=$testTimeout"
+# Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
+# assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
+Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
 function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -268,6 +272,72 @@ try {
     }
     else {
         Test-Fail "timeout exceeds Task.Delay max (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --binaryLog is forwarded to eng/build.ps1 ---
+    $dir = New-TestCase "binarylog-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "--binaryLog")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "binaryLog=True") {
+        Test-Pass "'--binaryLog' is forwarded to eng/build.ps1"
+    }
+    else {
+        Test-Fail "binaryLog forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- -bl is accepted as a short alias, forwarded as the long form ---
+    $dir = New-TestCase "binarylog-short-alias"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "-bl")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "binaryLog=True") {
+        Test-Pass "'-bl' is forwarded to eng/build.ps1 as -binaryLog"
+    }
+    else {
+        Test-Fail "binaryLog short alias (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --verbosity is forwarded to eng/build.ps1 with its value ---
+    $dir = New-TestCase "verbosity-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--verbosity", "diag")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "verbosity=diag") {
+        Test-Pass "'--verbosity diag' is forwarded to eng/build.ps1"
+    }
+    else {
+        Test-Fail "verbosity forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --verbosity with a missing value is rejected ---
+    $dir = New-TestCase "verbosity-missing-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--verbosity")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires a value") {
+        Test-Pass "'--verbosity' with no value is rejected"
+    }
+    else {
+        Test-Fail "verbosity missing value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --binaryLog is rejected on 'cleanse' ---
+    $dir = New-TestCase "binarylog-on-cleanse"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("cleanse", "--binaryLog")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "aren't valid with 'cleanse'") {
+        Test-Pass "'--binaryLog' is rejected on 'cleanse'"
+    }
+    else {
+        Test-Fail "binaryLog on cleanse (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --verbosity is rejected alongside 'scry reflection' ---
+    $dir = New-TestCase "verbosity-on-reflection"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--verbosity", "diag")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take '--binaryLog'/'--verbosity'") {
+        Test-Pass "'--verbosity' is rejected alongside 'scry reflection'"
+    }
+    else {
+        Test-Fail "verbosity on reflection (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- 'reflection' is rejected on a non-scry action ---

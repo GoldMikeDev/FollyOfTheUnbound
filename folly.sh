@@ -30,13 +30,17 @@ Secondary args:
     '<scry> <primary> --framework'                      Run only the Framework tests (skip Core).
 Tertiary args:
     '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90).
-		
+    '<command> [secondary] --binaryLog'                 Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
+    '<command> [secondary] --verbosity <level>'         MSBuild console verbosity: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic].
+
 EOF
   exit 0
 fi
 config=""
 test_timeout=0
 reflection=0
+binary_log=0
+verbosity=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
 	reflection)
@@ -52,6 +56,18 @@ while [[ $# -gt 0 ]]; do
 	  test_timeout=$((10#$test_timeout))  # force base-10: bash treats a leading-zero operand as octal, and "08"/"09" aren't valid octal digits
 	  if [[ "$test_timeout" -le 0 || "$test_timeout" -gt 71582 ]]; then  # 71582 min = Task.Delay's ms-argument ceiling (4294967294ms), which is what RunTests.Program.RunCoreAsync forwards this straight into
 		echo "'--timeout' requires a positive integer minute count, up to 71582 (Task.Delay's supported maximum), got '${2:-}'." >&2
+		exit 1
+	  fi
+	  shift 2
+	  ;;
+	--binaryLog|-bl)
+	  binary_log=1
+	  shift
+	  ;;
+	--verbosity|-v)
+	  verbosity="${2:-}"
+	  if [[ -z "$verbosity" ]]; then
+		echo "'--verbosity' requires a value: q[uiet], m[inimal], n[ormal], d[etailed], or diag[nostic]." >&2
 		exit 1
 	  fi
 	  shift 2
@@ -86,6 +102,14 @@ if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
   echo "'reflection' doesn't take '--timeout' -- it runs folly's own test harnesses, not RunTests." >&2
   exit 1
 fi
+if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "cleanse" ]]; then
+  echo "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." >&2
+  exit 1
+fi
+if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "scry" && "$reflection" -eq 1 ]]; then
+  echo "'reflection' doesn't take '--binaryLog'/'--verbosity' -- it runs folly's own test harnesses, not a build." >&2
+  exit 1
+fi
 if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]]; then
   configuration=""
   nupkg_dir=""
@@ -102,18 +126,25 @@ else
   echo "Unrecognized configuration '$config'. Expected 'research' or 'truth'." >&2
   exit 1
 fi
+extra_build_args=()  # --binaryLog/--verbosity: forwarded as-is to eng/build.sh, which already validates/handles them (see its own -verbosity/-bl); folly.sh only gatekeeps which actions accept them, above
+if [[ "$binary_log" -eq 1 ]]; then
+  extra_build_args+=(--binaryLog)
+fi
+if [[ -n "$verbosity" ]]; then
+  extra_build_args+=(--verbosity "$verbosity")
+fi
 case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh defaults nodeReuse true locally, leaving MSBuild worker nodes running after exit, still holding DLLs open under artifacts/ (`build-server shutdown` in cleanse only stops VBCSCompiler/Razor, not these)
   attune)
-	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
 	;;
   weave)
-	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
 	;;
   reweave)
-	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
 	;;
   bind)
-	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"}
 	;;
   scry)
 	if [[ "$reflection" -eq 1 ]]; then
@@ -129,6 +160,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ "$test_timeout" -gt 0 ]]; then
 	  scry_args+=(--testTimeout "$test_timeout")
 	fi
+	scry_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
 	"$build_script" "${scry_args[@]}"
 	;;
   cleanse)
