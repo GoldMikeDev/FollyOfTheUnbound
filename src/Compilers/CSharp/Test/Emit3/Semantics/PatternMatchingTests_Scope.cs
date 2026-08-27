@@ -1020,9 +1020,9 @@ public class X
     void Test2()
     {
         if (true is var x2)
-            { Dummy(x2); }
+            Dummy(x2);
         else
-            { System.Console.WriteLine(x2); }
+            System.Console.WriteLine(x2);
     }
 
     void Test3()

@@ -93,9 +93,9 @@ class C
         /*<bind>*/do
         {
             if (true)
-                { break; }
+                break;
             else
-                { /*<bind>*/continue; }/*</bind>*/
+                /*<bind>*/continue;/*</bind>*/
         } while (true)/*</bind>*/
     }
 }");

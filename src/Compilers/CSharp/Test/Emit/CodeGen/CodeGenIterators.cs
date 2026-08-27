@@ -2913,9 +2913,9 @@ class Program
     {
         bool result;
         if (i == 1)
-            { result = true; }
+            result = true;
         else
-            { result = false; }
+            result = false;
         yield return result.ToString();
     }
 }";

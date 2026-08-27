@@ -5970,16 +5970,16 @@ class C
     static int M1(char c)
     {
         if (c is >= 'A' and <= 'Z' or >= 'a' and <= 'z')
-            { return 1; }
+            return 1;
         else
-            { return 0; }
+            return 0;
     }
     static int M2(char c)
     {
         if (c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z')
-            { return 1; }
+            return 1;
         else
-            { return 0; }
+            return 0;
     }
     public static void Main()
     {

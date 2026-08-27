@@ -8131,9 +8131,9 @@ local(0);
             var text = @"
 bool b = true;
 if (b)
-    { return 0; }
+    return 0;
 else
-    { return; }
+    return;
 ";
 
             var comp = CreateCompilation(text, options: TestOptions.DebugExe, parseOptions: DefaultParseOptions);
@@ -8153,9 +8153,9 @@ else
             var text = @"
 bool b = true;
 if (b)
-    { return; }
+    return;
 else
-    { return 0; }
+    return 0;
 ";
 
             var comp = CreateCompilation(text, options: TestOptions.DebugExe, parseOptions: DefaultParseOptions);

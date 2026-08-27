@@ -1164,9 +1164,9 @@ class Program
     {
         S s2;
         if (s.x == 3)
-            { s2 = s; }
+            s2 = s;
         else
-            { s2.x = s.x; }
+            s2.x = s.x;
         int x = s2.x;
     }
 }

@@ -458,14 +458,14 @@ class C
         S one = new S(1);
 
         if (zero)
-            { Console.Write('a'); }
+            Console.Write('a');
         else
-            { Console.Write('b'); }
+            Console.Write('b');
 
         if (one)
-            { Console.Write('c'); }
+            Console.Write('c');
         else
-            { Console.Write('d'); }
+            Console.Write('d');
 
         Console.Write( zero ? 'e' : 'f' );
         Console.Write( one ? 'g' : 'h' );
@@ -532,9 +532,9 @@ class C
     static void Main(S zero, S one)
     /*<bind>*/{
         if (zero)
-            { Console.Write('a'); }
+            Console.Write('a');
         else
-            { Console.Write('b'); }
+            Console.Write('b');
 
         Console.Write(one ? 'g' : 'h');
     }/*</bind>*/
