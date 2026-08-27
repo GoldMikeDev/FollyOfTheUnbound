@@ -44,10 +44,10 @@ try {
 		elseif ($arg -eq "--timeout") {
 			$expectTimeoutValue = $true
 		}
-		elseif ($arg -eq "--binaryLog" -or $arg -eq "-bl") {
+		elseif ($arg -eq "--binaryLog") {
 			$binaryLog = $true
 		}
-		elseif ($arg -eq "--verbosity" -or $arg -eq "-v") {
+		elseif ($arg -eq "--verbosity") {
 			$expectVerbosityValue = $true
 		}
 		elseif ($arg -eq "reflection") {
@@ -73,7 +73,7 @@ try {
 		Write-Host ""
 		Write-Host "Commands:"
 		Write-Host "    'attune'                                            Restore only."
-		Write-Host "    'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU)."
+		Write-Host "    'bind'                                              Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\)."
 		Write-Host "    'cleanse'                                           Delete artefacts."
 		Write-Host "    'grimoire'                                          Show this text (default when no action is given)."
 		Write-Host "    'reweave'                                           Restore & rebuild."
@@ -87,7 +87,7 @@ try {
 		Write-Host "    '<scry> <primary> --core'                           Run only the Core tests (skip Framework)."
 		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core)."
 		Write-Host "    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90)."
-		Write-Host "    '<command> <primary> --binaryLog'                   Write an MSBuild binary log under artifacts\log\<config>\Build.binlog."
+		Write-Host "    '<command> <primary> --binaryLog'                   MSBuild binary log written to .\artifacts\log\<config>\Build.binlog."
 		Write-Host "    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic."
 		Write-Host ""
 		exit 0
@@ -105,7 +105,7 @@ try {
 		exit 1
 	}
 	if ($reflection -and -not [string]::IsNullOrEmpty($config)) {
-		Write-Host "'reflection' doesn't take a [config] -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
+		Write-Host "'reflection' doesn't take any switches -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
 		exit 1
 	}
 	if ($reflection -and ($core -or $framework -or $testTimeout -gt 0)) {
@@ -125,7 +125,7 @@ try {
 		$nupkgDir = $null
 	}
 	elseif ([string]::IsNullOrEmpty($config)) {
-		Write-Host "[config] is required for action '$action'. Expected 'research' or 'truth'." -ForegroundColor Red
+		Write-Host "Primary arg is required for action '$action'. Expected 'research' or 'truth'." -ForegroundColor Red
 		exit 1
 	}
 	elseif ($config -eq "research") {
@@ -162,6 +162,7 @@ try {
 	elseif ($action -eq "scry" -and $reflection) {
 		$pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
 		$harnessFail = $false
+		Write-Host ""
 		foreach ($harness in @("test-folly-cleanse.ps1", "test-folly-scry-args.ps1")) {
 			Write-Host "--- $harness ---"
 			& $pwshExe -NoProfile -File (Join-Path $PSScriptRoot "scripts\$harness")

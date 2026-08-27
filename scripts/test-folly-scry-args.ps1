@@ -229,7 +229,7 @@ try {
     $receivedPath = Join-Path $dir "testTimeout-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
-        Test-Pass "'--timeout 180' is forwarded to eng/build.ps1 for both legs"
+        Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for both legs"
     }
     else {
         Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
@@ -281,22 +281,10 @@ try {
     $receivedPath = Join-Path $dir "buildArgs-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "binaryLog=True") {
-        Test-Pass "'--binaryLog' is forwarded to eng/build.ps1"
+        Test-Pass "'--binaryLog' is forwarded to .\eng\build.ps1"
     }
     else {
         Test-Fail "binaryLog forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
-    }
-
-    # --- -bl is accepted as a short alias, forwarded as the long form ---
-    $dir = New-TestCase "binarylog-short-alias"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "-bl")
-    $receivedPath = Join-Path $dir "buildArgs-received.log"
-    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
-    if ($result.ExitCode -eq 0 -and $received -match "binaryLog=True") {
-        Test-Pass "'-bl' is forwarded to eng/build.ps1 as -binaryLog"
-    }
-    else {
-        Test-Fail "binaryLog short alias (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
     }
 
     # --- --verbosity is forwarded to eng/build.ps1 with its value ---
@@ -305,7 +293,7 @@ try {
     $receivedPath = Join-Path $dir "buildArgs-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "verbosity=diagnostic") {
-        Test-Pass "'--verbosity diagnostic' is forwarded to eng/build.ps1"
+        Test-Pass "'--verbosity diagnostic' is forwarded to .\eng\build.ps1"
     }
     else {
         Test-Fail "verbosity forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"

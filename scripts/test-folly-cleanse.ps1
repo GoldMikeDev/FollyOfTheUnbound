@@ -52,10 +52,10 @@ try {
     New-Item -ItemType Directory -Force -Path (Join-Path $dir "artifacts") | Out-Null
     $result = Invoke-Cleanse -Dir $dir
     if ($result.ExitCode -eq 0 -and $result.Output -match "Cleansed 0 B of artefacts\." -and -not (Test-Path -LiteralPath (Join-Path $dir "artifacts"))) {
-        Test-Pass "empty artifacts/ directory removed cleanly"
+        Test-Pass "empty .\artifacts\ directory removed cleanly"
     }
     else {
-        Test-Fail "empty artifacts/ directory (exit=$($result.ExitCode), output='$($result.Output)')"
+        Test-Fail "empty .\artifacts\ directory (exit=$($result.ExitCode), output='$($result.Output)')"
     }
 
     # --- populated tree -----------------------------------------------------
@@ -261,10 +261,10 @@ exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename
     $dir = New-TestCase "nothing"
     $result = Invoke-Cleanse -Dir $dir
     if ($result.ExitCode -eq 0 -and $result.Output -match "No artefacts to cleanse\.") {
-        Test-Pass "missing artifacts/ reports nothing to cleanse"
+        Test-Pass "missing .\artifacts\ reports nothing to cleanse"
     }
     else {
-        Test-Fail "missing artifacts/ (exit=$($result.ExitCode), output='$($result.Output)')"
+        Test-Fail "missing .\artifacts\ (exit=$($result.ExitCode), output='$($result.Output)')"
     }
 
     Write-Host ""
