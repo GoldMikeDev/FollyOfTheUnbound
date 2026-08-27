@@ -59,7 +59,7 @@ pwsh_crossover() {
   if [[ "${OS:-}" != "Windows_NT" ]] || ! command -v pwsh >/dev/null 2>&1; then
     return
   fi
-  pwsh_invoke "Invoking test-folly-cleanse.ps1 to run Windows-native equivalent of the above case"
+  pwsh_invoke "invoking test-folly-cleanse.ps1 to run Windows-native equivalent of the above case"
   local output
   output=$(pwsh -NoProfile -File "$script_root/scripts/test-folly-cleanse.ps1" -Only "$case_name" 2>&1)
   local pwsh_ec=$?
