@@ -142,8 +142,8 @@ try {
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
 		}
-		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts from its already-logged runtests.log rather than re-printing RunTests' own live table a second time
-			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
+		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw per-test list -- from its already-logged runtests.log rather than re-printing RunTests' own live table a second time as it happens; this lets both legs' lists be printed together once both have finished instead of each printing immediately (interleaved with the other leg's own build/test output) as RunTests' own console output does
+			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode; Lines = @() }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
 			if (-not (Test-Path -LiteralPath $LogPath)) {
 				return $result
 			}
@@ -169,6 +169,7 @@ try {
 			}
 			$endLine = $markersBeforeFooter[$markersBeforeFooter.Count - 1]
 			$startLine = $markersBeforeFooter[$markersBeforeFooter.Count - 2]
+			$lines = [System.Collections.Generic.List[string]]::new()
 			$lineNumber = 0
 			foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
 				$lineNumber++
@@ -178,12 +179,99 @@ try {
 				if ($lineNumber -ge $endLine) {
 					break
 				}
+				$lines.Add($line)
 				if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
 				elseif ($line -match '\bFAILED\b') { $result.Failed++ }
 				elseif ($line -match '\bPASSED\b') { $result.Passed++ }
 			}
+			$result.Lines = $lines.ToArray()
 			$result.Found = $true
 			return $result
+		}
+		# Runs one leg's build.ps1 invocation and lets its per-work-item progress (the bulk of a leg's output,
+		# potentially most of the --timeout watchdog's 90 minutes) print live as it arrives, same as it always
+		# has -- only RunTests' final PASSED/FAILED/TIMEOUT table itself (the divider/rows/divider/footer span
+		# TestRunner.Print writes -- see src/Tools/RunTests/TestRunner.cs) is held back instead of printing
+		# immediately, so that table can be shown together with the other leg's once both have finished (see the
+		# "results together" block below) instead of one leg's getting buried under the other leg's own
+		# subsequent build/progress output. Note this does NOT cover Print's PrintFailedTestResult dumps for
+		# failed tests, which it writes just before that span (still live, undeferred, same as always) -- there's
+		# no marker distinguishing where those begin from ordinary progress output, so unlike the table itself
+		# they can't be reliably held back without risking swallowing real progress lines too.
+		#
+		# The real epilogue is always the *last* "================"/rows/"================" span immediately
+		# followed by RunTests' exact footer line -- not the first divider seen. A failed test's own captured
+		# stdout/stderr can itself contain a line that's exactly "================" (see this repo's own
+		# New-FalseMarkerTestCase harness fixture for this), and TestRunner prints that per work item as each one
+		# completes -- i.e. potentially long before the leg is anywhere near done. Latching "buffer everything
+		# from the first divider on" would then silently swallow the rest of a 90-minute run the moment one early
+		# work item happened to fail with such output. Instead this keeps only the two most recently *unresolved*
+		# divider-delimited spans buffered at any time (mirroring how Get-TestSummary itself resolves "last two
+		# markers before the footer" from the completed log) -- a third divider arriving proves the oldest of the
+		# two spans wasn't real, so it's released to live output then; only once the footer text arrives right
+		# after a divider is the immediately preceding span confirmed as the real table, and both stay buffered.
+		function Invoke-ScryLeg([scriptblock]$Invocation) {
+			$divider = "================"
+			$footerText = "Extra run diagnostics for logging, did not impact run results"
+			$spans = [System.Collections.Generic.List[System.Collections.Generic.List[string]]]::new()  # at most the 2 most recently unresolved divider-delimited spans, oldest first
+			$deferredLines = [System.Collections.Generic.List[string]]::new()
+			$sawFooter = $false
+			& $Invocation 2>&1 | ForEach-Object {
+				$line = $_.ToString()
+				if ($sawFooter) {
+					# Past the ambiguity zone entirely -- nothing here needs deferring, whatever it contains.
+					Write-Host $line
+					return
+				}
+				if ($spans.Count -eq 0) {
+					if ($line -eq $divider) {
+						$spans.Add([System.Collections.Generic.List[string]]::new())
+						$spans[0].Add($line)
+					}
+					else {
+						Write-Host $line
+					}
+					return
+				}
+				if ($line -eq $footerText) {
+					# The current (most recent) span holds just its own opening divider -- straight into the footer,
+					# no rows -- so it's the real table's *end* marker, and the real table itself (begin marker +
+					# rows) is the span immediately *before* it (index Count-2), if there is one. Everything older
+					# than that (index 0 .. Count-3) is stale and goes live now; the real span, the end-marker span,
+					# and this footer line are the deferred output.
+					$realSpanIndex = $spans.Count - 2
+					for ($i = 0; $i -lt $realSpanIndex; $i++) {
+						foreach ($l in $spans[$i]) { Write-Host $l }
+					}
+					for ($i = [Math]::Max($realSpanIndex, 0); $i -lt $spans.Count; $i++) {
+						foreach ($l in $spans[$i]) { $deferredLines.Add($l) }
+					}
+					$deferredLines.Add($line)
+					$sawFooter = $true
+					return
+				}
+				if ($line -eq $divider) {
+					$spans.Add([System.Collections.Generic.List[string]]::new())
+					$spans[$spans.Count - 1].Add($line)
+					if ($spans.Count -gt 2) {
+						# A third unresolved span means the oldest one is now proven not to have led straight into
+						# the footer -- it wasn't the real table, so release it to live output instead of holding it
+						# (and everything after it) hostage for the rest of the run.
+						foreach ($l in $spans[0]) { Write-Host $l }
+						$spans.RemoveAt(0)
+					}
+					return
+				}
+				$spans[$spans.Count - 1].Add($line)
+			}
+			if (-not $sawFooter) {
+				# Ran out of output before ever reaching a real table (e.g. a crash mid-Print, or before Print ever
+				# ran at all) -- nothing to defer; release whatever's still pending so it isn't silently dropped.
+				foreach ($span in $spans) {
+					foreach ($l in $span) { Write-Host $l }
+				}
+			}
+			return ($deferredLines -join [Environment]::NewLine)
 		}
 		$coreTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Core"
 		$coreLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Core"
@@ -194,12 +282,26 @@ try {
 		Remove-Item -Recurse -Force -LiteralPath $coreLogDir -ErrorAction SilentlyContinue
 		Remove-Item -Recurse -Force -LiteralPath $frameworkTestResultsDir -ErrorAction SilentlyContinue
 		Remove-Item -Recurse -Force -LiteralPath $frameworkLogDir -ErrorAction SilentlyContinue
+		# -testInteractiveConsole lets RunTests inherit the real console directly (its live per-work-item
+		# progress table, and its own final PASSED/FAILED/TIMEOUT table, both go straight to the terminal,
+		# bypassing PowerShell's pipeline entirely -- see eng/build.ps1's own comment on this switch). That's
+		# fine, and preferred, when only one leg is running. But when both legs run, passing it for each would
+		# print that leg's own final table live the moment that leg finishes -- exactly the interleaving this
+		# unified, both-legs-together printing below exists to avoid. So when both legs are requested, this is
+		# omitted instead: eng/build.ps1 then relays RunTests' output through the ordinary object pipeline,
+		# which is captured into $coreRunOutput/$frameworkRunOutput below (suppressing it from the console
+		# entirely, live table included) rather than left to print immediately.
+		$bothLegs = $runCore -and $runFramework
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				if ($bothLegs) {
+					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration }
+				} else {
+					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				}
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -215,7 +317,11 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				if ($bothLegs) {
+					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration }
+				} else {
+					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				}
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -238,6 +344,41 @@ try {
 		$totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
 		$totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
 		$totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
+		# Print each requested leg's own PASSED/FAILED/TIMEOUT list here, together, once every leg has finished --
+		# rather than letting each leg's own RunTests process print its list live the moment that leg completes,
+		# which (when both --core and --framework run) buries the first leg's list under the second leg's own
+		# build/live-table output instead of leaving both visible together at the end.
+		if ($bothLegs) {
+			foreach ($summary in $summaries) {
+				Write-Host ""
+				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
+				if ($summary.ExitCode -ne 0) {
+					# A nonzero exit means something beyond a plain test failure/timeout may have happened (a
+					# crash, a dump, RunTests' own error output before it could even produce a parseable
+					# runtests*.log -- e.g. failing to start at all) that never makes it into the concise
+					# PASSED/FAILED/TIMEOUT table below (and, when the log itself is missing/unparseable,
+					# $summary.Found is false and there'd otherwise be nothing at all to show here) -- so
+					# show this leg's deferred tail (see Invoke-ScryLeg) instead of just that table. Only the
+					# tail, not the whole captured run: everything before it already streamed live as it ran,
+					# so re-printing it here too would duplicate it. Checked before $summary.Found precisely
+					# so a failure that happened too early to leave a parseable log still surfaces its
+					# deferred output instead of just "unavailable" -- which can itself be empty (e.g. a crash
+					# before any divider was ever seen), since then everything was already shown live above.
+					$deferredTail = if ($summary.Label -eq "Core") { $coreRunOutput } else { $frameworkRunOutput }
+					if ($deferredTail) {
+						Write-Host $deferredTail
+					}
+				}
+				elseif (-not $summary.Found) {
+					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
+				}
+				else {
+					foreach ($line in $summary.Lines) {
+						Write-Host $line
+					}
+				}
+			}
+		}
 		Write-Host ""
 		Write-Host "=== Test summary ===" -ForegroundColor Cyan
 		foreach ($summary in $summaries) {
