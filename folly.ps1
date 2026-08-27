@@ -142,8 +142,8 @@ try {
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
 		}
-		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts from its already-logged runtests.log rather than re-printing RunTests' own live table a second time
-			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
+		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw per-test list -- from its already-logged runtests.log rather than re-printing RunTests' own live table a second time as it happens; this lets both legs' lists be printed together once both have finished instead of each printing immediately (interleaved with the other leg's own build/test output) as RunTests' own console output does
+			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode; Lines = @() }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
 			if (-not (Test-Path -LiteralPath $LogPath)) {
 				return $result
 			}
@@ -169,6 +169,7 @@ try {
 			}
 			$endLine = $markersBeforeFooter[$markersBeforeFooter.Count - 1]
 			$startLine = $markersBeforeFooter[$markersBeforeFooter.Count - 2]
+			$lines = [System.Collections.Generic.List[string]]::new()
 			$lineNumber = 0
 			foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
 				$lineNumber++
@@ -178,10 +179,12 @@ try {
 				if ($lineNumber -ge $endLine) {
 					break
 				}
+				$lines.Add($line)
 				if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
 				elseif ($line -match '\bFAILED\b') { $result.Failed++ }
 				elseif ($line -match '\bPASSED\b') { $result.Passed++ }
 			}
+			$result.Lines = $lines.ToArray()
 			$result.Found = $true
 			return $result
 		}
@@ -238,6 +241,24 @@ try {
 		$totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
 		$totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
 		$totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
+		# Print each requested leg's own PASSED/FAILED/TIMEOUT list here, together, once every leg has finished --
+		# rather than letting each leg's own RunTests process print its list live the moment that leg completes,
+		# which (when both --core and --framework run) buries the first leg's list under the second leg's own
+		# build/live-table output instead of leaving both visible together at the end.
+		if ($summaries.Count -gt 1) {
+			foreach ($summary in $summaries) {
+				Write-Host ""
+				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
+				if ($summary.Found) {
+					foreach ($line in $summary.Lines) {
+						Write-Host $line
+					}
+				}
+				else {
+					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
+				}
+			}
+		}
 		Write-Host ""
 		Write-Host "=== Test summary ===" -ForegroundColor Cyan
 		foreach ($summary in $summaries) {
