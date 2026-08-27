@@ -159,6 +159,20 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		bash "$scriptroot/scripts/$harness" || harness_fail=1
 		echo
 	  done
+	  # On Windows (Git Bash/MSYS2 sets $OS=Windows_NT the same as native cmd/PowerShell), two of
+	  # test-folly-cleanse.sh's SKIPs are recoverable, not fundamental: the permission-failure case
+	  # (needs chattr, which MSYS2 doesn't ship) and the unreadable-subtree case (NTFS doesn't
+	  # enforce chmod as real access control) both have genuine Windows-native equivalents in
+	  # test-folly-cleanse.ps1 (a FileShare.None locked file, an NTFS deny ACE). The other two
+	  # SKIPs there (build-server force-kill, ancestor exclusion) need a process that ignores
+	  # SIGTERM via a POSIX signal trap -- Windows has no such signal model at all, so
+	  # test-folly-cleanse.ps1 skips build-server force-kill for the same reason and doesn't
+	  # attempt ancestor exclusion there either; no crossover can recover those two.
+	  if [[ "${OS:-}" == "Windows_NT" ]] && command -v pwsh >/dev/null 2>&1; then
+		echo "--- test-folly-cleanse.ps1 (Windows cross-check: recovers the chattr/chmod SKIPs above) ---"
+		pwsh -NoProfile -File "$scriptroot/scripts/test-folly-cleanse.ps1" || harness_fail=1
+		echo
+	  fi
 	  exit "$harness_fail"
 	fi
 	scry_args=(--restore --build --test --nodeReuse false --solution "$solution" --configuration "$configuration")
