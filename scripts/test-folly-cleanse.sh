@@ -60,8 +60,20 @@ pwsh_crossover() {
     return
   fi
   pwsh_invoke "Invoking test-folly-cleanse.ps1 to run Windows-native equivalent of the above case"
-  pwsh -NoProfile -File "$script_root/scripts/test-folly-cleanse.ps1" -Only "$case_name" 2>&1 | sed 's/^/pwsh: /'
-  local pwsh_ec=${PIPESTATUS[0]}
+  local output
+  output=$(pwsh -NoProfile -File "$script_root/scripts/test-folly-cleanse.ps1" -Only "$case_name" 2>&1)
+  local pwsh_ec=$?
+  local line
+  while IFS= read -r line; do
+    case "$line" in
+      "") continue ;;                       # the blank line test-folly-cleanse.ps1 prints before its own summary
+      *" passed, "*" failed") continue ;;    # and the summary itself -- we fold pass/fail into our own counts below instead
+      PASS:*) echo "${color_purple}PWSH:${color_reset} ${color_green}${line}${color_reset}" ;;
+      FAIL:*) echo "${color_purple}PWSH:${color_reset} ${color_red}${line}${color_reset}" ;;
+      SKIP:*) echo "${color_purple}PWSH:${color_reset} ${color_yellow}${line}${color_reset}" ;;
+      *)      echo "${color_purple}PWSH:${color_reset} ${line}" ;;
+    esac
+  done <<< "$output"
   if (( pwsh_ec == 0 )); then
     pass_count=$(( pass_count + 1 ))
   else
