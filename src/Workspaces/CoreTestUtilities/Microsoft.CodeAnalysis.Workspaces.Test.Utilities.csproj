@@ -23,6 +23,15 @@
     <ProjectReference Include="..\..\Scripting\Core\Microsoft.CodeAnalysis.Scripting.csproj">
       <Aliases>SCRIPTING</Aliases>
     </ProjectReference>
+    <!-- Build these two Testing-framework base libraries from their own in-repo source (src/RoslynSdk/)
+         rather than only consuming them transitively as prebuilt NuGet packages: that source now
+         conditionally references our renamed Workspaces.csproj when built under FollyOfTheUnbound.slnx
+         (see the comments in those csproj files), which resolves the CodeFixProvider identity collision
+         (see BatchFixAllProviderTests.cs) at its root, but only takes effect if these projects are
+         actually rebuilt as part of this graph rather than pulled prebuilt from NuGet, hence this
+         explicit reference. -->
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.Analyzer.Testing\Microsoft.CodeAnalysis.Analyzer.Testing.csproj" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CodeFix.Testing\Microsoft.CodeAnalysis.CodeFix.Testing.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />

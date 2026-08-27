@@ -14,6 +14,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- See the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj. Only active when
+         built as part of FollyOfTheUnbound.slnx, no effect on the real, externally-published package. -->
+    <ProjectReference Include="..\..\..\Workspaces\Core\Portable\Microsoft.CodeAnalysis.Workspaces.csproj"
+                       Condition="'$(SolutionName)' == 'FollyOfTheUnbound'" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
     <PackageReference Include="System.Formats.Asn1" />
   </ItemGroup>

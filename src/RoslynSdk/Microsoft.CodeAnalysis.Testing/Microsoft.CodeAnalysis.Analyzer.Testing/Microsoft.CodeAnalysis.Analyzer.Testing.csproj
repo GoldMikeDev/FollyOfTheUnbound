@@ -23,6 +23,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- When built as part of this fork's own solution (FollyOfTheUnbound.slnx), reference our renamed
+         Microsoft.CodeAnalysis.Workspaces.csproj directly instead of the real, un-renamed
+         Microsoft.CodeAnalysis.Workspaces.Common package below: its PackageId still matches that real
+         package, so NuGet's project-substitution mechanism picks this up automatically, making this
+         library's own compiled types (e.g. via Microsoft.CodeAnalysis.CodeFix.Testing's CodeFixTest<T>)
+         resolve against our renamed assembly rather than the real one, see
+         Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj's exclusion comment in FollyOfTheUnbound.slnx
+         for the identity-collision this fixes. $(SolutionName) is only set when actually building via a
+         .sln/.slnx, and only equals "FollyOfTheUnbound" for this fork's own solution, so a standalone
+         build of this project (e.g. via Roslyn.slnx, which is what actually publishes the real,
+         externally-consumed Microsoft.CodeAnalysis.Analyzer.Testing NuGet package) is entirely
+         unaffected: it keeps using the real package below, unchanged. -->
+    <ProjectReference Include="..\..\..\Workspaces\Core\Portable\Microsoft.CodeAnalysis.Workspaces.csproj"
+                       Condition="'$(SolutionName)' == 'FollyOfTheUnbound'" />
     <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
     <PackageReference Include="Microsoft.VisualBasic" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'" />
     <PackageReference Include="Microsoft.VisualStudio.Composition" VersionOverride="16.1.8" />
