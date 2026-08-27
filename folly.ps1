@@ -192,24 +192,76 @@ try {
 		# potentially most of the --timeout watchdog's 90 minutes) print live as it arrives, same as it always
 		# has -- only its epilogue (any failed-test dumps, then RunTests' own final PASSED/FAILED/TIMEOUT table,
 		# via TestRunner.Print -- see src/Tools/RunTests/TestRunner.cs) is held back instead of printing
-		# immediately, so that epilogue can be shown together with the other leg's once both have finished
-		# (see the "results together" block below) instead of one leg's getting buried under the other leg's
-		# own subsequent build/progress output. The epilogue always starts at RunTests' first "================"
-		# divider (Print's own leading one, printed only once per run) -- everything from that line on for the
-		# rest of the run is buffered rather than echoed live.
+		# immediately, so that epilogue can be shown together with the other leg's once both have finished (see
+		# the "results together" block below) instead of one leg's getting buried under the other leg's own
+		# subsequent build/progress output.
+		#
+		# The real epilogue is always the *last* "================"/rows/"================" span immediately
+		# followed by RunTests' exact footer line -- not the first divider seen. A failed test's own captured
+		# stdout/stderr can itself contain a line that's exactly "================" (see this repo's own
+		# New-FalseMarkerTestCase harness fixture for this), and TestRunner prints that per work item as each one
+		# completes -- i.e. potentially long before the leg is anywhere near done. Latching "buffer everything
+		# from the first divider on" would then silently swallow the rest of a 90-minute run the moment one early
+		# work item happened to fail with such output. Instead this keeps only the two most recently *unresolved*
+		# divider-delimited spans buffered at any time (mirroring how Get-TestSummary itself resolves "last two
+		# markers before the footer" from the completed log) -- a third divider arriving proves the oldest of the
+		# two spans wasn't real, so it's released to live output then; only once the footer text arrives right
+		# after a divider is the immediately preceding span confirmed as the real table, and both stay buffered.
 		function Invoke-ScryLeg([scriptblock]$Invocation) {
-			$sawDivider = $false
-			$deferredLines = [System.Collections.Generic.List[string]]::new()  # only the not-yet-displayed tail (from the first divider on) -- everything before it already went live above, so re-showing it later (e.g. from the ExitCode -ne 0 branch below) would duplicate it
+			$divider = "================"
+			$footerText = "Extra run diagnostics for logging, did not impact run results"
+			$spans = [System.Collections.Generic.List[System.Collections.Generic.List[string]]]::new()  # at most the 2 most recently unresolved divider-delimited spans, oldest first
+			$deferredLines = [System.Collections.Generic.List[string]]::new()
+			$sawFooter = $false
 			& $Invocation 2>&1 | ForEach-Object {
 				$line = $_.ToString()
-				if (-not $sawDivider -and $line -eq "================") {
-					$sawDivider = $true
-				}
-				if ($sawDivider) {
-					$deferredLines.Add($line)
-				}
-				else {
+				if ($sawFooter) {
+					# Past the ambiguity zone entirely -- nothing here needs deferring, whatever it contains.
 					Write-Host $line
+					return
+				}
+				if ($spans.Count -eq 0) {
+					if ($line -eq $divider) {
+						$spans.Add([System.Collections.Generic.List[string]]::new())
+						$spans[0].Add($line)
+					}
+					else {
+						Write-Host $line
+					}
+					return
+				}
+				if ($line -eq $footerText) {
+					# The current (most recent) span holds just its own opening divider -- straight into the footer,
+					# no rows -- so it's the real table's *end* marker, and the real table itself (begin marker +
+					# rows) is the span immediately before it, if any. Everything older than that is stale and goes
+					# live now; the real span, the end-marker span, and this footer line are the deferred output.
+					for ($i = 0; $i -lt $spans.Count - 1; $i++) {
+						foreach ($l in $spans[$i]) { Write-Host $l }
+					}
+					foreach ($l in $spans[$spans.Count - 1]) { $deferredLines.Add($l) }
+					$deferredLines.Add($line)
+					$sawFooter = $true
+					return
+				}
+				if ($line -eq $divider) {
+					$spans.Add([System.Collections.Generic.List[string]]::new())
+					$spans[$spans.Count - 1].Add($line)
+					if ($spans.Count -gt 2) {
+						# A third unresolved span means the oldest one is now proven not to have led straight into
+						# the footer -- it wasn't the real table, so release it to live output instead of holding it
+						# (and everything after it) hostage for the rest of the run.
+						foreach ($l in $spans[0]) { Write-Host $l }
+						$spans.RemoveAt(0)
+					}
+					return
+				}
+				$spans[$spans.Count - 1].Add($line)
+			}
+			if (-not $sawFooter) {
+				# Ran out of output before ever reaching a real table (e.g. a crash mid-Print, or before Print ever
+				# ran at all) -- nothing to defer; release whatever's still pending so it isn't silently dropped.
+				foreach ($span in $spans) {
+					foreach ($l in $span) { Write-Host $l }
 				}
 			}
 			return ($deferredLines -join [Environment]::NewLine)
