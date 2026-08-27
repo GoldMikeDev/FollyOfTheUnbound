@@ -87,7 +87,7 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--testTimeout" <<<"$args_log" && grep -qx "180" <<<"$args_log"; then
-  test_pass "'--timeout 180' is forwarded to eng/build.sh as --testTimeout 180"
+  test_pass "'--timeout 180' is forwarded to ./eng/build.sh as --testTimeout 180"
 else
   test_fail "timeout forwarding (exit=$exit_code): args='$args_log' output=$output"
 fi
@@ -156,7 +156,7 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--binaryLog" <<<"$args_log"; then
-  test_pass "'--binaryLog' is forwarded to eng/build.sh"
+  test_pass "'--binaryLog' is forwarded to ./eng/build.sh"
 else
   test_fail "binaryLog forwarding (exit=$exit_code): args='$args_log' output=$output"
 fi
@@ -168,7 +168,7 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--verbosity" <<<"$args_log" && grep -qx "diagnostic" <<<"$args_log"; then
-  test_pass "'--verbosity diagnostic' is forwarded to eng/build.sh"
+  test_pass "'--verbosity diagnostic' is forwarded to ./eng/build.sh"
 else
   test_fail "verbosity forwarding (exit=$exit_code): args='$args_log' output=$output"
 fi

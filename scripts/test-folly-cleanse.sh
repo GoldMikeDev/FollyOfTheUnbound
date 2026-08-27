@@ -63,9 +63,9 @@ mkdir -p "$dir/artifacts"
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 if (( ec == 0 )) && [[ "$out" == "Cleansed 0 B of artefacts." ]] && [[ ! -e "$dir/artifacts" ]]; then
-  pass "empty artifacts/ directory removed cleanly"
+  pass "empty ./artifacts/ directory removed cleanly"
 else
-  fail "empty artifacts/ directory (exit=$ec, output='$out')"
+  fail "empty ./artifacts/ directory (exit=$ec, output='$out')"
 fi
 
 # --- populated tree -----------------------------------------------------
@@ -177,9 +177,9 @@ echo "blocking entry" > "$dir/artifacts"
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 if (( ec == 0 )) && [[ ! -e "$dir/artifacts" ]]; then
-  pass "artifacts/ as a regular file is removed directly"
+  pass "./artifacts/ as a regular file is removed directly"
 else
-  fail "artifacts/ as a regular file (exit=$ec, output='$out')"
+  fail "./artifacts/ as a regular file (exit=$ec, output='$out')"
 fi
 
 # --- build-server force-kill: scoped survivor gets killed, foreign one left alone
@@ -302,9 +302,9 @@ dir=$(new_case nothing)
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 if (( ec == 0 )) && [[ "$out" == "No artefacts to cleanse." ]]; then
-  pass "missing artifacts/ reports nothing to cleanse"
+  pass "missing ./artifacts/ reports nothing to cleanse"
 else
-  fail "missing artifacts/ (exit=$ec, output='$out')"
+  fail "missing ./artifacts/ (exit=$ec, output='$out')"
 fi
 
 echo ""
