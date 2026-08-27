@@ -29,12 +29,12 @@ Commands:
     'weave'                                             Restore & build.
 Primary args:
     '<scry> reflection'                                 Runs folly script test harnesses.
-    '<command> research [secondary]'                    Debug configuration.
-    '<command> truth [secondary]'                       Release configuration.
-Secondary args:
-    '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90).
-    '<command> [secondary] --binaryLog'                 Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
-    '<command> [secondary] --verbosity <level>'         MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
+    '<command> research [switches]'                     Debug configuration.
+    '<command> truth [switches]'                        Release configuration.
+Switches:
+    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
+    '<command> <primary> --binaryLog'                   Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
+    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
 
 EOF
   exit 0
