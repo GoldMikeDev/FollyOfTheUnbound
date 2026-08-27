@@ -94,7 +94,7 @@ try {
     # correctly remove locked.bin there, and this assertion would always
     # (and wrongly) report a failure.
     if (-not $IsWindows) {
-        Write-Host "SKIP: locked-file case (FileShare.None doesn't block deletion on Unix)"
+        Write-Host "SKIP: locked-file case (FileShare.None doesn't block deletion on Unix)" -ForegroundColor Yellow
     }
     else {
         $dir = New-TestCase "locked"
@@ -124,7 +124,7 @@ try {
     # user/owner (unlike Unix, where root bypasses permission checks
     # entirely), so this doesn't need the root-skip the bash harness needs.
     if (-not $IsWindows) {
-        Write-Host "SKIP: unreadable-subtree case (Windows-only; needs an NTFS deny ACE)"
+        Write-Host "SKIP: unreadable-subtree case (Windows-only; needs an NTFS deny ACE)" -ForegroundColor Yellow
     }
     else {
         $dir = New-TestCase "unreadable"
@@ -201,7 +201,7 @@ try {
     # Stop-Process there doesn't distinguish a "graceful" signal a target process
     # could choose to ignore, so this scenario can't be faithfully reproduced there.
     if ($IsWindows) {
-        Write-Host "SKIP: build-server force-kill case (Unix-only; needs a POSIX signal trap to simulate a process ignoring a graceful stop)"
+        Write-Host "SKIP: build-server force-kill case (Unix-only; needs a POSIX signal trap to simulate a process ignoring a graceful stop)" -ForegroundColor Yellow
     }
     else {
         $dir = New-TestCase "buildserver"
@@ -251,7 +251,7 @@ exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename
             }
         }
         else {
-            Write-Host "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)"
+            Write-Host "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)" -ForegroundColor Yellow
             if ($trappedPid) { & bash -c "kill -9 $trappedPid 2>/dev/null" }
             if ($foreignPid) { & bash -c "kill -9 $foreignPid 2>/dev/null" }
         }

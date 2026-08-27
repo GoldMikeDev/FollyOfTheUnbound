@@ -15,16 +15,22 @@ folly_sh="$script_root/folly.sh"
 work_root="$(mktemp -d)"
 trap 'rm -rf "$work_root"' EXIT
 
+if [[ -t 1 ]]; then  # matches folly.sh cleanse's own [[ -t 1 ]] check -- plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal
+  color_green=$'\033[32m'; color_red=$'\033[31m'; color_reset=$'\033[0m'
+else
+  color_green=''; color_red=''; color_reset=''
+fi
+
 pass_count=0
 fail_count=0
 
 test_pass() {
-  echo "PASS: $1"
+  echo "${color_green}PASS: $1${color_reset}"
   pass_count=$((pass_count + 1))
 }
 
 test_fail() {
-  echo "FAIL: $1"
+  echo "${color_red}FAIL: $1${color_reset}"
   fail_count=$((fail_count + 1))
 }
 
@@ -217,7 +223,7 @@ dir="$(new_test_case "verbosity-on-reflection")"
 result="$(run_case "$dir" scry reflection --verbosity diagnostic)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"doesn't take '--binaryLog'/'--verbosity'"* ]]; then
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a primary arg or any switches"* ]]; then
   test_pass "'--verbosity' is rejected alongside 'scry reflection'"
 else
   test_fail "verbosity on reflection (exit=$exit_code): $output"
@@ -272,7 +278,7 @@ dir="$(new_test_case "reflection-with-config")"
 result="$(run_case "$dir" scry reflection truth)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"doesn't take any switches"* ]]; then
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a primary arg or any switches"* ]]; then
   test_pass "'reflection' rejects a primary arg alongside it"
 else
   test_fail "reflection with config (exit=$exit_code): $output"
@@ -283,7 +289,7 @@ dir="$(new_test_case "reflection-with-timeout")"
 result="$(run_case "$dir" scry reflection --timeout 5)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"doesn't take '--timeout'"* ]]; then
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a primary arg or any switches"* ]]; then
   test_pass "'reflection' rejects '--timeout' alongside it"
 else
   test_fail "reflection with timeout (exit=$exit_code): $output"

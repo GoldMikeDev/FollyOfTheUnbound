@@ -92,32 +92,20 @@ try {
 		Write-Host ""
 		exit 0
 	}
-	if (($core -or $framework) -and $action -ne "scry") {
-		Write-Host "'--core'/'--framework' are only valid with the 'scry' action." -ForegroundColor Red
+	# Every '<selector>'/reflection is scoped to 'scry' -- one combined check/message rather than
+	# one per selector, since they're all the same rule applied to different args.
+	if ($action -ne "scry" -and ($core -or $framework -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
-	if ($testTimeout -gt 0 -and $action -ne "scry") {
-		Write-Host "'--timeout' is only valid with the 'scry' action." -ForegroundColor Red
-		exit 1
-	}
-	if ($reflection -and $action -ne "scry") {
-		Write-Host "'reflection' is only valid with the 'scry' action." -ForegroundColor Red
-		exit 1
-	}
-	if ($reflection -and -not [string]::IsNullOrEmpty($config)) {
-		Write-Host "'reflection' doesn't take any switches -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
-		exit 1
-	}
-	if ($reflection -and ($core -or $framework -or $testTimeout -gt 0)) {
-		Write-Host "'reflection' doesn't take '--core'/'--framework'/'--timeout' -- it runs folly's own test harnesses, not RunTests." -ForegroundColor Red
+	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
+	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testTimeout -gt 0 -or $binaryLog -or $verbosity)) {
+		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
 		exit 1
 	}
 	if (($binaryLog -or $verbosity) -and $action -eq "cleanse") {
 		Write-Host "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." -ForegroundColor Red
-		exit 1
-	}
-	if (($binaryLog -or $verbosity) -and $action -eq "scry" -and $reflection) {
-		Write-Host "'reflection' doesn't take '--binaryLog'/'--verbosity' -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
 		exit 1
 	}
 	if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {

@@ -98,28 +98,20 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
-if [[ "$test_timeout" -gt 0 && "$action" != "scry" ]]; then
-  echo "'--timeout' is only valid with the 'scry' action." >&2
+# '--timeout'/reflection are scoped to 'scry' -- one combined check/message rather than one per
+# selector, since they're all the same rule applied to different args.
+if [[ ( "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
-if [[ "$reflection" -eq 1 && "$action" != "scry" ]]; then
-  echo "'reflection' is only valid with the 'scry' action." >&2
-  exit 1
-fi
-if [[ "$reflection" -eq 1 && -n "$config" ]]; then
-  echo "'reflection' doesn't take any switches -- it runs folly's own test harnesses, not a build." >&2
-  exit 1
-fi
-if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
-  echo "'reflection' doesn't take '--timeout' -- it runs folly's own test harnesses, not RunTests." >&2
+# By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
+# above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
+  echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
   exit 1
 fi
 if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "cleanse" ]]; then
   echo "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." >&2
-  exit 1
-fi
-if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "scry" && "$reflection" -eq 1 ]]; then
-  echo "'reflection' doesn't take '--binaryLog'/'--verbosity' -- it runs folly's own test harnesses, not a build." >&2
   exit 1
 fi
 if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]]; then

@@ -344,7 +344,7 @@ try {
     # --- --verbosity is rejected alongside 'scry reflection' ---
     $dir = New-TestCase "verbosity-on-reflection"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--verbosity", "diagnostic")
-    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take '--binaryLog'/'--verbosity'") {
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a primary arg or any switches") {
         Test-Pass "'--verbosity' is rejected alongside 'scry reflection'"
     }
     else {
@@ -364,7 +364,7 @@ try {
     # --- 'reflection' rejects a primary arg alongside it ---
     $dir = New-TestCase "reflection-with-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "truth")
-    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take any switches") {
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a primary arg or any switches") {
         Test-Pass "'reflection' rejects a primary arg alongside it"
     }
     else {
@@ -374,7 +374,7 @@ try {
     # --- 'reflection' rejects '--timeout' alongside it ---
     $dir = New-TestCase "reflection-with-timeout"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--timeout", "5")
-    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take '--core'/'--framework'/'--timeout'") {
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a primary arg or any switches") {
         Test-Pass "'reflection' rejects '--timeout' alongside it"
     }
     else {

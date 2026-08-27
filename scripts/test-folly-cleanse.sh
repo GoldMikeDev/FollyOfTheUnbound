@@ -20,17 +20,27 @@ work_root="$(mktemp -d)"
 synthetic_pids=""  # PIDs of any detached background process this harness spawns (e.g. the synthetic build-server case below) -- appended to as each is launched, so the EXIT trap can reap them even if the harness is interrupted or dies before its own explicit cleanup runs
 trap 'for _p in $synthetic_pids; do kill -9 "$_p" 2>/dev/null; done; chmod -R u+rwX "$work_root" 2>/dev/null; chattr -R -i "$work_root" 2>/dev/null; rm -rf "$work_root"' EXIT
 
+if [[ -t 1 ]]; then  # matches folly.sh cleanse's own [[ -t 1 ]] check -- plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal
+  color_green=$'\033[32m'; color_red=$'\033[31m'; color_yellow=$'\033[33m'; color_reset=$'\033[0m'
+else
+  color_green=''; color_red=''; color_yellow=''; color_reset=''
+fi
+
 pass_count=0
 fail_count=0
 
 fail() {
-  echo "FAIL: $1"
+  echo "${color_red}FAIL: $1${color_reset}"
   fail_count=$(( fail_count + 1 ))
 }
 
 pass() {
-  echo "PASS: $1"
+  echo "${color_green}PASS: $1${color_reset}"
   pass_count=$(( pass_count + 1 ))
+}
+
+skip() {
+  echo "${color_yellow}SKIP: $1${color_reset}"
 }
 
 new_case() {
@@ -105,10 +115,10 @@ if command -v chattr >/dev/null 2>&1 && [[ "$(id -u)" == "0" ]]; then
       fail "permission failure (exit=$ec, output='$out')"
     fi
   else
-    echo "SKIP: permission-failure case (chattr +i not permitted in this environment)"
+    skip "permission-failure case (chattr +i not permitted in this environment)"
   fi
 else
-  echo "SKIP: permission-failure case (needs root + chattr)"
+  skip "permission-failure case (needs root + chattr)"
 fi
 
 # --- file vanishing mid-enumeration/sizing (concurrent writer) -----------
@@ -135,7 +145,7 @@ fi
 
 # --- unreadable subtree during the scan: uncertain (not false-zero) remainder
 if [[ "$(id -u)" == "0" ]]; then
-  echo "SKIP: unreadable-subtree case (root bypasses directory read permissions)"
+  skip "unreadable-subtree case (root bypasses directory read permissions)"
 else
   dir=$(new_case unreadable)
   mkdir -p "$dir/artifacts/locked"
@@ -147,7 +157,7 @@ else
   # permission bits. On those, the directory stays fully readable despite chmod 000, so the rest of
   # this case can't exercise what it's meant to; skip rather than fail on an environment limitation.
   if ls "$dir/artifacts/locked" >/dev/null 2>&1; then
-    echo "SKIP: unreadable-subtree case (this filesystem/shell does not enforce chmod as real access control)"
+    skip "unreadable-subtree case (this filesystem/shell does not enforce chmod as real access control)"
     chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
   else
     out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
@@ -228,7 +238,7 @@ if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
     fail "build-server force-kill scoping/escalation (exit=$ec, output='$out', trapped_alive=$trapped_alive, foreign_alive=$foreign_alive)"
   fi
 else
-  echo "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)"
+  skip "build-server force-kill case (couldn't spawn synthetic processes in this environment)"
   [[ -n "$trapped_pid" ]] && kill -9 "$trapped_pid" 2>/dev/null
   [[ -n "$foreign_pid" ]] && kill -9 "$foreign_pid" 2>/dev/null
 fi
@@ -283,7 +293,7 @@ if [[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | g
     fail "ancestor exclusion: wrapper matching the scoped pattern did not survive cleanse running beneath it (cleanse_ran=$([[ -f "$done_marker" ]] && echo yes || echo no), wrapper_alive=$wrapper_alive)"
   fi
 else
-  echo "SKIP: ancestor exclusion case (couldn't spawn synthetic wrapper process in this environment)"
+  skip "ancestor exclusion case (couldn't spawn synthetic wrapper process in this environment)"
   kill -9 "$wrapper_pid" 2>/dev/null
 fi
 
