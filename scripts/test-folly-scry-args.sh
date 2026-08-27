@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Regression test for folly.sh scry's argument parsing (action, [config], --timeout -- including
-# leading-zero normalization, missing/invalid values, and non-scry rejection), run against a mocked
-# eng/build.sh so no real build/test happens. Bash counterpart to
+# Regression test for folly.sh's argument parsing (action, [config], --timeout -- including
+# leading-zero normalization, missing/invalid values, and non-scry rejection -- plus --binaryLog/-bl
+# and --verbosity/-v, forwarded across every build-invoking action and rejected on 'cleanse' and
+# 'scry reflection'), run against a mocked eng/build.sh so no real build/test happens. Bash counterpart to
 # scripts/test-folly-scry-args.ps1 -- see the folly.sh/folly.ps1 parity rule in CONVENTIONS.md for
 # why this needs to stay in lockstep with that harness rather than being PowerShell-only.
 # Run by hand (or wire into CI) after touching folly.sh's argument parsing or scry action:

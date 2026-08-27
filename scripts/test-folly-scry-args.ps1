@@ -1,6 +1,7 @@
-# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--framework,
-# --timeout) and its unified test summary, run against a mocked eng/build.ps1 so no real build/test
-# happens.
+# Regression test for folly.ps1's argument parsing (action, [config], --core/--framework, --timeout)
+# and its unified test summary, plus --binaryLog/-bl and --verbosity/-v (forwarded across every
+# build-invoking action and rejected on 'cleanse' and 'scry reflection'), run against a mocked
+# eng/build.ps1 so no real build/test happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
 #   pwsh -File ./scripts/test-folly-scry-args.ps1
 $ErrorActionPreference = "Stop"
