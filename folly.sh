@@ -33,7 +33,7 @@ Primary args:
     '<command> truth [switches]'                        Release configuration.
 Switches:
     '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
-    '<command> <primary> --binaryLog'                   Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
+    '<command> <primary> --binaryLog'                   MSBuild binary log written to artifacts/log/<config>/Build.binlog.
     '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
 
 EOF
@@ -63,11 +63,11 @@ while [[ $# -gt 0 ]]; do
 	  fi
 	  shift 2
 	  ;;
-	--binaryLog|-bl)
+	--binaryLog)
 	  binary_log=1
 	  shift
 	  ;;
-	--verbosity|-v)
+	--verbosity)
 	  verbosity="${2:-}"
 	  if [[ -z "$verbosity" ]]; then
 		echo "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." >&2
@@ -107,7 +107,7 @@ if [[ "$reflection" -eq 1 && "$action" != "scry" ]]; then
   exit 1
 fi
 if [[ "$reflection" -eq 1 && -n "$config" ]]; then
-  echo "'reflection' doesn't take a [config] -- it runs folly's own test harnesses, not a build." >&2
+  echo "'reflection' doesn't take any switches -- it runs folly's own test harnesses, not a build." >&2
   exit 1
 fi
 if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
@@ -126,7 +126,7 @@ if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]
   configuration=""
   nupkg_dir=""
 elif [[ -z "$config" ]]; then
-  echo "[config] is required for action '$action'. Expected 'research' or 'truth'." >&2
+  echo "Primary arg is required for action '$action'. Expected 'research' or 'truth'." >&2
   exit 1
 elif [[ "$config" == "research" ]]; then
   configuration="Debug"
@@ -161,6 +161,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
   scry)
 	if [[ "$reflection" -eq 1 ]]; then
 	  harness_fail=0
+	  echo ""
 	  for harness in test-folly-cleanse.sh test-folly-scry-args.sh; do
 		echo "--- $harness ---"
 		bash "$scriptroot/scripts/$harness" || harness_fail=1

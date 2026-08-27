@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Regression test for folly.sh's argument parsing (action, [config], --timeout -- including
-# leading-zero normalization, missing/invalid values, and non-scry rejection -- plus --binaryLog/-bl
-# and --verbosity/-v, forwarded across every build-invoking action and rejected on 'cleanse' and
+# Regression test for folly.sh's argument parsing (action, primary arg, --timeout -- including
+# leading-zero normalization, missing/invalid values, and non-scry rejection -- plus --binaryLog
+# and --verbosity, forwarded across every build-invoking action and rejected on 'cleanse' and
 # 'scry reflection'), run against a mocked eng/build.sh so no real build/test happens. Bash counterpart to
 # scripts/test-folly-scry-args.ps1 -- see the folly.sh/folly.ps1 parity rule in CONVENTIONS.md for
 # why this needs to stay in lockstep with that harness rather than being PowerShell-only.
@@ -86,7 +86,7 @@ else
   test_fail "timeout forwarding (exit=$exit_code): args='$args_log' output=$output"
 fi
 
-# --- positional [config] alongside --timeout ---
+# --- positional primary arg alongside --timeout ---
 dir="$(new_test_case "positional-config")"
 result="$(run_case "$dir" scry truth --timeout 90)"
 exit_code="${result%%$'\x1e'*}"
@@ -153,18 +153,6 @@ if [[ "$exit_code" == "0" ]] && grep -qx -- "--binaryLog" <<<"$args_log"; then
   test_pass "'--binaryLog' is forwarded to eng/build.sh"
 else
   test_fail "binaryLog forwarding (exit=$exit_code): args='$args_log' output=$output"
-fi
-
-# --- -bl is accepted as a short alias, forwarded as the long form ---
-dir="$(new_test_case "binarylog-short-alias")"
-result="$(run_case "$dir" weave research -bl)"
-exit_code="${result%%$'\x1e'*}"
-output="${result#*$'\x1e'}"
-args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
-if [[ "$exit_code" == "0" ]] && grep -qx -- "--binaryLog" <<<"$args_log"; then
-  test_pass "'-bl' is forwarded to eng/build.sh as --binaryLog"
-else
-  test_fail "binaryLog short alias (exit=$exit_code): args='$args_log' output=$output"
 fi
 
 # --- --verbosity is forwarded to eng/build.sh with its value ---
@@ -279,13 +267,13 @@ else
   test_fail "reflection on non-scry action (exit=$exit_code): $output"
 fi
 
-# --- 'reflection' rejects a [config] alongside it ---
+# --- 'reflection' rejects a primary arg alongside it ---
 dir="$(new_test_case "reflection-with-config")"
 result="$(run_case "$dir" scry reflection truth)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"doesn't take a [config]"* ]]; then
-  test_pass "'reflection' rejects a [config] alongside it"
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take any switches"* ]]; then
+  test_pass "'reflection' rejects a primary arg alongside it"
 else
   test_fail "reflection with config (exit=$exit_code): $output"
 fi

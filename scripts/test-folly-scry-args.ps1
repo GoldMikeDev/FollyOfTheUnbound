@@ -1,5 +1,5 @@
-# Regression test for folly.ps1's argument parsing (action, [config], --core/--framework, --timeout)
-# and its unified test summary, plus --binaryLog/-bl and --verbosity/-v (forwarded across every
+# Regression test for folly.ps1's argument parsing (action, primary arg, --core/--framework,
+# --timeout) and its unified test summary, plus --binaryLog and --verbosity (forwarded across every
 # build-invoking action and rejected on 'cleanse' and 'scry reflection'), run against a mocked
 # eng/build.ps1 so no real build/test happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
@@ -173,7 +173,7 @@ try {
         Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- positional [config] alongside a selector ---
+    # --- positional primary arg alongside a selector ---
     $dir = New-TestCase "positional-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "truth", "--core")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Release-Core") {
@@ -361,11 +361,11 @@ try {
         Test-Fail "reflection on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- 'reflection' rejects a [config] alongside it ---
+    # --- 'reflection' rejects a primary arg alongside it ---
     $dir = New-TestCase "reflection-with-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "truth")
-    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a \[config\]") {
-        Test-Pass "'reflection' rejects a [config] alongside it"
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take any switches") {
+        Test-Pass "'reflection' rejects a primary arg alongside it"
     }
     else {
         Test-Fail "reflection with config (exit=$($result.ExitCode)): $($result.Output)"
