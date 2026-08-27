@@ -221,8 +221,8 @@ synthetic_pids="$synthetic_pids $foreign_pid"
 disown
 sleep 0.5
 # Verify each PID is actually the process we think it is (matches its pipename marker), not just that nohup/exec succeeded -- cheap sanity check now that the PIDs themselves no longer depend on this lookup.
-[[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$trapped_pid[[:space:]]" | grep 'pipename:test-trapped')" ]] || trapped_pid=""
-[[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$foreign_pid[[:space:]]" | grep 'pipename:test-foreign')" ]] || foreign_pid=""
+[[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$trapped_pid[[:space:]]" | grep 'pipename:test-trapped')" ]] || trapped_pid=""
+[[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$foreign_pid[[:space:]]" | grep 'pipename:test-foreign')" ]] || foreign_pid=""
 
 if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
   out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
@@ -279,7 +279,7 @@ wrapper_pid=$!
 synthetic_pids="$synthetic_pids $wrapper_pid"  # registered with the EXIT trap immediately, before either check below can be interrupted
 disown
 sleep 0.5
-if [[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | grep 'pipename:test-ancestor')" ]]; then
+if [[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | grep 'pipename:test-ancestor')" ]]; then
   # Wait for cleanse (running as this wrapper's own child) to actually finish, rather than guessing a fixed delay.
   for _i in $(seq 1 50); do
     [[ -f "$done_marker" ]] && break
