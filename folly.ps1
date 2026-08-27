@@ -322,7 +322,7 @@ try {
 				return Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
 					ForEach-Object { [PSCustomObject]@{ Pid = $_.ProcessId; PPid = $_.ParentProcessId; CommandLine = $_.CommandLine } }
 			}
-			$lines = & ps -eo pid,ppid,command 2>$null
+			$lines = & Get-Process -eo pid,ppid,command 2>$null
 			if (-not $lines) { return @() }
 			$lines | Select-Object -Skip 1 | ForEach-Object {
 				if ($_ -match '^\s*(\d+)\s+(\d+)\s+(.*)$') {
