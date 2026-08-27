@@ -21,13 +21,17 @@ synthetic_pids=""  # PIDs of any detached background process this harness spawns
 trap 'for _p in $synthetic_pids; do kill -9 "$_p" 2>/dev/null; done; chmod -R u+rwX "$work_root" 2>/dev/null; chattr -R -i "$work_root" 2>/dev/null; rm -rf "$work_root"' EXIT
 
 if [[ -t 1 ]]; then  # matches folly.sh cleanse's own [[ -t 1 ]] check -- plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal
-  color_green=$'\033[32m'; color_red=$'\033[31m'; color_yellow=$'\033[33m'; color_reset=$'\033[0m'
+  color_reset=$'\033[0m'; color_red=$'\033[31m'; color_green=$'\033[32m'; color_yellow=$'\033[33m'; color_purple=$'\033[35m'
 else
-  color_green=''; color_red=''; color_yellow=''; color_reset=''
+  color_reset=''; color_red=''; color_green=''; color_yellow=''; color_purple=''
 fi
 
 pass_count=0
 fail_count=0
+
+pwsh_invoke() {
+  echo "${color_purple}PWSH: $1${color_reset}"
+}
 
 fail() {
   echo "${color_red}FAIL: $1${color_reset}"
@@ -55,7 +59,7 @@ pwsh_crossover() {
   if [[ "${OS:-}" != "Windows_NT" ]] || ! command -v pwsh >/dev/null 2>&1; then
     return
   fi
-  echo "pwsh: test-folly-cleanse.ps1 -Only $case_name (Windows-native equivalent of the case above)"
+  pwsh_invoke "Invoking test-folly-cleanse.ps1 to run Windows-native equivalent of the above case"
   pwsh -NoProfile -File "$script_root/scripts/test-folly-cleanse.ps1" -Only "$case_name" 2>&1 | sed 's/^/pwsh: /'
   local pwsh_ec=${PIPESTATUS[0]}
   if (( pwsh_ec == 0 )); then
