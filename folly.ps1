@@ -197,12 +197,26 @@ try {
 		Remove-Item -Recurse -Force -LiteralPath $coreLogDir -ErrorAction SilentlyContinue
 		Remove-Item -Recurse -Force -LiteralPath $frameworkTestResultsDir -ErrorAction SilentlyContinue
 		Remove-Item -Recurse -Force -LiteralPath $frameworkLogDir -ErrorAction SilentlyContinue
+		# -testInteractiveConsole lets RunTests inherit the real console directly (its live per-work-item
+		# progress table, and its own final PASSED/FAILED/TIMEOUT table, both go straight to the terminal,
+		# bypassing PowerShell's pipeline entirely -- see eng/build.ps1's own comment on this switch). That's
+		# fine, and preferred, when only one leg is running. But when both legs run, passing it for each would
+		# print that leg's own final table live the moment that leg finishes -- exactly the interleaving this
+		# unified, both-legs-together printing below exists to avoid. So when both legs are requested, this is
+		# omitted instead: eng/build.ps1 then relays RunTests' output through the ordinary object pipeline,
+		# which is captured into $coreRunOutput/$frameworkRunOutput below (suppressing it from the console
+		# entirely, live table included) rather than left to print immediately.
+		$bothLegs = $runCore -and $runFramework
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				if ($bothLegs) {
+					$coreRunOutput = & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration 2>&1 | Out-String
+				} else {
+					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				}
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -218,7 +232,11 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				if ($bothLegs) {
+					$frameworkRunOutput = & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration 2>&1 | Out-String
+				} else {
+					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+				}
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -245,17 +263,26 @@ try {
 		# rather than letting each leg's own RunTests process print its list live the moment that leg completes,
 		# which (when both --core and --framework run) buries the first leg's list under the second leg's own
 		# build/live-table output instead of leaving both visible together at the end.
-		if ($summaries.Count -gt 1) {
+		if ($bothLegs) {
 			foreach ($summary in $summaries) {
 				Write-Host ""
 				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
-				if ($summary.Found) {
+				if (-not $summary.Found) {
+					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
+				}
+				elseif ($summary.ExitCode -ne 0) {
+					# A nonzero exit means something beyond a plain test failure/timeout may have happened
+					# (a crash, a dump, RunTests' own error output) that never makes it into the concise
+					# PASSED/FAILED/TIMEOUT table below -- so show this leg's full captured output instead
+					# of just that table, same as what would have streamed live had -testInteractiveConsole
+					# been used for a single-leg run.
+					$rawOutput = if ($summary.Label -eq "Core") { $coreRunOutput } else { $frameworkRunOutput }
+					Write-Host $rawOutput
+				}
+				else {
 					foreach ($line in $summary.Lines) {
 						Write-Host $line
 					}
-				}
-				else {
-					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
 				}
 			}
 		}
