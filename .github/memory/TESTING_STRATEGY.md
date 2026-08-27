@@ -18,6 +18,7 @@ the one for your area):
 | Unit tests | Sibling `*Test` / `*.UnitTests` project next to the product project (e.g., `Workspaces/Core` ↔ `Workspaces/CoreTest`). |
 | Compiler tests | `src/Compilers/*/Test/`. |
 | IDE/analyzer tests | `*Test` projects under `src/Features`, `src/Analyzers`, `src/EditorFeatures`. |
+| RoslynSdk testing-library tests | `src/RoslynSdk/Microsoft.CodeAnalysis.Testing/Test/*.UnitTests/` -- one `*.UnitTests` project per RoslynSdk testing-framework library (`Microsoft.CodeAnalysis.Analyzer.Testing`, `.CodeFix.Testing`, the `CSharp.*`/`VisualBasic.*` variants, etc.), imported alongside the libraries themselves. Run a specific one with `dotnet test src/RoslynSdk/Microsoft.CodeAnalysis.Testing/Test/<Project>.UnitTests/<Project>.UnitTests.csproj`, same as any other `*.UnitTests` project. |
 | Integration tests | VS integration tests (`azure-pipelines-integration*.yml`); runnable locally on **Windows** hosts with a VS install, also run in CI. |
 
 Frameworks: xUnit with Roslyn test utilities.
