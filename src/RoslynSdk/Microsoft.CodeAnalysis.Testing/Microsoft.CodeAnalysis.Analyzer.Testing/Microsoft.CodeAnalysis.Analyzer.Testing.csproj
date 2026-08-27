@@ -37,7 +37,15 @@
          unaffected: it keeps using the real package below, unchanged. -->
     <ProjectReference Include="..\..\..\Workspaces\Core\Portable\Microsoft.CodeAnalysis.Workspaces.csproj"
                        Condition="'$(SolutionName)' == 'FollyOfTheUnbound'" />
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" />
+    <!-- Excluded (not just left to NuGet's automatic project/package substitution) when building this
+         fork: substitution is keyed off matching PackageIds within the SAME restore's TargetFramework
+         node, but Microsoft.CodeAnalysis.Workspaces.csproj above doesn't target net472 (only
+         $(NetRoslynSourceBuild);netstandard2.0), so for this project's net472 TFM the ProjectReference
+         only resolves via the netstandard2.0 asset (which net472 can consume, but not as a substitute),
+         so the real package still gets pulled in alongside it, causing CS0433 (Project/Solution/etc.
+         defined in both assemblies). Excluding the PackageReference outright avoids depending on that
+         TFM-matching behavior instead of trying to satisfy it. -->
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Condition="'$(SolutionName)' != 'FollyOfTheUnbound'" />
     <PackageReference Include="Microsoft.VisualBasic" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'" />
     <PackageReference Include="Microsoft.VisualStudio.Composition" VersionOverride="16.1.8" />
     <PackageReference Include="Nullable" PrivateAssets="all" />
