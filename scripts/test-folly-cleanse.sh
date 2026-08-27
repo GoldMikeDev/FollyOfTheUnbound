@@ -138,7 +138,7 @@ out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 wait "$racer" 2>/dev/null || true
 if (( ec == 0 )) && [[ ! -e "$dir/artifacts" ]]; then
-  pass "concurrent file removal during cleanse does not abort (output='$out')"
+  pass "concurrent file removal during cleanse does not abort"
 else
   fail "concurrent file removal (exit=$ec, output='$out')"
 fi

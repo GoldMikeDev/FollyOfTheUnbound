@@ -185,7 +185,7 @@ try {
     Wait-Job -Job $racer -Timeout 30 | Out-Null
     Remove-Job -Job $racer -Force -ErrorAction SilentlyContinue
     if ($result.ExitCode -eq 0 -and -not (Test-Path -LiteralPath $artifactsDir)) {
-        Test-Pass "concurrent file removal during cleanse does not abort (output='$($result.Output.Trim())')"
+        Test-Pass "concurrent file removal during cleanse does not abort"
     }
     else {
         Test-Fail "concurrent file removal (exit=$($result.ExitCode), output='$($result.Output)')"
