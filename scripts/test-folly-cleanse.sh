@@ -65,6 +65,7 @@ pwsh_crossover() {
   local pwsh_ec=$?
   local line
   while IFS= read -r line; do
+    line="${line%$'\r'}"  # pwsh emits CRLF -- without stripping this, the blank line below is "\r", not "", and slips past the "" case
     case "$line" in
       "") continue ;;                       # the blank line test-folly-cleanse.ps1 prints before its own summary
       *" passed, "*" failed") continue ;;    # and the summary itself -- we fold pass/fail into our own counts below instead
