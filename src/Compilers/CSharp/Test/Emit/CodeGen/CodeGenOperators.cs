@@ -777,39 +777,39 @@ public class Test
             float v9 = default(float);
             // char
             if (v0 is ushort?)
-                Console.Write(0);
+                { Console.Write(0); }
             else
-                Console.Write(1);
+                { Console.Write(1); }
             
             // sbyte & byte
             if (v1 is short? || v2 is short?)
-                Console.Write(0);
+                { Console.Write(0); }
             else
-                Console.Write(2);
+                { Console.Write(2); }
 
             // short & ushort
             if (v3 is int? || v4 is int?)
-                Console.Write(0);
+                { Console.Write(0); }
             else
-                Console.Write(3);
+                { Console.Write(3); }
 
             // int & uint
             if (v5 is long? || v6 is long?)
-                Console.Write(0);
+                { Console.Write(0); }
             else
-                Console.Write(4);
+                { Console.Write(4); }
 
             // long & ulong
             if (v7 is float? || v8 is float?)
-                Console.Write(0);
+                { Console.Write(0); }
             else
-                Console.Write(5);
+                { Console.Write(5); }
 
             // float
             if (v9 is int?)
-                Console.Write(0);
+                { Console.Write(0); }
             else
-                Console.Write(6);
+                { Console.Write(6); }
         }
     }
 ";

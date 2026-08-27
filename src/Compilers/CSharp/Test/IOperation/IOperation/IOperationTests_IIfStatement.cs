@@ -1431,9 +1431,9 @@ class P
     private void M()
     {
         /*<bind>*/if (true)
-            A();
+            { A(); }
         else
-            B();/*</bind>*/
+            { B(); }/*</bind>*/
     }
     private void A()
     {

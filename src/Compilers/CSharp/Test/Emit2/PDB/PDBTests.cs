@@ -2712,9 +2712,9 @@ class Program
         int i = 0;
 
         if (i != 0)
-            Console.WriteLine(""one"");
+            { Console.WriteLine(""one""); }
         else
-            Console.WriteLine(""other"");
+            { Console.WriteLine(""other""); }
     }
 }
 ");
@@ -6642,9 +6642,9 @@ class C
         string y = """";
         lock (y)
             if (!x)
-                System.Console.Write(1);
+                { System.Console.Write(1); }
             else
-                System.Console.Write(2);
+                { System.Console.Write(2); }
     }
 }
 ";

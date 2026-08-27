@@ -6043,9 +6043,9 @@ class C
         object o = ""s"";
         {
             if (o is string s)
-                _ = s;
+                { _ = s; }
             else
-                _ = s; // 1
+                { _ = s; } // 1
         }
         {
             if (o is not string s)
@@ -6055,9 +6055,9 @@ class C
         }
         {
             if (o is not not string s)
-                _ = s;
+                { _ = s; }
             else
-                _ = s; // 3
+                { _ = s; } // 3
         }
         {
             if (o is not not not string s)

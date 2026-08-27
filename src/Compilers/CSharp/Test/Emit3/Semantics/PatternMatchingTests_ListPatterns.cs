@@ -4223,14 +4223,14 @@ class C
     public void M()
     {
         if (new int[0] is [var item])
-            item.ToString();
+            { item.ToString(); }
         else
-            item.ToString(); // 1
+            { item.ToString(); } // 1
 
         if (new int?[0] is [var item2])
-            item2.ToString();
+            { item2.ToString(); }
         else
-            item2.ToString(); // 2
+            { item2.ToString(); } // 2
 
         if (new string?[0] is [var item3])
             item3.ToString(); // 3
@@ -4535,19 +4535,19 @@ class C
             rest.ToString(); // 1, 2
 
         if (new int?[0] is [1, ..var rest2])
-            rest2.ToString();
+            { rest2.ToString(); }
         else
-            rest2.ToString(); // 3, 4
+            { rest2.ToString(); } // 3, 4
 
         if (new string?[0] is [null, ..var rest3])
-            rest3.ToString();
+            { rest3.ToString(); }
         else
-            rest3.ToString(); // 5, 6
+            { rest3.ToString(); } // 5, 6
 
         if (new string[0] is [null, ..var rest4])
-            rest4.ToString();
+            { rest4.ToString(); }
         else
-            rest4.ToString(); // 7, 8
+            { rest4.ToString(); } // 7, 8
     }
 }
 ";

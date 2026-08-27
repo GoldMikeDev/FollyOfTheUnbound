@@ -24201,9 +24201,9 @@ public class C
     {
         bool b = true;
         if (b)
-            Init();
+            { Init(); }
         else
-            Init2();
+            { Init2(); }
     }
 
     [MemberNotNull(nameof(field1), nameof(field2))]
@@ -26608,9 +26608,9 @@ public class C
         try
         {
             if (b)
-                return true;
+                { return true; }
             else
-                return false;
+                { return false; }
         }
         finally
         {
@@ -26643,9 +26643,9 @@ public class C
         try
         {
             if (b)
-                return true;
+                { return true; }
             else
-                return false;
+                { return false; }
         }
         finally
         {
@@ -32058,18 +32058,18 @@ public class C
     {
         await Task.Yield();
         if (s1 is null)
-            return null;
+            { return null; }
         else
-            return null;
+            { return null; }
     }
 
     [return: NotNullIfNotNull(""s1"")]
     public static Task<string?>? M2(string? s1)
     {
         if (s1 is null)
-            return null;
+            { return null; }
         else
-            return null; // 5
+            { return null; } // 5
     }
 }
 ";
@@ -42938,9 +42938,9 @@ class C
     static bool ActuallyReturns3(bool b)
     {
         if (b)
-            throw null!;
+            { throw null!; }
         else
-            return true; // 3
+            { return true; } // 3
     }
 
     [DoesNotReturn]
@@ -43016,9 +43016,9 @@ var f2 = [DoesNotReturn] static bool () =>
 var f3 = [DoesNotReturn] static bool (bool b) =>
     {
         if (b)
-            throw null!;
+            { throw null!; }
         else
-            return true; // 3
+            { return true; } // 3
     };
 
 var f4 = [DoesNotReturn] static bool ()
@@ -43112,9 +43112,9 @@ if (b) { f10(); o.ToString(); }
 [DoesNotReturn] bool f3()
 {
     if (b)
-        throw null!;
+        { throw null!; }
     else
-        return true; // 3
+        { return true; } // 3
 }
 
 [DoesNotReturn] static bool f4()
@@ -56117,9 +56117,9 @@ class C4 : C<string> {}
         M(() =>
         {
             if (b)
-                return b ? null : null;
+                { return b ? null : null; }
             else
-                return new object();
+                { return new object(); }
         });
     }
 }";
@@ -56180,9 +56180,9 @@ class C4 : C<string> {}
         M(() =>
         {
             if (b)
-                return b ? default : default;
+                { return b ? default : default; }
             else
-                return new U();
+                { return new U(); }
         });
     }
 }";
@@ -56217,9 +56217,9 @@ class C4 : C<string> {}
         M(() =>
         {
             if (b)
-                return b ? default : default;
+                { return b ? default : default; }
             else
-                return new U();
+                { return new U(); }
         });
     }
 }";
@@ -56252,9 +56252,9 @@ class C4 : C<string> {}
             Program? x = null;
             string? y = null;
             if (b)
-                return b ? x : y;
+                { return b ? x : y; }
             else
-                return new object();
+                { return new object(); }
         });
     }
 }";
@@ -56286,9 +56286,9 @@ class C4 : C<string> {}
             Program? x = new();
             string? y = string.Empty;
             if (b)
-                return b ? x : y;
+                { return b ? x : y; }
             else
-                return new object();
+                { return new object(); }
         });
     }
 }";
@@ -56314,9 +56314,9 @@ class C4 : C<string> {}
         M(() =>
         {
             if (@bool)
-                return @bool ? b : c;
+                { return @bool ? b : c; }
             else
-                return a;
+                { return a; }
         });
     }
 }
@@ -56478,9 +56478,9 @@ class C { public static implicit operator A(C? c) => new A(); }";
         M(() =>
         {
             if (b)
-                return new();
+                { return new(); }
             else
-                return new object();
+                { return new object(); }
         });
     }
 }";
@@ -56511,9 +56511,9 @@ class C { public static implicit operator A(C? c) => new A(); }";
         M(() =>
         {
             if (b)
-                return new(null);
+                { return new(null); }
             else
-                return new Program(string.Empty);
+                { return new Program(string.Empty); }
         });
     }
 
@@ -56549,9 +56549,9 @@ class C { public static implicit operator A(C? c) => new A(); }";
         M(() =>
         {
             if (b)
-                return null;
+                { return null; }
             else
-                return new object();
+                { return new object(); }
         });
     }
 }";
@@ -58904,9 +58904,9 @@ class B
         for (int i = 0; i < 2; i++)
         {
             if (i % 2 == 0)
-                b3.G = o;
+                { b3.G = o; }
             else
-                b3.G = a.F;
+                { b3.G = a.F; }
         }
         return b3.G;
     }
@@ -58962,9 +58962,9 @@ class C
         for (int i = 0; i < 2; i++)
         {
             if (i % 2 == 0)
-                a3.F = o;
+                { a3.F = o; }
             else
-                a3.F = a.F;
+                { a3.F = a.F; }
         }
         return a3.F;
     }
@@ -76838,14 +76838,14 @@ class C
     static void F(string? s, string? s2)
     {
         if (s?.Length OPERATOR 1)
-            s.ToString();
+            { s.ToString(); }
         else
-            s.ToString(); // 1
+            { s.ToString(); } // 1
 
         if (1 OPERATOR s2?.Length)
-            s2.ToString();
+            { s2.ToString(); }
         else
-            s2.ToString(); // 2
+            { s2.ToString(); } // 2
     }
 }";
             var comp = CreateCompilation(source.Replace("OPERATOR", op), options: WithNullableEnable());
@@ -76875,14 +76875,14 @@ class C
             s1.ToString(); // 2
 
         if (s1 != null)
-            s1.ToString();
+            { s1.ToString(); }
         else
-            s1.ToString(); // 3
+            { s1.ToString(); } // 3
 
         if (null != s1)
-            s1.ToString();
+            { s1.ToString(); }
         else
-            s1.ToString(); // 4
+            { s1.ToString(); } // 4
     }
 }";
             var comp = CreateCompilation(source, options: WithNullableEnable());
@@ -76941,9 +76941,9 @@ class C
     static void F(string? s)
     {
         if (s?.Length is 1)
-            s.ToString();
+            { s.ToString(); }
         else
-            s.ToString(); // 1
+            { s.ToString(); } // 1
     }
 }";
             var comp = CreateCompilation(source, options: WithNullableEnable());
@@ -86381,9 +86381,9 @@ class C
     void F(C c)
     {
         if (c?[0] == true)
-            c.ToString();
+            { c.ToString(); }
         else
-            c.ToString(); // 1
+            { c.ToString(); } // 1
 
         c.ToString();
     }
@@ -86510,9 +86510,9 @@ class C
             x.ToString();
 
         if (null != y)
-            y.ToString();
+            { y.ToString(); }
         else
-            y.ToString(); // 2
+            { y.ToString(); } // 2
     }
     public static bool operator==(C? one, C? two) => throw null!;
     public static bool operator!=(C? one, C? two) => throw null!;
@@ -127459,9 +127459,9 @@ class Program
     static void F1(T? t1)
     {
         if (t1.HasValue)
-            _ = t1.Value;
+            { _ = t1.Value; }
         else
-            _ = t1.Value; // 1
+            { _ = t1.Value; } // 1
     }
     static void F2(T? t2)
     {
@@ -127491,9 +127491,9 @@ class Program
     static void F1(T? t1)
     {
         if (t1 != null)
-            _ = t1.Value;
+            { _ = t1.Value; }
         else
-            _ = t1.Value; // 1
+            { _ = t1.Value; } // 1
     }
     static void F2(T? t2)
     {
@@ -127523,9 +127523,9 @@ class Program
     static void F1(T? t1)
     {
         if (null != t1)
-            _ = (T)t1;
+            { _ = (T)t1; }
         else
-            _ = (T)t1; // 1
+            { _ = (T)t1; } // 1
     }
     static void F2(T? t2)
     {
@@ -130734,17 +130734,17 @@ class C
     {
         _ = (t1 as object).ToString(); // 1
         if (t1.HasValue)
-            _ = (t1 as object).ToString();
+            { _ = (t1 as object).ToString(); }
         else
-            _ = (t1 as object).ToString();
+            { _ = (t1 as object).ToString(); }
     }
     static void F2<T>(T? t2) where T : struct
     {
         _ = (t2 as T?).Value; // 2
         if (t2.HasValue)
-            _ = (t2 as T?).Value;
+            { _ = (t2 as T?).Value; }
         else
-            _ = (t2 as T?).Value;
+            { _ = (t2 as T?).Value; }
     }
     static void F3<T, U>(T? t3) where T : struct where U : class
     {
@@ -130766,9 +130766,9 @@ class C
     {
         _ = (t5 as dynamic).ToString(); // 9
         if (t5.HasValue)
-            _ = (t5 as dynamic).ToString();
+            { _ = (t5 as dynamic).ToString(); }
         else
-            _ = (t5 as dynamic).ToString();
+            { _ = (t5 as dynamic).ToString(); }
     }
 }";
             var comp = CreateCompilation(source, options: WithNullableEnable());
@@ -157645,9 +157645,9 @@ internal class C<T>
     public C<T> M(bool b)
     {
         if (b)
-            return b ? this : new C<T>();
+            { return b ? this : new C<T>(); }
         else
-            return b ? new C<T>() : this;
+            { return b ? new C<T>() : this; }
     }
 }
 ";

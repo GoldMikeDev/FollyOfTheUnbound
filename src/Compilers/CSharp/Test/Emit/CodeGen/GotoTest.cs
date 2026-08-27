@@ -133,9 +133,9 @@ class C
     {
         int i = 0;
         if (i == 1)
-            goto Lab1;
+            { goto Lab1; }
         else
-            goto Lab2;
+            { goto Lab2; }
     Lab1:
         i = 2;
     Lab2:
@@ -172,9 +172,9 @@ class C
     {
         int i = 0;
         if (i == 1)
-            goto Lab1;
+            { goto Lab1; }
         else
-            goto Lab2;
+            { goto Lab2; }
     Lab1:
         i = 2;
     Lab2:

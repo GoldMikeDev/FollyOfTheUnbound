@@ -1860,18 +1860,18 @@ public class Program
     {
         string result = await Second(s) + ""Glue"";
         if (result.Length > 2)
-            return result;
+            { return result; }
         else
-            return ""Too short"";
+            { return ""Too short""; }
     }
 
     async static Task<string> Second(string s)                              // Method 5
     {
         string doubled = """";
         if (s.Length > 2)
-            doubled = s + s;
+            { doubled = s + s; }
         else
-            doubled = ""HuhHuh"";
+            { doubled = ""HuhHuh""; }
         return await Task.Factory.StartNew(() => doubled);
     }
 }

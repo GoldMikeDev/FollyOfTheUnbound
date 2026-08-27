@@ -1100,9 +1100,9 @@ class C
         void Local()
         {
             if (y == 0)
-                x = 0;
+                { x = 0; }
             else
-                Local2();
+                { Local2(); }
         }
         void Local2()
         {
@@ -1118,9 +1118,9 @@ class C
         void Local()
         {
             if (y == 0)
-                x = 0;
+                { x = 0; }
             else
-                Local2();
+                { Local2(); }
         }
         void Local2()
         {
@@ -1205,9 +1205,9 @@ class C
         void L1()
         {
             if ("""".Length == 1)
-                x1 = x2 = 0;
+                { x1 = x2 = 0; }
             else
-                throw new System.Exception();
+                { throw new System.Exception(); }
         }
         try
         {
@@ -1253,9 +1253,9 @@ class C
         void L1()
         {
             if ("""".Length == 1)
-                x = 0;
+                { x = 0; }
             else
-                return;
+                { return; }
         }
         live:
         L1();
