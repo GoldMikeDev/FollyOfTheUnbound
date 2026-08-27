@@ -16,6 +16,9 @@ try {
 	$reflection = $false
 	$testTimeout = 0
 	$expectTimeoutValue = $false
+	$binaryLog = $false
+	$verbosity = $null
+	$expectVerbosityValue = $false
 	foreach ($arg in $remainingArgs) {
 		if ($expectTimeoutValue) {
 			if (-not [int]::TryParse($arg, [ref]$testTimeout) -or $testTimeout -le 0 -or $testTimeout -gt 71582) {  # 71582 min = Task.Delay's ms ceiling, which Program.RunCoreAsync forwards this straight into
@@ -23,6 +26,14 @@ try {
 				exit 1
 			}
 			$expectTimeoutValue = $false
+		}
+		elseif ($expectVerbosityValue) {
+			if ($arg -notin @("quiet", "minimal", "normal", "detailed", "diagnostic")) {  # full words only, not MSBuild's own q/m/n/d/diag shorthand -- explicit over terse
+				Write-Host "'--verbosity' requires one of: quiet, minimal, normal, detailed, diagnostic. Got '$arg'." -ForegroundColor Red
+				exit 1
+			}
+			$verbosity = $arg
+			$expectVerbosityValue = $false
 		}
 		elseif ($arg -eq "--core") {
 			$core = $true
@@ -32,6 +43,12 @@ try {
 		}
 		elseif ($arg -eq "--timeout") {
 			$expectTimeoutValue = $true
+		}
+		elseif ($arg -eq "--binaryLog") {
+			$binaryLog = $true
+		}
+		elseif ($arg -eq "--verbosity") {
+			$expectVerbosityValue = $true
 		}
 		elseif ($arg -eq "reflection") {
 			$reflection = $true
@@ -48,11 +65,15 @@ try {
 		Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
 		exit 1
 	}
+	if ($expectVerbosityValue) {
+		Write-Host "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." -ForegroundColor Red
+		exit 1
+	}
 	if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
 		Write-Host ""
 		Write-Host "Commands:"
 		Write-Host "    'attune'                                            Restore only."
-		Write-Host "    'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU)."
+		Write-Host "    'bind'                                              Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\)."
 		Write-Host "    'cleanse'                                           Delete artefacts."
 		Write-Host "    'grimoire'                                          Show this text (default when no action is given)."
 		Write-Host "    'reweave'                                           Restore & rebuild."
@@ -60,34 +81,31 @@ try {
 		Write-Host "    'weave'                                             Restore & build."
 		Write-Host "Primary args:"
 		Write-Host "    '<scry> reflection'                                 Runs folly script test harnesses."
-		Write-Host "    '<command> research [secondary]'                    Debug configuration."
-		Write-Host "    '<command> truth [secondary]'                       Release configuration."
-		Write-Host "Secondary args:"
+		Write-Host "    '<command> research [switches]'                     Debug configuration."
+		Write-Host "    '<command> truth [switches]'                        Release configuration."
+		Write-Host "Switches:"
 		Write-Host "    '<scry> <primary> --core'                           Run only the Core tests (skip Framework)."
 		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core)."
-		Write-Host "Tertiary args:"
-		Write-Host "    '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90)."
+		Write-Host "    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90)."
+		Write-Host "    '<command> <primary> --binaryLog'                   MSBuild binary log written to .\artifacts\log\<config>\Build.binlog."
+		Write-Host "    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic."
 		Write-Host ""
 		exit 0
 	}
-	if (($core -or $framework) -and $action -ne "scry") {
-		Write-Host "'--core'/'--framework' are only valid with the 'scry' action." -ForegroundColor Red
+	# Every '<selector>'/reflection is scoped to 'scry' -- one combined check/message rather than
+	# one per selector, since they're all the same rule applied to different args.
+	if ($action -ne "scry" -and ($core -or $framework -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
-	if ($testTimeout -gt 0 -and $action -ne "scry") {
-		Write-Host "'--timeout' is only valid with the 'scry' action." -ForegroundColor Red
+	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
+	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testTimeout -gt 0 -or $binaryLog -or $verbosity)) {
+		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
 		exit 1
 	}
-	if ($reflection -and $action -ne "scry") {
-		Write-Host "'reflection' is only valid with the 'scry' action." -ForegroundColor Red
-		exit 1
-	}
-	if ($reflection -and -not [string]::IsNullOrEmpty($config)) {
-		Write-Host "'reflection' doesn't take a [config] -- it runs folly's own test harnesses, not a build." -ForegroundColor Red
-		exit 1
-	}
-	if ($reflection -and ($core -or $framework -or $testTimeout -gt 0)) {
-		Write-Host "'reflection' doesn't take '--core'/'--framework'/'--timeout' -- it runs folly's own test harnesses, not RunTests." -ForegroundColor Red
+	if (($binaryLog -or $verbosity) -and $action -eq "cleanse") {
+		Write-Host "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." -ForegroundColor Red
 		exit 1
 	}
 	if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {
@@ -95,7 +113,7 @@ try {
 		$nupkgDir = $null
 	}
 	elseif ([string]::IsNullOrEmpty($config)) {
-		Write-Host "[config] is required for action '$action'. Expected 'research' or 'truth'." -ForegroundColor Red
+		Write-Host "Primary arg is required for action '$action'. Expected 'research' or 'truth'." -ForegroundColor Red
 		exit 1
 	}
 	elseif ($config -eq "research") {
@@ -110,21 +128,36 @@ try {
 		Write-Host "Unrecognised configuration '$config'. Expected 'research' or 'truth'." -ForegroundColor Red
 		exit 1
 	}
+	$extraBuildArgs = @{}  # --binaryLog: forwarded as-is to eng/build.ps1's own -binaryLog/-bl. --verbosity: already restricted to full words above (eng/build.ps1's own -verbosity/-v itself still accepts MSBuild's q/m/n/d/diag shorthand too, but folly.ps1 only ever forwards the validated full-word form here). A hashtable splat, not an array: splatting a bare "-binaryLog" string in an array does NOT bind a [switch] parameter to $true (PowerShell only recognizes that shorthand when the token is typed literally on the command line, not when it arrives via array splatting) -- a hashtable splat maps the parameter name to its value explicitly and works correctly for switches.
+	if ($binaryLog) {
+		$extraBuildArgs["binaryLog"] = $true
+	}
+	if ($verbosity) {
+		$extraBuildArgs["verbosity"] = $verbosity
+	}
+	# Passed as a raw MSBuild property (not a named eng/build.ps1 parameter, so via $properties'
+	# ValueFromRemainingArguments passthrough, not the $extraBuildArgs splat above) on every build this
+	# script runs: eng/build.ps1's BuildSolution invokes MSBuild on Arcade's toolset Build.proj, passing
+	# the .slnx only via /p:Projects=..., so the built-in $(SolutionName) is never actually
+	# "FollyOfTheUnbound" here -- see the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj
+	# for the RoslynSdk collision this was added to fix.
+	$identityArgs = @("/p:FollyOfTheUnboundBuild=true")
 	if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
-		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "weave") {
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "reweave") {
-		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "bind") {
-		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 	}
 	elseif ($action -eq "scry" -and $reflection) {
 		$pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
 		$harnessFail = $false
+		Write-Host ""
 		foreach ($harness in @("test-folly-cleanse.ps1", "test-folly-scry-args.ps1")) {
 			Write-Host "--- $harness ---"
 			& $pwshExe -NoProfile -File (Join-Path $PSScriptRoot "scripts\$harness")
@@ -137,7 +170,7 @@ try {
 		$runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one
 		$runFramework = $framework -or -not ($core -or $framework)
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
@@ -298,9 +331,9 @@ try {
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
 				if ($bothLegs) {
-					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration }
+					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs }
 				} else {
-					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 				}
 				$coreExitCode = $LASTEXITCODE
 			} finally {
@@ -318,9 +351,9 @@ try {
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
 				if ($bothLegs) {
-					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration }
+					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs }
 				} else {
-					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
+					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 				}
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
@@ -430,7 +463,10 @@ try {
 				return Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
 					ForEach-Object { [PSCustomObject]@{ Pid = $_.ProcessId; PPid = $_.ParentProcessId; CommandLine = $_.CommandLine } }
 			}
-			$lines = & ps -eo pid,ppid,command 2>$null
+			$psExe = Get-Command -Name ps -CommandType Application -ErrorAction SilentlyContinue |  # -CommandType Application resolves the native ps binary specifically, bypassing PowerShell's built-in "ps" alias for Get-Process (which doesn't accept ps's -eo argument and would throw a parameter-binding error under ErrorActionPreference=Stop). Select-Object -First 1: some systems have more than one "ps" on PATH (e.g. both /usr/bin/ps and /bin/ps), and Get-Command returns all matches -- piping straight into & would space-join their .Source paths into one invalid command.
+				Select-Object -First 1
+			if (-not $psExe) { return @() }
+			$lines = & $psExe.Source -eo pid,ppid,command 2>$null
 			if (-not $lines) { return @() }
 			$lines | Select-Object -Skip 1 | ForEach-Object {
 				if ($_ -match '^\s*(\d+)\s+(\d+)\s+(.*)$') {

@@ -310,8 +310,7 @@
   <Folder Name="/Workspaces/">
     <Project Path="src/Workspaces/Core/Desktop/Microsoft.CodeAnalysis.Workspaces.Desktop.csproj" />
     <Project Path="src/Workspaces/Core/Portable/Microsoft.CodeAnalysis.Workspaces.csproj" />
-    <!-- Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj has the same real-vs-renamed Workspaces
-         identity conflict as the exclusions above; no other project in the build references it. -->
+    <Project Path="src/Workspaces/CoreTest/Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj" />
     <Project Path="src/Workspaces/CoreTestUtilities/Microsoft.CodeAnalysis.Workspaces.Test.Utilities.csproj" />
     <Project Path="src/Workspaces/CSharp/Portable/Microsoft.CodeAnalysis.CSharp.Workspaces.csproj" />
     <Project Path="src/Workspaces/CSharpTest/Microsoft.CodeAnalysis.CSharp.Workspaces.UnitTests.csproj" />

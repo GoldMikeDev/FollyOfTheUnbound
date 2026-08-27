@@ -11,32 +11,39 @@ solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
+  # No '--core'/'--framework' selectors here, unlike folly.ps1's grimoire: this is an intentional
+  # limitation, not a parity gap. eng/build.sh has no Framework/.NET Framework (net472) test-running
+  # support at all -- no --testDesktop, nothing -- since that only ever works on Windows regardless
+  # of which shell invokes it, and 'scry' here always runs Core-only unconditionally (build.sh's
+  # plain --test/-t already means test_core_clr=true, nothing else). Add real Framework-test support
+  # to eng/build.sh itself first if that ever needs to change.
   cat <<'EOF'
-		
+
 Commands:
     'attune'                                            Restore only.
-    'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU).
+    'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU/).
     'cleanse'                                           Delete artefacts.
     'grimoire'                                          Show this text (default when no action is given).
     'reweave'                                           Restore & rebuild.
-    'scry'                                              Restore, build & run Core and Framework unit tests.
+    'scry'                                              Restore, build & run Core unit tests.
     'weave'                                             Restore & build.
 Primary args:
     '<scry> reflection'                                 Runs folly script test harnesses.
-    '<command> research [secondary]'                    Debug configuration.
-    '<command> truth [secondary]'                       Release configuration.
-Secondary args:
-    '<scry> <primary> --core'                           Run only the Core tests (skip Framework).
-    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core).
-Tertiary args:
-    '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90).
-		
+    '<command> research [switches]'                     Debug configuration.
+    '<command> truth [switches]'                        Release configuration.
+Switches:
+    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
+    '<command> <primary> --binaryLog'                   MSBuild binary log written to ./artifacts/log/<config>/Build.binlog.
+    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
+
 EOF
   exit 0
 fi
 config=""
 test_timeout=0
 reflection=0
+binary_log=0
+verbosity=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
 	reflection)
@@ -56,6 +63,27 @@ while [[ $# -gt 0 ]]; do
 	  fi
 	  shift 2
 	  ;;
+	--binaryLog)
+	  binary_log=1
+	  shift
+	  ;;
+	--verbosity)
+	  verbosity="${2:-}"
+	  if [[ -z "$verbosity" ]]; then
+		echo "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." >&2
+		exit 1
+	  fi
+	  shopt -s nocasematch  # case-insensitive match, matching folly.ps1's -notin (PowerShell string comparisons are case-insensitive by default); toggled back off immediately after, not left on for the rest of the script
+	  case "$verbosity" in  # full words only, not MSBuild's own q/m/n/d/diag shorthand -- explicit over terse
+		quiet|minimal|normal|detailed|diagnostic) shopt -u nocasematch ;;
+		*)
+		  shopt -u nocasematch
+		  echo "'--verbosity' requires one of: quiet, minimal, normal, detailed, diagnostic. Got '$verbosity'." >&2
+		  exit 1
+		  ;;
+	  esac
+	  shift 2
+	  ;;
 	research|truth)
 	  if [[ -n "$config" ]]; then
 		echo "Unrecognized argument '$1' (config already set to '$config')." >&2
@@ -70,27 +98,27 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
-if [[ "$test_timeout" -gt 0 && "$action" != "scry" ]]; then
-  echo "'--timeout' is only valid with the 'scry' action." >&2
+# '--timeout'/reflection are scoped to 'scry' -- one combined check/message rather than one per
+# selector, since they're all the same rule applied to different args.
+if [[ ( "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
-if [[ "$reflection" -eq 1 && "$action" != "scry" ]]; then
-  echo "'reflection' is only valid with the 'scry' action." >&2
+# By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
+# above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
+  echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
   exit 1
 fi
-if [[ "$reflection" -eq 1 && -n "$config" ]]; then
-  echo "'reflection' doesn't take a [config] -- it runs folly's own test harnesses, not a build." >&2
-  exit 1
-fi
-if [[ "$reflection" -eq 1 && "$test_timeout" -gt 0 ]]; then
-  echo "'reflection' doesn't take '--timeout' -- it runs folly's own test harnesses, not RunTests." >&2
+if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "cleanse" ]]; then
+  echo "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." >&2
   exit 1
 fi
 if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]]; then
   configuration=""
   nupkg_dir=""
 elif [[ -z "$config" ]]; then
-  echo "[config] is required for action '$action'. Expected 'research' or 'truth'." >&2
+  echo "Primary arg is required for action '$action'. Expected 'research' or 'truth'." >&2
   exit 1
 elif [[ "$config" == "research" ]]; then
   configuration="Debug"
@@ -102,22 +130,37 @@ else
   echo "Unrecognized configuration '$config'. Expected 'research' or 'truth'." >&2
   exit 1
 fi
+extra_build_args=()  # --binaryLog: forwarded as-is to eng/build.sh's own -binaryLog/-bl. --verbosity: already restricted to full words above (eng/build.sh's own -verbosity/-v itself still accepts MSBuild's q/m/n/d/diag shorthand too, but folly.sh only ever forwards the validated full-word form here)
+if [[ "$binary_log" -eq 1 ]]; then
+  extra_build_args+=(--binaryLog)
+fi
+if [[ -n "$verbosity" ]]; then
+  extra_build_args+=(--verbosity "$verbosity")
+fi
+# Passed as a raw MSBuild property (not one of eng/build.sh's own named switches, so via its
+# "properties" passthrough, not extra_build_args above) on every build this script runs:
+# eng/build.sh's BuildSolution invokes MSBuild on Arcade's toolset Build.proj, passing the .slnx only
+# via /p:Projects=..., so the built-in $(SolutionName) is never actually "FollyOfTheUnbound" here --
+# see the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj for the RoslynSdk
+# collision this was added to fix.
+identity_args=(/p:FollyOfTheUnboundBuild=true)
 case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh defaults nodeReuse true locally, leaving MSBuild worker nodes running after exit, still holding DLLs open under artifacts/ (`build-server shutdown` in cleanse only stops VBCSCompiler/Razor, not these)
   attune)
-	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   weave)
-	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   reweave)
-	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   bind)
-	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration"
+	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
 	;;
   scry)
 	if [[ "$reflection" -eq 1 ]]; then
 	  harness_fail=0
+	  echo ""
 	  for harness in test-folly-cleanse.sh test-folly-scry-args.sh; do
 		echo "--- $harness ---"
 		bash "$scriptroot/scripts/$harness" || harness_fail=1
@@ -129,6 +172,8 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ "$test_timeout" -gt 0 ]]; then
 	  scry_args+=(--testTimeout "$test_timeout")
 	fi
+	scry_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
+	scry_args+=("${identity_args[@]}")
 	"$build_script" "${scry_args[@]}"
 	;;
   cleanse)

@@ -23,6 +23,25 @@
     <ProjectReference Include="..\..\Scripting\Core\Microsoft.CodeAnalysis.Scripting.csproj">
       <Aliases>SCRIPTING</Aliases>
     </ProjectReference>
+    <!-- Build these two Testing-framework base libraries from their own in-repo source (src/RoslynSdk/)
+         rather than only consuming them transitively as prebuilt NuGet packages: that source
+         conditionally references our renamed Workspaces.csproj (see the comments in those csproj
+         files), which resolves the CodeFixProvider identity collision (see BatchFixAllProviderTests.cs)
+         at its root, but only takes effect if these projects are actually rebuilt as part of this graph
+         rather than pulled prebuilt from NuGet, hence this explicit reference.
+
+         AdditionalProperties="FollyOfTheUnboundBuild=true": this project (unlike those two) is already
+         unconditionally fork-only: it references ..\CSharp\Portable\Microsoft.CodeAnalysis.CSharp.
+         Workspaces.csproj (this fork's renamed one) directly, with no ambient-property guard at all,
+         so it must force fork mode on these two references itself rather than relying on whatever
+         ambient property (or lack of one) the outer build happens to be invoked with. Without this, a
+         targeted build of just this project (bypassing both FollyOfTheUnbound.slnx and folly.ps1/
+         folly.sh) would leave IsFollyOfTheUnboundBuild false in these two projects' own evaluation,
+         reintroducing the exact collision this whole reference exists to avoid. -->
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.Analyzer.Testing\Microsoft.CodeAnalysis.Analyzer.Testing.csproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CodeFix.Testing\Microsoft.CodeAnalysis.CodeFix.Testing.csproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />

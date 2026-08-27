@@ -20,17 +20,66 @@ work_root="$(mktemp -d)"
 synthetic_pids=""  # PIDs of any detached background process this harness spawns (e.g. the synthetic build-server case below) -- appended to as each is launched, so the EXIT trap can reap them even if the harness is interrupted or dies before its own explicit cleanup runs
 trap 'for _p in $synthetic_pids; do kill -9 "$_p" 2>/dev/null; done; chmod -R u+rwX "$work_root" 2>/dev/null; chattr -R -i "$work_root" 2>/dev/null; rm -rf "$work_root"' EXIT
 
+if [[ -t 1 ]]; then  # matches folly.sh cleanse's own [[ -t 1 ]] check -- plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal
+  color_reset=$'\033[0m'; color_red=$'\033[31m'; color_green=$'\033[32m'; color_yellow=$'\033[33m'; color_purple=$'\033[35m'
+else
+  color_reset=''; color_red=''; color_green=''; color_yellow=''; color_purple=''
+fi
+
 pass_count=0
 fail_count=0
 
+pwsh_invoke() {
+  echo "${color_purple}PWSH: $1${color_reset}"
+}
+
 fail() {
-  echo "FAIL: $1"
+  echo "${color_red}FAIL: $1${color_reset}"
   fail_count=$(( fail_count + 1 ))
 }
 
 pass() {
-  echo "PASS: $1"
+  echo "${color_green}PASS: $1${color_reset}"
   pass_count=$(( pass_count + 1 ))
+}
+
+skip() {
+  echo "${color_yellow}SKIP: $1${color_reset}"
+}
+
+# Invoked immediately after a skip() whose cause is a genuine Git-Bash/MSYS2
+# limitation (not present on real Windows) rather than a fundamental one --
+# runs test-folly-cleanse.ps1's Windows-native equivalent of that single case
+# via pwsh and folds its pass/fail into this script's own counts, prefixing
+# its output so it's clearly a pwsh invocation and not bash's own. On
+# anything but Windows-with-pwsh this is a silent no-op: no pwsh version, no
+# equivalent case.
+pwsh_crossover() {
+  local case_name="$1"
+  if [[ "${OS:-}" != "Windows_NT" ]] || ! command -v pwsh >/dev/null 2>&1; then
+    return
+  fi
+  pwsh_invoke "invoking test-folly-cleanse.ps1 to run Windows-native equivalent of the above case"
+  local output
+  output=$(pwsh -NoProfile -File "$script_root/scripts/test-folly-cleanse.ps1" -Only "$case_name" 2>&1)
+  local pwsh_ec=$?
+  local line
+  while IFS= read -r line; do
+    line="${line%$'\r'}"  # pwsh emits CRLF -- without stripping this, the blank line below is "\r", not "", and slips past the "" case
+    case "$line" in
+      "") continue ;;                       # the blank line test-folly-cleanse.ps1 prints before its own summary
+      *" passed, "*" failed") continue ;;    # and the summary itself -- we fold pass/fail into our own counts below instead
+      PASS:*) echo "${color_purple}PWSH:${color_reset} ${color_green}${line}${color_reset}" ;;
+      FAIL:*) echo "${color_purple}PWSH:${color_reset} ${color_red}${line}${color_reset}" ;;
+      SKIP:*) echo "${color_purple}PWSH:${color_reset} ${color_yellow}${line}${color_reset}" ;;
+      *)      echo "${color_purple}PWSH:${color_reset} ${line}" ;;
+    esac
+  done <<< "$output"
+  if (( pwsh_ec == 0 )); then
+    pass_count=$(( pass_count + 1 ))
+  else
+    fail_count=$(( fail_count + 1 ))
+  fi
 }
 
 new_case() {
@@ -53,9 +102,9 @@ mkdir -p "$dir/artifacts"
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 if (( ec == 0 )) && [[ "$out" == "Cleansed 0 B of artefacts." ]] && [[ ! -e "$dir/artifacts" ]]; then
-  pass "empty artifacts/ directory removed cleanly"
+  pass "empty ./artifacts/ directory removed cleanly"
 else
-  fail "empty artifacts/ directory (exit=$ec, output='$out')"
+  fail "empty ./artifacts/ directory (exit=$ec, output='$out')"
 fi
 
 # --- populated tree -----------------------------------------------------
@@ -105,10 +154,11 @@ if command -v chattr >/dev/null 2>&1 && [[ "$(id -u)" == "0" ]]; then
       fail "permission failure (exit=$ec, output='$out')"
     fi
   else
-    echo "SKIP: permission-failure case (chattr +i not permitted in this environment)"
+    skip "permission-failure case (chattr +i not permitted in this environment)"
   fi
 else
-  echo "SKIP: permission-failure case (needs root + chattr)"
+  skip "permission-failure case (needs root + chattr)"
+  pwsh_crossover locked
 fi
 
 # --- file vanishing mid-enumeration/sizing (concurrent writer) -----------
@@ -128,14 +178,14 @@ out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 wait "$racer" 2>/dev/null || true
 if (( ec == 0 )) && [[ ! -e "$dir/artifacts" ]]; then
-  pass "concurrent file removal during cleanse does not abort (output='$out')"
+  pass "concurrent file removal during cleanse does not abort"
 else
   fail "concurrent file removal (exit=$ec, output='$out')"
 fi
 
 # --- unreadable subtree during the scan: uncertain (not false-zero) remainder
 if [[ "$(id -u)" == "0" ]]; then
-  echo "SKIP: unreadable-subtree case (root bypasses directory read permissions)"
+  skip "unreadable-subtree case (root bypasses directory read permissions)"
 else
   dir=$(new_case unreadable)
   mkdir -p "$dir/artifacts/locked"
@@ -147,8 +197,9 @@ else
   # permission bits. On those, the directory stays fully readable despite chmod 000, so the rest of
   # this case can't exercise what it's meant to; skip rather than fail on an environment limitation.
   if ls "$dir/artifacts/locked" >/dev/null 2>&1; then
-    echo "SKIP: unreadable-subtree case (this filesystem/shell does not enforce chmod as real access control)"
+    skip "unreadable-subtree case (this filesystem/shell does not enforce chmod as real access control)"
     chmod 755 "$dir/artifacts/locked" 2>/dev/null || true
+    pwsh_crossover unreadable
   else
     out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
     ec=$?
@@ -167,9 +218,9 @@ echo "blocking entry" > "$dir/artifacts"
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 if (( ec == 0 )) && [[ ! -e "$dir/artifacts" ]]; then
-  pass "artifacts/ as a regular file is removed directly"
+  pass "./artifacts/ as a regular file is removed directly"
 else
-  fail "artifacts/ as a regular file (exit=$ec, output='$out')"
+  fail "./artifacts/ as a regular file (exit=$ec, output='$out')"
 fi
 
 # --- build-server force-kill: scoped survivor gets killed, foreign one left alone
@@ -211,8 +262,8 @@ synthetic_pids="$synthetic_pids $foreign_pid"
 disown
 sleep 0.5
 # Verify each PID is actually the process we think it is (matches its pipename marker), not just that nohup/exec succeeded -- cheap sanity check now that the PIDs themselves no longer depend on this lookup.
-[[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$trapped_pid[[:space:]]" | grep 'pipename:test-trapped')" ]] || trapped_pid=""
-[[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$foreign_pid[[:space:]]" | grep 'pipename:test-foreign')" ]] || foreign_pid=""
+[[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$trapped_pid[[:space:]]" | grep 'pipename:test-trapped')" ]] || trapped_pid=""
+[[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$foreign_pid[[:space:]]" | grep 'pipename:test-foreign')" ]] || foreign_pid=""
 
 if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
   out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
@@ -228,7 +279,7 @@ if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
     fail "build-server force-kill scoping/escalation (exit=$ec, output='$out', trapped_alive=$trapped_alive, foreign_alive=$foreign_alive)"
   fi
 else
-  echo "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)"
+  skip "build-server force-kill case (couldn't spawn synthetic processes in this environment)"
   [[ -n "$trapped_pid" ]] && kill -9 "$trapped_pid" 2>/dev/null
   [[ -n "$foreign_pid" ]] && kill -9 "$foreign_pid" 2>/dev/null
 fi
@@ -269,7 +320,7 @@ wrapper_pid=$!
 synthetic_pids="$synthetic_pids $wrapper_pid"  # registered with the EXIT trap immediately, before either check below can be interrupted
 disown
 sleep 0.5
-if [[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | grep 'pipename:test-ancestor')" ]]; then
+if [[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | grep 'pipename:test-ancestor')" ]]; then
   # Wait for cleanse (running as this wrapper's own child) to actually finish, rather than guessing a fixed delay.
   for _i in $(seq 1 50); do
     [[ -f "$done_marker" ]] && break
@@ -283,7 +334,7 @@ if [[ -n "$(ps -eo pid,command | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | g
     fail "ancestor exclusion: wrapper matching the scoped pattern did not survive cleanse running beneath it (cleanse_ran=$([[ -f "$done_marker" ]] && echo yes || echo no), wrapper_alive=$wrapper_alive)"
   fi
 else
-  echo "SKIP: ancestor exclusion case (couldn't spawn synthetic wrapper process in this environment)"
+  skip "ancestor exclusion case (couldn't spawn synthetic wrapper process in this environment)"
   kill -9 "$wrapper_pid" 2>/dev/null
 fi
 
@@ -292,9 +343,9 @@ dir=$(new_case nothing)
 out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
 ec=$?
 if (( ec == 0 )) && [[ "$out" == "No artefacts to cleanse." ]]; then
-  pass "missing artifacts/ reports nothing to cleanse"
+  pass "missing ./artifacts/ reports nothing to cleanse"
 else
-  fail "missing artifacts/ (exit=$ec, output='$out')"
+  fail "missing ./artifacts/ (exit=$ec, output='$out')"
 fi
 
 echo ""

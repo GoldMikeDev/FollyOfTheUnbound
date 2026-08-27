@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Regression test for folly.sh scry's argument parsing (action, [config], --timeout -- including
-# leading-zero normalization, missing/invalid values, and non-scry rejection), run against a mocked
-# eng/build.sh so no real build/test happens. Bash counterpart to
+# Regression test for folly.sh's argument parsing (action, primary arg, --timeout -- including
+# leading-zero normalization, missing/invalid values, and non-scry rejection -- plus --binaryLog
+# and --verbosity, forwarded across every build-invoking action and rejected on 'cleanse' and
+# 'scry reflection'), run against a mocked eng/build.sh so no real build/test happens. Bash counterpart to
 # scripts/test-folly-scry-args.ps1 -- see the folly.sh/folly.ps1 parity rule in CONVENTIONS.md for
 # why this needs to stay in lockstep with that harness rather than being PowerShell-only.
 # Run by hand (or wire into CI) after touching folly.sh's argument parsing or scry action:
@@ -14,16 +15,22 @@ folly_sh="$script_root/folly.sh"
 work_root="$(mktemp -d)"
 trap 'rm -rf "$work_root"' EXIT
 
+if [[ -t 1 ]]; then  # matches folly.sh cleanse's own [[ -t 1 ]] check -- plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal
+  color_green=$'\033[32m'; color_red=$'\033[31m'; color_reset=$'\033[0m'
+else
+  color_green=''; color_red=''; color_reset=''
+fi
+
 pass_count=0
 fail_count=0
 
 test_pass() {
-  echo "PASS: $1"
+  echo "${color_green}PASS: $1${color_reset}"
   pass_count=$((pass_count + 1))
 }
 
 test_fail() {
-  echo "FAIL: $1"
+  echo "${color_red}FAIL: $1${color_reset}"
   fail_count=$((fail_count + 1))
 }
 
@@ -80,12 +87,12 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--testTimeout" <<<"$args_log" && grep -qx "180" <<<"$args_log"; then
-  test_pass "'--timeout 180' is forwarded to eng/build.sh as --testTimeout 180"
+  test_pass "'--timeout 180' is forwarded to ./eng/build.sh as --testTimeout 180"
 else
   test_fail "timeout forwarding (exit=$exit_code): args='$args_log' output=$output"
 fi
 
-# --- positional [config] alongside --timeout ---
+# --- positional primary arg alongside --timeout ---
 dir="$(new_test_case "positional-config")"
 result="$(run_case "$dir" scry truth --timeout 90)"
 exit_code="${result%%$'\x1e'*}"
@@ -142,6 +149,86 @@ else
   test_fail "timeout on non-scry action (exit=$exit_code): $output"
 fi
 
+# --- --binaryLog is forwarded to eng/build.sh ---
+dir="$(new_test_case "binarylog-forwarded")"
+result="$(run_case "$dir" weave research --binaryLog)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--binaryLog" <<<"$args_log"; then
+  test_pass "'--binaryLog' is forwarded to ./eng/build.sh"
+else
+  test_fail "binaryLog forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --verbosity is forwarded to eng/build.sh with its value ---
+dir="$(new_test_case "verbosity-forwarded")"
+result="$(run_case "$dir" scry research --verbosity diagnostic)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--verbosity" <<<"$args_log" && grep -qx "diagnostic" <<<"$args_log"; then
+  test_pass "'--verbosity diagnostic' is forwarded to ./eng/build.sh"
+else
+  test_fail "verbosity forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --verbosity with a missing value is rejected ---
+dir="$(new_test_case "verbosity-missing-value")"
+result="$(run_case "$dir" weave --verbosity)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires a value"* ]]; then
+  test_pass "'--verbosity' with no value is rejected"
+else
+  test_fail "verbosity missing value (exit=$exit_code): $output"
+fi
+
+# --- --verbosity rejects MSBuild's own single-letter/abbreviated shorthand (e.g. 'diag'): full words only ---
+dir="$(new_test_case "verbosity-shorthand-rejected")"
+result="$(run_case "$dir" weave --verbosity diag)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires one of"* && "$output" == *"Got 'diag'"* ]]; then
+  test_pass "'--verbosity diag' (shorthand) is rejected"
+else
+  test_fail "verbosity shorthand rejected (exit=$exit_code): $output"
+fi
+
+# --- --verbosity accepts a full word case-insensitively ---
+dir="$(new_test_case "verbosity-case-insensitive")"
+result="$(run_case "$dir" weave research --verbosity DIAGNOSTIC)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx "DIAGNOSTIC" <<<"$args_log"; then
+  test_pass "'--verbosity DIAGNOSTIC' is accepted case-insensitively"
+else
+  test_fail "verbosity case-insensitive (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --binaryLog is rejected on 'cleanse' ---
+dir="$(new_test_case "binarylog-on-cleanse")"
+result="$(run_case "$dir" cleanse --binaryLog)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"aren't valid with 'cleanse'"* ]]; then
+  test_pass "'--binaryLog' is rejected on 'cleanse'"
+else
+  test_fail "binaryLog on cleanse (exit=$exit_code): $output"
+fi
+
+# --- --verbosity is rejected alongside 'scry reflection' ---
+dir="$(new_test_case "verbosity-on-reflection")"
+result="$(run_case "$dir" scry reflection --verbosity diagnostic)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a primary arg or any switches"* ]]; then
+  test_pass "'--verbosity' is rejected alongside 'scry reflection'"
+else
+  test_fail "verbosity on reflection (exit=$exit_code): $output"
+fi
+
 # --- rejected argument ---
 dir="$(new_test_case "rejected-arg")"
 result="$(run_case "$dir" scry --bogus)"
@@ -186,13 +273,13 @@ else
   test_fail "reflection on non-scry action (exit=$exit_code): $output"
 fi
 
-# --- 'reflection' rejects a [config] alongside it ---
+# --- 'reflection' rejects a primary arg alongside it ---
 dir="$(new_test_case "reflection-with-config")"
 result="$(run_case "$dir" scry reflection truth)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"doesn't take a [config]"* ]]; then
-  test_pass "'reflection' rejects a [config] alongside it"
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a primary arg or any switches"* ]]; then
+  test_pass "'reflection' rejects a primary arg alongside it"
 else
   test_fail "reflection with config (exit=$exit_code): $output"
 fi
@@ -202,7 +289,7 @@ dir="$(new_test_case "reflection-with-timeout")"
 result="$(run_case "$dir" scry reflection --timeout 5)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"doesn't take '--timeout'"* ]]; then
+if [[ "$exit_code" == "1" && "$output" == *"doesn't take a primary arg or any switches"* ]]; then
   test_pass "'reflection' rejects '--timeout' alongside it"
 else
   test_fail "reflection with timeout (exit=$exit_code): $output"
