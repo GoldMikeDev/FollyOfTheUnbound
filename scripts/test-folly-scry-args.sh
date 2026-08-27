@@ -169,12 +169,12 @@ fi
 
 # --- --verbosity is forwarded to eng/build.sh with its value ---
 dir="$(new_test_case "verbosity-forwarded")"
-result="$(run_case "$dir" scry research --verbosity diag)"
+result="$(run_case "$dir" scry research --verbosity diagnostic)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
-if [[ "$exit_code" == "0" ]] && grep -qx -- "--verbosity" <<<"$args_log" && grep -qx "diag" <<<"$args_log"; then
-  test_pass "'--verbosity diag' is forwarded to eng/build.sh"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--verbosity" <<<"$args_log" && grep -qx "diagnostic" <<<"$args_log"; then
+  test_pass "'--verbosity diagnostic' is forwarded to eng/build.sh"
 else
   test_fail "verbosity forwarding (exit=$exit_code): args='$args_log' output=$output"
 fi
@@ -190,6 +190,29 @@ else
   test_fail "verbosity missing value (exit=$exit_code): $output"
 fi
 
+# --- --verbosity rejects MSBuild's own single-letter/abbreviated shorthand (e.g. 'diag'): full words only ---
+dir="$(new_test_case "verbosity-shorthand-rejected")"
+result="$(run_case "$dir" weave --verbosity diag)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires one of"* && "$output" == *"Got 'diag'"* ]]; then
+  test_pass "'--verbosity diag' (shorthand) is rejected"
+else
+  test_fail "verbosity shorthand rejected (exit=$exit_code): $output"
+fi
+
+# --- --verbosity accepts a full word case-insensitively ---
+dir="$(new_test_case "verbosity-case-insensitive")"
+result="$(run_case "$dir" weave research --verbosity DIAGNOSTIC)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx "DIAGNOSTIC" <<<"$args_log"; then
+  test_pass "'--verbosity DIAGNOSTIC' is accepted case-insensitively"
+else
+  test_fail "verbosity case-insensitive (exit=$exit_code): args='$args_log' output=$output"
+fi
+
 # --- --binaryLog is rejected on 'cleanse' ---
 dir="$(new_test_case "binarylog-on-cleanse")"
 result="$(run_case "$dir" cleanse --binaryLog)"
@@ -203,7 +226,7 @@ fi
 
 # --- --verbosity is rejected alongside 'scry reflection' ---
 dir="$(new_test_case "verbosity-on-reflection")"
-result="$(run_case "$dir" scry reflection --verbosity diag)"
+result="$(run_case "$dir" scry reflection --verbosity diagnostic)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 if [[ "$exit_code" == "1" && "$output" == *"doesn't take '--binaryLog'/'--verbosity'"* ]]; then

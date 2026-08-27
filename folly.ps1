@@ -28,6 +28,10 @@ try {
 			$expectTimeoutValue = $false
 		}
 		elseif ($expectVerbosityValue) {
+			if ($arg -notin @("quiet", "minimal", "normal", "detailed", "diagnostic")) {  # full words only, not MSBuild's own q/m/n/d/diag shorthand -- explicit over terse
+				Write-Host "'--verbosity' requires one of: quiet, minimal, normal, detailed, diagnostic. Got '$arg'." -ForegroundColor Red
+				exit 1
+			}
 			$verbosity = $arg
 			$expectVerbosityValue = $false
 		}
@@ -62,7 +66,7 @@ try {
 		exit 1
 	}
 	if ($expectVerbosityValue) {
-		Write-Host "'--verbosity' requires a value: q[uiet], m[inimal], n[ormal], d[etailed], or diag[nostic]." -ForegroundColor Red
+		Write-Host "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." -ForegroundColor Red
 		exit 1
 	}
 	if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
@@ -77,15 +81,14 @@ try {
 		Write-Host "    'weave'                                             Restore & build."
 		Write-Host "Primary args:"
 		Write-Host "    '<scry> reflection'                                 Runs folly script test harnesses."
-		Write-Host "    '<command> research [secondary]'                    Debug configuration."
-		Write-Host "    '<command> truth [secondary]'                       Release configuration."
+		Write-Host "    '<command> research'                                Debug configuration."
+		Write-Host "    '<command> truth'                                   Release configuration."
 		Write-Host "Secondary args:"
 		Write-Host "    '<scry> <primary> --core'                           Run only the Core tests (skip Framework)."
 		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core)."
-		Write-Host "Tertiary args:"
-		Write-Host "    '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90)."
-		Write-Host "    '<command> [secondary] --binaryLog'                 Write an MSBuild binary log under artifacts\log\<config>\Build.binlog."
-		Write-Host "    '<command> [secondary] --verbosity <level>'         MSBuild console verbosity: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic]."
+		Write-Host "    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90)."
+		Write-Host "    '<command> <primary> --binaryLog'                   Write an MSBuild binary log under artifacts\log\<config>\Build.binlog."
+		Write-Host "    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic."
 		Write-Host ""
 		exit 0
 	}
@@ -137,7 +140,7 @@ try {
 		Write-Host "Unrecognised configuration '$config'. Expected 'research' or 'truth'." -ForegroundColor Red
 		exit 1
 	}
-	$extraBuildArgs = @{}  # --binaryLog/--verbosity: forwarded as-is to eng/build.ps1, which already validates/handles them (see its own -verbosity/-bl); folly.ps1 only gatekeeps which actions accept them, above. A hashtable splat, not an array: splatting a bare "-binaryLog" string in an array does NOT bind a [switch] parameter to $true (PowerShell only recognizes that shorthand when the token is typed literally on the command line, not when it arrives via array splatting) -- a hashtable splat maps the parameter name to its value explicitly and works correctly for switches.
+	$extraBuildArgs = @{}  # --binaryLog: forwarded as-is to eng/build.ps1's own -binaryLog/-bl. --verbosity: already restricted to full words above (eng/build.ps1's own -verbosity/-v itself still accepts MSBuild's q/m/n/d/diag shorthand too, but folly.ps1 only ever forwards the validated full-word form here). A hashtable splat, not an array: splatting a bare "-binaryLog" string in an array does NOT bind a [switch] parameter to $true (PowerShell only recognizes that shorthand when the token is typed literally on the command line, not when it arrives via array splatting) -- a hashtable splat maps the parameter name to its value explicitly and works correctly for switches.
 	if ($binaryLog) {
 		$extraBuildArgs["binaryLog"] = $true
 	}

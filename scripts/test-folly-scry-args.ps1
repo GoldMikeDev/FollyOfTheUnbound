@@ -301,11 +301,11 @@ try {
 
     # --- --verbosity is forwarded to eng/build.ps1 with its value ---
     $dir = New-TestCase "verbosity-forwarded"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--verbosity", "diag")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--verbosity", "diagnostic")
     $receivedPath = Join-Path $dir "buildArgs-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
-    if ($result.ExitCode -eq 0 -and $received -match "verbosity=diag") {
-        Test-Pass "'--verbosity diag' is forwarded to eng/build.ps1"
+    if ($result.ExitCode -eq 0 -and $received -match "verbosity=diagnostic") {
+        Test-Pass "'--verbosity diagnostic' is forwarded to eng/build.ps1"
     }
     else {
         Test-Fail "verbosity forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
@@ -321,6 +321,28 @@ try {
         Test-Fail "verbosity missing value (exit=$($result.ExitCode)): $($result.Output)"
     }
 
+    # --- --verbosity rejects MSBuild's own single-letter/abbreviated shorthand (e.g. 'diag'): full words only ---
+    $dir = New-TestCase "verbosity-shorthand-rejected"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--verbosity", "diag")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires one of" -and $result.Output -match "Got 'diag'") {
+        Test-Pass "'--verbosity diag' (shorthand) is rejected"
+    }
+    else {
+        Test-Fail "verbosity shorthand rejected (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --verbosity accepts a full word case-insensitively ---
+    $dir = New-TestCase "verbosity-case-insensitive"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "--verbosity", "DIAGNOSTIC")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "verbosity=DIAGNOSTIC") {
+        Test-Pass "'--verbosity DIAGNOSTIC' is accepted case-insensitively"
+    }
+    else {
+        Test-Fail "verbosity case-insensitive (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
     # --- --binaryLog is rejected on 'cleanse' ---
     $dir = New-TestCase "binarylog-on-cleanse"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("cleanse", "--binaryLog")
@@ -333,7 +355,7 @@ try {
 
     # --- --verbosity is rejected alongside 'scry reflection' ---
     $dir = New-TestCase "verbosity-on-reflection"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--verbosity", "diag")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--verbosity", "diagnostic")
     if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take '--binaryLog'/'--verbosity'") {
         Test-Pass "'--verbosity' is rejected alongside 'scry reflection'"
     }

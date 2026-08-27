@@ -29,12 +29,12 @@ Commands:
     'weave'                                             Restore & build.
 Primary args:
     '<scry> reflection'                                 Runs folly script test harnesses.
-    '<command> research [secondary]'                    Debug configuration.
-    '<command> truth [secondary]'                       Release configuration.
+    '<command> research'                                Debug configuration.
+    '<command> truth'                                   Release configuration.
 Secondary args:
-    '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90).
-    '<command> [secondary] --binaryLog'                 Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
-    '<command> [secondary] --verbosity <level>'         MSBuild console verbosity: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic].
+    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
+    '<command> <primary> --binaryLog'                   Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
+    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
 
 EOF
   exit 0
@@ -70,9 +70,18 @@ while [[ $# -gt 0 ]]; do
 	--verbosity|-v)
 	  verbosity="${2:-}"
 	  if [[ -z "$verbosity" ]]; then
-		echo "'--verbosity' requires a value: q[uiet], m[inimal], n[ormal], d[etailed], or diag[nostic]." >&2
+		echo "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." >&2
 		exit 1
 	  fi
+	  shopt -s nocasematch  # case-insensitive match, matching folly.ps1's -notin (PowerShell string comparisons are case-insensitive by default); toggled back off immediately after, not left on for the rest of the script
+	  case "$verbosity" in  # full words only, not MSBuild's own q/m/n/d/diag shorthand -- explicit over terse
+		quiet|minimal|normal|detailed|diagnostic) shopt -u nocasematch ;;
+		*)
+		  shopt -u nocasematch
+		  echo "'--verbosity' requires one of: quiet, minimal, normal, detailed, diagnostic. Got '$verbosity'." >&2
+		  exit 1
+		  ;;
+	  esac
 	  shift 2
 	  ;;
 	research|truth)
@@ -129,7 +138,7 @@ else
   echo "Unrecognized configuration '$config'. Expected 'research' or 'truth'." >&2
   exit 1
 fi
-extra_build_args=()  # --binaryLog/--verbosity: forwarded as-is to eng/build.sh, which already validates/handles them (see its own -verbosity/-bl); folly.sh only gatekeeps which actions accept them, above
+extra_build_args=()  # --binaryLog: forwarded as-is to eng/build.sh's own -binaryLog/-bl. --verbosity: already restricted to full words above (eng/build.sh's own -verbosity/-v itself still accepts MSBuild's q/m/n/d/diag shorthand too, but folly.sh only ever forwards the validated full-word form here)
 if [[ "$binary_log" -eq 1 ]]; then
   extra_build_args+=(--binaryLog)
 fi
