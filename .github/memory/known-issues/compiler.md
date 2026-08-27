@@ -27,27 +27,32 @@ call site.
 `GetNestedNamespace`/`MakeNamespaceBinder`/`GetUnqualifiedName` and check all call sites, not just
 `DeclarationTreeBuilder`.
 
-## `if` statements require a block consequence everywhere, including in old/upstream test fixtures
+## `if` block-consequence requirement is now scoped to block-condition arms only — old/upstream test fixtures are fine
 
-**Affected area:** any test source (this repo's own, or newly merged from upstream `dotnet/roslyn`)
-that uses a classic brace-less `if (cond) statement; else statement;` form.
-**Description:** `LanguageParser.ParseIfStatementOrIfCatchStatement` (the parser entry point for
-*every* `if` statement, not just the new `if`/`catch`/`finally` chain construct — see
-`.github/memory/experimental-language-features.md`) unconditionally calls `ParseBlock` for each arm's
-consequence: `// Always require an actual block for the consequence -- this is a simplification over
-the classic if statement (which allows any embedded statement).` A brace-less `if` body is a parse
-error in this fork, full stop, regardless of whether `else`/`catch`/`finally` follow. This is a
-sweeping, deliberate change to core C# syntax, and it silently breaks any test source containing the
-classic form — most visibly when merging upstream commits that add new test fixtures using it (e.g.
-`TestSources.Index`'s constructor, arrived via an upstream merge, used `if (fromEnd) _value = ~value;
-else _value = value;` and failed to parse until braced). A repo-wide sweep of `src/Compilers/**/Test/**`
-for this pattern has never been done: a broad `dotnet test --filter "FullyQualifiedName~Index|FullyQualifiedName~Range"`
-sweep found 67 pre-existing failures (as of the upstream-main merge landing `c9f12709e`/`dc1db3e7d`),
-of which only the ones actually touching newly-merged fixture code were fixed; the rest are
-long-standing, out-of-scope debt from this feature never getting a full test-suite adaptation pass.
-**Workaround:** When a merge or new test brings in code with brace-less `if`/`else` bodies, add braces
-(same line-count trick works to avoid shifting other tests' `.WithLocation(line, col)` assertions
-elsewhere in the same shared fixture: `if (cond)\n{ stmt; }\nelse\n{ stmt; }` instead of reformatting
-across more lines). Don't assume an existing test failure in this area is caused by whatever you were
-actually working on -- check with `git stash`/a baseline run first, the same way the upstream-main
-merge sessions did.
+**Affected area:** `src/Compilers/CSharp/Portable/Parser/LanguageParser.cs`'s
+`ParseIfStatementOrIfCatchStatement` (the parser entry point for *every* `if` statement, not just the
+`if`/`catch`/`finally` chain construct — see `.github/memory/experimental-language-features.md`).
+**Fixed:** An earlier version of this method unconditionally called `ParseBlock` for every arm's
+consequence, making a classic brace-less `if (cond) stmt; else stmt;` a parse error everywhere in this
+fork — this broke old/upstream test fixtures (e.g. `TestSources.Index`'s constructor) and would have
+required an enormous, error-prone sweep of `src/Compilers/**/Test/**` to re-brace every brace-less
+`if`/`else` in every test-source string. That's no longer how it works: the method now tracks
+`armHasBlockCondition` per arm (true only for the new block-condition form, `if { ... }`, not classic
+`if (cond)`), and only forces `ParseBlock` for the consequence when that arm actually used a block
+condition:
+```csharp
+StatementSyntax consequence = armHasBlockCondition
+    ? this.ParseBlock(default)
+    : this.ParseEmbeddedStatement();
+```
+A classic `if (cond)` arm — and the trailing classic `else` — still calls `ParseEmbeddedStatement()`,
+i.e. accepts any embedded statement, brace-less included, exactly like upstream `dotnet/roslyn`. So
+`TestSources.Index`'s `if (fromEnd) _value = ~value; else _value = value;` and any other classic-form
+test fixture parses without modification; nothing needs re-bracing. The block-consequence requirement
+now applies **only** to the new block-condition arm shape (`if { ... }`) and to
+`if`/`catch`/`finally` chains that mix arm styles — see `experimental-language-features.md` for that
+construct's actual shape.
+**Guidance:** Don't assume brace-less `if`/`else` in test source is broken in this fork — it isn't,
+for the classic parenthesized-condition form. If you hit a genuine parse failure on an `if`, check
+first whether a block-condition arm (`if { ... }`) is actually involved before reaching for the
+re-bracing workaround.
