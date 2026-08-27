@@ -322,7 +322,10 @@ try {
 				return Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
 					ForEach-Object { [PSCustomObject]@{ Pid = $_.ProcessId; PPid = $_.ParentProcessId; CommandLine = $_.CommandLine } }
 			}
-			$lines = & Get-Process -eo pid,ppid,command 2>$null
+			$psExe = Get-Command -Name ps -CommandType Application -ErrorAction SilentlyContinue |  # -CommandType Application resolves the native ps binary specifically, bypassing PowerShell's built-in "ps" alias for Get-Process (which doesn't accept ps's -eo argument and would throw a parameter-binding error under ErrorActionPreference=Stop). Select-Object -First 1: some systems have more than one "ps" on PATH (e.g. both /usr/bin/ps and /bin/ps), and Get-Command returns all matches -- piping straight into & would space-join their .Source paths into one invalid command.
+				Select-Object -First 1
+			if (-not $psExe) { return @() }
+			$lines = & $psExe.Source -eo pid,ppid,command 2>$null
 			if (-not $lines) { return @() }
 			$lines | Select-Object -Skip 1 | ForEach-Object {
 				if ($_ -match '^\s*(\d+)\s+(\d+)\s+(.*)$') {
