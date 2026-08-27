@@ -11,24 +11,27 @@ solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
+  # No '--core'/'--framework' selectors here, unlike folly.ps1's grimoire: this is an intentional
+  # limitation, not a parity gap. eng/build.sh has no Framework/.NET Framework (net472) test-running
+  # support at all -- no --testDesktop, nothing -- since that only ever works on Windows regardless
+  # of which shell invokes it, and 'scry' here always runs Core-only unconditionally (build.sh's
+  # plain --test/-t already means test_core_clr=true, nothing else). Add real Framework-test support
+  # to eng/build.sh itself first if that ever needs to change.
   cat <<'EOF'
-		
+
 Commands:
     'attune'                                            Restore only.
     'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU).
     'cleanse'                                           Delete artefacts.
     'grimoire'                                          Show this text (default when no action is given).
     'reweave'                                           Restore & rebuild.
-    'scry'                                              Restore, build & run Core and Framework unit tests.
+    'scry'                                              Restore, build & run Core unit tests.
     'weave'                                             Restore & build.
 Primary args:
     '<scry> reflection'                                 Runs folly script test harnesses.
     '<command> research [secondary]'                    Debug configuration.
     '<command> truth [secondary]'                       Release configuration.
 Secondary args:
-    '<scry> <primary> --core'                           Run only the Core tests (skip Framework).
-    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core).
-Tertiary args:
     '<scry> <primary> [secondary] --timeout <minutes>'  Override RunTests' whole-run watchdog (default: 90).
     '<command> [secondary] --binaryLog'                 Write an MSBuild binary log under artifacts/log/<config>/Build.binlog.
     '<command> [secondary] --verbosity <level>'         MSBuild console verbosity: q[uiet], m[inimal], n[ormal], d[etailed], diag[nostic].
