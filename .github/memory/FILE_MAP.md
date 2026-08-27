@@ -15,7 +15,7 @@ This file is a **top-level map only**. For per-area directory detail, read the m
 
 | Area | Layer | Purpose |
 |------|-------|---------|
-| `Compilers/` | compiler | C#/VB compilers (`Core`, `CSharp`, `VisualBasic`, `Server`). |
+| `Compilers/` | compiler | C#/VB compilers (`Core`, including MSBuild tasks; `CSharp`; `VisualBasic`; `Server`). |
 | `Dependencies/` | compiler | High-performance pooled collections & threading. |
 | `ExpressionEvaluator/` | compiler | Debugger expression evaluator. |
 | `Tools/` | compiler | Compiler and infrastructure tooling (BuildBoss, format tools, `dotnet-roslyn-tools`) and benchmark harnesses. Includes `RunTests/`, the custom parallel test runner behind `eng/build.ps1`/`eng/build.sh` and this fork's `folly.ps1`/`folly.sh scry`, with a live in-place progress table (frozen header, keyboard/mouse-wheel-scrollable body) on interactive terminals -- Windows mouse-wheel support uses CsWin32-generated console-mode bindings declared in `RunTests/NativeMethods.txt` (tested by the sibling `RunTests.UnitTests/`). |
