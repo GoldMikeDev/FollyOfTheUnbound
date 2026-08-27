@@ -169,8 +169,8 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  # test-folly-cleanse.ps1 skips build-server force-kill for the same reason and doesn't
 	  # attempt ancestor exclusion there either; no crossover can recover those two.
 	  if [[ "${OS:-}" == "Windows_NT" ]] && command -v pwsh >/dev/null 2>&1; then
-		echo "--- test-folly-cleanse.ps1 (Windows cross-check: recovers the chattr/chmod SKIPs above) ---"
-		pwsh -NoProfile -File "$scriptroot/scripts/test-folly-cleanse.ps1" || harness_fail=1
+		echo "--- test-folly-cleanse.ps1 -Only locked,unreadable (Windows cross-check: recovers the chattr/chmod SKIPs above) ---"
+		pwsh -NoProfile -File "$scriptroot/scripts/test-folly-cleanse.ps1" -Only locked,unreadable || harness_fail=1
 		echo
 	  fi
 	  exit "$harness_fail"
