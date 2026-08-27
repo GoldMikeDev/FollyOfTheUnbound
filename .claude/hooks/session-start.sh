@@ -32,7 +32,12 @@ if ! command -v pwsh >/dev/null 2>&1; then
     ubuntu_release="$(lsb_release -rs)"  # queried rather than hardcoded -- Microsoft publishes a separate packages-microsoft-prod.deb per Ubuntu release, and this sandbox's release shouldn't be assumed to stay 24.04 forever
     wget -q -O /tmp/packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/$ubuntu_release/packages-microsoft-prod.deb"
     sudo dpkg -i /tmp/packages-microsoft-prod.deb
-    sudo apt-get update -qq
+    # `|| true`: this sandbox has unrelated third-party PPAs (deadsnakes, ondrej/php) configured
+    # that can 403 independently of the Microsoft repo just added above -- apt-get update exits
+    # nonzero whenever *any* configured repo fails, which under `set -e` (inherited from the
+    # parent script into this subshell) would abort here and skip the install below even though
+    # the Microsoft repo's own index came down fine and is all this step actually needs.
+    sudo apt-get update -qq || true
     sudo apt-get install -y powershell
   ) >"$pwsh_log" 2>&1 &
   disown
