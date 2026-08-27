@@ -170,7 +170,7 @@ try {
 		$runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one
 		$runFramework = $framework -or -not ($core -or $framework)
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @identityArgs
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
