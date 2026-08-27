@@ -188,6 +188,32 @@ try {
 			$result.Found = $true
 			return $result
 		}
+		# Runs one leg's build.ps1 invocation and lets its per-work-item progress (the bulk of a leg's output,
+		# potentially most of the --timeout watchdog's 90 minutes) print live as it arrives, same as it always
+		# has -- only its epilogue (any failed-test dumps, then RunTests' own final PASSED/FAILED/TIMEOUT table,
+		# via TestRunner.Print -- see src/Tools/RunTests/TestRunner.cs) is held back instead of printing
+		# immediately, so that epilogue can be shown together with the other leg's once both have finished
+		# (see the "results together" block below) instead of one leg's getting buried under the other leg's
+		# own subsequent build/progress output. The epilogue always starts at RunTests' first "================"
+		# divider (Print's own leading one, printed only once per run) -- everything from that line on for the
+		# rest of the run is buffered rather than echoed live.
+		function Invoke-ScryLeg([scriptblock]$Invocation) {
+			$sawDivider = $false
+			$deferredLines = [System.Collections.Generic.List[string]]::new()  # only the not-yet-displayed tail (from the first divider on) -- everything before it already went live above, so re-showing it later (e.g. from the ExitCode -ne 0 branch below) would duplicate it
+			& $Invocation 2>&1 | ForEach-Object {
+				$line = $_.ToString()
+				if (-not $sawDivider -and $line -eq "================") {
+					$sawDivider = $true
+				}
+				if ($sawDivider) {
+					$deferredLines.Add($line)
+				}
+				else {
+					Write-Host $line
+				}
+			}
+			return ($deferredLines -join [Environment]::NewLine)
+		}
 		$coreTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Core"
 		$coreLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Core"
 		$frameworkTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Framework"
@@ -213,7 +239,7 @@ try {
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
 				if ($bothLegs) {
-					$coreRunOutput = & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration 2>&1 | Out-String
+					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration }
 				} else {
 					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
 				}
@@ -233,7 +259,7 @@ try {
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
 				if ($bothLegs) {
-					$frameworkRunOutput = & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration 2>&1 | Out-String
+					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration }
 				} else {
 					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration
 				}
@@ -267,17 +293,25 @@ try {
 			foreach ($summary in $summaries) {
 				Write-Host ""
 				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
-				if (-not $summary.Found) {
-					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
+				if ($summary.ExitCode -ne 0) {
+					# A nonzero exit means something beyond a plain test failure/timeout may have happened (a
+					# crash, a dump, RunTests' own error output before it could even produce a parseable
+					# runtests*.log -- e.g. failing to start at all) that never makes it into the concise
+					# PASSED/FAILED/TIMEOUT table below (and, when the log itself is missing/unparseable,
+					# $summary.Found is false and there'd otherwise be nothing at all to show here) -- so
+					# show this leg's deferred tail (see Invoke-ScryLeg) instead of just that table. Only the
+					# tail, not the whole captured run: everything before it already streamed live as it ran,
+					# so re-printing it here too would duplicate it. Checked before $summary.Found precisely
+					# so a failure that happened too early to leave a parseable log still surfaces its
+					# deferred output instead of just "unavailable" -- which can itself be empty (e.g. a crash
+					# before any divider was ever seen), since then everything was already shown live above.
+					$deferredTail = if ($summary.Label -eq "Core") { $coreRunOutput } else { $frameworkRunOutput }
+					if ($deferredTail) {
+						Write-Host $deferredTail
+					}
 				}
-				elseif ($summary.ExitCode -ne 0) {
-					# A nonzero exit means something beyond a plain test failure/timeout may have happened
-					# (a crash, a dump, RunTests' own error output) that never makes it into the concise
-					# PASSED/FAILED/TIMEOUT table below -- so show this leg's full captured output instead
-					# of just that table, same as what would have streamed live had -testInteractiveConsole
-					# been used for a single-leg run.
-					$rawOutput = if ($summary.Label -eq "Core") { $coreRunOutput } else { $frameworkRunOutput }
-					Write-Host $rawOutput
+				elseif (-not $summary.Found) {
+					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
 				}
 				else {
 					foreach ($line in $summary.Lines) {
