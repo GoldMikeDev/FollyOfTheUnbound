@@ -259,7 +259,7 @@ namespace RunTests
                 line.Append(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "");
 
                 var message = line.ToString();
-                WriteSummaryLine(color, message);
+                WriteSummaryLineColored(color, message);
             }
             WriteSummaryLine("================");
 
@@ -289,7 +289,7 @@ namespace RunTests
                 }
             }
 
-            void WriteSummaryLine(ConsoleColor color, string message)
+            void WriteSummaryLineColored(ConsoleColor color, string message)
             {
                 if (_options.SuppressConsoleSummary)
                 {
