@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using Microsoft.AspNetCore.Razor;
 using Microsoft.AspNetCore.Razor.PooledObjects;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -63,7 +64,7 @@ internal sealed class Utf8SupportMap : IEquatable<Utf8SupportMap>
             return Empty;
         }
 
-        var fileToType = ImmutableSortedDictionary.CreateBuilder<string, string>(StringComparer.OrdinalIgnoreCase);
+        var fileToType = ImmutableSortedDictionary.CreateBuilder<string, string>(PathUtilities.OSSpecificPathComparer);
         var typeSupport = ImmutableSortedDictionary.CreateBuilder<string, bool>(StringComparer.Ordinal);
 
         // First pass: resolve fully-qualified names via fast path, collect unresolved entries.
@@ -235,10 +236,11 @@ internal sealed class Utf8SupportMap : IEquatable<Utf8SupportMap>
             return true;
         }
 
-        // _fileToType keys are file paths compared case-insensitively (matching the builder's
-        // OrdinalIgnoreCase comparer and GetHashCode below), so compare via the dictionary's own
-        // lookup rather than SequenceEqual, which would compare keys case-sensitively. _typeSupport
-        // keys are ordinal fully-qualified names, so SequenceEqual is correct there.
+        // _fileToType keys are file paths compared with PathUtilities.OSSpecificPathComparer
+        // (matching the builder's comparer and GetHashCode below), so compare via the dictionary's
+        // own lookup rather than SequenceEqual, which would compare keys ordinally regardless of
+        // OS path-casing semantics. _typeSupport keys are ordinal fully-qualified names, so
+        // SequenceEqual is correct there.
         if (_fileToType.Count != other._fileToType.Count)
         {
             return false;
@@ -264,7 +266,7 @@ internal sealed class Utf8SupportMap : IEquatable<Utf8SupportMap>
 
         foreach (var kvp in _fileToType)
         {
-            hash.Add(kvp.Key, StringComparer.OrdinalIgnoreCase);
+            hash.Add(kvp.Key, PathUtilities.OSSpecificPathComparer);
             hash.Add(kvp.Value, StringComparer.Ordinal);
         }
 

@@ -195,7 +195,14 @@ public static class CacheFileReader
 					resolver,
 					stringPool,
 					cancellationToken).ConfigureAwait(false);
-				return new(slices, ProjectDataCacheSource.ProjectFolder);
+				// An existing-but-unusable cache (incompatible version, or zero parsed slices) is a
+				// clean miss, not a hit -- fall through to the user-folder cache, marker, and donor
+				// fallback below instead of permanently disabling them, matching how the donor loop
+				// itself already treats an empty read as "try the next source."
+				if (!slices.IsEmpty)
+				{
+					return new(slices, ProjectDataCacheSource.ProjectFolder);
+				}
 			}
 
 			bool userFolderAvailable = UserFolderCachePath.TryCompute(projectFilePath, out string userFolderPath);
@@ -214,7 +221,10 @@ public static class CacheFileReader
 					resolver,
 					stringPool,
 					cancellationToken).ConfigureAwait(false);
-				return new(slices, ProjectDataCacheSource.UserFolder);
+				if (!slices.IsEmpty)
+				{
+					return new(slices, ProjectDataCacheSource.UserFolder);
+				}
 			}
 
 			if (userFolderAvailable && UnsupportedProjectDataMarker.TryReadValid(projectFilePath, cancellationToken, out _))
