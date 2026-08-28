@@ -9,6 +9,10 @@ $ErrorActionPreference = "Stop"
 $scriptRoot = Split-Path -Parent $PSScriptRoot
 $follyPs1 = Join-Path $scriptRoot "folly.ps1"
 $pwshExe = (Get-Process -Id $PID).Path
+# folly.ps1 itself only runs Framework tests (and only defaults to running them) on an actual
+# Windows host -- this harness runs on whatever host it's invoked from, so its own expectations for
+# the Framework-touching cases below must follow the same host check, not assume Windows.
+$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }
 
 $workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("folly-scry-args-test-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Force -Path $workRoot | Out-Null
@@ -143,14 +147,24 @@ function Invoke-Folly([string]$Dir, [string[]]$FollyArgs) {
 }
 
 try {
-    # --- default: both legs run ---
+    # --- default: both legs run on Windows, Core-only elsewhere ---
     $dir = New-TestCase "default"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
-        Test-Pass "default 'scry' runs both Core and Framework"
+    if ($onWindows) {
+        if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
+            Test-Pass "default 'scry' runs both Core and Framework on Windows"
+        }
+        else {
+            Test-Fail "default 'scry' on Windows (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
     else {
-        Test-Fail "default 'scry' (exit=$($result.ExitCode)): $($result.Output)"
+        if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -notmatch "Framework:") {
+            Test-Pass "default 'scry' runs Core only off-Windows"
+        }
+        else {
+            Test-Fail "default 'scry' off-Windows (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
 
     # --- --core only ---
@@ -166,11 +180,21 @@ try {
     # --- --framework only ---
     $dir = New-TestCase "framework-only"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--framework")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
-        Test-Pass "'scry --framework' runs only Framework"
+    if ($onWindows) {
+        if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
+            Test-Pass "'scry --framework' runs only Framework"
+        }
+        else {
+            Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
     else {
-        Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
+        if ($result.ExitCode -eq 1 -and $result.Output -match "requires a Windows host") {
+            Test-Pass "'scry --framework' is rejected off-Windows"
+        }
+        else {
+            Test-Fail "'scry --framework' off-Windows (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
 
     # --- positional primary arg alongside a selector ---
@@ -228,11 +252,21 @@ try {
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--timeout", "180")
     $receivedPath = Join-Path $dir "testTimeout-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
-    if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
-        Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for both legs"
+    if ($onWindows) {
+        if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
+            Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for both legs"
+        }
+        else {
+            Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+        }
     }
     else {
-        Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+        if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -notmatch "Framework=") {
+            Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for the Core-only leg"
+        }
+        else {
+            Test-Fail "timeout forwarding off-Windows (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+        }
     }
 
     # --- --timeout with a missing value is rejected ---

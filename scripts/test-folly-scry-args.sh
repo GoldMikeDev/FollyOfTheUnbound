@@ -44,9 +44,14 @@ new_test_case() {
   rm -rf "$dir"
   mkdir -p "$dir/eng"
   cp "$folly_sh" "$dir/folly.sh"
+  # Appends (not overwrites): folly.sh's 'scry' now invokes this mock more than once (a build-only
+  # call, then one --test/--testDesktop call per leg), so every case that only cares whether some
+  # switch was ever forwarded (the vast majority) still works unmodified against the concatenated
+  # log; a "===call===" separator lets the newer --core/--framework cases below tell invocations
+  # apart when they need to (e.g. asserting --testDesktop was never passed at all).
   cat > "$dir/eng/build.sh" <<'MOCK'
 #!/usr/bin/env bash
-printf '%s\n' "$@" > "$(dirname "$0")/../build-args.log"
+{ printf '%s\n' "$@"; printf -- '===call===\n'; } >> "$(dirname "$0")/../build-args.log"
 exit 0
 MOCK
   chmod +x "$dir/eng/build.sh" "$dir/folly.sh"
@@ -147,6 +152,52 @@ if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* 
   test_pass "'--timeout' is rejected on a non-scry action"
 else
   test_fail "timeout on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- default 'scry' on this (non-Windows) sandbox runs Core only, never --testDesktop ---
+dir="$(new_test_case "default-core-only")"
+result="$(run_case "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log"; then
+  test_pass "default 'scry' off-Windows runs Core only, never --testDesktop"
+else
+  test_fail "default core-only (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --core only: still just the Core leg ---
+dir="$(new_test_case "core-only")"
+result="$(run_case "$dir" scry research --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log"; then
+  test_pass "'scry --core' runs only Core"
+else
+  test_fail "'scry --core' (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --framework only: rejected off-Windows before any build/test call happens ---
+dir="$(new_test_case "framework-only")"
+result="$(run_case "$dir" scry research --framework)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires a Windows host"* && ! -e "$dir/build-args.log" ]]; then
+  test_pass "'scry --framework' is rejected off-Windows before any build starts"
+else
+  test_fail "'scry --framework' off-Windows (exit=$exit_code): $output"
+fi
+
+# --- --core/--framework rejected for non-scry actions ---
+dir="$(new_test_case "selector-on-non-scry")"
+result="$(run_case "$dir" weave --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--core' is rejected on a non-scry action"
+else
+  test_fail "selector on non-scry action (exit=$exit_code): $output"
 fi
 
 # --- --binaryLog is forwarded to eng/build.sh ---

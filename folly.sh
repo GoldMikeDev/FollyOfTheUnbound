@@ -10,13 +10,20 @@ scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
+# Framework/.NET Framework (net472) tests only ever run on a genuine Windows host -- net472 has no
+# cross-platform runtime, so eng/build.sh's --testDesktop rejects itself on any other host. 'scry'
+# below defaults to running both Core and Framework on Windows (matching folly.ps1's own default),
+# and Core-only elsewhere; '--framework' on a non-Windows host is a hard error, not a silent skip.
+is_windows_host() {
+  case "${OSTYPE:-}" in
+    msys*|cygwin*|win32*) return 0 ;;
+  esac
+  case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*) return 0 ;;
+  esac
+  return 1
+}
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
-  # No '--core'/'--framework' selectors here, unlike folly.ps1's grimoire: this is an intentional
-  # limitation, not a parity gap. eng/build.sh has no Framework/.NET Framework (net472) test-running
-  # support at all -- no --testDesktop, nothing -- since that only ever works on Windows regardless
-  # of which shell invokes it, and 'scry' here always runs Core-only unconditionally (build.sh's
-  # plain --test/-t already means test_core_clr=true, nothing else). Add real Framework-test support
-  # to eng/build.sh itself first if that ever needs to change.
   cat <<'EOF'
 
 Commands:
@@ -25,13 +32,15 @@ Commands:
     'cleanse'                                           Delete artefacts.
     'grimoire'                                          Show this text (default when no action is given).
     'reweave'                                           Restore & rebuild.
-    'scry'                                              Restore, build & run Core unit tests.
+    'scry'                                              Restore, build & run Core (and, on Windows, Framework) unit tests.
     'weave'                                             Restore & build.
 Primary args:
     '<scry> reflection'                                 Runs folly script test harnesses.
     '<command> research [switches]'                     Debug configuration.
     '<command> truth [switches]'                        Release configuration.
 Switches:
+    '<scry> <primary> --core'                           Run only the Core tests (skip Framework).
+    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only).
     '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
     '<command> <primary> --binaryLog'                   MSBuild binary log written to ./artifacts/log/<config>/Build.binlog.
     '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
@@ -44,10 +53,20 @@ test_timeout=0
 reflection=0
 binary_log=0
 verbosity=""
+core=0
+framework=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
 	reflection)
 	  reflection=1
+	  shift
+	  ;;
+	--core)
+	  core=1
+	  shift
+	  ;;
+	--framework)
+	  framework=1
 	  shift
 	  ;;
 	--timeout)
@@ -98,16 +117,23 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
-# '--timeout'/reflection are scoped to 'scry' -- one combined check/message rather than one per
-# selector, since they're all the same rule applied to different args.
-if [[ ( "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
-  echo "'--timeout'/'reflection' are only valid with the 'scry' action." >&2
+# '--core'/'--framework'/'--timeout'/reflection are scoped to 'scry' -- one combined check/message
+# rather than one per selector, since they're all the same rule applied to different args.
+if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
 # By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
 # above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
-if [[ "$reflection" -eq 1 && ( -n "$config" || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
   echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
+  exit 1
+fi
+# '--framework' requires a Windows host regardless of which selector combination was given -- checked
+# unconditionally here (not deferred into the scry branch below) so the error surfaces before any
+# build/restore work starts.
+if [[ "$framework" -eq 1 ]] && ! is_windows_host; then
+  echo "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." >&2
   exit 1
 fi
 if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "cleanse" ]]; then
@@ -168,13 +194,53 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  done
 	  exit "$harness_fail"
 	fi
-	scry_args=(--restore --build --test --nodeReuse false --solution "$solution" --configuration "$configuration")
-	if [[ "$test_timeout" -gt 0 ]]; then
-	  scry_args+=(--testTimeout "$test_timeout")
+	# Default to both Core and Framework on Windows when neither switch is given (matching
+	# folly.ps1); elsewhere Framework can never run (rejected above), so only Core ever does.
+	run_core=1
+	run_framework=0
+	if is_windows_host; then
+	  if [[ "$core" -eq 0 && "$framework" -eq 0 ]]; then
+		run_core=1
+		run_framework=1
+	  else
+		run_core=$core
+		run_framework=$framework
+	  fi
 	fi
-	scry_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
-	scry_args+=("${identity_args[@]}")
-	"$build_script" "${scry_args[@]}"
+	build_args=(--restore --build --nodeReuse false --solution "$solution" --configuration "$configuration")
+	build_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
+	build_args+=("${identity_args[@]}")
+	"$build_script" "${build_args[@]}"
+	test_args=(--nodeReuse false --solution "$solution" --configuration "$configuration")
+	if [[ "$test_timeout" -gt 0 ]]; then
+	  test_args+=(--testTimeout "$test_timeout")
+	fi
+	test_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
+	test_args+=("${identity_args[@]}")
+	both_legs=0
+	[[ "$run_core" -eq 1 && "$run_framework" -eq 1 ]] && both_legs=1
+	core_exit=0
+	if [[ "$run_core" -eq 1 ]]; then
+	  if [[ "$both_legs" -eq 1 ]]; then
+		FOTU_TEST_RESULTS_SUFFIX=Core "$build_script" --test "${test_args[@]}" || core_exit=$?
+	  else
+		"$build_script" --test "${test_args[@]}" || core_exit=$?
+	  fi
+	fi
+	framework_exit=0
+	if [[ "$run_framework" -eq 1 ]]; then
+	  if [[ "$both_legs" -eq 1 ]]; then
+		FOTU_TEST_RESULTS_SUFFIX=Framework "$build_script" --testDesktop "${test_args[@]}" || framework_exit=$?
+	  else
+		"$build_script" --testDesktop "${test_args[@]}" || framework_exit=$?
+	  fi
+	fi
+	if [[ "$core_exit" -ne 0 ]]; then
+	  exit "$core_exit"
+	fi
+	if [[ "$framework_exit" -ne 0 ]]; then
+	  exit "$framework_exit"
+	fi
 	;;
   cleanse)
 	artifacts_dir="$scriptroot/artifacts"

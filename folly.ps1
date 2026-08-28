@@ -11,6 +11,10 @@ try {
 	$solution = "FollyOfTheUnbound.slnx"
 	$buildScript = Join-Path $PSScriptRoot "eng\build.ps1"
 	$nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
+	# .NET Framework (net472) tests have no cross-platform runtime and only ever run on a genuine
+	# Windows host, even though this script itself (pwsh) can run elsewhere -- '--framework' is
+	# rejected outright off-Windows, and 'scry's own no-switches default only includes Framework here.
+	$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
 	$core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--framework/--timeout (matching folly.sh's style) are parsed by hand below
 	$framework = $false
 	$reflection = $false
@@ -77,7 +81,7 @@ try {
 		Write-Host "    'cleanse'                                           Delete artefacts."
 		Write-Host "    'grimoire'                                          Show this text (default when no action is given)."
 		Write-Host "    'reweave'                                           Restore & rebuild."
-		Write-Host "    'scry'                                              Restore, build & run Core and Framework unit tests."
+		Write-Host "    'scry'                                              Restore, build & run Core (and, on Windows, Framework) unit tests."
 		Write-Host "    'weave'                                             Restore & build."
 		Write-Host "Primary args:"
 		Write-Host "    '<scry> reflection'                                 Runs folly script test harnesses."
@@ -85,7 +89,7 @@ try {
 		Write-Host "    '<command> truth [switches]'                        Release configuration."
 		Write-Host "Switches:"
 		Write-Host "    '<scry> <primary> --core'                           Run only the Core tests (skip Framework)."
-		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core)."
+		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only)."
 		Write-Host "    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90)."
 		Write-Host "    '<command> <primary> --binaryLog'                   MSBuild binary log written to .\artifacts\log\<config>\Build.binlog."
 		Write-Host "    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic."
@@ -96,6 +100,10 @@ try {
 	# one per selector, since they're all the same rule applied to different args.
 	if ($action -ne "scry" -and ($core -or $framework -or $testTimeout -gt 0 -or $reflection)) {
 		Write-Host "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
+		exit 1
+	}
+	if ($framework -and -not $onWindows) {
+		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red
 		exit 1
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
@@ -167,8 +175,8 @@ try {
 		exit ($(if ($harnessFail) { 1 } else { 0 }))
 	}
 	elseif ($action -eq "scry") {
-		$runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one
-		$runFramework = $framework -or -not ($core -or $framework)
+		$runCore = $core -or -not ($core -or $framework)  # default to both (on Windows) when neither switch is given; either switch alone runs just that one
+		$runFramework = ($framework -or -not ($core -or $framework)) -and $onWindows  # off-Windows the no-switches default is Core-only; '--framework' itself was already rejected above on a non-Windows host
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
 		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
