@@ -49,9 +49,40 @@ new_test_case() {
   # switch was ever forwarded (the vast majority) still works unmodified against the concatenated
   # log; a "===call===" separator lets the newer --core/--framework cases below tell invocations
   # apart when they need to (e.g. asserting --testDesktop was never passed at all).
+  # For the --test/--testDesktop calls, also writes the runtestsCore.log/runtestsFramework.log
+  # RunTests now emits (see Program.WriteLogFile) with exactly one PASSED row so folly.sh's new
+  # get_test_summary reader has something real to parse, without running any actual build or tests.
   cat > "$dir/eng/build.sh" <<'MOCK'
 #!/usr/bin/env bash
 { printf '%s\n' "$@"; printf -- '===call===\n'; } >> "$(dirname "$0")/../build-args.log"
+repo_root="$(cd -P "$(dirname "$0")/.." && pwd)"
+config="Debug"
+args=("$@")
+for ((i = 0; i < ${#args[@]}; i++)); do
+  if [[ "${args[$i]}" == "--configuration" ]]; then
+    config="${args[$((i + 1))]}"
+  fi
+done
+suffix="${FOTU_TEST_RESULTS_SUFFIX:-}"
+log_dir="$repo_root/artifacts/log/$config-$suffix"
+write_fake_log() {
+  mkdir -p "$log_dir" "$repo_root/artifacts/TestResults/$config-$suffix"
+  cat > "$log_dir/$1" <<'LOG'
+================
+Assembly.Fake.UnitTests_0   PASSED   00:01
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+}
+for arg in "$@"; do
+  if [[ "$arg" == "--test" ]]; then
+    write_fake_log "runtestsCore.log"
+    exit 0
+  elif [[ "$arg" == "--testDesktop" ]]; then
+    write_fake_log "runtestsFramework.log"
+    exit 0
+  fi
+done
 exit 0
 MOCK
   chmod +x "$dir/eng/build.sh" "$dir/folly.sh"
@@ -71,6 +102,17 @@ run_case() {
   local dir="$1"
   shift
   invoke_folly "$dir" "$@"
+}
+
+# Same as invoke_folly, but forces is_windows_host() to true via $OSTYPE -- for exercising the
+# both-legs (Core + Framework) path that this (non-Windows) sandbox would otherwise never reach.
+invoke_folly_windows() {
+  local dir="$1"
+  shift
+  local output exit_code
+  output="$(cd "$dir" && OSTYPE=msys bash ./folly.sh "$@" 2>&1)"
+  exit_code=$?
+  printf '%s\x1e%s' "$exit_code" "$output"
 }
 
 # --- default: no --testTimeout forwarded ---
@@ -160,7 +202,8 @@ result="$(run_case "$dir" scry research)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
-if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log"; then
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log" \
+  && [[ "$output" == *"Core: 1 passed"* ]] && [[ "$output" != *"Framework:"* ]]; then
   test_pass "default 'scry' off-Windows runs Core only, never --testDesktop"
 else
   test_fail "default core-only (exit=$exit_code): args='$args_log' output=$output"
@@ -172,10 +215,67 @@ result="$(run_case "$dir" scry research --core)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
-if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log"; then
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log" \
+  && [[ "$output" == *"Core: 1 passed"* ]] && [[ "$output" != *"Framework:"* ]]; then
   test_pass "'scry --core' runs only Core"
 else
   test_fail "'scry --core' (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- both legs (forced Windows host): combined table shows both, per-leg blocks, correct totals ---
+dir="$(new_test_case "both-legs-windows")"
+result="$(invoke_folly_windows "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "0" && "$output" == *"=== Core results ==="* && "$output" == *"=== Framework results ==="* \
+  && "$output" == *"Core: 1 passed, 0 failed, 0 timeout"* && "$output" == *"Framework: 1 passed, 0 failed, 0 timeout"* \
+  && "$output" == *"Overall: 2 passed, 0 failed, 0 timeout"* ]]; then
+  test_pass "default 'scry' on a forced-Windows host runs both legs with a combined summary"
+else
+  test_fail "both-legs-windows (exit=$exit_code): $output"
+fi
+
+# --- stray "================" lines in captured failure output don't fool the summary parser ---
+dir="$(new_test_case "false-marker")"
+cat > "$dir/eng/build.sh" <<'MOCK'
+#!/usr/bin/env bash
+repo_root="$(cd -P "$(dirname "$0")/.." && pwd)"
+for arg in "$@"; do
+  if [[ "$arg" == "--test" ]]; then
+    log_dir="$repo_root/artifacts/log/Debug-Core"
+    mkdir -p "$log_dir" "$repo_root/artifacts/TestResults/Debug-Core"
+    cat > "$log_dir/runtestsCore.log" <<'LOG'
+Errors Assembly.CoreClr.UnitTests_0
+some test printed a divider as part of its own diagnostic output:
+================
+unrelated captured text that happens to be between two stray markers
+================
+Command: dotnet test ...
+================
+Assembly.CoreClr.UnitTests_0                                                FAILED       00:34
+Assembly.CoreClr.UnitTests_1                                                PASSED       00:12
+================
+Extra run diagnostics for logging, did not impact run results
+### Begin logging executed process details
+### Standard Output
+================
+raw xunit console output that also happens to contain a divider line
+================
+### End logging executed process details
+LOG
+    exit 1
+  fi
+done
+exit 0
+MOCK
+chmod +x "$dir/eng/build.sh"
+result="$(run_case "$dir" scry research --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"Core: 1 passed, 1 failed, 0 timeout"* ]]; then
+  test_pass "stray markers in captured failure output are not mistaken for the summary table"
+else
+  test_fail "false-marker log (exit=$exit_code): $output"
 fi
 
 # --- --framework only: rejected off-Windows before any build/test call happens ---

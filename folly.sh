@@ -23,6 +23,56 @@ is_windows_host() {
   esac
   return 1
 }
+if [[ -t 1 ]]; then  # plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal -- matches scripts/test-folly-scry-args.sh's own convention
+  color_green=$'\033[32m'; color_red=$'\033[31m'; color_cyan=$'\033[36m'; color_yellow=$'\033[33m'; color_reset=$'\033[0m'
+else
+  color_green=''; color_red=''; color_cyan=''; color_yellow=''; color_reset=''
+fi
+# Bash port of folly.ps1's Get-TestSummary: tallies a completed leg's PASSED/FAILED/TIMEOUT counts
+# (and keeps the raw table lines) from its already-written runtests*.log, the same way -- anchoring
+# on the marker pair immediately before RunTests' exact footer line, not the first or last
+# "================" pair in the file, since a failed test's own captured stdout/stderr can itself
+# contain such a line (see scripts/test-folly-scry-args.ps1's New-FalseMarkerTestCase fixture, whose
+# bash counterpart is exercised via scripts/test-folly-scry-args.sh).
+# Unlike folly.ps1, this never needs to defer/capture a leg's own live RunTests output: eng/build.sh
+# invokes RunTests.dll with a direct foreground `dotnet exec`, so it already writes straight to the
+# inherited console (see the "-testInteractiveConsole" entry in .github/memory/KNOWN_ISSUES.md) --
+# there is nothing to suppress here, only this final combined table to add on top.
+# Sets: summary_found (0/1), summary_passed, summary_failed, summary_timeout, summary_lines_text.
+get_test_summary() {
+  local log_path="$1"
+  summary_found=0
+  summary_passed=0
+  summary_failed=0
+  summary_timeout=0
+  summary_lines_text=""
+  if [[ ! -f "$log_path" ]]; then
+    return
+  fi
+  local footer_text="Extra run diagnostics for logging, did not impact run results"
+  local footer_line
+  footer_line="$(grep -n -F -x -- "$footer_text" "$log_path" | tail -1 | cut -d: -f1)"
+  if [[ -z "$footer_line" ]]; then
+    return
+  fi
+  local -a markers_before=()
+  local ln
+  while IFS=: read -r ln _; do
+    [[ "$ln" -lt "$footer_line" ]] && markers_before+=("$ln")
+  done < <(grep -n -x -- "================" "$log_path")
+  local count=${#markers_before[@]}
+  if [[ "$count" -lt 2 ]]; then
+    return
+  fi
+  local end_line="${markers_before[$((count - 1))]}"
+  local start_line="${markers_before[$((count - 2))]}"
+  summary_lines_text="$(awk -v s="$start_line" -v e="$end_line" 'NR>s && NR<e' "$log_path")"
+  # -c prints "0" but exits 1 on zero matches -- `|| true` so that doesn't trip `set -e` here.
+  summary_passed="$(grep -cE '\bPASSED\b' <<<"$summary_lines_text" || true)"
+  summary_failed="$(grep -cE '\bFAILED\b' <<<"$summary_lines_text" || true)"
+  summary_timeout="$(grep -cE '\bTIMEOUT\b' <<<"$summary_lines_text" || true)"
+  summary_found=1
+}
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
   cat <<'EOF'
 
@@ -211,6 +261,13 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	build_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
 	build_args+=("${identity_args[@]}")
 	"$build_script" "${build_args[@]}"
+	# Suffixed TestResults/log dirs, always -- matching folly.ps1, which sets
+	# $env:FOTU_TEST_RESULTS_SUFFIX for each requested leg unconditionally, not only when both run.
+	core_test_results_dir="$scriptroot/artifacts/TestResults/$configuration-Core"
+	core_log_dir="$scriptroot/artifacts/log/$configuration-Core"
+	framework_test_results_dir="$scriptroot/artifacts/TestResults/$configuration-Framework"
+	framework_log_dir="$scriptroot/artifacts/log/$configuration-Framework"
+	rm -rf "$core_test_results_dir" "$core_log_dir" "$framework_test_results_dir" "$framework_log_dir"
 	test_args=(--nodeReuse false --solution "$solution" --configuration "$configuration")
 	if [[ "$test_timeout" -gt 0 ]]; then
 	  test_args+=(--testTimeout "$test_timeout")
@@ -221,19 +278,98 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	[[ "$run_core" -eq 1 && "$run_framework" -eq 1 ]] && both_legs=1
 	core_exit=0
 	if [[ "$run_core" -eq 1 ]]; then
-	  if [[ "$both_legs" -eq 1 ]]; then
-		FOTU_TEST_RESULTS_SUFFIX=Core "$build_script" --test "${test_args[@]}" || core_exit=$?
-	  else
-		"$build_script" --test "${test_args[@]}" || core_exit=$?
-	  fi
+	  FOTU_TEST_RESULTS_SUFFIX=Core "$build_script" --test "${test_args[@]}" || core_exit=$?
 	fi
 	framework_exit=0
 	if [[ "$run_framework" -eq 1 ]]; then
-	  if [[ "$both_legs" -eq 1 ]]; then
-		FOTU_TEST_RESULTS_SUFFIX=Framework "$build_script" --testDesktop "${test_args[@]}" || framework_exit=$?
-	  else
-		"$build_script" --testDesktop "${test_args[@]}" || framework_exit=$?
+	  FOTU_TEST_RESULTS_SUFFIX=Framework "$build_script" --testDesktop "${test_args[@]}" || framework_exit=$?
+	fi
+	# --- combined test summary (bash port of folly.ps1's post-legs summary block) ---
+	summary_labels=()
+	summary_founds=()
+	summary_passeds=()
+	summary_faileds=()
+	summary_timeouts=()
+	summary_exitcodes=()
+	summary_texts=()
+	if [[ "$run_core" -eq 1 ]]; then
+	  get_test_summary "$core_log_dir/runtestsCore.log"
+	  summary_labels+=("Core")
+	  summary_founds+=("$summary_found")
+	  summary_passeds+=("$summary_passed")
+	  summary_faileds+=("$summary_failed")
+	  summary_timeouts+=("$summary_timeout")
+	  summary_exitcodes+=("$core_exit")
+	  summary_texts+=("$summary_lines_text")
+	fi
+	if [[ "$run_framework" -eq 1 ]]; then
+	  get_test_summary "$framework_log_dir/runtestsFramework.log"
+	  summary_labels+=("Framework")
+	  summary_founds+=("$summary_found")
+	  summary_passeds+=("$summary_passed")
+	  summary_faileds+=("$summary_failed")
+	  summary_timeouts+=("$summary_timeout")
+	  summary_exitcodes+=("$framework_exit")
+	  summary_texts+=("$summary_lines_text")
+	fi
+	# Print each requested leg's own PASSED/FAILED/TIMEOUT list here, together, once every leg has
+	# finished -- rather than letting each leg's own RunTests process print its list live the moment
+	# that leg completes, which (when both --core and --framework run) buries the first leg's list
+	# under the second leg's own subsequent build/live-table output instead of leaving both visible
+	# together at the end. Matches folly.ps1's own $bothLegs block; unlike folly.ps1 there's no
+	# deferred-output tail to fall back on for a nonzero exit (see the "-testInteractiveConsole" note
+	# on get_test_summary above) -- that leg's own output already streamed live as it ran instead.
+	if [[ "$both_legs" -eq 1 ]]; then
+	  for i in "${!summary_labels[@]}"; do
+		echo ""
+		echo "${color_cyan}=== ${summary_labels[$i]} results ===${color_reset}"
+		if [[ "${summary_exitcodes[$i]}" -ne 0 ]]; then
+		  :
+		elif [[ "${summary_founds[$i]}" -eq 0 ]]; then
+		  echo "${color_yellow}summary unavailable (no runtests.log found)${color_reset}"
+		elif [[ -n "${summary_texts[$i]}" ]]; then
+		  printf '%s\n' "${summary_texts[$i]}"
+		fi
+	  done
+	fi
+	echo ""
+	echo "${color_cyan}=== Test summary ===${color_reset}"
+	total_passed=0
+	total_failed=0
+	total_timeout=0
+	any_leg_failed_exit=0
+	missing_summaries=0
+	for i in "${!summary_labels[@]}"; do
+	  if [[ "${summary_exitcodes[$i]}" -ne 0 ]]; then
+		any_leg_failed_exit=1
 	  fi
+	  if [[ "${summary_founds[$i]}" -eq 1 ]]; then
+		total_passed=$((total_passed + summary_passeds[i]))
+		total_failed=$((total_failed + summary_faileds[i]))
+		total_timeout=$((total_timeout + summary_timeouts[i]))
+		leg_color="$color_green"
+		if [[ "${summary_faileds[$i]}" -gt 0 || "${summary_timeouts[$i]}" -gt 0 || "${summary_exitcodes[$i]}" -ne 0 ]]; then
+		  leg_color="$color_red"
+		fi
+		echo "${leg_color}${summary_labels[$i]}: ${summary_passeds[$i]} passed, ${summary_faileds[$i]} failed, ${summary_timeouts[$i]} timeout${color_reset}"
+	  else
+		missing_summaries=$((missing_summaries + 1))
+		echo "${color_yellow}${summary_labels[$i]}: summary unavailable (no runtests.log found)${color_reset}"
+	  fi
+	done
+	# Green requires every requested leg to have exited 0 AND produced a readable summary with no
+	# failures/timeouts -- matches folly.ps1's own $overallSuccess.
+	overall_success=1
+	[[ "$any_leg_failed_exit" -eq 1 || "$missing_summaries" -gt 0 || "$total_failed" -gt 0 || "$total_timeout" -gt 0 ]] && overall_success=0
+	overall_color="$color_green"
+	[[ "$overall_success" -eq 0 ]] && overall_color="$color_red"
+	echo "${overall_color}Overall: $total_passed passed, $total_failed failed, $total_timeout timeout${color_reset}"
+	echo ""
+	if [[ "$run_core" -eq 1 ]]; then
+	  echo "Core test results: $core_test_results_dir (logs: $core_log_dir)"
+	fi
+	if [[ "$run_framework" -eq 1 ]]; then
+	  echo "Framework test results: $framework_test_results_dir (logs: $framework_log_dir)"
 	fi
 	if [[ "$core_exit" -ne 0 ]]; then
 	  exit "$core_exit"
@@ -241,6 +377,10 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ "$framework_exit" -ne 0 ]]; then
 	  exit "$framework_exit"
 	fi
+	if [[ "$overall_success" -eq 0 ]]; then
+	  exit 1  # every requested leg exited 0, but the summary itself says otherwise -- don't let that read as success to automation
+	fi
+	exit 0
 	;;
   cleanse)
 	artifacts_dir="$scriptroot/artifacts"
