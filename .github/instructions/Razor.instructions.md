@@ -63,6 +63,21 @@ their original sub-tree layout
   their UI text in `VSPackage.resx`, read them through `OptionsStorage`, and add remotely consumed
   values to `ClientAdvancedSettings` so `IClientSettingsManager` synchronizes changes live.
 
+## C# code-generation phases (`Microsoft.CodeAnalysis.Razor.Compiler/src/CSharp/`)
+
+- **`Utf8WriteLiteralPhase`** (`Utf8WriteLiteralPhase.cs`): runs after optimization and before C#
+  lowering. For legacy (`.cshtml`) documents only, probes whether the document's `@inherits` base
+  type has a callable UTF-8 `WriteLiteral(ReadOnlySpan<byte>)` overload (via `Utf8SupportMap` on the
+  code document) and sets `writeHtmlUtf8StringLiterals` on the document node's code-generation
+  options accordingly, so later lowering can choose UTF-8 byte literals over UTF-16 strings for
+  static HTML content. Components and other file kinds, and legacy documents with no `@inherits`
+  directive, are left untouched. Replaced the older `Utf8WriteLiteralDetectionPass`/
+  `IUtf8WriteLiteralFeature` design.
+- **`Utf8SupportMap`** (`Utf8SupportMap.cs`): immutable, value-comparable two-level lookup
+  (`filePath` → fully-qualified `@inherits` type name → `bool` UTF-8 support) built once per
+  compilation and reused across documents. The two-level design exists because the same
+  `@inherits` text can resolve to different types in different files (e.g. via `@using` aliases).
+
 ## Adding OOP Remote Services
 
 When adding a new `IRemote*Service` and `Remote*Service`:

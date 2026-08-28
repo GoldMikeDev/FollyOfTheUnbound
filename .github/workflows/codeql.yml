@@ -55,10 +55,21 @@ jobs:
       - name: Restore
         env:
           CI: false # avoid GitInfo/CI-specific restore failures, matching copilot-setup-steps.yml
-        run: ./restore.sh
+        # restore.sh restores the full Roslyn.slnx (not FollyOfTheUnbound.slnx), so the RoslynSdk
+        # testing csproj's IsFollyOfTheUnboundBuild guard needs the explicit property here too --
+        # $(SolutionName) doesn't reliably auto-derive to "FollyOfTheUnbound" for .slnx solutions, and
+        # this restore never even sees that name since it targets Roslyn.slnx. Without this, restore
+        # itself fails with NU1605 package-downgrade errors before the Build step below ever runs.
+        run: ./restore.sh /p:FollyOfTheUnboundBuild=true
 
       - name: Build (Compilers + IDE + Razor)
-        run: dotnet build FollyOfTheUnbound.slnx
+        # Explicit /p:FollyOfTheUnboundBuild=true, not just $(SolutionName) auto-derivation: NU1605
+        # package-downgrade errors in the RoslynSdk testing csproj's IsFollyOfTheUnboundBuild guard
+        # (Microsoft.CodeAnalysis.{Analyzer,CodeFix,CodeRefactoring,SourceGenerators}.Testing) showed
+        # $(SolutionName) doesn't reliably auto-derive to "FollyOfTheUnbound" for the .slnx format the
+        # way it does for classic .sln, so this can't be left to rely on that path alone -- same
+        # property folly.ps1/folly.sh always pass directly.
+        run: dotnet build FollyOfTheUnbound.slnx /p:FollyOfTheUnboundBuild=true
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
