@@ -22,26 +22,29 @@
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Analyzer.Testing.UnitTests" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- When built as part of this fork's own build (folly.ps1/folly.sh, which always pass
-         /p:FollyOfTheUnboundBuild=true; see BuildSolution's own MSBuild invocation in
-         eng/build.ps1/eng/build.sh), reference our renamed Microsoft.CodeAnalysis.Workspaces.csproj
-         directly instead of the real, un-renamed Microsoft.CodeAnalysis.Workspaces.Common package
-         below, see Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj's exclusion comment in
-         FollyOfTheUnbound.slnx for the identity-collision this fixes.
+  <PropertyGroup>
+    <!-- True when building as part of this fork, under either of the two ways that happens:
+         folly.ps1/folly.sh always pass /p:FollyOfTheUnboundBuild=true directly (see BuildSolution's
+         own MSBuild invocation in eng/build.ps1/eng/build.sh: it invokes MSBuild on Arcade's toolset
+         Build.proj, passing the .slnx path only via /p:Projects=..., so MSBuild's own $(SolutionName)
+         is never auto-derived there and stays Microsoft.Common.CurrentVersion.targets' "*Undefined*"
+         default; confirmed via `dotnet nuget why`, which showed the real package still resolving
+         directly despite a Condition keyed on $(SolutionName) alone). CI's codeql.yml instead runs
+         `dotnet build FollyOfTheUnbound.slnx` directly, which DOES auto-derive $(SolutionName) to
+         "FollyOfTheUnbound" (the entry file genuinely is the .slnx there), but never sets
+         FollyOfTheUnboundBuild. Checking both covers each path; a standalone build of this project
+         (e.g. via Roslyn.slnx, which is what actually publishes the real, externally-consumed
+         Microsoft.CodeAnalysis.Analyzer.Testing NuGet package) sets neither and is unaffected. -->
+    <IsFollyOfTheUnboundBuild Condition="'$(FollyOfTheUnboundBuild)' == 'true' OR '$(SolutionName)' == 'FollyOfTheUnbound'">true</IsFollyOfTheUnboundBuild>
+  </PropertyGroup>
 
-         Not conditioned on $(SolutionName): eng/build.ps1's BuildSolution invokes MSBuild on Arcade's
-         toolset Build.proj (passing the .slnx path only via /p:Projects=...), not on the .slnx file
-         itself, so MSBuild's own $(SolutionName) (only auto-derived when the entry file IS a
-         .sln/.slnx) is never actually "FollyOfTheUnbound" in a real folly.ps1/folly.sh build; it
-         silently falls back to Microsoft.Common.CurrentVersion.targets' "*Undefined*" default, so a
-         Condition keyed on it never fires (confirmed via `dotnet nuget why`, which showed the real
-         package still resolved directly for every TargetFramework despite that condition). A standalone
-         build of this project (e.g. via Roslyn.slnx, which is what actually publishes the real,
-         externally-consumed Microsoft.CodeAnalysis.Analyzer.Testing NuGet package) never passes that
-         property and is entirely unaffected: it keeps using the real package below, unchanged. -->
+  <ItemGroup>
+    <!-- Reference our renamed Microsoft.CodeAnalysis.Workspaces.csproj directly instead of the real,
+         un-renamed Microsoft.CodeAnalysis.Workspaces.Common package below, see
+         Microsoft.CodeAnalysis.Workspaces.UnitTests.csproj's exclusion comment in
+         FollyOfTheUnbound.slnx for the identity-collision this fixes. -->
     <ProjectReference Include="..\..\..\Workspaces\Core\Portable\Microsoft.CodeAnalysis.Workspaces.csproj"
-                       Condition="'$(FollyOfTheUnboundBuild)' == 'true'" />
+                       Condition="'$(IsFollyOfTheUnboundBuild)' == 'true'" />
     <!-- Excluded (not just left to NuGet's automatic project/package substitution) when building this
          fork: substitution is keyed off matching PackageIds within the SAME restore's TargetFramework
          node, but Microsoft.CodeAnalysis.Workspaces.csproj above doesn't target net472 (only
@@ -50,7 +53,7 @@
          so the real package still gets pulled in alongside it, causing CS0433 (Project/Solution/etc.
          defined in both assemblies). Excluding the PackageReference outright avoids depending on that
          TFM-matching behavior instead of trying to satisfy it. -->
-    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Condition="'$(FollyOfTheUnboundBuild)' != 'true'" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Condition="'$(IsFollyOfTheUnboundBuild)' != 'true'" />
     <PackageReference Include="Microsoft.VisualBasic" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard'" />
     <PackageReference Include="Microsoft.VisualStudio.Composition" VersionOverride="16.1.8" />
     <PackageReference Include="Nullable" PrivateAssets="all" />

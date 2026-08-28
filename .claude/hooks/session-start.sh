@@ -32,7 +32,15 @@ if ! command -v pwsh >/dev/null 2>&1; then
     ubuntu_release="$(lsb_release -rs)"  # queried rather than hardcoded -- Microsoft publishes a separate packages-microsoft-prod.deb per Ubuntu release, and this sandbox's release shouldn't be assumed to stay 24.04 forever
     wget -q -O /tmp/packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/$ubuntu_release/packages-microsoft-prod.deb"
     sudo dpkg -i /tmp/packages-microsoft-prod.deb
-    sudo apt-get update -qq
+    # Scoped to just the Microsoft repo's own list file (the fixed path packages-microsoft-prod.deb
+    # always installs to, regardless of Ubuntu release) rather than a plain `apt-get update`: this
+    # sandbox has unrelated third-party PPAs (deadsnakes, ondrej/php) configured that can 403
+    # independently of the Microsoft repo just added above, and a plain update's nonzero exit
+    # whenever *any* configured repo fails -- under `set -e` inherited from the parent script into
+    # this subshell -- would abort here and skip the install below even on an unrelated PPA's
+    # failure. Scoping the update this way still surfaces (and aborts on, via `set -e`) a genuine
+    # failure to refresh the Microsoft repo's own index, unlike a blanket `|| true` would.
+    sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/microsoft-prod.list" -o Dir::Etc::sourceparts="-"
     sudo apt-get install -y powershell
   ) >"$pwsh_log" 2>&1 &
   disown
