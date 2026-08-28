@@ -7,6 +7,20 @@ fi
 action="${1:-}"
 shift $(( $# < 1 ? $# : 1 )) || true
 scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Git-for-Windows' bash (MSYS2, identified by $MSYSTEM -- e.g. "MINGW64") auto-converts any
+# '/'-prefixed argument into a Windows path before it reaches a native (non-MSYS) executable, on the
+# assumption it's a Unix path being handed to something that expects a Windows one. eng/common/tools.sh
+# (Arcade-vendored -- never hand-edited, see .github/memory/KNOWN_ISSUES.md) invokes MSBuild.exe with
+# classic single-slash switches (/nologo /clp:Summary /v:... /nr:...), which are exactly what that
+# heuristic misfires on: '/nologo' has been observed mangled into 'C:/Program Files/Git/nologo' (the
+# MSYS install root prepended, as if '/nologo' were a Unix path rooted there), producing MSBuild errors
+# like "Only one project can be specified." from switches that arrived as extra positional arguments
+# instead. This is a bash-on-Windows-specific problem -- WSL's bash is a real Linux userland with no
+# such translation layer, and native Linux/macOS bash has no $MSYSTEM at all -- so it's scoped to only
+# fire under real Git-Bash/MSYS2, never touching the WSL or Linux/macOS path this same script also runs.
+if [[ -n "${MSYSTEM:-}" ]]; then
+  export MSYS2_ARG_CONV_EXCL='*'
+fi
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"

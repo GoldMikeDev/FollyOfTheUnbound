@@ -67,6 +67,28 @@ On Windows an open handle blocks deleting the DLL outright; on Unix the file is 
 - `FOTU_TEST_RESULTS_SUFFIX` gives `folly.ps1 scry`'s two legs (Core + Framework) separate `TestResults`/log directories so they don't clobber each other. `eng/build.sh` has no Framework (`.NET Framework`) leg at all (`grep` for `test_desktop`/`--framework`/`framework` in `build.sh` returns nothing) — Framework tests require Windows and cannot run on Linux/macOS. `folly.sh scry` only ever runs one leg (Core), so there is no directory collision to avoid and no purpose for the suffix mechanism.
 **Guidance:** Do not "fix" this by porting either mechanism to `eng/build.sh` — both would be inert no-ops there. If `eng/build.ps1` ever changes how it uses either one, re-verify this reasoning still holds rather than assuming the two scripts have simply drifted apart.
 
+## Git-for-Windows' bash (MSYS2) mangles Arcade's `/`-prefixed MSBuild switches
+
+**Affected area:** `folly.sh` on Windows, invoked from Git Bash rather than WSL
+**Description:** `eng/common/tools.sh`'s `MSBuild` function (Arcade-vendored — never hand-edited, see the
+generated-code entry above) invokes `MSBuild.exe` with classic single-slash switches:
+`/m /nologo /clp:Summary /v:$verbosity /nr:$node_reuse ...`. Git-for-Windows' bash is built on MSYS2,
+which auto-converts any `/`-prefixed argument into a Windows path before handing it to a native
+(non-MSYS) executable, on the assumption it's a Unix path meant for something expecting a Windows one.
+`MSBuild.exe` is exactly such a native executable, and its own switches are exactly what this heuristic
+misfires on — `/nologo` has been observed mangled into `C:/Program Files/Git/nologo` (the MSYS
+install root prepended, as if `/nologo` were a Unix path rooted there), producing errors like
+`MSB1008: Only one project can be specified` from switches that arrived as extra positional
+arguments instead of being parsed as switches at all. This is specific to real Git-Bash/MSYS2 — WSL's
+bash is a genuine Linux userland with no such translation layer (unaffected), and native Linux/macOS
+bash has no MSYS runtime at all (`$MSYSTEM` is simply unset there).
+**Workaround:** `folly.sh` exports `MSYS2_ARG_CONV_EXCL='*'` (disabling MSYS's path-conversion heuristic
+entirely for the rest of the process) whenever `$MSYSTEM` is set, before ever invoking `eng/build.sh`.
+Do not "fix" this in `eng/common/tools.sh` itself — it's Arcade-synced and any hand-edit is overwritten.
+If a genuinely Windows-Unix-path argument ever needs to reach a native tool from `folly.sh` on Git Bash
+after this env var is set, it will need an explicit `cygpath`/similar conversion at the call site instead
+of relying on MSYS's automatic (and, for MSBuild specifically, actively harmful) behavior.
+
 ## Environmental test failures (not code bugs)
 
 **Affected area:** full `test.sh`/`Test.cmd` runs
