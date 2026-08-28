@@ -20,6 +20,8 @@ try {
 	$testCompilerOnly = $false
 	$testFilter = $null
 	$expectTestFilterValue = $false
+	$testIOperation = $false
+	$bootstrap = $false
 	$reflection = $false
 	$testTimeout = 0
 	$expectTimeoutValue = $false
@@ -57,6 +59,12 @@ try {
 		}
 		elseif ($arg -eq "--testFilter") {
 			$expectTestFilterValue = $true
+		}
+		elseif ($arg -eq "--testIOperation") {
+			$testIOperation = $true
+		}
+		elseif ($arg -eq "--bootstrap") {
+			$bootstrap = $true
 		}
 		elseif ($arg -eq "--timeout") {
 			$expectTimeoutValue = $true
@@ -108,17 +116,21 @@ try {
 		Write-Host "    '<scry> <primary> --core'                           Run only the Core tests (skip Framework)."
 		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only)."
 		Write-Host "    '<scry> <primary> --testCompilerOnly'               Run only the compiler unit test assemblies."
-		Write-Host "    '<scry> <primary> --testFilter <xunit filter>'     Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA."
+		Write-Host "    '<scry> <primary> --testFilter <xunit filter>'      Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA."
+		Write-Host "    '<scry> <primary> --testIOperation'                 Run tests with the IOperation test hook enabled."
 		Write-Host "    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90)."
 		Write-Host "    '<command> <primary> --binaryLog'                   MSBuild binary log written to .\artifacts\log\<config>\Build.binlog."
 		Write-Host "    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic."
+		Write-Host "    '<command> <primary> --bootstrap'                   Build/test using a locally-built bootstrap compiler (not 'cleanse')."
 		Write-Host ""
 		exit 0
 	}
 	# Every '<selector>'/reflection is scoped to 'scry' -- one combined check/message rather than
-	# one per selector, since they're all the same rule applied to different args.
-	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testTimeout -gt 0 -or $reflection)) {
-		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
+	# one per selector, since they're all the same rule applied to different args. '--bootstrap' is
+	# NOT scoped to 'scry': like '--binaryLog'/'--verbosity' it's valid on any build-invoking action,
+	# just rejected on 'cleanse' below.
+	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
 	if ($framework -and -not $onWindows) {
@@ -127,12 +139,12 @@ try {
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
 	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
-	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testTimeout -gt 0 -or $binaryLog -or $verbosity)) {
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
 		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
 		exit 1
 	}
-	if (($binaryLog -or $verbosity) -and $action -eq "cleanse") {
-		Write-Host "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." -ForegroundColor Red
+	if (($binaryLog -or $verbosity -or $bootstrap) -and $action -eq "cleanse") {
+		Write-Host "'--binaryLog'/'--verbosity'/'--bootstrap' aren't valid with 'cleanse' -- there's no build to log or bootstrap." -ForegroundColor Red
 		exit 1
 	}
 	if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {
@@ -169,17 +181,30 @@ try {
 	# "FollyOfTheUnbound" here -- see the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj
 	# for the RoslynSdk collision this was added to fix.
 	$identityArgs = @("/p:FollyOfTheUnboundBuild=true")
+	# --bootstrap gets two different forwarded forms, not just one flag folded into $extraBuildArgs
+	# above: a "build" invocation (attune/weave/reweave/bind, and scry's own initial restore+build
+	# call) passes plain -bootstrap, which builds the bootstrap compiler fresh into a deterministic
+	# artifacts\bootstrap\build dir (see eng/build.ps1's own -bootstrapDir handling). scry then runs
+	# each requested test leg as its own separate eng/build.ps1 invocation -- passing -bootstrap again
+	# there would rebuild it from scratch per leg, so those instead pass -bootstrapDir pointing at the
+	# same dir to reuse it.
+	$bootstrapBuildArgs = @{}
+	$bootstrapTestArgs = @{}
+	if ($bootstrap) {
+		$bootstrapBuildArgs["bootstrap"] = $true
+		$bootstrapTestArgs["bootstrapDir"] = Join-Path (Join-Path $PSScriptRoot "artifacts") "bootstrap\build"
+	}
 	if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
-		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "weave") {
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "reweave") {
-		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "bind") {
-		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "scry" -and $reflection) {
 		$pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
@@ -197,7 +222,7 @@ try {
 		$runCore = $core -or -not ($core -or $framework)  # default to both (on Windows) when neither switch is given; either switch alone runs just that one
 		$runFramework = ($framework -or -not ($core -or $framework)) -and $onWindows  # off-Windows the no-switches default is Core-only; '--framework' itself was already rejected above on a non-Windows host
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
@@ -362,15 +387,18 @@ try {
 		if ($testFilter) {
 			$extraTestArgs["testFilter"] = $testFilter
 		}
+		if ($testIOperation) {
+			$extraTestArgs["testIOperation"] = $true
+		}
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
 				if ($bothLegs) {
-					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs }
+					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs }
 				} else {
-					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs
+					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				}
 				$coreExitCode = $LASTEXITCODE
 			} finally {
@@ -388,9 +416,9 @@ try {
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
 				if ($bothLegs) {
-					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs }
+					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs }
 				} else {
-					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs
+					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				}
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {

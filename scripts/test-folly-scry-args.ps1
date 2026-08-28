@@ -44,7 +44,8 @@ function New-TestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
-    [switch]$testCompilerOnly,[string]$testFilter,
+    [switch]$testCompilerOnly,[string]$testFilter,[switch]$testIOperation,
+    [switch]$bootstrap,[string]$bootstrapDir,
     [int]$testTimeout,
     [string]$solution,[string]$configuration,
     [switch]$binaryLog,[string]$verbosity
@@ -60,8 +61,11 @@ Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value
 # Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
 # assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
-# Same idea for -testCompilerOnly/-testFilter.
-Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter"
+# Same idea for -testCompilerOnly/-testFilter/-testIOperation.
+Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter testIOperation=$testIOperation"
+# Same idea for -bootstrap/-bootstrapDir, appended once per invocation (not per-leg-suffixed) so the
+# harness can see the initial build call's plain -bootstrap alongside each leg's -bootstrapDir reuse.
+Add-Content -LiteralPath (Join-Path $repoRoot "bootstrapArgs-received.log") -Value "testCoreClr=$testCoreClr testDesktop=$testDesktop bootstrap=$bootstrap bootstrapDir=$bootstrapDir"
 function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -280,6 +284,67 @@ try {
     }
     else {
         Test-Fail "testCompilerOnly on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testIOperation is forwarded to eng/build.ps1 for each requested leg ---
+    $dir = New-TestCase "test-ioperation-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--testIOperation")
+    $receivedPath = Join-Path $dir "testArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core testCompilerOnly=False testFilter= testIOperation=True") {
+        Test-Pass "'--testIOperation' is forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "testIOperation forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --testIOperation rejected for non-scry actions ---
+    $dir = New-TestCase "test-ioperation-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--testIOperation")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--testIOperation' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "testIOperation on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --bootstrap: the initial build call gets -bootstrap, the test leg gets -bootstrapDir
+    # pointing at the same deterministic artifacts\bootstrap\build dir instead of rebuilding it ---
+    $dir = New-TestCase "bootstrap-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--bootstrap")
+    $receivedPath = Join-Path $dir "bootstrapArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath } else { @() }
+    $buildLine = $received | Where-Object { $_ -match "^testCoreClr=False testDesktop=False" }
+    $legLine = $received | Where-Object { $_ -match "^testCoreClr=True" }
+    $expectedBootstrapDir = Join-Path (Join-Path $dir "artifacts") "bootstrap\build"
+    if ($result.ExitCode -eq 0 -and $buildLine -match "bootstrap=True bootstrapDir=$" `
+        -and $legLine -and $legLine -match [regex]::Escape("bootstrap=False bootstrapDir=$expectedBootstrapDir")) {
+        Test-Pass "'--bootstrap' builds once and is reused via -bootstrapDir for the test leg"
+    }
+    else {
+        Test-Fail "bootstrap forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --bootstrap is rejected on 'cleanse' ---
+    $dir = New-TestCase "bootstrap-on-cleanse"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("cleanse", "--bootstrap")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "aren't valid with 'cleanse'") {
+        Test-Pass "'--bootstrap' is rejected on 'cleanse'"
+    }
+    else {
+        Test-Fail "bootstrap on cleanse (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --bootstrap is forwarded on a non-scry action too (not scoped to 'scry') ---
+    $dir = New-TestCase "bootstrap-on-weave"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "--bootstrap")
+    $receivedPath = Join-Path $dir "bootstrapArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "bootstrap=True") {
+        Test-Pass "'--bootstrap' is forwarded to .\eng\build.ps1 on 'weave'"
+    }
+    else {
+        Test-Fail "bootstrap on weave (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
     }
 
     # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---

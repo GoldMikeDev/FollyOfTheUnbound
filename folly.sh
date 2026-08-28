@@ -93,9 +93,11 @@ Switches:
     '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only).
     '<scry> <primary> --testCompilerOnly'               Run only the compiler unit test assemblies.
     '<scry> <primary> --testFilter <xunit filter>'      Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
+    '<scry> <primary> --testIOperation'                 Run tests with the IOperation test hook enabled.
     '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
     '<command> <primary> --binaryLog'                   MSBuild binary log written to ./artifacts/log/<config>/Build.binlog.
     '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
+    '<command> <primary> --bootstrap'                   Build/test using a locally-built bootstrap compiler (not 'cleanse').
 
 EOF
   exit 0
@@ -109,6 +111,8 @@ core=0
 framework=0
 test_compiler_only=0
 test_filter=""
+test_ioperation=0
+bootstrap=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
 	reflection)
@@ -134,6 +138,14 @@ while [[ $# -gt 0 ]]; do
 		exit 1
 	  fi
 	  shift 2
+	  ;;
+	--testIOperation)
+	  test_ioperation=1
+	  shift
+	  ;;
+	--bootstrap)
+	  bootstrap=1
+	  shift
 	  ;;
 	--timeout)
 	  test_timeout="${2:-}"
@@ -183,16 +195,17 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
-# '--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--timeout'/reflection are scoped to
-# 'scry' -- one combined check/message rather than one per selector, since they're all the same rule
-# applied to different args.
-if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
-  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
+# '--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--timeout'/reflection
+# are scoped to 'scry' -- one combined check/message rather than one per selector, since they're all
+# the same rule applied to different args. '--bootstrap' is NOT scoped to 'scry': like '--binaryLog'/
+# '--verbosity' it's valid on any build-invoking action, just rejected on 'cleanse' below.
+if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
 # By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
 # above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
-if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" || "$bootstrap" -eq 1 ) ]]; then
   echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
   exit 1
 fi
@@ -203,8 +216,8 @@ if [[ "$framework" -eq 1 ]] && ! is_windows_host; then
   echo "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." >&2
   exit 1
 fi
-if [[ ( "$binary_log" -eq 1 || -n "$verbosity" ) && "$action" == "cleanse" ]]; then
-  echo "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." >&2
+if [[ ( "$binary_log" -eq 1 || -n "$verbosity" || "$bootstrap" -eq 1 ) && "$action" == "cleanse" ]]; then
+  echo "'--binaryLog'/'--verbosity'/'--bootstrap' aren't valid with 'cleanse' -- there's no build to log or bootstrap." >&2
   exit 1
 fi
 if [[ "$action" == "cleanse" || ( "$action" == "scry" && "$reflection" -eq 1 ) ]]; then
@@ -230,6 +243,18 @@ fi
 if [[ -n "$verbosity" ]]; then
   extra_build_args+=(--verbosity "$verbosity")
 fi
+# --bootstrap gets two different forwarded forms, not just one flag folded into extra_build_args
+# above: a "build" invocation (attune/weave/reweave/bind, and scry's own initial restore+build call)
+# passes plain --bootstrap, which builds the bootstrap compiler fresh into a deterministic
+# artifacts/Bootstrap dir (see eng/build.sh's MakeBootstrapBuild). scry then runs each requested test
+# leg as its own separate eng/build.sh invocation -- passing --bootstrap again there would rebuild it
+# from scratch per leg, so those instead pass --bootstrapDir pointing at the same dir to reuse it.
+bootstrap_build_args=()
+bootstrap_test_args=()
+if [[ "$bootstrap" -eq 1 ]]; then
+  bootstrap_build_args+=(--bootstrap)
+  bootstrap_test_args+=(--bootstrapDir "$scriptroot/artifacts/Bootstrap")
+fi
 # Passed as a raw MSBuild property (not one of eng/build.sh's own named switches, so via its
 # "properties" passthrough, not extra_build_args above) on every build this script runs:
 # eng/build.sh's BuildSolution invokes MSBuild on Arcade's toolset Build.proj, passing the .slnx only
@@ -239,16 +264,16 @@ fi
 identity_args=(/p:FollyOfTheUnboundBuild=true)
 case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh defaults nodeReuse true locally, leaving MSBuild worker nodes running after exit, still holding DLLs open under artifacts/ (`build-server shutdown` in cleanse only stops VBCSCompiler/Razor, not these)
   attune)
-	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
+	"$build_script" --restore --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} ${bootstrap_build_args[@]+"${bootstrap_build_args[@]}"} "${identity_args[@]}"
 	;;
   weave)
-	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
+	"$build_script" --restore --build --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} ${bootstrap_build_args[@]+"${bootstrap_build_args[@]}"} "${identity_args[@]}"
 	;;
   reweave)
-	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
+	"$build_script" --restore --rebuild --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} ${bootstrap_build_args[@]+"${bootstrap_build_args[@]}"} "${identity_args[@]}"
 	;;
   bind)
-	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} "${identity_args[@]}"
+	"$build_script" --restore --build --pack --nodeReuse false --solution "$solution" --configuration "$configuration" ${extra_build_args[@]+"${extra_build_args[@]}"} ${bootstrap_build_args[@]+"${bootstrap_build_args[@]}"} "${identity_args[@]}"
 	;;
   scry)
 	if [[ "$reflection" -eq 1 ]]; then
@@ -276,6 +301,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	fi
 	build_args=(--restore --build --nodeReuse false --solution "$solution" --configuration "$configuration")
 	build_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
+	build_args+=(${bootstrap_build_args[@]+"${bootstrap_build_args[@]}"})
 	build_args+=("${identity_args[@]}")
 	"$build_script" "${build_args[@]}"
 	# Suffixed TestResults/log dirs, always -- matching folly.ps1, which sets
@@ -295,7 +321,11 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ -n "$test_filter" ]]; then
 	  test_args+=(--testFilter "$test_filter")
 	fi
+	if [[ "$test_ioperation" -eq 1 ]]; then
+	  test_args+=(--testIOperation)
+	fi
 	test_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
+	test_args+=(${bootstrap_test_args[@]+"${bootstrap_test_args[@]}"})
 	test_args+=("${identity_args[@]}")
 	both_legs=0
 	[[ "$run_core" -eq 1 && "$run_framework" -eq 1 ]] && both_legs=1

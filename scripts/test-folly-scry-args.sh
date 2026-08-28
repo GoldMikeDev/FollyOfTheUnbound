@@ -346,6 +346,68 @@ else
   test_fail "testCompilerOnly on non-scry action (exit=$exit_code): $output"
 fi
 
+# --- --testIOperation is forwarded to eng/build.sh's test call ---
+dir="$(new_test_case "test-ioperation-forwarded")"
+result="$(run_case "$dir" scry research --testIOperation)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testIOperation" <<<"$args_log"; then
+  test_pass "'--testIOperation' is forwarded to ./eng/build.sh"
+else
+  test_fail "testIOperation forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testIOperation rejected for non-scry actions ---
+dir="$(new_test_case "test-ioperation-on-non-scry")"
+result="$(run_case "$dir" weave --testIOperation)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--testIOperation' is rejected on a non-scry action"
+else
+  test_fail "testIOperation on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- --bootstrap: the initial build call gets --bootstrap, each test leg gets --bootstrapDir
+# pointing at the same deterministic artifacts/Bootstrap dir instead of rebuilding it ---
+dir="$(new_test_case "bootstrap-forwarded")"
+result="$(run_case "$dir" scry research --bootstrap)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+build_call="${args_log%%===call===*}"
+test_call="${args_log#*===call===}"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--bootstrap" <<<"$build_call" && ! grep -qx -- "--bootstrapDir" <<<"$build_call" \
+  && grep -qx -- "--bootstrapDir" <<<"$test_call" && grep -qx -- "$dir/artifacts/Bootstrap" <<<"$test_call" && ! grep -qx -- "--bootstrap" <<<"$test_call"; then
+  test_pass "'--bootstrap' builds once and is reused via --bootstrapDir for the test leg"
+else
+  test_fail "bootstrap forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --bootstrap is rejected on 'cleanse' ---
+dir="$(new_test_case "bootstrap-on-cleanse")"
+result="$(run_case "$dir" cleanse --bootstrap)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"aren't valid with 'cleanse'"* ]]; then
+  test_pass "'--bootstrap' is rejected on 'cleanse'"
+else
+  test_fail "bootstrap on cleanse (exit=$exit_code): $output"
+fi
+
+# --- --bootstrap is forwarded on a non-scry action too (not scoped to 'scry') ---
+dir="$(new_test_case "bootstrap-on-weave")"
+result="$(run_case "$dir" weave research --bootstrap)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--bootstrap" <<<"$args_log"; then
+  test_pass "'--bootstrap' is forwarded to ./eng/build.sh on 'weave'"
+else
+  test_fail "bootstrap on weave (exit=$exit_code): args='$args_log' output=$output"
+fi
+
 # --- --binaryLog is forwarded to eng/build.sh ---
 dir="$(new_test_case "binarylog-forwarded")"
 result="$(run_case "$dir" weave research --binaryLog)"

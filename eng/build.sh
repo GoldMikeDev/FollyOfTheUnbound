@@ -37,6 +37,7 @@ usage()
   echo "Advanced settings:"
   echo "  --ci                       Building in CI"
   echo "  --bootstrap                Build using a bootstrap compilers"
+  echo "  --bootstrapDir <path>      Build using bootstrap compiler already built at the specified location (skips rebuilding it)"
   echo "  --runAnalyzers             Run analyzers during build operations"
   echo "  --skipDocumentation        Skip generation of XML documentation files"
   echo "  --prepareMachine           Prepare machine for CI run, clean up processes after build"
@@ -87,6 +88,7 @@ helix=false
 helix_queue_name=""
 helix_api_access_token=""
 bootstrap=false
+bootstrap_dir_arg=""
 run_analyzers=false
 skip_documentation=false
 prepare_machine=false
@@ -219,6 +221,17 @@ while [[ $# > 0 ]]; do
       bootstrap=true
       # Bootstrap requires restore
       restore=true
+      ;;
+    --bootstrapdir)
+      if [[ -z "${2:-}" ]]; then
+        echo "'--bootstrapDir' requires a path." >&2
+        exit 1
+      fi
+      bootstrap=true
+      bootstrap_dir_arg="$2"
+      restore=true
+      args="$args $1"
+      shift
       ;;
     --runanalyzers)
       run_analyzers=true
@@ -468,7 +481,13 @@ if [[ "$restore" == true && "$source_build" != true ]]; then
 fi
 
 bootstrap_dir=""
-if [[ "$bootstrap" == true ]]; then
+if [[ -n "$bootstrap_dir_arg" ]]; then
+  # Reuse an already-built bootstrap compiler instead of rebuilding it -- matches build.ps1's own
+  # -bootstrapDir, which exists so a caller invoking this script more than once in the same run
+  # (e.g. folly.sh's 'scry', which builds once then runs each requested test leg as its own
+  # invocation) only pays MakeBootstrapBuild's cost the first time.
+  bootstrap_dir="$bootstrap_dir_arg"
+elif [[ "$bootstrap" == true ]]; then
   MakeBootstrapBuild
   bootstrap_dir=$_MakeBootstrapBuild
 fi
