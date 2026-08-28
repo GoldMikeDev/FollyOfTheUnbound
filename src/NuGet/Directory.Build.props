@@ -1,5 +1,16 @@
 <!-- Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information. -->
 <Project>
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-  <Import Project="$(RepositoryEngineeringDir)targets\PackageProject.props"/>
+  <!-- $(IsSourcePackage) is set inside each source-package .csproj's own project body, which is
+       evaluated AFTER this Directory.Build.props import runs, so the condition below can never
+       actually observe it here (unlike Directory.Build.targets, imported after the project body,
+       where the same check works correctly). Most projects under src/NuGet/ end in ".Package" too
+       (meta-packages like Microsoft.CodeAnalysis.Compilers.Package), so a name-suffix heuristic
+       would wrongly match them; key off the specific known source-package project name(s)
+       instead for this props-time check. Keep this list in sync with every .csproj under
+       src/NuGet/ that sets IsSourcePackage to true in its own project body. -->
+  <PropertyGroup>
+    <_IsSourcePackageProps Condition="'$(IsSourcePackage)' == 'true' or '$(MSBuildProjectName)' == 'Microsoft.CodeAnalysis.BuildClient.Package'">true</_IsSourcePackageProps>
+  </PropertyGroup>
+  <Import Project="$(RepositoryEngineeringDir)targets\PackageProject.props" Condition="'$(_IsSourcePackageProps)' != 'true'"/>
 </Project>

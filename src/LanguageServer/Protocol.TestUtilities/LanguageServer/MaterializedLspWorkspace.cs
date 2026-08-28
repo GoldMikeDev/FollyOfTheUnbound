@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -60,10 +61,71 @@ internal sealed class MaterializedLspWorkspace
         if (content.ShouldRestore)
         {
             foreach (var projectPath in content.Files.Keys.Where(static path => PathUtilities.GetExtension(path) == ".csproj"))
-                ProcessUtilities.Run("dotnet", $"restore --project \"{GetFullPath(rootPath, projectPath)}\"");
+                RunRestoreWithTimeout(GetFullPath(rootPath, projectPath));
         }
 
         return new MaterializedLspWorkspace(content, rootPath, annotatedLocations);
+    }
+
+    /// <summary>
+    /// Runs `dotnet restore` for a project, bounded by <see cref="TestHelpers.HangMitigatingTimeout"/>.
+    /// This intentionally does not use the shared <see cref="ProcessUtilities.Run(string, string, string, System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{string, string}}, string, bool)"/>
+    /// helper, which blocks on <see cref="Process.WaitForExit()"/> with no timeout at all: a genuinely hung or
+    /// slow `dotnet restore` (e.g. a flaky network) would otherwise block this call for the entire test-host
+    /// Blame timeout (tens of minutes) rather than failing fast with a clear assertion.
+    /// </summary>
+    private static void RunRestoreWithTimeout(string projectPath)
+    {
+        var startInfo = new ProcessStartInfo
+        {
+            FileName = "dotnet",
+            Arguments = $"restore --project \"{projectPath}\"",
+            UseShellExecute = false,
+            CreateNoWindow = true,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+        };
+
+        using var process = Process.Start(startInfo)!;
+
+        // Redirecting stdout/stderr without draining them risks deadlock: if `dotnet restore` writes enough
+        // output to fill the OS pipe buffer (e.g. SDK/NuGet warnings), it blocks on the write and never exits,
+        // so WaitForExit below would always hit the full timeout even for an otherwise-successful restore.
+        // Drain both streams asynchronously, matching the pattern ProcessUtilities.Run uses.
+        process.OutputDataReceived += static (_, _) => { };
+        process.ErrorDataReceived += static (_, _) => { };
+        process.BeginOutputReadLine();
+        process.BeginErrorReadLine();
+
+        if (!process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds))
+        {
+            KillProcessTree(process);
+            throw new TimeoutException($"'dotnet restore' for '{projectPath}' did not complete within {TestHelpers.HangMitigatingTimeout}.");
+        }
+    }
+
+    /// <summary>
+    /// Kills <paramref name="process"/> along with any descendants it spawned (e.g. MSBuild nodes or NuGet
+    /// credential providers started by `dotnet restore`), so a killed-on-timeout restore doesn't leave orphaned
+    /// processes holding files or resources for the rest of the test run.
+    /// </summary>
+    private static void KillProcessTree(Process process)
+    {
+#if NET
+        // Kill() only initiates termination asynchronously; wait for it to actually complete so the killed
+        // process (and its tree) isn't still holding workspace files by the time this method returns.
+        process.Kill(entireProcessTree: true);
+        process.WaitForExit((int)TestHelpers.HangMitigatingTimeout.TotalMilliseconds);
+#else
+        // Process.Kill(bool) isn't available on net472, which this project also targets. net472 only ever runs
+        // on Windows, so shell out to `taskkill /T` (kill the tree) instead.
+        using var taskkill = Process.Start(new ProcessStartInfo("taskkill", $"/T /F /PID {process.Id}")
+        {
+            UseShellExecute = false,
+            CreateNoWindow = true,
+        });
+        taskkill?.WaitForExit();
+#endif
     }
 
     public string GetFullPath(string relativePath)

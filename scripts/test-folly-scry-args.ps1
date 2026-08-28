@@ -1,6 +1,7 @@
-# Regression test for folly.ps1 scry's argument parsing (action, [config], --core/--framework,
-# --timeout) and its unified test summary, run against a mocked eng/build.ps1 so no real build/test
-# happens.
+# Regression test for folly.ps1's argument parsing (action, primary arg, --core/--framework,
+# --timeout) and its unified test summary, plus --binaryLog and --verbosity (forwarded across every
+# build-invoking action and rejected on 'cleanse' and 'scry reflection'), run against a mocked
+# eng/build.ps1 so no real build/test happens.
 # Run by hand (or wire into CI) after touching folly.ps1's argument parsing or scry action:
 #   pwsh -File ./scripts/test-folly-scry-args.ps1
 $ErrorActionPreference = "Stop"
@@ -40,7 +41,8 @@ param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
     [int]$testTimeout,
-    [string]$solution,[string]$configuration
+    [string]$solution,[string]$configuration,
+    [switch]$binaryLog,[string]$verbosity
 )
 $scriptroot = $PSScriptRoot
 $repoRoot = Split-Path $scriptroot -Parent
@@ -50,6 +52,9 @@ $logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
 # Records the -testTimeout value this mock actually received, so the test harness can assert
 # folly.ps1 forwarded the value the caller asked for instead of silently dropping it.
 Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value "$suffix=$testTimeout"
+# Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
+# assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
+Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
 function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -140,7 +145,7 @@ function Invoke-Folly([string]$Dir, [string[]]$FollyArgs) {
 try {
     # --- default: both legs run ---
     $dir = New-TestCase "default"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
         Test-Pass "default 'scry' runs both Core and Framework"
     }
@@ -150,7 +155,7 @@ try {
 
     # --- --core only ---
     $dir = New-TestCase "core-only"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -notmatch "Framework:") {
         Test-Pass "'scry --core' runs only Core"
     }
@@ -160,7 +165,7 @@ try {
 
     # --- --framework only ---
     $dir = New-TestCase "framework-only"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--framework")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--framework")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
         Test-Pass "'scry --framework' runs only Framework"
     }
@@ -168,7 +173,7 @@ try {
         Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- positional [config] alongside a selector ---
+    # --- positional primary arg alongside a selector ---
     $dir = New-TestCase "positional-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "truth", "--core")
     if ($result.ExitCode -eq 0 -and $result.Output -match "Release-Core") {
@@ -200,7 +205,7 @@ try {
 
     # --- stray "================" lines in captured failure output don't fool the parser ---
     $dir = New-FalseMarkerTestCase "false-marker"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--core")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
     if ($result.ExitCode -eq 1 -and $result.Output -match "Core: 1 passed, 1 failed") {
         Test-Pass "stray markers in captured failure output are not mistaken for the summary table"
     }
@@ -220,11 +225,11 @@ try {
 
     # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---
     $dir = New-TestCase "timeout-forwarded"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--timeout", "180")
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--timeout", "180")
     $receivedPath = Join-Path $dir "testTimeout-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
-        Test-Pass "'--timeout 180' is forwarded to eng/build.ps1 for both legs"
+        Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for both legs"
     }
     else {
         Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
@@ -268,6 +273,126 @@ try {
     }
     else {
         Test-Fail "timeout exceeds Task.Delay max (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --binaryLog is forwarded to eng/build.ps1 ---
+    $dir = New-TestCase "binarylog-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "--binaryLog")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "binaryLog=True") {
+        Test-Pass "'--binaryLog' is forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "binaryLog forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --verbosity is forwarded to eng/build.ps1 with its value ---
+    $dir = New-TestCase "verbosity-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--verbosity", "diagnostic")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "verbosity=diagnostic") {
+        Test-Pass "'--verbosity diagnostic' is forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "verbosity forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --verbosity with a missing value is rejected ---
+    $dir = New-TestCase "verbosity-missing-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--verbosity")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires a value") {
+        Test-Pass "'--verbosity' with no value is rejected"
+    }
+    else {
+        Test-Fail "verbosity missing value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --verbosity rejects MSBuild's own single-letter/abbreviated shorthand (e.g. 'diag'): full words only ---
+    $dir = New-TestCase "verbosity-shorthand-rejected"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--verbosity", "diag")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires one of" -and $result.Output -match "Got 'diag'") {
+        Test-Pass "'--verbosity diag' (shorthand) is rejected"
+    }
+    else {
+        Test-Fail "verbosity shorthand rejected (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --verbosity accepts a full word case-insensitively ---
+    $dir = New-TestCase "verbosity-case-insensitive"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "--verbosity", "DIAGNOSTIC")
+    $receivedPath = Join-Path $dir "buildArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "verbosity=DIAGNOSTIC") {
+        Test-Pass "'--verbosity DIAGNOSTIC' is accepted case-insensitively"
+    }
+    else {
+        Test-Fail "verbosity case-insensitive (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --binaryLog is rejected on 'cleanse' ---
+    $dir = New-TestCase "binarylog-on-cleanse"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("cleanse", "--binaryLog")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "aren't valid with 'cleanse'") {
+        Test-Pass "'--binaryLog' is rejected on 'cleanse'"
+    }
+    else {
+        Test-Fail "binaryLog on cleanse (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --verbosity is rejected alongside 'scry reflection' ---
+    $dir = New-TestCase "verbosity-on-reflection"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--verbosity", "diagnostic")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a primary arg or any switches") {
+        Test-Pass "'--verbosity' is rejected alongside 'scry reflection'"
+    }
+    else {
+        Test-Fail "verbosity on reflection (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'reflection' is rejected on a non-scry action ---
+    $dir = New-TestCase "reflection-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "reflection")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'reflection' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "reflection on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'reflection' rejects a primary arg alongside it ---
+    $dir = New-TestCase "reflection-with-config"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "truth")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a primary arg or any switches") {
+        Test-Pass "'reflection' rejects a primary arg alongside it"
+    }
+    else {
+        Test-Fail "reflection with config (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'reflection' rejects '--timeout' alongside it ---
+    $dir = New-TestCase "reflection-with-timeout"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection", "--timeout", "5")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "doesn't take a primary arg or any switches") {
+        Test-Pass "'reflection' rejects '--timeout' alongside it"
+    }
+    else {
+        Test-Fail "reflection with timeout (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'scry reflection' runs folly's own test harnesses instead of the (mocked) build ---
+    $dir = New-TestCase "reflection-runs-harnesses"
+    New-Item -ItemType Directory -Force -Path (Join-Path $dir "scripts") | Out-Null
+    Set-Content -LiteralPath (Join-Path $dir "scripts\test-folly-cleanse.ps1") -Value 'Write-Host "cleanse harness ran"; exit 0'
+    Set-Content -LiteralPath (Join-Path $dir "scripts\test-folly-scry-args.ps1") -Value 'Write-Host "scry-args harness ran"; exit 0'
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "reflection")
+    $buildRan = Test-Path -LiteralPath (Join-Path $dir "testTimeout-received.log")
+    if ($result.ExitCode -eq 0 -and $result.Output -match "cleanse harness ran" -and $result.Output -match "scry-args harness ran" -and -not $buildRan) {
+        Test-Pass "'scry reflection' runs both harnesses instead of building"
+    }
+    else {
+        Test-Fail "scry reflection runs harnesses (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     Write-Host ""

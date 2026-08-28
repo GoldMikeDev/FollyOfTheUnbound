@@ -207,3 +207,6 @@ Library/
 artifacts/TestResults/**/dumps/
 *.dmp
 
+build-verbose.log
+
+artifacts/LanguageServer/

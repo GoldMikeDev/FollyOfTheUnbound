@@ -258,13 +258,16 @@ public sealed class RazorProjectEngine
     {
         phases.Add(new DefaultRazorParsingPhase());
         phases.Add(new DefaultRazorSyntaxTreePhase());
-        phases.Add(new DefaultRazorTagHelperContextDiscoveryPhase());
         phases.Add(new DefaultRazorIntermediateNodeLoweringPhase());
-        phases.Add(new DefaultTagHelperResolutionPhase());
-        phases.Add(new DefaultRazorTagHelperRewritePhase());
         phases.Add(new DefaultRazorDocumentClassifierPhase());
         phases.Add(new DefaultRazorDirectiveClassifierPhase());
+        phases.Add(new DefaultRazorMarkupSplitPhase());
+        phases.Add(new DefaultRazorDeclCSharpLoweringPhase());
+        phases.Add(new DefaultRazorTagHelperContextDiscoveryPhase());
+        phases.Add(new DefaultTagHelperResolutionPhase());
+        phases.Add(new DefaultRazorTagHelperRewritePhase());
         phases.Add(new DefaultRazorOptimizationPhase());
+        phases.Add(new Utf8WriteLiteralPhase());
         phases.Add(new DefaultRazorCSharpLoweringPhase());
     }
 
@@ -284,7 +287,6 @@ public sealed class RazorProjectEngine
         // Intermediate Node Passes
         features.Add(new DefaultDocumentClassifierPass());
         features.Add(new MetadataAttributePass());
-        features.Add(new Utf8WriteLiteralDetectionPass());
         features.Add(new DirectiveRemovalOptimizationPass());
         features.Add(new DefaultTagHelperOptimizationPass());
         features.Add(new PreallocatedTagHelperAttributeOptimizationPass());

@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "mcp__Claude_Code_Remote__get_session",
+      "mcp__Claude_Code_Remote__set_session_title",
+      "mcp__Claude_Code_Remote__send_later",
+      "mcp__Claude_Code_Remote__create_trigger",
+      "mcp__Claude_Code_Remote__update_trigger",
+      "mcp__Claude_Code_Remote__delete_trigger",
+      "mcp__Claude_Code_Remote__subscribe_pr_activity",
+      "mcp__Claude_Code_Remote__unsubscribe_pr_activity",
+      "mcp__github__subscribe_pr_activity",
+      "mcp__github__unsubscribe_pr_activity"
     ]
   },
   "hooks": {

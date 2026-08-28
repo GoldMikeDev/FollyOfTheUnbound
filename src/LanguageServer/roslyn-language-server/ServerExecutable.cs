@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -89,7 +89,9 @@ internal sealed class ServerExecutable
         // only .NET install is reachable via PATH, the child apphost would otherwise fail to start.
         // Point the child at the runtime that is hosting us so it launches against the
         // same .NET.
-        if (RuntimeHostInfo.GetToolDotNetRoot(logger: null) is { } dotNetRoot)
+        var dotNetRoot = GetCurrentProcessDotNetRoot()
+            ?? RuntimeHostInfo.GetToolDotNetRoot(StandardBuildEnvironment.Instance, logger: null);
+        if (dotNetRoot is not null)
         {
             // Clear any inherited DOTNET_ROOT* variants (e.g. DOTNET_ROOT_X64) so they can't override the value we set.
             foreach (var key in startInfo.Environment.Keys
@@ -103,6 +105,18 @@ internal sealed class ServerExecutable
         }
 
         startInfo.RemoveInheritedDotNetDiagnosticPorts();
+
+        static string? GetCurrentProcessDotNetRoot()
+        {
+            var processPath = Environment.ProcessPath;
+            return processPath is not null &&
+                string.Equals(
+                    Path.GetFileName(processPath),
+                    RuntimeHostInfo.DotNetHostExecutableName,
+                    OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal)
+                    ? RuntimeHostInfo.GetToolDotNetRoot(processPath, logger: null)
+                    : null;
+        }
 
         foreach (var argument in arguments)
             startInfo.ArgumentList.Add(argument);

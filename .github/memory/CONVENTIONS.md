@@ -47,6 +47,12 @@ var symbolInfo = semanticModel.GetSymbolInfo(expression, cancellationToken);
 - Judge change size by cognitive load and validation boundaries, not an arbitrary line count; generated and mechanical updates may be large while still representing one focused change.
 - A change is complete only after applicable formatting, analyzers, affected builds, targeted tests, generated/resource/API updates, final diff review, and documentation freshness work are complete. The canonical ordered checklist is the **Definition of Done** in `.github/copilot-instructions.md`.
 
+### Killing a tracked child process means killing its whole tree
+
+When code cancels/kills a `Process` it started, use `process.Kill(entireProcessTree: true)`, not plain `process.Kill()`, whenever that process might itself spawn children worth reaping (a test runner shelling out to `dotnet test`/vstest.console, which spawns its own `testhost`; any wrapper CLI that forks a real worker). Plain `Kill()` only terminates the direct child, silently orphaning anything it spawned. `src/Tools/RunTests/ProcessRunner.cs`'s cancellation handler follows this pattern.
+
+Conversely, don't try to patch over an orphan risk by enumerating *all* processes on the machine by name and killing whatever matches (e.g. `ProcessUtil.GetTestHostProcesses()` in `RunTests`) — that risks killing an unrelated process from a concurrent run or an IDE. That enumeration exists only for best-effort diagnostics (dumping a hung process before a timeout), never for termination; termination stays scoped to processes this run itself is tracking, via the entire-process-tree kill above.
+
 ## Patterns Explicitly Avoided
 
 - **No `TODO` or `TODO2` comments** — CI correctness leg flags `TODO`. Track follow-up work as a GitHub issue and link it in code (e.g. `// https://github.com/dotnet/roslyn/issues/NNNN`). Existing `TODO2` markers are a frozen baseline from when enforcement started, not a pattern to follow.
@@ -94,7 +100,7 @@ thread is still open" is not.
 
 ## Language / Framework Constraints
 
-- SDK pinned in `global.json` (currently .NET SDK `10.0.x`); VS toolset `17.14`.
+- SDK and VS toolset pinned in `global.json`.
 - Arcade-based build (`Microsoft.DotNet.Arcade.Sdk`); package versions centralized in `Directory.Packages.props`.
 
 ## Documentation Files

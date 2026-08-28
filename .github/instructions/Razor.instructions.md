@@ -38,8 +38,19 @@ their original sub-tree layout
   `GetUnusedDirectives()`) rather than storing computed results as fields.
 - **Razor documents in Roslyn**: Stored as additional documents. Resolve via
   `solution.GetDocumentIdsWithFilePath(filePath)` then `solution.GetAdditionalDocument(documentId)`.
+- **Razor documents with virtual URIs**: Remote Razor document classification preserves the full
+  additional-document `FilePath` for identity. For parseable absolute URI file paths, inspect the
+  URI's local path when checking the `.razor` or `.cshtml` extension; do not strip the query from
+  the stored file path.
 - **Remote services**: Place the public stub method (calling `RunServiceAsync`) directly
   above its private implementation method.
+- **Formatting options across OOP**: Cohost endpoints must resolve
+  `CSharpSyntaxFormattingOptions` from the Razor document's analyzer-config options with
+  `CSharpFormattingOptionsHelper.GetCSharpSyntaxFormattingOptions(razorDocument, cancellationToken)`.
+  This applies `.editorconfig` sections matching the `.razor` or `.cshtml` path and falls back to
+  the user's global C# options. Include the resolved options in `RazorFormattingOptions` sent to
+  remote formatting consumers; remote `IClientSettingsManager` state does not contain the user's
+  C# formatting preferences.
 - **Runtime-declared attribute lists**: When the runtime declares a set the compiler must read
   (e.g. `[EventHandler]`, `[AcceptsAssetPath]`), it applies the attributes to a public type with
   a well-known name (`EventHandlers`, `AssetPathAttributes`). A `TagHelperProducer` under
@@ -51,6 +62,21 @@ their original sub-tree layout
   `Microsoft.VisualStudio.RazorExtension\UnifiedSettings\razor.registration.json`, localize
   their UI text in `VSPackage.resx`, read them through `OptionsStorage`, and add remotely consumed
   values to `ClientAdvancedSettings` so `IClientSettingsManager` synchronizes changes live.
+
+## C# code-generation phases (`Microsoft.CodeAnalysis.Razor.Compiler/src/CSharp/`)
+
+- **`Utf8WriteLiteralPhase`** (`Utf8WriteLiteralPhase.cs`): runs after optimization and before C#
+  lowering. For legacy (`.cshtml`) documents only, probes whether the document's `@inherits` base
+  type has a callable UTF-8 `WriteLiteral(ReadOnlySpan<byte>)` overload (via `Utf8SupportMap` on the
+  code document) and sets `writeHtmlUtf8StringLiterals` on the document node's code-generation
+  options accordingly, so later lowering can choose UTF-8 byte literals over UTF-16 strings for
+  static HTML content. Components and other file kinds, and legacy documents with no `@inherits`
+  directive, are left untouched. Replaced the older `Utf8WriteLiteralDetectionPass`/
+  `IUtf8WriteLiteralFeature` design.
+- **`Utf8SupportMap`** (`Utf8SupportMap.cs`): immutable, value-comparable two-level lookup
+  (`filePath` → fully-qualified `@inherits` type name → `bool` UTF-8 support) built once per
+  compilation and reused across documents. The two-level design exists because the same
+  `@inherits` text can resolve to different types in different files (e.g. via `@using` aliases).
 
 ## Adding OOP Remote Services
 

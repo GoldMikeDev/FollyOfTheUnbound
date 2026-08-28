@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>$(TestingLibrarySourceGeneratorTargetFrameworks)</TargetFrameworks>
+    <RootNamespace>Microsoft.CodeAnalysis.Testing</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Description>Roslyn Source Generator Test Framework Common Types.</Description>
+    <PackageReleaseNotes>Roslyn Source Generator Test Framework Common Types</PackageReleaseNotes>
+    <PackageTags>Roslyn Source Generator Test Framework Common</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- See the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj for why this
+         checks both FollyOfTheUnboundBuild (set by folly.ps1/folly.sh) and $(SolutionName) (set when
+         CI's codeql.yml builds FollyOfTheUnbound.slnx directly). -->
+    <IsFollyOfTheUnboundBuild Condition="'$(FollyOfTheUnboundBuild)' == 'true' OR '$(SolutionName)' == 'FollyOfTheUnbound'">true</IsFollyOfTheUnboundBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- See the matching comment (including why the PackageReference below is excluded, not left to
+         automatic substitution) in Microsoft.CodeAnalysis.Analyzer.Testing.csproj. No effect on the
+         real, externally-published package. -->
+    <ProjectReference Include="..\..\..\Workspaces\Core\Portable\Microsoft.CodeAnalysis.Workspaces.csproj"
+                       Condition="'$(IsFollyOfTheUnboundBuild)' == 'true'" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Workspaces.Common" Condition="'$(IsFollyOfTheUnboundBuild)' != 'true'" />
+    <PackageReference Include="System.Formats.Asn1" />
+
+    <!-- Use PrivateAssets=compile to avoid exposing our DiffPlex dependency downstream as public API. -->
+    <PackageReference Include="DiffPlex" PrivateAssets="compile" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Microsoft.CodeAnalysis.Analyzer.Testing\Microsoft.CodeAnalysis.Analyzer.Testing.csproj" />
+  </ItemGroup>
+</Project>

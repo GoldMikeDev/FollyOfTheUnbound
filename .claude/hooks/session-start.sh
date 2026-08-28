@@ -11,7 +11,38 @@ cd "$CLAUDE_PROJECT_DIR"
 # FollyOfTheUnbound.slnx, so `dotnet` and the build/test scripts work
 # without a manual `./folly.sh attune` first. Runs in the background so
 # SessionStart doesn't block on the restore; check attune.log for progress.
-log="$CLAUDE_PROJECT_DIR/.claude/hooks/attune.log"
-nohup ./folly.sh attune >"$log" 2>&1 &
-disown
-echo "Started './folly.sh attune' in the background (PID $!); progress logged to $log"
+# SessionStart fires on every resume, not just a fresh container, so guard
+# on the repo-local SDK attune bootstraps -- re-running a full restore each
+# resume costs ~90s even when nothing changed.
+if [[ ! -x "$CLAUDE_PROJECT_DIR/.dotnet/dotnet" ]]; then
+  log="$CLAUDE_PROJECT_DIR/.claude/hooks/attune.log"
+  nohup ./folly.sh attune research >"$log" 2>&1 &
+  disown
+  echo "Started './folly.sh attune' in the background (PID $!); progress logged to $log"
+fi
+
+# Installs PowerShell (pwsh) via Microsoft's apt repo, so `folly.ps1` and its
+# `scripts/test-folly-*.ps1` harnesses (e.g. `folly.sh scry reflection`) can
+# actually be run and verified in this sandbox, not just read. No snapd here,
+# so `snap install powershell --classic` isn't an option. Runs in the
+# background alongside attune; check pwsh-install.log for progress.
+if ! command -v pwsh >/dev/null 2>&1; then
+  pwsh_log="$CLAUDE_PROJECT_DIR/.claude/hooks/pwsh-install.log"
+  (
+    ubuntu_release="$(lsb_release -rs)"  # queried rather than hardcoded -- Microsoft publishes a separate packages-microsoft-prod.deb per Ubuntu release, and this sandbox's release shouldn't be assumed to stay 24.04 forever
+    wget -q -O /tmp/packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/$ubuntu_release/packages-microsoft-prod.deb"
+    sudo dpkg -i /tmp/packages-microsoft-prod.deb
+    # Scoped to just the Microsoft repo's own list file (the fixed path packages-microsoft-prod.deb
+    # always installs to, regardless of Ubuntu release) rather than a plain `apt-get update`: this
+    # sandbox has unrelated third-party PPAs (deadsnakes, ondrej/php) configured that can 403
+    # independently of the Microsoft repo just added above, and a plain update's nonzero exit
+    # whenever *any* configured repo fails -- under `set -e` inherited from the parent script into
+    # this subshell -- would abort here and skip the install below even on an unrelated PPA's
+    # failure. Scoping the update this way still surfaces (and aborts on, via `set -e`) a genuine
+    # failure to refresh the Microsoft repo's own index, unlike a blanket `|| true` would.
+    sudo apt-get update -qq -o Dir::Etc::sourcelist="sources.list.d/microsoft-prod.list" -o Dir::Etc::sourceparts="-"
+    sudo apt-get install -y powershell
+  ) >"$pwsh_log" 2>&1 &
+  disown
+  echo "Started PowerShell install in the background (PID $!); progress logged to $pwsh_log"
+fi

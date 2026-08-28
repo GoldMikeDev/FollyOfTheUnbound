@@ -51,8 +51,28 @@ public abstract class AbstractLspMiscellaneousFilesWorkspaceTests : AbstractLang
         // Projects created via AddDocumentAsync are created directly against the host project factory and bypass the
         // project loader, so nothing else removes them. Remove them now (while the host workspace is still alive) to
         // release the file watches they hold, mirroring what LoadedProject.Dispose does for loader-managed projects.
+        //
+        // The test body's own TestLspServer(s) are disposed before this runs (via 'await using' in the test method),
+        // which tears down the host workspace itself -- clearing its CurrentSolution and so, from
+        // ProjectSystemProject's perspective, removing every project still registered in it. That races this
+        // explicit removal the same way LanguageServerProjectLoader.Dispose's remarks describe for the daemon:
+        // whichever runs second sees its project already gone from the solution and throws. Since
+        // ProjectSystemProject.RemoveFromWorkspaceMaybeAsync releases this project's own file-watch resources
+        // unconditionally before that throw, they're released exactly once either way; this catch just tolerates
+        // losing the race so one test's ordering doesn't fail teardown for a project that's already gone.
         foreach (var project in _projectsToRemoveOnDispose)
-            project.RemoveFromWorkspace();
+        {
+            try
+            {
+                project.RemoveFromWorkspace();
+            }
+            // Match only the specific message ProjectSystemProject.RemoveFromWorkspaceMaybeAsync throws for this
+            // race, not InvalidOperationException generally -- a real bug elsewhere in removal (e.g. a
+            // Contract.ThrowIfFalse failure) must still surface as a teardown failure instead of being swallowed.
+            catch (InvalidOperationException ex) when (ex.Message == "The project has already been removed.")
+            {
+            }
+        }
 
         TempRoot.Dispose();
         _loggerProvider.Dispose();
@@ -91,6 +111,32 @@ public abstract class AbstractLspMiscellaneousFilesWorkspaceTests : AbstractLang
         _projectsToRemoveOnDispose.Add(project);
 
         return workspaceFactory.HostWorkspace.CurrentSolution.GetRequiredProject(project.Id).Documents.Single();
+    }
+
+    /// <summary>
+    /// Regression test for the <c>_removedFromWorkspace</c> guard in <see cref="ProjectSystemProject.RemoveFromWorkspace"/>:
+    /// a second call for the same project must throw immediately rather than re-running (and so re-disposing) the
+    /// removal it already completed. Without that guard, a second call would re-dispose this project's file-watch
+    /// context -- harmless for the plain in-process watcher this test harness uses, but not for an LSP-backed one,
+    /// where each disposal issues its own <c>client/unregisterCapability</c> request (see the "already removed"
+    /// entry in <c>.github/memory/known-issues/ide.md</c>).
+    /// </summary>
+    [Theory, CombinatorialData]
+    public async Task TestRemoveFromWorkspace_CalledTwice_SecondCallThrowsWithoutReDisposing(bool mutatingLspWorkspace)
+    {
+        await using var testLspServer = await CreateTestLspServerAsync("", mutatingLspWorkspace, new InitializationOptions { ServerKind = WellKnownLspServerKinds.CSharpVisualBasicLspServer });
+
+        var workspaceFactory = testLspServer.GetRequiredLspService<LanguageServerWorkspaceFactory>();
+        var project = await workspaceFactory.HostProjectFactory.CreateAndAddToWorkspaceAsync(
+            Guid.NewGuid().ToString(),
+            LanguageNames.CSharp,
+            new ProjectSystemProjectCreationInfo { AssemblyName = Guid.NewGuid().ToString() },
+            workspaceFactory.ProjectSystemHostInfo);
+
+        project.RemoveFromWorkspace();
+
+        var exception = Assert.Throws<InvalidOperationException>(project.RemoveFromWorkspace);
+        Assert.Equal("The project has already been removed.", exception.Message);
     }
 
     private protected static async Task<(Workspace? workspace, Document? document)> GetLspWorkspaceAndDocumentAsync(DocumentUri uri, TestLspServer testLspServer)

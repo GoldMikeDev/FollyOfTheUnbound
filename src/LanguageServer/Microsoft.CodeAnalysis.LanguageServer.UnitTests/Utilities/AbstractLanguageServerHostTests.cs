@@ -95,13 +95,13 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         var assemblyLoader = new CustomExportAssemblyLoader(extensionManager, LoggerFactory);
         var exportProvider = await CreateExportProviderAsync(configuration, LoggerFactory, extensionManager, assemblyLoader);
         var typeRefResolver = new ExtensionTypeRefResolver(assemblyLoader, LoggerFactory);
-        return TestDaemon.Create(
+        return await TestDaemon.CreateAsync(
             exportProvider,
             typeRefResolver,
             keepAlive ?? Timeout.InfiniteTimeSpan,
             LoggerFactory,
             TestOutputHelper,
-            initialConnectionTimeout);
+            initialConnectionTimeout).ConfigureAwait(false);
     }
 
     internal static async Task WaitForConditionAsync(Func<bool> condition)
@@ -457,7 +457,7 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         private readonly ExportProvider _exportProvider;
         private readonly ITestOutputHelper _testOutputHelper;
 
-        internal static TestDaemon Create(
+        internal static async Task<TestDaemon> CreateAsync(
             ExportProvider exportProvider,
             ExtensionTypeRefResolver typeRefResolver,
             TimeSpan keepAlive,
@@ -492,6 +492,13 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
                     source.Dispose();
                 }
             });
+
+            // Wait for the accept loop to actually be listening before handing the daemon back: daemonTask above
+            // only just started on a background Task, and unlike a real client (which connects with its own
+            // retry/timeout), CreateClientAsync connects once, immediately -- without this, a test that does so
+            // right after this method returns can race the loop's first WaitForConnectionAsync and intermittently
+            // see "Pipe is broken" instead of ever reaching its own assertions.
+            await source.GetTestAccessor().WaitForAcceptLoopStartedAsync().ConfigureAwait(false);
 
             return new TestDaemon(pipeName, source, connectionManager, daemonTask, cts, exportProvider, testOutputHelper);
         }

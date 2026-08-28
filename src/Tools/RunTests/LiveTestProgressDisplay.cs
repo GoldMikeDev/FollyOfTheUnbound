@@ -133,7 +133,7 @@ namespace RunTests
         /// first time raw input is actually needed (<see cref="EnsureRawInputReaderStarted"/>). Never explicitly
         /// stopped -- see <see cref="StopRawInputReader"/>'s doc comment for why that's a deliberate choice, not
         /// an oversight: this thread instead simply outlives the display, blocked forever in its last
-        /// <see cref="Console.In.Read"/> call. That's safe only because it's a single
+        /// <see cref="System.IO.TextReader.Read()"/> call. That's safe only because it's a single
         /// <see cref="Thread.IsBackground"/> thread (never more than one), so it can never keep the process
         /// itself from exiting -- unlike the unbounded thread-pool leak described below, which this design
         /// exists to eliminate.
@@ -696,7 +696,7 @@ namespace RunTests
 
         /// <summary>
         /// Deliberately does <b>not</b> attempt to unblock <see cref="_rawInputReaderThread"/>'s pending
-        /// <see cref="Console.In"/> read. <see cref="Console.In"/> is <see cref="TextReader.Synchronized(TextReader)"/>-
+        /// <see cref="Console.In"/> read. <see cref="Console.In"/> is <see cref="System.IO.TextReader.Synchronized(System.IO.TextReader)"/>-
         /// wrapped, and that wrapper takes the same internal monitor for every call, including <c>Close()</c> --
         /// so calling <c>Console.In.Close()</c> from here (an earlier version of this method did exactly that)
         /// would itself block on that monitor for as long as the reader thread's <c>Read()</c> call holds it,
@@ -704,7 +704,7 @@ namespace RunTests
         /// <see cref="Complete"/>/<see cref="DisableAndExitAltScreen"/>, that would turn "stop the display" into
         /// "hang until the user presses another key" -- worse than the thread it was trying to clean up,
         /// especially after a whole-run timeout where nothing is left prompting for keystrokes at all.
-        /// <see cref="Console.In.Read"/> has no cancellation token, and there is no way to safely interrupt a
+        /// <see cref="System.IO.TextReader.Read()"/> has no cancellation token, and there is no way to safely interrupt a
         /// blocking read on a real console/terminal input handle out from under another thread on every
         /// platform this runs on. The thread is therefore simply abandoned once this display is done with it --
         /// safe only because it's a single <see cref="Thread.IsBackground"/> thread (never more than one, thanks

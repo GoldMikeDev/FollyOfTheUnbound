@@ -146,8 +146,8 @@ public sealed class AutoLoadProjectsTests(ITestOutputHelper testOutputHelper) : 
         await using var testLspServer = await CreateAutoLoadLanguageServerAsync(workspaceContent);
 
         // The single solution file at the root is auto-loaded, which triggers a restore of the unrestored projects.
-        var restoreUnit = await testLspServer.WorkDoneProgress.WaitForWorkDoneProgressCreation(LanguageServerResources.Restore);
-        await restoreUnit.WaitForEndAsync();
+        var restoreUnit = await testLspServer.WorkDoneProgress.WaitForWorkDoneProgressCreation(LanguageServerResources.Restore).WaitAsync(TestHelpers.HangMitigatingTimeout);
+        await restoreUnit.WaitForEndAsync().WaitAsync(TestHelpers.HangMitigatingTimeout);
 
         // Verify that the restore ran against the solution as a whole (a single "Restoring App.sln" stage) rather than
         // restoring each contained project individually (which would report a "Restoring <project>.csproj" stage per project).

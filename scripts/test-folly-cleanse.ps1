@@ -9,7 +9,20 @@
 # "could not be removed" reported), an unreadable subtree (an NTFS deny ACE)
 # reporting an honest uncertain remainder rather than a false "0 files could
 # not be removed", and a file vanishing mid-scan under a concurrent writer.
+#
+# -Only <names> restricts the run to specific cases by name (empty,
+# populated, redirected, locked, unreadable, concurrent, buildserver,
+# nothing) -- used by folly.sh's Windows pwsh crossover to run just the two
+# cases that recover a Git-Bash-only skip (locked, unreadable) without
+# paying for the rest of this file's coverage a second time.
+param(
+    [string[]]$Only = @()
+)
 $ErrorActionPreference = "Stop"
+
+function Should-RunCase([string]$Name) {
+    return ($Only.Count -eq 0) -or ($Only -contains $Name)
+}
 
 $scriptRoot = Split-Path -Parent $PSScriptRoot
 $follyPs1 = Join-Path $scriptRoot "folly.ps1"
@@ -17,6 +30,8 @@ $pwshExe = (Get-Process -Id $PID).Path
 
 $workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("folly-cleanse-test-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Force -Path $workRoot | Out-Null
+
+$script:syntheticPids = @()  # PIDs of any detached background process this harness spawns (e.g. the synthetic build-server case below) -- appended to as each is launched, so the finally block can reap them even if the harness is interrupted or throws before its own explicit cleanup runs
 
 $script:passCount = 0
 $script:failCount = 0
@@ -46,17 +61,20 @@ function Invoke-Cleanse([string]$Dir) {
 
 try {
     # --- empty artifacts/ -------------------------------------------------
+    if (Should-RunCase "empty") {
     $dir = New-TestCase "empty"
     New-Item -ItemType Directory -Force -Path (Join-Path $dir "artifacts") | Out-Null
     $result = Invoke-Cleanse -Dir $dir
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Cleansed 0 B from artefacts\." -and -not (Test-Path -LiteralPath (Join-Path $dir "artifacts"))) {
-        Test-Pass "empty artifacts/ directory removed cleanly"
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Cleansed 0 B of artefacts\." -and -not (Test-Path -LiteralPath (Join-Path $dir "artifacts"))) {
+        Test-Pass "empty .\artifacts\ directory removed cleanly"
     }
     else {
-        Test-Fail "empty artifacts/ directory (exit=$($result.ExitCode), output='$($result.Output)')"
+        Test-Fail "empty .\artifacts\ directory (exit=$($result.ExitCode), output='$($result.Output)')"
+    }
     }
 
     # --- populated tree -----------------------------------------------------
+    if (Should-RunCase "populated") {
     $dir = New-TestCase "populated"
     $artifactsDir = Join-Path $dir "artifacts"
     New-Item -ItemType Directory -Force -Path (Join-Path $artifactsDir "sub") | Out-Null
@@ -72,14 +90,16 @@ try {
     # Plain string Contains (not -match) sidesteps the separator being a
     # regex metachar in either case.
     $expectedSize = "{0:N2} KiB" -f (2050 / 1KB)
-    if ($result.ExitCode -eq 0 -and $result.Output.Contains("Cleansed $expectedSize from artefacts.") -and -not (Test-Path -LiteralPath $artifactsDir)) {
+    if ($result.ExitCode -eq 0 -and $result.Output.Contains("Cleansed $expectedSize of artefacts.") -and -not (Test-Path -LiteralPath $artifactsDir)) {
         Test-Pass "populated tree removed with correct byte total"
     }
     else {
         Test-Fail "populated tree (exit=$($result.ExitCode), output='$($result.Output)')"
     }
+    }
 
     # --- locked file survives the bulk delete and its retry -----------------
+    if (Should-RunCase "locked") {
     # Simulates the exact scenario the build-server-shutdown workaround
     # targets: a file another process still has open (e.g. a BuildHost DLL)
     # can't be deleted by Remove-Item -Recurse -Force, nor by the retry --
@@ -92,7 +112,7 @@ try {
     # correctly remove locked.bin there, and this assertion would always
     # (and wrongly) report a failure.
     if (-not $IsWindows) {
-        Write-Host "SKIP: locked-file case (FileShare.None doesn't block deletion on Unix)"
+        Write-Host "SKIP: locked-file case (FileShare.None doesn't block deletion on Unix)" -ForegroundColor Yellow
     }
     else {
         $dir = New-TestCase "locked"
@@ -116,13 +136,15 @@ try {
             Test-Fail "locked file (exit=$($result.ExitCode), output='$($result.Output)')"
         }
     }
+    }
 
     # --- unreadable subtree during the scan: uncertain (not false-zero) remainder
     # Windows-only: NTFS honors an explicit Deny ACE even for the current
     # user/owner (unlike Unix, where root bypasses permission checks
     # entirely), so this doesn't need the root-skip the bash harness needs.
+    if (Should-RunCase "unreadable") {
     if (-not $IsWindows) {
-        Write-Host "SKIP: unreadable-subtree case (Windows-only; needs an NTFS deny ACE)"
+        Write-Host "SKIP: unreadable-subtree case (Windows-only; needs an NTFS deny ACE)" -ForegroundColor Yellow
     }
     else {
         $dir = New-TestCase "unreadable"
@@ -162,8 +184,10 @@ try {
             Test-Fail "unreadable subtree (exit=$($result.ExitCode), output='$($result.Output)')"
         }
     }
+    }
 
     # --- file vanishing mid-scan (concurrent writer) -------------------------
+    if (Should-RunCase "concurrent") {
     $dir = New-TestCase "concurrent"
     $artifactsDir = Join-Path $dir "artifacts"
     New-Item -ItemType Directory -Force -Path $artifactsDir | Out-Null
@@ -183,10 +207,92 @@ try {
     Wait-Job -Job $racer -Timeout 30 | Out-Null
     Remove-Job -Job $racer -Force -ErrorAction SilentlyContinue
     if ($result.ExitCode -eq 0 -and -not (Test-Path -LiteralPath $artifactsDir)) {
-        Test-Pass "concurrent file removal during cleanse does not abort (output='$($result.Output.Trim())')"
+        Test-Pass "concurrent file removal during cleanse does not abort"
     }
     else {
         Test-Fail "concurrent file removal (exit=$($result.ExitCode), output='$($result.Output)')"
+    }
+    }
+
+    # --- build-server force-kill: scoped survivor gets killed, foreign one left alone
+    # Exercises the process-killing fallback itself (scoping the force-kill to this
+    # checkout's own .dotnet SDK root, and the TERM-then-KILL escalation with
+    # confirmed-exit counting), not just file deletion.
+    #
+    # Unix-only: reliably making a process ignore a graceful stop needs a POSIX
+    # signal trap (bash `trap '' TERM`), which Windows has no equivalent for --
+    # Stop-Process there doesn't distinguish a "graceful" signal a target process
+    # could choose to ignore, so this scenario can't be faithfully reproduced there.
+    if (-not (Should-RunCase "buildserver")) {
+        # filtered out via -Only
+    }
+    elseif ($IsWindows) {
+        Write-Host "SKIP: build-server force-kill case (Unix-only; needs POSIX signal trap to simulate a process ignoring a graceful stop)" -ForegroundColor Yellow
+    }
+    else {
+        $dir = New-TestCase "buildserver"
+        $dotnetSdkDir = Join-Path $dir ".dotnet/sdk"
+        New-Item -ItemType Directory -Force -Path $dotnetSdkDir | Out-Null
+        Set-Content -LiteralPath (Join-Path $dir ".dotnet/dotnet") -Value "#!/bin/bash`nexit 0`n" -NoNewline
+        & chmod +x (Join-Path $dir ".dotnet/dotnet")
+
+        $trappedScript = Join-Path $workRoot "trapped_vbcs.sh"
+        $trappedVbcsPath = Join-Path $dotnetSdkDir "VBCSCompiler.dll"
+        Set-Content -LiteralPath $trappedScript -Value @"
+#!/bin/bash
+exec -a "dotnet exec $trappedVbcsPath -pipename:pstrapped" bash -c 'trap "" TERM; while true; do sleep 1; done'
+"@ -NoNewline
+        & chmod +x $trappedScript
+
+        $foreignScript = Join-Path $workRoot "foreign_vbcs.sh"
+        Set-Content -LiteralPath $foreignScript -Value @'
+#!/bin/bash
+exec -a "dotnet exec /some/other/checkout/.dotnet/sdk/VBCSCompiler.dll -pipename:psforeign" sleep 300
+'@ -NoNewline
+        & chmod +x $foreignScript
+
+        $trappedProc = Start-Process -FilePath $trappedScript -PassThru  # -PassThru's own .Id is already the final PID -- the script it launches `exec -a`s into bash without forking, so no ps lookup/race is needed to discover it
+        $trappedPid = $trappedProc.Id
+        $script:syntheticPids += $trappedPid  # registered with the finally block the instant the PID is known -- before the second launch or the sleep/verify below can throw/exit and leave it orphaned
+        $foreignProc = Start-Process -FilePath $foreignScript -PassThru
+        $foreignPid = $foreignProc.Id
+        $script:syntheticPids += $foreignPid
+        Start-Sleep -Milliseconds 500
+
+        # Verify each PID is actually the process we think it is (matches its pipename marker), not just that Start-Process succeeded.
+        if (-not (& bash -c "ps -eo pid,command | grep '^[[:space:]]*$trappedPid[[:space:]]' | grep 'pipename:pstrapped'")) { $trappedPid = $null }
+        if (-not (& bash -c "ps -eo pid,command | grep '^[[:space:]]*$foreignPid[[:space:]]' | grep 'pipename:psforeign'")) { $foreignPid = $null }
+
+        if ($trappedPid -and $foreignPid) {
+            $result = Invoke-Cleanse -Dir $dir
+            Start-Sleep -Milliseconds 300
+            $trappedAlive = ((& bash -c "kill -0 $trappedPid 2>/dev/null && echo alive") -eq "alive")
+            $foreignAlive = ((& bash -c "kill -0 $foreignPid 2>/dev/null && echo alive") -eq "alive")
+            & bash -c "kill -9 $trappedPid 2>/dev/null; kill -9 $foreignPid 2>/dev/null"
+            if ($result.ExitCode -eq 0 -and $result.Output -match "Force-killed 1 build server" -and -not $trappedAlive -and $foreignAlive) {
+                Test-Pass "build-server force-kill escalates a same-checkout trapped survivor and leaves a foreign-checkout one alone"
+            }
+            else {
+                Test-Fail "build-server force-kill scoping/escalation (exit=$($result.ExitCode), output='$($result.Output)', trappedAlive=$trappedAlive, foreignAlive=$foreignAlive)"
+            }
+        }
+        else {
+            Write-Host "SKIP: build-server force-kill case (couldn't spawn synthetic processes in this environment)" -ForegroundColor Yellow
+            if ($trappedPid) { & bash -c "kill -9 $trappedPid 2>/dev/null" }
+            if ($foreignPid) { & bash -c "kill -9 $foreignPid 2>/dev/null" }
+        }
+    }
+
+    # --- no artifacts/ at all -------------------------------------------------
+    if (Should-RunCase "nothing") {
+    $dir = New-TestCase "nothing"
+    $result = Invoke-Cleanse -Dir $dir
+    if ($result.ExitCode -eq 0 -and $result.Output -match "No artefacts to cleanse\.") {
+        Test-Pass "missing .\artifacts\ reports nothing to cleanse"
+    }
+    else {
+        Test-Fail "missing .\artifacts\ (exit=$($result.ExitCode), output='$($result.Output)')"
+    }
     }
 
     Write-Host ""
@@ -197,5 +303,8 @@ try {
     exit 0
 }
 finally {
+    foreach ($p in $script:syntheticPids) {
+        & bash -c "kill -9 $p 2>/dev/null"
+    }
     Remove-Item -Recurse -Force -LiteralPath $workRoot -ErrorAction SilentlyContinue
 }
