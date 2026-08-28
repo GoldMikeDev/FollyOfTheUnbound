@@ -60,11 +60,33 @@ On Windows an open handle blocks deleting the DLL outright; on Unix the file is 
 
 ## `eng/build.ps1`'s `-testInteractiveConsole` has no `eng/build.sh` counterpart, and that's correct
 
-**Affected area:** `eng/build.sh` vs `eng/build.ps1`
+**Affected area:** `eng/build.sh` vs `eng/build.ps1`, `folly.sh scry` vs `folly.ps1 scry`
 **Description:** `eng/build.ps1` has a `-testInteractiveConsole` switch with no `eng/build.sh` counterpart. This looks like `folly.sh`/`folly.ps1` parity drift, but it isn't — it exists to solve a problem that only occurs in PowerShell's execution model: it works around `Exec-CommandCore`'s default behavior of redirecting `RunTests`' stdout and relaying it line-by-line through `Write-Output`, which makes `RunTests` see `Console.IsOutputRedirected = true` and disables its live per-work-item progress table. `eng/build.sh` invokes `RunTests.dll` with a direct foreground `dotnet exec` and no capture/relay step, so `RunTests` already sees a real inherited console by default when run via `folly.sh scry` — there is nothing for an equivalent switch to opt out of.
 **Guidance:** Do not "fix" this by porting the switch to `eng/build.sh` — it would be an inert no-op there. If `eng/build.ps1` ever changes how it uses it, re-verify this reasoning still holds rather than assuming the two scripts have simply drifted apart.
 
-By contrast, `eng/build.sh` **does** now have both a Framework (`.NET Framework`/net472) test leg (`--testDesktop`, mirroring `-testDesktop`/`-testIOperation` fallback in `eng/build.ps1`) and `$FOTU_TEST_RESULTS_SUFFIX` env var handling (giving each of `folly.sh scry`'s Core/Framework legs its own `TestResults`/log directory) — these were ported deliberately so `folly.sh scry` can run both legs on a Windows host running bash (e.g. Git Bash/MSYS2), not just via `folly.ps1`. `--testDesktop` still only works on a genuine Windows host (net472 has no cross-platform runtime); both `eng/build.sh` and `folly.sh` reject it outright (`is_windows_host`/`$OSTYPE`+`uname -s` check) on any other host rather than attempting it and failing deep inside `RunTests`.
+By contrast, `eng/build.sh` **does** now have all of: a Framework (`.NET Framework`/net472) test leg (`--testDesktop`, mirroring `-testDesktop`/`-testIOperation` fallback in `eng/build.ps1`), `$FOTU_TEST_RESULTS_SUFFIX` env var handling (giving each of `folly.sh scry`'s Core/Framework legs its own `TestResults`/log directory), and `--testSuppressConsoleSummary` (forwarded to `RunTests --suppressConsoleSummary`, see `Options.SuppressConsoleSummary`/`TestRunner.Print` in `src/Tools/RunTests/`). These were ported deliberately so `folly.sh scry` can run both legs on a Windows host running bash (e.g. Git Bash/MSYS2), not just via `folly.ps1`: `--testDesktop` still only works on a genuine Windows host (net472 has no cross-platform runtime) — both `eng/build.sh` and `folly.sh` reject it outright (`is_windows_host`/`$OSTYPE`+`uname -s` check) on any other host rather than attempting it and failing deep inside `RunTests` — and when both legs run, `folly.sh` passes `--testSuppressConsoleSummary` to suppress each leg's own live final PASSED/FAILED/TIMEOUT table (still written to its log file) so its own combined-summary block (reading both legs' tables back from their log files) is the only place either table prints, instead of each leg's table printing live and then getting duplicated by that combined block. When `folly.sh scry` runs only one leg, `both_legs` is false, `--testSuppressConsoleSummary` is never passed, and that leg's own live table prints normally with nothing to combine it with.
+
+## Git-for-Windows' bash (MSYS2) mangles Arcade's `/`-prefixed MSBuild switches
+
+**Affected area:** `folly.sh` on Windows, invoked from Git Bash rather than WSL
+**Description:** `eng/common/tools.sh`'s `MSBuild` function (Arcade-vendored — never hand-edited, see the
+generated-code entry above) invokes `MSBuild.exe` with classic single-slash switches:
+`/m /nologo /clp:Summary /v:$verbosity /nr:$node_reuse ...`. Git-for-Windows' bash is built on MSYS2,
+which auto-converts any `/`-prefixed argument into a Windows path before handing it to a native
+(non-MSYS) executable, on the assumption it's a Unix path meant for something expecting a Windows one.
+`MSBuild.exe` is exactly such a native executable, and its own switches are exactly what this heuristic
+misfires on — `/nologo` has been observed mangled into `C:/Program Files/Git/nologo` (the MSYS
+install root prepended, as if `/nologo` were a Unix path rooted there), producing errors like
+`MSB1008: Only one project can be specified` from switches that arrived as extra positional
+arguments instead of being parsed as switches at all. This is specific to real Git-Bash/MSYS2 — WSL's
+bash is a genuine Linux userland with no such translation layer (unaffected), and native Linux/macOS
+bash has no MSYS runtime at all (`$MSYSTEM` is simply unset there).
+**Workaround:** `folly.sh` exports `MSYS2_ARG_CONV_EXCL='*'` (disabling MSYS's path-conversion heuristic
+entirely for the rest of the process) whenever `$MSYSTEM` is set, before ever invoking `eng/build.sh`.
+Do not "fix" this in `eng/common/tools.sh` itself — it's Arcade-synced and any hand-edit is overwritten.
+If a genuinely Windows-Unix-path argument ever needs to reach a native tool from `folly.sh` on Git Bash
+after this env var is set, it will need an explicit `cygpath`/similar conversion at the call site instead
+of relying on MSYS's automatic (and, for MSBuild specifically, actively harmful) behavior.
 
 ## Environmental test failures (not code bugs)
 

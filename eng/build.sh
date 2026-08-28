@@ -31,6 +31,10 @@ usage()
   echo "  --testCompilerOnly         Run only the compiler unit tests"
   echo "  --testFilter <value>       xUnit filter to pass to RunTests' --testfilter, e.g. FullyQualifiedName~TestClass1|Category=CategoryA"
   echo "  --testIOperation           Run unit tests with the IOperation test hook"
+  echo "  --testSuppressConsoleSummary  Suppress only RunTests' own final PASSED/FAILED/TIMEOUT table"
+  echo "                             from the console (still written to the log file); the live"
+  echo "                             progress table is unaffected. For a caller building its own"
+  echo "                             combined summary across multiple RunTests passes -- see folly.sh scry"
   echo "  --testRuntimeAsync         Run unit tests with runtime async validation enabled"
   echo "  --testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog"
   echo ""
@@ -79,6 +83,7 @@ test_runtime_async=false
 test_compiler_only=false
 test_filter=""
 test_timeout=0
+test_suppress_console_summary=false
 
 configuration="Debug"
 verbosity='minimal'
@@ -171,6 +176,15 @@ while [[ $# > 0 ]]; do
       ;;
     --testioperation)
       test_ioperation=true
+      ;;
+    --testsuppressconsolesummary)
+      # Suppresses only RunTests' own final PASSED/FAILED/TIMEOUT table from the console (still
+      # written to the log file) -- never the live per-work-item progress table. Mirrors build.ps1's
+      # own -testSuppressConsoleSummary; see Options.SuppressConsoleSummary/TestRunner.Print in
+      # src/Tools/RunTests/. folly.sh scry passes this when both Core and Framework legs run
+      # together on a Windows host, so it can print both legs' tables combined afterward instead of
+      # each leg's table also printing live and getting duplicated by that combined block.
+      test_suppress_console_summary=true
       ;;
     --testruntimeasync)
       test_runtime_async=true
@@ -534,6 +548,10 @@ if [[ "$test_core_clr" == true ]]; then
     runtests_args="$runtests_args --html"
   fi
 
+  if [[ "$test_suppress_console_summary" == true ]]; then
+    runtests_args="$runtests_args --suppressConsoleSummary"
+  fi
+
   # Matches build.ps1's own -testCoreClr default of 90 minutes for RunTests' whole-run watchdog;
   # --testTimeout overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since
   # Helix has its own external timeout management.
@@ -586,6 +604,10 @@ elif [[ "$test_desktop" == true ]]; then
 
   if [[ "$ci" != true ]]; then
     runtests_args="$runtests_args --html"
+  fi
+
+  if [[ "$test_suppress_console_summary" == true ]]; then
+    runtests_args="$runtests_args --suppressConsoleSummary"
   fi
 
   # Matches build.ps1's own -testDesktop default of 90 minutes for RunTests' whole-run watchdog;

@@ -203,6 +203,7 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log" \
+  && ! grep -qx -- "--testSuppressConsoleSummary" <<<"$args_log" \
   && [[ "$output" == *"Core: 1 passed"* ]] && [[ "$output" != *"Framework:"* ]]; then
   test_pass "default 'scry' off-Windows runs Core only, never --testDesktop"
 else
@@ -216,6 +217,7 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log" \
+  && ! grep -qx -- "--testSuppressConsoleSummary" <<<"$args_log" \
   && [[ "$output" == *"Core: 1 passed"* ]] && [[ "$output" != *"Framework:"* ]]; then
   test_pass "'scry --core' runs only Core"
 else
@@ -227,12 +229,14 @@ dir="$(new_test_case "both-legs-windows")"
 result="$(invoke_folly_windows "$dir" scry research)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" && "$output" == *"=== Core results ==="* && "$output" == *"=== Framework results ==="* \
   && "$output" == *"Core: 1 passed, 0 failed, 0 timeout"* && "$output" == *"Framework: 1 passed, 0 failed, 0 timeout"* \
-  && "$output" == *"Overall: 2 passed, 0 failed, 0 timeout"* ]]; then
+  && "$output" == *"Overall: 2 passed, 0 failed, 0 timeout"* ]] \
+  && grep -qx -- "--testSuppressConsoleSummary" <<<"$args_log"; then
   test_pass "default 'scry' on a forced-Windows host runs both legs with a combined summary"
 else
-  test_fail "both-legs-windows (exit=$exit_code): $output"
+  test_fail "both-legs-windows (exit=$exit_code): args='$args_log' output=$output"
 fi
 
 # --- stray "================" lines in captured failure output don't fool the summary parser ---

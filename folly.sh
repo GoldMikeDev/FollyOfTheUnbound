@@ -7,6 +7,25 @@ fi
 action="${1:-}"
 shift $(( $# < 1 ? $# : 1 )) || true
 scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# Git-for-Windows' bash (MSYS2, identified by $MSYSTEM -- e.g. "MINGW64") auto-converts any
+# '/'-prefixed argument into a Windows path before it reaches a native (non-MSYS) executable, on the
+# assumption it's a Unix path being handed to something that expects a Windows one. eng/common/tools.sh
+# (Arcade-vendored -- never hand-edited, see .github/memory/KNOWN_ISSUES.md) invokes MSBuild.exe with
+# classic single-slash switches (/m /nologo /clp:Summary /v:... /nr:... /warnaserror), which are exactly
+# what that heuristic misfires on: '/nologo' has been observed mangled into 'C:/Program Files/Git/nologo'
+# (the MSYS install root prepended, as if '/nologo' were a Unix path rooted there), producing MSBuild
+# errors like "Only one project can be specified." from switches that arrived as extra positional
+# arguments instead. This is a bash-on-Windows-specific problem -- WSL's bash is a real Linux userland
+# with no such translation layer, and native Linux/macOS bash has no $MSYSTEM at all -- so it's scoped to
+# only fire under real Git-Bash/MSYS2, never touching the WSL or Linux/macOS path this same script also
+# runs. The exclusion list itself is scoped to just these switch prefixes, not '*' -- MSYS2_ARG_CONV_EXCL
+# disables conversion for every native-process argument it matches, and eng/build.sh separately relies on
+# that same auto-conversion to turn genuine POSIX paths (e.g. $toolset_build_proj, the value inside
+# /p:Projects="$repo_root/$solution") into Windows paths MSBuild.exe can use; excluding everything with
+# '*' would silently break those too instead of just fixing the misconverted switches.
+if [[ -n "${MSYSTEM:-}" ]]; then
+  export MSYS2_ARG_CONV_EXCL='/m;/nologo;/clp:;/v:;/nr:;/warnaserror'
+fi
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
 nupkg_root="$scriptroot/../.nupkg/FotU"
@@ -311,6 +330,8 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	framework_test_results_dir="$scriptroot/artifacts/TestResults/$configuration-Framework"
 	framework_log_dir="$scriptroot/artifacts/log/$configuration-Framework"
 	rm -rf "$core_test_results_dir" "$core_log_dir" "$framework_test_results_dir" "$framework_log_dir"
+	both_legs=0
+	[[ "$run_core" -eq 1 && "$run_framework" -eq 1 ]] && both_legs=1
 	test_args=(--nodeReuse false --solution "$solution" --configuration "$configuration")
 	if [[ "$test_timeout" -gt 0 ]]; then
 	  test_args+=(--testTimeout "$test_timeout")
@@ -324,11 +345,16 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ "$test_ioperation" -eq 1 ]]; then
 	  test_args+=(--testIOperation)
 	fi
+	if [[ "$both_legs" -eq 1 ]]; then
+	  # Suppress each leg's own live final PASSED/FAILED/TIMEOUT table (still written to its log
+	  # file) so the combined-summary block below is the only place it prints -- otherwise it prints
+	  # once live per leg and again in the combined block. See Options.SuppressConsoleSummary /
+	  # TestRunner.Print in src/Tools/RunTests/; mirrors folly.ps1's -testSuppressConsoleSummary:$bothLegs.
+	  test_args+=(--testSuppressConsoleSummary)
+	fi
 	test_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
 	test_args+=(${bootstrap_test_args[@]+"${bootstrap_test_args[@]}"})
 	test_args+=("${identity_args[@]}")
-	both_legs=0
-	[[ "$run_core" -eq 1 && "$run_framework" -eq 1 ]] && both_legs=1
 	core_exit=0
 	if [[ "$run_core" -eq 1 ]]; then
 	  FOTU_TEST_RESULTS_SUFFIX=Core "$build_script" --test "${test_args[@]}" || core_exit=$?
@@ -369,18 +395,16 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# finished -- rather than letting each leg's own RunTests process print its list live the moment
 	# that leg completes, which (when both --core and --framework run) buries the first leg's list
 	# under the second leg's own subsequent build/live-table output instead of leaving both visible
-	# together at the end. Matches folly.ps1's own $bothLegs block; unlike folly.ps1 there's no
-	# deferred-output tail to fall back on for a nonzero exit (see the "-testInteractiveConsole" note
-	# on get_test_summary above) -- that leg's own output already streamed live as it ran instead.
+	# together at the end. Each leg was run with --testSuppressConsoleSummary above (see test_args),
+	# so this is the only place that table prints -- it isn't a duplicate of anything already shown
+	# live. Matches folly.ps1's own $bothLegs block.
 	if [[ "$both_legs" -eq 1 ]]; then
 	  for i in "${!summary_labels[@]}"; do
 		echo ""
 		echo "${color_cyan}=== ${summary_labels[$i]} results ===${color_reset}"
-		if [[ "${summary_exitcodes[$i]}" -ne 0 ]]; then
-		  :
-		elif [[ "${summary_founds[$i]}" -eq 0 ]]; then
+		if [[ "${summary_founds[$i]}" -eq 0 ]]; then
 		  echo "${color_yellow}summary unavailable (no runtests.log found)${color_reset}"
-		elif [[ -n "${summary_texts[$i]}" ]]; then
+		else
 		  printf '%s\n' "${summary_texts[$i]}"
 		fi
 	  done
