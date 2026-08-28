@@ -284,6 +284,14 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         {
             Contract.ThrowIfFalse(documentUri.ParsedUri?.IsFile == true);
 
+            // The file may have already been deleted by the time an untracked request for it arrives
+            // (e.g. post-removal pull diagnostics in RequestContext.CreateAsync). Without this check we'd
+            // hand back a document backed by a lazy FileTextLoader that retries a missing-file IOException
+            // several times before producing an empty source text, making the file look like an empty
+            // document instead of absent.
+            if (!File.Exists(documentFilePath))
+                return null;
+
             var projectFactory = _workspaceFactory.MiscellaneousFilesWorkspaceProjectFactory;
             var projectInfo = CreateMiscellaneousProjectInfo(projectFactory.CreateFileTextLoader(documentFilePath), SourceHashAlgorithms.Default);
             var solution = projectFactory.Workspace.CurrentSolution.AddProject(projectInfo);
