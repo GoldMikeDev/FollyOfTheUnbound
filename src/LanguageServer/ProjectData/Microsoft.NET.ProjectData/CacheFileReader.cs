@@ -188,17 +188,35 @@ public static class CacheFileReader
 
 			if (File.Exists(projectFolderPath))
 			{
-				ImmutableArray<CachedSliceData> slices = await ReadCacheFileAsync(
-					projectFolderPath,
-					projectFilePath,
-					expectedProjectFilePath: null,
-					resolver,
-					stringPool,
-					cancellationToken).ConfigureAwait(false);
-				// An existing-but-unusable cache (incompatible version, or zero parsed slices) is a
-				// clean miss, not a hit -- fall through to the user-folder cache, marker, and donor
-				// fallback below instead of permanently disabling them, matching how the donor loop
-				// itself already treats an empty read as "try the next source."
+				// A malformed project-folder cache (e.g. a recoverable read/parse failure) must not
+				// abort the whole lookup via the method-wide catch below -- fall through to the
+				// user-folder cache, marker, and donor fallback, matching how the donor loop already
+				// isolates failures per-candidate instead of per-lookup.
+				ImmutableArray<CachedSliceData> slices = ImmutableArray<CachedSliceData>.Empty;
+				try
+				{
+					slices = await ReadCacheFileAsync(
+						projectFolderPath,
+						projectFilePath,
+						expectedProjectFilePath: null,
+						resolver,
+						stringPool,
+						cancellationToken).ConfigureAwait(false);
+				}
+				catch (Exception ex) when (IsRecoverableCacheReadException(ex))
+				{
+					System.Diagnostics.Trace.TraceWarning(
+						"[lscache] Failed to read project-folder cache {0} for {1}: {2}",
+						projectFolderPath,
+						projectFilePath,
+						ex.Message);
+				}
+
+				// An existing-but-unusable cache (incompatible version, zero parsed slices, or a
+				// recoverable read failure) is a clean miss, not a hit -- fall through to the
+				// user-folder cache, marker, and donor fallback below instead of permanently
+				// disabling them, matching how the donor loop itself already treats an empty read
+				// as "try the next source."
 				if (!slices.IsEmpty)
 				{
 					return new(slices, ProjectDataCacheSource.ProjectFolder);
@@ -214,13 +232,26 @@ public static class CacheFileReader
 			}
 			else if (File.Exists(userFolderPath))
 			{
-				ImmutableArray<CachedSliceData> slices = await ReadCacheFileAsync(
-					userFolderPath,
-					projectFilePath,
-					expectedProjectFilePath: projectFilePath,
-					resolver,
-					stringPool,
-					cancellationToken).ConfigureAwait(false);
+				ImmutableArray<CachedSliceData> slices = ImmutableArray<CachedSliceData>.Empty;
+				try
+				{
+					slices = await ReadCacheFileAsync(
+						userFolderPath,
+						projectFilePath,
+						expectedProjectFilePath: projectFilePath,
+						resolver,
+						stringPool,
+						cancellationToken).ConfigureAwait(false);
+				}
+				catch (Exception ex) when (IsRecoverableCacheReadException(ex))
+				{
+					System.Diagnostics.Trace.TraceWarning(
+						"[lscache] Failed to read user-folder cache {0} for {1}: {2}",
+						userFolderPath,
+						projectFilePath,
+						ex.Message);
+				}
+
 				if (!slices.IsEmpty)
 				{
 					return new(slices, ProjectDataCacheSource.UserFolder);

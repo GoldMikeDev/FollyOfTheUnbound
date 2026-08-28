@@ -66,6 +66,23 @@ See `Lifecycle/DaemonServerLifecycleTests.cs` and `Lifecycle/SingleServerLifecyc
 lifecycle/cleanup conventions (e.g. asserting on process exit codes, killing one client/the daemon and
 checking only the expected connections tear down) before adding another ad hoc process-launching test.
 
+## ProjectData test projects use an xUnit v2 `TestContext` shim
+
+**Affected area:** `src/LanguageServer/ProjectData/Microsoft.NET.ProjectData.Tests/XunitV2TestContext.cs`,
+`src/LanguageServer/ProjectData/Microsoft.NET.ProjectData.Generators.Tests/XunitV2TestContext.cs`
+
+Both `ProjectData` test projects still run on xUnit v2, but their test bodies use the xUnit v3-shaped
+`TestContext.Current.CancellationToken` API. Each project carries its own identical, file-local
+`internal static class TestContext` shim (`XunitV2TestContext.cs`) providing just
+`Current.CancellationToken`, hardcoded to `CancellationToken.None` — it does **not** wire up real
+runner-driven test cancellation. This is deliberate duplication (two separate internal types, not a
+shared library), so:
+- Don't mistake `TestContext.Current.CancellationToken` in these projects for actual runner
+  cancellation — it never fires.
+- A fix or removal of this shim must be applied to **both** copies, not just one.
+- Remove both shims (and switch to real `TestContext` from the xUnit v3 SDK) only once/if these two
+  projects are migrated to xUnit v3.
+
 ## Conventions
 
 - Use `[UseExportProvider]` for any test that depends on MEF services (a missing

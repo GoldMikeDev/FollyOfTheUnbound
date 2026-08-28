@@ -500,13 +500,17 @@ public sealed class DataModelSchemaGenerator : IIncrementalGenerator
 		if (!value.StartsWith(Prefix, StringComparison.Ordinal))
 			return false;
 
+		// The major component must be strictly positive: CacheFileReader.TryParseMajorVersion treats
+		// a major of 0 (or less) as an unparsable/unsupported version, and CurrentMajorVersion's own
+		// static initializer throws for it -- a schema declaring "version=0[.x]" would otherwise pass
+		// generation without PDG001 and then crash every consumer at cache-reader type initialization.
 		ReadOnlySpan<char> version = value.AsSpan(Prefix.Length);
 		int separator = version.IndexOf('.');
 		if (separator < 0)
-			return TryParseNonNegativeInteger(version);
+			return TryParsePositiveInteger(version);
 		if (separator == 0 || separator == version.Length - 1 || version.Slice(separator + 1).IndexOf('.') >= 0)
 			return false;
-		return TryParseNonNegativeInteger(version.Slice(0, separator))
+		return TryParsePositiveInteger(version.Slice(0, separator))
 			&& TryParseNonNegativeInteger(version.Slice(separator + 1));
 	}
 
@@ -521,6 +525,11 @@ public sealed class DataModelSchemaGenerator : IIncrementalGenerator
 		}
 		return int.TryParse(value.ToString(), NumberStyles.None, CultureInfo.InvariantCulture, out _);
 	}
+
+	private static bool TryParsePositiveInteger(ReadOnlySpan<char> value)
+		=> TryParseNonNegativeInteger(value)
+			&& int.TryParse(value.ToString(), NumberStyles.None, CultureInfo.InvariantCulture, out int parsed)
+			&& parsed > 0;
 
 	private static string GetJsonKindName(JsonValueKind kind)
 		=> kind switch
