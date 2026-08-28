@@ -227,7 +227,7 @@ try {
         # filtered out via -Only
     }
     elseif ($IsWindows) {
-        Write-Host "SKIP: build-server force-kill case (Unix-only; needs a POSIX signal trap to simulate a process ignoring a graceful stop)" -ForegroundColor Yellow
+        Write-Host "SKIP: build-server force-kill case (Unix-only; needs POSIX signal trap to simulate a process ignoring a graceful stop)" -ForegroundColor Yellow
     }
     else {
         $dir = New-TestCase "buildserver"

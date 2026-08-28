@@ -20,21 +20,21 @@ if [[ -z "$action" || "$action" == "grimoire" ]]; then
   cat <<'EOF'
 
 Commands:
-    'attune'                                            Restore only.
-    'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU/).
-    'cleanse'                                           Delete artefacts.
-    'grimoire'                                          Show this text (default when no action is given).
-    'reweave'                                           Restore & rebuild.
-    'scry'                                              Restore, build & run Core unit tests.
-    'weave'                                             Restore & build.
+    'attune'                                    Restore only.
+    'bind'                                      Restore, build & pack (nupkg files packed to ../.nupkg/FotU/).
+    'cleanse'                                   Delete artefacts.
+    'grimoire'                                  Show this text (default when no action is given).
+    'reweave'                                   Restore & rebuild.
+    'scry'                                      Restore, build & run unit tests.
+    'weave'                                     Restore & build.
 Primary args:
-    '<scry> reflection'                                 Runs folly script test harnesses.
-    '<command> research [switches]'                     Debug configuration.
-    '<command> truth [switches]'                        Release configuration.
+    '<scry> reflection'                         Runs folly script test harnesses.
+    '<command> research [switches]'             Debug configuration.
+    '<command> truth [switches]'                Release configuration.
 Switches:
-    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
-    '<command> <primary> --binaryLog'                   MSBuild binary log written to ./artifacts/log/<config>/Build.binlog.
-    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
+    '<scry> <primary> --timeout <minutes>'      Override RunTests' whole-run watchdog (default: 90).
+    '<command> <primary> --binaryLog'           Write MSBuild binary log to ./artifacts/log/<config>/Build.binlog.
+    '<command> <primary> --verbosity <level>'	MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
 
 EOF
   exit 0
