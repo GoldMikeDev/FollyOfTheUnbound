@@ -9,6 +9,10 @@ $ErrorActionPreference = "Stop"
 $scriptRoot = Split-Path -Parent $PSScriptRoot
 $follyPs1 = Join-Path $scriptRoot "folly.ps1"
 $pwshExe = (Get-Process -Id $PID).Path
+# folly.ps1 itself only runs Framework tests (and only defaults to running them) on an actual
+# Windows host -- this harness runs on whatever host it's invoked from, so its own expectations for
+# the Framework-touching cases below must follow the same host check, not assume Windows.
+$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }
 
 $workRoot = Join-Path ([System.IO.Path]::GetTempPath()) ("folly-scry-args-test-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Force -Path $workRoot | Out-Null
@@ -40,6 +44,8 @@ function New-TestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [switch]$testCompilerOnly,[string]$testFilter,[switch]$testIOperation,
+    [switch]$bootstrap,[string]$bootstrapDir,
     [int]$testTimeout,
     [string]$solution,[string]$configuration,
     [switch]$binaryLog,[string]$verbosity
@@ -55,6 +61,11 @@ Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value
 # Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
 # assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
+# Same idea for -testCompilerOnly/-testFilter/-testIOperation.
+Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter testIOperation=$testIOperation"
+# Same idea for -bootstrap/-bootstrapDir, appended once per invocation (not per-leg-suffixed) so the
+# harness can see the initial build call's plain -bootstrap alongside each leg's -bootstrapDir reuse.
+Add-Content -LiteralPath (Join-Path $repoRoot "bootstrapArgs-received.log") -Value "testCoreClr=$testCoreClr testDesktop=$testDesktop bootstrap=$bootstrap bootstrapDir=$bootstrapDir"
 function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -143,14 +154,24 @@ function Invoke-Folly([string]$Dir, [string[]]$FollyArgs) {
 }
 
 try {
-    # --- default: both legs run ---
+    # --- default: both legs run on Windows, Core-only elsewhere ---
     $dir = New-TestCase "default"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
-        Test-Pass "default 'scry' runs both Core and Framework"
+    if ($onWindows) {
+        if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -match "Framework: 1 passed") {
+            Test-Pass "default 'scry' runs both Core and Framework on Windows"
+        }
+        else {
+            Test-Fail "default 'scry' on Windows (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
     else {
-        Test-Fail "default 'scry' (exit=$($result.ExitCode)): $($result.Output)"
+        if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -notmatch "Framework:") {
+            Test-Pass "default 'scry' runs Core only off-Windows"
+        }
+        else {
+            Test-Fail "default 'scry' off-Windows (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
 
     # --- --core only ---
@@ -166,11 +187,21 @@ try {
     # --- --framework only ---
     $dir = New-TestCase "framework-only"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--framework")
-    if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
-        Test-Pass "'scry --framework' runs only Framework"
+    if ($onWindows) {
+        if ($result.ExitCode -eq 0 -and $result.Output -match "Framework: 1 passed" -and $result.Output -notmatch "Core:") {
+            Test-Pass "'scry --framework' runs only Framework"
+        }
+        else {
+            Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
     else {
-        Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
+        if ($result.ExitCode -eq 1 -and $result.Output -match "requires a Windows host") {
+            Test-Pass "'scry --framework' is rejected off-Windows"
+        }
+        else {
+            Test-Fail "'scry --framework' off-Windows (exit=$($result.ExitCode)): $($result.Output)"
+        }
     }
 
     # --- positional primary arg alongside a selector ---
@@ -223,16 +254,119 @@ try {
         Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
+    # --- --testCompilerOnly/--testFilter are forwarded to eng/build.ps1 for each requested leg ---
+    $dir = New-TestCase "test-args-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--testCompilerOnly", "--testFilter", "FullyQualifiedName~Foo")
+    $receivedPath = Join-Path $dir "testArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core testCompilerOnly=True testFilter=FullyQualifiedName~Foo") {
+        Test-Pass "'--testCompilerOnly'/'--testFilter' are forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "testCompilerOnly/testFilter forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --testFilter with a missing value is rejected ---
+    $dir = New-TestCase "test-filter-missing-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--testFilter")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires a value") {
+        Test-Pass "'--testFilter' with no value is rejected"
+    }
+    else {
+        Test-Fail "testFilter missing value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testCompilerOnly/--testFilter rejected for non-scry actions ---
+    $dir = New-TestCase "test-args-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--testCompilerOnly")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--testCompilerOnly' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "testCompilerOnly on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testIOperation is forwarded to eng/build.ps1 for each requested leg ---
+    $dir = New-TestCase "test-ioperation-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--testIOperation")
+    $receivedPath = Join-Path $dir "testArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core testCompilerOnly=False testFilter= testIOperation=True") {
+        Test-Pass "'--testIOperation' is forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "testIOperation forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --testIOperation rejected for non-scry actions ---
+    $dir = New-TestCase "test-ioperation-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--testIOperation")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--testIOperation' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "testIOperation on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --bootstrap: the initial build call gets -bootstrap, the test leg gets -bootstrapDir
+    # pointing at the same deterministic artifacts\bootstrap\build dir instead of rebuilding it ---
+    $dir = New-TestCase "bootstrap-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--bootstrap")
+    $receivedPath = Join-Path $dir "bootstrapArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath } else { @() }
+    $buildLine = $received | Where-Object { $_ -match "^testCoreClr=False testDesktop=False" }
+    $legLine = $received | Where-Object { $_ -match "^testCoreClr=True" }
+    $expectedBootstrapDir = Join-Path (Join-Path $dir "artifacts") "bootstrap\build"
+    if ($result.ExitCode -eq 0 -and $buildLine -match "bootstrap=True bootstrapDir=$" `
+        -and $legLine -and $legLine -match [regex]::Escape("bootstrap=False bootstrapDir=$expectedBootstrapDir")) {
+        Test-Pass "'--bootstrap' builds once and is reused via -bootstrapDir for the test leg"
+    }
+    else {
+        Test-Fail "bootstrap forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --bootstrap is rejected on 'cleanse' ---
+    $dir = New-TestCase "bootstrap-on-cleanse"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("cleanse", "--bootstrap")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "aren't valid with 'cleanse'") {
+        Test-Pass "'--bootstrap' is rejected on 'cleanse'"
+    }
+    else {
+        Test-Fail "bootstrap on cleanse (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --bootstrap is forwarded on a non-scry action too (not scoped to 'scry') ---
+    $dir = New-TestCase "bootstrap-on-weave"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "research", "--bootstrap")
+    $receivedPath = Join-Path $dir "bootstrapArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "bootstrap=True") {
+        Test-Pass "'--bootstrap' is forwarded to .\eng\build.ps1 on 'weave'"
+    }
+    else {
+        Test-Fail "bootstrap on weave (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
     # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---
     $dir = New-TestCase "timeout-forwarded"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--timeout", "180")
     $receivedPath = Join-Path $dir "testTimeout-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
-    if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
-        Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for both legs"
+    if ($onWindows) {
+        if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -match "Framework=180") {
+            Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for both legs"
+        }
+        else {
+            Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+        }
     }
     else {
-        Test-Fail "timeout forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+        if ($result.ExitCode -eq 0 -and $received -match "Core=180" -and $received -notmatch "Framework=") {
+            Test-Pass "'--timeout 180' is forwarded to .\eng\build.ps1 for the Core-only leg"
+        }
+        else {
+            Test-Fail "timeout forwarding off-Windows (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+        }
     }
 
     # --- --timeout with a missing value is rejected ---

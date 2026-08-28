@@ -26,8 +26,10 @@ usage()
   echo ""
   echo "Test actions:"
   echo "  --testCoreClr              Run unit tests on .NET Core (short: --test, -t)"
+  echo "  --testDesktop              Run unit tests on .NET Framework (Windows host only)"
   echo "  --testMono                 Run unit tests on Mono"
   echo "  --testCompilerOnly         Run only the compiler unit tests"
+  echo "  --testFilter <value>       xUnit filter to pass to RunTests' --testfilter, e.g. FullyQualifiedName~TestClass1|Category=CategoryA"
   echo "  --testIOperation           Run unit tests with the IOperation test hook"
   echo "  --testRuntimeAsync         Run unit tests with runtime async validation enabled"
   echo "  --testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog"
@@ -35,6 +37,7 @@ usage()
   echo "Advanced settings:"
   echo "  --ci                       Building in CI"
   echo "  --bootstrap                Build using a bootstrap compilers"
+  echo "  --bootstrapDir <path>      Build using bootstrap compiler already built at the specified location (skips rebuilding it)"
   echo "  --runAnalyzers             Run analyzers during build operations"
   echo "  --skipDocumentation        Skip generation of XML documentation files"
   echo "  --prepareMachine           Prepare machine for CI run, clean up processes after build"
@@ -69,10 +72,12 @@ pack=false
 sign=false
 publish=false
 test_core_clr=false
+test_desktop=false
 test_mono=false
 test_ioperation=false
 test_runtime_async=false
 test_compiler_only=false
+test_filter=""
 test_timeout=0
 
 configuration="Debug"
@@ -83,6 +88,7 @@ helix=false
 helix_queue_name=""
 helix_api_access_token=""
 bootstrap=false
+bootstrap_dir_arg=""
 run_analyzers=false
 skip_documentation=false
 prepare_machine=false
@@ -145,11 +151,23 @@ while [[ $# > 0 ]]; do
     --testcoreclr|--test|-t)
       test_core_clr=true
       ;;
+    --testdesktop)
+      test_desktop=true
+      ;;
     --testmono)
       test_mono=true
       ;;
     --testcompileronly)
       test_compiler_only=true
+      ;;
+    --testfilter)
+      if [[ -z "${2:-}" ]]; then
+        echo "'--testFilter' requires a value." >&2
+        exit 1
+      fi
+      test_filter="$2"
+      args="$args $1"
+      shift
       ;;
     --testioperation)
       test_ioperation=true
@@ -203,6 +221,17 @@ while [[ $# > 0 ]]; do
       bootstrap=true
       # Bootstrap requires restore
       restore=true
+      ;;
+    --bootstrapdir)
+      if [[ -z "${2:-}" ]]; then
+        echo "'--bootstrapDir' requires a path." >&2
+        exit 1
+      fi
+      bootstrap=true
+      bootstrap_dir_arg="$2"
+      restore=true
+      args="$args $1"
+      shift
       ;;
     --runanalyzers)
       run_analyzers=true
@@ -261,6 +290,29 @@ while [[ $# > 0 ]]; do
   args="$args $1"
   shift
 done
+
+# .NET Framework test binaries only run on a genuine Windows host (net472 has no cross-platform
+# runtime), so --testDesktop is rejected everywhere else -- matches build.ps1's -testDesktop, which
+# only ever runs on Windows in the first place since it's a PowerShell script.
+is_windows_host() {
+  case "${OSTYPE:-}" in
+    msys*|cygwin*|win32*) return 0 ;;
+  esac
+  case "$(uname -s 2>/dev/null)" in
+    MINGW*|MSYS*|CYGWIN*) return 0 ;;
+  esac
+  return 1
+}
+
+if [[ "$test_desktop" == true ]] && ! is_windows_host; then
+  echo "'--testDesktop' requires a Windows host (.NET Framework tests have no cross-platform runtime)." >&2
+  exit 1
+fi
+
+if [[ "$test_desktop" == true && "$test_runtime_async" == true ]]; then
+  echo "Cannot run desktop tests with runtime async validation enabled."
+  exit 1
+fi
 
 # Import Arcade functions
 . "$scriptroot/common/tools.sh"
@@ -419,7 +471,7 @@ function GetCompilerTestAssembliesIncludePaths {
 }
 
 install=false
-if [[ "$restore" == true || "$test_core_clr" == true ]]; then
+if [[ "$restore" == true || "$test_core_clr" == true || "$test_desktop" == true ]]; then
   install=true
 fi
 InitializeDotNetCli $install
@@ -429,7 +481,13 @@ if [[ "$restore" == true && "$source_build" != true ]]; then
 fi
 
 bootstrap_dir=""
-if [[ "$bootstrap" == true ]]; then
+if [[ -n "$bootstrap_dir_arg" ]]; then
+  # Reuse an already-built bootstrap compiler instead of rebuilding it -- matches build.ps1's own
+  # -bootstrapDir, which exists so a caller invoking this script more than once in the same run
+  # (e.g. folly.sh's 'scry', which builds once then runs each requested test leg as its own
+  # invocation) only pays MakeBootstrapBuild's cost the first time.
+  bootstrap_dir="$bootstrap_dir_arg"
+elif [[ "$bootstrap" == true ]]; then
   MakeBootstrapBuild
   bootstrap_dir=$_MakeBootstrapBuild
 fi
@@ -438,11 +496,26 @@ if [[ "$restore" == true || "$build" == true || "$rebuild" == true || "$test_mon
   BuildSolution
 fi
 
+# Folly.sh's 'scry' runs Core and Framework as two separate invocations of this script when both
+# are requested; FOTU_TEST_RESULTS_SUFFIX lets the caller keep each leg's TestResults/log output in
+# its own directory instead of one leg's output clobbering the other's. Mirrors build.ps1's own
+# $env:FOTU_TEST_RESULTS_SUFFIX handling in RunTestsInternal.
+runtests_log_dir="$log_dir"
+runtests_out_dir="$artifacts_dir/TestResults/$configuration"
+if [[ -n "${FOTU_TEST_RESULTS_SUFFIX:-}" ]]; then
+  runtests_log_dir="${log_dir}-${FOTU_TEST_RESULTS_SUFFIX}"
+  runtests_out_dir="${runtests_out_dir}-${FOTU_TEST_RESULTS_SUFFIX}"
+fi
+
 if [[ "$test_core_clr" == true ]]; then
-  runtests_args=""
+  runtests_args="--out \"$runtests_out_dir\""
 
   if [[ "$test_compiler_only" == true ]]; then
     runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
+  fi
+
+  if [[ -n "$test_filter" ]]; then
+    runtests_args="$runtests_args --testfilter \"$test_filter\""
   fi
 
   if [[ -n "$helix_queue_name" ]]; then
@@ -472,14 +545,64 @@ if [[ "$test_core_clr" == true ]]; then
   fi
 
   if [[ "$ci" == true ]]; then
-    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs ${log_dir} --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
   else
     # Locally, a non-zero exit from RunTests almost always just means some test suites had
     # failures (not that the build tooling itself broke), so report it concisely instead of
     # letting `set -e` exit silently. The HTML/xUnit failure logs under $log_dir already have
     # the actual details. Matches the equivalent local-only summary in build.ps1.
-    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs ${log_dir} --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
-      echo "Not all test suites succeeded. See $artifacts_dir/TestResults/$configuration and $log_dir for details."
+    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+      echo "Not all test suites succeeded. See $runtests_out_dir and $runtests_log_dir for details."
+      exit 1
+    fi
+  fi
+elif [[ "$test_desktop" == true ]]; then
+  # elif, not a separate 'if': matches build.ps1's own $testDesktop branch, which only runs when
+  # $testCoreClr is false -- test_core_clr silently takes priority if a caller somehow sets both.
+  runtests_args="--out \"$runtests_out_dir\""
+
+  if [[ "$test_compiler_only" == true ]]; then
+    runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
+  else
+    runtests_args="$runtests_args --include '\.UnitTests'"
+    runtests_args="$runtests_args --exclude '\.InteractiveHost'"
+  fi
+
+  if [[ -n "$test_filter" ]]; then
+    runtests_args="$runtests_args --testfilter \"$test_filter\""
+  fi
+
+  if [[ -n "$helix_queue_name" ]]; then
+    runtests_args="$runtests_args --helixQueueName $helix_queue_name"
+  fi
+
+  if [[ -n "$helix_api_access_token" ]]; then
+    runtests_args="$runtests_args --helixApiAccessToken $helix_api_access_token"
+  fi
+
+  if [[ "$helix" == true ]]; then
+    runtests_args="$runtests_args --helix"
+  fi
+
+  if [[ "$ci" != true ]]; then
+    runtests_args="$runtests_args --html"
+  fi
+
+  # Matches build.ps1's own -testDesktop default of 90 minutes for RunTests' whole-run watchdog;
+  # --testTimeout overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since
+  # Helix has its own external timeout management.
+  if [[ "$helix" != true ]]; then
+    if [[ "$test_timeout" -le 0 ]]; then
+      test_timeout=90
+    fi
+    runtests_args="$runtests_args --timeout $test_timeout"
+  fi
+
+  if [[ "$ci" == true ]]; then
+    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+  else
+    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+      echo "Not all test suites succeeded. See $runtests_out_dir and $runtests_log_dir for details."
       exit 1
     fi
   fi

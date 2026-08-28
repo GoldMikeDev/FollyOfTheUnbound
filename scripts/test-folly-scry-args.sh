@@ -44,9 +44,45 @@ new_test_case() {
   rm -rf "$dir"
   mkdir -p "$dir/eng"
   cp "$folly_sh" "$dir/folly.sh"
+  # Appends (not overwrites): folly.sh's 'scry' now invokes this mock more than once (a build-only
+  # call, then one --test/--testDesktop call per leg), so every case that only cares whether some
+  # switch was ever forwarded (the vast majority) still works unmodified against the concatenated
+  # log; a "===call===" separator lets the newer --core/--framework cases below tell invocations
+  # apart when they need to (e.g. asserting --testDesktop was never passed at all).
+  # For the --test/--testDesktop calls, also writes the runtestsCore.log/runtestsFramework.log
+  # RunTests now emits (see Program.WriteLogFile) with exactly one PASSED row so folly.sh's new
+  # get_test_summary reader has something real to parse, without running any actual build or tests.
   cat > "$dir/eng/build.sh" <<'MOCK'
 #!/usr/bin/env bash
-printf '%s\n' "$@" > "$(dirname "$0")/../build-args.log"
+{ printf '%s\n' "$@"; printf -- '===call===\n'; } >> "$(dirname "$0")/../build-args.log"
+repo_root="$(cd -P "$(dirname "$0")/.." && pwd)"
+config="Debug"
+args=("$@")
+for ((i = 0; i < ${#args[@]}; i++)); do
+  if [[ "${args[$i]}" == "--configuration" ]]; then
+    config="${args[$((i + 1))]}"
+  fi
+done
+suffix="${FOTU_TEST_RESULTS_SUFFIX:-}"
+log_dir="$repo_root/artifacts/log/$config-$suffix"
+write_fake_log() {
+  mkdir -p "$log_dir" "$repo_root/artifacts/TestResults/$config-$suffix"
+  cat > "$log_dir/$1" <<'LOG'
+================
+Assembly.Fake.UnitTests_0   PASSED   00:01
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+}
+for arg in "$@"; do
+  if [[ "$arg" == "--test" ]]; then
+    write_fake_log "runtestsCore.log"
+    exit 0
+  elif [[ "$arg" == "--testDesktop" ]]; then
+    write_fake_log "runtestsFramework.log"
+    exit 0
+  fi
+done
 exit 0
 MOCK
   chmod +x "$dir/eng/build.sh" "$dir/folly.sh"
@@ -66,6 +102,17 @@ run_case() {
   local dir="$1"
   shift
   invoke_folly "$dir" "$@"
+}
+
+# Same as invoke_folly, but forces is_windows_host() to true via $OSTYPE -- for exercising the
+# both-legs (Core + Framework) path that this (non-Windows) sandbox would otherwise never reach.
+invoke_folly_windows() {
+  local dir="$1"
+  shift
+  local output exit_code
+  output="$(cd "$dir" && OSTYPE=msys bash ./folly.sh "$@" 2>&1)"
+  exit_code=$?
+  printf '%s\x1e%s' "$exit_code" "$output"
 }
 
 # --- default: no --testTimeout forwarded ---
@@ -147,6 +194,218 @@ if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* 
   test_pass "'--timeout' is rejected on a non-scry action"
 else
   test_fail "timeout on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- default 'scry' on this (non-Windows) sandbox runs Core only, never --testDesktop ---
+dir="$(new_test_case "default-core-only")"
+result="$(run_case "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log" \
+  && [[ "$output" == *"Core: 1 passed"* ]] && [[ "$output" != *"Framework:"* ]]; then
+  test_pass "default 'scry' off-Windows runs Core only, never --testDesktop"
+else
+  test_fail "default core-only (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --core only: still just the Core leg ---
+dir="$(new_test_case "core-only")"
+result="$(run_case "$dir" scry research --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--test" <<<"$args_log" && ! grep -qx -- "--testDesktop" <<<"$args_log" \
+  && [[ "$output" == *"Core: 1 passed"* ]] && [[ "$output" != *"Framework:"* ]]; then
+  test_pass "'scry --core' runs only Core"
+else
+  test_fail "'scry --core' (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- both legs (forced Windows host): combined table shows both, per-leg blocks, correct totals ---
+dir="$(new_test_case "both-legs-windows")"
+result="$(invoke_folly_windows "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "0" && "$output" == *"=== Core results ==="* && "$output" == *"=== Framework results ==="* \
+  && "$output" == *"Core: 1 passed, 0 failed, 0 timeout"* && "$output" == *"Framework: 1 passed, 0 failed, 0 timeout"* \
+  && "$output" == *"Overall: 2 passed, 0 failed, 0 timeout"* ]]; then
+  test_pass "default 'scry' on a forced-Windows host runs both legs with a combined summary"
+else
+  test_fail "both-legs-windows (exit=$exit_code): $output"
+fi
+
+# --- stray "================" lines in captured failure output don't fool the summary parser ---
+dir="$(new_test_case "false-marker")"
+cat > "$dir/eng/build.sh" <<'MOCK'
+#!/usr/bin/env bash
+repo_root="$(cd -P "$(dirname "$0")/.." && pwd)"
+for arg in "$@"; do
+  if [[ "$arg" == "--test" ]]; then
+    log_dir="$repo_root/artifacts/log/Debug-Core"
+    mkdir -p "$log_dir" "$repo_root/artifacts/TestResults/Debug-Core"
+    cat > "$log_dir/runtestsCore.log" <<'LOG'
+Errors Assembly.CoreClr.UnitTests_0
+some test printed a divider as part of its own diagnostic output:
+================
+unrelated captured text that happens to be between two stray markers
+================
+Command: dotnet test ...
+================
+Assembly.CoreClr.UnitTests_0                                                FAILED       00:34
+Assembly.CoreClr.UnitTests_1                                                PASSED       00:12
+================
+Extra run diagnostics for logging, did not impact run results
+### Begin logging executed process details
+### Standard Output
+================
+raw xunit console output that also happens to contain a divider line
+================
+### End logging executed process details
+LOG
+    exit 1
+  fi
+done
+exit 0
+MOCK
+chmod +x "$dir/eng/build.sh"
+result="$(run_case "$dir" scry research --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"Core: 1 passed, 1 failed, 0 timeout"* ]]; then
+  test_pass "stray markers in captured failure output are not mistaken for the summary table"
+else
+  test_fail "false-marker log (exit=$exit_code): $output"
+fi
+
+# --- --framework only: rejected off-Windows before any build/test call happens ---
+dir="$(new_test_case "framework-only")"
+result="$(run_case "$dir" scry research --framework)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires a Windows host"* && ! -e "$dir/build-args.log" ]]; then
+  test_pass "'scry --framework' is rejected off-Windows before any build starts"
+else
+  test_fail "'scry --framework' off-Windows (exit=$exit_code): $output"
+fi
+
+# --- --core/--framework rejected for non-scry actions ---
+dir="$(new_test_case "selector-on-non-scry")"
+result="$(run_case "$dir" weave --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--core' is rejected on a non-scry action"
+else
+  test_fail "selector on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- --testCompilerOnly is forwarded to eng/build.sh's test call ---
+dir="$(new_test_case "test-compiler-only-forwarded")"
+result="$(run_case "$dir" scry research --testCompilerOnly)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testCompilerOnly" <<<"$args_log"; then
+  test_pass "'--testCompilerOnly' is forwarded to ./eng/build.sh"
+else
+  test_fail "testCompilerOnly forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testFilter is forwarded to eng/build.sh's test call with its value ---
+dir="$(new_test_case "test-filter-forwarded")"
+result="$(run_case "$dir" scry research --testFilter "FullyQualifiedName~Foo")"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testFilter" <<<"$args_log" && grep -qx "FullyQualifiedName~Foo" <<<"$args_log"; then
+  test_pass "'--testFilter' is forwarded to ./eng/build.sh as FullyQualifiedName~Foo"
+else
+  test_fail "testFilter forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testFilter with a missing value is rejected ---
+dir="$(new_test_case "test-filter-missing-value")"
+result="$(run_case "$dir" scry --testFilter)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires a value"* ]]; then
+  test_pass "'--testFilter' with no value is rejected"
+else
+  test_fail "testFilter missing value (exit=$exit_code): $output"
+fi
+
+# --- --testCompilerOnly/--testFilter rejected for non-scry actions ---
+dir="$(new_test_case "test-compiler-only-on-non-scry")"
+result="$(run_case "$dir" weave --testCompilerOnly)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--testCompilerOnly' is rejected on a non-scry action"
+else
+  test_fail "testCompilerOnly on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- --testIOperation is forwarded to eng/build.sh's test call ---
+dir="$(new_test_case "test-ioperation-forwarded")"
+result="$(run_case "$dir" scry research --testIOperation)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testIOperation" <<<"$args_log"; then
+  test_pass "'--testIOperation' is forwarded to ./eng/build.sh"
+else
+  test_fail "testIOperation forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testIOperation rejected for non-scry actions ---
+dir="$(new_test_case "test-ioperation-on-non-scry")"
+result="$(run_case "$dir" weave --testIOperation)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--testIOperation' is rejected on a non-scry action"
+else
+  test_fail "testIOperation on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- --bootstrap: the initial build call gets --bootstrap, each test leg gets --bootstrapDir
+# pointing at the same deterministic artifacts/Bootstrap dir instead of rebuilding it ---
+dir="$(new_test_case "bootstrap-forwarded")"
+result="$(run_case "$dir" scry research --bootstrap)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+build_call="${args_log%%===call===*}"
+test_call="${args_log#*===call===}"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--bootstrap" <<<"$build_call" && ! grep -qx -- "--bootstrapDir" <<<"$build_call" \
+  && grep -qx -- "--bootstrapDir" <<<"$test_call" && grep -qx -- "$dir/artifacts/Bootstrap" <<<"$test_call" && ! grep -qx -- "--bootstrap" <<<"$test_call"; then
+  test_pass "'--bootstrap' builds once and is reused via --bootstrapDir for the test leg"
+else
+  test_fail "bootstrap forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --bootstrap is rejected on 'cleanse' ---
+dir="$(new_test_case "bootstrap-on-cleanse")"
+result="$(run_case "$dir" cleanse --bootstrap)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"aren't valid with 'cleanse'"* ]]; then
+  test_pass "'--bootstrap' is rejected on 'cleanse'"
+else
+  test_fail "bootstrap on cleanse (exit=$exit_code): $output"
+fi
+
+# --- --bootstrap is forwarded on a non-scry action too (not scoped to 'scry') ---
+dir="$(new_test_case "bootstrap-on-weave")"
+result="$(run_case "$dir" weave research --bootstrap)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--bootstrap" <<<"$args_log"; then
+  test_pass "'--bootstrap' is forwarded to ./eng/build.sh on 'weave'"
+else
+  test_fail "bootstrap on weave (exit=$exit_code): args='$args_log' output=$output"
 fi
 
 # --- --binaryLog is forwarded to eng/build.sh ---
