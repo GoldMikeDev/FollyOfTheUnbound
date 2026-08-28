@@ -40,6 +40,7 @@ function New-TestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [switch]$testSuppressConsoleSummary,
     [int]$testTimeout,
     [string]$solution,[string]$configuration,
     [switch]$binaryLog,[string]$verbosity
@@ -52,6 +53,9 @@ $logDir = Join-Path $repoRoot "artifacts\log\$configuration-$suffix"
 # Records the -testTimeout value this mock actually received, so the test harness can assert
 # folly.ps1 forwarded the value the caller asked for instead of silently dropping it.
 Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value "$suffix=$testTimeout"
+# Records whether -testSuppressConsoleSummary was passed for this pass, so the harness can assert
+# folly.ps1 only passes it when running both legs together (never for a single-leg run).
+Add-Content -LiteralPath (Join-Path $repoRoot "testSuppressConsoleSummary-received.log") -Value "$suffix=$testSuppressConsoleSummary"
 # Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
 # assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
@@ -98,6 +102,7 @@ function New-FalseMarkerTestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [switch]$testSuppressConsoleSummary,
     [int]$testTimeout,
     [string]$solution,[string]$configuration
 )
@@ -171,6 +176,29 @@ try {
     }
     else {
         Test-Fail "'scry --framework' (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- -testSuppressConsoleSummary is only passed when both legs run together ---
+    $dir = New-TestCase "suppress-summary-both"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
+    $receivedPath = Join-Path $dir "testSuppressConsoleSummary-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core=True" -and $received -match "Framework=True") {
+        Test-Pass "default 'scry' (both legs) passes -testSuppressConsoleSummary to each leg"
+    }
+    else {
+        Test-Fail "suppress-summary both-legs (exit=$($result.ExitCode)): received='$received'"
+    }
+
+    $dir = New-TestCase "suppress-summary-core-only"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
+    $receivedPath = Join-Path $dir "testSuppressConsoleSummary-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core=False") {
+        Test-Pass "'scry --core' (single leg) does not pass -testSuppressConsoleSummary"
+    }
+    else {
+        Test-Fail "suppress-summary core-only (exit=$($result.ExitCode)): received='$received'"
     }
 
     # --- positional primary arg alongside a selector ---

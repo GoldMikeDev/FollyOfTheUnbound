@@ -76,6 +76,7 @@ param (
   [string]$helixQueueName = "",
   [string]$helixApiAccessToken = "",
   [switch]$testInteractiveConsole,
+  [switch]$testSuppressConsoleSummary,
   [int]$testTimeout = 0,
 
   [parameter(ValueFromRemainingArguments=$true)][string[]]$properties)
@@ -122,6 +123,10 @@ function Print-Usage() {
   Write-Host "                            script's own stdout isn't itself being consumed by something else (e.g. piped to"
   Write-Host "                            Tee-Object/a file): PowerShell's object pipeline doesn't mark Console.Out as"
   Write-Host "                            redirected the way OS-level redirection does, so that can't be auto-detected here"
+  Write-Host "  -testSuppressConsoleSummary  Suppress only RunTests' own final PASSED/FAILED/TIMEOUT table from the console"
+  Write-Host "                            (still written to the log file); the live progress table and per-failure"
+  Write-Host "                            diagnostics are unaffected. For a caller building its own combined summary"
+  Write-Host "                            across multiple RunTests passes -- see folly.ps1 scry"
   Write-Host "  -testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog (default: 90 for -testCoreClr/"
   Write-Host "                            -testDesktop, 220 for -testVsi; ignored when -helix is set)"
   Write-Host "  -skipCustomRoslynDeploy   Skip custom Roslyn deployment when running integration tests (uses Roslyn from the VS)"
@@ -535,6 +540,10 @@ function TestUsingRunTests() {
 
   if ($sequential) {
     $args += " --sequential"
+  }
+
+  if ($testSuppressConsoleSummary) {
+    $args += " --suppressConsoleSummary"
   }
 
   if ($helix) {

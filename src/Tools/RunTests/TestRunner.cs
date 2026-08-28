@@ -244,7 +244,7 @@ namespace RunTests
                 PrintFailedTestResult(testResult);
             }
 
-            ConsoleUtil.WriteLine("================");
+            WriteSummaryLine("================");
             var line = new StringBuilder();
             foreach (var testResult in testResults)
             {
@@ -259,15 +259,46 @@ namespace RunTests
                 line.Append(!string.IsNullOrEmpty(testResult.Diagnostics) ? "?" : "");
 
                 var message = line.ToString();
-                ConsoleUtil.WriteLine(color, message);
+                WriteSummaryLine(color, message);
             }
-            ConsoleUtil.WriteLine("================");
+            WriteSummaryLine("================");
 
             // Print diagnostics out last so they are cleanly visible at the end of the test summary
-            ConsoleUtil.WriteLine("Extra run diagnostics for logging, did not impact run results");
+            WriteSummaryLine("Extra run diagnostics for logging, did not impact run results");
             foreach (var testResult in testResults.Where(x => !string.IsNullOrEmpty(x.Diagnostics)))
             {
-                ConsoleUtil.WriteLine(testResult.Diagnostics!);
+                WriteSummaryLine(testResult.Diagnostics!);
+            }
+
+            // Unlike PrintFailedTestResult's live per-failure dumps above (real-time diagnostics useful the
+            // moment a failure happens, never duplicated anywhere else), this final table is also exactly
+            // what a caller running multiple TestRunner passes back-to-back (see folly.ps1 scry, which runs
+            // one TestRunner per --core/--framework leg and combines both legs' tables into one summary of
+            // its own, read back from each leg's already-written log file) may want to build its own combined
+            // presentation from instead of seeing this pass's copy printed to the console separately. This
+            // never affects what's logged -- only whether this table specifically also goes to the console.
+            void WriteSummaryLine(string message)
+            {
+                if (_options.SuppressConsoleSummary)
+                {
+                    Logger.Log(message);
+                }
+                else
+                {
+                    ConsoleUtil.WriteLine(message);
+                }
+            }
+
+            void WriteSummaryLine(ConsoleColor color, string message)
+            {
+                if (_options.SuppressConsoleSummary)
+                {
+                    Logger.Log(message);
+                }
+                else
+                {
+                    ConsoleUtil.WriteLine(color, message);
+                }
             }
         }
 

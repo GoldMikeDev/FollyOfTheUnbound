@@ -175,8 +175,8 @@ try {
 		if ($buildExitCode -ne 0) {
 			exit $buildExitCode
 		}
-		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts from its already-logged runtests.log, read after that leg's own process (which already printed its full live table directly to the console) has exited -- purely for the compact combined numeric recap printed once every requested leg has finished, not a re-print of either leg's list
-			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
+		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw table lines -- from its already-logged runtests.log. RunTests always writes this table to the log file regardless of -testSuppressConsoleSummary (only whether it *also* goes to the console is conditional -- see that switch's comment below); the raw Lines rebuild both legs' tables together in the "combined results" block once both have finished, and the tallies drive the compact numeric recap after it.
+			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode; Lines = @() }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
 			if (-not (Test-Path -LiteralPath $LogPath)) {
 				return $result
 			}
@@ -202,6 +202,7 @@ try {
 			}
 			$endLine = $markersBeforeFooter[$markersBeforeFooter.Count - 1]
 			$startLine = $markersBeforeFooter[$markersBeforeFooter.Count - 2]
+			$lines = [System.Collections.Generic.List[string]]::new()
 			$lineNumber = 0
 			foreach ($line in [System.IO.File]::ReadLines($LogPath)) {
 				$lineNumber++
@@ -211,10 +212,12 @@ try {
 				if ($lineNumber -ge $endLine) {
 					break
 				}
+				$lines.Add($line)
 				if ($line -match '\bTIMEOUT\b') { $result.Timeout++ }
 				elseif ($line -match '\bFAILED\b') { $result.Failed++ }
 				elseif ($line -match '\bPASSED\b') { $result.Passed++ }
 			}
+			$result.Lines = $lines.ToArray()
 			$result.Found = $true
 			return $result
 		}
@@ -229,25 +232,30 @@ try {
 		Remove-Item -Recurse -Force -LiteralPath $frameworkLogDir -ErrorAction SilentlyContinue
 		# -testInteractiveConsole lets RunTests inherit the real console directly: its live per-work-item
 		# progress table (LiveTestProgressDisplay, drawn into the terminal's alternate screen buffer -- see
-		# src/Tools/RunTests/LiveTestProgressDisplay.cs) and its own final PASSED/FAILED/TIMEOUT table both go
-		# straight to the terminal, bypassing PowerShell's pipeline entirely. This is passed unconditionally,
-		# for both legs, always -- piping a leg's output through the pipeline at all (even just to relay it
-		# back out line-by-line) makes Console.IsOutputRedirected true for that child process, which is a
-		# one-way flag TryCreate checks once up front: nothing downstream can "un-redirect" it and get the
-		# real redrawn table back, only the plain scrolling fallback RunTests uses when it isn't in a real
-		# terminal. An earlier version of this piped both legs' output to defer and reprint each leg's final
-		# table together at the end, which -- despite still relaying progress lines live -- silently cost
-		# every leg its actual live table, permanently, the moment two legs were requested (i.e. by default,
-		# since neither --core nor --framework alone is the common case). Each leg now prints its own live
-		# table live, immediately, same as a single-leg run always has; only the compact numeric recap below
-		# (via Get-TestSummary, read from each leg's already-written runtests.log after it exits -- no
-		# piping involved) combines both legs together.
+		# src/Tools/RunTests/LiveTestProgressDisplay.cs) goes straight to the terminal, bypassing PowerShell's
+		# pipeline entirely. This is passed unconditionally, for both legs, always, and neither leg's output
+		# is ever piped -- piping a leg's output through the pipeline at all (even just to relay it back out
+		# line-by-line) makes Console.IsOutputRedirected true for that child process, a one-way flag
+		# TryCreate checks once up front: nothing downstream can "un-redirect" it and get the real redrawn
+		# table back, only the plain scrolling fallback RunTests uses outside a real terminal. So each leg's
+		# live table always prints live, unpiped, immediately, same as a single-leg run always has.
+		#
+		# -testSuppressConsoleSummary is different: it doesn't touch the console mode or piping at all, only
+		# whether RunTests' own final PASSED/FAILED/TIMEOUT table (src/Tools/RunTests/TestRunner.cs's Print)
+		# additionally prints straight to that same real console -- the table is still written to that leg's
+		# log file regardless (RunTests logs everything it prints via ConsoleUtil, console-suppressed or
+		# not). Passed only when both legs are requested: each leg's own table would otherwise print live the
+		# moment that leg finishes, which then gets buried under the *other* leg's own subsequent build/live
+		# progress output -- so instead both legs' tables are read back from their log files once everything
+		# finishes (Get-TestSummary) and shown together, once, in the "combined results" block below. A
+		# single-leg run passes neither leg two logs to combine, so its one table just prints live as normal.
+		$bothLegs = $runCore -and $runFramework
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+				& $buildScript -testCoreClr -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -263,7 +271,7 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+				& $buildScript -testDesktop -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -286,9 +294,25 @@ try {
 		$totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
 		$totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
 		$totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
-		# Each requested leg already printed its own full PASSED/FAILED/TIMEOUT table live (via
-		# -testInteractiveConsole above) the moment it finished -- so this is deliberately just the compact
-		# numeric recap, combining both legs' totals together at the end, not a re-print of either leg's list.
+		# Print both legs' own PASSED/FAILED/TIMEOUT tables together here, once every requested leg has
+		# finished -- read back from each leg's own runtests*.log, which -testSuppressConsoleSummary above
+		# kept out of the console the first time around specifically so this is the only place either leg's
+		# table appears, not a second copy of something already shown live. Single-leg runs never pass that
+		# switch, so their one table already printed live as normal -- nothing to combine here.
+		if ($bothLegs) {
+			foreach ($summary in $summaries) {
+				Write-Host ""
+				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
+				if ($summary.Found) {
+					foreach ($line in $summary.Lines) {
+						Write-Host $line
+					}
+				}
+				else {
+					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
+				}
+			}
+		}
 		Write-Host ""
 		Write-Host "=== Test summary ===" -ForegroundColor Cyan
 		foreach ($summary in $summaries) {
