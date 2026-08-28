@@ -300,6 +300,52 @@ else
   test_fail "selector on non-scry action (exit=$exit_code): $output"
 fi
 
+# --- --testCompilerOnly is forwarded to eng/build.sh's test call ---
+dir="$(new_test_case "test-compiler-only-forwarded")"
+result="$(run_case "$dir" scry research --testCompilerOnly)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testCompilerOnly" <<<"$args_log"; then
+  test_pass "'--testCompilerOnly' is forwarded to ./eng/build.sh"
+else
+  test_fail "testCompilerOnly forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testFilter is forwarded to eng/build.sh's test call with its value ---
+dir="$(new_test_case "test-filter-forwarded")"
+result="$(run_case "$dir" scry research --testFilter "FullyQualifiedName~Foo")"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testFilter" <<<"$args_log" && grep -qx "FullyQualifiedName~Foo" <<<"$args_log"; then
+  test_pass "'--testFilter' is forwarded to ./eng/build.sh as FullyQualifiedName~Foo"
+else
+  test_fail "testFilter forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testFilter with a missing value is rejected ---
+dir="$(new_test_case "test-filter-missing-value")"
+result="$(run_case "$dir" scry --testFilter)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"requires a value"* ]]; then
+  test_pass "'--testFilter' with no value is rejected"
+else
+  test_fail "testFilter missing value (exit=$exit_code): $output"
+fi
+
+# --- --testCompilerOnly/--testFilter rejected for non-scry actions ---
+dir="$(new_test_case "test-compiler-only-on-non-scry")"
+result="$(run_case "$dir" weave --testCompilerOnly)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--testCompilerOnly' is rejected on a non-scry action"
+else
+  test_fail "testCompilerOnly on non-scry action (exit=$exit_code): $output"
+fi
+
 # --- --binaryLog is forwarded to eng/build.sh ---
 dir="$(new_test_case "binarylog-forwarded")"
 result="$(run_case "$dir" weave research --binaryLog)"

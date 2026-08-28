@@ -29,6 +29,7 @@ usage()
   echo "  --testDesktop              Run unit tests on .NET Framework (Windows host only)"
   echo "  --testMono                 Run unit tests on Mono"
   echo "  --testCompilerOnly         Run only the compiler unit tests"
+  echo "  --testFilter <value>       xUnit filter to pass to RunTests' --testfilter, e.g. FullyQualifiedName~TestClass1|Category=CategoryA"
   echo "  --testIOperation           Run unit tests with the IOperation test hook"
   echo "  --testRuntimeAsync         Run unit tests with runtime async validation enabled"
   echo "  --testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog"
@@ -75,6 +76,7 @@ test_mono=false
 test_ioperation=false
 test_runtime_async=false
 test_compiler_only=false
+test_filter=""
 test_timeout=0
 
 configuration="Debug"
@@ -155,6 +157,15 @@ while [[ $# > 0 ]]; do
       ;;
     --testcompileronly)
       test_compiler_only=true
+      ;;
+    --testfilter)
+      if [[ -z "${2:-}" ]]; then
+        echo "'--testFilter' requires a value." >&2
+        exit 1
+      fi
+      test_filter="$2"
+      args="$args $1"
+      shift
       ;;
     --testioperation)
       test_ioperation=true
@@ -484,6 +495,10 @@ if [[ "$test_core_clr" == true ]]; then
     runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
   fi
 
+  if [[ -n "$test_filter" ]]; then
+    runtests_args="$runtests_args --testfilter \"$test_filter\""
+  fi
+
   if [[ -n "$helix_queue_name" ]]; then
     runtests_args="$runtests_args --helixQueueName $helix_queue_name"
   fi
@@ -532,6 +547,10 @@ elif [[ "$test_desktop" == true ]]; then
   else
     runtests_args="$runtests_args --include '\.UnitTests'"
     runtests_args="$runtests_args --exclude '\.InteractiveHost'"
+  fi
+
+  if [[ -n "$test_filter" ]]; then
+    runtests_args="$runtests_args --testfilter \"$test_filter\""
   fi
 
   if [[ -n "$helix_queue_name" ]]; then

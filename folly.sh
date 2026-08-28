@@ -91,6 +91,8 @@ Primary args:
 Switches:
     '<scry> <primary> --core'                           Run only the Core tests (skip Framework).
     '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only).
+    '<scry> <primary> --testCompilerOnly'               Run only the compiler unit test assemblies.
+    '<scry> <primary> --testFilter <xunit filter>'      Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
     '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
     '<command> <primary> --binaryLog'                   MSBuild binary log written to ./artifacts/log/<config>/Build.binlog.
     '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
@@ -105,6 +107,8 @@ binary_log=0
 verbosity=""
 core=0
 framework=0
+test_compiler_only=0
+test_filter=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
 	reflection)
@@ -118,6 +122,18 @@ while [[ $# -gt 0 ]]; do
 	--framework)
 	  framework=1
 	  shift
+	  ;;
+	--testCompilerOnly)
+	  test_compiler_only=1
+	  shift
+	  ;;
+	--testFilter)
+	  test_filter="${2:-}"
+	  if [[ -z "$test_filter" ]]; then
+		echo "'--testFilter' requires a value." >&2
+		exit 1
+	  fi
+	  shift 2
 	  ;;
 	--timeout)
 	  test_timeout="${2:-}"
@@ -167,15 +183,16 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
-# '--core'/'--framework'/'--timeout'/reflection are scoped to 'scry' -- one combined check/message
-# rather than one per selector, since they're all the same rule applied to different args.
-if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
-  echo "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
+# '--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--timeout'/reflection are scoped to
+# 'scry' -- one combined check/message rather than one per selector, since they're all the same rule
+# applied to different args.
+if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
 # By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
 # above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
-if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" ) ]]; then
   echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
   exit 1
 fi
@@ -271,6 +288,12 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	test_args=(--nodeReuse false --solution "$solution" --configuration "$configuration")
 	if [[ "$test_timeout" -gt 0 ]]; then
 	  test_args+=(--testTimeout "$test_timeout")
+	fi
+	if [[ "$test_compiler_only" -eq 1 ]]; then
+	  test_args+=(--testCompilerOnly)
+	fi
+	if [[ -n "$test_filter" ]]; then
+	  test_args+=(--testFilter "$test_filter")
 	fi
 	test_args+=(${extra_build_args[@]+"${extra_build_args[@]}"})
 	test_args+=("${identity_args[@]}")

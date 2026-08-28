@@ -17,6 +17,9 @@ try {
 	$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
 	$core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--framework/--timeout (matching folly.sh's style) are parsed by hand below
 	$framework = $false
+	$testCompilerOnly = $false
+	$testFilter = $null
+	$expectTestFilterValue = $false
 	$reflection = $false
 	$testTimeout = 0
 	$expectTimeoutValue = $false
@@ -31,6 +34,10 @@ try {
 			}
 			$expectTimeoutValue = $false
 		}
+		elseif ($expectTestFilterValue) {
+			$testFilter = $arg
+			$expectTestFilterValue = $false
+		}
 		elseif ($expectVerbosityValue) {
 			if ($arg -notin @("quiet", "minimal", "normal", "detailed", "diagnostic")) {  # full words only, not MSBuild's own q/m/n/d/diag shorthand -- explicit over terse
 				Write-Host "'--verbosity' requires one of: quiet, minimal, normal, detailed, diagnostic. Got '$arg'." -ForegroundColor Red
@@ -44,6 +51,12 @@ try {
 		}
 		elseif ($arg -eq "--framework") {
 			$framework = $true
+		}
+		elseif ($arg -eq "--testCompilerOnly") {
+			$testCompilerOnly = $true
+		}
+		elseif ($arg -eq "--testFilter") {
+			$expectTestFilterValue = $true
 		}
 		elseif ($arg -eq "--timeout") {
 			$expectTimeoutValue = $true
@@ -69,6 +82,10 @@ try {
 		Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
 		exit 1
 	}
+	if ($expectTestFilterValue) {
+		Write-Host "'--testFilter' requires a value." -ForegroundColor Red
+		exit 1
+	}
 	if ($expectVerbosityValue) {
 		Write-Host "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." -ForegroundColor Red
 		exit 1
@@ -90,6 +107,8 @@ try {
 		Write-Host "Switches:"
 		Write-Host "    '<scry> <primary> --core'                           Run only the Core tests (skip Framework)."
 		Write-Host "    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only)."
+		Write-Host "    '<scry> <primary> --testCompilerOnly'               Run only the compiler unit test assemblies."
+		Write-Host "    '<scry> <primary> --testFilter <xunit filter>'     Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA."
 		Write-Host "    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90)."
 		Write-Host "    '<command> <primary> --binaryLog'                   MSBuild binary log written to .\artifacts\log\<config>\Build.binlog."
 		Write-Host "    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic."
@@ -98,8 +117,8 @@ try {
 	}
 	# Every '<selector>'/reflection is scoped to 'scry' -- one combined check/message rather than
 	# one per selector, since they're all the same rule applied to different args.
-	if ($action -ne "scry" -and ($core -or $framework -or $testTimeout -gt 0 -or $reflection)) {
-		Write-Host "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
+	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
 	if ($framework -and -not $onWindows) {
@@ -108,7 +127,7 @@ try {
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
 	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
-	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testTimeout -gt 0 -or $binaryLog -or $verbosity)) {
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testTimeout -gt 0 -or $binaryLog -or $verbosity)) {
 		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
 		exit 1
 	}
@@ -333,15 +352,25 @@ try {
 		# which is captured into $coreRunOutput/$frameworkRunOutput below (suppressing it from the console
 		# entirely, live table included) rather than left to print immediately.
 		$bothLegs = $runCore -and $runFramework
+		# Same hashtable-splat reasoning as $extraBuildArgs above ([switch]$testCompilerOnly needs a
+		# real $true value, not a bare splatted string) -- scoped separately since these two are
+		# 'scry'-only, unlike $extraBuildArgs which every build-invoking action forwards.
+		$extraTestArgs = @{}
+		if ($testCompilerOnly) {
+			$extraTestArgs["testCompilerOnly"] = $true
+		}
+		if ($testFilter) {
+			$extraTestArgs["testFilter"] = $testFilter
+		}
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
 				if ($bothLegs) {
-					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs }
+					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs }
 				} else {
-					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs
 				}
 				$coreExitCode = $LASTEXITCODE
 			} finally {
@@ -359,9 +388,9 @@ try {
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
 				if ($bothLegs) {
-					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs }
+					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs }
 				} else {
-					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @identityArgs
 				}
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {

@@ -44,6 +44,7 @@ function New-TestCase([string]$Name) {
 param(
     [switch]$restore,[switch]$build,[switch]$rebuild,[switch]$pack,
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
+    [switch]$testCompilerOnly,[string]$testFilter,
     [int]$testTimeout,
     [string]$solution,[string]$configuration,
     [switch]$binaryLog,[string]$verbosity
@@ -59,6 +60,8 @@ Add-Content -LiteralPath (Join-Path $repoRoot "testTimeout-received.log") -Value
 # Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
 # assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
+# Same idea for -testCompilerOnly/-testFilter.
+Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter"
 function Write-FakeRunTestsLog([string]$LogDir, [string]$LogFileName) {
     New-Item -ItemType Directory -Force -Path $LogDir | Out-Null
     $lines = @(
@@ -245,6 +248,38 @@ try {
     }
     else {
         Test-Fail "selector on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testCompilerOnly/--testFilter are forwarded to eng/build.ps1 for each requested leg ---
+    $dir = New-TestCase "test-args-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--testCompilerOnly", "--testFilter", "FullyQualifiedName~Foo")
+    $receivedPath = Join-Path $dir "testArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core testCompilerOnly=True testFilter=FullyQualifiedName~Foo") {
+        Test-Pass "'--testCompilerOnly'/'--testFilter' are forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "testCompilerOnly/testFilter forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --testFilter with a missing value is rejected ---
+    $dir = New-TestCase "test-filter-missing-value"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "--testFilter")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "requires a value") {
+        Test-Pass "'--testFilter' with no value is rejected"
+    }
+    else {
+        Test-Fail "testFilter missing value (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testCompilerOnly/--testFilter rejected for non-scry actions ---
+    $dir = New-TestCase "test-args-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--testCompilerOnly")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--testCompilerOnly' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "testCompilerOnly on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- --timeout is actually forwarded to eng/build.ps1 for both legs ---
