@@ -16,6 +16,7 @@ System.Collections.BitArray.HasAnySet
 System.Collections.BitArray.LeftShift(System.Int32)
 System.Collections.BitArray.Not
 System.Collections.BitArray.Or(System.Collections.BitArray)
+System.Collections.BitArray.PopCount
 System.Collections.BitArray.RightShift(System.Int32)
 System.Collections.BitArray.Set(System.Int32,System.Boolean)
 System.Collections.BitArray.SetAll(System.Boolean)
@@ -113,6 +114,7 @@ System.Collections.Generic.Dictionary`2.set_Item(`0,`1)
 System.Collections.Generic.EqualityComparer`1
 System.Collections.Generic.EqualityComparer`1.#ctor
 System.Collections.Generic.EqualityComparer`1.Create(System.Func{`0,`0,System.Boolean},System.Func{`0,System.Int32})
+System.Collections.Generic.EqualityComparer`1.Create``1(System.Func{`0,``0},System.Collections.Generic.IEqualityComparer{``0})
 System.Collections.Generic.EqualityComparer`1.Equals(`0,`0)
 System.Collections.Generic.EqualityComparer`1.GetHashCode(`0)
 System.Collections.Generic.EqualityComparer`1.get_Default

@@ -447,7 +447,7 @@ function TestUsingRunTests() {
     $env:DOTNET_RuntimeAsync = 1
   }
 
-  $runTests = GetProjectOutputBinary "RunTests.dll" -tfm "net10.0"
+  $runTests = GetProjectOutputBinary "RunTests.dll" -tfm "net11.0"
   $timeout = 0;
 
   if (!(Test-Path $runTests)) {
