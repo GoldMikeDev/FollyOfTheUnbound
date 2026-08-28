@@ -77,27 +77,27 @@ if [[ -z "$action" || "$action" == "grimoire" ]]; then
   cat <<'EOF'
 
 Commands:
-    'attune'                                            Restore only.
-    'bind'                                              Restore, build & pack (nupkg files packed to ../.nupkg/FotU/).
-    'cleanse'                                           Delete artefacts.
-    'grimoire'                                          Show this text (default when no action is given).
-    'reweave'                                           Restore & rebuild.
-    'scry'                                              Restore, build & run Core (and, on Windows, Framework) unit tests.
-    'weave'                                             Restore & build.
+    'attune'                                        Restore only.
+    'bind'                                          Restore, build & pack (nupkg files packed to ../.nupkg/FotU/).
+    'cleanse'                                       Delete artefacts.
+    'grimoire'                                      Show this text (default when no action is given).
+    'reweave'                                       Restore & rebuild.
+    'scry'                                          Restore, build & run Core (and, on Windows, Framework) unit tests.
+    'weave'                                         Restore & build.
 Primary args:
-    '<scry> reflection'                                 Runs folly script test harnesses.
-    '<command> research [switches]'                     Debug configuration.
-    '<command> truth [switches]'                        Release configuration.
+    '<scry> reflection'                             Runs folly script test harnesses.
+    '<command> research [switches]'                 Debug configuration.
+    '<command> truth [switches]'                    Release configuration.
 Switches:
-    '<scry> <primary> --core'                           Run only the Core tests (skip Framework).
-    '<scry> <primary> --framework'                      Run only the Framework tests (skip Core; Windows only).
-    '<scry> <primary> --testCompilerOnly'               Run only the compiler unit test assemblies.
-    '<scry> <primary> --testFilter <xunit filter>'      Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
-    '<scry> <primary> --testIOperation'                 Run tests with the IOperation test hook enabled.
-    '<scry> <primary> --timeout <minutes>'              Override RunTests' whole-run watchdog (default: 90).
-    '<command> <primary> --binaryLog'                   MSBuild binary log written to ./artifacts/log/<config>/Build.binlog.
-    '<command> <primary> --verbosity <level>'           MSBuild console verbosity: quiet, minimal, normal, detailed, diagnostic.
-    '<command> <primary> --bootstrap'                   Build/test using a locally-built bootstrap compiler (not 'cleanse').
+    '<scry> <primary> --core'                       Run only the Core tests (skip Framework).
+    '<scry> <primary> --framework'                  Run only the Framework tests (skip Core; Windows only).
+    '<scry> <primary> --testCompilerOnly'           Run only the compiler unit test assemblies.
+    '<scry> <primary> --testFilter <xunit filter>'  Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
+    '<scry> <primary> --testIOperation'             Run tests with the IOperation test hook enabled.
+    '<scry> <primary> --timeout <minutes>'          Override RunTests' whole-run watchdog (default: 90).
+    '<command> <primary> --binaryLog'               Write MSBuild binary log to ./artifacts/log/<config>/Build.binlog.
+    '<command> <primary> --verbosity <level>'       MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
+    '<command> <primary> --bootstrap'               Build/test using a locally-built bootstrap compiler (not 'cleanse').
 
 EOF
   exit 0
