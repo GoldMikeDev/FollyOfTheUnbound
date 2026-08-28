@@ -297,7 +297,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
 
         ProjectInfo CreateMiscellaneousProjectInfo(TextLoader textLoader, SourceHashAlgorithm checksumAlgorithm)
         {
-            var enableFileBasedPrograms = GlobalOptionService.GetOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
+            var enableFileBasedPrograms = GlobalOptionService.GetConnectionScopedOption(LanguageServerProjectSystemOptionsStorage.EnableFileBasedPrograms);
             var projectFactory = _workspaceFactory.MiscellaneousFilesWorkspaceProjectFactory;
             return MiscellaneousFileUtilities.CreateMiscellaneousProjectInfoForDocument(
                 projectFactory.Workspace, documentFilePath, textLoader, languageInformation, checksumAlgorithm, projectFactory.Workspace.Services.SolutionServices, [], enableFileBasedPrograms);
