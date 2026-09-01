@@ -328,7 +328,23 @@ internal sealed partial class LoadedProject : IAsyncDisposable
             _projectFileChangeContext.Dispose();
 
             foreach (var target in _targets)
-                target.Dispose();
+            {
+                try
+                {
+                    target.Dispose();
+                }
+                catch (InvalidOperationException)
+                {
+                    // Target.Dispose() releases its file watches and options processor first and only then calls
+                    // RemoveFromWorkspace(), which throws if the project is no longer in the workspace's current
+                    // solution -- reachable here if this project's owning connection's Workspace was disposed
+                    // before this LoadedProject, since Workspace.Dispose() clears the solution out from under
+                    // every project still registered in it. That ordering isn't guaranteed relative to this
+                    // DisposeAsync(), so this must not abort the loop and leave every *remaining* target's file
+                    // watches leaked for the rest of the daemon's lifetime over one target hitting it first --
+                    // the file watches for this target are already released by the time this is caught.
+                }
+            }
 
             _targets.Clear();
 
