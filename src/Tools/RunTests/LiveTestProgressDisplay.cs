@@ -172,6 +172,9 @@ namespace RunTests
         private readonly Dictionary<int, Row> _rowsByPartitionIndex;
         private readonly LocalTestTimingHistory _history;
 
+        /// <summary>Whether a passing work item's elapsed time is worth persisting into <see cref="_history"/> -- see <see cref="MarkCompleted"/>.</summary>
+        private readonly bool _recordHistory;
+
         /// <summary>
         /// Guards every method that touches the alternate-screen state (<see cref="_inAltScreen"/>,
         /// <see cref="_disabled"/>) or writes to the console -- <see cref="Redraw"/> runs on the still-active run
@@ -239,10 +242,11 @@ namespace RunTests
             }
         }
 
-        private LiveTestProgressDisplay(string runLabel, ImmutableArray<WorkItemInfo> workItems, LocalTestTimingHistory history)
+        private LiveTestProgressDisplay(string runLabel, ImmutableArray<WorkItemInfo> workItems, LocalTestTimingHistory history, bool recordHistory)
         {
             _runLabel = runLabel;
             _history = history;
+            _recordHistory = recordHistory;
 
             var nameParts = workItems.Select(GetNameParts).ToList();
             var duplicateBaseNames = nameParts
@@ -456,7 +460,7 @@ namespace RunTests
         /// </summary>
         internal static LiveTestProgressDisplay? Current { get; private set; }
 
-        internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems, string? artifactsDirectory)
+        internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems, string? artifactsDirectory, bool recordHistory)
         {
             if (Console.IsOutputRedirected || workItems.Length == 0)
             {
@@ -492,7 +496,7 @@ namespace RunTests
                 // The constructor itself probes Windows mouse-wheel support (see TryDetectWindowsConsoleInputSupport);
                 // EnableMouseSupport here does the actual (non-Windows escape write / Windows SetConsoleMode) switch
                 // for the rest of this display's lifetime -- both no-op silently if support wasn't available.
-                display = new LiveTestProgressDisplay(runLabel, workItems, LocalTestTimingHistory.Load(artifactsDirectory));
+                display = new LiveTestProgressDisplay(runLabel, workItems, LocalTestTimingHistory.Load(artifactsDirectory), recordHistory);
                 display.EnableMouseSupport();
             }
             catch
@@ -593,8 +597,11 @@ namespace RunTests
 
                 // Only a genuine pass is worth remembering as the "Previous" baseline -- a timeout/failure's
                 // elapsed time reflects however long it took to hang or crash, not how long the work item
-                // actually takes to run.
-                if (succeeded)
+                // actually takes to run. Likewise skipped entirely when --testFilter narrowed this run to a
+                // subset of each assembly's tests (_recordHistory is false): that elapsed time is nowhere
+                // close to a full-assembly run and would silently replace a real baseline with a
+                // fraction-of-a-second (or even zero-matching-tests) "Previous" for every later unfiltered run.
+                if (succeeded && _recordHistory)
                 {
                     _history.RecordPassed(row.HistoryKey, elapsed);
                 }

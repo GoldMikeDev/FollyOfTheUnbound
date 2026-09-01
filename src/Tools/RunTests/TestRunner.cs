@@ -82,10 +82,16 @@ namespace RunTests
             // efficiency-class tier stays parked essentially permanently, as with Arrow Lake-H's "Low
             // Power Island" E-cores), so a work item can still be scheduled onto one and stall there.
             // Asking Windows which cores are parked right now (rather than assuming a fixed tier) and
-            // excluding just those sidesteps that; on non-Windows, or if nothing is reported parked, this
-            // is always 0 and the count is unchanged.
-            var availableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetParkedLogicalProcessorCount();
-            var max = _options.Sequential ? 1 : Math.Max(availableProcessorCount - 1, 1);
+            // excluding just those sidesteps that -- but a single snapshot taken here, before any work has
+            // even started, would freeze `max` at whatever's parked while the machine is still idle: Windows
+            // unparks cores as load ramps up (this run's own test processes included), so a core parked at
+            // this exact instant is not necessarily parked for the rest of the run. RunLoopAsync below
+            // instead re-samples every tick and only ever raises `max` (see RefreshMaxConcurrency), so a
+            // conservative startup snapshot self-corrects within a few redraws instead of permanently
+            // under-provisioning the run. On non-Windows, or if nothing is ever reported parked, this is
+            // always 0 and the count is unchanged, same as before.
+            var bestAvailableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetParkedLogicalProcessorCount();
+            var max = _options.Sequential ? 1 : Math.Max(bestAvailableProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
             var running = new List<(WorkItemInfo WorkItem, Task<TestResult> Task)>();
@@ -93,7 +99,10 @@ namespace RunTests
             var failures = 0;
 
             var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
-            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems, _options.ArtifactsDirectory);
+            // A --testFilter run only exercises a subset of each assembly's tests, so its elapsed time is
+            // not a meaningful "how long does this assembly normally take" baseline -- see
+            // LiveTestProgressDisplay.MarkCompleted's remarks.
+            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems, _options.ArtifactsDirectory, recordHistory: _options.TestFilter is null);
 
             try
             {
@@ -189,6 +198,8 @@ namespace RunTests
                         }
                     }
 
+                    RefreshMaxConcurrency();
+
                     while (running.Count < max && waiting.Count > 0)
                     {
                         var workItem = waiting.Pop();
@@ -230,6 +241,28 @@ namespace RunTests
                         }
                     }
                 } while (running.Count > 0);
+            }
+
+            // Re-samples currently-parked processors and only ever raises `max`, never lowers it -- so a
+            // conservative startup snapshot (see bestAvailableProcessorCount's remarks above) climbs back up
+            // to the machine's real capacity within a few redraws as Windows unparks cores under this run's
+            // own load, without ever shrinking the pool mid-run and stalling/starving already-running work
+            // items over a transient re-parking blip. A no-op (and effectively free -- ProcessorTopology
+            // short-circuits to 0 off Windows) for --sequential runs and every non-Windows/non-hybrid host,
+            // matching the exact behavior before this whole hybrid-CPU-aware sizing existed.
+            void RefreshMaxConcurrency()
+            {
+                if (_options.Sequential)
+                {
+                    return;
+                }
+
+                var currentAvailableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetParkedLogicalProcessorCount();
+                if (currentAvailableProcessorCount > bestAvailableProcessorCount)
+                {
+                    bestAvailableProcessorCount = currentAvailableProcessorCount;
+                    max = Math.Max(bestAvailableProcessorCount - 1, 1);
+                }
             }
         }
 
