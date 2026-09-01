@@ -18,6 +18,7 @@ namespace RunTests.UnitTests
         private const int OtherRelationshipType = 1;
         private const byte ParkedFlag = 0x1;
         private const byte AllocatedFlag = 0x2;
+        private const byte AllocatedToTargetProcessFlag = 0x4;
 
         private const int EntrySize = 32; // sizeof(SYSTEM_CPU_SET_INFORMATION)
 
@@ -43,9 +44,9 @@ namespace RunTests.UnitTests
         public void NoParkedProcessors_ReturnsZero()
         {
             var buffer = BuildBuffer(
-                (CpuSetInformationType, AllocatedFlag),
-                (CpuSetInformationType, AllocatedFlag),
-                (CpuSetInformationType, 0));
+                (CpuSetInformationType, (byte)(AllocatedFlag | AllocatedToTargetProcessFlag)),
+                (CpuSetInformationType, (byte)(AllocatedFlag | AllocatedToTargetProcessFlag)),
+                (CpuSetInformationType, AllocatedToTargetProcessFlag));
 
             Assert.Equal(0, ProcessorTopology.CountParkedLogicalProcessors(buffer));
         }
@@ -53,15 +54,15 @@ namespace RunTests.UnitTests
         [Fact]
         public void CountsOnlyEntriesWithTheParkedBitSet()
         {
-            // 6 logical processors: 4 active (2 of which are also allocated -- an unrelated flag that
-            // must not be mistaken for Parked), 2 parked.
+            // 6 logical processors, all allocated to this process: 4 active (2 of which are also
+            // allocated -- an unrelated flag that must not be mistaken for Parked), 2 parked.
             var buffer = BuildBuffer(
-                (CpuSetInformationType, 0),
-                (CpuSetInformationType, AllocatedFlag),
-                (CpuSetInformationType, AllocatedFlag),
-                (CpuSetInformationType, 0),
-                (CpuSetInformationType, ParkedFlag),
-                (CpuSetInformationType, (byte)(ParkedFlag | AllocatedFlag)));
+                (CpuSetInformationType, AllocatedToTargetProcessFlag),
+                (CpuSetInformationType, (byte)(AllocatedFlag | AllocatedToTargetProcessFlag)),
+                (CpuSetInformationType, (byte)(AllocatedFlag | AllocatedToTargetProcessFlag)),
+                (CpuSetInformationType, AllocatedToTargetProcessFlag),
+                (CpuSetInformationType, (byte)(ParkedFlag | AllocatedToTargetProcessFlag)),
+                (CpuSetInformationType, (byte)(ParkedFlag | AllocatedFlag | AllocatedToTargetProcessFlag)));
 
             Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer));
         }
@@ -69,11 +70,26 @@ namespace RunTests.UnitTests
         [Fact]
         public void IgnoresNonCpuSetEntryTypes()
         {
-            // A non-CpuSetInformation entry that happens to have the same bit set at the Flags offset
+            // A non-CpuSetInformation entry that happens to have the same bits set at the Flags offset
             // must not be counted -- only Type == CpuSetInformation entries represent a logical processor.
             var buffer = BuildBuffer(
-                (CpuSetInformationType, ParkedFlag),
-                (OtherRelationshipType, ParkedFlag));
+                (CpuSetInformationType, (byte)(ParkedFlag | AllocatedToTargetProcessFlag)),
+                (OtherRelationshipType, (byte)(ParkedFlag | AllocatedToTargetProcessFlag)));
+
+            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer));
+        }
+
+        [Fact]
+        public void IgnoresParkedProcessorsNotAllocatedToThisProcess()
+        {
+            // GetSystemCpuSetInformation always returns every CPU set on the whole system -- the process
+            // handle only controls each entry's AllocatedToTargetProcess flag. A process narrowed by CPU
+            // affinity/a CPU set assignment/a job object CPU limit must not have parked CPUs it can never
+            // be scheduled on counted against it, or this could subtract more than Environment.ProcessorCount
+            // even sees and clamp concurrency to 1.
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, (byte)(ParkedFlag | AllocatedToTargetProcessFlag)), // parked, ours
+                (CpuSetInformationType, ParkedFlag)); // parked, but not allocated to this process
 
             Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer));
         }
@@ -81,7 +97,7 @@ namespace RunTests.UnitTests
         [Fact]
         public void TruncatedTrailingEntry_StopsWithoutReadingPastTheBuffer()
         {
-            var buffer = BuildBuffer((CpuSetInformationType, ParkedFlag));
+            var buffer = BuildBuffer((CpuSetInformationType, (byte)(ParkedFlag | AllocatedToTargetProcessFlag)));
             var truncated = buffer[..(EntrySize - 1)];
 
             Assert.Equal(0, ProcessorTopology.CountParkedLogicalProcessors(truncated));

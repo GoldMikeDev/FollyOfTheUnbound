@@ -64,7 +64,7 @@ namespace RunTests.UnitTests
         [Fact]
         public void FreshHistory_NoFileYet_ReturnsNullForAnyKey()
         {
-            var history = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var history = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             Assert.Null(history.TryGetPreviousDuration("Some.Assembly"));
         }
 
@@ -82,10 +82,10 @@ namespace RunTests.UnitTests
         {
             var duration = TimeSpan.FromSeconds(93.5);
 
-            var history = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var history = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             history.RecordPassed("Some.Assembly", duration);
 
-            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             var previous = reloaded.TryGetPreviousDuration("Some.Assembly");
 
             Assert.NotNull(previous);
@@ -95,12 +95,12 @@ namespace RunTests.UnitTests
         [Fact]
         public void RecordPassed_Twice_LastWriteWinsForThatKey_OthersUnaffected()
         {
-            var history = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var history = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             history.RecordPassed("A", TimeSpan.FromSeconds(1));
             history.RecordPassed("B", TimeSpan.FromSeconds(2));
             history.RecordPassed("A", TimeSpan.FromSeconds(9));
 
-            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             Assert.Equal(TimeSpan.FromSeconds(9), reloaded.TryGetPreviousDuration("A"));
             Assert.Equal(TimeSpan.FromSeconds(2), reloaded.TryGetPreviousDuration("B"));
         }
@@ -108,7 +108,7 @@ namespace RunTests.UnitTests
         [Fact]
         public void HistoryFile_IsWrittenOutsideArtifactsDirectory()
         {
-            var history = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var history = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             history.RecordPassed("Some.Assembly", TimeSpan.FromSeconds(1));
 
             var expectedPath = Path.Combine(_tempRoot, ".test-timings.json");
@@ -117,11 +117,36 @@ namespace RunTests.UnitTests
         }
 
         [Fact]
+        public void RepoRootIsResolvedFromBinaryLocation_NotFromAnOverriddenArtifactsPathsParent()
+        {
+            // Simulates `--artifactspath` pointing somewhere entirely outside the checkout (e.g. a Helix
+            // work item's own scratch directory) -- the history file must still land next to the real
+            // checkout's `artifacts` directory (found by walking up from where RunTests itself is running
+            // from), not next to whatever unrelated directory --artifactspath happened to name.
+            var elsewhereRoot = Directory.CreateTempSubdirectory(nameof(LocalTestTimingHistoryTests) + "Elsewhere").FullName;
+            try
+            {
+                var overriddenArtifactsPath = Path.Combine(elsewhereRoot, "some-scratch-dir");
+                Directory.CreateDirectory(overriddenArtifactsPath);
+
+                var history = LocalTestTimingHistory.Load(overriddenArtifactsPath, _artifactsDirectory);
+                history.RecordPassed("Some.Assembly", TimeSpan.FromSeconds(1));
+
+                Assert.True(File.Exists(Path.Combine(_tempRoot, ".test-timings.json")));
+                Assert.False(File.Exists(Path.Combine(elsewhereRoot, ".test-timings.json")));
+            }
+            finally
+            {
+                Directory.Delete(elsewhereRoot, recursive: true);
+            }
+        }
+
+        [Fact]
         public void CorruptHistoryFile_LoadsEmptyRatherThanThrowing()
         {
             File.WriteAllText(Path.Combine(_tempRoot, ".test-timings.json"), "not valid json{{{");
 
-            var history = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var history = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             Assert.Null(history.TryGetPreviousDuration("Some.Assembly"));
         }
 
@@ -131,13 +156,13 @@ namespace RunTests.UnitTests
             // Simulates two concurrent `scry` processes (e.g. separate --core/--framework legs): each loads
             // its own independent snapshot up front, so neither ever sees the other's key in memory -- only
             // RecordPassed's re-read-and-merge immediately before writing can keep both alive on disk.
-            var processA = LocalTestTimingHistory.Load(_artifactsDirectory);
-            var processB = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var processA = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
+            var processB = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
 
             processA.RecordPassed("A", TimeSpan.FromSeconds(1));
             processB.RecordPassed("B", TimeSpan.FromSeconds(2));
 
-            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);
             Assert.Equal(TimeSpan.FromSeconds(1), reloaded.TryGetPreviousDuration("A"));
             Assert.Equal(TimeSpan.FromSeconds(2), reloaded.TryGetPreviousDuration("B"));
         }

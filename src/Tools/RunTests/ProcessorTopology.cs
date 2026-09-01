@@ -90,17 +90,30 @@ namespace RunTests
         //   offset  0: Size (uint32) -- byte size of this entry, used to step to the next one
         //   offset  4: Type (int32); CpuSetInformation == 0
         //   offset  8: Id (uint32)
-        //   offset 19: a union whose low bit (0x1) is the live "Parked" flag for this logical processor
+        //   offset 19: a union (AllFlags) whose bits are, low to high: Parked (0x1), Allocated (0x2),
+        //              AllocatedToTargetProcess (0x4), RealTimeAffinity (0x8)
         private const int CpuSetInformationType = 0;
         private const int SizeOffset = 0;
         private const int TypeOffset = 4;
         private const int FlagsOffset = 19;
         private const byte ParkedFlag = 0x1;
+        private const byte AllocatedToTargetProcessFlag = 0x4;
 
         /// <summary>
         /// Pure buffer walk, split out from <see cref="GetParkedLogicalProcessorCountCore"/> so it can be
         /// unit tested with a synthetic buffer instead of requiring live OS state.
         /// </summary>
+        /// <remarks>
+        /// <c>GetSystemCpuSetInformation</c> always returns the whole system's CPU sets regardless of which
+        /// process handle is passed -- the handle only controls each entry's <c>AllocatedToTargetProcess</c>
+        /// flag (true for a CPU set in this process's affinity/assigned-CPU-set view, or every CPU set when
+        /// the process has no such restriction). So a process narrowed by CPU affinity, an explicit CPU set
+        /// assignment, or a job object's CPU limit would otherwise have system-wide parked CPUs -- including
+        /// ones it can never be scheduled on at all -- subtracted from its much smaller
+        /// <see cref="Environment.ProcessorCount"/>, potentially clamping concurrency to 1. Filtering to only
+        /// <c>AllocatedToTargetProcess</c> entries keeps this counting exclusively within the set of CPUs this
+        /// process can actually be scheduled on, matching <see cref="Environment.ProcessorCount"/>'s scope.
+        /// </remarks>
         internal static int CountParkedLogicalProcessors(ReadOnlySpan<byte> buffer)
         {
             var parkedCount = 0;
@@ -114,9 +127,13 @@ namespace RunTests
                 }
 
                 var type = BinaryPrimitives.ReadInt32LittleEndian(buffer.Slice(offset + TypeOffset));
-                if (type == CpuSetInformationType && (buffer[offset + FlagsOffset] & ParkedFlag) != 0)
+                if (type == CpuSetInformationType)
                 {
-                    parkedCount++;
+                    var flags = buffer[offset + FlagsOffset];
+                    if ((flags & AllocatedToTargetProcessFlag) != 0 && (flags & ParkedFlag) != 0)
+                    {
+                        parkedCount++;
+                    }
                 }
 
                 offset += (int)size;

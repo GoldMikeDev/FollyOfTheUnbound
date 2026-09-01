@@ -37,9 +37,15 @@ namespace RunTests
         /// first run on this machine, or a corrupt/foreign-format file) -- this is a convenience display, never
         /// worth failing or warning about the run over.
         /// </summary>
-        internal static LocalTestTimingHistory Load(string? artifactsDirectory)
+        /// <param name="artifactsDirectory">Only gates whether history is enabled at all -- see <see cref="GetFilePath"/>.</param>
+        /// <param name="binaryDirectoryForRepoRootLookup">
+        /// Where to start walking up for the enclosing <c>artifacts</c> directory (see <see cref="FindRepoRoot"/>).
+        /// Defaults to this process's own binary location; overridable only so tests can point it at a synthetic
+        /// checkout layout instead of this repo's real one.
+        /// </param>
+        internal static LocalTestTimingHistory Load(string? artifactsDirectory, string? binaryDirectoryForRepoRootLookup = null)
         {
-            var filePath = GetFilePath(artifactsDirectory);
+            var filePath = GetFilePath(artifactsDirectory, binaryDirectoryForRepoRootLookup ?? AppContext.BaseDirectory);
             var timings = filePath is null ? new Dictionary<string, TimeSpan>(StringComparer.Ordinal) : ReadFromDisk(filePath);
             return new LocalTestTimingHistory(filePath, timings);
         }
@@ -151,15 +157,42 @@ namespace RunTests
             }
         }
 
-        private static string? GetFilePath(string? artifactsDirectory)
+        /// <summary>
+        /// <paramref name="artifactsDirectory"/> only gates whether history is enabled at all (mirroring
+        /// <see cref="Options.ArtifactsDirectory"/> itself being unresolved) -- the file's location is found
+        /// independently by walking up from <paramref name="binaryDirectoryForRepoRootLookup"/>, the same
+        /// technique <c>Options.TryGetArtifactsPath</c> uses to find the real <c>artifacts</c> directory by
+        /// default. Deriving it from <paramref name="artifactsDirectory"/>'s parent instead would break under
+        /// <c>--artifactspath</c>: that switch accepts an arbitrary directory (e.g. a Helix work item's own
+        /// scratch path, or any other override), whose parent isn't necessarily this checkout's root at all.
+        /// </summary>
+        private static string? GetFilePath(string? artifactsDirectory, string binaryDirectoryForRepoRootLookup)
         {
             if (string.IsNullOrEmpty(artifactsDirectory))
             {
                 return null;
             }
 
-            var repoRoot = Path.GetDirectoryName(artifactsDirectory);
+            var repoRoot = FindRepoRoot(binaryDirectoryForRepoRootLookup);
             return repoRoot is null ? null : Path.Combine(repoRoot, ".test-timings.json");
+        }
+
+        /// <summary>
+        /// Walks up from <paramref name="startDirectory"/> looking for a directory literally named
+        /// <c>artifacts</c> (matching this repo's layout: <c>RunTests</c> itself always builds to
+        /// <c>artifacts/bin/RunTests/...</c> regardless of where <c>--artifactspath</c> tells it to look for
+        /// *other* things) and returns that directory's parent, or <see langword="null"/> if none is found
+        /// (e.g. a standalone/relocated copy of the binaries outside any checkout).
+        /// </summary>
+        private static string? FindRepoRoot(string startDirectory)
+        {
+            var path = startDirectory;
+            while (path is not null && Path.GetFileName(path) != "artifacts")
+            {
+                path = Path.GetDirectoryName(path);
+            }
+
+            return path is null ? null : Path.GetDirectoryName(path);
         }
     }
 }
