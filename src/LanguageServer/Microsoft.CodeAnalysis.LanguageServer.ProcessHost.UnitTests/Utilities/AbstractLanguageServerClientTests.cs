@@ -105,7 +105,20 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
                 // caller's 'await using', so nothing else will dispose the already-launched client/server
                 // processes. Tear them down here before rethrowing so a stalled init doesn't leak them for the
                 // rest of the test host's lifetime.
-                await lspClient.DisposeAsync();
+                //
+                // DisposeAsync's own clean shutdown handshake is itself unbounded (RPC completion / process exit
+                // with no timeout), and the server we're disposing may be exactly what just failed to respond --
+                // so bound the wait on it too, falling back to forcibly killing the owned process tree(s) rather
+                // than risking a second unbounded hang here.
+                try
+                {
+                    await lspClient.DisposeAsync().AsTask().WaitAsync(TestHelpers.HangMitigatingTimeout);
+                }
+                catch
+                {
+                    lspClient.KillProcessesIfRunning();
+                }
+
                 throw;
             }
 
