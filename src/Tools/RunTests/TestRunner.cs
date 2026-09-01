@@ -76,7 +76,13 @@ namespace RunTests
             // processes), but only 1 processor for the open integration tests since they perform actual UI
             // operations (such as mouse clicks and sending keystrokes) and we don't want two tests to conflict
             // with one-another.
-            var max = _options.Sequential ? 1 : Math.Max(Environment.ProcessorCount - 1, 1);
+            //
+            // On a hybrid (P-core/E-core) CPU, Environment.ProcessorCount includes the low-power E-cores,
+            // but Windows parks idle E-cores under light load -- so a work item can still be scheduled onto
+            // one and stall there. Excluding E-cores from the pool up front sidesteps that; on a
+            // non-hybrid CPU (or any non-Windows OS) this is always 0 and the count is unchanged.
+            var availableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetLowPowerLogicalProcessorCount();
+            var max = _options.Sequential ? 1 : Math.Max(availableProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
             var running = new List<(WorkItemInfo WorkItem, Task<TestResult> Task)>();
