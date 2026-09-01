@@ -95,7 +95,20 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
                     throw new InvalidOperationException($"Unsupported load path extension: {PathUtilities.GetExtension(workspaceContent.LoadPath)}");
             }
 
-            await lspClient.WaitForProjectInitializationAsync().WaitAsync(TestHelpers.HangMitigatingTimeout);
+            try
+            {
+                await lspClient.WaitForProjectInitializationAsync().WaitAsync(TestHelpers.HangMitigatingTimeout);
+            }
+            catch
+            {
+                // If initialization stalls and the timeout fires, this method never returns the client to its
+                // caller's 'await using', so nothing else will dispose the already-launched client/server
+                // processes. Tear them down here before rethrowing so a stalled init doesn't leak them for the
+                // rest of the test host's lifetime.
+                await lspClient.DisposeAsync();
+                throw;
+            }
+
             lspClient.ProjectInitializationCompleted = true;
         }
 
