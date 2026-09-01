@@ -51,7 +51,7 @@ namespace RunTests
         }
 
         [SupportedOSPlatform("windows")]
-        private static unsafe int GetParkedLogicalProcessorCountCore()
+        private static unsafe int? GetParkedLogicalProcessorCountCore()
         {
             // Scoped to this process's own handle, not NULL (which would return every CPU set on the whole
             // system): a process restricted below the full machine -- CPU affinity, an explicit CPU set
@@ -62,11 +62,16 @@ namespace RunTests
             // GetCurrentProcess() is a pseudo-handle (always -1, never needs closing) -- see its own Win32 docs.
             var currentProcess = PInvoke.GetCurrentProcess();
 
+            // A real Windows system always reports at least one CPU set here -- returnedLength staying 0 means
+            // this sizing call itself failed, not "zero CPU sets exist." Same for the retrieval call below
+            // returning FALSE. Both are genuine query failures and must propagate null (see
+            // GetParkedLogicalProcessorCount's remarks), not 0, so a transient failure here can't be
+            // misread by TestRunner.RefreshMaxConcurrency as "nothing is parked."
             uint returnedLength = 0;
             _ = PInvoke.GetSystemCpuSetInformation(null, 0, &returnedLength, currentProcess, 0);
             if (returnedLength == 0)
             {
-                return 0;
+                return null;
             }
 
             var buffer = new byte[returnedLength];
@@ -79,7 +84,7 @@ namespace RunTests
                         currentProcess,
                         0))
                 {
-                    return 0;
+                    return null;
                 }
             }
 
