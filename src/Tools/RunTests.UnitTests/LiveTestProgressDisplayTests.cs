@@ -196,5 +196,38 @@ namespace RunTests.UnitTests
             var recognized = LiveTestProgressDisplay.TryGetWheelDirection(buttonCode, out _);
             Assert.False(recognized);
         }
+
+        // LiveRowStatus is internal, so it can't appear in a public [Theory]'s parameter list (CS0051) even
+        // with InternalsVisibleTo -- xunit's default discovery requires public test methods, so each case is
+        // its own [Fact] instead of a data-driven Theory.
+        [Fact]
+        public void GetRowColor_Passed_ReturnsGreen()
+        {
+            Assert.Equal(ConsoleColor.Green, LiveTestProgressDisplay.GetRowColor(LiveRowStatus.Passed));
+        }
+
+        [Fact]
+        public void GetRowColor_Timeout_ReturnsYellow()
+        {
+            Assert.Equal(ConsoleColor.Yellow, LiveTestProgressDisplay.GetRowColor(LiveRowStatus.Timeout));
+        }
+
+        [Fact]
+        public void GetRowColor_Failed_ReturnsRed()
+        {
+            Assert.Equal(ConsoleColor.Red, LiveTestProgressDisplay.GetRowColor(LiveRowStatus.Failed));
+        }
+
+        [Fact]
+        public void GetRowColor_Queued_ReturnsNull()
+        {
+            Assert.Null(LiveTestProgressDisplay.GetRowColor(LiveRowStatus.Queued));
+        }
+
+        [Fact]
+        public void GetRowColor_Running_ReturnsNull()
+        {
+            Assert.Null(LiveTestProgressDisplay.GetRowColor(LiveRowStatus.Running));
+        }
     }
 }

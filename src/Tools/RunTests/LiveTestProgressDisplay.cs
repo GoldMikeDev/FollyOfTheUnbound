@@ -83,6 +83,18 @@ namespace RunTests
         private const string EnterAltScreen = "\x1b[?1049h";
         private const string ExitAltScreen = "\x1b[?1049l";
 
+        /// <summary>Standard SGR reset, closing whatever <see cref="GetAnsiColorCode"/> opened for a row.</summary>
+        private const string ResetColor = "\x1b[0m";
+
+        /// <summary>Standard SGR foreground color code for a row's <see cref="GetRowColor"/>.</summary>
+        private static string GetAnsiColorCode(ConsoleColor color) => color switch
+        {
+            ConsoleColor.Green => "\x1b[32m",
+            ConsoleColor.Yellow => "\x1b[33m",
+            ConsoleColor.Red => "\x1b[31m",
+            _ => "",
+        };
+
         /// <summary>
         /// Standard xterm sequences for enabling/disabling mouse button+wheel reporting (mode 1000) with SGR
         /// extended coordinates (mode 1006) -- SGR is what lets the button code arrive unmodified (rather than
@@ -158,6 +170,7 @@ namespace RunTests
         private readonly string _runLabel;
         private readonly List<Row> _rows;
         private readonly Dictionary<int, Row> _rowsByPartitionIndex;
+        private readonly LocalTestTimingHistory _history;
 
         /// <summary>
         /// Guards every method that touches the alternate-screen state (<see cref="_inAltScreen"/>,
@@ -204,6 +217,12 @@ namespace RunTests
             internal DateTime? StartTimeUtc { get; set; }
             internal TimeSpan? FinalElapsed { get; set; }
 
+            /// <summary>Key into <see cref="LocalTestTimingHistory"/> -- see <see cref="LocalTestTimingHistory.GetKey"/>.</summary>
+            internal required string HistoryKey { get; init; }
+
+            /// <summary>How long this work item took the last time it passed on this machine, if known.</summary>
+            internal TimeSpan? PreviousElapsed { get; init; }
+
             /// <summary>
             /// The name to display within <paramref name="totalWidth"/> columns, truncating only
             /// <see cref="BaseName"/> (never <see cref="Suffix"/>, which is what disambiguates otherwise-identical
@@ -220,9 +239,10 @@ namespace RunTests
             }
         }
 
-        private LiveTestProgressDisplay(string runLabel, ImmutableArray<WorkItemInfo> workItems)
+        private LiveTestProgressDisplay(string runLabel, ImmutableArray<WorkItemInfo> workItems, LocalTestTimingHistory history)
         {
             _runLabel = runLabel;
+            _history = history;
 
             var nameParts = workItems.Select(GetNameParts).ToList();
             var duplicateBaseNames = nameParts
@@ -237,7 +257,19 @@ namespace RunTests
             {
                 var (baseName, tfmTag) = nameParts[i];
                 var suffix = duplicateBaseNames.Contains(baseName) && tfmTag is not null ? $" ({tfmTag})" : null;
-                unsortedRows.Add(new Row { BaseName = baseName, Suffix = suffix });
+
+                // Always keyed by (baseName, tfmTag) regardless of whether Suffix ended up set above -- unlike
+                // Suffix, which only disambiguates when *this run* has a duplicate, the persisted history must
+                // stay stable across runs where the duplicate-ness of a given baseName can differ (e.g. a
+                // TestRuntime.Both run schedules both TFMs, a single-TFM run doesn't).
+                var historyKey = LocalTestTimingHistory.GetKey(baseName, tfmTag);
+                unsortedRows.Add(new Row
+                {
+                    BaseName = baseName,
+                    Suffix = suffix,
+                    HistoryKey = historyKey,
+                    PreviousElapsed = history.TryGetPreviousDuration(historyKey),
+                });
             }
 
             _rowsByPartitionIndex = new Dictionary<int, Row>(workItems.Length);
@@ -424,7 +456,7 @@ namespace RunTests
         /// </summary>
         internal static LiveTestProgressDisplay? Current { get; private set; }
 
-        internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems)
+        internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems, string? artifactsDirectory)
         {
             if (Console.IsOutputRedirected || workItems.Length == 0)
             {
@@ -460,7 +492,7 @@ namespace RunTests
                 // The constructor itself probes Windows mouse-wheel support (see TryDetectWindowsConsoleInputSupport);
                 // EnableMouseSupport here does the actual (non-Windows escape write / Windows SetConsoleMode) switch
                 // for the rest of this display's lifetime -- both no-op silently if support wasn't available.
-                display = new LiveTestProgressDisplay(runLabel, workItems);
+                display = new LiveTestProgressDisplay(runLabel, workItems, LocalTestTimingHistory.Load(artifactsDirectory));
                 display.EnableMouseSupport();
             }
             catch
@@ -558,6 +590,14 @@ namespace RunTests
             {
                 row.Status = isTimeout ? LiveRowStatus.Timeout : succeeded ? LiveRowStatus.Passed : LiveRowStatus.Failed;
                 row.FinalElapsed = elapsed;
+
+                // Only a genuine pass is worth remembering as the "Previous" baseline -- a timeout/failure's
+                // elapsed time reflects however long it took to hang or crash, not how long the work item
+                // actually takes to run.
+                if (succeeded)
+                {
+                    _history.RecordPassed(row.HistoryKey, elapsed);
+                }
             }
         }
 
@@ -659,17 +699,20 @@ namespace RunTests
                 var lines = BuildFrameLines(width, height);
                 for (var i = 0; i < lines.Count; i++)
                 {
+                    var (text, color) = lines[i];
+                    var coloredText = color is { } c ? $"{GetAnsiColorCode(c)}{text}{ResetColor}" : text;
+
                     // The very last line must not end in a newline: the alternate screen is exactly `height` rows
                     // (0 through height-1), so writing one from the bottom row scrolls the whole grid up by one --
                     // shifting the title/counts off the top and leaving a blank row at the bottom, defeating the
                     // entire point of a fixed-size grid that never scrolls.
                     if (i == lines.Count - 1)
                     {
-                        Console.Out.Write(lines[i]);
+                        Console.Out.Write(coloredText);
                     }
                     else
                     {
-                        Console.WriteLine(lines[i]);
+                        Console.WriteLine(coloredText);
                     }
                 }
 
@@ -1073,14 +1116,27 @@ namespace RunTests
             return Math.Clamp(focusIndex - visibleRowBudget / 2, 0, maxScrollStart);
         }
 
-        private List<string> BuildFrameLines(int width, int height)
+        /// <summary>
+        /// The row-line foreground color for a completed status, or <see langword="null"/> for
+        /// <see cref="LiveRowStatus.Queued"/>/<see cref="LiveRowStatus.Running"/> (drawn in the terminal's normal
+        /// color -- there's nothing to flag yet).
+        /// </summary>
+        internal static ConsoleColor? GetRowColor(LiveRowStatus status) => status switch
+        {
+            LiveRowStatus.Passed => ConsoleColor.Green,
+            LiveRowStatus.Timeout => ConsoleColor.Yellow,
+            LiveRowStatus.Failed => ConsoleColor.Red,
+            _ => null,
+        };
+
+        private List<(string Text, ConsoleColor? Color)> BuildFrameLines(int width, int height)
         {
             var runningCount = _rows.Count(static r => r.Status == LiveRowStatus.Running);
             var queuedCount = _rows.Count(static r => r.Status == LiveRowStatus.Queued);
             var passedCount = _rows.Count(static r => r.Status == LiveRowStatus.Passed);
             var attentionCount = _rows.Count(static r => r.Status is LiveRowStatus.Failed or LiveRowStatus.Timeout);
 
-            var fixedOverhead = Indent.Length + ColumnGap.Length + TestResultDisplay.StatusColumnWidth + ColumnGap.Length + TestResultDisplay.ElapsedColumnWidth;
+            var fixedOverhead = Indent.Length + ColumnGap.Length + TestResultDisplay.StatusColumnWidth + ColumnGap.Length + TestResultDisplay.ElapsedColumnWidth + ColumnGap.Length + TestResultDisplay.ElapsedColumnWidth;
             var longestName = _rows.Count == 0
                 ? MinimumNameColumnWidth
                 : _rows.Max(static r => r.BaseName.Length + (r.Suffix?.Length ?? 0));
@@ -1101,16 +1157,16 @@ namespace RunTests
                     : $"    [{scrollHint} to scroll]";
             }
 
-            var lines = new List<string>(height)
+            var lines = new List<(string Text, ConsoleColor? Color)>(height)
             {
-                FitToWidth(titleLine, width),
-                string.Empty,
-                FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}", width),
+                (FitToWidth(titleLine, width), null),
+                (string.Empty, null),
+                (FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Previous", TestResultDisplay.ElapsedColumnWidth)}", width), null),
                 // The Status underline fills its whole column (like the Test Assembly one) -- it only reads as
                 // "one dash past the word" because the centered header text is inset from the column edges. The
-                // Elapsed underline is different: the word's length plus one extra dash on each side, never the
-                // full (wider, HH:mm:ss-sized) column, centered within it same as the data.
-                FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length + 2), TestResultDisplay.ElapsedColumnWidth)}", width),
+                // Elapsed/Previous underlines are different: the word's length plus one extra dash on each side,
+                // never the full (wider, HH:mm:ss-sized) column, centered within it same as the data.
+                (FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length + 2), TestResultDisplay.ElapsedColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Previous".Length + 2), TestResultDisplay.ElapsedColumnWidth)}", width), null),
             };
 
             var now = DateTime.UtcNow;
@@ -1132,16 +1188,17 @@ namespace RunTests
                     LiveRowStatus.Running => TestResultDisplay.FormatElapsed(now - row.StartTimeUtc!.Value),
                     _ => TestResultDisplay.FormatElapsed(row.FinalElapsed ?? TimeSpan.Zero),
                 };
+                var previousText = row.PreviousElapsed is { } previousElapsed ? TestResultDisplay.FormatElapsed(previousElapsed) : "--:--";
 
-                var line = $"{Indent}{name.PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(statusText, TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(elapsedText, TestResultDisplay.ElapsedColumnWidth)}";
-                lines.Add(FitToWidth(line, width));
+                var line = $"{Indent}{name.PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(statusText, TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(elapsedText, TestResultDisplay.ElapsedColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(previousText, TestResultDisplay.ElapsedColumnWidth)}";
+                lines.Add((FitToWidth(line, width), GetRowColor(row.Status)));
             }
 
             // Pad to exactly `height` lines so every redraw fully overwrites the whole alternate-screen grid,
             // even when fewer rows are visible than the budget allows (a short run) or the window just grew.
             while (lines.Count < height)
             {
-                lines.Add(new string(' ', width));
+                lines.Add((new string(' ', width), null));
             }
 
             return lines;

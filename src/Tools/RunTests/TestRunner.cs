@@ -93,7 +93,7 @@ namespace RunTests
             var failures = 0;
 
             var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
-            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems);
+            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems, _options.ArtifactsDirectory);
 
             try
             {

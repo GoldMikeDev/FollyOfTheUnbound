@@ -210,3 +210,7 @@ artifacts/TestResults/**/dumps/
 build-verbose.log
 
 artifacts/LanguageServer/
+
+# Per-machine scry live-table test timing history (src/Tools/RunTests/LocalTestTimingHistory.cs) --
+# deliberately outside artifacts/ so `folly.sh`/`folly.ps1 cleanse` doesn't wipe it, but still local-only.
+/.test-timings.json
