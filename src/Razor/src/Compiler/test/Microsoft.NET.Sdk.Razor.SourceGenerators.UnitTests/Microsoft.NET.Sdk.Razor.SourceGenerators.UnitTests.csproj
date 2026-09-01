@@ -53,13 +53,24 @@
     it into the same conflict resolution regardless of ExcludeAssets. PackageDownload sidesteps that entirely: it
     only fetches the package's content into the NuGet cache without adding it as any kind of compile/runtime
     reference, so it can't collide with the ProjectReference at all.
+
+    The same problem applies one layer up: CSharpAnalyzerVerifier also loads the real
+    "Microsoft.CodeAnalysis.CSharp.Workspaces" assembly by name at runtime to register the C# language service
+    (its absence surfaces as "System.NotSupportedException: The language 'C#' is not supported" from
+    HostWorkspaceServices.GetLanguageServices when the verifier tries to add a C# project). Our local
+    CSharp.Workspaces.csproj is renamed the same way (AssemblyName FollyOfTheUnbound.CodeAnalysis.CSharpUnbound.
+    Workspaces under the real PackageId), so it needs the identical PackageDownload/copy treatment.
   -->
   <ItemGroup>
     <PackageDownload Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="[$(MicrosoftCodeAnalysisVersionForAnalyzerTests)]" />
+    <PackageDownload Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="[$(MicrosoftCodeAnalysisVersionForAnalyzerTests)]" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="$(NuGetPackageRoot)microsoft.codeanalysis.workspaces.common/$(MicrosoftCodeAnalysisVersionForAnalyzerTests)/lib/net8.0/Microsoft.CodeAnalysis.Workspaces.dll"
+          CopyToOutputDirectory="PreserveNewest"
+          Visible="false" />
+    <None Include="$(NuGetPackageRoot)microsoft.codeanalysis.csharp.workspaces/$(MicrosoftCodeAnalysisVersionForAnalyzerTests)/lib/net8.0/Microsoft.CodeAnalysis.CSharp.Workspaces.dll"
           CopyToOutputDirectory="PreserveNewest"
           Visible="false" />
   </ItemGroup>
