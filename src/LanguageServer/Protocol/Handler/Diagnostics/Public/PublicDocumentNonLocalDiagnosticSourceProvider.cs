@@ -30,14 +30,16 @@ internal sealed class PublicDocumentNonLocalDiagnosticSourceProvider(
 
     public async ValueTask<ImmutableArray<IDiagnosticSource>> CreateDiagnosticSourcesAsync(RequestContext context, CancellationToken cancellationToken)
     {
+        var document = await context.GetRequiredDocumentAsync(cancellationToken).ConfigureAwait(false);
+
         // Non-local document diagnostics are reported only when full solution analysis is enabled for analyzer execution.
         // Connection-scoped (not GetBackgroundAnalysisScope's raw shared read): this runs as part of per-connection LSP
         // diagnostic request handling, so a daemon connection's own dotnet_analyzer_diagnostics_scope override must
         // apply here the same way it does everywhere else in the request path -- see docs/ide/specs/daemon-per-connection-isolation.md.
-        if (globalOptions.GetConnectionScopedOption(SolutionCrawlerOptionsStorage.BackgroundAnalysisScopeOption, context.GetRequiredDocument().Project.Language) == BackgroundAnalysisScope.FullSolution)
+        if (globalOptions.GetConnectionScopedOption(SolutionCrawlerOptionsStorage.BackgroundAnalysisScopeOption, document.Project.Language) == BackgroundAnalysisScope.FullSolution)
         {
             // NOTE: Compiler does not report any non-local diagnostics, so we only ask to run non-compiler-analyzers.
-            return [new NonLocalDocumentDiagnosticSource(context.GetRequiredDocument(), AnalyzerFilter.NonCompilerAnalyzer)];
+            return [new NonLocalDocumentDiagnosticSource(document, AnalyzerFilter.NonCompilerAnalyzer)];
         }
 
         return [];

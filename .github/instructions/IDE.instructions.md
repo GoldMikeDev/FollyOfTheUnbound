@@ -60,6 +60,29 @@ public MyService(IDependency dependency) { }
 - For localizable strings: `new LocalizableResourceString(nameof(FeaturesResources.Some_string), FeaturesResources.ResourceManager, typeof(FeaturesResources))`
 - After modifying `.resx` files, run `dotnet msbuild <path to csproj> /t:UpdateXlf` to update `.xlf` localization files
 
+## Language Server Project Loading (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/HostWorkspace/`)
+
+Design-time build and workspace-project lifecycle for the language server daemon is split across
+partial-class files, one concept per file:
+
+- **`LanguageServerProjectLoader.cs`** — the abstract base loader: queues and batches project
+  (re)loads (`_projectsToReload`), runs design-time builds via `BuildHostProcessManager`, tracks
+  loaded projects in `_loadedProjects` (`Dictionary<string, LoadedProject>`), and owns automatic
+  NuGet restore.
+- **`LanguageServerProjectLoader.ProjectToLoad.cs`** — the `ProjectToLoad` record (path + optional
+  `WorkDoneProgressTracker`) queued onto `_projectsToReload`.
+- **`LanguageServerProjectLoader.WorkDoneProgressTracker.cs`** — `WorkDoneProgressTracker`, which
+  coalesces LSP `WorkDoneProgress` percentage updates from parallel callers and reports 100% on
+  disposal.
+- **`LoadedProject.cs`** — one instance per loaded project *file* (not per target framework); owns
+  the project's file watches and holds a `List<Target>` — one `Target` per target framework when the
+  project is multi-targeted.
+- **`LoadedProject.Target.cs`** — the nested `Target` type: one loaded `Microsoft.CodeAnalysis.Project`
+  registered in the workspace, its own asset-file watcher and options processor. `Target.Dispose()`
+  releases those first, then calls `RemoveFromWorkspace()` last — so a caller disposing multiple
+  targets must not let one `RemoveFromWorkspace()` failure (e.g. the owning `Workspace` already torn
+  down) skip disposing the rest; `LoadedProject.DisposeAsync()` catches per-target for this reason.
+
 ## Analyzers & Code Fixes (IDE0xxx)
 
 - IDE code-style analyzers inherit from `AbstractBuiltInCodeStyleDiagnosticAnalyzer` — not raw `DiagnosticAnalyzer`
@@ -106,6 +129,7 @@ var methodDecl = generator.MethodDeclaration("MyMethod", ...);
 - **Immutability**: All `Document`, `Solution`, `Project` instances are immutable — use `With*` methods
 - **Cancellation**: Always thread `CancellationToken` through async operations
 - **Performance**: Avoid LINQ in hot paths, prefer `for` loops or `.AsSpan()`, use `ObjectPool<T>`
+- **LanguageServer request context**: Handlers should use the asynchronous `RequestContext.Get*Async` methods for workspace, solution, and document access. Obsolete synchronous members remain only for compatibility with existing external-access consumers and forward to the asynchronous accessors.
 
 ## Adding IDE Support for a New Statement/Expression SyntaxKind
 

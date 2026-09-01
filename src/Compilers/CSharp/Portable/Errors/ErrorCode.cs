@@ -2510,6 +2510,8 @@ namespace Microsoft.CodeAnalysis.CSharp
         ERR_BadAwaitInFixed = 9398,
         ERR_FeatureNotAvailableInVersion15 = 9399,
 
+        ERR_BadCompilationOptionValueAccepted = 9400,
+
         // This fork's own error/warning codes live in a dedicated 10000+ block, well clear of upstream
         // dotnet/roslyn's own sequential numbering (still in the high 9300s as of this writing) -- so
         // merging a new upstream commit that adds error codes can never again collide with one of ours
