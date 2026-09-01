@@ -151,6 +151,8 @@ override Microsoft.CodeAnalysis.CSharp.Syntax.IfCatchArmSyntax.Accept<TResult>(M
 static Microsoft.CodeAnalysis.CSharp.SyntaxFactory.IfCatchArm(Microsoft.CodeAnalysis.SyntaxToken elseKeyword, Microsoft.CodeAnalysis.SyntaxToken ifKeyword, Microsoft.CodeAnalysis.SyntaxToken openParenToken, Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax? condition, Microsoft.CodeAnalysis.SyntaxToken closeParenToken, Microsoft.CodeAnalysis.CSharp.Syntax.BlockSyntax? conditionBlock, Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax! consequence) -> Microsoft.CodeAnalysis.CSharp.Syntax.IfCatchArmSyntax!
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitIfCatchArm(Microsoft.CodeAnalysis.CSharp.Syntax.IfCatchArmSyntax! node) -> void
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitIfCatchArm(Microsoft.CodeAnalysis.CSharp.Syntax.IfCatchArmSyntax! node) -> TResult?
+[RSEXPERIMENTAL006]Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions.MemorySafetyRulesVersion.get -> Microsoft.CodeAnalysis.MemorySafetyRulesVersion
+[RSEXPERIMENTAL006]Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions.WithMemorySafetyRulesVersion(Microsoft.CodeAnalysis.MemorySafetyRulesVersion version) -> Microsoft.CodeAnalysis.CSharp.CSharpCompilationOptions!
 [RSEXPERIMENTAL006]Microsoft.CodeAnalysis.CSharp.SyntaxKind.SafeKeyword = 8454 -> Microsoft.CodeAnalysis.CSharp.SyntaxKind
 
 [RSEXPERIMENTAL006]Microsoft.CodeAnalysis.CSharp.Syntax.UnsafeExpressionSyntax
