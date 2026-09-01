@@ -1,4 +1,4 @@
 GetStdHandle
 GetConsoleMode
 SetConsoleMode
-GetLogicalProcessorInformationEx
+GetSystemCpuSetInformation

@@ -77,11 +77,14 @@ namespace RunTests
             // operations (such as mouse clicks and sending keystrokes) and we don't want two tests to conflict
             // with one-another.
             //
-            // On a hybrid (P-core/E-core) CPU, Environment.ProcessorCount includes the low-power E-cores,
-            // but Windows parks idle E-cores under light load -- so a work item can still be scheduled onto
-            // one and stall there. Excluding E-cores from the pool up front sidesteps that; on a
-            // non-hybrid CPU (or any non-Windows OS) this is always 0 and the count is unchanged.
-            var availableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetLowPowerLogicalProcessorCount();
+            // Environment.ProcessorCount includes logical processors Windows currently has parked (idle,
+            // dynamically taken out of scheduling -- e.g. on a hybrid CPU this can mean a whole
+            // efficiency-class tier stays parked essentially permanently, as with Arrow Lake-H's "Low
+            // Power Island" E-cores), so a work item can still be scheduled onto one and stall there.
+            // Asking Windows which cores are parked right now (rather than assuming a fixed tier) and
+            // excluding just those sidesteps that; on non-Windows, or if nothing is reported parked, this
+            // is always 0 and the count is unchanged.
+            var availableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetParkedLogicalProcessorCount();
             var max = _options.Sequential ? 1 : Math.Max(availableProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);

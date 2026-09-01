@@ -9,113 +9,82 @@ using Xunit;
 
 namespace RunTests.UnitTests
 {
-    // Exercises ProcessorTopology.CountLowPowerLogicalProcessors against synthetic
-    // SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX buffers, since real hybrid (P-core/E-core) hardware
-    // isn't available to every machine running this test suite.
+    // Exercises ProcessorTopology.CountParkedLogicalProcessors against synthetic
+    // SYSTEM_CPU_SET_INFORMATION buffers, since live parking state depends on real hardware and
+    // current system load, neither of which a test can control.
     public sealed class ProcessorTopologyTests
     {
-        private const int RelationProcessorCore = 0;
-        private const int RelationNumaNode = 1;
+        private const int CpuSetInformationType = 0;
+        private const int OtherRelationshipType = 1;
+        private const byte ParkedFlag = 0x1;
+        private const byte AllocatedFlag = 0x2;
 
-        private static byte[] BuildBuffer(params (int Relationship, byte EfficiencyClass, ulong[] GroupMasks)[] entries)
+        private const int EntrySize = 32; // sizeof(SYSTEM_CPU_SET_INFORMATION)
+
+        private static byte[] BuildBuffer(params (int Type, byte Flags)[] entries)
+            => entries.SelectMany(e => BuildEntry(e.Type, e.Flags)).ToArray();
+
+        private static byte[] BuildEntry(int type, byte flags)
         {
-            var chunks = new List<byte[]>();
-            foreach (var (relationship, efficiencyClass, groupMasks) in entries)
-            {
-                chunks.Add(BuildEntry(relationship, efficiencyClass, groupMasks));
-            }
-
-            var buffer = new byte[chunks.Count == 0 ? 0 : chunks.Sum(c => c.Length)];
-            var offset = 0;
-            foreach (var chunk in chunks)
-            {
-                chunk.CopyTo(buffer, offset);
-                offset += chunk.Length;
-            }
-
-            return buffer;
-        }
-
-        private static byte[] BuildEntry(int relationship, byte efficiencyClass, ulong[] groupMasks)
-        {
-            var size = 8 + 24 + groupMasks.Length * 16;
-            var entry = new byte[size];
-
-            BitConverter.GetBytes(relationship).CopyTo(entry, 0);
-            BitConverter.GetBytes((uint)size).CopyTo(entry, 4);
-
-            if (relationship == RelationProcessorCore)
-            {
-                entry[9] = efficiencyClass; // EfficiencyClass
-                BitConverter.GetBytes((ushort)groupMasks.Length).CopyTo(entry, 30); // GroupCount
-
-                for (var i = 0; i < groupMasks.Length; i++)
-                {
-                    var groupOffset = 32 + i * 16;
-                    BitConverter.GetBytes(groupMasks[i]).CopyTo(entry, groupOffset); // GROUP_AFFINITY.Mask
-                }
-            }
-
+            var entry = new byte[EntrySize];
+            BitConverter.GetBytes((uint)EntrySize).CopyTo(entry, 0); // Size
+            BitConverter.GetBytes(type).CopyTo(entry, 4); // Type
+            entry[19] = flags; // AllFlags (bit 0 == Parked)
             return entry;
         }
 
         [Fact]
         public void EmptyBuffer_ReturnsZero()
         {
-            Assert.Equal(0, ProcessorTopology.CountLowPowerLogicalProcessors(ReadOnlySpan<byte>.Empty));
+            Assert.Equal(0, ProcessorTopology.CountParkedLogicalProcessors(ReadOnlySpan<byte>.Empty));
         }
 
         [Fact]
-        public void NonHybridCpu_AllSameEfficiencyClass_ReturnsZero()
+        public void NoParkedProcessors_ReturnsZero()
         {
-            // 4 physical cores, 2 logical processors each (hyperthreaded), all the same efficiency class.
             var buffer = BuildBuffer(
-                (RelationProcessorCore, 0, new ulong[] { 0b0000_0011 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b0000_1100 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b0011_0000 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b1100_0000 }));
+                (CpuSetInformationType, AllocatedFlag),
+                (CpuSetInformationType, AllocatedFlag),
+                (CpuSetInformationType, 0));
 
-            Assert.Equal(0, ProcessorTopology.CountLowPowerLogicalProcessors(buffer));
+            Assert.Equal(0, ProcessorTopology.CountParkedLogicalProcessors(buffer));
         }
 
         [Fact]
-        public void HybridCpu_CountsOnlyLowerEfficiencyClassLogicalProcessors()
+        public void CountsOnlyEntriesWithTheParkedBitSet()
         {
-            // 2 P-cores (efficiency class 1, hyperthreaded -- 2 logical processors each) and
-            // 4 E-cores (efficiency class 0, no hyperthreading -- 1 logical processor each).
+            // 6 logical processors: 4 active (2 of which are also allocated -- an unrelated flag that
+            // must not be mistaken for Parked), 2 parked.
             var buffer = BuildBuffer(
-                (RelationProcessorCore, 1, new ulong[] { 0b0000_0011 }),
-                (RelationProcessorCore, 1, new ulong[] { 0b0000_1100 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b0001_0000 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b0010_0000 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b0100_0000 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b1000_0000 }));
+                (CpuSetInformationType, 0),
+                (CpuSetInformationType, AllocatedFlag),
+                (CpuSetInformationType, AllocatedFlag),
+                (CpuSetInformationType, 0),
+                (CpuSetInformationType, ParkedFlag),
+                (CpuSetInformationType, (byte)(ParkedFlag | AllocatedFlag)));
 
-            Assert.Equal(4, ProcessorTopology.CountLowPowerLogicalProcessors(buffer));
+            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer));
         }
 
         [Fact]
-        public void HybridCpu_MultiGroupMask_SumsAllGroupsForTheCore()
+        public void IgnoresNonCpuSetEntryTypes()
         {
-            // A single E-core reporting affinity across two processor groups (rare, but the struct allows it).
+            // A non-CpuSetInformation entry that happens to have the same bit set at the Flags offset
+            // must not be counted -- only Type == CpuSetInformation entries represent a logical processor.
             var buffer = BuildBuffer(
-                (RelationProcessorCore, 1, new ulong[] { 0b11 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b1, 0b1 }));
+                (CpuSetInformationType, ParkedFlag),
+                (OtherRelationshipType, ParkedFlag));
 
-            Assert.Equal(2, ProcessorTopology.CountLowPowerLogicalProcessors(buffer));
+            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer));
         }
 
         [Fact]
-        public void IgnoresNonProcessorCoreRelationships()
+        public void TruncatedTrailingEntry_StopsWithoutReadingPastTheBuffer()
         {
-            // A RelationNumaNode entry interleaved between two differently-classed processor cores must
-            // not be mistaken for a core, and must not break walking past it via its Size field.
-            var buffer = BuildBuffer(
-                (RelationProcessorCore, 1, new ulong[] { 0b1 }),
-                (RelationNumaNode, 0, new ulong[] { 0b1111 }),
-                (RelationProcessorCore, 0, new ulong[] { 0b1 }));
+            var buffer = BuildBuffer((CpuSetInformationType, ParkedFlag));
+            var truncated = buffer[..(EntrySize - 1)];
 
-            Assert.Equal(1, ProcessorTopology.CountLowPowerLogicalProcessors(buffer));
+            Assert.Equal(0, ProcessorTopology.CountParkedLogicalProcessors(truncated));
         }
     }
 }

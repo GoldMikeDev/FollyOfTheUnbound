@@ -4,28 +4,30 @@
 
 using System;
 using System.Buffers.Binary;
-using System.Numerics;
 using System.Runtime.Versioning;
 using Windows.Win32;
-using Windows.Win32.System.SystemInformation;
+using Windows.Win32.Foundation;
 
 namespace RunTests
 {
     /// <summary>
-    /// Detects hybrid (P-core/E-core) CPU topology on Windows so <see cref="TestRunner"/> can size its
-    /// concurrency around the performant cores only. Windows dynamically parks idle low-power (E-)cores
-    /// under light load, so a scheduled work item can still land on a parked core and stall; excluding
-    /// E-cores from the count up front avoids that instead of trying to detect parking state at runtime
-    /// (which has no simple, documented API).
+    /// Queries live per-core parking state on Windows so <see cref="TestRunner"/> can size its concurrency
+    /// around the logical processors actually schedulable right now. Windows dynamically parks idle
+    /// logical processors under light load -- on a hybrid CPU this can mean a whole efficiency-class tier
+    /// stays parked essentially permanently (e.g. a P-core/E-core/"Low Power Island" E-core design may
+    /// schedule the middle E-core tier normally but never touch the bottom LP-E-core tier), while on
+    /// others the exact set of parked cores shifts with load. Either way, a work item scheduled onto a
+    /// currently-parked core can stall there, so this asks Windows directly (<c>GetSystemCpuSetInformation</c>,
+    /// the same live parking signal .NET's own thread pool consults) rather than assuming a fixed tier.
     /// </summary>
     internal static class ProcessorTopology
     {
         /// <summary>
-        /// Returns the number of logical processors that belong to a low-power (E-)core, or 0 if the CPU
-        /// isn't a hybrid design, this isn't Windows, or the topology couldn't be determined for any reason.
-        /// Never throws.
+        /// Returns the number of logical processors that are currently parked, or 0 if this isn't Windows,
+        /// no processors are reported parked, or the topology couldn't be determined for any reason. Never
+        /// throws. This is a live snapshot taken once at the call site, not a continuously-updated value.
         /// </summary>
-        internal static int GetLowPowerLogicalProcessorCount()
+        internal static int GetParkedLogicalProcessorCount()
         {
             if (!OperatingSystem.IsWindows())
             {
@@ -34,7 +36,7 @@ namespace RunTests
 
             try
             {
-                return GetLowPowerLogicalProcessorCountCore();
+                return GetParkedLogicalProcessorCountCore();
             }
             catch
             {
@@ -45,10 +47,10 @@ namespace RunTests
         }
 
         [SupportedOSPlatform("windows")]
-        private static unsafe int GetLowPowerLogicalProcessorCountCore()
+        private static unsafe int GetParkedLogicalProcessorCountCore()
         {
             uint returnedLength = 0;
-            _ = PInvoke.GetLogicalProcessorInformationEx(LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorCore, null, ref returnedLength);
+            _ = PInvoke.GetSystemCpuSetInformation(null, 0, &returnedLength, (HANDLE)default, 0);
             if (returnedLength == 0)
             {
                 return 0;
@@ -57,113 +59,61 @@ namespace RunTests
             var buffer = new byte[returnedLength];
             fixed (byte* bufferPtr = buffer)
             {
-                if (!PInvoke.GetLogicalProcessorInformationEx(
-                        LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorCore,
-                        (SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX*)bufferPtr,
-                        ref returnedLength))
+                if (!PInvoke.GetSystemCpuSetInformation(
+                        (Windows.Win32.System.SystemInformation.SYSTEM_CPU_SET_INFORMATION*)bufferPtr,
+                        returnedLength,
+                        &returnedLength,
+                        (HANDLE)default,
+                        0))
                 {
                     return 0;
                 }
             }
 
-            return CountLowPowerLogicalProcessors(buffer);
+            return CountParkedLogicalProcessors(buffer);
         }
 
-        // SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX / PROCESSOR_RELATIONSHIP / GROUP_AFFINITY are fixed,
-        // documented Win32 layouts (winnt.h); we walk the raw bytes by hand rather than through the
-        // generated struct because PROCESSOR_RELATIONSHIP.GroupMask is a variable-length trailing array
-        // (ANYSIZE_ARRAY) that doesn't project cleanly onto a fixed-size managed field.
+        // SYSTEM_CPU_SET_INFORMATION is a fixed-size (no trailing flexible array), documented Win32 struct
+        // (winnt.h), but we still walk it by raw offset -- like ProcessorTopology's previous
+        // GetLogicalProcessorInformationEx-based implementation -- to sidestep depending on the exact
+        // generated names for its nested anonymous unions:
         //
-        //   offset  0: Relationship (int32); RelationProcessorCore == 0
-        //   offset  4: Size (uint32) -- byte size of this entry, used to step to the next one
-        //   offset  8: Flags (byte)                  \ PROCESSOR_RELATIONSHIP union, starting at offset 8
-        //   offset  9: EfficiencyClass (byte)         |
-        //   offset 10: Reserved[20]                   |
-        //   offset 30: GroupCount (uint16)             /
-        //   offset 32: GroupMask[GroupCount] -- each GROUP_AFFINITY is 16 bytes: an 8-byte Mask (KAFFINITY)
-        //              followed by a 2-byte Group and 6 bytes reserved.
-        private const int RelationProcessorCore = 0;
-        private const int RelationshipOffset = 0;
-        private const int SizeOffset = 4;
-        private const int EfficiencyClassOffset = 9;
-        private const int GroupCountOffset = 30;
-        private const int GroupMaskOffset = 32;
-        private const int GroupAffinitySize = 16;
+        //   offset  0: Size (uint32) -- byte size of this entry, used to step to the next one
+        //   offset  4: Type (int32); CpuSetInformation == 0
+        //   offset  8: Id (uint32)
+        //   offset 19: a union whose low bit (0x1) is the live "Parked" flag for this logical processor
+        private const int CpuSetInformationType = 0;
+        private const int SizeOffset = 0;
+        private const int TypeOffset = 4;
+        private const int FlagsOffset = 19;
+        private const byte ParkedFlag = 0x1;
 
         /// <summary>
-        /// Pure buffer walk, split out from <see cref="GetLowPowerLogicalProcessorCountCore"/> so it can be
-        /// unit tested with a synthetic buffer instead of requiring hybrid-CPU hardware.
+        /// Pure buffer walk, split out from <see cref="GetParkedLogicalProcessorCountCore"/> so it can be
+        /// unit tested with a synthetic buffer instead of requiring live OS state.
         /// </summary>
-        internal static int CountLowPowerLogicalProcessors(ReadOnlySpan<byte> buffer)
+        internal static int CountParkedLogicalProcessors(ReadOnlySpan<byte> buffer)
         {
-            // First pass: find every processor-core entry's efficiency class and logical processor count.
-            Span<(byte EfficiencyClass, int LogicalProcessorCount)> cores = stackalloc (byte, int)[256];
-            var coreCount = 0;
-
+            var parkedCount = 0;
             var offset = 0;
-            while (offset + SizeOffset + sizeof(uint) <= buffer.Length)
+            while (offset + FlagsOffset + sizeof(byte) <= buffer.Length)
             {
-                var relationship = BinaryPrimitives.ReadInt32LittleEndian(buffer.Slice(offset + RelationshipOffset));
                 var size = BinaryPrimitives.ReadUInt32LittleEndian(buffer.Slice(offset + SizeOffset));
                 if (size == 0 || offset + size > buffer.Length)
                 {
                     break;
                 }
 
-                if (relationship == RelationProcessorCore && offset + GroupCountOffset + sizeof(ushort) <= buffer.Length)
+                var type = BinaryPrimitives.ReadInt32LittleEndian(buffer.Slice(offset + TypeOffset));
+                if (type == CpuSetInformationType && (buffer[offset + FlagsOffset] & ParkedFlag) != 0)
                 {
-                    var efficiencyClass = buffer[offset + EfficiencyClassOffset];
-                    var groupCount = BinaryPrimitives.ReadUInt16LittleEndian(buffer.Slice(offset + GroupCountOffset));
-
-                    var logicalProcessorCount = 0;
-                    for (var i = 0; i < groupCount; i++)
-                    {
-                        var maskOffset = offset + GroupMaskOffset + i * GroupAffinitySize;
-                        if (maskOffset + sizeof(ulong) > buffer.Length)
-                        {
-                            break;
-                        }
-
-                        var mask = BinaryPrimitives.ReadUInt64LittleEndian(buffer.Slice(maskOffset));
-                        logicalProcessorCount += BitOperations.PopCount(mask);
-                    }
-
-                    if (coreCount < cores.Length)
-                    {
-                        cores[coreCount++] = (efficiencyClass, logicalProcessorCount);
-                    }
+                    parkedCount++;
                 }
 
                 offset += (int)size;
             }
 
-            if (coreCount == 0)
-            {
-                return 0;
-            }
-
-            var maxEfficiencyClass = cores[0].EfficiencyClass;
-            for (var i = 1; i < coreCount; i++)
-            {
-                if (cores[i].EfficiencyClass > maxEfficiencyClass)
-                {
-                    maxEfficiencyClass = cores[i].EfficiencyClass;
-                }
-            }
-
-            // Not a hybrid CPU (every core reports the same efficiency class): nothing to exclude.
-            var lowPowerLogicalProcessorCount = 0;
-            var sawLowerClass = false;
-            for (var i = 0; i < coreCount; i++)
-            {
-                if (cores[i].EfficiencyClass < maxEfficiencyClass)
-                {
-                    sawLowerClass = true;
-                    lowPowerLogicalProcessorCount += cores[i].LogicalProcessorCount;
-                }
-            }
-
-            return sawLowerClass ? lowPowerLogicalProcessorCount : 0;
+            return parkedCount;
         }
     }
 }
