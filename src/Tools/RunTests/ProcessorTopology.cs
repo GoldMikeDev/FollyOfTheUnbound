@@ -105,19 +105,44 @@ namespace RunTests
         /// </summary>
         /// <remarks>
         /// <c>GetSystemCpuSetInformation</c> always returns the whole system's CPU sets regardless of which
-        /// process handle is passed -- the handle only controls each entry's <c>AllocatedToTargetProcess</c>
-        /// flag (true for a CPU set in this process's affinity/assigned-CPU-set view, or every CPU set when
-        /// the process has no such restriction). So a process narrowed by CPU affinity, an explicit CPU set
-        /// assignment, or a job object's CPU limit would otherwise have system-wide parked CPUs -- including
-        /// ones it can never be scheduled on at all -- subtracted from its much smaller
-        /// <see cref="Environment.ProcessorCount"/>, potentially clamping concurrency to 1. Filtering to only
-        /// <c>AllocatedToTargetProcess</c> entries keeps this counting exclusively within the set of CPUs this
-        /// process can actually be scheduled on, matching <see cref="Environment.ProcessorCount"/>'s scope.
+        /// process handle is passed. <c>AllocatedToTargetProcess</c> is <em>not</em> "can this process run
+        /// here" -- it's only true for a CPU set the process was explicitly restricted to (e.g. via
+        /// <c>SetProcessDefaultCpuSets</c>, a CPU-set-aware job object limit, or similar). An ordinary,
+        /// unrestricted process -- the overwhelmingly common case for <c>scry</c> -- has that flag false on
+        /// every single entry, including CPUs it can freely run on; filtering to only flagged entries in that
+        /// case would count zero parked processors and silently disable the hybrid-CPU fix entirely. So this
+        /// mirrors how CoreCLR's own PAL interprets the same API: if any entry is flagged
+        /// <c>AllocatedToTargetProcess</c>, the process has an explicit CPU-set restriction, and only flagged
+        /// entries represent CPUs it can be scheduled on; otherwise there's no such restriction, and every
+        /// entry counts (matching <see cref="Environment.ProcessorCount"/>'s own unrestricted-by-default
+        /// scope). This still doesn't special-case a plain CPU-affinity-mask or job-object-CPU-limit
+        /// restriction (neither sets this flag), but that mismatch already existed before CPU-set filtering
+        /// was added and is a pre-existing limitation, not a regression from this filtering.
         /// </remarks>
         internal static int CountParkedLogicalProcessors(ReadOnlySpan<byte> buffer)
         {
-            var parkedCount = 0;
+            var hasExplicitAllocation = false;
             var offset = 0;
+            while (offset + FlagsOffset + sizeof(byte) <= buffer.Length)
+            {
+                var size = BinaryPrimitives.ReadUInt32LittleEndian(buffer.Slice(offset + SizeOffset));
+                if (size == 0 || offset + size > buffer.Length)
+                {
+                    break;
+                }
+
+                var type = BinaryPrimitives.ReadInt32LittleEndian(buffer.Slice(offset + TypeOffset));
+                if (type == CpuSetInformationType && (buffer[offset + FlagsOffset] & AllocatedToTargetProcessFlag) != 0)
+                {
+                    hasExplicitAllocation = true;
+                    break;
+                }
+
+                offset += (int)size;
+            }
+
+            var parkedCount = 0;
+            offset = 0;
             while (offset + FlagsOffset + sizeof(byte) <= buffer.Length)
             {
                 var size = BinaryPrimitives.ReadUInt32LittleEndian(buffer.Slice(offset + SizeOffset));
@@ -130,7 +155,8 @@ namespace RunTests
                 if (type == CpuSetInformationType)
                 {
                     var flags = buffer[offset + FlagsOffset];
-                    if ((flags & AllocatedToTargetProcessFlag) != 0 && (flags & ParkedFlag) != 0)
+                    var isVisibleToThisProcess = !hasExplicitAllocation || (flags & AllocatedToTargetProcessFlag) != 0;
+                    if (isVisibleToThisProcess && (flags & ParkedFlag) != 0)
                     {
                         parkedCount++;
                     }
