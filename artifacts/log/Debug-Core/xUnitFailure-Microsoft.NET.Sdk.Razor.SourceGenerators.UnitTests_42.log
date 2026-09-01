@@ -1,0 +1,548 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\Debug\net10.0\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_42_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_42_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\42
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost (41052).
+[xUnit.net 00:00:41.57]     Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_BindValue_NestedDelegateInFallbackComponent [SKIP]
+  Skipped Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGeneratorComponentTests.Component_BindValue_NestedDelegateInFallbackComponent [1 ms]
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType [1 s]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseType() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 304
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "internal") [5 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "protected internal") [2 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "protected") [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "private") [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(modifiers: "public static") [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectModifiersStillReport(String modifiers) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 237
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoEditorRequiredStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 52
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter [2 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeNotComponentWithBaseParameter() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 356
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.DerivedBaseTypeWithBaseParameter() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 329
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NotComponentStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 94
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesAndSdkAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 204
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: "") [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(String setter) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 261
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: "private init;") [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(String setter) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 261
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(setter: "private set;") [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.IncorrectSetterStillReport(String setter) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 261
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit [2 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterWithInit() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 395
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NullableReturnType() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 377
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 146
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.LocallyDefinedAttributesDifferentNamespace() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 175
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.NoParameterRequiredStillReports() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 73
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.ParameterEditorRequiredNoWarning() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 31
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.RequiredPropertyDoesNotReport() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 282
+--- End of stack trace from previous location ---
+  Failed Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes [1 ms]
+  Error Message:
+   System.NotSupportedException : The language 'C#' is not supported.
+  Stack Trace:
+     at Microsoft.CodeAnalysis.Host.HostWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.Mef.MefWorkspaceServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.Host.SolutionServices.GetLanguageServices(String languageName)
+   at Microsoft.CodeAnalysis.SolutionState.<AddProjects>g__CreateProjectState|58_1(ProjectInfo projectInfo, <>c__DisplayClass58_0&)
+   at Microsoft.CodeAnalysis.SolutionState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.SolutionCompilationState.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProjects(ArrayBuilder`1 projectInfos)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectInfo projectInfo)
+   at Microsoft.CodeAnalysis.Solution.AddProject(ProjectId projectId, String name, String assemblyName, String language)
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateSolutionAsync(ProjectId projectId, EvaluatedProjectState projectState, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1624
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectImplAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1445
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.CreateProjectAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1424
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSolutionAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1402
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.GetSortedDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, ImmutableArray`1 analyzers, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 1125
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.VerifyDiagnosticsAsync(EvaluatedProjectState primaryProject, ImmutableArray`1 additionalProjects, DiagnosticResult[] expected, IVerifier verifier, CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 451
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunImplAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 205
+   at Microsoft.CodeAnalysis.Testing.AnalyzerTest`1.RunAsync(CancellationToken cancellationToken) in /_/src/Microsoft.CodeAnalysis.Testing/Microsoft.CodeAnalysis.Analyzer.Testing/AnalyzerTest`1.cs:line 174
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.VerifyAnalyzerAsync(String source, ImmutableArray`1 extraReferences, DiagnosticResult[] expected) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 418
+   at Microsoft.CodeAnalysis.Razor.Analyzers.Tests.ComponentParameterNullableWarningSuppressorTests.AliasedAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Razor\src\Compiler\test\Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests\ComponentParameterNullableWarningSuppressorTests.cs:line 117
+--- End of stack trace from previous location ---
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_42_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_42_x64_test_results.html
+
+Failed!  - Failed:    22, Passed:   204, Skipped:     1, Total:   227, Duration: 56 s - Microsoft.NET.Sdk.Razor.SourceGenerators.UnitTests.dll (net10.0)

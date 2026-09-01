@@ -1,0 +1,1216 @@
+<assemblies timestamp="09/01/2026 14:21:27">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Features.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Features.UnitTests.dll" run-date="2026-09-01" run-time="14:21:27" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Features.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Features.UnitTests.dll.config" total="364" passed="363" failed="0" skipped="1" time="96.763" errors="0">
+    <errors />
+    <collection total="16" passed="16" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" time="0.085">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan_MultipleSameStart1(sl: 5, sc: 1, el: 5, ec: 2, s: 0, e: 2)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan_MultipleSameStart1(sl: 5, sc: 1, el: 5, ec: 2, s: 0, e: 2)" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan_MultipleSameStart1(sl: 5, sc: 1, el: 5, ec: 8, s: 0, e: 2)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan_MultipleSameStart1(sl: 5, sc: 1, el: 5, ec: 8, s: 0, e: 2)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan1(sl: 19, sc: 1, el: 19, ec: 100, s: 0, e: 0)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan1(sl: 19, sc: 1, el: 19, ec: 100, s: 0, e: 0)" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan1(sl: 20, sc: 1, el: 20, ec: 2, s: 0, e: 0)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan1(sl: 20, sc: 1, el: 20, ec: 2, s: 0, e: 0)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan1(sl: 3, sc: 0, el: 5, ec: 2, s: 0, e: 4)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan1(sl: 3, sc: 0, el: 5, ec: 2, s: 0, e: 4)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan1(sl: 2, sc: 0, el: 3, ec: 1, s: 0, e: 1)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan1(sl: 2, sc: 0, el: 3, ec: 1, s: 0, e: 1)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan1(sl: 0, sc: 0, el: 100, ec: 0, s: 0, e: 6)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan1(sl: 0, sc: 0, el: 100, ec: 0, s: 0, e: 6)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.InvalidActiveStatements" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="InvalidActiveStatements" time="0.0050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.ExpandMultiLineSpan" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="ExpandMultiLineSpan" time="0.0050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.NonRemappableRegionOrdering(reverse: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="NonRemappableRegionOrdering(reverse: False)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.NonRemappableRegionOrdering(reverse: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="NonRemappableRegionOrdering(reverse: True)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan_MultipleSameStart2(sl: 5, sc: 1, el: 5, ec: 2, s: 0, e: 3)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan_MultipleSameStart2(sl: 5, sc: 1, el: 5, ec: 2, s: 0, e: 3)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.SubSpan(reverse: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="SubSpan(reverse: True)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.SubSpan(reverse: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="SubSpan(reverse: False)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.GetSpansStartingInSpan2" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="GetSpansStartingInSpan2" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests.Ordering" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.ActiveStatementsMapTests" method="Ordering" time="0.0380000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests" time="0.005">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests.ParseCapabilities_IgnoreInvalidNumeric" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests" method="ParseCapabilities_IgnoreInvalidNumeric" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests.ParseCapabilities_AllCapabilitiesParsed" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests" method="ParseCapabilities_AllCapabilitiesParsed" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests.ParseCapabilities" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests" method="ParseCapabilities" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests.ParseCapabilities_IgnoreInvalid" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests" method="ParseCapabilities_IgnoreInvalid" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests.ParseCapabilities_CaseSensitive" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueCapabilitiesTests" method="ParseCapabilities_CaseSensitive" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueDiagnosticDescriptorsTests" time="0.016">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueDiagnosticDescriptorsTests.GetDescriptors" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueDiagnosticDescriptorsTests" method="GetDescriptors" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueDiagnosticDescriptorsTests.GetDescriptor" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueDiagnosticDescriptorsTests" method="GetDescriptor" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests" time="3.074">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests.Create_Errors" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests" method="Create_Errors" time="0.3970000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests.DebugInfo(format: PortablePdb, useSymReader: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests" method="DebugInfo(format: PortablePdb, useSymReader: True)" time="2.3170000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests.DebugInfo(format: PortablePdb, useSymReader: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests" method="DebugInfo(format: PortablePdb, useSymReader: False)" time="0.0670000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests.DebugInfo_NativePdb" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueMethodDebugInfoReaderTests" method="DebugInfo_NativePdb" time="0.2930000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="145" passed="144" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" time="39.161">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiProjectUpdates_ValidSignificantChange_RudeEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiProjectUpdates_ValidSignificantChange_RudeEdit" time="0.2990000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/78244" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectWithoutEffectiveGeneratedFilesOutputDirectory" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectWithoutEffectiveGeneratedFilesOutputDirectory" time="0.4790000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8WithBom)" time="0.2440000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: ShiftJis)" time="0.3110000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: ShiftJis)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: ShiftJis)" time="0.3360000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: BigEndianUnicode)" time="0.2790000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8WithBom)" time="0.2800000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Unicode)" time="0.5360000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: Utf8)" time="0.2740000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: True, encodingTestCase: BigEndianUnicode)" time="0.2520000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Unicode)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Unicode)" time="0.2590000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Encodings(matchingContent: False, encodingTestCase: Utf8)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Encodings(matchingContent: False, encodingTestCase: Utf8)" time="0.2560000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81930" />
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2067885" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: OutputType, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: OutputType, language: &quot;Visual Basic&quot;)" time="1.2740000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: OutputType, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: OutputType, language: &quot;C#&quot;)" time="0.2690000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: OptimizationLevel, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: OptimizationLevel, language: &quot;Visual Basic&quot;)" time="0.3210000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: StartupObject, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: StartupObject, language: &quot;Visual Basic&quot;)" time="1.4620000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: OptimizationLevel, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: OptimizationLevel, language: &quot;C#&quot;)" time="0.3920000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: ModuleAssemblyName, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: ModuleAssemblyName, language: &quot;C#&quot;)" time="0.3140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: StartupObject, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: StartupObject, language: &quot;C#&quot;)" time="0.2390000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: CheckForOverflowUnderflow, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: CheckForOverflowUnderflow, language: &quot;C#&quot;)" time="0.2300000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: CheckForOverflowUnderflow, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: CheckForOverflowUnderflow, language: &quot;Visual Basic&quot;)" time="0.2650000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: Platform, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: Platform, language: &quot;Visual Basic&quot;)" time="0.4160000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: Platform, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: Platform, language: &quot;C#&quot;)" time="0.2650000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions(settingKind: ModuleAssemblyName, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions(settingKind: ModuleAssemblyName, language: &quot;Visual Basic&quot;)" time="0.2630000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakInPresenceOfUnappliedChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakInPresenceOfUnappliedChanges" time="0.2390000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_Documents(documentKind: AdditionalDocument)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_Documents(documentKind: AdditionalDocument)" time="0.0870000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_Documents(documentKind: AnalyzerConfigDocument)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_Documents(documentKind: AnalyzerConfigDocument)" time="0.0430000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_Documents(documentKind: Document)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_Documents(documentKind: Document)" time="0.0640000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits(breakMode: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits(breakMode: True)" time="0.0300000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits(breakMode: False)" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_SyntaxErrorOrOutOfSyncDocument(isOutOfSync: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_SyntaxErrorOrOutOfSyncDocument(isOutOfSync: False)" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_SyntaxErrorOrOutOfSyncDocument(isOutOfSync: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_SyntaxErrorOrOutOfSyncDocument(isOutOfSync: True)" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.EditAndContinueAfterApplyingMoveTypeToFileCodeFix" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="EditAndContinueAfterApplyingMoveTypeToFileCodeFix" time="1.2340000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72984" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" time="0.2350000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: True)" time="0.2110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: False)" time="0.2000000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: False)" time="0.2070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: False)" time="0.2180000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: True)" time="0.2020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;C#&quot;, delayLoad: False, designTimeOnlyAddedAfterSessionStarts: True)" time="0.2280000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Wpf(language: &quot;Visual Basic&quot;, delayLoad: True, designTimeOnlyAddedAfterSessionStarts: False)" time="0.3900000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_AnalyzerConfigUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_AnalyzerConfigUpdate" time="0.3370000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakAfterRunModeChangeDeletesNonLeafActiveStatement" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakAfterRunModeChangeDeletesNonLeafActiveStatement" time="0.2930000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/52100" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_DocumentOutOfSync(delayLoad: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_DocumentOutOfSync(delayLoad: True)" time="0.3360000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_DocumentOutOfSync(delayLoad: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_DocumentOutOfSync(delayLoad: False)" time="0.1680000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities(breakState: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities(breakState: False)" time="0.2910000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities(breakState: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities(breakState: True)" time="0.2480000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitSuccessful(breakMode: False, commitUpdate: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitSuccessful(breakMode: False, commitUpdate: False)" time="0.2480000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitSuccessful(breakMode: False, commitUpdate: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitSuccessful(breakMode: False, commitUpdate: True)" time="0.2580000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitSuccessful(breakMode: True, commitUpdate: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitSuccessful(breakMode: True, commitUpdate: True)" time="0.2670000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitSuccessful(breakMode: True, commitUpdate: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitSuccessful(breakMode: True, commitUpdate: False)" time="0.2290000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_Add(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_Add(breakMode: False)" time="0.3030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_Add(breakMode: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_Add(breakMode: True)" time="0.1930000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_OutOfSyncDocuments" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_OutOfSyncDocuments" time="0.0210000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectReference_Add" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectReference_Add" time="0.2810000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_UpdateBaseline(validChangeBeforeRudeEdit: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits_UpdateBaseline(validChangeBeforeRudeEdit: True)" time="0.3420000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_UpdateBaseline(validChangeBeforeRudeEdit: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits_UpdateBaseline(validChangeBeforeRudeEdit: False)" time="0.2740000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitSuccessful_UpdateDeferred(commitUpdate: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitSuccessful_UpdateDeferred(commitUpdate: True)" time="0.2660000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitSuccessful_UpdateDeferred(commitUpdate: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitSuccessful_UpdateDeferred(commitUpdate: False)" time="0.3140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ErrorReadingSourceFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ErrorReadingSourceFile" time="0.6160000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_FileUpdateNotObservedBeforeDebuggingSessionStart" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_FileUpdateNotObservedBeforeDebuggingSessionStart" time="0.2170000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.BreakStateRemappingFollowedUpByRunStateUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="BreakStateRemappingFollowedUpByRunStateUpdate" time="0.2640000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/52100" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_RenameAndUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_RenameAndUpdate" time="0.2150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_ParseOptions(settingKind: DefineConstants, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_ParseOptions(settingKind: DefineConstants, language: &quot;C#&quot;)" time="0.2220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_ParseOptions(settingKind: Features, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_ParseOptions(settingKind: Features, language: &quot;C#&quot;)" time="0.2130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_ParseOptions(settingKind: LangVersion, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_ParseOptions(settingKind: LangVersion, language: &quot;Visual Basic&quot;)" time="0.2800000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_ParseOptions(settingKind: DefineConstants, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_ParseOptions(settingKind: DefineConstants, language: &quot;Visual Basic&quot;)" time="0.3910000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_ParseOptions(settingKind: LangVersion, language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_ParseOptions(settingKind: LangVersion, language: &quot;C#&quot;)" time="0.5530000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_ParseOptions(settingKind: Features, language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_ParseOptions(settingKind: Features, language: &quot;Visual Basic&quot;)" time="0.7660000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_NoTypesEmitted" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_NoTypesEmitted" time="0.3610000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/56431" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectWithoutChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectWithoutChanges" time="0.2110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentInsert" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentInsert" time="0.3360000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate_LineChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate_LineChanges" time="0.2260000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_SourceGeneratorFailure" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_SourceGeneratorFailure" time="0.1350000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_ForeignDocument(withPath: True, designTimeOnly: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_ForeignDocument(withPath: True, designTimeOnly: False)" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_ForeignDocument(withPath: False, designTimeOnly: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_ForeignDocument(withPath: False, designTimeOnly: True)" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_ForeignDocument(withPath: True, designTimeOnly: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_ForeignDocument(withPath: True, designTimeOnly: True)" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_ForeignDocument(withPath: False, designTimeOnly: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_ForeignDocument(withPath: False, designTimeOnly: False)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ErrorReadingModuleFile(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ErrorReadingModuleFile(breakMode: False)" time="0.2160000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ErrorReadingModuleFile(breakMode: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ErrorReadingModuleFile(breakMode: True)" time="0.4600000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions_VB(settingKind: OptionInfer)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions_VB(settingKind: OptionInfer)" time="0.3340000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions_VB(settingKind: OptionStrict)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions_VB(settingKind: OptionStrict)" time="0.2730000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions_VB(settingKind: OptionExplicit)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions_VB(settingKind: OptionExplicit)" time="0.2410000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions_VB(settingKind: OptionCompare)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions_VB(settingKind: OptionCompare)" time="0.2200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_CompilationOptions_VB(settingKind: RootNamespace)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_CompilationOptions_VB(settingKind: RootNamespace)" time="0.2000000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements" time="0.0230000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiTargetedPartiallyBuiltProjects" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiTargetedPartiallyBuiltProjects" time="0.6260000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue_NoChanges(breakMode: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue_NoChanges(breakMode: True)" time="0.2350000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue_NoChanges(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue_NoChanges(breakMode: False)" time="0.1930000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_MetadataReferences_Add" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_MetadataReferences_Add" time="0.3510000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiProjectUpdates_ValidSignificantChange_NoEffectEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiProjectUpdates_ValidSignificantChange_NoEffectEdit" time="0.2680000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/78244" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument" time="0.0550000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DeferredApplyChangeWithActiveStatementRudeEdits" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DeferredApplyChangeWithActiveStatementRudeEdits" time="0.2840000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_EmitError" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_EmitError" time="0.3980000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiTargeted_AllTargetsStale" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiTargeted_AllTargetsStale" time="0.4830000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DesignTimeOnlyDocument_Dynamic" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DesignTimeOnlyDocument_Dynamic" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_ApplyBeforeFileWatcherEvent(saveDocument: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_ApplyBeforeFileWatcherEvent(saveDocument: False)" time="0.2380000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_ApplyBeforeFileWatcherEvent(saveDocument: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_ApplyBeforeFileWatcherEvent(saveDocument: True)" time="0.2680000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_MetadataReferences" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_MetadataReferences" time="0.2080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Automatic)" time="0.2520000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72331" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentUpdate_GeneratedDocumentUpdate(executionPreference: Balanced)" time="0.2410000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72331" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_Add_BinaryAlreadyLoaded" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_Add_BinaryAlreadyLoaded" time="0.2750000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1371694" />
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/1204" />
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/79423" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Document_Delete" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Document_Delete" time="0.4810000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_Add" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_Add" time="0.2230000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.TwoUpdatesWithLoadedAndUnloadedModule" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="TwoUpdatesWithLoadedAndUnloadedModule" time="0.3930000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.StartDebuggingSession_CapturingDocuments" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="StartDebuggingSession_CapturingDocuments" time="0.2500000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_MetadataReferences_RemoveAdd" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_MetadataReferences_RemoveAdd" time="0.2900000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_References" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_References" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_BaselineCreationFailed_NoStream" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_BaselineCreationFailed_NoStream" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Project_MetadataReferences_MultipleVersions" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Project_MetadataReferences_MultipleVersions" time="0.2790000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_AddedFileNotObservedBeforeDebuggingSessionStart" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_AddedFileNotObservedBeforeDebuggingSessionStart" time="0.2440000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Balanced)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Balanced)" time="0.2420000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2169491" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit_SourceGenerators_DocumentUpdate_GeneratedDocumentAdd(executionPreference: Automatic)" time="0.2610000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/2169491" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Disposal_WindowsPdbReader" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Disposal_WindowsPdbReader" time="0.6220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_SourceGeneratedDocuments_LineDirectives" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_SourceGeneratedDocuments_LineDirectives" time="0.2580000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ErrorReadingPdbFile" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ErrorReadingPdbFile" time="0.2360000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_DocumentRemove" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_DocumentRemove" time="0.2040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.SyntaxError" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="SyntaxError" time="0.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_SourceGenerators_AdditionalDocumentUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_SourceGenerators_AdditionalDocumentUpdate" time="0.2220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_BaselineCreationFailed_AssemblyReadError" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_BaselineCreationFailed_AssemblyReadError" time="0.0220000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectThatDoesNotSupportEnC_Language(breakMode: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectThatDoesNotSupportEnC_Language(breakMode: True)" time="0.3780000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectThatDoesNotSupportEnC_Language(breakMode: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectThatDoesNotSupportEnC_Language(breakMode: False)" time="0.3250000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_DocumentOutOfSync" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits_DocumentOutOfSync" time="0.0010000" result="Skip">
+        <reason><![CDATA[https://github.com/dotnet/roslyn/issues/79589]]></reason>
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue" time="0.0170000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_DocumentWithoutSequencePoints" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits_DocumentWithoutSequencePoints" time="0.4130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_LinkedDocuments" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_LinkedDocuments" time="0.0070000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/24320" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_ExplicitInterfaceImplementation" time="0.4480000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DefaultCollection/DevDiv/_workitems/edit/2631743" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ModuleDisallowsEditAndContinue_SourceGenerator_NoChanges" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ModuleDisallowsEditAndContinue_SourceGenerator_NoChanges" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidSignificantChange_PartialTypes" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidSignificantChange_PartialTypes" time="0.3020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdit" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdit" time="0.2510000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ActiveStatements_EncSessionFollowedByHotReload" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ActiveStatements_EncSessionFollowedByHotReload" time="0.3080000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/54347" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.HasChanges_Settings" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="HasChanges_Settings" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Capabilities_SynthesizedNewType" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Capabilities_SynthesizedNewType" time="0.3070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Disposal_PortablePdbReader" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Disposal_PortablePdbReader" time="0.2450000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectThatDoesNotSupportEnC_Settings_OptimizationLevel" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectThatDoesNotSupportEnC_Settings_OptimizationLevel" time="0.3330000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.DifferentDocumentWithSameContent" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="DifferentDocumentWithSameContent" time="0.0120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.SemanticDiagnostics" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="SemanticDiagnostics" time="1.1900000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_SourceGenerators" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits_SourceGenerators" time="0.0300000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.RudeEdits_DelayLoadedModule" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="RudeEdits_DelayLoadedModule" time="0.2720000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ProjectNotBuilt" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ProjectNotBuilt" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultiSession" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultiSession" time="0.2360000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.ValidInsignificantChange" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="ValidInsignificantChange" time="0.2360000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.MultipleSharedLibraryBaselines" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="MultipleSharedLibraryBaselines" time="0.3700000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests.Disposal" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditAndContinueWorkspaceServiceTests" method="Disposal" time="0.0340000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" time="1.362">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions1" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions1" time="1.3030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions2" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions2" time="0.0160000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/24439" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions_Recursion" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions_Recursion" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests.BaseActiveStatementsAndExceptionRegions_WithInitialNonRemappableRegions" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EditSessionActiveStatementsTests" method="BaseActiveStatementsAndExceptionRegions_WithInitialNonRemappableRegions" time="0.0390000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="19" passed="19" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" time="0.412">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEdits_MultipleImpactedRunningProjects" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEdits_MultipleImpactedRunningProjects" time="0.2500000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_NoEffectEdits_NoEffectRestarts" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_NoEffectEdits_NoEffectRestarts" time="0.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_NoEffectEditAndUpdate" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_NoEffectEditAndUpdate" time="0.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEditAndUpdate_Chain(reverse: True)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEditAndUpdate_Chain(reverse: True)" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEditAndUpdate_Chain(reverse: False)" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEditAndUpdate_Chain(reverse: False)" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_NoEffectEdits_BlockingRestartsOnly" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_NoEffectEdits_BlockingRestartsOnly" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_AddedProject_NotImpactingRunningProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_AddedProject_NotImpactingRunningProject" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEdits_NotImpactingRunningProjects" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEdits_NotImpactingRunningProjects" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEditAndUpdate_Independent" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEditAndUpdate_Independent" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_NoEffectEditAndRudeEdit_SameProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_NoEffectEditAndRudeEdit_SameProject" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_NoEffectEdits_NoImpactedRunningProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_NoEffectEdits_NoImpactedRunningProject" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEditAndUpdate_DependentOnRebuiltProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEditAndUpdate_DependentOnRebuiltProject" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.CreateFromInternalError_UsesErrorMessage" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="CreateFromInternalError_UsesErrorMessage" time="0.0440000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEditAndUpdate_DependentOnRunningProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEditAndUpdate_DependentOnRunningProject" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_RudeEdits_SingleImpactedRunningProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_RudeEdits_SingleImpactedRunningProject" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.GetHotReloadDiagnostics" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="GetHotReloadDiagnostics" time="0.0700000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_NoEffectEditAndRudeEdit_DifferentProjects" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_NoEffectEditAndRudeEdit_DifferentProjects" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_Updates" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_Updates" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests.RunningProjects_AddedProject_ImpactingRunningProject" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.EmitSolutionUpdateResultsTests" method="RunningProjects_AddedProject_ImpactingRunningProject" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.RudeEditDiagnosticTests" time="0.013">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.RudeEditDiagnosticTests.ToDiagnostic" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.RudeEditDiagnosticTests" method="ToDiagnostic" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.EditAndContinue.UnitTests.UnitTestingHotReloadServiceTests" time="3.053">
+      <test name="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.UnitTestingHotReloadServiceTests.Test" type="Microsoft.CodeAnalysis.EditAndContinue.UnitTests.UnitTestingHotReloadServiceTests" method="Test" time="3.0530000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" time="2.237">
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Implementations_FindsCrossProjectImplementations" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Implementations_FindsCrossProjectImplementations" time="0.9160000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FieldInitializer_ProducesResult" time="0.1090000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_ReturnsDirectTargetsFromSelectedDocument" time="0.1890000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_FindsCrossProjectTargets" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_FindsCrossProjectTargets" time="0.0230000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_RespectsDocumentFilter" time="0.0080000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchOutgoingCallsAsync_IncludesImplicitConstructors" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchOutgoingCallsAsync_IncludesImplicitConstructors" time="0.0140000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_FieldReferences_ProducesInitializerResult" time="0.8920000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="SearchIncomingCallsAsync_Callers_RespectsDocumentFilter" time="0.0560000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests.CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" type="Microsoft.CodeAnalysis.UnitTests.CallHierarchy.CallHierarchyServiceTests" method="CreateItemAsync_ForVirtualMethod_ProvidesExpectedRelationships" time="0.0300000" result="Pass">
+        <traits>
+          <trait name="Feature" value="CallHierarchy" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.Classification.ClassifiedSpansAndHighlightSpanFactoryTests" time="0.017">
+      <test name="Microsoft.CodeAnalysis.UnitTests.Classification.ClassifiedSpansAndHighlightSpanFactoryTests.ClassifyAsync_ReferenceOnBlankLine" type="Microsoft.CodeAnalysis.UnitTests.Classification.ClassifiedSpansAndHighlightSpanFactoryTests" method="ClassifyAsync_ReferenceOnBlankLine" time="0.0170000" result="Pass">
+        <traits>
+          <trait name="WorkItemUrl" value="https://github.com/dotnet/vscode-csharp/issues/8354" />
+        </traits>
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" time="6.304">
+      <test name="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests.ToRunningProjectOptions_TargetFrameworkDoesNotMatch" type="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" method="ToRunningProjectOptions_TargetFrameworkDoesNotMatch" time="6.1710000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests.ToRunningProjectOptions" type="Microsoft.CodeAnalysis.UnitTests.EditAndContinue.RunningProjectOptionsTests" method="ToRunningProjectOptions" time="0.1330000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="26" passed="26" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" time="0.217">
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// Lang=c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// Lang=c#&quot;)" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// Lang=C#-Test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// Lang=C#-Test&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// lang=C#-test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// lang=C#-test&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// Lang=C#-test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// Lang=C#-test&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;//language=c#-test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;//language=c#-test&quot;)" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// Lang=c#-test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// Lang=c#-test&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// lang=c#-test.&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// lang=c#-test.&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// Lang=C#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// Lang=C#&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;//lang=c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;//lang=c#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// lang=c#-test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// lang=c#-test&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// lang=C#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// lang=C#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;//language=c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;//language=c#&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// lang=c#.&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// lang=c#.&quot;)" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;//lang=c#-test&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;//lang=c#-test&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Positive(commentText: &quot;// lang=c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Positive(commentText: &quot;// lang=c#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;//lang c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;//lang c#&quot;)" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lang=#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lang=#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lang=c&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lang=c&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lang=f#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lang=f#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;//c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;//c#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// c#&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lang=.&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lang=.&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;//lan=c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;//lan=c#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lang=csharp&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lang=csharp&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lang c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lang c#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests.TestCSharpDetection_Negative(commentText: &quot;// lan=c#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.EmbeddedLanguages.EmbeddedLanguageCommentDetectorTests" method="TestCSharpDetection_Negative(commentText: &quot;// lan=c#&quot;)" time="0.0180000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="29" passed="29" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" time="10.397">
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Module_Source" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Module_Source" time="4.6710000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Namespace_Global_SourceAndMetadata" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Namespace_Global_SourceAndMetadata" time="0.0320000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Namespace_Global_Source" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Namespace_Global_Source" time="0.0050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Namespace_Source" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Namespace_Source" time="1.0440000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_TypeTypeParameter" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_TypeTypeParameter" time="1.0510000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_ValueTuple" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_ValueTuple" time="0.2580000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Property" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Property" time="0.0970000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Assembly_Source" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Assembly_Source" time="0.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_ClassCrossLanguage" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_ClassCrossLanguage" time="1.8180000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_TupleSyntax" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_TupleSyntax" time="0.0470000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_MethodTypeParameter" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_MethodTypeParameter" time="0.1690000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Method" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Method" time="0.0230000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Dynamic" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Dynamic" time="0.0120000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_LocalVariable" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_LocalVariable" time="0.2040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_RangeVariable" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_RangeVariable" time="0.8390000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_LocalFunction" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_LocalFunction" time="0.0240000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_GenericInstatiation_Source" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_GenericInstatiation_Source" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Property_Setter" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Property_Setter" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Namespace_Metadata" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Namespace_Metadata" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Class_Metadata" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Class_Metadata" time="0.0050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Parameter" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Parameter" time="0.0060000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Module_Metadata" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Module_Metadata" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Field" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Field" time="0.0090000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_GenericInstatiation_Metadata" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_GenericInstatiation_Metadata" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Property_Getter" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Property_Getter" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Namespace_MetadataAndSource" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Namespace_MetadataAndSource" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Class" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Class" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Assembly_Metadata" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Assembly_Metadata" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests.ToClassifiedDefinitionItemAsync_Indexer" type="Microsoft.CodeAnalysis.UnitTests.FindUsages.DefinitionItemFactoryTests" method="ToClassifiedDefinitionItemAsync_Indexer" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="45" passed="45" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" time="0.126">
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_GooDotPlusBar" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_GooDotPlusBar" time="0.0710000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Read|Write&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Read|Write&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;(Read|Write)&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;(Read|Write)&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;x?&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;x?&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo.+Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo.+Bar&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;a\\d&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;a\\d&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo.*Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo.*Bar&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;End$&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;End$&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;Goo\\.Bar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;Goo\\.Bar&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;a{2,3}&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;a{2,3}&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;(?:abc)&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;(?:abc)&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;^Start&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;^Start&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;x+&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;x+&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;x*&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;x*&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;(Read|Write)Line&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;(Read|Write)Line&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;[abc]&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;[abc]&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Positive(pattern: &quot;a{2}&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Positive(pattern: &quot;a{2}&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;_myField&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;_myField&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;x.y&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;x.y&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;System.IO.File&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;System.IO.File&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;a&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;a&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;Goo.Bar.Baz&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;Goo.Bar.Baz&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;ReadLine&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;ReadLine&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;abc&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;abc&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;get word&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;get word&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;GooBar&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;GooBar&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.IsRegexPattern_Negative(pattern: &quot;&quot;)" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="IsRegexPattern_Negative(pattern: &quot;&quot;)" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_DotAtMiddleAndEnd_SplitsOnMiddle" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_DotAtMiddleAndEnd_SplitsOnMiddle" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_MultipleDots_SplitsOnLast" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_MultipleDots_SplitsOnLast" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_ReadDotLine" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_ReadDotLine" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_EscapedDot" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_EscapedDot" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_DotQuestionBar" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_DotQuestionBar" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_PlainTextNoDot" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_PlainTextNoDot" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_GooDotStarBar" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_GooDotStarBar" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_DotAtStartAndMiddle_SplitsOnMiddle" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_DotAtStartAndMiddle_SplitsOnMiddle" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_DotAtStart" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_DotAtStart" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_RegexContainerPlainName" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_RegexContainerPlainName" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_DotAtEnd" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_DotAtEnd" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_RegexContainerWithMultipleDots" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_RegexContainerWithMultipleDots" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_TopLevelAlternation" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_TopLevelAlternation" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_PlainGooDotBar" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_PlainGooDotBar" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_NoDotAtAll" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_NoDotAtAll" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.Split_RegexContainerRegexName" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="Split_RegexContainerRegexName" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_InvalidRegex" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_InvalidRegex" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests.NoSplit_EmptyPattern" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexDetectionTests" method="NoSplit_EmptyPattern" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="45" passed="45" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" time="0.053">
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.NumericQuantifier_WithMinZero_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="NumericQuantifier_WithMinZero_ReturnsNull" time="0.0050000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Sequence_ProducesAll" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Sequence_ProducesAll" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.ZeroOrMore_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="ZeroOrMore_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.OpenRangeQuantifier_WithMinOne_PreservesInner" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="OpenRangeQuantifier_WithMinOne_PreservesInner" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.HasLiterals_True_ForAllWithLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="HasLiterals_True_ForAllWithLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_DotStarBetweenLiterals" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_DotStarBetweenLiterals" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.OneOrMore_PreservesInner" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="OneOrMore_PreservesInner" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.InvalidRegex_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="InvalidRegex_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.HasLiterals_False_ForNone" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="HasLiterals_False_ForNone" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.SingleDot_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="SingleDot_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.CharacterClassEscape_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="CharacterClassEscape_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EscapedDot_ProducesLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EscapedDot_ProducesLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.ZeroOrMoreLazy_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="ZeroOrMoreLazy_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_DotPlusBetweenLiterals" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_DotPlusBetweenLiterals" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_SingleChildAny_Unwraps" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_SingleChildAny_Unwraps" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.OpenRangeQuantifier_WithMinZero_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="OpenRangeQuantifier_WithMinZero_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_PruneNoneFromAll" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_PruneNoneFromAll" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.SingleCharAlternation_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="SingleCharAlternation_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EscapedBracket_ProducesLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EscapedBracket_ProducesLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_AlternationWithSharedSuffix" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_AlternationWithSharedSuffix" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.HasLiterals_True_ForLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="HasLiterals_True_ForLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_AllNone_CollapsesToNone" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_AllNone_CollapsesToNone" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.SingleCharWithWildcard_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="SingleCharWithWildcard_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.HasLiterals_False_ForAllOfNone" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="HasLiterals_False_ForAllOfNone" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.HasLiterals_True_ForAnyWithLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="HasLiterals_True_ForAnyWithLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_NoneInAny_CollapsesToNone" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_NoneInAny_CollapsesToNone" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Alternation_ProducesAny" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Alternation_ProducesAny" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_FlattenNestedAll" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_FlattenNestedAll" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.ZeroOrOne_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="ZeroOrOne_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.ExactNumericQuantifier_WithMinOne_PreservesInner" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="ExactNumericQuantifier_WithMinOne_PreservesInner" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_FlattenNestedAny" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_FlattenNestedAny" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.AnchorOnly_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="AnchorOnly_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_AnchorWithLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_AnchorWithLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.NonCapturingGroup_RecursesInto" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="NonCapturingGroup_RecursesInto" time="0.0020000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_ComplexPattern" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_ComplexPattern" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.WhitespaceOnlyText_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="WhitespaceOnlyText_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_MixedLiteralsAndWildcards" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_MixedLiteralsAndWildcards" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.SingleCharLiteral_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="SingleCharLiteral_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_AlternationOfPureDotStar_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_AlternationOfPureDotStar_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.ClosedRangeQuantifier_WithMinOne_PreservesInner" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="ClosedRangeQuantifier_WithMinOne_PreservesInner" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.Optimizer_SingleChildAll_Unwraps" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="Optimizer_SingleChildAll_Unwraps" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.PlainText_ProducesLiteral" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="PlainText_ProducesLiteral" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.EndToEnd_OptionalSuffix" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="EndToEnd_OptionalSuffix" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.DotStar_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="DotStar_ReturnsNull" time="0.0010000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests.CharacterClass_ReturnsNull" type="Microsoft.CodeAnalysis.UnitTests.NavigateTo.RegexQueryCompilerTests" method="CharacterClass_ReturnsNull" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="8" passed="8" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" time="0.142">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetBaseTypesAndInterfacesAsync_ReturnsExpectedBaseTypes(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetBaseTypesAndInterfacesAsync_ReturnsExpectedBaseTypes(language: &quot;Visual Basic&quot;)" time="0.0800000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetBaseTypesAndInterfacesAsync_ReturnsExpectedBaseTypes(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetBaseTypesAndInterfacesAsync_ReturnsExpectedBaseTypes(language: &quot;C#&quot;)" time="0.0070000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetDerivedTypesAndImplementationsAsync_ReturnsExpectedDerivedTypes(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetDerivedTypesAndImplementationsAsync_ReturnsExpectedDerivedTypes(language: &quot;C#&quot;)" time="0.0080000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetDerivedTypesAndImplementationsAsync_ReturnsExpectedDerivedTypes(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetDerivedTypesAndImplementationsAsync_ReturnsExpectedDerivedTypes(language: &quot;Visual Basic&quot;)" time="0.0150000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetBaseTypesAndInterfacesAsync_ForInterface_ReturnsExpectedBaseInterfaces(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetBaseTypesAndInterfacesAsync_ForInterface_ReturnsExpectedBaseInterfaces(language: &quot;C#&quot;)" time="0.0040000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetBaseTypesAndInterfacesAsync_ForInterface_ReturnsExpectedBaseInterfaces(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetBaseTypesAndInterfacesAsync_ForInterface_ReturnsExpectedBaseInterfaces(language: &quot;Visual Basic&quot;)" time="0.0100000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetDerivedTypesAndImplementationsAsync_ForInterface_ReturnsDerivedInterfacesAndImplementations(language: &quot;C#&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetDerivedTypesAndImplementationsAsync_ForInterface_ReturnsDerivedInterfacesAndImplementations(language: &quot;C#&quot;)" time="0.0130000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests.GetDerivedTypesAndImplementationsAsync_ForInterface_ReturnsDerivedInterfacesAndImplementations(language: &quot;Visual Basic&quot;)" type="Microsoft.CodeAnalysis.UnitTests.TypeHierarchy.TypeHierarchyServiceTests" method="GetDerivedTypesAndImplementationsAsync_ForInterface_ReturnsDerivedInterfacesAndImplementations(language: &quot;Visual Basic&quot;)" time="0.0050000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests" time="7.650">
+      <test name="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests.Proxy(testHost: OutOfProcess)" type="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests" method="Proxy(testHost: OutOfProcess)" time="7.0910000" result="Pass">
+        <traits />
+      </test>
+      <test name="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests.Proxy(testHost: InProcess)" type="Roslyn.VisualStudio.Next.UnitTests.EditAndContinue.RemoteEditAndContinueServiceTests" method="Proxy(testHost: InProcess)" time="0.5590000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+  </assembly>
+</assemblies>
