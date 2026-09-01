@@ -7,6 +7,8 @@
     <SignAssembly>false</SignAssembly>
     <IsShipping>false</IsShipping>
     <IsTestUtilityProject>true</IsTestUtilityProject>
+    <!-- Needed for ProcessorTopology's pointer walk over GetLogicalProcessorInformationEx's variable-length buffer. -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" />

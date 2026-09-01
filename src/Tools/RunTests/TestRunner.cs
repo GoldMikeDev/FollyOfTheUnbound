@@ -76,7 +76,32 @@ namespace RunTests
             // processes), but only 1 processor for the open integration tests since they perform actual UI
             // operations (such as mouse clicks and sending keystrokes) and we don't want two tests to conflict
             // with one-another.
-            var max = _options.Sequential ? 1 : Math.Max(Environment.ProcessorCount - 1, 1);
+            //
+            // Environment.ProcessorCount includes logical processors Windows currently has parked (idle,
+            // dynamically taken out of scheduling -- e.g. on a hybrid CPU this can mean a whole
+            // efficiency-class tier stays parked essentially permanently, as with Arrow Lake-H's "Low
+            // Power Island" E-cores), so a work item can still be scheduled onto one and stall there.
+            // Asking Windows which cores are parked right now (rather than assuming a fixed tier) and
+            // excluding just those sidesteps that -- but a single snapshot taken here, before any work has
+            // even started, would freeze `max` at whatever's parked while the machine is still idle: Windows
+            // unparks cores as load ramps up (this run's own test processes included), so a core parked at
+            // this exact instant is not necessarily parked for the rest of the run. RunLoopAsync below
+            // instead re-samples every tick and only ever raises `max` (see RefreshMaxConcurrency), so a
+            // conservative startup snapshot self-corrects within a few redraws instead of permanently
+            // under-provisioning the run. On non-Windows, or if nothing is ever reported parked, this is
+            // always 0 and the count is unchanged, same as before.
+            //
+            // A null sample here means the query itself failed (not "nothing parked") -- coalescing that to 0
+            // would start the run at the full, oversubscribed Environment.ProcessorCount and, since
+            // RefreshMaxConcurrency only ever raises `max` afterward, permanently lock in that oversubscription
+            // even once a later sample succeeds and reports real parking. `hasEstablishedParkingBaseline`
+            // tracks whether any sample has actually succeeded yet; while it hasn't, the *first* successful
+            // sample -- whichever direction it moves things -- becomes the real baseline instead of only being
+            // allowed to raise an unknown, potentially-wrong starting value.
+            var initialParkedCount = ProcessorTopology.GetParkedLogicalProcessorCount();
+            var hasEstablishedParkingBaseline = initialParkedCount is not null;
+            var bestAvailableProcessorCount = Environment.ProcessorCount - (initialParkedCount ?? 0);
+            var max = _options.Sequential ? 1 : Math.Max(bestAvailableProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
             var running = new List<(WorkItemInfo WorkItem, Task<TestResult> Task)>();
@@ -84,7 +109,19 @@ namespace RunTests
             var failures = 0;
 
             var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
-            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems);
+
+            // Loaded once, unconditionally -- independent of whether a live display ends up existing (see
+            // below), so a redirected-output/CI run (just as capable of a real, unfiltered full run as an
+            // interactive one) still updates the "Previous" baseline for the next interactive run to read.
+            var history = LocalTestTimingHistory.Load(_options.ArtifactsDirectory);
+
+            // A --testFilter run only exercises a subset of each assembly's tests, so its elapsed time is
+            // not a meaningful "how long does this assembly normally take" baseline -- skipped in the
+            // completion handling below, not here; recordHistory only gates whether *new* history gets
+            // written, never whether the existing "Previous" values loaded above are shown.
+            var recordHistory = _options.TestFilter is null;
+
+            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems, history, _options.Configuration, _options.Architecture);
 
             try
             {
@@ -114,6 +151,8 @@ namespace RunTests
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
+                    var completedCountBeforeTick = completed.Count;
+
                     var i = 0;
                     while (i < running.Count)
                     {
@@ -124,6 +163,17 @@ namespace RunTests
                             {
                                 var testResult = await task.ConfigureAwait(false);
                                 liveDisplay?.MarkCompleted(workItem, testResult.Elapsed, testResult.Succeeded, testResult.IsTimeout);
+
+                                // Independent of liveDisplay's existence (see LiveTestProgressDisplay.MarkCompleted's
+                                // remarks) -- only a genuine pass is worth remembering as a "Previous" baseline, a
+                                // timeout/failure's elapsed time reflects however long it took to hang or crash, not
+                                // how long the work item actually takes to run.
+                                if (testResult.Succeeded && recordHistory)
+                                {
+                                    var (baseName, tfmTag) = LiveTestProgressDisplay.GetNameParts(workItem);
+                                    var historyKey = LocalTestTimingHistory.GetKey(baseName, tfmTag, _options.Configuration, _options.Architecture);
+                                    history.RecordPassed(historyKey, testResult.Elapsed);
+                                }
 
                                 if (!testResult.Succeeded)
                                 {
@@ -180,6 +230,9 @@ namespace RunTests
                         }
                     }
 
+                    RefreshMaxConcurrency();
+
+                    var waitingCountBeforeDispatch = waiting.Count;
                     while (running.Count < max && waiting.Count > 0)
                     {
                         var workItem = waiting.Pop();
@@ -192,8 +245,14 @@ namespace RunTests
                     {
                         liveDisplay.Redraw();
                     }
-                    else
+                    else if (completed.Count != completedCountBeforeTick || waiting.Count != waitingCountBeforeDispatch)
                     {
+                        // Only when something actually changed this tick (a work item finished, or the dispatch
+                        // loop above just handed out more work -- including RefreshMaxConcurrency freeing up room
+                        // for it) -- otherwise the periodic wake below (needed so a stalled run item that's
+                        // currently the whole of `max` doesn't block RefreshMaxConcurrency from ever getting a
+                        // chance to run again) would spam CI logs with an unchanged line every second.
+                        //
                         // Display the current status of the TestRunner.
                         // Note: The { ... , 2 } is to right align the values, thus aligns sections into columns.
                         ConsoleUtil.Write($"  {running.Count,2} running, {waiting.Count,2} queued, {completed.Count,2} completed");
@@ -206,21 +265,58 @@ namespace RunTests
 
                     if (running.Count > 0)
                     {
-                        if (liveDisplay is not null)
-                        {
-                            // Wake at least once a second even if nothing completes, purely so the live table's
-                            // elapsed-time column visibly ticks for still-running rows; CI's line-based fallback above
-                            // has no such need and keeps its original wake-only-on-completion behavior (waking on a
-                            // timer there would just spam the log with an unchanged line every second).
-                            var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
-                            await Task.WhenAny(tasks);
-                        }
-                        else
-                        {
-                            await Task.WhenAny(running.Select(static r => r.Task).ToArray());
-                        }
+                        // Always woken at least once a second, not just on task completion -- for the live
+                        // table this is purely so its elapsed-time column visibly ticks for still-running
+                        // rows; for the CI/non-live fallback it's what lets RefreshMaxConcurrency run again
+                        // and raise `max` if the parking snapshot that set it was conservative enough to fill
+                        // every slot already (waiting only on those tasks would otherwise mean `max` can never
+                        // grow -- and so never admit more work -- until one of them finishes or the run
+                        // stalls entirely). The status line above is suppressed on a tick where only this
+                        // timer fired and nothing else changed, so the CI path doesn't regain the log spam
+                        // the original wake-only-on-completion design specifically avoided.
+                        var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
+                        await Task.WhenAny(tasks);
                     }
                 } while (running.Count > 0);
+            }
+
+            // Re-samples currently-parked processors and only ever raises `max`, never lowers it -- so a
+            // conservative startup snapshot (see bestAvailableProcessorCount's remarks above) climbs back up
+            // to the machine's real capacity within a few redraws as Windows unparks cores under this run's
+            // own load, without ever shrinking the pool mid-run and stalling/starving already-running work
+            // items over a transient re-parking blip. A no-op (and effectively free -- ProcessorTopology
+            // short-circuits to 0 off Windows) for --sequential runs and every non-Windows/non-hybrid host,
+            // matching the exact behavior before this whole hybrid-CPU-aware sizing existed.
+            void RefreshMaxConcurrency()
+            {
+                if (_options.Sequential)
+                {
+                    return;
+                }
+
+                // A null sample means this particular query couldn't be answered (a transient failure, not a
+                // genuine "zero parked" result) -- treating it as 0 here would let a one-off hiccup masquerade
+                // as "nothing is parked," permanently raising max to the full oversubscribed
+                // Environment.ProcessorCount for the rest of the run, since this method only ever raises its
+                // cached value and never lowers it again. Skip the sample entirely instead and try again next tick.
+                var parkedCount = ProcessorTopology.GetParkedLogicalProcessorCount();
+                if (parkedCount is null)
+                {
+                    return;
+                }
+
+                var currentAvailableProcessorCount = Environment.ProcessorCount - parkedCount.Value;
+
+                // Until a sample has actually succeeded, bestAvailableProcessorCount is only a guess (see its
+                // own remarks above) -- the first real sample becomes the baseline outright, in either
+                // direction, rather than being restricted to only raising a value that was never trustworthy
+                // to begin with. Once established, later samples only ever raise it, same as before.
+                if (!hasEstablishedParkingBaseline || currentAvailableProcessorCount > bestAvailableProcessorCount)
+                {
+                    bestAvailableProcessorCount = currentAvailableProcessorCount;
+                    max = Math.Max(bestAvailableProcessorCount - 1, 1);
+                    hasEstablishedParkingBaseline = true;
+                }
             }
         }
 
@@ -249,7 +345,8 @@ namespace RunTests
             foreach (var testResult in testResults)
             {
                 line.Length = 0;
-                var color = testResult.Succeeded ? ConsoleColor.Green : ConsoleColor.Red;
+                var status = testResult.IsTimeout ? LiveRowStatus.Timeout : testResult.Succeeded ? LiveRowStatus.Passed : LiveRowStatus.Failed;
+                var color = LiveTestProgressDisplay.GetRowColor(status) ?? ConsoleColor.Gray;
                 line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
                 line.Append(' ');
                 line.Append(TestResultDisplay.CenterPad(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout), TestResultDisplay.StatusColumnWidth));

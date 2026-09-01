@@ -1,3 +1,7 @@
 GetStdHandle
 GetConsoleMode
 SetConsoleMode
+GetSystemCpuSetInformation
+GetCurrentProcess
+GetProcessAffinityMask
+GetProcessGroupAffinity
