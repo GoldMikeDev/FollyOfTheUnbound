@@ -369,8 +369,22 @@ try {
 				Write-Host ""
 				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
 				if ($summary.Found) {
+					# Colored per-line to match RunTests' own live-console table (TestRunner.Print) and the
+					# scry live table (LiveTestProgressDisplay) -- PASSED/FAILED/TIMEOUT are exactly the
+					# same three tokens Get-TestSummary above already tallies each line by.
 					foreach ($line in $summary.Lines) {
-						Write-Host $line
+						if ($line -match '\bTIMEOUT\b') {
+							Write-Host $line -ForegroundColor Yellow
+						}
+						elseif ($line -match '\bFAILED\b') {
+							Write-Host $line -ForegroundColor Red
+						}
+						elseif ($line -match '\bPASSED\b') {
+							Write-Host $line -ForegroundColor Green
+						}
+						else {
+							Write-Host $line
+						}
 					}
 				}
 				else {

@@ -405,7 +405,20 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		if [[ "${summary_founds[$i]}" -eq 0 ]]; then
 		  echo "${color_yellow}summary unavailable (no runtests.log found)${color_reset}"
 		else
-		  printf '%s\n' "${summary_texts[$i]}"
+		  # Colored per-line to match RunTests' own live-console table (TestRunner.Print) and the
+		  # scry live table (LiveTestProgressDisplay) -- PASSED/FAILED/TIMEOUT are exactly the
+		  # same three tokens get_test_summary above already tallies each line by.
+		  while IFS= read -r result_line; do
+			if grep -qE '\bTIMEOUT\b' <<<"$result_line"; then
+			  echo "${color_yellow}${result_line}${color_reset}"
+			elif grep -qE '\bFAILED\b' <<<"$result_line"; then
+			  echo "${color_red}${result_line}${color_reset}"
+			elif grep -qE '\bPASSED\b' <<<"$result_line"; then
+			  echo "${color_green}${result_line}${color_reset}"
+			else
+			  echo "$result_line"
+			fi
+		  done <<<"${summary_texts[$i]}"
 		fi
 	  done
 	fi
