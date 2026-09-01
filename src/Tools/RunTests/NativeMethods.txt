@@ -3,3 +3,4 @@ GetConsoleMode
 SetConsoleMode
 GetSystemCpuSetInformation
 GetCurrentProcess
+GetProcessAffinityMask

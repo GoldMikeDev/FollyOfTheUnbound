@@ -23,13 +23,18 @@ namespace RunTests.UnitTests
         private const int EntrySize = 32; // sizeof(SYSTEM_CPU_SET_INFORMATION)
 
         private static byte[] BuildBuffer(params (int Type, byte Flags)[] entries)
-            => entries.SelectMany(e => BuildEntry(e.Type, e.Flags)).ToArray();
+            => entries.SelectMany(e => BuildEntry(e.Type, e.Flags, group: 0, logicalProcessorIndex: 0)).ToArray();
 
-        private static byte[] BuildEntry(int type, byte flags)
+        private static byte[] BuildBuffer(params (int Type, byte Flags, byte LogicalProcessorIndex)[] entries)
+            => entries.SelectMany(e => BuildEntry(e.Type, e.Flags, group: 0, e.LogicalProcessorIndex)).ToArray();
+
+        private static byte[] BuildEntry(int type, byte flags, ushort group, byte logicalProcessorIndex)
         {
             var entry = new byte[EntrySize];
             BitConverter.GetBytes((uint)EntrySize).CopyTo(entry, 0); // Size
             BitConverter.GetBytes(type).CopyTo(entry, 4); // Type
+            BitConverter.GetBytes(group).CopyTo(entry, 12); // Group
+            entry[14] = logicalProcessorIndex; // LogicalProcessorIndex
             entry[19] = flags; // AllFlags (bit 0 == Parked)
             return entry;
         }
@@ -111,6 +116,46 @@ namespace RunTests.UnitTests
                 (CpuSetInformationType, ParkedFlag)); // parked, but not allocated to this process
 
             Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer));
+        }
+
+        [Fact]
+        public void AffinityMask_IgnoresParkedProcessorsOutsideTheMask()
+        {
+            // AllocatedToTargetProcess only covers an explicit CPU-set restriction, not a plain
+            // CPU-affinity-mask restriction (Process.ProcessorAffinity, a non-CPU-set-aware job object CPU
+            // limit) -- Environment.ProcessorCount respects the latter too, so the affinity mask must be
+            // cross-referenced independently. Logical processors 0 and 2 parked, but the process is only
+            // allowed to run on processors 0 and 1 (mask 0b011) -- only processor 0 should count.
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)0),
+                (CpuSetInformationType, (byte)0, LogicalProcessorIndex: (byte)1),
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)2));
+
+            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b011));
+        }
+
+        [Fact]
+        public void AffinityMask_FullMask_CountsEveryParkedEntry()
+        {
+            // An unrestricted process's affinity mask covers every logical processor -- passing it through
+            // must behave the same as passing no mask at all.
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)0),
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)1));
+
+            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b11));
+        }
+
+        [Fact]
+        public void NoAffinityMaskProvided_DoesNotFilterByProcessorIndex()
+        {
+            // When the affinity mask couldn't be queried (null), behavior must be unchanged from before this
+            // parameter existed -- every parked entry counts (in the common, unrestricted case).
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)5),
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)40));
+
+            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: null));
         }
 
         [Fact]
