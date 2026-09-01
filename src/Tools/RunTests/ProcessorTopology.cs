@@ -23,15 +23,19 @@ namespace RunTests
     internal static class ProcessorTopology
     {
         /// <summary>
-        /// Returns the number of logical processors that are currently parked, or 0 if this isn't Windows,
-        /// no processors are reported parked, or the topology couldn't be determined for any reason. Never
-        /// throws. This is a live snapshot taken once at the call site, not a continuously-updated value.
+        /// Returns the number of logical processors that are currently parked, or <see langword="null"/> if
+        /// this isn't Windows or the topology couldn't be determined for any reason (distinct from a
+        /// successful query that legitimately found zero parked processors) -- callers that treat "couldn't
+        /// determine" the same as "zero parked" risk <see cref="TestRunner.RefreshMaxConcurrency"/> latching
+        /// onto a transient query failure as if it were a real, permanently-higher capacity sample, since that
+        /// method only ever raises its cached value and never lowers it again. Never throws. This is a live
+        /// snapshot taken once at the call site, not a continuously-updated value.
         /// </summary>
-        internal static int GetParkedLogicalProcessorCount()
+        internal static int? GetParkedLogicalProcessorCount()
         {
             if (!OperatingSystem.IsWindows())
             {
-                return 0;
+                return null;
             }
 
             try
@@ -42,7 +46,7 @@ namespace RunTests
             {
                 // Best-effort: any failure here should fall back to the old Environment.ProcessorCount-based
                 // sizing rather than take down the test runner.
-                return 0;
+                return null;
             }
         }
 
@@ -205,6 +209,14 @@ namespace RunTests
                             var logicalProcessorIndex = buffer[offset + LogicalProcessorIndexOffset];
                             var bit = logicalProcessorIndex < (sizeof(nuint) * 8) ? ((nuint)1 << logicalProcessorIndex) : 0;
                             isVisibleToThisProcess = (mask & bit) != 0;
+                        }
+                        else
+                        {
+                            // GetProcessAffinityMask only ever succeeds for a process confined to a single
+                            // group (expectedGroup) -- an entry in any other group isn't schedulable by this
+                            // process at all, regardless of AllocatedToTargetProcess (which, per the remarks
+                            // above, isn't even set for an ordinary process in the first place).
+                            isVisibleToThisProcess = false;
                         }
                     }
 

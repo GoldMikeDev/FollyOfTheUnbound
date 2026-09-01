@@ -90,7 +90,7 @@ namespace RunTests
             // conservative startup snapshot self-corrects within a few redraws instead of permanently
             // under-provisioning the run. On non-Windows, or if nothing is ever reported parked, this is
             // always 0 and the count is unchanged, same as before.
-            var bestAvailableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetParkedLogicalProcessorCount();
+            var bestAvailableProcessorCount = Environment.ProcessorCount - (ProcessorTopology.GetParkedLogicalProcessorCount() ?? 0);
             var max = _options.Sequential ? 1 : Math.Max(bestAvailableProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
@@ -284,7 +284,18 @@ namespace RunTests
                     return;
                 }
 
-                var currentAvailableProcessorCount = Environment.ProcessorCount - ProcessorTopology.GetParkedLogicalProcessorCount();
+                // A null sample means this particular query couldn't be answered (a transient failure, not a
+                // genuine "zero parked" result) -- treating it as 0 here would let a one-off hiccup masquerade
+                // as "nothing is parked," permanently raising max to the full oversubscribed
+                // Environment.ProcessorCount for the rest of the run, since this method only ever raises its
+                // cached value and never lowers it again. Skip the sample entirely instead and try again next tick.
+                var parkedCount = ProcessorTopology.GetParkedLogicalProcessorCount();
+                if (parkedCount is null)
+                {
+                    return;
+                }
+
+                var currentAvailableProcessorCount = Environment.ProcessorCount - parkedCount.Value;
                 if (currentAvailableProcessorCount > bestAvailableProcessorCount)
                 {
                     bestAvailableProcessorCount = currentAvailableProcessorCount;

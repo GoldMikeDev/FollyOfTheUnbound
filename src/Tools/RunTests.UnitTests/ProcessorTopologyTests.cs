@@ -189,6 +189,20 @@ namespace RunTests.UnitTests
         }
 
         [Fact]
+        public void AffinityMask_ExcludesParkedEntriesInOtherGroups()
+        {
+            // GetProcessAffinityMask only ever succeeds for a process confined to a single group -- a parked
+            // entry in any other group isn't schedulable by this process at all and must not count, even
+            // though AllocatedToTargetProcess-only filtering alone (with no entry flagged) would otherwise
+            // treat it as visible.
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, ParkedFlag, Group: (ushort)0, LogicalProcessorIndex: (byte)0), // parked, but a different group than ours
+                (CpuSetInformationType, ParkedFlag, Group: (ushort)1, LogicalProcessorIndex: (byte)0)); // parked, in our group and mask
+
+            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b1, processGroup: 1));
+        }
+
+        [Fact]
         public void TruncatedTrailingEntry_StopsWithoutReadingPastTheBuffer()
         {
             var buffer = BuildBuffer((CpuSetInformationType, ParkedFlag));
