@@ -28,6 +28,9 @@ namespace RunTests.UnitTests
         private static byte[] BuildBuffer(params (int Type, byte Flags, byte LogicalProcessorIndex)[] entries)
             => entries.SelectMany(e => BuildEntry(e.Type, e.Flags, group: 0, e.LogicalProcessorIndex)).ToArray();
 
+        private static byte[] BuildBuffer(params (int Type, byte Flags, ushort Group, byte LogicalProcessorIndex)[] entries)
+            => entries.SelectMany(e => BuildEntry(e.Type, e.Flags, e.Group, e.LogicalProcessorIndex)).ToArray();
+
         private static byte[] BuildEntry(int type, byte flags, ushort group, byte logicalProcessorIndex)
         {
             var entry = new byte[EntrySize];
@@ -131,7 +134,7 @@ namespace RunTests.UnitTests
                 (CpuSetInformationType, (byte)0, LogicalProcessorIndex: (byte)1),
                 (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)2));
 
-            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b011));
+            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b011, processGroup: 0));
         }
 
         [Fact]
@@ -143,7 +146,7 @@ namespace RunTests.UnitTests
                 (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)0),
                 (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)1));
 
-            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b11));
+            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b11, processGroup: 0));
         }
 
         [Fact]
@@ -155,7 +158,34 @@ namespace RunTests.UnitTests
                 (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)5),
                 (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)40));
 
-            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: null));
+            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: null, processGroup: 0));
+        }
+
+        [Fact]
+        public void NoProcessGroupProvided_DoesNotFilterByAffinityMask()
+        {
+            // GetProcessAffinityMask can succeed while GetProcessGroupAffinity's actual group can't be
+            // determined -- without a known group, the mask can't be safely matched to any entry, so it must
+            // be ignored entirely (falling back to AllocatedToTargetProcess-only filtering) rather than
+            // guessing group 0.
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)0),
+                (CpuSetInformationType, ParkedFlag, LogicalProcessorIndex: (byte)5));
+
+            Assert.Equal(2, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b1, processGroup: null));
+        }
+
+        [Fact]
+        public void AffinityMask_OnlyAppliesToEntriesInTheProcessesActualGroup()
+        {
+            // GetProcessAffinityMask's mask is relative to whichever single group the process is confined to
+            // (from GetProcessGroupAffinity), not necessarily group 0. A group-1 entry parked at logical index
+            // 0 must be filtered against the group-1 mask, not misapplied as if it were in group 0.
+            var buffer = BuildBuffer(
+                (CpuSetInformationType, ParkedFlag, Group: (ushort)1, LogicalProcessorIndex: (byte)0), // parked, in our group and mask
+                (CpuSetInformationType, ParkedFlag, Group: (ushort)1, LogicalProcessorIndex: (byte)1)); // parked, in our group but outside mask
+
+            Assert.Equal(1, ProcessorTopology.CountParkedLogicalProcessors(buffer, processAffinityMask: 0b1, processGroup: 1));
         }
 
         [Fact]

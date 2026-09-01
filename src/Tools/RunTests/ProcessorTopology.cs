@@ -87,8 +87,21 @@ namespace RunTests
             nuint processAffinityMask = 0;
             nuint systemAffinityMask = 0;
             var hasAffinityMask = PInvoke.GetProcessAffinityMask(currentProcess, &processAffinityMask, &systemAffinityMask);
+            if (!hasAffinityMask)
+            {
+                return CountParkedLogicalProcessors(buffer, processAffinityMask: null, processGroup: null);
+            }
 
-            return CountParkedLogicalProcessors(buffer, hasAffinityMask ? processAffinityMask : null);
+            // GetProcessAffinityMask only succeeds at all when the process is confined to a single processor
+            // group (it fails outright for a process spanning multiple groups), but the mask it returns is
+            // relative to whichever group that is -- not necessarily group 0. GetProcessGroupAffinity reports
+            // which group that actually is, so the mask below is matched against the right group's entries
+            // instead of assuming group 0.
+            ushort groupCount = 1;
+            ushort groupNumber = 0;
+            var hasGroup = PInvoke.GetProcessGroupAffinity(currentProcess, &groupCount, &groupNumber) && groupCount == 1;
+
+            return CountParkedLogicalProcessors(buffer, processAffinityMask, hasGroup ? groupNumber : null);
         }
 
         // SYSTEM_CPU_SET_INFORMATION is a fixed-size (no trailing flexible array), documented Win32 struct
@@ -119,9 +132,14 @@ namespace RunTests
         /// <param name="buffer">The raw <c>SYSTEM_CPU_SET_INFORMATION</c> array returned by <c>GetSystemCpuSetInformation</c>.</param>
         /// <param name="processAffinityMask">
         /// This process's affinity mask (from <c>GetProcessAffinityMask</c>), or <see langword="null"/> if it
-        /// couldn't be queried. Only applied to processor-group 0 entries -- <c>GetProcessAffinityMask</c>
-        /// itself only ever reports group 0's mask, so a >64-logical-processor machine with multiple groups
-        /// can't be filtered this way for its other groups; those entries fall back to the
+        /// couldn't be queried.
+        /// </param>
+        /// <param name="processGroup">
+        /// The single processor group <paramref name="processAffinityMask"/> is relative to (from
+        /// <c>GetProcessGroupAffinity</c>), or <see langword="null"/> if it couldn't be determined --
+        /// <c>GetProcessAffinityMask</c> only ever succeeds for a process confined to one group, but its mask
+        /// is relative to whichever group that is, not always group 0. Without a known group, the affinity
+        /// mask can't be safely matched to any entry, so it's ignored and those entries fall back to the
         /// <c>AllocatedToTargetProcess</c>-only filtering below, same as before this parameter existed.
         /// </param>
         /// <remarks>
@@ -140,7 +158,7 @@ namespace RunTests
         /// such restriction, and every entry counts (matching <see cref="Environment.ProcessorCount"/>'s own
         /// unrestricted-by-default scope) -- unless the affinity mask further narrows it.
         /// </remarks>
-        internal static int CountParkedLogicalProcessors(ReadOnlySpan<byte> buffer, nuint? processAffinityMask = null)
+        internal static int CountParkedLogicalProcessors(ReadOnlySpan<byte> buffer, nuint? processAffinityMask = null, ushort? processGroup = null)
         {
             var hasExplicitAllocation = false;
             var offset = 0;
@@ -178,11 +196,11 @@ namespace RunTests
                     var flags = buffer[offset + FlagsOffset];
                     var isVisibleToThisProcess = !hasExplicitAllocation || (flags & AllocatedToTargetProcessFlag) != 0;
 
-                    if (isVisibleToThisProcess && processAffinityMask is { } mask
+                    if (isVisibleToThisProcess && processAffinityMask is { } mask && processGroup is { } expectedGroup
                         && offset + GroupOffset + sizeof(ushort) <= buffer.Length)
                     {
                         var group = BinaryPrimitives.ReadUInt16LittleEndian(buffer.Slice(offset + GroupOffset));
-                        if (group == 0)
+                        if (group == expectedGroup)
                         {
                             var logicalProcessorIndex = buffer[offset + LogicalProcessorIndexOffset];
                             var bit = logicalProcessorIndex < (sizeof(nuint) * 8) ? ((nuint)1 << logicalProcessorIndex) : 0;

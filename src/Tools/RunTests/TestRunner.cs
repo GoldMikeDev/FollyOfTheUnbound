@@ -318,7 +318,8 @@ namespace RunTests
             foreach (var testResult in testResults)
             {
                 line.Length = 0;
-                var color = testResult.Succeeded ? ConsoleColor.Green : ConsoleColor.Red;
+                var status = testResult.IsTimeout ? LiveRowStatus.Timeout : testResult.Succeeded ? LiveRowStatus.Passed : LiveRowStatus.Failed;
+                var color = LiveTestProgressDisplay.GetRowColor(status) ?? ConsoleColor.Gray;
                 line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
                 line.Append(' ');
                 line.Append(TestResultDisplay.CenterPad(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout), TestResultDisplay.StatusColumnWidth));
