@@ -53,7 +53,8 @@ $prototypePathSpecs = @(
   ':!azure-pipelines.yml',
   ':!docs/wiki/Compiler-release-process.md',
   ':!.github/copilot-instructions.md',
-  ':!.github/memory/CONVENTIONS.md'
+  ':!.github/memory/CONVENTIONS.md',
+  ':!.github/memory/KNOWN_ISSUES.md'
 )
 
 if ($env:SYSTEM_PULLREQUEST_TARGETBRANCH -eq "main") {
@@ -72,7 +73,8 @@ $todo2PathSpecs = @(
   ':!eng/todo-check.ps1',
   ':!AGENTS.md',
   ':!.github/copilot-instructions.md',
-  ':!.github/memory/CONVENTIONS.md'
+  ':!.github/memory/CONVENTIONS.md',
+  ':!.github/memory/KNOWN_ISSUES.md'
 )
 
 $todo2s = Get-GitGrepMatches 'TODO2' $todo2PathSpecs
