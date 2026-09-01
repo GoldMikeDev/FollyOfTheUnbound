@@ -90,7 +90,17 @@ namespace RunTests
             // conservative startup snapshot self-corrects within a few redraws instead of permanently
             // under-provisioning the run. On non-Windows, or if nothing is ever reported parked, this is
             // always 0 and the count is unchanged, same as before.
-            var bestAvailableProcessorCount = Environment.ProcessorCount - (ProcessorTopology.GetParkedLogicalProcessorCount() ?? 0);
+            //
+            // A null sample here means the query itself failed (not "nothing parked") -- coalescing that to 0
+            // would start the run at the full, oversubscribed Environment.ProcessorCount and, since
+            // RefreshMaxConcurrency only ever raises `max` afterward, permanently lock in that oversubscription
+            // even once a later sample succeeds and reports real parking. `hasEstablishedParkingBaseline`
+            // tracks whether any sample has actually succeeded yet; while it hasn't, the *first* successful
+            // sample -- whichever direction it moves things -- becomes the real baseline instead of only being
+            // allowed to raise an unknown, potentially-wrong starting value.
+            var initialParkedCount = ProcessorTopology.GetParkedLogicalProcessorCount();
+            var hasEstablishedParkingBaseline = initialParkedCount is not null;
+            var bestAvailableProcessorCount = Environment.ProcessorCount - (initialParkedCount ?? 0);
             var max = _options.Sequential ? 1 : Math.Max(bestAvailableProcessorCount - 1, 1);
             var workItems = CreateWorkItemsForFullAssemblies(assemblies);
             var waiting = new Stack<WorkItemInfo>(workItems);
@@ -296,10 +306,16 @@ namespace RunTests
                 }
 
                 var currentAvailableProcessorCount = Environment.ProcessorCount - parkedCount.Value;
-                if (currentAvailableProcessorCount > bestAvailableProcessorCount)
+
+                // Until a sample has actually succeeded, bestAvailableProcessorCount is only a guess (see its
+                // own remarks above) -- the first real sample becomes the baseline outright, in either
+                // direction, rather than being restricted to only raising a value that was never trustworthy
+                // to begin with. Once established, later samples only ever raise it, same as before.
+                if (!hasEstablishedParkingBaseline || currentAvailableProcessorCount > bestAvailableProcessorCount)
                 {
                     bestAvailableProcessorCount = currentAvailableProcessorCount;
                     max = Math.Max(bestAvailableProcessorCount - 1, 1);
+                    hasEstablishedParkingBaseline = true;
                 }
             }
         }
