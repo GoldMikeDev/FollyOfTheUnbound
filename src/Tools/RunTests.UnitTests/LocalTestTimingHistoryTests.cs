@@ -25,18 +25,40 @@ namespace RunTests.UnitTests
         public void Dispose() => Directory.Delete(_tempRoot, recursive: true);
 
         [Fact]
-        public void GetKey_NullTfmTag_IsJustTheBaseName()
+        public void GetKey_NullTfmTag_OmitsIt()
         {
-            Assert.Equal("Some.Assembly", LocalTestTimingHistory.GetKey("Some.Assembly", null));
+            var withoutTfm = LocalTestTimingHistory.GetKey("Some.Assembly", null, "Debug", "x64");
+            Assert.DoesNotContain("net", withoutTfm, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("Some.Assembly", withoutTfm);
+            Assert.Contains("Debug", withoutTfm);
+            Assert.Contains("x64", withoutTfm);
         }
 
         [Fact]
         public void GetKey_WithTfmTag_DisambiguatesByTfm()
         {
-            var net10 = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0");
-            var net472 = LocalTestTimingHistory.GetKey("Some.Assembly", "net472");
+            var net10 = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Debug", "x64");
+            var net472 = LocalTestTimingHistory.GetKey("Some.Assembly", "net472", "Debug", "x64");
 
             Assert.NotEqual(net10, net472);
+        }
+
+        [Fact]
+        public void GetKey_DisambiguatesByConfiguration()
+        {
+            var debug = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Debug", "x64");
+            var release = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Release", "x64");
+
+            Assert.NotEqual(debug, release);
+        }
+
+        [Fact]
+        public void GetKey_DisambiguatesByArchitecture()
+        {
+            var x64 = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Debug", "x64");
+            var arm64 = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Debug", "arm64");
+
+            Assert.NotEqual(x64, arm64);
         }
 
         [Fact]
@@ -101,6 +123,23 @@ namespace RunTests.UnitTests
 
             var history = LocalTestTimingHistory.Load(_artifactsDirectory);
             Assert.Null(history.TryGetPreviousDuration("Some.Assembly"));
+        }
+
+        [Fact]
+        public void RecordPassed_MergesWithConcurrentWriteFromAnotherInstance_NeitherKeyIsLost()
+        {
+            // Simulates two concurrent `scry` processes (e.g. separate --core/--framework legs): each loads
+            // its own independent snapshot up front, so neither ever sees the other's key in memory -- only
+            // RecordPassed's re-read-and-merge immediately before writing can keep both alive on disk.
+            var processA = LocalTestTimingHistory.Load(_artifactsDirectory);
+            var processB = LocalTestTimingHistory.Load(_artifactsDirectory);
+
+            processA.RecordPassed("A", TimeSpan.FromSeconds(1));
+            processB.RecordPassed("B", TimeSpan.FromSeconds(2));
+
+            var reloaded = LocalTestTimingHistory.Load(_artifactsDirectory);
+            Assert.Equal(TimeSpan.FromSeconds(1), reloaded.TryGetPreviousDuration("A"));
+            Assert.Equal(TimeSpan.FromSeconds(2), reloaded.TryGetPreviousDuration("B"));
         }
     }
 }

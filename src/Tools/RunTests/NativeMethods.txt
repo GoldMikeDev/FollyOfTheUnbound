@@ -2,3 +2,4 @@ GetStdHandle
 GetConsoleMode
 SetConsoleMode
 GetSystemCpuSetInformation
+GetCurrentProcess

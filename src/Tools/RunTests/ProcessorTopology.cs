@@ -49,8 +49,17 @@ namespace RunTests
         [SupportedOSPlatform("windows")]
         private static unsafe int GetParkedLogicalProcessorCountCore()
         {
+            // Scoped to this process's own handle, not NULL (which would return every CPU set on the whole
+            // system): a process restricted below the full machine -- CPU affinity, an explicit CPU set
+            // assignment, or a job object's CPU limit -- has a correspondingly smaller Environment.ProcessorCount,
+            // and subtracting a system-wide parked count from that mismatched, larger universe of CPU sets
+            // could subtract more than this process can even see, undercounting (or, saturating at 0 in
+            // TestRunner's Math.Max clamp, silently zeroing out) the concurrency this process can actually use.
+            // GetCurrentProcess() is a pseudo-handle (always -1, never needs closing) -- see its own Win32 docs.
+            var currentProcess = PInvoke.GetCurrentProcess();
+
             uint returnedLength = 0;
-            _ = PInvoke.GetSystemCpuSetInformation(null, 0, &returnedLength, (HANDLE)default, 0);
+            _ = PInvoke.GetSystemCpuSetInformation(null, 0, &returnedLength, currentProcess, 0);
             if (returnedLength == 0)
             {
                 return 0;
@@ -63,7 +72,7 @@ namespace RunTests
                         (Windows.Win32.System.SystemInformation.SYSTEM_CPU_SET_INFORMATION*)bufferPtr,
                         returnedLength,
                         &returnedLength,
-                        (HANDLE)default,
+                        currentProcess,
                         0))
                 {
                     return 0;

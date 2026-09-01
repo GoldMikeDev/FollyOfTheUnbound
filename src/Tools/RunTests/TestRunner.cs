@@ -99,10 +99,19 @@ namespace RunTests
             var failures = 0;
 
             var runLabel = $"{_options.Configuration} ({_options.TestRuntime})";
+
+            // Loaded once, unconditionally -- independent of whether a live display ends up existing (see
+            // below), so a redirected-output/CI run (just as capable of a real, unfiltered full run as an
+            // interactive one) still updates the "Previous" baseline for the next interactive run to read.
+            var history = LocalTestTimingHistory.Load(_options.ArtifactsDirectory);
+
             // A --testFilter run only exercises a subset of each assembly's tests, so its elapsed time is
-            // not a meaningful "how long does this assembly normally take" baseline -- see
-            // LiveTestProgressDisplay.MarkCompleted's remarks.
-            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems, _options.ArtifactsDirectory, recordHistory: _options.TestFilter is null);
+            // not a meaningful "how long does this assembly normally take" baseline -- skipped in the
+            // completion handling below, not here; recordHistory only gates whether *new* history gets
+            // written, never whether the existing "Previous" values loaded above are shown.
+            var recordHistory = _options.TestFilter is null;
+
+            var liveDisplay = LiveTestProgressDisplay.TryCreate(runLabel, workItems, history, _options.Configuration, _options.Architecture);
 
             try
             {
@@ -132,6 +141,8 @@ namespace RunTests
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
+                    var completedCountBeforeTick = completed.Count;
+
                     var i = 0;
                     while (i < running.Count)
                     {
@@ -142,6 +153,17 @@ namespace RunTests
                             {
                                 var testResult = await task.ConfigureAwait(false);
                                 liveDisplay?.MarkCompleted(workItem, testResult.Elapsed, testResult.Succeeded, testResult.IsTimeout);
+
+                                // Independent of liveDisplay's existence (see LiveTestProgressDisplay.MarkCompleted's
+                                // remarks) -- only a genuine pass is worth remembering as a "Previous" baseline, a
+                                // timeout/failure's elapsed time reflects however long it took to hang or crash, not
+                                // how long the work item actually takes to run.
+                                if (testResult.Succeeded && recordHistory)
+                                {
+                                    var (baseName, tfmTag) = LiveTestProgressDisplay.GetNameParts(workItem);
+                                    var historyKey = LocalTestTimingHistory.GetKey(baseName, tfmTag, _options.Configuration, _options.Architecture);
+                                    history.RecordPassed(historyKey, testResult.Elapsed);
+                                }
 
                                 if (!testResult.Succeeded)
                                 {
@@ -200,6 +222,7 @@ namespace RunTests
 
                     RefreshMaxConcurrency();
 
+                    var waitingCountBeforeDispatch = waiting.Count;
                     while (running.Count < max && waiting.Count > 0)
                     {
                         var workItem = waiting.Pop();
@@ -212,8 +235,14 @@ namespace RunTests
                     {
                         liveDisplay.Redraw();
                     }
-                    else
+                    else if (completed.Count != completedCountBeforeTick || waiting.Count != waitingCountBeforeDispatch)
                     {
+                        // Only when something actually changed this tick (a work item finished, or the dispatch
+                        // loop above just handed out more work -- including RefreshMaxConcurrency freeing up room
+                        // for it) -- otherwise the periodic wake below (needed so a stalled run item that's
+                        // currently the whole of `max` doesn't block RefreshMaxConcurrency from ever getting a
+                        // chance to run again) would spam CI logs with an unchanged line every second.
+                        //
                         // Display the current status of the TestRunner.
                         // Note: The { ... , 2 } is to right align the values, thus aligns sections into columns.
                         ConsoleUtil.Write($"  {running.Count,2} running, {waiting.Count,2} queued, {completed.Count,2} completed");
@@ -226,19 +255,17 @@ namespace RunTests
 
                     if (running.Count > 0)
                     {
-                        if (liveDisplay is not null)
-                        {
-                            // Wake at least once a second even if nothing completes, purely so the live table's
-                            // elapsed-time column visibly ticks for still-running rows; CI's line-based fallback above
-                            // has no such need and keeps its original wake-only-on-completion behavior (waking on a
-                            // timer there would just spam the log with an unchanged line every second).
-                            var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
-                            await Task.WhenAny(tasks);
-                        }
-                        else
-                        {
-                            await Task.WhenAny(running.Select(static r => r.Task).ToArray());
-                        }
+                        // Always woken at least once a second, not just on task completion -- for the live
+                        // table this is purely so its elapsed-time column visibly ticks for still-running
+                        // rows; for the CI/non-live fallback it's what lets RefreshMaxConcurrency run again
+                        // and raise `max` if the parking snapshot that set it was conservative enough to fill
+                        // every slot already (waiting only on those tasks would otherwise mean `max` can never
+                        // grow -- and so never admit more work -- until one of them finishes or the run
+                        // stalls entirely). The status line above is suppressed on a tick where only this
+                        // timer fired and nothing else changed, so the CI path doesn't regain the log spam
+                        // the original wake-only-on-completion design specifically avoided.
+                        var tasks = running.Select(static r => (Task)r.Task).Append(Task.Delay(TimeSpan.FromSeconds(1), cancellationToken));
+                        await Task.WhenAny(tasks);
                     }
                 } while (running.Count > 0);
             }

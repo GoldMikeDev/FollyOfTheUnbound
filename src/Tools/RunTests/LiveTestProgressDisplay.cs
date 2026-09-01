@@ -170,10 +170,8 @@ namespace RunTests
         private readonly string _runLabel;
         private readonly List<Row> _rows;
         private readonly Dictionary<int, Row> _rowsByPartitionIndex;
+        /// <summary>Read-only from this display's perspective -- see <see cref="MarkCompleted"/>'s remarks for why writes happen in <see cref="TestRunner"/> instead.</summary>
         private readonly LocalTestTimingHistory _history;
-
-        /// <summary>Whether a passing work item's elapsed time is worth persisting into <see cref="_history"/> -- see <see cref="MarkCompleted"/>.</summary>
-        private readonly bool _recordHistory;
 
         /// <summary>
         /// Guards every method that touches the alternate-screen state (<see cref="_inAltScreen"/>,
@@ -242,11 +240,10 @@ namespace RunTests
             }
         }
 
-        private LiveTestProgressDisplay(string runLabel, ImmutableArray<WorkItemInfo> workItems, LocalTestTimingHistory history, bool recordHistory)
+        private LiveTestProgressDisplay(string runLabel, ImmutableArray<WorkItemInfo> workItems, LocalTestTimingHistory history, string configuration, string architecture)
         {
             _runLabel = runLabel;
             _history = history;
-            _recordHistory = recordHistory;
 
             var nameParts = workItems.Select(GetNameParts).ToList();
             var duplicateBaseNames = nameParts
@@ -266,7 +263,7 @@ namespace RunTests
                 // Suffix, which only disambiguates when *this run* has a duplicate, the persisted history must
                 // stay stable across runs where the duplicate-ness of a given baseName can differ (e.g. a
                 // TestRuntime.Both run schedules both TFMs, a single-TFM run doesn't).
-                var historyKey = LocalTestTimingHistory.GetKey(baseName, tfmTag);
+                var historyKey = LocalTestTimingHistory.GetKey(baseName, tfmTag, configuration, architecture);
                 unsortedRows.Add(new Row
                 {
                     BaseName = baseName,
@@ -442,7 +439,8 @@ namespace RunTests
         /// <see cref="TestRuntime.Both"/> schedules the same assembly filename as two separate work items,
         /// one per framework.
         /// </summary>
-        private static (string BaseName, string? TfmTag) GetNameParts(WorkItemInfo workItem)
+        /// <summary>Internal (not private) so <see cref="TestRunner"/> can derive the same <see cref="LocalTestTimingHistory"/> key independent of whether a live display exists -- see its own history-recording code.</summary>
+        internal static (string BaseName, string? TfmTag) GetNameParts(WorkItemInfo workItem)
         {
             var baseName = string.Join("_", workItem.Filters.Keys.Select(static a => System.IO.Path.GetFileNameWithoutExtension(a.AssemblyName)));
             var firstAssemblyPath = workItem.Filters.Keys.Select(static a => a.AssemblyPath).FirstOrDefault();
@@ -460,7 +458,7 @@ namespace RunTests
         /// </summary>
         internal static LiveTestProgressDisplay? Current { get; private set; }
 
-        internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems, string? artifactsDirectory, bool recordHistory)
+        internal static LiveTestProgressDisplay? TryCreate(string runLabel, ImmutableArray<WorkItemInfo> workItems, LocalTestTimingHistory history, string configuration, string architecture)
         {
             if (Console.IsOutputRedirected || workItems.Length == 0)
             {
@@ -496,7 +494,7 @@ namespace RunTests
                 // The constructor itself probes Windows mouse-wheel support (see TryDetectWindowsConsoleInputSupport);
                 // EnableMouseSupport here does the actual (non-Windows escape write / Windows SetConsoleMode) switch
                 // for the rest of this display's lifetime -- both no-op silently if support wasn't available.
-                display = new LiveTestProgressDisplay(runLabel, workItems, LocalTestTimingHistory.Load(artifactsDirectory), recordHistory);
+                display = new LiveTestProgressDisplay(runLabel, workItems, history, configuration, architecture);
                 display.EnableMouseSupport();
             }
             catch
@@ -595,16 +593,14 @@ namespace RunTests
                 row.Status = isTimeout ? LiveRowStatus.Timeout : succeeded ? LiveRowStatus.Passed : LiveRowStatus.Failed;
                 row.FinalElapsed = elapsed;
 
-                // Only a genuine pass is worth remembering as the "Previous" baseline -- a timeout/failure's
-                // elapsed time reflects however long it took to hang or crash, not how long the work item
-                // actually takes to run. Likewise skipped entirely when --testFilter narrowed this run to a
-                // subset of each assembly's tests (_recordHistory is false): that elapsed time is nowhere
-                // close to a full-assembly run and would silently replace a real baseline with a
-                // fraction-of-a-second (or even zero-matching-tests) "Previous" for every later unfiltered run.
-                if (succeeded && _recordHistory)
-                {
-                    _history.RecordPassed(row.HistoryKey, elapsed);
-                }
+                // Recording into LocalTestTimingHistory is deliberately NOT done here: this method (and this
+                // whole display) only ever exists on a real, non-redirected interactive terminal, but a
+                // perfectly good full/unfiltered run happens just as often with output redirected (CI, a
+                // piped/logged local run) -- gating every history update on the live table's existence would
+                // mean the "Previous" baseline never updates for anyone who doesn't always run interactively.
+                // TestRunner.RunAllAsync's own completion handling records history directly instead, using
+                // the exact same LocalTestTimingHistory instance and key (GetNameParts + LocalTestTimingHistory.GetKey)
+                // this row's HistoryKey/PreviousElapsed above were built from, independent of MarkCompleted.
             }
         }
 
