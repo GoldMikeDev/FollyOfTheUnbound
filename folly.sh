@@ -635,9 +635,15 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		  return
 		fi
 		# No usable PowerShell -- same ps -W fallback as _cleanse_ps_snapshot/_cleanse_get_children:
-		# `ps -o ppid= -p` is unsupported syntax here too. Find the row whose WINPID (native id, column 4)
-		# matches $pid and print its PPID (column 2), best-effort like the rest of this fallback.
-		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{print $2; exit}'
+		# `ps -o ppid= -p` is unsupported syntax here too. PPID (column 2) is in -W's own Cygwin-internal
+		# pid namespace, NOT the native Win32 one WINPID (column 4) is -- naively returning column 2 here
+		# would hand the ancestor walk below a pid it then compares against WINPID again next iteration,
+		# a cross-namespace mismatch that silently stops the walk one level up (exactly the bug this
+		# fallback exists to avoid). Two-pass single awk: build a Cygwin-pid -> WINPID map from every row,
+		# find the target row's PPID (still Cygwin-namespace), then translate that PPID back to a WINPID
+		# via the map before printing -- staying in the native namespace throughout, like every other
+		# pid this Windows-host code path passes around.
+		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{target=$2} {winpid[$1]=$4} END{if (target != "") print winpid[target]}'
 		return
 	  fi
 	  ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]'
@@ -667,9 +673,12 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		fi
 		# No usable PowerShell -- same MSYS/Cygwin `-W` fallback as _cleanse_ps_snapshot: `ps -eo pid,ppid`
 		# isn't supported syntax here either. -W's fixed columns are PID PPID PGID WINPID TTY UID STIME
-		# COMMAND; WINPID (column 4) is the native id everything else in this Windows-host path keys off of,
-		# matched against PPID (column 2) to find $1's children, best-effort like the rest of this fallback.
-		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '{if ($2==p) print $4}'
+		# COMMAND; PPID (column 2) is -W's own Cygwin-internal pid namespace, not the native Win32 one $1
+		# and WINPID (column 4) are in -- matching column 2 directly against $1 (as an earlier pass here
+		# did) is a cross-namespace comparison that would silently find no children at all. Two-pass single
+		# awk: find $1's own Cygwin pid (the row whose WINPID equals $1) as the parent id to match against,
+		# then print the WINPID of every row whose PPID equals that -- staying in one namespace throughout.
+		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{target=$1} {ppid[$1]=$2; winpid[$1]=$4} END{for (cp in ppid) if (ppid[cp]==target) print winpid[cp]}'
 		return
 	  fi
 	  ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'
