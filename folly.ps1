@@ -465,7 +465,16 @@ Switches:
 		# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
 		# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
 		if ($bothLegs) {
-			$resultRowPattern = '^(.*?)((?:  PASSED  |  FAILED  | TIMEOUT  ).*)$'
+			# The single literal space before the alternation is the ColumnGap TestRunner.Print always
+			# emits between the name field and the Status field (line.Append(' ')) -- matched explicitly
+			# here, not folded into the alternation's own leading spaces, so it lands in neither group 1
+			# nor group 2 and survives reconstruction below unchanged. The three alternatives are
+			# CenterPad's exact, fixed-width (StatusColumnWidth=10) renderings of the only three possible
+			# status values -- not a loose "some spaces around the word" guess -- so this can't
+			# accidentally consume part of that gap into group 1 the way a bare '\s+PASSED\s+'-style
+			# pattern would (which previously left the reconstructed row one column short of
+			# TestRunner.Print's own).
+			$resultRowPattern = '^(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)$'
 			$sharedNameWidth = 0
 			foreach ($summary in $summaries) {
 				foreach ($line in $summary.Lines) {
@@ -482,7 +491,7 @@ Switches:
 				$summary.Lines = @($summary.Lines | ForEach-Object {
 					$rowMatch = [regex]::Match($_, $resultRowPattern)
 					if ($rowMatch.Success) {
-						$rowMatch.Groups[1].Value.TrimEnd().PadRight($sharedNameWidth) + $rowMatch.Groups[2].Value
+						$rowMatch.Groups[1].Value.TrimEnd().PadRight($sharedNameWidth) + " " + $rowMatch.Groups[2].Value + $rowMatch.Groups[3].Value
 					}
 					else {
 						$_

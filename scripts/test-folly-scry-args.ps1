@@ -304,11 +304,17 @@ else { exit 0 }
         $frameworkLine = ($result.Output -split "`r?`n") | Where-Object { $_ -like "*$frameworkName*" } | Select-Object -First 1
         $coreStatusCol = if ($coreLine) { $coreLine.IndexOf("PASSED") } else { -1 }
         $frameworkStatusCol = if ($frameworkLine) { $frameworkLine.IndexOf("PASSED") } else { -1 }
-        if ($result.ExitCode -eq 0 -and $coreStatusCol -ge 0 -and $coreStatusCol -eq $frameworkStatusCol) {
-            Test-Pass "combined Core/Framework tables realign to the same Status column despite unequal name widths"
+        # Not just equal to each other: pinned to the exact absolute offset TestRunner.Print's own
+        # formatting recipe implies -- $frameworkWidth, then the single-space ColumnGap, then
+        # Format-CenterPad's own 2-space left-pad for a 6-character word ("PASSED"/"FAILED") in a
+        # 10-wide field -- so a bug that drops the ColumnGap (shifting both legs left by the same one
+        # column) can't pass just because both legs shifted identically.
+        $expectedStatusCol = $frameworkWidth + 1 + 2
+        if ($result.ExitCode -eq 0 -and $coreStatusCol -eq $expectedStatusCol -and $frameworkStatusCol -eq $expectedStatusCol) {
+            Test-Pass "combined Core/Framework tables realign to the same, correctly-offset Status column despite unequal name widths"
         }
         else {
-            Test-Fail "realign-unequal-widths (exit=$($result.ExitCode)): core_col=$coreStatusCol framework_col=$frameworkStatusCol output=$($result.Output)"
+            Test-Fail "realign-unequal-widths (exit=$($result.ExitCode)): core_col=$coreStatusCol framework_col=$frameworkStatusCol expected_col=$expectedStatusCol output=$($result.Output)"
         }
     }
 

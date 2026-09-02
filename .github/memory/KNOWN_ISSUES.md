@@ -85,9 +85,14 @@ bash has no MSYS runtime at all (`$MSYSTEM` is simply unset there).
 **Workaround:** `folly.sh` exports `MSYS2_ARG_CONV_EXCL='*'` (disabling MSYS's path-conversion heuristic
 entirely for the rest of the process) whenever `$MSYSTEM` is set, before ever invoking `eng/build.sh`.
 Do not "fix" this in `eng/common/tools.sh` itself — it's Arcade-synced and any hand-edit is overwritten.
-If a genuinely Windows-Unix-path argument ever needs to reach a native tool from `folly.sh` on Git Bash
-after this env var is set, it will need an explicit `cygpath`/similar conversion at the call site instead
-of relying on MSYS's automatic (and, for MSBuild specifically, actively harmful) behavior.
+Disabling the heuristic globally also stops it converting genuine POSIX paths this script hands to a
+native tool on the same command line, which it previously did convert (that's the other half of what
+this same heuristic does) — `eng/build.sh` (fork-owned, safe to hand-edit, unlike `eng/common/tools.sh`)
+now converts each of those explicitly instead via its own `ToNativePath` helper (`cygpath -w`, no-op off
+MSYS): the toolset build project, the `/p:Projects`/`/p:RepoRoot` values in `BuildSolution`, and
+`RunTests.dll`'s own path/`--logs`/`--dotnet`/`--out` arguments where it's invoked via `dotnet exec`.
+**Any new native-tool path argument added to `eng/build.sh` (MSBuild or otherwise) must be routed through
+`ToNativePath` the same way** — there is no longer any automatic conversion to fall back on for it.
 
 ## Environmental test failures (not code bugs)
 

@@ -480,7 +480,15 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
 	# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
 	if [[ "$both_legs" -eq 1 ]]; then
-	  result_row_pattern='(.*)((  PASSED  |  FAILED  | TIMEOUT  ).*)'
+	  # The single literal space before the alternation is the ColumnGap TestRunner.Print always
+	  # emits between the name field and the Status field (line.Append(' ')) -- matched explicitly
+	  # here, not folded into the alternation's own leading spaces, so it lands in neither group1 nor
+	  # group2 and survives reconstruction below unchanged. The three alternatives are CenterPad's
+	  # exact, fixed-width (StatusColumnWidth=10) renderings of the only three possible status
+	  # values -- not a loose "some spaces around the word" guess -- so this can't accidentally
+	  # consume part of that gap into group1 the way a bare '\s+PASSED\s+'-style pattern would
+	  # (which previously left the reconstructed row one column short of TestRunner.Print's own).
+	  result_row_pattern='(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)'
 	  shared_name_width=0
 	  for i in "${!summary_texts[@]}"; do
 		while IFS= read -r result_line; do
@@ -497,7 +505,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 			name_field="${BASH_REMATCH[1]}"
 			name_trimmed="${name_field%"${name_field##*[![:space:]]}"}"
 			printf -v padded_name '%-*s' "$shared_name_width" "$name_trimmed"
-			realigned_text+="${padded_name}${BASH_REMATCH[2]}"$'\n'
+			realigned_text+="${padded_name} ${BASH_REMATCH[2]}${BASH_REMATCH[3]}"$'\n'
 		  else
 			realigned_text+="${result_line}"$'\n'
 		  fi

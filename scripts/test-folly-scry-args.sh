@@ -297,10 +297,16 @@ exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 core_status_col="$(grep -F "$core_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
 framework_status_col="$(grep -F "$framework_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
-if [[ "$exit_code" == "0" && -n "$core_status_col" && "$core_status_col" == "$framework_status_col" ]]; then
-  test_pass "combined Core/Framework tables realign to the same Status column despite unequal name widths"
+# Not just equal to each other: pinned to the exact absolute offset TestRunner.Print's own
+# formatting recipe implies -- shared_name_width, then the single-space ColumnGap, then CenterPad's
+# own 2-space left-pad for a 6-character word ("PASSED"/"FAILED") in a 10-wide field -- so a bug
+# that drops the ColumnGap (shifting both legs left by the same one column) can't pass just because
+# both legs shifted identically.
+expected_status_col=$((framework_width + 1 + 2))
+if [[ "$exit_code" == "0" && "$core_status_col" == "$expected_status_col" && "$framework_status_col" == "$expected_status_col" ]]; then
+  test_pass "combined Core/Framework tables realign to the same, correctly-offset Status column despite unequal name widths"
 else
-  test_fail "realign-unequal-widths (exit=$exit_code): core_col=$core_status_col framework_col=$framework_status_col output=$output"
+  test_fail "realign-unequal-widths (exit=$exit_code): core_col=$core_status_col framework_col=$framework_status_col expected_col=$expected_status_col output=$output"
 fi
 
 # --- stray "================" lines in captured failure output don't fool the summary parser ---

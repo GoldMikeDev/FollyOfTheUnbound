@@ -600,8 +600,19 @@ if [[ -n "${FOTU_TEST_RESULTS_SUFFIX:-}" ]]; then
   runtests_out_dir="${runtests_out_dir}-${FOTU_TEST_RESULTS_SUFFIX}"
 fi
 
+# RunTests.dll (a managed app run via native dotnet.exe under Git Bash, same as MSBuild.exe -- see
+# ToNativePath's own comment above) needs these path arguments in native Windows form. $runtests_log_dir
+# and $runtests_out_dir themselves stay POSIX-form -- everything else in this script (including the
+# "See $runtests_out_dir..." messages below) keeps using them as bash-side paths, and the underlying
+# file this dll actually writes to is the same location on disk either way, so folly.sh's own later
+# POSIX-path reads of it are unaffected.
+runtests_log_dir_native=$(ToNativePath "$runtests_log_dir")
+runtests_out_dir_native=$(ToNativePath "$runtests_out_dir")
+runtests_dll_path=$(ToNativePath "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll")
+dotnet_cli_native=$(ToNativePath "${_InitializeDotNetCli}/dotnet")
+
 if [[ "$test_core_clr" == true ]]; then
-  runtests_args="--out \"$runtests_out_dir\""
+  runtests_args="--out \"$runtests_out_dir_native\""
 
   if [[ "$test_compiler_only" == true ]]; then
     runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
@@ -658,13 +669,13 @@ if [[ "$test_core_clr" == true ]]; then
   fi
 
   if [[ "$ci" == true ]]; then
-    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+    dotnet exec "$runtests_dll_path" --runtime core --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args
   else
     # Locally, a non-zero exit from RunTests almost always just means some test suites had
     # failures (not that the build tooling itself broke), so report it concisely instead of
     # letting `set -e` exit silently. The HTML/xUnit failure logs under $log_dir already have
     # the actual details. Matches the equivalent local-only summary in build.ps1.
-    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+    if ! dotnet exec "$runtests_dll_path" --runtime core --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args; then
       echo "Not all test suites succeeded. See $runtests_out_dir and $runtests_log_dir for details."
       exit 1
     fi
@@ -672,7 +683,7 @@ if [[ "$test_core_clr" == true ]]; then
 elif [[ "$test_desktop" == true ]]; then
   # elif, not a separate 'if': matches build.ps1's own $testDesktop branch, which only runs when
   # $testCoreClr is false -- test_core_clr silently takes priority if a caller somehow sets both.
-  runtests_args="--out \"$runtests_out_dir\""
+  runtests_args="--out \"$runtests_out_dir_native\""
 
   if [[ "$test_compiler_only" == true ]]; then
     runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
@@ -732,9 +743,9 @@ elif [[ "$test_desktop" == true ]]; then
   fi
 
   if [[ "$ci" == true ]]; then
-    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+    dotnet exec "$runtests_dll_path" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args
   else
-    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+    if ! dotnet exec "$runtests_dll_path" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args; then
       echo "Not all test suites succeeded. See $runtests_out_dir and $runtests_log_dir for details."
       exit 1
     fi
