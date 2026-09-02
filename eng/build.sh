@@ -620,14 +620,18 @@ if [[ "$test_core_clr" == true ]]; then
   fi
 
   # Matches build.ps1's own $collectDumps handling -- see EnsureProcDump above and the is_windows_host
-  # gate that already turned $collect_dumps back off on a non-Windows host.
+  # gate that already turned $collect_dumps back off on a non-Windows host. --collectdumps and
+  # --procdumppath are independent: --collectdumps alone is what enables RunTests' WER registry
+  # collection; --procdumppath only ever feeds its console "Proc dump location:" line (see
+  # Program.cs), nothing functional. So a failure acquiring ProcDump should only drop the cosmetic
+  # --procdumppath, never --collectdumps itself.
   if [[ "$collect_dumps" == true ]]; then
+    runtests_args="$runtests_args --collectdumps"
     EnsureProcDump
     if [[ "$_EnsureProcDumpFailed" == 1 ]]; then
-      echo "Skipping '--collectDumps': failed to acquire ProcDump."
+      echo "Failed to acquire ProcDump; '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured."
     else
       runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
-      runtests_args="$runtests_args --collectdumps"
     fi
   fi
 
@@ -690,14 +694,18 @@ elif [[ "$test_desktop" == true ]]; then
   fi
 
   # Matches build.ps1's own $collectDumps handling -- see EnsureProcDump above and the is_windows_host
-  # gate that already turned $collect_dumps back off on a non-Windows host.
+  # gate that already turned $collect_dumps back off on a non-Windows host. --collectdumps and
+  # --procdumppath are independent: --collectdumps alone is what enables RunTests' WER registry
+  # collection; --procdumppath only ever feeds its console "Proc dump location:" line (see
+  # Program.cs), nothing functional. So a failure acquiring ProcDump should only drop the cosmetic
+  # --procdumppath, never --collectdumps itself.
   if [[ "$collect_dumps" == true ]]; then
+    runtests_args="$runtests_args --collectdumps"
     EnsureProcDump
     if [[ "$_EnsureProcDumpFailed" == 1 ]]; then
-      echo "Skipping '--collectDumps': failed to acquire ProcDump."
+      echo "Failed to acquire ProcDump; '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured."
     else
       runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
-      runtests_args="$runtests_args --collectdumps"
     fi
   fi
 

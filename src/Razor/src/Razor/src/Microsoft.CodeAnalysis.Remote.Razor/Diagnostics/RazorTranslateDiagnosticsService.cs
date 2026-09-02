@@ -350,7 +350,14 @@ internal sealed class RazorTranslateDiagnosticsService(IDocumentMappingService d
 
         static bool IsSemicolonAfterCSharpExpression(LspDiagnostic diagnostic, SourceText sourceText, RazorSyntaxTree syntaxTree)
         {
-            if (!sourceText.TryGetAbsoluteIndex(diagnostic.Range.Start, out var absoluteIndex) ||
+            // A null Range is valid per the LSP spec (file-level diagnostic, see HasValidRange above) -- there's
+            // no position to check this specific filter against, so it doesn't apply.
+            if (diagnostic.Range is not { } range)
+            {
+                return false;
+            }
+
+            if (!sourceText.TryGetAbsoluteIndex(range.Start, out var absoluteIndex) ||
                 absoluteIndex == 0 ||
                 absoluteIndex >= sourceText.Length ||
                 sourceText[absoluteIndex] != ';')

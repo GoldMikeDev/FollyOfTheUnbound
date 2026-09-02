@@ -543,17 +543,18 @@ function TestUsingRunTests() {
     if (-not (IsWindowsPlatform)) {
       Write-Host "Skipping '-collectDumps': Windows Error Reporting registry-based dump collection requires a genuine Windows host."
     } else {
-      # Ensure-ProcDump downloads Procdump.zip from sysinternals.com on a machine that doesn't
-      # already have procdump.exe cached -- a network failure here (offline machine, blocked
-      # download) shouldn't abort the whole test run over a value that RunTests only ever echoes
-      # back to the console (see Program.cs's "Proc dump location:" line); fall back to skipping
-      # dump collection instead.
+      # --collectdumps and --procdumppath are independent: --collectdumps alone is what enables
+      # DumpUtil's WER registry collection; --procdumppath only ever feeds RunTests' console
+      # "Proc dump location:" line (see Program.cs), nothing functional. So a failure acquiring
+      # ProcDump (Ensure-ProcDump downloads Procdump.zip from sysinternals.com on a machine that
+      # doesn't already have procdump.exe cached -- offline, blocked network) should only drop the
+      # cosmetic --procdumppath, never --collectdumps itself.
+      $args += " --collectdumps";
       try {
         $procdumpFilePath = Ensure-ProcDump
         $args += " --procdumppath $procDumpFilePath"
-        $args += " --collectdumps";
       } catch {
-        Write-Host "Skipping '-collectDumps': failed to acquire ProcDump ($_)." -ForegroundColor Yellow
+        Write-Host "Failed to acquire ProcDump ($_); '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured." -ForegroundColor Yellow
       }
     }
   }
