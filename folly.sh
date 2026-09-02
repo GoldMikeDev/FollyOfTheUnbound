@@ -618,10 +618,20 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		pid="$ppid"
 	  done
 	}
-	_cleanse_kill_pid_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM), and a candidate that exited on its own between snapshot and kill attempt (e.g. the shutdown RPC took effect a little late) was never force-killed by cleanse at all
+	_cleanse_get_children() {  # PIDs of the direct children of $1 -- `ps -eo pid,ppid | awk` is procps/BSD syntax and, even patched, MSYS/Cygwin ps only sees processes in its own runtime's pid table (see _cleanse_ps_snapshot); a build-server/node-worker/BuildHost child spawned via .NET's own Process.Start is invisible to it just like the parent PIDs those found before this fix. Same CIM fallback as _cleanse_get_ppid.
+	  local pid="$1" pwsh_exe
+	  if is_windows_host; then
+		pwsh_exe=$(command -v pwsh 2>/dev/null) || pwsh_exe=$(command -v powershell.exe 2>/dev/null) || pwsh_exe=$(command -v powershell 2>/dev/null) || pwsh_exe=""
+		if [[ -n "$pwsh_exe" ]]; then
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ParentProcessId=$pid\").ProcessId" 2>/dev/null && return
+		fi
+	  fi
+	  ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'
+	}
+	_cleanse_kill_pid_tree() {  # kills a pid's children first (via _cleanse_get_children) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM), and a candidate that exited on its own between snapshot and kill attempt (e.g. the shutdown RPC took effect a little late) was never force-killed by cleanse at all
 	  local pid="$1" child deadline
 	  [[ -z "$pid" ]] && return 1
-	  for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+	  for child in $(_cleanse_get_children "$pid"); do
 		_cleanse_kill_pid_tree "$child"
 	  done
 	  kill -0 "$pid" 2>/dev/null || return 1  # already gone on its own -- nothing for this call to count as killed
@@ -727,10 +737,10 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ -d "$artifacts_dir" ]]; then
 	  interactive=0
 	  [[ -t 1 ]] && interactive=1
-	  _cleanse_kill_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, so Ctrl+C can't orphan a still-traversing find/awk pipeline behind a killed wrapper subshell
+	  _cleanse_kill_tree() {  # kills a pid's children first (via _cleanse_get_children) then the pid itself, so Ctrl+C can't orphan a still-traversing find/awk pipeline behind a killed wrapper subshell
 		local pid="$1" child
 		[[ -z "$pid" ]] && return 0
-		for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+		for child in $(_cleanse_get_children "$pid"); do
 		  _cleanse_kill_tree "$child"
 		done
 		kill "$pid" 2>/dev/null
