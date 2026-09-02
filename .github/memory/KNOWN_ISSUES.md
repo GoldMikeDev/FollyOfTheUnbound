@@ -89,10 +89,14 @@ Disabling the heuristic globally also stops it converting genuine POSIX paths th
 native tool on the same command line, which it previously did convert (that's the other half of what
 this same heuristic does) — `eng/build.sh` (fork-owned, safe to hand-edit, unlike `eng/common/tools.sh`)
 now converts each of those explicitly instead via its own `ToNativePath` helper (`cygpath -w`, no-op off
-MSYS): the toolset build project, the `/p:Projects`/`/p:RepoRoot` values in `BuildSolution`, and
-`RunTests.dll`'s own path/`--logs`/`--dotnet`/`--out` arguments where it's invoked via `dotnet exec`.
-**Any new native-tool path argument added to `eng/build.sh` (MSBuild or otherwise) must be routed through
-`ToNativePath` the same way** — there is no longer any automatic conversion to fall back on for it.
+MSYS): the toolset build project, the `/p:Projects`/`/p:RepoRoot`/`/p:BootstrapBuildPath`/`/bl:` values
+in `BuildSolution`, `RunTests.dll`'s own path/`--logs`/`--dotnet`/`--out` arguments where it's invoked
+via `dotnet exec`, and `MakeBootstrapBuild`'s own `-p:PackageOutputPath`/`-bl:` arguments to
+`dotnet pack` (that function's other uses of the same paths -- `unzip`/`chmod`/`rm`/`mkdir` -- stay
+POSIX-form, since those are MSYS-side tools, not native ones; only the operand actually crossing into a
+native process needs conversion). **Any new native-tool path argument added to `eng/build.sh` (MSBuild
+or otherwise) must be routed through `ToNativePath` the same way** — there is no longer any automatic
+conversion to fall back on for it.
 
 ## Environmental test failures (not code bugs)
 

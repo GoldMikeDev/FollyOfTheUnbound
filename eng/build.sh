@@ -399,7 +399,10 @@ function MakeBootstrapBuild {
   local package_name="Microsoft.Net.Compilers.Toolset"
   local project_path=src/NuGet/$package_name/AnyCpu/$package_name.Package.csproj
 
-  dotnet pack -nologo "$project_path" -p:ContinuousIntegrationBuild=$ci -p:DotNetUseShippingVersions=true -p:InitialDefineConstants=BOOTSTRAP -p:PackageOutputPath="$dir" -bl:"$log_dir/Bootstrap.binlog"
+  # $dir/$log_dir stay POSIX-form everywhere else in this function (unzip/chmod/rm/mkdir below are
+  # MSYS-side tools, not native ones) -- only the two operands actually consumed by native dotnet.exe
+  # here need the ToNativePath conversion (see its own comment above).
+  dotnet pack -nologo "$project_path" -p:ContinuousIntegrationBuild=$ci -p:DotNetUseShippingVersions=true -p:InitialDefineConstants=BOOTSTRAP -p:PackageOutputPath="$(ToNativePath "$dir")" -bl:"$(ToNativePath "$log_dir/Bootstrap.binlog")"
   unzip "$dir/$package_name.*.nupkg" -d "$dir"
   chmod -R 755 "$dir"
 
@@ -425,7 +428,9 @@ function MakeBootstrapBuild {
 # $MSYSTEM and no such translation gap to begin with).
 function ToNativePath {
   local posix_path=$1
-  if [[ -n "${MSYSTEM:-}" ]] && command -v cygpath >/dev/null 2>&1; then
+  if [[ -z "$posix_path" ]]; then
+    echo ""
+  elif [[ -n "${MSYSTEM:-}" ]] && command -v cygpath >/dev/null 2>&1; then
     cygpath -w "$posix_path"
   else
     echo "$posix_path"
@@ -442,7 +447,7 @@ function BuildSolution {
 
   local bl=""
   if [[ "$binary_log" = true ]]; then
-    bl="/bl:\"$log_dir/Build.binlog\""
+    bl="/bl:\"$(ToNativePath "$log_dir/Build.binlog")\""
     export RoslynCommandLineLogFile="$log_dir/vbcscompiler.log"
   fi
 
@@ -525,7 +530,7 @@ function BuildSolution {
     /p:Publish=$publish \
     /p:Sign=$sign \
     /p:RunAnalyzersDuringBuild=$run_analyzers \
-    /p:BootstrapBuildPath="$bootstrap_dir" \
+    /p:BootstrapBuildPath="$(ToNativePath "$bootstrap_dir")" \
     /p:ContinuousIntegrationBuild=$ci \
     /p:TreatWarningsAsErrors=$warn_as_error \
     /p:TestRuntimeAdditionalArguments=$test_runtime_args \
