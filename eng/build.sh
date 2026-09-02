@@ -37,6 +37,7 @@ usage()
   echo "                             combined summary across multiple RunTests passes -- see folly.sh scry"
   echo "  --testRuntimeAsync         Run unit tests with runtime async validation enabled"
   echo "  --testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog"
+  echo "  --collectDumps             Collect dumps from test runs (genuine Windows host only)"
   echo ""
   echo "Advanced settings:"
   echo "  --ci                       Building in CI"
@@ -84,6 +85,7 @@ test_compiler_only=false
 test_filter=""
 test_timeout=0
 test_suppress_console_summary=false
+collect_dumps=false
 
 configuration="Debug"
 verbosity='minimal'
@@ -188,6 +190,9 @@ while [[ $# > 0 ]]; do
       ;;
     --testruntimeasync)
       test_runtime_async=true
+      ;;
+    --collectdumps)
+      collect_dumps=true
       ;;
     --testtimeout)
       # Overrides RunTests' whole-run --timeout watchdog (minutes); see the -testTimeout parameter
@@ -328,8 +333,60 @@ if [[ "$test_desktop" == true && "$test_runtime_async" == true ]]; then
   exit 1
 fi
 
+# --collectDumps enables RunTests' Windows Error Reporting registry-based dump collection
+# (DumpUtil.EnableRegistryDumpCollection in src/Tools/RunTests/ProcDumpUtil.cs, via the Windows
+# registry's LocalDumps key), which only exists on a genuine Windows host -- unlike --testDesktop
+# above, this isn't a hard requirement to satisfy the caller's request, so a non-Windows host just
+# skips it with a note rather than failing the whole build; folly.sh's scry passes --collectDumps
+# unconditionally on every host and relies on this to no-op safely off Windows.
+if [[ "$collect_dumps" == true ]] && ! is_windows_host; then
+  echo "Skipping '--collectDumps': Windows Error Reporting registry-based dump collection requires a genuine Windows host."
+  collect_dumps=false
+fi
+
 # Import Arcade functions
 . "$scriptroot/common/tools.sh"
+
+# Mirrors build.ps1's Ensure-ProcDump: locates procdump.exe for RunTests' --procdumppath (currently
+# only ever echoed back to the console by RunTests, not consumed for any actual dump-collection
+# logic -- see Program.cs's "Proc dump location:" line -- but mirrored here anyway for output parity
+# between folly.sh and folly.ps1). Only ever called after the is_windows_host gate above has already
+# confirmed a genuine Windows host, so a Windows-style "C:\..." path here is safe to hand straight to
+# RunTests (a .NET process on that same Windows host) without any bash-side path translation.
+# Downloads Procdump.zip from sysinternals.com on a machine that doesn't already have procdump.exe
+# cached -- a network failure here (offline machine, blocked download) shouldn't abort the whole
+# `set -e` script over a value RunTests only ever echoes back to the console (see Program.cs's
+# "Proc dump location:" line), so this reports failure via _EnsureProcDumpFailed instead of letting
+# curl/wget/unzip's non-zero exit propagate; callers must check it before using _EnsureProcDump.
+function EnsureProcDump {
+  _EnsureProcDumpFailed=0
+
+  # Jenkins images default to having procdump installed in the root -- use that if available to
+  # avoid an unnecessary download, matching build.ps1's own check (and its directory-not-file-path
+  # return value in this one case, which -- like the rest of this value -- is never consumed for
+  # more than console output).
+  if [[ -f "C:/SysInternals/procdump.exe" ]]; then
+    _EnsureProcDump="C:\\SysInternals"
+    return
+  fi
+
+  local out_dir="$tools_dir/ProcDump"
+  local file_path="$out_dir/procdump.exe"
+  if [[ ! -f "$file_path" ]]; then
+    mkdir -p "$out_dir"
+    local zip_file_path="$tools_dir/procdump.zip"
+    echo "Downloading Procdump..."
+    if command -v curl > /dev/null; then
+      curl "https://download.sysinternals.com/files/Procdump.zip" -sSL --retry 10 --create-dirs -o "$zip_file_path" || { _EnsureProcDumpFailed=1; return; }
+    else
+      wget -v -O "$zip_file_path" "https://download.sysinternals.com/files/Procdump.zip" || { _EnsureProcDumpFailed=1; return; }
+    fi
+    unzip -o "$zip_file_path" -d "$out_dir" || { _EnsureProcDumpFailed=1; return; }
+  fi
+
+  # return value
+  _EnsureProcDump="$file_path"
+}
 
 function MakeBootstrapBuild {
   echo "Building bootstrap compiler"
@@ -562,6 +619,22 @@ if [[ "$test_core_clr" == true ]]; then
     runtests_args="$runtests_args --timeout $test_timeout"
   fi
 
+  # Matches build.ps1's own $collectDumps handling -- see EnsureProcDump above and the is_windows_host
+  # gate that already turned $collect_dumps back off on a non-Windows host. --collectdumps and
+  # --procdumppath are independent: --collectdumps alone is what enables RunTests' WER registry
+  # collection; --procdumppath only ever feeds its console "Proc dump location:" line (see
+  # Program.cs), nothing functional. So a failure acquiring ProcDump should only drop the cosmetic
+  # --procdumppath, never --collectdumps itself.
+  if [[ "$collect_dumps" == true ]]; then
+    runtests_args="$runtests_args --collectdumps"
+    EnsureProcDump
+    if [[ "$_EnsureProcDumpFailed" == 1 ]]; then
+      echo "Failed to acquire ProcDump; '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured."
+    else
+      runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
+    fi
+  fi
+
   if [[ "$ci" == true ]]; then
     dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
   else
@@ -618,6 +691,22 @@ elif [[ "$test_desktop" == true ]]; then
       test_timeout=90
     fi
     runtests_args="$runtests_args --timeout $test_timeout"
+  fi
+
+  # Matches build.ps1's own $collectDumps handling -- see EnsureProcDump above and the is_windows_host
+  # gate that already turned $collect_dumps back off on a non-Windows host. --collectdumps and
+  # --procdumppath are independent: --collectdumps alone is what enables RunTests' WER registry
+  # collection; --procdumppath only ever feeds its console "Proc dump location:" line (see
+  # Program.cs), nothing functional. So a failure acquiring ProcDump should only drop the cosmetic
+  # --procdumppath, never --collectdumps itself.
+  if [[ "$collect_dumps" == true ]]; then
+    runtests_args="$runtests_args --collectdumps"
+    EnsureProcDump
+    if [[ "$_EnsureProcDumpFailed" == 1 ]]; then
+      echo "Failed to acquire ProcDump; '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured."
+    else
+      runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
+    fi
   fi
 
   if [[ "$ci" == true ]]; then

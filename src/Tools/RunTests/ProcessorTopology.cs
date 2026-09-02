@@ -26,7 +26,7 @@ namespace RunTests
         /// Returns the number of logical processors that are currently parked, or <see langword="null"/> if
         /// this isn't Windows or the topology couldn't be determined for any reason (distinct from a
         /// successful query that legitimately found zero parked processors) -- callers that treat "couldn't
-        /// determine" the same as "zero parked" risk <see cref="TestRunner.RefreshMaxConcurrency"/> latching
+        /// determine" the same as "zero parked" risk <c>TestRunner.RefreshMaxConcurrency</c> latching
         /// onto a transient query failure as if it were a real, permanently-higher capacity sample, since that
         /// method only ever raises its cached value and never lowers it again. Never throws. This is a live
         /// snapshot taken once at the call site, not a continuously-updated value.

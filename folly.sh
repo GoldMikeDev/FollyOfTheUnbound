@@ -165,6 +165,11 @@ Switches:
     '<scry>     <primary>   --testIOperation'
         Run tests with the IOperation test hook enabled.
 
+    '<scry>     <primary>   --collectDumps'
+        Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
+        WER registry key and its timeout-dump path can capture unrelated processes' memory -- see
+        API_MAP.md for details).
+
     '<scry>     <primary>   --timeout <minutes>'
         Override RunTests' whole-run watchdog (default: 90).
 
@@ -184,6 +189,7 @@ framework=0
 test_compiler_only=0
 test_filter=""
 test_ioperation=0
+collect_dumps=0
 bootstrap=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -213,6 +219,17 @@ while [[ $# -gt 0 ]]; do
 	  ;;
 	--testIOperation)
 	  test_ioperation=1
+	  shift
+	  ;;
+	--collectDumps)
+	  # Opt-in, not unconditional: RunTests' Windows Error Reporting registry-based dump collection
+	  # (DumpUtil in src/Tools/RunTests/ProcDumpUtil.cs) mutates a single machine-wide HKLM key with
+	  # no cross-process coordination, and its own timeout-dump path
+	  # (Program.HandleTimeout/ProcessUtil.GetTestHostProcesses) sweeps every testhost-like process
+	  # on the machine, not just this run's -- both are safe for a caller who explicitly asked for
+	  # dump collection and knows the tradeoff, but not as scry's silent default for every ordinary
+	  # local run.
+	  collect_dumps=1
 	  shift
 	  ;;
 	--bootstrap)
@@ -271,13 +288,13 @@ done
 # are scoped to 'scry' -- one combined check/message rather than one per selector, since they're all
 # the same rule applied to different args. '--bootstrap' is NOT scoped to 'scry': like '--binaryLog'/
 # '--verbosity' it's valid on any build-invoking action, just rejected on 'cleanse' below.
-if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
-  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
+if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$collect_dumps" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
 # By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
 # above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
-if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" || "$bootstrap" -eq 1 ) ]]; then
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$collect_dumps" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" || "$bootstrap" -eq 1 ) ]]; then
   echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
   exit 1
 fi
@@ -397,6 +414,12 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	fi
 	if [[ "$test_ioperation" -eq 1 ]]; then
 	  test_args+=(--testIOperation)
+	fi
+	# Opt-in, not unconditional (see the --collectDumps arg-parsing comment above for why): only
+	# forwarded when the caller explicitly asked for it. build.sh's own is_windows_host gate still
+	# silently no-ops this on a non-Windows host either way.
+	if [[ "$collect_dumps" -eq 1 ]]; then
+	  test_args+=(--collectDumps)
 	fi
 	if [[ "$both_legs" -eq 1 ]]; then
 	  # Suppress each leg's own live final PASSED/FAILED/TIMEOUT table (still written to its log

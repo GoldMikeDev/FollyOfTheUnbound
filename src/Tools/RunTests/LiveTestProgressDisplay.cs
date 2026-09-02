@@ -1165,11 +1165,11 @@ namespace RunTests
                 (FitToWidth(titleLine, width), null),
                 (string.Empty, null),
                 (FitToWidth($"{Indent}{"Test Assembly".PadRight(nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Status", TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Elapsed", TestResultDisplay.ElapsedColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad("Previous", TestResultDisplay.ElapsedColumnWidth)}", width), null),
-                // The Status underline fills its whole column (like the Test Assembly one) -- it only reads as
-                // "one dash past the word" because the centered header text is inset from the column edges. The
-                // Elapsed/Previous underlines are different: the word's length plus one extra dash on each side,
-                // never the full (wider, HH:mm:ss-sized) column, centered within it same as the data.
-                (FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{new string('-', TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length + 2), TestResultDisplay.ElapsedColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Previous".Length + 2), TestResultDisplay.ElapsedColumnWidth)}", width), null),
+                // Status/Elapsed/Previous underlines are all the same shape: the header word's length plus one
+                // extra dash on each side, centered within the (wider, value-sized) column same as the data --
+                // never the full column, so the underline reads as sitting under the header word rather than
+                // spilling past it.
+                (FitToWidth($"{Indent}{new string('-', nameColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Status".Length + 2), TestResultDisplay.StatusColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Elapsed".Length + 2), TestResultDisplay.ElapsedColumnWidth)}{ColumnGap}{TestResultDisplay.CenterPad(new string('-', "Previous".Length + 2), TestResultDisplay.ElapsedColumnWidth)}", width), null),
             };
 
             var now = DateTime.UtcNow;

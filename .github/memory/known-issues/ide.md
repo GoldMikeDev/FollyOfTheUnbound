@@ -335,3 +335,30 @@ starts the `dotnet restore` process directly and bounds it with `Process.WaitFor
 exceeded, rather than reusing the shared unguarded `ProcessUtilities.Run`. `ProcessUtilities.Run` itself was left
 unchanged since it's a broadly-shared utility outside this fork's scope; new setup-time subprocess calls in LSP
 test infrastructure should follow this file's bounded pattern instead of calling it directly.
+
+## `TestLspClient.DisposeAsync`'s shutdown handshake had no timeout, hanging `AutoLoadProjectsTests` for the full Blame timeout
+
+**Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests/Utilities/AbstractLanguageServerClientTests.TestLspClient.cs`
+**Description:** Diagnosed from a real Windows hang (WinDbg dumps of both the test host and the spawned
+`roslyn-language-server.dll` child process) on `AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen`.
+Every wait inside the test body itself is already bounded by `TestHelpers.HangMitigatingTimeout` (4 minutes), so
+the test's own assertions weren't the unbounded wait. The dumps showed both processes genuinely idle -- no thread
+executing test code, no forward progress -- consistent with an `await using var testLspServer` teardown that ran
+`TestLspClient.DisposeAsync()` (either after a normal test completion or while unwinding a prior bounded-wait
+`TimeoutException`) and then wedged: `DisposeAsync`'s `ShutdownAndWaitForExitAsync` sequence (the LSP
+`shutdown`/`exit` RPC handshake, then `Process.WaitForExitAsync()` for both the server and thin client) had no
+timeout of its own, unlike every other wait in this test class. If the connection was already broken (e.g. from
+an earlier timed-out wait) or the server otherwise failed to respond to the shutdown request, this blocked the
+caller's `await using` forever with nothing to catch it, all the way out to the test host's own ~25-minute Blame
+hang-dump timeout -- a real hang, not a case of the test just needing more time.
+**Invariant:** `DisposeAsync` now wraps `ShutdownAndWaitForExitAsync` in
+`.WaitAsync(TestHelpers.HangMitigatingTimeout)` and falls back to the existing `KillProcessesIfRunning()` (forcibly
+kills the owned process tree(s)) on timeout, swallowing the timeout rather than rethrowing so cleanup of the
+managed wrappers (`_clientRpc`, `_thinClientProcess`, `serverProcess`) still runs and `DisposeAsync` doesn't itself
+throw out of an `await using`. `CreateLanguageServerAsync` in `AbstractLanguageServerClientTests.cs` already used
+this same bound-then-kill pattern around its own call to `DisposeAsync` for a stalled
+`WaitForProjectInitializationAsync`, kept here as a belt-and-suspenders wrapper even though `DisposeAsync` now
+bounds itself internally. Any future override of `ShutdownAndWaitForExitAsync`/`KillProcessesIfRunning` (e.g. the
+daemon-mode `TestLspClient` subclass) gets this protection for free since `DisposeAsync` calls the virtual members;
+don't reintroduce an unbounded await in a shutdown/teardown path in this test class without the same
+timeout-then-kill treatment.

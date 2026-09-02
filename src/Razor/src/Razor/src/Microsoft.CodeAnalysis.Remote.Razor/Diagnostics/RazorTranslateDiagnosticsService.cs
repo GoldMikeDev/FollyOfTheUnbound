@@ -332,6 +332,7 @@ internal sealed class RazorTranslateDiagnosticsService(IDocumentMappingService d
 
         return str switch
         {
+            TypeScriptErrorCodes.ExpressionExpected => IsSemicolonAfterCSharpExpression(diagnostic, sourceText, syntaxTree),
             CSSErrorCodes.UnrecognizedBlockType => IsEscapedAtSign(diagnostic, sourceText),
             CSSErrorCodes.MissingOpeningBrace or
             CSSErrorCodes.MissingClassNameAfterDot or
@@ -346,6 +347,30 @@ internal sealed class RazorTranslateDiagnosticsService(IDocumentMappingService d
             HtmlErrorCodes.TooFewElementsErrorCode => IsAnyFilteredTooFewElementsError(diagnostic, sourceText, syntaxTree),
             _ => false,
         };
+
+        static bool IsSemicolonAfterCSharpExpression(LspDiagnostic diagnostic, SourceText sourceText, RazorSyntaxTree syntaxTree)
+        {
+            // A null Range is valid per the LSP spec (file-level diagnostic, see HasValidRange above) -- there's
+            // no position to check this specific filter against, so it doesn't apply.
+            if (diagnostic.Range is not { } range)
+            {
+                return false;
+            }
+
+            if (!sourceText.TryGetAbsoluteIndex(range.Start, out var absoluteIndex) ||
+                absoluteIndex == 0 ||
+                absoluteIndex >= sourceText.Length ||
+                sourceText[absoluteIndex] != ';')
+            {
+                return false;
+            }
+
+            var owner = syntaxTree.Root.FindInnermostNode(absoluteIndex - 1);
+            var expression = owner?.FirstAncestorOrSelf<SyntaxNode>(
+                static n => n is CSharpExplicitExpressionSyntax or CSharpImplicitExpressionSyntax);
+
+            return expression?.Span.End == absoluteIndex;
+        }
 
         static bool IsEscapedAtSign(LspDiagnostic diagnostic, SourceText sourceText)
         {

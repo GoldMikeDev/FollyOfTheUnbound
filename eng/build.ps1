@@ -531,9 +531,32 @@ function TestUsingRunTests() {
   }
 
   if ($collectDumps) {
-    $procdumpFilePath = Ensure-ProcDump
-    $args += " --procdumppath $procDumpFilePath"
-    $args += " --collectdumps";
+    # RunTests' --collectdumps enables Windows Error Reporting registry-based dump collection
+    # (DumpUtil.EnableRegistryDumpCollection in src/Tools/RunTests/ProcDumpUtil.cs -- calls
+    # WindowsIdentity.GetCurrent() with no OS guard), which only exists on a genuine Windows host.
+    # build.ps1 itself is a PowerShell script, but PowerShell Core (pwsh) is cross-platform and
+    # folly.ps1's own scry action explicitly supports a Core-only run under pwsh on Linux/macOS (see
+    # its own $onWindows checks) -- unlike -testDesktop, this isn't a hard requirement to satisfy the
+    # caller's request, so a non-Windows host just skips it with a note rather than throwing
+    # PlatformNotSupportedException partway through RunTests. Matches eng/build.sh's own
+    # is_windows_host gate around the same switch.
+    if (-not (IsWindowsPlatform)) {
+      Write-Host "Skipping '-collectDumps': Windows Error Reporting registry-based dump collection requires a genuine Windows host."
+    } else {
+      # --collectdumps and --procdumppath are independent: --collectdumps alone is what enables
+      # DumpUtil's WER registry collection; --procdumppath only ever feeds RunTests' console
+      # "Proc dump location:" line (see Program.cs), nothing functional. So a failure acquiring
+      # ProcDump (Ensure-ProcDump downloads Procdump.zip from sysinternals.com on a machine that
+      # doesn't already have procdump.exe cached -- offline, blocked network) should only drop the
+      # cosmetic --procdumppath, never --collectdumps itself.
+      $args += " --collectdumps";
+      try {
+        $procdumpFilePath = Ensure-ProcDump
+        $args += " --procdumppath $procDumpFilePath"
+      } catch {
+        Write-Host "Failed to acquire ProcDump ($_); '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured." -ForegroundColor Yellow
+      }
+    }
   }
 
   $args += " --arch $testArch"

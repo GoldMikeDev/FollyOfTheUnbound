@@ -67,12 +67,18 @@ and then itself awaits `WaitForProjectInitializationAsync()`, bounded by `TestHe
 (it doesn't just leave that wait to the caller, unlike ordinary work-done-progress assertions in individual
 tests). If that wait times out, the method never returns `lspClient` to the caller's `await using`, so nothing
 else would dispose the already-launched processes — the timeout catch disposes it there instead before
-rethrowing. Because `TestLspClient.DisposeAsync()`'s own clean shutdown handshake is itself unbounded (it
-awaits RPC completion and process exit with no timeout of its own, and the server being disposed may be
-exactly what just failed to respond), that disposal is bounded by the same timeout too, falling back to
-`TestLspClient.KillProcessesIfRunning()` (forcibly kills the owned process tree(s) rather than asking them to
-exit gracefully) if disposal itself doesn't complete in time. Preserve this bounded-wait/owned-cleanup
-contract in any new process-host helper that similarly awaits initialization before returning a client.
+rethrowing. `TestLspClient.DisposeAsync()`'s own clean shutdown handshake (the LSP `shutdown`/`exit` RPC,
+then process exit) is now itself bounded by `TestHelpers.HangMitigatingTimeout`, falling back to
+`KillProcessesIfRunning()` (forcibly kills the owned process tree(s)) and swallowing the timeout so the rest
+of `DisposeAsync`'s cleanup still runs, rather than throwing out of an `await using` — this was added after a
+real Windows hang (`AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen` blocked past the 25-minute
+Blame hang-dump timeout because that handshake had no timeout of its own). The `WaitForProjectInitializationAsync`
+timeout catch above still wraps its own call to `DisposeAsync` in the same bounded-timeout/`KillProcessesIfRunning`
+pattern as a belt-and-suspenders layer — the server being disposed may be exactly what just failed to
+respond, so a second independent bound here is cheap insurance even though `DisposeAsync` now bounds itself
+internally. Preserve this bounded-wait/owned-cleanup contract in any new process-host helper that similarly
+awaits initialization before returning a client, or that adds another unbounded await to a shutdown/teardown
+path in this test class.
 
 See `Lifecycle/DaemonServerLifecycleTests.cs` and `Lifecycle/SingleServerLifecycleTests.cs` for the existing
 lifecycle/cleanup conventions (e.g. asserting on process exit codes, killing one client/the daemon and
