@@ -316,6 +316,55 @@ else { exit 0 }
         else {
             Test-Fail "realign-unequal-widths (exit=$($result.ExitCode)): core_col=$coreStatusCol framework_col=$frameworkStatusCol expected_col=$expectedStatusCol output=$($result.Output)"
         }
+
+        # --- both legs, both names well under the 75-character floor: the combined table must not
+        # shrink below TestRunner.cs's own MinSummaryNameColumnWidth (75) -- each leg's own table was
+        # already padded to at least that width by TestRunner.Print, so flooring $sharedNameWidth at
+        # the shorter of two short names would pull the combined table's columns left of every
+        # single-leg table's own layout, not just realign Core against Framework.
+        $dir = Join-Path $workRoot "realign-below-floor"
+        Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force -Path (Join-Path $dir "eng") | Out-Null
+        Copy-Item -LiteralPath $follyPs1 -Destination (Join-Path $dir "folly.ps1")
+        $shortCoreName = "Core.Fake.UnitTests_0"
+        $shortFrameworkName = "Framework.Fake.UnitTests_0"
+        $shortCoreRow = $shortCoreName.PadRight(75) + " " + (Format-CenterPad "PASSED" 10) + " " + (Format-CenterPad "00:01" 10)
+        $shortFrameworkRow = $shortFrameworkName.PadRight(75) + " " + (Format-CenterPad "PASSED" 10) + " " + (Format-CenterPad "00:02" 10)
+        $mockBuild = @"
+param(
+    [switch]`$restore,[switch]`$build,[switch]`$testCoreClr,[switch]`$testDesktop,
+    [switch]`$testInteractiveConsole,[switch]`$testSuppressConsoleSummary,
+    [int]`$testTimeout,[string]`$solution,[string]`$configuration
+)
+`$scriptroot = `$PSScriptRoot
+`$repoRoot = Split-Path `$scriptroot -Parent
+`$suffix = `$env:FOTU_TEST_RESULTS_SUFFIX
+`$logDir = Join-Path `$repoRoot "artifacts\log\`$configuration-`$suffix"
+if (`$testCoreClr) {
+    New-Item -ItemType Directory -Force -Path `$logDir | Out-Null
+    Set-Content -LiteralPath (Join-Path `$logDir "runtestsCore.log") -Value @("================", "$shortCoreRow", "================", "Extra run diagnostics for logging, did not impact run results")
+    exit 0
+}
+elseif (`$testDesktop) {
+    New-Item -ItemType Directory -Force -Path `$logDir | Out-Null
+    Set-Content -LiteralPath (Join-Path `$logDir "runtestsFramework.log") -Value @("================", "$shortFrameworkRow", "================", "Extra run diagnostics for logging, did not impact run results")
+    exit 0
+}
+else { exit 0 }
+"@
+        Set-Content -LiteralPath (Join-Path $dir "eng\build.ps1") -Value $mockBuild
+        $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
+        $coreLine = ($result.Output -split "`r?`n") | Where-Object { $_ -like "*$shortCoreName*" } | Select-Object -First 1
+        $frameworkLine = ($result.Output -split "`r?`n") | Where-Object { $_ -like "*$shortFrameworkName*" } | Select-Object -First 1
+        $coreStatusCol = if ($coreLine) { $coreLine.IndexOf("PASSED") } else { -1 }
+        $frameworkStatusCol = if ($frameworkLine) { $frameworkLine.IndexOf("PASSED") } else { -1 }
+        $expectedStatusCol = 75 + 1 + 2
+        if ($result.ExitCode -eq 0 -and $coreStatusCol -eq $expectedStatusCol -and $frameworkStatusCol -eq $expectedStatusCol) {
+            Test-Pass "combined Core/Framework tables keep the 75-character floor when both names are short"
+        }
+        else {
+            Test-Fail "realign-below-floor (exit=$($result.ExitCode)): core_col=$coreStatusCol framework_col=$frameworkStatusCol expected_col=$expectedStatusCol output=$($result.Output)"
+        }
     }
 
     # --- positional primary arg alongside a selector ---

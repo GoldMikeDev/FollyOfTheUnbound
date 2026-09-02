@@ -309,6 +309,57 @@ else
   test_fail "realign-unequal-widths (exit=$exit_code): core_col=$core_status_col framework_col=$framework_status_col expected_col=$expected_status_col output=$output"
 fi
 
+# --- both legs, both names well under the 75-character floor: the combined table must not shrink
+# below TestRunner.cs's own MinSummaryNameColumnWidth (75) -- each leg's own table was already padded
+# to at least that width by TestRunner.Print, so flooring shared_name_width at the shorter of two
+# short names would pull the combined table's columns left of every single-leg table's own layout,
+# not just realign Core against Framework.
+dir="$(new_test_case "realign-below-floor")"
+short_core_name="Core.Fake.UnitTests_0"
+short_framework_name="Framework.Fake.UnitTests_0"
+short_core_row="$(fit_name "$short_core_name" 75) $(center_pad "PASSED" 10) $(center_pad "00:01" 10)"
+short_framework_row="$(fit_name "$short_framework_name" 75) $(center_pad "PASSED" 10) $(center_pad "00:02" 10)"
+cat > "$dir/eng/build.sh" <<MOCK
+#!/usr/bin/env bash
+repo_root="\$(cd -P "\$(dirname "\$0")/.." && pwd)"
+for arg in "\$@"; do
+  if [[ "\$arg" == "--test" ]]; then
+    log_dir="\$repo_root/artifacts/log/Debug-Core"
+    mkdir -p "\$log_dir" "\$repo_root/artifacts/TestResults/Debug-Core"
+    cat > "\$log_dir/runtestsCore.log" <<LOG
+================
+$short_core_row
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+    exit 0
+  elif [[ "\$arg" == "--testDesktop" ]]; then
+    log_dir="\$repo_root/artifacts/log/Debug-Framework"
+    mkdir -p "\$log_dir" "\$repo_root/artifacts/TestResults/Debug-Framework"
+    cat > "\$log_dir/runtestsFramework.log" <<LOG
+================
+$short_framework_row
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+    exit 0
+  fi
+done
+exit 0
+MOCK
+chmod +x "$dir/eng/build.sh"
+result="$(invoke_folly_windows "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+core_status_col="$(grep -F "$short_core_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
+framework_status_col="$(grep -F "$short_framework_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
+expected_status_col=$((75 + 1 + 2))
+if [[ "$exit_code" == "0" && "$core_status_col" == "$expected_status_col" && "$framework_status_col" == "$expected_status_col" ]]; then
+  test_pass "combined Core/Framework tables keep the 75-character floor when both names are short"
+else
+  test_fail "realign-below-floor (exit=$exit_code): core_col=$core_status_col framework_col=$framework_status_col expected_col=$expected_status_col output=$output"
+fi
+
 # --- stray "================" lines in captured failure output don't fool the summary parser ---
 dir="$(new_test_case "false-marker")"
 cat > "$dir/eng/build.sh" <<'MOCK'

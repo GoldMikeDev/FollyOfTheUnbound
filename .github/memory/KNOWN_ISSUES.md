@@ -82,21 +82,38 @@ install root prepended, as if `/nologo` were a Unix path rooted there), producin
 arguments instead of being parsed as switches at all. This is specific to real Git-Bash/MSYS2 — WSL's
 bash is a genuine Linux userland with no such translation layer (unaffected), and native Linux/macOS
 bash has no MSYS runtime at all (`$MSYSTEM` is simply unset there).
-**Workaround:** `folly.sh` exports `MSYS2_ARG_CONV_EXCL='*'` (disabling MSYS's path-conversion heuristic
-entirely for the rest of the process) whenever `$MSYSTEM` is set, before ever invoking `eng/build.sh`.
-Do not "fix" this in `eng/common/tools.sh` itself — it's Arcade-synced and any hand-edit is overwritten.
-Disabling the heuristic globally also stops it converting genuine POSIX paths this script hands to a
-native tool on the same command line, which it previously did convert (that's the other half of what
-this same heuristic does) — `eng/build.sh` (fork-owned, safe to hand-edit, unlike `eng/common/tools.sh`)
-now converts each of those explicitly instead via its own `ToNativePath` helper (`cygpath -w`, no-op off
-MSYS): the toolset build project, the `/p:Projects`/`/p:RepoRoot`/`/p:BootstrapBuildPath`/`/bl:` values
-in `BuildSolution`, `RunTests.dll`'s own path/`--logs`/`--dotnet`/`--out` arguments where it's invoked
-via `dotnet exec`, and `MakeBootstrapBuild`'s own `-p:PackageOutputPath`/`-bl:` arguments to
-`dotnet pack` (that function's other uses of the same paths -- `unzip`/`chmod`/`rm`/`mkdir` -- stay
-POSIX-form, since those are MSYS-side tools, not native ones; only the operand actually crossing into a
-native process needs conversion). **Any new native-tool path argument added to `eng/build.sh` (MSBuild
-or otherwise) must be routed through `ToNativePath` the same way** — there is no longer any automatic
-conversion to fall back on for it.
+**Workaround:** `folly.sh` exports `MSYS2_ARG_CONV_EXCL` whenever `$MSYSTEM` is set, before ever invoking
+`eng/build.sh` — but as a semicolon-separated list of the actual MSBuild switch *prefixes*
+(`/m;/nologo;/clp:;/v:;/nr:;/warnaserror;/warnAsError;/warnnotaserror:;/warnNotAsError:;/p:;/bl:`), not a
+bare `*`. `MSYS2_ARG_CONV_EXCL` matches by prefix, so `/p:` alone excludes every `/p:PropertyName=Value`
+switch without enumerating property names. A bare `*` was tried first and does stop the misfire, but it
+also disables the *correct* half of the same heuristic — MSYS's automatic conversion of a genuine POSIX
+path handed to a native tool on the same command line — for literally everything, including paths inside
+`eng/common/tools.sh` (Arcade-vendored, never hand-edited: its own `InitializeToolset` downloads the
+Arcade SDK via a native `dotnet package download --output "$path" --configfile "$path"` before
+`eng/build.sh` is ever reached, on a checkout where the toolset isn't already cached). There's no way to
+route that vendored call through an explicit conversion, so disabling MSYS's own correct handling of it
+was a strictly worse trade than just listing the switch prefixes that actually need protecting — every
+`/`-prefixed argument that *isn't* one of those switches keeps getting MSYS's normal (correct) automatic
+conversion, `eng/common/tools.sh`'s own paths included, with nothing to hand-edit there.
+**This list must stay in sync with every `/`-prefixed switch `eng/common/tools.sh`'s `MSBuild` function
+and `eng/build.sh`'s `BuildSolution` pass to `MSBuild.exe`** — a new one left off reproduces the exact
+`MSB1008` failure above.
+Separately, `eng/build.sh` (fork-owned, safe to hand-edit unlike `eng/common/tools.sh`) also converts a
+handful of its own native-tool path arguments explicitly via its own `ToNativePath` helper (`cygpath -w`,
+no-op off MSYS): the toolset build project, the `/p:Projects`/`/p:RepoRoot`/`/p:BootstrapBuildPath`/`/bl:`
+values in `BuildSolution`, `RunTests.dll`'s own path/`--logs`/`--dotnet`/`--out` arguments where it's
+invoked via `dotnet exec`, and `MakeBootstrapBuild`'s own `-p:PackageOutputPath`/`-bl:` arguments to
+`dotnet pack` (single-dash `dotnet` CLI syntax, not raw MSBuild.exe switches — never touched by the
+above prefix list, and MSYS's own heuristic doesn't scan for a POSIX path embedded after `=` inside an
+otherwise `-`-prefixed argument, so these still need the explicit conversion regardless of the exclusion
+list). That function's other uses of the same paths (`unzip`/`chmod`/`rm`/`mkdir`) stay POSIX-form, since
+those are MSYS-side tools, not native ones — only the operand actually crossing into a native process
+needs conversion, and converting an already-native-form path is always a safe no-op, so this and MSYS's
+own restored automatic conversion don't conflict. **Any new native-tool path argument added to
+`eng/build.sh` where the path isn't itself a bare `/`-prefixed MSBuild switch value (e.g. embedded in a
+single-dash `dotnet` CLI argument, or passed to `dotnet exec` under a plain `--flag`) must be routed
+through `ToNativePath` the same way.**
 
 ## Environmental test failures (not code bugs)
 

@@ -18,15 +18,25 @@ scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # extra positional arguments instead. This is a bash-on-Windows-specific problem -- WSL's bash is a real
 # Linux userland with no such translation layer, and native Linux/macOS bash has no $MSYSTEM at all -- so
 # it's scoped to only fire under real Git-Bash/MSYS2, never touching the WSL or Linux/macOS path this same
-# script also runs. Per .github/memory/KNOWN_ISSUES.md this must disable the heuristic entirely ('*'), not
-# just a hand-picked subset of switch prefixes -- eng/build.sh's own MSBuild invocation uses far more than
-# the handful ('/m;/nologo;/clp:;/v:;/nr:;/warnaserror') a previous version of this list covered (notably
-# every '/p:...' property switch), and any switch left unexcluded is exactly the "Only one project can be
-# specified" failure mode above. If a genuine POSIX-path argument ever needs to reach a native tool from
-# folly.sh on Git Bash after this env var is set, it needs an explicit cygpath/similar conversion at the
-# call site instead of relying on MSYS's automatic (and, for MSBuild switches, actively harmful) behavior.
+# script also runs.
+#
+# MSYS2_ARG_CONV_EXCL is a semicolon-separated list of prefixes; any argument starting with one of them
+# skips the heuristic entirely (a bare '*' disables it for every argument). An earlier version of this
+# fix used '*' -- simple, but it also disables the *correct* half of the same heuristic: genuine POSIX
+# paths this script (and Arcade-vendored eng/common/tools.sh, which can't be hand-edited to route its
+# own paths through an explicit conversion) hands to a native tool on the same command line stop being
+# converted too, so each new MSBuild/dotnet invocation this repo added kept surfacing as its own,
+# separately-discovered path bug. Listing the actual MSBuild switch prefixes instead leaves MSYS's
+# automatic conversion enabled for everything else -- including eng/common/tools.sh's own untouchable
+# native-tool paths -- while still protecting every switch these scripts pass MSBuild.exe. This list
+# must stay in sync with every '/'-prefixed switch eng/common/tools.sh's MSBuild function and
+# eng/build.sh's BuildSolution pass to MSBuild.exe -- a new one left off reproduces the exact "Only one
+# project can be specified" failure mode above. (eng/build.sh's own explicit ToNativePath conversions
+# for its native-tool path arguments -- see its own comment -- stay in place regardless: converting an
+# already-native-form path is a no-op, and they're the only option for arguments that aren't MSBuild
+# switches at all, like RunTests.dll's own path.)
 if [[ -n "${MSYSTEM:-}" ]]; then
-  export MSYS2_ARG_CONV_EXCL='*'
+  export MSYS2_ARG_CONV_EXCL='/m;/nologo;/clp:;/v:;/nr:;/warnaserror;/warnAsError;/warnnotaserror:;/warnNotAsError:;/p:;/bl:'
 fi
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
@@ -489,7 +499,12 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  # consume part of that gap into group1 the way a bare '\s+PASSED\s+'-style pattern would
 	  # (which previously left the reconstructed row one column short of TestRunner.Print's own).
 	  result_row_pattern='(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)'
-	  shared_name_width=0
+	  # Floored at TestRunner.cs's own MinSummaryNameColumnWidth (75): each leg's own table was
+	  # already padded to at least that width by TestRunner.Print (see its own remarks), so trimming
+	  # this to the shorter of two below-75 names -- rather than flooring the same way here -- would
+	  # shrink the combined table's name column below every single-leg table's own established width
+	  # instead of just realigning Core and Framework's Status/Elapsed columns with each other.
+	  shared_name_width=75
 	  for i in "${!summary_texts[@]}"; do
 		while IFS= read -r result_line; do
 		  [[ "$result_line" =~ $result_row_pattern ]] || continue

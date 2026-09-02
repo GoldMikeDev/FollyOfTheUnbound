@@ -475,7 +475,13 @@ Switches:
 			# pattern would (which previously left the reconstructed row one column short of
 			# TestRunner.Print's own).
 			$resultRowPattern = '^(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)$'
-			$sharedNameWidth = 0
+			# Floored at TestRunner.cs's own MinSummaryNameColumnWidth (75): each leg's own table was
+			# already padded to at least that width by TestRunner.Print (see its own remarks), so
+			# trimming this to the shorter of two below-75 names -- rather than flooring the same way
+			# here -- would shrink the combined table's name column below every single-leg table's own
+			# established width instead of just realigning Core and Framework's Status/Elapsed columns
+			# with each other.
+			$sharedNameWidth = 75
 			foreach ($summary in $summaries) {
 				foreach ($line in $summary.Lines) {
 					$rowMatch = [regex]::Match($line, $resultRowPattern)

@@ -417,15 +417,17 @@ function MakeBootstrapBuild {
   _MakeBootstrapBuild=$dir
 }
 
-# Converts a POSIX path to the native Windows form MSBuild.exe (a non-MSYS, non-cygpath-aware
-# native executable) actually needs, using cygpath (shipped with Git Bash/MSYS2). This script's
-# caller, folly.sh, disables Git-for-Windows' bash (MSYS2) auto path-conversion heuristic
-# entirely (`MSYS2_ARG_CONV_EXCL='*'`, see the comment above that line in folly.sh and
-# .github/memory/KNOWN_ISSUES.md) because that heuristic actively corrupts MSBuild's own
-# '/'-prefixed switches (e.g. '/p:Projects=...') -- but that means it also no longer converts a
-# genuine POSIX path this script hands to MSBuild.exe on that same command line, which needs an
-# explicit conversion here instead. A no-op everywhere else (WSL, native Linux/macOS have no
-# $MSYSTEM and no such translation gap to begin with).
+# Converts a POSIX path to the native Windows form a native (non-MSYS) tool -- MSBuild.exe, or plain
+# `dotnet`/`dotnet exec` -- actually needs, using cygpath (shipped with Git Bash/MSYS2). Git-for-
+# Windows' bash (MSYS2) normally auto-converts a POSIX path handed to such a tool, but folly.sh's own
+# `MSYS2_ARG_CONV_EXCL` (see the comment above that line in folly.sh and .github/memory/KNOWN_ISSUES.md)
+# excludes specific MSBuild switch prefixes (like `/p:...`) from that conversion, since MSYS misreads
+# an unrecognized `/`-prefixed switch as a Unix path and corrupts it. A path embedded inside an
+# excluded switch (e.g. the value in `/p:Projects=...`), or inside an argument that was never
+# `/`-prefixed to begin with (single-dash `dotnet` CLI syntax like `-p:PackageOutputPath=...`, or a
+# plain `--flag value` pair), never gets MSYS's automatic conversion either way and needs this explicit
+# one instead. A no-op everywhere else (WSL, native Linux/macOS have no $MSYSTEM and no such
+# translation gap to begin with) or once already in native form (idempotent).
 function ToNativePath {
   local posix_path=$1
   if [[ -z "$posix_path" ]]; then
