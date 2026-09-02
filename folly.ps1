@@ -383,12 +383,23 @@ Switches:
 		if ($testIOperation) {
 			$extraTestArgs["testIOperation"] = $true
 		}
+		# -collectDumps is passed as a literal switch below (not through $extraTestArgs), unconditionally for
+		# both legs -- unlike everything in $extraTestArgs, it's not selector/reflection-dependent, and scry
+		# exists specifically to catch hangs/crashes, so RunTests' own procdump.exe-based dump support (its
+		# console "Proc dump location:" line, and whatever it feeds into a captured process's dump) should
+		# always be available here rather than opt-in. Without it, eng/build.ps1 only ever sets $collectDumps
+		# for an official CI build ($officialBuildId), so RunTests' --procdumppath was never passed and
+		# ProcDumpFilePath stayed null on every local run regardless of whether procdump.exe was actually
+		# installed. This does mean the first scry run on a machine without procdump.exe already present (not
+		# the common Jenkins-image "C:\SysInternals\procdump.exe" case) downloads Procdump.zip from
+		# sysinternals.com via Ensure-ProcDump -- a one-time cost; later runs reuse the cached copy under
+		# eng's tools directory.
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
+				& $buildScript -testCoreClr -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -collectDumps -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -404,7 +415,7 @@ Switches:
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
+				& $buildScript -testDesktop -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -collectDumps -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue

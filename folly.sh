@@ -398,6 +398,11 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ "$test_ioperation" -eq 1 ]]; then
 	  test_args+=(--testIOperation)
 	fi
+	# Passed unconditionally, matching folly.ps1 -- scry exists specifically to catch hangs/crashes, so
+	# RunTests' dump collection should always be on rather than opt-in. build.sh's own is_windows_host
+	# gate silently no-ops this on a non-Windows host (Windows Error Reporting registry-based dump
+	# collection only exists on genuine Windows), so this is safe to pass on every platform.
+	test_args+=(--collectDumps)
 	if [[ "$both_legs" -eq 1 ]]; then
 	  # Suppress each leg's own live final PASSED/FAILED/TIMEOUT table (still written to its log
 	  # file) so the combined-summary block below is the only place it prints -- otherwise it prints

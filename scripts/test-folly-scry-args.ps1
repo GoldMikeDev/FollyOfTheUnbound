@@ -46,6 +46,7 @@ param(
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
     [switch]$testSuppressConsoleSummary,
     [switch]$testCompilerOnly,[string]$testFilter,[switch]$testIOperation,
+    [switch]$collectDumps,
     [switch]$bootstrap,[string]$bootstrapDir,
     [int]$testTimeout,
     [string]$solution,[string]$configuration,
@@ -67,6 +68,12 @@ Add-Content -LiteralPath (Join-Path $repoRoot "testSuppressConsoleSummary-receiv
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
 # Same idea for -testCompilerOnly/-testFilter/-testIOperation.
 Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter testIOperation=$testIOperation"
+# Same idea for -collectDumps: unlike the above, folly.ps1 passes this unconditionally for every
+# scry test leg (not only when requested), so this just confirms it actually arrives here rather
+# than silently getting dropped -- an unrelated plain param() script would ignore an undeclared
+# switch like this one without erroring, so declaring and logging it here is the only way this
+# harness can tell the difference between "forwarded" and "never sent".
+Add-Content -LiteralPath (Join-Path $repoRoot "collectDumps-received.log") -Value "$suffix collectDumps=$collectDumps"
 # Same idea for -bootstrap/-bootstrapDir, appended once per invocation (not per-leg-suffixed) so the
 # harness can see the initial build call's plain -bootstrap alongside each leg's -bootstrapDir reuse.
 Add-Content -LiteralPath (Join-Path $repoRoot "bootstrapArgs-received.log") -Value "testCoreClr=$testCoreClr testDesktop=$testDesktop bootstrap=$bootstrap bootstrapDir=$bootstrapDir"
@@ -347,6 +354,20 @@ try {
     }
     else {
         Test-Fail "testIOperation on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- 'scry' always forwards -collectDumps to eng/build.ps1's test call, not just when requested
+    # -- unlike -testIOperation above, this isn't a user-facing folly.ps1 flag; folly.ps1 always adds
+    # it internally since scry exists specifically to catch hangs/crashes ---
+    $dir = New-TestCase "collectdumps-always-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
+    $receivedPath = Join-Path $dir "collectDumps-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core collectDumps=True") {
+        Test-Pass "'scry' always forwards '-collectDumps' to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "collectDumps forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
     }
 
     # --- --bootstrap: the initial build call gets -bootstrap, the test leg gets -bootstrapDir

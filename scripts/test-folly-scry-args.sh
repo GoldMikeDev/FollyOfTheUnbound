@@ -373,6 +373,21 @@ else
   test_fail "testIOperation on non-scry action (exit=$exit_code): $output"
 fi
 
+# --- 'scry' always forwards --collectDumps to eng/build.sh's test call, not just when requested --
+# unlike --testIOperation above, this isn't a user-facing folly.sh flag; folly.sh always adds it
+# internally since scry exists specifically to catch hangs/crashes (see folly.sh's own comment at
+# the test_args+=(--collectDumps) line) ---
+dir="$(new_test_case "collectdumps-always-forwarded")"
+result="$(run_case "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--collectDumps" <<<"$args_log"; then
+  test_pass "'scry' always forwards '--collectDumps' to ./eng/build.sh"
+else
+  test_fail "collectDumps forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
 # --- --bootstrap: the initial build call gets --bootstrap, each test leg gets --bootstrapDir
 # pointing at the same deterministic artifacts/Bootstrap dir instead of rebuilding it ---
 dir="$(new_test_case "bootstrap-forwarded")"
