@@ -10,14 +10,14 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost (33040).
+Blame: Attaching crash dump utility to process testhost (42372).
 Data collector 'Blame' message: The specified inactivity time of 25 minutes has elapsed. Collecting hang dumps from testhost and its child processes.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\WorkItem_24_x64_test_results.html
 
 
 Attachments:
-  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\32926957-af7e-4806-b9ab-5afb63c72289\dotnet_41556_20260901T151848_hangdump.dmp
-  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\32926957-af7e-4806-b9ab-5afb63c72289\testhost_33040_20260901T151848_hangdump.dmp
-  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\32926957-af7e-4806-b9ab-5afb63c72289\Sequence_50e3fd9a3c8a42d1a2805625a7616347.xml
-Passed!  - Failed:     0, Passed:    21, Skipped:     0, Total:    21, Duration: 7 m 35 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\364db1e7-97a6-4893-93fc-471b73eb9f0a\testhost_42372_20260902T105535_hangdump.dmp
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\364db1e7-97a6-4893-93fc-471b73eb9f0a\dotnet_50656_20260902T105535_hangdump.dmp
+  C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Core\dumps\24\364db1e7-97a6-4893-93fc-471b73eb9f0a\Sequence_376cc61608d4427e9877e1c9e3e46217.xml
+Passed!  - Failed:     0, Passed:     1, Skipped:     0, Total:     1, Duration: 19 s - Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll (net10.0)
