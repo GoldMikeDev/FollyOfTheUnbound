@@ -239,6 +239,127 @@ else
   test_fail "both-legs-windows (exit=$exit_code): args='$args_log' output=$output"
 fi
 
+# --- both legs, unequal name-column widths: combined tables realign to a shared Status/Elapsed
+# column position (see folly.sh's result_row_pattern realignment block) instead of each leg's
+# already-formatted table keeping its own leg-local width (TestRunner.Print sizes each leg's name
+# column to that leg's own longest name, so a longer Framework name would otherwise push its
+# Status/Elapsed columns further right than Core's). Rows built with the same
+# FitName/CenterPad-equivalent formatting RunTests itself writes to the log, one narrow (Core,
+# floored at the real MinSummaryNameColumnWidth=75) and one wide (Framework, past that floor).
+dir="$(new_test_case "realign-unequal-widths")"
+center_pad() {
+  local text="$1" width="$2" pad left right
+  pad=$((width - ${#text}))
+  left=$((pad / 2))
+  right=$((pad - left))
+  printf '%*s%s%*s' "$left" "" "$text" "$right" ""
+}
+fit_name() {
+  printf '%-*s' "$2" "$1"
+}
+core_name="Short.Fake.UnitTests_0"
+framework_name="Very.Long.Namespace.That.Pushes.Well.Past.The.Seventyfive.Character.Floor.Fake.UnitTests_0"
+core_width=75
+framework_width=${#framework_name}
+core_row="$(fit_name "$core_name" "$core_width") $(center_pad "PASSED" 10) $(center_pad "00:01" 10)"
+framework_row="$(fit_name "$framework_name" "$framework_width") $(center_pad "PASSED" 10) $(center_pad "00:02" 10)"
+cat > "$dir/eng/build.sh" <<MOCK
+#!/usr/bin/env bash
+repo_root="\$(cd -P "\$(dirname "\$0")/.." && pwd)"
+for arg in "\$@"; do
+  if [[ "\$arg" == "--test" ]]; then
+    log_dir="\$repo_root/artifacts/log/Debug-Core"
+    mkdir -p "\$log_dir" "\$repo_root/artifacts/TestResults/Debug-Core"
+    cat > "\$log_dir/runtestsCore.log" <<LOG
+================
+$core_row
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+    exit 0
+  elif [[ "\$arg" == "--testDesktop" ]]; then
+    log_dir="\$repo_root/artifacts/log/Debug-Framework"
+    mkdir -p "\$log_dir" "\$repo_root/artifacts/TestResults/Debug-Framework"
+    cat > "\$log_dir/runtestsFramework.log" <<LOG
+================
+$framework_row
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+    exit 0
+  fi
+done
+exit 0
+MOCK
+chmod +x "$dir/eng/build.sh"
+result="$(invoke_folly_windows "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+core_status_col="$(grep -F "$core_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
+framework_status_col="$(grep -F "$framework_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
+# Not just equal to each other: pinned to the exact absolute offset TestRunner.Print's own
+# formatting recipe implies -- shared_name_width, then the single-space ColumnGap, then CenterPad's
+# own 2-space left-pad for a 6-character word ("PASSED"/"FAILED") in a 10-wide field -- so a bug
+# that drops the ColumnGap (shifting both legs left by the same one column) can't pass just because
+# both legs shifted identically.
+expected_status_col=$((framework_width + 1 + 2))
+if [[ "$exit_code" == "0" && "$core_status_col" == "$expected_status_col" && "$framework_status_col" == "$expected_status_col" ]]; then
+  test_pass "combined Core/Framework tables realign to the same, correctly-offset Status column despite unequal name widths"
+else
+  test_fail "realign-unequal-widths (exit=$exit_code): core_col=$core_status_col framework_col=$framework_status_col expected_col=$expected_status_col output=$output"
+fi
+
+# --- both legs, both names well under the 75-character floor: the combined table must not shrink
+# below TestRunner.cs's own MinSummaryNameColumnWidth (75) -- each leg's own table was already padded
+# to at least that width by TestRunner.Print, so flooring shared_name_width at the shorter of two
+# short names would pull the combined table's columns left of every single-leg table's own layout,
+# not just realign Core against Framework.
+dir="$(new_test_case "realign-below-floor")"
+short_core_name="Core.Fake.UnitTests_0"
+short_framework_name="Framework.Fake.UnitTests_0"
+short_core_row="$(fit_name "$short_core_name" 75) $(center_pad "PASSED" 10) $(center_pad "00:01" 10)"
+short_framework_row="$(fit_name "$short_framework_name" 75) $(center_pad "PASSED" 10) $(center_pad "00:02" 10)"
+cat > "$dir/eng/build.sh" <<MOCK
+#!/usr/bin/env bash
+repo_root="\$(cd -P "\$(dirname "\$0")/.." && pwd)"
+for arg in "\$@"; do
+  if [[ "\$arg" == "--test" ]]; then
+    log_dir="\$repo_root/artifacts/log/Debug-Core"
+    mkdir -p "\$log_dir" "\$repo_root/artifacts/TestResults/Debug-Core"
+    cat > "\$log_dir/runtestsCore.log" <<LOG
+================
+$short_core_row
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+    exit 0
+  elif [[ "\$arg" == "--testDesktop" ]]; then
+    log_dir="\$repo_root/artifacts/log/Debug-Framework"
+    mkdir -p "\$log_dir" "\$repo_root/artifacts/TestResults/Debug-Framework"
+    cat > "\$log_dir/runtestsFramework.log" <<LOG
+================
+$short_framework_row
+================
+Extra run diagnostics for logging, did not impact run results
+LOG
+    exit 0
+  fi
+done
+exit 0
+MOCK
+chmod +x "$dir/eng/build.sh"
+result="$(invoke_folly_windows "$dir" scry research)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+core_status_col="$(grep -F "$short_core_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
+framework_status_col="$(grep -F "$short_framework_name" <<<"$output" | grep -boE 'PASSED' | head -1 | cut -d: -f1)"
+expected_status_col=$((75 + 1 + 2))
+if [[ "$exit_code" == "0" && "$core_status_col" == "$expected_status_col" && "$framework_status_col" == "$expected_status_col" ]]; then
+  test_pass "combined Core/Framework tables keep the 75-character floor when both names are short"
+else
+  test_fail "realign-below-floor (exit=$exit_code): core_col=$core_status_col framework_col=$framework_status_col expected_col=$expected_status_col output=$output"
+fi
+
 # --- stray "================" lines in captured failure output don't fool the summary parser ---
 dir="$(new_test_case "false-marker")"
 cat > "$dir/eng/build.sh" <<'MOCK'

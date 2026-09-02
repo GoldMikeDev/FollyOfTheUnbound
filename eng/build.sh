@@ -399,7 +399,10 @@ function MakeBootstrapBuild {
   local package_name="Microsoft.Net.Compilers.Toolset"
   local project_path=src/NuGet/$package_name/AnyCpu/$package_name.Package.csproj
 
-  dotnet pack -nologo "$project_path" -p:ContinuousIntegrationBuild=$ci -p:DotNetUseShippingVersions=true -p:InitialDefineConstants=BOOTSTRAP -p:PackageOutputPath="$dir" -bl:"$log_dir/Bootstrap.binlog"
+  # $dir/$log_dir stay POSIX-form everywhere else in this function (unzip/chmod/rm/mkdir below are
+  # MSYS-side tools, not native ones) -- only the two operands actually consumed by native dotnet.exe
+  # here need the ToNativePath conversion (see its own comment above).
+  dotnet pack -nologo "$project_path" -p:ContinuousIntegrationBuild=$ci -p:DotNetUseShippingVersions=true -p:InitialDefineConstants=BOOTSTRAP -p:PackageOutputPath="$(ToNativePath "$dir")" -bl:"$(ToNativePath "$log_dir/Bootstrap.binlog")"
   unzip "$dir/$package_name.*.nupkg" -d "$dir"
   chmod -R 755 "$dir"
 
@@ -414,20 +417,46 @@ function MakeBootstrapBuild {
   _MakeBootstrapBuild=$dir
 }
 
+# Converts a POSIX path to the native Windows form a native (non-MSYS) tool -- MSBuild.exe, or plain
+# `dotnet`/`dotnet exec` -- actually needs, using cygpath (shipped with Git Bash/MSYS2). Git-for-
+# Windows' bash (MSYS2) normally auto-converts a POSIX path handed to such a tool, but folly.sh's own
+# `MSYS2_ARG_CONV_EXCL` (see the comment above that line in folly.sh and .github/memory/KNOWN_ISSUES.md)
+# excludes specific MSBuild switch prefixes (like `/p:...`) from that conversion, since MSYS misreads
+# an unrecognized `/`-prefixed switch as a Unix path and corrupts it. A path embedded inside an
+# excluded switch (e.g. the value in `/p:Projects=...`), or inside an argument that was never
+# `/`-prefixed to begin with (single-dash `dotnet` CLI syntax like `-p:PackageOutputPath=...`, or a
+# plain `--flag value` pair), never gets MSYS's automatic conversion either way and needs this explicit
+# one instead. A no-op everywhere else (WSL, native Linux/macOS have no $MSYSTEM and no such
+# translation gap to begin with) or once already in native form (idempotent).
+function ToNativePath {
+  local posix_path=$1
+  if [[ -z "$posix_path" ]]; then
+    echo ""
+  elif [[ -n "${MSYSTEM:-}" ]] && command -v cygpath >/dev/null 2>&1; then
+    cygpath -w "$posix_path"
+  else
+    echo "$posix_path"
+  fi
+}
+
 function BuildSolution {
   local solution=$solution_to_build
   echo "$solution:"
 
   InitializeToolset
-  local toolset_build_proj=$_InitializeToolset
+  local toolset_build_proj
+  toolset_build_proj=$(ToNativePath "$_InitializeToolset")
 
   local bl=""
   if [[ "$binary_log" = true ]]; then
-    bl="/bl:\"$log_dir/Build.binlog\""
+    bl="/bl:\"$(ToNativePath "$log_dir/Build.binlog")\""
     export RoslynCommandLineLogFile="$log_dir/vbcscompiler.log"
   fi
 
-  local projects="$repo_root/$solution"
+  local projects
+  projects=$(ToNativePath "$repo_root/$solution")
+  local repo_root_native
+  repo_root_native=$(ToNativePath "$repo_root")
 
   UNAME="$(uname)"
   # NuGet often exceeds the limit of open files on Mac and Linux
@@ -494,7 +523,7 @@ function BuildSolution {
     $bl \
     /p:Configuration=$configuration \
     /p:Projects="$projects" \
-    /p:RepoRoot="$repo_root" \
+    /p:RepoRoot="$repo_root_native" \
     /p:Restore=$restore \
     /p:Build=$build \
     /p:Rebuild=$rebuild \
@@ -503,7 +532,7 @@ function BuildSolution {
     /p:Publish=$publish \
     /p:Sign=$sign \
     /p:RunAnalyzersDuringBuild=$run_analyzers \
-    /p:BootstrapBuildPath="$bootstrap_dir" \
+    /p:BootstrapBuildPath="$(ToNativePath "$bootstrap_dir")" \
     /p:ContinuousIntegrationBuild=$ci \
     /p:TreatWarningsAsErrors=$warn_as_error \
     /p:TestRuntimeAdditionalArguments=$test_runtime_args \
@@ -578,8 +607,19 @@ if [[ -n "${FOTU_TEST_RESULTS_SUFFIX:-}" ]]; then
   runtests_out_dir="${runtests_out_dir}-${FOTU_TEST_RESULTS_SUFFIX}"
 fi
 
+# RunTests.dll (a managed app run via native dotnet.exe under Git Bash, same as MSBuild.exe -- see
+# ToNativePath's own comment above) needs these path arguments in native Windows form. $runtests_log_dir
+# and $runtests_out_dir themselves stay POSIX-form -- everything else in this script (including the
+# "See $runtests_out_dir..." messages below) keeps using them as bash-side paths, and the underlying
+# file this dll actually writes to is the same location on disk either way, so folly.sh's own later
+# POSIX-path reads of it are unaffected.
+runtests_log_dir_native=$(ToNativePath "$runtests_log_dir")
+runtests_out_dir_native=$(ToNativePath "$runtests_out_dir")
+runtests_dll_path=$(ToNativePath "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll")
+dotnet_cli_native=$(ToNativePath "${_InitializeDotNetCli}/dotnet")
+
 if [[ "$test_core_clr" == true ]]; then
-  runtests_args="--out \"$runtests_out_dir\""
+  runtests_args="--out \"$runtests_out_dir_native\""
 
   if [[ "$test_compiler_only" == true ]]; then
     runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
@@ -636,13 +676,13 @@ if [[ "$test_core_clr" == true ]]; then
   fi
 
   if [[ "$ci" == true ]]; then
-    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+    dotnet exec "$runtests_dll_path" --runtime core --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args
   else
     # Locally, a non-zero exit from RunTests almost always just means some test suites had
     # failures (not that the build tooling itself broke), so report it concisely instead of
     # letting `set -e` exit silently. The HTML/xUnit failure logs under $log_dir already have
     # the actual details. Matches the equivalent local-only summary in build.ps1.
-    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime core --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+    if ! dotnet exec "$runtests_dll_path" --runtime core --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args; then
       echo "Not all test suites succeeded. See $runtests_out_dir and $runtests_log_dir for details."
       exit 1
     fi
@@ -650,7 +690,7 @@ if [[ "$test_core_clr" == true ]]; then
 elif [[ "$test_desktop" == true ]]; then
   # elif, not a separate 'if': matches build.ps1's own $testDesktop branch, which only runs when
   # $testCoreClr is false -- test_core_clr silently takes priority if a caller somehow sets both.
-  runtests_args="--out \"$runtests_out_dir\""
+  runtests_args="--out \"$runtests_out_dir_native\""
 
   if [[ "$test_compiler_only" == true ]]; then
     runtests_args="$runtests_args $(GetCompilerTestAssembliesIncludePaths)"
@@ -710,9 +750,9 @@ elif [[ "$test_desktop" == true ]]; then
   fi
 
   if [[ "$ci" == true ]]; then
-    dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args
+    dotnet exec "$runtests_dll_path" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args
   else
-    if ! dotnet exec "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir" --dotnet ${_InitializeDotNetCli}/dotnet $runtests_args; then
+    if ! dotnet exec "$runtests_dll_path" --runtime framework --configuration ${configuration} --logs "$runtests_log_dir_native" --dotnet "$dotnet_cli_native" $runtests_args; then
       echo "Not all test suites succeeded. See $runtests_out_dir and $runtests_log_dir for details."
       exit 1
     fi

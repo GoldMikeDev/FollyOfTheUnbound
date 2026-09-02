@@ -10,21 +10,33 @@ scriptroot="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Git-for-Windows' bash (MSYS2, identified by $MSYSTEM -- e.g. "MINGW64") auto-converts any
 # '/'-prefixed argument into a Windows path before it reaches a native (non-MSYS) executable, on the
 # assumption it's a Unix path being handed to something that expects a Windows one. eng/common/tools.sh
-# (Arcade-vendored -- never hand-edited, see .github/memory/KNOWN_ISSUES.md) invokes MSBuild.exe with
-# classic single-slash switches (/m /nologo /clp:Summary /v:... /nr:... /warnaserror), which are exactly
-# what that heuristic misfires on: '/nologo' has been observed mangled into 'C:/Program Files/Git/nologo'
-# (the MSYS install root prepended, as if '/nologo' were a Unix path rooted there), producing MSBuild
-# errors like "Only one project can be specified." from switches that arrived as extra positional
-# arguments instead. This is a bash-on-Windows-specific problem -- WSL's bash is a real Linux userland
-# with no such translation layer, and native Linux/macOS bash has no $MSYSTEM at all -- so it's scoped to
-# only fire under real Git-Bash/MSYS2, never touching the WSL or Linux/macOS path this same script also
-# runs. The exclusion list itself is scoped to just these switch prefixes, not '*' -- MSYS2_ARG_CONV_EXCL
-# disables conversion for every native-process argument it matches, and eng/build.sh separately relies on
-# that same auto-conversion to turn genuine POSIX paths (e.g. $toolset_build_proj, the value inside
-# /p:Projects="$repo_root/$solution") into Windows paths MSBuild.exe can use; excluding everything with
-# '*' would silently break those too instead of just fixing the misconverted switches.
+# (Arcade-vendored -- never hand-edited, see .github/memory/KNOWN_ISSUES.md) and eng/build.sh both invoke
+# MSBuild.exe with a wide range of single-slash switches (/m /nologo /clp:Summary /v:... /nr:... /p:...),
+# which are exactly what that heuristic misfires on: '/nologo' has been observed mangled into
+# 'C:/Program Files/Git/nologo' (the MSYS install root prepended, as if '/nologo' were a Unix path rooted
+# there), producing MSBuild errors like "Only one project can be specified." from switches that arrived as
+# extra positional arguments instead. This is a bash-on-Windows-specific problem -- WSL's bash is a real
+# Linux userland with no such translation layer, and native Linux/macOS bash has no $MSYSTEM at all -- so
+# it's scoped to only fire under real Git-Bash/MSYS2, never touching the WSL or Linux/macOS path this same
+# script also runs.
+#
+# MSYS2_ARG_CONV_EXCL is a semicolon-separated list of prefixes; any argument starting with one of them
+# skips the heuristic entirely (a bare '*' disables it for every argument). An earlier version of this
+# fix used '*' -- simple, but it also disables the *correct* half of the same heuristic: genuine POSIX
+# paths this script (and Arcade-vendored eng/common/tools.sh, which can't be hand-edited to route its
+# own paths through an explicit conversion) hands to a native tool on the same command line stop being
+# converted too, so each new MSBuild/dotnet invocation this repo added kept surfacing as its own,
+# separately-discovered path bug. Listing the actual MSBuild switch prefixes instead leaves MSYS's
+# automatic conversion enabled for everything else -- including eng/common/tools.sh's own untouchable
+# native-tool paths -- while still protecting every switch these scripts pass MSBuild.exe. This list
+# must stay in sync with every '/'-prefixed switch eng/common/tools.sh's MSBuild function and
+# eng/build.sh's BuildSolution pass to MSBuild.exe -- a new one left off reproduces the exact "Only one
+# project can be specified" failure mode above. (eng/build.sh's own explicit ToNativePath conversions
+# for its native-tool path arguments -- see its own comment -- stay in place regardless: converting an
+# already-native-form path is a no-op, and they're the only option for arguments that aren't MSBuild
+# switches at all, like RunTests.dll's own path.)
 if [[ -n "${MSYSTEM:-}" ]]; then
-  export MSYS2_ARG_CONV_EXCL='/m;/nologo;/clp:;/v:;/nr:;/warnaserror'
+  export MSYS2_ARG_CONV_EXCL='/m;/nologo;/clp:;/v:;/nr:;/warnaserror;/warnAsError;/warnnotaserror:;/warnNotAsError:;/p:;/bl:'
 fi
 solution="FollyOfTheUnbound.slnx"
 build_script="$scriptroot/eng/build.sh"
@@ -466,6 +478,55 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  summary_timeouts+=("$summary_timeout")
 	  summary_exitcodes+=("$framework_exit")
 	  summary_texts+=("$summary_lines_text")
+	fi
+	# Each leg's own summary table (TestRunner.Print) sizes its name column to that leg's own longest
+	# name (see TestResultDisplay.FitName / MinSummaryNameColumnWidth) -- fine standalone, but when
+	# both legs' already-formatted tables are combined below, a leg with shorter names (e.g. Core) ends
+	# up with a narrower name column than a leg with longer ones (e.g. Framework), so their Status/
+	# Elapsed columns no longer line up with each other even though both individually align internally.
+	# Re-pad every result row here to a single shared width (the longest name across both legs) before
+	# printing, rather than in TestRunner.Print itself -- each leg is a separate RunTests process with
+	# no visibility into the other leg's names, so this cross-leg alignment can only happen here, after
+	# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
+	# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
+	if [[ "$both_legs" -eq 1 ]]; then
+	  # The single literal space before the alternation is the ColumnGap TestRunner.Print always
+	  # emits between the name field and the Status field (line.Append(' ')) -- matched explicitly
+	  # here, not folded into the alternation's own leading spaces, so it lands in neither group1 nor
+	  # group2 and survives reconstruction below unchanged. The three alternatives are CenterPad's
+	  # exact, fixed-width (StatusColumnWidth=10) renderings of the only three possible status
+	  # values -- not a loose "some spaces around the word" guess -- so this can't accidentally
+	  # consume part of that gap into group1 the way a bare '\s+PASSED\s+'-style pattern would
+	  # (which previously left the reconstructed row one column short of TestRunner.Print's own).
+	  result_row_pattern='(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)'
+	  # Floored at TestRunner.cs's own MinSummaryNameColumnWidth (75): each leg's own table was
+	  # already padded to at least that width by TestRunner.Print (see its own remarks), so trimming
+	  # this to the shorter of two below-75 names -- rather than flooring the same way here -- would
+	  # shrink the combined table's name column below every single-leg table's own established width
+	  # instead of just realigning Core and Framework's Status/Elapsed columns with each other.
+	  shared_name_width=75
+	  for i in "${!summary_texts[@]}"; do
+		while IFS= read -r result_line; do
+		  [[ "$result_line" =~ $result_row_pattern ]] || continue
+		  name_field="${BASH_REMATCH[1]}"
+		  name_trimmed="${name_field%"${name_field##*[![:space:]]}"}"
+		  (( ${#name_trimmed} > shared_name_width )) && shared_name_width=${#name_trimmed}
+		done <<<"${summary_texts[$i]}"
+	  done
+	  for i in "${!summary_texts[@]}"; do
+		realigned_text=""
+		while IFS= read -r result_line; do
+		  if [[ "$result_line" =~ $result_row_pattern ]]; then
+			name_field="${BASH_REMATCH[1]}"
+			name_trimmed="${name_field%"${name_field##*[![:space:]]}"}"
+			printf -v padded_name '%-*s' "$shared_name_width" "$name_trimmed"
+			realigned_text+="${padded_name} ${BASH_REMATCH[2]}${BASH_REMATCH[3]}"$'\n'
+		  else
+			realigned_text+="${result_line}"$'\n'
+		  fi
+		done <<<"${summary_texts[$i]}"
+		summary_texts[$i]="${realigned_text%$'\n'}"
+	  done
 	fi
 	# Print each requested leg's own PASSED/FAILED/TIMEOUT list here, together, once every leg has
 	# finished -- rather than letting each leg's own RunTests process print its list live the moment

@@ -454,6 +454,57 @@ Switches:
 		$totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
 		$totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
 		$totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
+		# Each leg's own summary table (TestRunner.Print) sizes its name column to that leg's own longest
+		# name (see TestResultDisplay.FitName / MinSummaryNameColumnWidth) -- fine standalone, but when
+		# both legs' already-formatted tables are combined below, a leg with shorter names (e.g. Core) ends
+		# up with a narrower name column than a leg with longer ones (e.g. Framework), so their Status/
+		# Elapsed columns no longer line up with each other even though both individually align internally.
+		# Re-pad every result row here to a single shared width (the longest name across both legs) before
+		# printing, rather than in TestRunner.Print itself -- each leg is a separate RunTests process with
+		# no visibility into the other leg's names, so this cross-leg alignment can only happen here, after
+		# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
+		# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
+		if ($bothLegs) {
+			# The single literal space before the alternation is the ColumnGap TestRunner.Print always
+			# emits between the name field and the Status field (line.Append(' ')) -- matched explicitly
+			# here, not folded into the alternation's own leading spaces, so it lands in neither group 1
+			# nor group 2 and survives reconstruction below unchanged. The three alternatives are
+			# CenterPad's exact, fixed-width (StatusColumnWidth=10) renderings of the only three possible
+			# status values -- not a loose "some spaces around the word" guess -- so this can't
+			# accidentally consume part of that gap into group 1 the way a bare '\s+PASSED\s+'-style
+			# pattern would (which previously left the reconstructed row one column short of
+			# TestRunner.Print's own).
+			$resultRowPattern = '^(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)$'
+			# Floored at TestRunner.cs's own MinSummaryNameColumnWidth (75): each leg's own table was
+			# already padded to at least that width by TestRunner.Print (see its own remarks), so
+			# trimming this to the shorter of two below-75 names -- rather than flooring the same way
+			# here -- would shrink the combined table's name column below every single-leg table's own
+			# established width instead of just realigning Core and Framework's Status/Elapsed columns
+			# with each other.
+			$sharedNameWidth = 75
+			foreach ($summary in $summaries) {
+				foreach ($line in $summary.Lines) {
+					$rowMatch = [regex]::Match($line, $resultRowPattern)
+					if ($rowMatch.Success) {
+						$nameLength = $rowMatch.Groups[1].Value.TrimEnd().Length
+						if ($nameLength -gt $sharedNameWidth) {
+							$sharedNameWidth = $nameLength
+						}
+					}
+				}
+			}
+			foreach ($summary in $summaries) {
+				$summary.Lines = @($summary.Lines | ForEach-Object {
+					$rowMatch = [regex]::Match($_, $resultRowPattern)
+					if ($rowMatch.Success) {
+						$rowMatch.Groups[1].Value.TrimEnd().PadRight($sharedNameWidth) + " " + $rowMatch.Groups[2].Value + $rowMatch.Groups[3].Value
+					}
+					else {
+						$_
+					}
+				})
+			}
+		}
 		# Print both legs' own PASSED/FAILED/TIMEOUT tables together here, once every requested leg has
 		# finished -- read back from each leg's own runtests*.log, which -testSuppressConsoleSummary above
 		# kept out of the console the first time around specifically so this is the only place either leg's
