@@ -433,6 +433,41 @@ public partial class AbstractLanguageServerClientTests
         }
 
         /// <summary>
+        /// Best-effort fallback for a caller that couldn't afford to wait on <see cref="DisposeAsync"/>'s clean
+        /// shutdown handshake (e.g. it already timed out waiting on something else and this client may be wedged).
+        /// Forcibly kills the process tree(s) this client owns instead of asking them to exit gracefully. Safe to
+        /// call alongside/after a still-running <see cref="DisposeAsync"/>: killing the processes makes its pending
+        /// <c>WaitForExitAsync</c>/RPC-completion awaits observe the exit and unblock on their own, and the
+        /// <see cref="_disposed"/> gate keeps the rest of its cleanup (dispose calls) from running twice.
+        /// Single-server mode owns its dedicated server process, so this kills both it and the thin client; daemon
+        /// mode overrides this the same way it overrides <see cref="ShutdownAndWaitForExitAsync"/>, to kill only its
+        /// own thin client and never the shared daemon other clients depend on.
+        /// </summary>
+        internal virtual void KillProcessesIfRunning()
+        {
+            TryKillThinClient();
+
+            if (_serverProcessTask.IsCompletedSuccessfully)
+                TryKill(_serverProcessTask.Result);
+        }
+
+        private protected void TryKillThinClient() => TryKill(_thinClientProcess);
+
+        private protected static void TryKill(Process process)
+        {
+            try
+            {
+                if (!process.HasExited)
+                    process.Kill(entireProcessTree: true);
+            }
+            catch
+            {
+                // The process may have exited between the HasExited check and Kill, or already be gone;
+                // this is a best-effort fallback so swallow and move on.
+            }
+        }
+
+        /// <summary>
         /// Performs the clean LSP <c>shutdown</c>/<c>exit</c> handshake (when the session is still live) and waits for
         /// the processes this client owns to exit. Single-server mode owns its dedicated server and waits for it (and
         /// the thin client); daemon mode shares a long-lived daemon and so overrides this to wait only for its own
