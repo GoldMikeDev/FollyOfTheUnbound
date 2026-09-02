@@ -118,10 +118,16 @@ _verify_pid_marker() {
     if [[ -n "$pwsh_exe" ]]; then
       local cmdline
       cmdline=$("$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$native_pid\").CommandLine" 2>/dev/null)
-      [[ "$cmdline" == *"$marker"* ]] && return 0
+      [[ "$cmdline" == *"$marker"* ]]
+      return
     fi
-    [[ -n "$(ps -W 2>/dev/null | tail -n +2 | awk -v p="$native_pid" '$4==p{print}')" ]] && return 0  # last resort, best-effort: -W's COMMAND column (see folly.sh's own fallback) is the bare exe path with no args, so this can only confirm the pid exists at all, not that it matches $marker -- still better than nothing when no PowerShell is on PATH
-    return 1
+    # -W's COMMAND column (see folly.sh's own fallback) is the bare exe path with no arguments, so it can
+    # only confirm the pid exists at all, never that it matches $marker -- an existence-only check would
+    # be a false positive here (the process being live proves nothing about which process it is), so this
+    # weaker fallback is used ONLY when PowerShell itself isn't on PATH at all, never as a second chance
+    # after a PowerShell-based marker check already came back empty/non-matching above.
+    [[ -n "$(ps -W 2>/dev/null | tail -n +2 | awk -v p="$native_pid" '$4==p{print}')" ]]
+    return
   fi
   [[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$pid[[:space:]]" | grep -F -- "$marker")" ]]
 }
