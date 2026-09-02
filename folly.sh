@@ -634,6 +634,11 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$pid\").ParentProcessId" 2>/dev/null | tr -d '[:space:]'
 		  return
 		fi
+		# No usable PowerShell -- same ps -W fallback as _cleanse_ps_snapshot/_cleanse_get_children:
+		# `ps -o ppid= -p` is unsupported syntax here too. Find the row whose WINPID (native id, column 4)
+		# matches $pid and print its PPID (column 2), best-effort like the rest of this fallback.
+		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{print $2; exit}'
+		return
 	  fi
 	  ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]'
 	}

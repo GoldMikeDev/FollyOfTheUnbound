@@ -102,15 +102,25 @@ pwsh_crossover() {
 # bash runs identically to Linux/macOS -- is the only place either gets
 # exercised at all, and it needs to actually run on Windows to mean anything.
 _verify_pid_marker() {
-  local pid="$1" marker="$2" pwsh_exe
+  local pid="$1" marker="$2" pwsh_exe native_pid
   if [[ "${OS:-}" == "Windows_NT" ]]; then
+    # $pid here is $! from this harness's own `nohup ... &`, an MSYS pid -- exactly like folly.sh's own
+    # $$ (see its native_self_pid), not necessarily the native Win32 pid CIM's ProcessId/ps -W's WINPID
+    # key off of. Translate the same way folly.sh does for itself: /proc/<pid>/winpid, read directly (no
+    # $(...) subshell needed here since there's no risk of resolving the wrong process -- unlike
+    # folly.sh's own self-lookup, this pid is a plain value already in hand, not implied by which
+    # process happens to run the read).
+    native_pid="$pid"
+    if [[ -r "/proc/$pid/winpid" ]]; then
+      read -r native_pid < "/proc/$pid/winpid" 2>/dev/null || native_pid="$pid"
+    fi
     pwsh_exe=$(command -v pwsh 2>/dev/null) || pwsh_exe=$(command -v powershell.exe 2>/dev/null) || pwsh_exe=$(command -v powershell 2>/dev/null) || pwsh_exe=""
     if [[ -n "$pwsh_exe" ]]; then
       local cmdline
-      cmdline=$("$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$pid\").CommandLine" 2>/dev/null)
+      cmdline=$("$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$native_pid\").CommandLine" 2>/dev/null)
       [[ "$cmdline" == *"$marker"* ]] && return 0
     fi
-    [[ -n "$(ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{print}')" ]] && return 0  # last resort, best-effort: -W's COMMAND column (see folly.sh's own fallback) is the bare exe path with no args, so this can only confirm the pid exists at all, not that it matches $marker -- still better than nothing when no PowerShell is on PATH
+    [[ -n "$(ps -W 2>/dev/null | tail -n +2 | awk -v p="$native_pid" '$4==p{print}')" ]] && return 0  # last resort, best-effort: -W's COMMAND column (see folly.sh's own fallback) is the bare exe path with no args, so this can only confirm the pid exists at all, not that it matches $marker -- still better than nothing when no PowerShell is on PATH
     return 1
   fi
   [[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$pid[[:space:]]" | grep -F -- "$marker")" ]]
