@@ -531,9 +531,31 @@ function TestUsingRunTests() {
   }
 
   if ($collectDumps) {
-    $procdumpFilePath = Ensure-ProcDump
-    $args += " --procdumppath $procDumpFilePath"
-    $args += " --collectdumps";
+    # RunTests' --collectdumps enables Windows Error Reporting registry-based dump collection
+    # (DumpUtil.EnableRegistryDumpCollection in src/Tools/RunTests/ProcDumpUtil.cs -- calls
+    # WindowsIdentity.GetCurrent() with no OS guard), which only exists on a genuine Windows host.
+    # build.ps1 itself is a PowerShell script, but PowerShell Core (pwsh) is cross-platform and
+    # folly.ps1's own scry action explicitly supports a Core-only run under pwsh on Linux/macOS (see
+    # its own $onWindows checks) -- unlike -testDesktop, this isn't a hard requirement to satisfy the
+    # caller's request, so a non-Windows host just skips it with a note rather than throwing
+    # PlatformNotSupportedException partway through RunTests. Matches eng/build.sh's own
+    # is_windows_host gate around the same switch.
+    if (-not (IsWindowsPlatform)) {
+      Write-Host "Skipping '-collectDumps': Windows Error Reporting registry-based dump collection requires a genuine Windows host."
+    } else {
+      # Ensure-ProcDump downloads Procdump.zip from sysinternals.com on a machine that doesn't
+      # already have procdump.exe cached -- a network failure here (offline machine, blocked
+      # download) shouldn't abort the whole test run over a value that RunTests only ever echoes
+      # back to the console (see Program.cs's "Proc dump location:" line); fall back to skipping
+      # dump collection instead.
+      try {
+        $procdumpFilePath = Ensure-ProcDump
+        $args += " --procdumppath $procDumpFilePath"
+        $args += " --collectdumps";
+      } catch {
+        Write-Host "Skipping '-collectDumps': failed to acquire ProcDump ($_)." -ForegroundColor Yellow
+      }
+    }
   }
 
   $args += " --arch $testArch"

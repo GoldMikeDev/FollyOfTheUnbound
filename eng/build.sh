@@ -353,7 +353,14 @@ fi
 # between folly.sh and folly.ps1). Only ever called after the is_windows_host gate above has already
 # confirmed a genuine Windows host, so a Windows-style "C:\..." path here is safe to hand straight to
 # RunTests (a .NET process on that same Windows host) without any bash-side path translation.
+# Downloads Procdump.zip from sysinternals.com on a machine that doesn't already have procdump.exe
+# cached -- a network failure here (offline machine, blocked download) shouldn't abort the whole
+# `set -e` script over a value RunTests only ever echoes back to the console (see Program.cs's
+# "Proc dump location:" line), so this reports failure via _EnsureProcDumpFailed instead of letting
+# curl/wget/unzip's non-zero exit propagate; callers must check it before using _EnsureProcDump.
 function EnsureProcDump {
+  _EnsureProcDumpFailed=0
+
   # Jenkins images default to having procdump installed in the root -- use that if available to
   # avoid an unnecessary download, matching build.ps1's own check (and its directory-not-file-path
   # return value in this one case, which -- like the rest of this value -- is never consumed for
@@ -370,11 +377,11 @@ function EnsureProcDump {
     local zip_file_path="$tools_dir/procdump.zip"
     echo "Downloading Procdump..."
     if command -v curl > /dev/null; then
-      curl "https://download.sysinternals.com/files/Procdump.zip" -sSL --retry 10 --create-dirs -o "$zip_file_path"
+      curl "https://download.sysinternals.com/files/Procdump.zip" -sSL --retry 10 --create-dirs -o "$zip_file_path" || { _EnsureProcDumpFailed=1; return; }
     else
-      wget -v -O "$zip_file_path" "https://download.sysinternals.com/files/Procdump.zip"
+      wget -v -O "$zip_file_path" "https://download.sysinternals.com/files/Procdump.zip" || { _EnsureProcDumpFailed=1; return; }
     fi
-    unzip -o "$zip_file_path" -d "$out_dir"
+    unzip -o "$zip_file_path" -d "$out_dir" || { _EnsureProcDumpFailed=1; return; }
   fi
 
   # return value
@@ -616,8 +623,12 @@ if [[ "$test_core_clr" == true ]]; then
   # gate that already turned $collect_dumps back off on a non-Windows host.
   if [[ "$collect_dumps" == true ]]; then
     EnsureProcDump
-    runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
-    runtests_args="$runtests_args --collectdumps"
+    if [[ "$_EnsureProcDumpFailed" == 1 ]]; then
+      echo "Skipping '--collectDumps': failed to acquire ProcDump."
+    else
+      runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
+      runtests_args="$runtests_args --collectdumps"
+    fi
   fi
 
   if [[ "$ci" == true ]]; then
@@ -682,8 +693,12 @@ elif [[ "$test_desktop" == true ]]; then
   # gate that already turned $collect_dumps back off on a non-Windows host.
   if [[ "$collect_dumps" == true ]]; then
     EnsureProcDump
-    runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
-    runtests_args="$runtests_args --collectdumps"
+    if [[ "$_EnsureProcDumpFailed" == 1 ]]; then
+      echo "Skipping '--collectDumps': failed to acquire ProcDump."
+    else
+      runtests_args="$runtests_args --procdumppath \"$_EnsureProcDump\""
+      runtests_args="$runtests_args --collectdumps"
+    fi
   fi
 
   if [[ "$ci" == true ]]; then
