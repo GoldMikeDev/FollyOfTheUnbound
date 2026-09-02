@@ -12,6 +12,7 @@ using Microsoft.CodeAnalysis.LanguageServer.UnitTests;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.Extensions.Logging;
 using Roslyn.LanguageServer.Protocol;
+using Roslyn.Test.Utilities;
 using Roslyn.Utilities;
 using StreamJsonRpc;
 using LSP = Roslyn.LanguageServer.Protocol;
@@ -422,7 +423,24 @@ public partial class AbstractLanguageServerClientTests
 
             var serverProcess = await GetServerProcessAsync();
 
-            await ShutdownAndWaitForExitAsync(serverProcess);
+            try
+            {
+                // The clean shutdown handshake (RPC completion, then process exit) has no timeout of its own --
+                // if the server or thin client is wedged (e.g. the connection already broke during an earlier
+                // timed-out wait), this would otherwise block the caller's 'await using' forever with nothing to
+                // catch it, all the way out to the test host's own Blame hang-dump timeout. Bound it here and, on
+                // timeout, forcibly kill the owned process tree(s) instead -- same fallback CreateLanguageServerAsync
+                // already uses for a stalled WaitForProjectInitializationAsync.
+                await ShutdownAndWaitForExitAsync(serverProcess).WaitAsync(TestHelpers.HangMitigatingTimeout);
+            }
+            catch
+            {
+                // Shutdown handshake stalled or failed -- fall back to forcibly killing the owned process
+                // tree(s) instead of leaving them (and this ValueTask) hanging. Still fall through to dispose
+                // the managed wrappers below rather than rethrowing, so a stalled shutdown doesn't also leak
+                // handles/RPC connections and DisposeAsync doesn't itself throw out of an `await using`.
+                KillProcessesIfRunning();
+            }
 
             _clientRpc.Dispose();
             _thinClientProcess.Dispose();

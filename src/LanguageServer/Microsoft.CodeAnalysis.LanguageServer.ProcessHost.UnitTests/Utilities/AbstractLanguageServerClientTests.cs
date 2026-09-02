@@ -106,10 +106,10 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
                 // processes. Tear them down here before rethrowing so a stalled init doesn't leak them for the
                 // rest of the test host's lifetime.
                 //
-                // DisposeAsync's own clean shutdown handshake is itself unbounded (RPC completion / process exit
-                // with no timeout), and the server we're disposing may be exactly what just failed to respond --
-                // so bound the wait on it too, falling back to forcibly killing the owned process tree(s) rather
-                // than risking a second unbounded hang here.
+                // DisposeAsync itself now bounds its clean shutdown handshake (see its own remarks) and falls back
+                // to KillProcessesIfRunning on timeout, so this doesn't strictly need its own timeout/fallback --
+                // but the server we're disposing may be exactly what just failed to respond, so keep this belt-
+                // and-suspenders wrapper rather than relying solely on DisposeAsync's internal bound.
                 try
                 {
                     await lspClient.DisposeAsync().AsTask().WaitAsync(TestHelpers.HangMitigatingTimeout);
