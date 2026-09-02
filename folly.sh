@@ -576,8 +576,8 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	_cleanse_pwsh_exe() {  # resolves whichever PowerShell this Windows host actually has, once per call site -- pwsh (PS7+) preferred over the inbox powershell.exe
 	  command -v pwsh 2>/dev/null || command -v powershell.exe 2>/dev/null || command -v powershell 2>/dev/null || true
 	}
-	_cleanse_exclude_self_matchers() {  # strips rows whose own command is this pipeline's own transient grep matcher -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command line searching for it. Matches a bare "grep"/"grep.exe" name optionally preceded by a path (native CommandLine gives a full path like "C:\...\grep.exe -Ei ...", not just "grep ..." the way Unix ps's COMMAND field does)
-	  grep -v -E '^[[:space:]]*[0-9]+[[:space:]]+([^[:space:]]*[\\/])?grep(\.exe)?([[:space:]]|$)' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
+	_cleanse_exclude_self_matchers() {  # strips rows whose own command is this pipeline's own transient grep matcher -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command line searching for it. Matches a bare "grep"/"grep.exe" name optionally preceded by a path (native CommandLine gives a full path like "C:\...\grep.exe -Ei ...", not just "grep ..." the way Unix ps's COMMAND field does) -- including a quoted path, which is how CIM reports an executable under a directory containing spaces (e.g. Git for Windows' default "C:\Program Files\Git\..."); the unquoted alternative can't contain spaces itself, since nothing then marks where the path ends and the arguments begin
+	  grep -v -E '^[[:space:]]*[0-9]+[[:space:]]+("[^"]*[\\/]grep(\.exe)?"|([^[:space:]]*[\\/])?grep(\.exe)?)([[:space:]]|$)' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
 	}
 	_cleanse_ps_snapshot() {  # `ps -eo pid,command` with the header stripped and our own transient grep rows excluded
 	  if is_windows_host; then
@@ -652,8 +652,20 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  if is_windows_host; then
 		pwsh_exe=$(_cleanse_pwsh_exe)
 		if [[ -n "$pwsh_exe" ]]; then
-		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ParentProcessId=$pid\").ProcessId" 2>/dev/null && return
+		  # Windows PowerShell (not pwsh 7+) writes CRLF line endings here; command substitution/piping only
+		  # strips a *trailing* LF, leaving a stray \r on each pid this multi-line output returns (unlike
+		  # _cleanse_get_ppid's single-value `tr -d '[:space:]'`, which can't be reused as-is here since it
+		  # would also delete the newlines separating multiple children into one unusable blob). A pid of
+		  # "1234\r" fails every subsequent `tasklist`/`taskkill` match by a hair, silently leaving that
+		  # child unsignaled. `tr -d '\r'` strips only the carriage return, keeping one pid per line intact.
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ParentProcessId=$pid\").ProcessId" 2>/dev/null | tr -d '\r' && return
 		fi
+		# No usable PowerShell -- same MSYS/Cygwin `-W` fallback as _cleanse_ps_snapshot: `ps -eo pid,ppid`
+		# isn't supported syntax here either. -W's fixed columns are PID PPID PGID WINPID TTY UID STIME
+		# COMMAND; WINPID (column 4) is the native id everything else in this Windows-host path keys off of,
+		# matched against PPID (column 2) to find $1's children, best-effort like the rest of this fallback.
+		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '{if ($2==p) print $4}'
+		return
 	  fi
 	  ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'
 	}
@@ -673,17 +685,19 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		_cleanse_kill_pid_tree "$child"
 	  done
 	  if is_windows_host; then
+		local signaled=0
 		_cleanse_native_alive "$pid" || return 1
-		_cleanse_native_term "$pid"
+		_cleanse_native_term "$pid" && signaled=1  # taskkill itself reports failure (e.g. "not found") when the target already exited between the alive-check above and this call -- track that rather than assuming our own signal is what did it
 		deadline=$((SECONDS + 5))
 		while _cleanse_native_alive "$pid" && (( SECONDS < deadline )); do
 		  sleep 0.2
 		done
 		if _cleanse_native_alive "$pid"; then
-		  _cleanse_native_kill "$pid"
+		  _cleanse_native_kill "$pid" && signaled=1
 		  sleep 0.2
 		fi
-		! _cleanse_native_alive "$pid"
+		_cleanse_native_alive "$pid" && return 1  # still alive after both attempts -- not killed, whatever signaled says
+		(( signaled ))  # gone, but only count it if one of our own taskkill calls actually reported hitting it -- otherwise it exited on its own and cleanse never force-killed it at all, matching the Unix branch's "actually had to signal it" invariant below
 		return
 	  fi
 	  kill -0 "$pid" 2>/dev/null || return 1  # already gone on its own -- nothing for this call to count as killed
