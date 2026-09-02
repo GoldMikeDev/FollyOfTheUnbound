@@ -469,6 +469,42 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  summary_exitcodes+=("$framework_exit")
 	  summary_texts+=("$summary_lines_text")
 	fi
+	# Each leg's own summary table (TestRunner.Print) sizes its name column to that leg's own longest
+	# name (see TestResultDisplay.FitName / MinSummaryNameColumnWidth) -- fine standalone, but when
+	# both legs' already-formatted tables are combined below, a leg with shorter names (e.g. Core) ends
+	# up with a narrower name column than a leg with longer ones (e.g. Framework), so their Status/
+	# Elapsed columns no longer line up with each other even though both individually align internally.
+	# Re-pad every result row here to a single shared width (the longest name across both legs) before
+	# printing, rather than in TestRunner.Print itself -- each leg is a separate RunTests process with
+	# no visibility into the other leg's names, so this cross-leg alignment can only happen here, after
+	# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
+	# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
+	if [[ "$both_legs" -eq 1 ]]; then
+	  result_row_pattern='(.*)((  PASSED  |  FAILED  | TIMEOUT  ).*)'
+	  shared_name_width=0
+	  for i in "${!summary_texts[@]}"; do
+		while IFS= read -r result_line; do
+		  [[ "$result_line" =~ $result_row_pattern ]] || continue
+		  name_field="${BASH_REMATCH[1]}"
+		  name_trimmed="${name_field%"${name_field##*[![:space:]]}"}"
+		  (( ${#name_trimmed} > shared_name_width )) && shared_name_width=${#name_trimmed}
+		done <<<"${summary_texts[$i]}"
+	  done
+	  for i in "${!summary_texts[@]}"; do
+		realigned_text=""
+		while IFS= read -r result_line; do
+		  if [[ "$result_line" =~ $result_row_pattern ]]; then
+			name_field="${BASH_REMATCH[1]}"
+			name_trimmed="${name_field%"${name_field##*[![:space:]]}"}"
+			printf -v padded_name '%-*s' "$shared_name_width" "$name_trimmed"
+			realigned_text+="${padded_name}${BASH_REMATCH[2]}"$'\n'
+		  else
+			realigned_text+="${result_line}"$'\n'
+		  fi
+		done <<<"${summary_texts[$i]}"
+		summary_texts[$i]="${realigned_text%$'\n'}"
+	  done
+	fi
 	# Print each requested leg's own PASSED/FAILED/TIMEOUT list here, together, once every leg has
 	# finished -- rather than letting each leg's own RunTests process print its list live the moment
 	# that leg completes, which (when both --core and --framework run) buries the first leg's list

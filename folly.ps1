@@ -454,6 +454,42 @@ Switches:
 		$totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
 		$totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
 		$totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
+		# Each leg's own summary table (TestRunner.Print) sizes its name column to that leg's own longest
+		# name (see TestResultDisplay.FitName / MinSummaryNameColumnWidth) -- fine standalone, but when
+		# both legs' already-formatted tables are combined below, a leg with shorter names (e.g. Core) ends
+		# up with a narrower name column than a leg with longer ones (e.g. Framework), so their Status/
+		# Elapsed columns no longer line up with each other even though both individually align internally.
+		# Re-pad every result row here to a single shared width (the longest name across both legs) before
+		# printing, rather than in TestRunner.Print itself -- each leg is a separate RunTests process with
+		# no visibility into the other leg's names, so this cross-leg alignment can only happen here, after
+		# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
+		# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
+		if ($bothLegs) {
+			$resultRowPattern = '^(.*?)((?:  PASSED  |  FAILED  | TIMEOUT  ).*)$'
+			$sharedNameWidth = 0
+			foreach ($summary in $summaries) {
+				foreach ($line in $summary.Lines) {
+					$rowMatch = [regex]::Match($line, $resultRowPattern)
+					if ($rowMatch.Success) {
+						$nameLength = $rowMatch.Groups[1].Value.TrimEnd().Length
+						if ($nameLength -gt $sharedNameWidth) {
+							$sharedNameWidth = $nameLength
+						}
+					}
+				}
+			}
+			foreach ($summary in $summaries) {
+				$summary.Lines = @($summary.Lines | ForEach-Object {
+					$rowMatch = [regex]::Match($_, $resultRowPattern)
+					if ($rowMatch.Success) {
+						$rowMatch.Groups[1].Value.TrimEnd().PadRight($sharedNameWidth) + $rowMatch.Groups[2].Value
+					}
+					else {
+						$_
+					}
+				})
+			}
+		}
 		# Print both legs' own PASSED/FAILED/TIMEOUT tables together here, once every requested leg has
 		# finished -- read back from each leg's own runtests*.log, which -testSuppressConsoleSummary above
 		# kept out of the console the first time around specifically so this is the only place either leg's
