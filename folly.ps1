@@ -622,6 +622,23 @@ Switches:
 				Write-Host "Killed $killedNodeCount leftover MSBuild node-reuse worker process(es)."
 			}
 		}
+		# BuildHost processes (Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll, launched by
+		# BuildHostProcessManager as a plain `dotnet <dll>` child -- shown as ".NET Host" in Task Manager on
+		# Windows) are a third, separate mechanism from both above: they're spawned on demand by MSBuildWorkspace
+		# consumers (e.g. the LanguageServer's ProcessHost tests) to load projects, never register as build
+		# servers, and don't match the MSBuild.dll node-reuse pattern either (their own assembly is
+		# MSBuild.BuildHost.dll, loaded from this checkout's own artifacts\bin\...\BuildHost-netcore\ output). A
+		# host whose test process was killed/debugged-out from under it can survive indefinitely holding that
+		# output's DLLs open, which is exactly the "cleanse can't remove two files" symptom this fixes: build-server
+		# shutdown doesn't see it, and it isn't a node-reuse worker either. cleanse itself never launches one, so
+		# any live match rooted at this checkout's own artifacts\ is unconditionally stale.
+		$buildHostPids = @(Get-PidsMatchingAll @(($artifactsDir + [System.IO.Path]::DirectorySeparatorChar), "MSBuild.BuildHost.dll") | Where-Object { -not $ancestorPids.Contains($_) })  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
+		if ($buildHostPids.Count -gt 0) {
+			$killedBuildHostCount = @($buildHostPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
+			if ($killedBuildHostCount -gt 0) {
+				Write-Host "Killed $killedBuildHostCount leftover MSBuild BuildHost process(es)."
+			}
+		}
 		if (Test-Path -LiteralPath $artifactsDir) {
 			function Format-ByteSize([long]$bytes) {  # binary units throughout (1MB/1GB are PowerShell's built-in 1048576/1073741824 literals) -- labelled MiB/GiB, never MB/GB
 				if ($bytes -ge 1GB) { return "{0:N2} GiB" -f ($bytes / 1GB) }

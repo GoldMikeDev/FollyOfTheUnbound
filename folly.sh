@@ -638,6 +638,28 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		echo "Killed $killed leftover MSBuild node-reuse worker process(es)."
 	  fi
 	fi
+	# BuildHost processes (Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll, launched by
+	# BuildHostProcessManager as a plain `dotnet <dll>` child -- shown as ".NET Host" in Task Manager on
+	# Windows) are a third, separate mechanism from both above: they're spawned on demand by MSBuildWorkspace
+	# consumers (e.g. the LanguageServer's ProcessHost tests) to load projects, never register as build
+	# servers, and don't match the MSBuild.dll node-reuse pattern either (their own assembly is
+	# MSBuild.BuildHost.dll, loaded from this checkout's own artifacts/bin/.../BuildHost-netcore/ output). A
+	# host whose test process was killed/debugged-out from under it can survive indefinitely holding that
+	# output's DLLs open, which cleanse can otherwise never explain (build-server shutdown doesn't see it, and
+	# it isn't a node-reuse worker). cleanse itself never launches one, so any live match rooted at this
+	# checkout's own artifacts/ is unconditionally stale.
+	buildhost_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$artifacts_dir/" "MSBuild.BuildHost.dll")
+	buildhost_pids=$(comm -23 <(sort -u <<<"$buildhost_pids") <(sort -u <<<"$ancestor_pids"))  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
+	if [[ -n "$buildhost_pids" ]]; then
+	  killed=0
+	  while IFS= read -r pid; do
+		[[ -z "$pid" ]] && continue
+		_cleanse_kill_pid_tree "$pid" && killed=$((killed + 1))
+	  done <<< "$buildhost_pids"
+	  if [[ "$killed" -gt 0 ]]; then
+		echo "Killed $killed leftover MSBuild BuildHost process(es)."
+	  fi
+	fi
 	if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]] && { [[ ! -d "$artifacts_dir" ]] || [[ -L "$artifacts_dir" ]]; }; then
 	  rm -rf -- "$artifacts_dir" || true  # a regular file or a symlink doesn't need the enumeration/progress machinery below -- just remove the single entry
 	  if [[ -e "$artifacts_dir" || -L "$artifacts_dir" ]]; then
