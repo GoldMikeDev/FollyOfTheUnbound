@@ -783,33 +783,26 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		  since_redraw=$(( since_redraw + 1 ))
 		  if (( interactive )) && (( since_redraw >= redraw_every )); then
 			since_redraw=0
-			percent=$(( total_bytes > 0 ? deleted_bytes * 100 / total_bytes : (total_count > 0 ? deleted_count * 100 / total_count : 100) ))
-			(( percent > 99 )) && percent=99  # find is still running here -- only the post-wait report below may claim 100%
 			elapsed=$(( $(date +%s) - start_time ))
 			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
 		  fi
 		done < "$rm_fifo"
 		rm -f "$rm_fifo"
 		(( interactive )) && printf '\r\033[K'
 		wait "$rm_pid" || true
 	  else
-		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to scan + rm -rf + periodic rescan (the exact contention the GNU branch above eliminates)
+		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to a plain rm -rf with a spinner, not a periodic full-tree rescan (that rescan-while-deleting contention was what made cleanse slow on macOS/BSD)
 		rm_pid=$!
 		deleted_bytes=$total_bytes
 		deleted_count=$total_count
 		if (( interactive )); then
-		  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
+		  spinner_index=0
+		  printf '\r\033[KCleansing artefacts %s' "${spinner_frames[$spinner_index]}"
 		  while kill -0 "$rm_pid" 2>/dev/null; do
 			sleep 0.15
-			read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
-			deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
-			deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
-			percent=$(( total_bytes > 0 ? deleted_bytes * 100 / total_bytes : (total_count > 0 ? deleted_count * 100 / total_count : 100) ))
-			(( percent > 99 )) && percent=99  # rm -rf is still running here -- only the post-wait report below may claim 100%
-			elapsed=$(( $(date +%s) - start_time ))
-			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+			spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+			printf '\r\033[KCleansing artefacts %s' "${spinner_frames[$spinner_index]}"
 		  done
 		  printf '\r\033[K'
 		fi
