@@ -82,6 +82,40 @@ pwsh_crossover() {
   fi
 }
 
+# Confirms $1 (a pid this harness just spawned) is actually the process it
+# thinks it is, by checking its command line contains marker $2 -- a cheap
+# sanity check before a test proceeds to run cleanse and assert on that pid.
+# Plain `ps -eo pid,command` (procps/BSD syntax) is what these checks used
+# unconditionally until a review round on PR #87 pointed out it silently
+# fails under Git-Bash/MSYS2 (whose own `ps` has no `-o`/`-eo` support at
+# all -- see folly.sh's own _cleanse_ps_snapshot, which this mirrors), so
+# every one of these verification checks came back empty on that host and
+# the build-server/ancestor-exclusion cases -- exactly the cases meant to
+# exercise the new CIM/native-Win32 code path -- silently skipped instead of
+# actually running, on the one platform that path exists for. There is no
+# test-folly-cleanse.ps1 equivalent to pwsh_crossover into here (unlike the
+# "locked"/"unreadable" cases below): TESTING_STRATEGY.md documents that
+# harness as deliberately not having a build-server/TERM-then-KILL or
+# ancestor-exclusion case of its own (Windows has no direct equivalent of a
+# POSIX signal trap for a *native* process), so this bash-side coverage --
+# spawning ordinary trap-catching bash scripts, which Git-Bash's own real
+# bash runs identically to Linux/macOS -- is the only place either gets
+# exercised at all, and it needs to actually run on Windows to mean anything.
+_verify_pid_marker() {
+  local pid="$1" marker="$2" pwsh_exe
+  if [[ "${OS:-}" == "Windows_NT" ]]; then
+    pwsh_exe=$(command -v pwsh 2>/dev/null) || pwsh_exe=$(command -v powershell.exe 2>/dev/null) || pwsh_exe=$(command -v powershell 2>/dev/null) || pwsh_exe=""
+    if [[ -n "$pwsh_exe" ]]; then
+      local cmdline
+      cmdline=$("$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$pid\").CommandLine" 2>/dev/null)
+      [[ "$cmdline" == *"$marker"* ]] && return 0
+    fi
+    [[ -n "$(ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{print}')" ]] && return 0  # last resort, best-effort: -W's COMMAND column (see folly.sh's own fallback) is the bare exe path with no args, so this can only confirm the pid exists at all, not that it matches $marker -- still better than nothing when no PowerShell is on PATH
+    return 1
+  fi
+  [[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$pid[[:space:]]" | grep -F -- "$marker")" ]]
+}
+
 new_case() {
   local name="$1"
   local dir="$work_root/$name"
@@ -262,8 +296,8 @@ synthetic_pids="$synthetic_pids $foreign_pid"
 disown
 sleep 0.5
 # Verify each PID is actually the process we think it is (matches its pipename marker), not just that nohup/exec succeeded -- cheap sanity check now that the PIDs themselves no longer depend on this lookup.
-[[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$trapped_pid[[:space:]]" | grep 'pipename:test-trapped')" ]] || trapped_pid=""
-[[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$foreign_pid[[:space:]]" | grep 'pipename:test-foreign')" ]] || foreign_pid=""
+_verify_pid_marker "$trapped_pid" "pipename:test-trapped" || trapped_pid=""
+_verify_pid_marker "$foreign_pid" "pipename:test-foreign" || foreign_pid=""
 
 if [[ -n "$trapped_pid" && -n "$foreign_pid" ]]; then
   out=$(cd "$dir" && bash folly.sh cleanse 2>&1)
@@ -320,7 +354,7 @@ wrapper_pid=$!
 synthetic_pids="$synthetic_pids $wrapper_pid"  # registered with the EXIT trap immediately, before either check below can be interrupted
 disown
 sleep 0.5
-if [[ -n "$(ps -eo pid,command 2>/dev/null | grep "^[[:space:]]*$wrapper_pid[[:space:]]" | grep 'pipename:test-ancestor')" ]]; then
+if _verify_pid_marker "$wrapper_pid" "pipename:test-ancestor"; then
   # Wait for cleanse (running as this wrapper's own child) to actually finish, rather than guessing a fixed delay.
   for _i in $(seq 1 50); do
     [[ -f "$done_marker" ]] && break
