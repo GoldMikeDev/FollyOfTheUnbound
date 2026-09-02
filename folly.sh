@@ -558,6 +558,27 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  dotnet_exe=$(command -v dotnet 2>/dev/null) || dotnet_exe=""  # fall back to a global dotnet only if this repo's own bootstrapped SDK under .dotnet/ isn't there
 	fi
 	_cleanse_ps_snapshot() {  # `ps -eo pid,command` with the header stripped and our own transient grep rows excluded -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command searching for it
+	  if is_windows_host; then
+		# Git-for-Windows' bash runs on MSYS2/Cygwin's own `ps`, which is NOT procps -- it has no `-eo`/`-o`
+		# custom-field support at all, and by default only lists processes reachable through the MSYS/Cygwin
+		# runtime's own pid table, not arbitrary native Windows processes. A BuildHost `dotnet <dll>` child
+		# spawned by .NET's own Process.Start (BuildHostProcessManager, see KNOWN_ISSUES.md) never touches
+		# msys-2.0.dll, so it's invisible to plain `ps` here even though it's a perfectly live Windows
+		# process -- this is what made cleanse silently fail to find/kill it on bash while folly.ps1 (which
+		# uses Win32_Process via CIM, see below) always could. Route through the same CIM query folly.ps1
+		# uses instead, via whichever PowerShell this host has.
+		local pwsh_exe
+		pwsh_exe=$(command -v pwsh 2>/dev/null) || pwsh_exe=$(command -v powershell.exe 2>/dev/null) || pwsh_exe=$(command -v powershell 2>/dev/null) || pwsh_exe=""
+		if [[ -n "$pwsh_exe" ]]; then
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command 'Get-CimInstance Win32_Process | ForEach-Object { "$($_.ProcessId) $($_.CommandLine)" }' 2>/dev/null && return
+		fi
+		# No usable PowerShell found -- fall back to MSYS/Cygwin's own `-W` (include native Windows
+		# processes, not just MSYS ones), best-effort; its COMMAND column is the bare executable path with
+		# no arguments, so substring matches against a DLL/switch name (e.g. "MSBuild.BuildHost.dll") won't
+		# work through this path, only the plain regex name matches (VBCSCompiler et al.) will.
+		ps -W -eo pid,command 2>/dev/null | tail -n +2 | grep -v '^[[:space:]]*[0-9]\+[[:space:]]\+grep ' || true
+		return
+	  fi
 	  ps -eo pid,command 2>/dev/null | tail -n +2 | grep -v '^[[:space:]]*[0-9]\+[[:space:]]\+grep ' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
 	}
 	_cleanse_pids_matching_regex() {  # PIDs of processes (from a snapshot already on stdin) whose command line matches an extended regex
@@ -576,13 +597,24 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  local pattern="$1" substr="$2"
 	  grep -Ei -- "$pattern" | grep -F -- "$substr" | awk 'NF{print $1}' || true
 	}
-	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to and including PID 1 (or as far as `ps` can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
+	_cleanse_get_ppid() {  # `ps -o ppid=` is a procps custom-field lookup -- MSYS/Cygwin's `ps` doesn't support it (see _cleanse_ps_snapshot), so the ancestor walk below would silently stop after this script's own PID on Git-Bash and lose its self-protection past that point; ask Windows itself via CIM there instead, same as _cleanse_ps_snapshot's fallback
+	  local pid="$1" pwsh_exe
+	  if is_windows_host; then
+		pwsh_exe=$(command -v pwsh 2>/dev/null) || pwsh_exe=$(command -v powershell.exe 2>/dev/null) || pwsh_exe=$(command -v powershell 2>/dev/null) || pwsh_exe=""
+		if [[ -n "$pwsh_exe" ]]; then
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$pid\").ParentProcessId" 2>/dev/null | tr -d '[:space:]'
+		  return
+		fi
+	  fi
+	  ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]'
+	}
+	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to and including PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
 	  local pid="$$" ppid seen=" "
 	  while [[ -n "$pid" && "$pid" != "0" && "$seen" != *" $pid "* ]]; do
 		printf '%s\n' "$pid"
 		seen="$seen$pid "
 		[[ "$pid" == "1" ]] && break
-		ppid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]')
+		ppid=$(_cleanse_get_ppid "$pid")
 		pid="$ppid"
 	  done
 	}
