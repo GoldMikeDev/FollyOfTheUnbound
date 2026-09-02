@@ -43,10 +43,26 @@ is_windows_host() {
   return 1
 }
 if [[ -t 1 ]]; then  # plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal -- matches scripts/test-folly-scry-args.sh's own convention
-  color_green=$'\033[32m'; color_red=$'\033[31m'; color_cyan=$'\033[36m'; color_yellow=$'\033[33m'; color_reset=$'\033[0m'
+  color_reset=$'\033[0m'; color_red=$'\033[31m'; color_green=$'\033[32m'; color_yellow=$'\033[33m'; color_cyan=$'\033[36m'; color_gray=$'\033[90m'
 else
-  color_green=''; color_red=''; color_cyan=''; color_yellow=''; color_reset=''
+  color_reset=''; color_red=''; color_green=''; color_yellow=''; color_cyan=''; color_gray=''
 fi
+colorize_grimoire_help() {
+  if [[ ! -t 1 ]]; then
+    cat
+    return
+  fi
+
+  sed -E \
+    -e "s/^([^[:space:]].*:)\$/${color_cyan}\1${color_reset}/" \
+    -e "s/(<[^>]+>)/${color_yellow}\1${color_reset}/g" \
+    -e "s/(\[switches\])/${color_gray}\1${color_reset}/g" \
+    -e "/^[[:space:]]+'/ {" \
+    -e "  s/(--[[:alnum:]]+)/${color_green}\1${color_reset}/g" \
+    -e "  s/'(attune|bind|cleanse|grimoire|reweave|scry|weave)([[:space:]'])/'${color_green}\1${color_reset}\2/" \
+    -e "  s/(reflection|research|truth)([[:space:]'])/${color_green}\1${color_reset}\2/" \
+    -e "}"
+}
 # Bash port of folly.ps1's Get-TestSummary: tallies a completed leg's PASSED/FAILED/TIMEOUT counts
 # (and keeps the raw table lines) from its already-written runtests*.log, the same way -- anchoring
 # on the marker pair immediately before RunTests' exact footer line, not the first or last
@@ -93,30 +109,67 @@ get_test_summary() {
   summary_found=1
 }
 if [[ -z "$action" || "$action" == "grimoire" ]]; then
-  cat <<'EOF'
+  cat <<'EOF' | colorize_grimoire_help
 
 Commands:
-    'attune'                                        Restore only.
-    'bind'                                          Restore, build & pack (nupkg files packed to ../.nupkg/FotU/).
-    'cleanse'                                       Delete artefacts.
-    'grimoire'                                      Show this text (default when no action is given).
-    'reweave'                                       Restore & rebuild.
-    'scry'                                          Restore, build & run Core (and, on Windows, Framework) unit tests.
-    'weave'                                         Restore & build.
+    'attune     <primary>   [switches]'
+        Restore only.
+
+    'bind       <primary>   [switches]'
+        Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\<config>\).
+
+    'cleanse'
+        Delete artefacts.
+
+    'grimoire'
+        Show this text (default when no action is given).
+
+    'reweave    <primary>   [switches]'
+        Restore & rebuild.
+
+    'scry       <primary>   [switches]'
+        Restore, build & run Core (and, on Windows, Framework) unit tests.
+
+    'weave      <primary>   [switches]'
+        Restore & build.
+
 Primary args:
-    '<scry> reflection'                             Runs folly script test harnesses.
-    '<command> research [switches]'                 Debug configuration.
-    '<command> truth [switches]'                    Release configuration.
+    '<scry>     reflection'
+        Runs folly script test harnesses.
+
+    '<command>  research    [switches]'
+        Debug configuration.
+
+    '<command>  truth       [switches]'
+        Release configuration.
+
 Switches:
-    '<scry> <primary> --core'                       Run only the Core tests (skip Framework).
-    '<scry> <primary> --framework'                  Run only the Framework tests (skip Core; Windows only).
-    '<scry> <primary> --testCompilerOnly'           Run only the compiler unit test assemblies.
-    '<scry> <primary> --testFilter <xunit filter>'  Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
-    '<scry> <primary> --testIOperation'             Run tests with the IOperation test hook enabled.
-    '<scry> <primary> --timeout <minutes>'          Override RunTests' whole-run watchdog (default: 90).
-    '<command> <primary> --binaryLog'               Write MSBuild binary log to ./artifacts/log/<config>/Build.binlog.
-    '<command> <primary> --verbosity <level>'       MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
-    '<command> <primary> --bootstrap'               Build/test using a locally-built bootstrap compiler (not 'cleanse').
+    '<command>  <primary>   --binaryLog'
+        Write MSBuild binary log to .\artifacts\log\<config>\Build.binlog.
+
+    '<command>  <primary>   --bootstrap'
+        Build/test using a locally-built bootstrap compiler.
+
+    '<scry>     <primary>   --core'
+        Run only the Core tests (skip Framework).
+
+    '<scry>     <primary>   --framework'
+        Run only the Framework tests (skip Core; Windows only).
+
+    '<scry>     <primary>   --testCompilerOnly'
+        Run only the compiler unit test assemblies.
+
+    '<scry>     <primary>   --testFilter <xunit filter>'
+        Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
+
+    '<scry>     <primary>   --testIOperation'
+        Run tests with the IOperation test hook enabled.
+
+    '<scry>     <primary>   --timeout <minutes>'
+        Override RunTests' whole-run watchdog (default: 90).
+
+    '<command>  <primary>   --verbosity <level>'
+        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
 
 EOF
   exit 0

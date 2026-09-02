@@ -15,6 +15,34 @@ try {
 	# Windows host, even though this script itself (pwsh) can run elsewhere -- '--framework' is
 	# rejected outright off-Windows, and 'scry's own no-switches default only includes Framework here.
 	$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
+    	function Write-GrimoireHelp([string]$text) {
+		$literalPattern = "(?<=')(?:attune|bind|cleanse|grimoire|reweave|scry|weave)\b|\b(?:reflection|research|truth)\b|--[A-Za-z][A-Za-z0-9]*"
+		$tokenPattern = "<[^>]+>|\[switches\]|$literalPattern"
+
+		foreach ($line in ($text -split "`r?`n")) {
+			if ($line -match '^[^\s].*:$') {
+				Write-Host $line -ForegroundColor Cyan
+				continue
+			}
+
+			$lineTokenPattern = if ($line -match "^\s+'") { $tokenPattern } else { '<[^>]+>' }
+			$position = 0
+			foreach ($match in [regex]::Matches($line, $lineTokenPattern)) {
+				if ($match.Index -gt $position) {
+					Write-Host $line.Substring($position, $match.Index - $position) -NoNewline
+				}
+
+				$colour = if ($match.Value[0] -eq '<') { 'Yellow' } elseif ($match.Value[0] -eq '[') { 'DarkGray' } else { 'Green' }
+				Write-Host $match.Value -ForegroundColor $colour -NoNewline
+				$position = $match.Index + $match.Length
+			}
+
+			if ($position -lt $line.Length) {
+				Write-Host $line.Substring($position) -NoNewline
+			}
+			Write-Host
+		}
+	}
 	$core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--framework/--timeout (matching folly.sh's style) are parsed by hand below
 	$framework = $false
 	$testCompilerOnly = $false
@@ -99,30 +127,70 @@ try {
 		exit 1
 	}
 	if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
-		Write-Host ""
-		Write-Host "Commands:"
-		Write-Host "    'attune'                                        Restore only."
-		Write-Host "    'bind'                                          Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\)."
-		Write-Host "    'cleanse'                                       Delete artefacts."
-		Write-Host "    'grimoire'                                      Show this text (default when no action is given)."
-		Write-Host "    'reweave'                                       Restore & rebuild."
-		Write-Host "    'scry'                                          Restore, build & run Core (and, on Windows, Framework) unit tests."
-		Write-Host "    'weave'                                         Restore & build."
-		Write-Host "Primary args:"
-		Write-Host "    '<scry> reflection'                             Runs folly script test harnesses."
-		Write-Host "    '<command> research [switches]'                 Debug configuration."
-		Write-Host "    '<command> truth [switches]'                    Release configuration."
-		Write-Host "Switches:"
-		Write-Host "    '<scry> <primary> --core'                       Run only the Core tests (skip Framework)."
-		Write-Host "    '<scry> <primary> --framework'                  Run only the Framework tests (skip Core; Windows only)."
-		Write-Host "    '<scry> <primary> --testCompilerOnly'           Run only the compiler unit test assemblies."
-		Write-Host "    '<scry> <primary> --testFilter <xunit filter>'  Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA."
-		Write-Host "    '<scry> <primary> --testIOperation'             Run tests with the IOperation test hook enabled."
-		Write-Host "    '<scry> <primary> --timeout <minutes>'          Override RunTests' whole-run watchdog (default: 90)."
-		Write-Host "    '<command> <primary> --binaryLog'               Write MSBuild binary log to .\artifacts\log\<config>\Build.binlog."
-		Write-Host "    '<command> <primary> --verbosity <level>'       MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic."
-		Write-Host "    '<command> <primary> --bootstrap'               Build/test using a locally-built bootstrap compiler (not 'cleanse')."
-		Write-Host ""
+        $helpText = @"
+
+Commands:
+    'attune     <primary>   [switches]'
+        Restore only.
+
+    'bind       <primary>   [switches]'
+        Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\<config>\).
+
+    'cleanse'
+        Delete artefacts.
+
+    'grimoire'
+        Show this text (default when no action is given).
+
+    'reweave    <primary>   [switches]'
+        Restore & rebuild.
+
+    'scry       <primary>   [switches]'
+        Restore, build & run Core (and, on Windows, Framework) unit tests.
+
+    'weave      <primary>   [switches]'
+        Restore & build.
+
+Primary args:
+    '<scry>     reflection'
+        Runs folly script test harnesses.
+
+    '<command>  research    [switches]'
+        Debug configuration.
+
+    '<command>  truth       [switches]'
+        Release configuration.
+
+Switches:
+    '<command>  <primary>   --binaryLog'
+        Write MSBuild binary log to .\artifacts\log\<config>\Build.binlog.
+
+    '<command>  <primary>   --bootstrap'
+        Build/test using a locally-built bootstrap compiler.
+
+    '<scry>     <primary>   --core'
+        Run only the Core tests (skip Framework).
+
+    '<scry>     <primary>   --framework'
+        Run only the Framework tests (skip Core; Windows only).
+
+    '<scry>     <primary>   --testCompilerOnly'
+        Run only the compiler unit test assemblies.
+
+    '<scry>     <primary>   --testFilter <xunit filter>'
+        Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
+
+    '<scry>     <primary>   --testIOperation'
+        Run tests with the IOperation test hook enabled.
+
+    '<scry>     <primary>   --timeout <minutes>'
+        Override RunTests' whole-run watchdog (default: 90).
+
+    '<command>  <primary>   --verbosity <level>'
+        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
+
+"@
+		Write-GrimoireHelp $helpText
 		exit 0
 	}
 	# Every '<selector>'/reflection is scoped to 'scry' -- one combined check/message rather than
