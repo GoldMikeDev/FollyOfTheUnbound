@@ -68,11 +68,12 @@ Add-Content -LiteralPath (Join-Path $repoRoot "testSuppressConsoleSummary-receiv
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
 # Same idea for -testCompilerOnly/-testFilter/-testIOperation.
 Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter testIOperation=$testIOperation"
-# Same idea for -collectDumps: unlike the above, folly.ps1 passes this unconditionally for every
-# scry test leg (not only when requested), so this just confirms it actually arrives here rather
-# than silently getting dropped -- an unrelated plain param() script would ignore an undeclared
-# switch like this one without erroring, so declaring and logging it here is the only way this
-# harness can tell the difference between "forwarded" and "never sent".
+# Same idea for -collectDumps: unlike -testIOperation, folly.ps1's own --collectDumps is opt-in
+# (mutates a machine-wide WER registry key and its timeout-dump path can capture unrelated
+# processes, so it isn't safe as scry's silent default) -- this confirms it's forwarded only when
+# requested, not dropped silently either way. An unrelated plain param() script would ignore an
+# undeclared switch like this one without erroring, so declaring and logging it here is the only way
+# this harness can tell "not forwarded" apart from "forwarded as false".
 Add-Content -LiteralPath (Join-Path $repoRoot "collectDumps-received.log") -Value "$suffix collectDumps=$collectDumps"
 # Same idea for -bootstrap/-bootstrapDir, appended once per invocation (not per-leg-suffixed) so the
 # harness can see the initial build call's plain -bootstrap alongside each leg's -bootstrapDir reuse.
@@ -356,18 +357,38 @@ try {
         Test-Fail "testIOperation on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- 'scry' always forwards -collectDumps to eng/build.ps1's test call, not just when requested
-    # -- unlike -testIOperation above, this isn't a user-facing folly.ps1 flag; folly.ps1 always adds
-    # it internally since scry exists specifically to catch hangs/crashes ---
-    $dir = New-TestCase "collectdumps-always-forwarded"
+    # --- '--collectDumps' is opt-in: absent by default, not forwarded to eng/build.ps1's test call ---
+    $dir = New-TestCase "collectdumps-not-forwarded-by-default"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core")
     $receivedPath = Join-Path $dir "collectDumps-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "Core collectDumps=False") {
+        Test-Pass "'scry' does not forward '-collectDumps' to .\eng\build.ps1 by default"
+    }
+    else {
+        Test-Fail "collectDumps default (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- '--collectDumps' is forwarded when explicitly requested ---
+    $dir = New-TestCase "collectdumps-forwarded-when-requested"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--collectDumps")
+    $receivedPath = Join-Path $dir "collectDumps-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "Core collectDumps=True") {
-        Test-Pass "'scry' always forwards '-collectDumps' to .\eng\build.ps1"
+        Test-Pass "'--collectDumps' is forwarded to .\eng\build.ps1 when requested"
     }
     else {
         Test-Fail "collectDumps forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- '--collectDumps' rejected for non-scry actions ---
+    $dir = New-TestCase "collectdumps-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--collectDumps")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--collectDumps' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "collectDumps on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- --bootstrap: the initial build call gets -bootstrap, the test leg gets -bootstrapDir

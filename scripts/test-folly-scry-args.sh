@@ -373,19 +373,42 @@ else
   test_fail "testIOperation on non-scry action (exit=$exit_code): $output"
 fi
 
-# --- 'scry' always forwards --collectDumps to eng/build.sh's test call, not just when requested --
-# unlike --testIOperation above, this isn't a user-facing folly.sh flag; folly.sh always adds it
-# internally since scry exists specifically to catch hangs/crashes (see folly.sh's own comment at
-# the test_args+=(--collectDumps) line) ---
-dir="$(new_test_case "collectdumps-always-forwarded")"
+# --- --collectDumps is opt-in: absent by default, forwarded to eng/build.sh's test call only when
+# requested (mutates a machine-wide WER registry key and its timeout-dump path can capture unrelated
+# processes, so it isn't safe as scry's silent default -- see folly.sh's own comment at the
+# --collectDumps case) ---
+dir="$(new_test_case "collectdumps-not-forwarded-by-default")"
 result="$(run_case "$dir" scry research)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && ! grep -qx -- "--collectDumps" <<<"$args_log"; then
+  test_pass "'scry' does not forward '--collectDumps' to ./eng/build.sh by default"
+else
+  test_fail "collectDumps default (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --collectDumps is forwarded when explicitly requested ---
+dir="$(new_test_case "collectdumps-forwarded-when-requested")"
+result="$(run_case "$dir" scry research --collectDumps)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
 if [[ "$exit_code" == "0" ]] && grep -qx -- "--collectDumps" <<<"$args_log"; then
-  test_pass "'scry' always forwards '--collectDumps' to ./eng/build.sh"
+  test_pass "'--collectDumps' is forwarded to ./eng/build.sh when requested"
 else
   test_fail "collectDumps forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --collectDumps rejected for non-scry actions ---
+dir="$(new_test_case "collectdumps-on-non-scry")"
+result="$(run_case "$dir" weave --collectDumps)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--collectDumps' is rejected on a non-scry action"
+else
+  test_fail "collectDumps on non-scry action (exit=$exit_code): $output"
 fi
 
 # --- --bootstrap: the initial build call gets --bootstrap, each test leg gets --bootstrapDir

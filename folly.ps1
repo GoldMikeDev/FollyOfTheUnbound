@@ -49,6 +49,7 @@ try {
 	$testFilter = $null
 	$expectTestFilterValue = $false
 	$testIOperation = $false
+	$collectDumps = $false
 	$bootstrap = $false
 	$reflection = $false
 	$testTimeout = 0
@@ -90,6 +91,17 @@ try {
 		}
 		elseif ($arg -eq "--testIOperation") {
 			$testIOperation = $true
+		}
+		elseif ($arg -eq "--collectDumps") {
+			# Opt-in, not unconditional: RunTests' Windows Error Reporting registry-based dump
+			# collection (DumpUtil in src/Tools/RunTests/ProcDumpUtil.cs) mutates a single machine-wide
+			# HKLM key with no cross-process coordination, and its own timeout-dump path
+			# (Program.HandleTimeout/ProcessUtil.GetTestHostProcesses) sweeps every testhost-like
+			# process on the machine, not just this run's -- both are safe for a caller who explicitly
+			# asked for dump collection and knows the tradeoff, but not as scry's silent default for
+			# every ordinary local run (e.g. two concurrent elevated scry runs racing that same
+			# registry key, or a timed-out run capturing an unrelated IDE-hosted testhost's memory).
+			$collectDumps = $true
 		}
 		elseif ($arg -eq "--bootstrap") {
 			$bootstrap = $true
@@ -183,6 +195,11 @@ Switches:
     '<scry>     <primary>   --testIOperation'
         Run tests with the IOperation test hook enabled.
 
+    '<scry>     <primary>   --collectDumps'
+        Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
+        WER registry key and its timeout-dump path can capture unrelated processes' memory -- see
+        API_MAP.md for details).
+
     '<scry>     <primary>   --timeout <minutes>'
         Override RunTests' whole-run watchdog (default: 90).
 
@@ -197,8 +214,8 @@ Switches:
 	# one per selector, since they're all the same rule applied to different args. '--bootstrap' is
 	# NOT scoped to 'scry': like '--binaryLog'/'--verbosity' it's valid on any build-invoking action,
 	# just rejected on 'cleanse' below.
-	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testTimeout -gt 0 -or $reflection)) {
-		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
+	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $collectDumps -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
 	if ($framework -and -not $onWindows) {
@@ -207,7 +224,7 @@ Switches:
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
 	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
-	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $collectDumps -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
 		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
 		exit 1
 	}
@@ -383,23 +400,22 @@ Switches:
 		if ($testIOperation) {
 			$extraTestArgs["testIOperation"] = $true
 		}
-		# -collectDumps is passed as a literal switch below (not through $extraTestArgs), unconditionally for
-		# both legs -- unlike everything in $extraTestArgs, it's not selector/reflection-dependent, and scry
-		# exists specifically to catch hangs/crashes, so RunTests' own procdump.exe-based dump support (its
-		# console "Proc dump location:" line, and whatever it feeds into a captured process's dump) should
-		# always be available here rather than opt-in. Without it, eng/build.ps1 only ever sets $collectDumps
-		# for an official CI build ($officialBuildId), so RunTests' --procdumppath was never passed and
-		# ProcDumpFilePath stayed null on every local run regardless of whether procdump.exe was actually
-		# installed. This does mean the first scry run on a machine without procdump.exe already present (not
-		# the common Jenkins-image "C:\SysInternals\procdump.exe" case) downloads Procdump.zip from
-		# sysinternals.com via Ensure-ProcDump -- a one-time cost; later runs reuse the cached copy under
-		# eng's tools directory.
+		# --collectDumps is opt-in (see its own arg-parsing comment above for why): RunTests' Windows-only
+		# crash/hang dump support mutates a machine-wide WER registry key with no cross-process
+		# coordination, and its timeout-dump path can capture unrelated processes' memory, so this isn't
+		# safe as scry's silent default -- only forwarded when the caller explicitly asked for it. When
+		# forwarded, eng/build.ps1's own -collectDumps handling acquires procdump.exe (downloading
+		# Procdump.zip from sysinternals.com on first use if not already cached) purely for RunTests'
+		# console "Proc dump location:" line, and gates the whole thing to a genuine Windows host.
+		if ($collectDumps) {
+			$extraTestArgs["collectDumps"] = $true
+		}
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				& $buildScript -testCoreClr -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -collectDumps -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
+				& $buildScript -testCoreClr -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -415,7 +431,7 @@ Switches:
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				& $buildScript -testDesktop -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -collectDumps -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
+				& $buildScript -testDesktop -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
