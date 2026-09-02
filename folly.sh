@@ -569,6 +569,10 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  [[ "$scriptroot_dotnet_scope" == '\' ]] && scriptroot_dotnet_scope="$scriptroot/.dotnet/"  # cygpath failed -- fall back rather than scope against a useless bare backslash
 	  [[ "$artifacts_scope" == '\' ]] && artifacts_scope="$artifacts_dir/"
 	fi
+	native_self_pid="$$"  # bash's own $$ is MSYS/Cygwin's emulated pid, which the CIM queries this script otherwise uses (native Win32_Process.ProcessId) can't be trusted to match. Computed here, directly in this process via a plain redirect (`read ... < file`) rather than any `$(...)` command substitution -- command substitution always forks a subshell to run its command, so a value read *inside* one (including inside a shell function called as `$(fn)`) would give that transient subshell's own pid, not this persistent script process's, one hop short of where the ancestor walk below needs to start. MSYS/Cygwin's /proc exposes the real native pid directly per-process as /proc/<pid>/winpid, no spawned helper needed.
+	if is_windows_host && [[ -r /proc/self/winpid ]]; then
+	  read -r native_self_pid < /proc/self/winpid 2>/dev/null || native_self_pid="$$"
+	fi
 	_cleanse_pwsh_exe() {  # resolves whichever PowerShell this Windows host actually has, once per call site -- pwsh (PS7+) preferred over the inbox powershell.exe
 	  command -v pwsh 2>/dev/null || command -v powershell.exe 2>/dev/null || command -v powershell 2>/dev/null || true
 	}
@@ -622,20 +626,6 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  is_windows_host && grep_flags="-Fi"
 	  grep -Ei -- "$pattern" | grep $grep_flags -- "$substr" | awk 'NF{print $1}' || true
 	}
-	_cleanse_native_self_pid() {  # bash's own $$ is MSYS/Cygwin's emulated pid, which the CIM queries this script otherwise uses (native Win32_Process.ProcessId) can't be trusted to match -- ask Windows for the real one instead by spawning a PowerShell child and reading *its* parent's id, rather than feeding $$ straight into a CIM filter
-	  if is_windows_host; then
-		local pwsh_exe pid
-		pwsh_exe=$(_cleanse_pwsh_exe)
-		if [[ -n "$pwsh_exe" ]]; then
-		  pid=$("$pwsh_exe" -NoProfile -NonInteractive -Command '(Get-CimInstance Win32_Process -Filter "ProcessId=$PID").ParentProcessId' 2>/dev/null | tr -d '[:space:]')
-		  if [[ -n "$pid" ]]; then
-			printf '%s\n' "$pid"
-			return
-		  fi
-		fi
-	  fi
-	  printf '%s\n' "$$"
-	}
 	_cleanse_get_ppid() {  # `ps -o ppid=` is a procps custom-field lookup -- MSYS/Cygwin's `ps` doesn't support it (see _cleanse_ps_snapshot), so the ancestor walk below would silently stop after this script's own PID on Git-Bash and lose its self-protection past that point; ask Windows itself via CIM there instead, same as _cleanse_ps_snapshot's fallback
 	  local pid="$1" pwsh_exe
 	  if is_windows_host; then
@@ -647,9 +637,8 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  fi
 	  ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]'
 	}
-	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own native PID up to and including PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
-	  local pid ppid seen=" "
-	  pid=$(_cleanse_native_self_pid)
+	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own native PID ($native_self_pid, computed once in the main shell -- not via any $(...) command substitution, see its definition) up to and including PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
+	  local pid="$native_self_pid" ppid seen=" "
 	  while [[ -n "$pid" && "$pid" != "0" && "$seen" != *" $pid "* ]]; do
 		printf '%s\n' "$pid"
 		seen="$seen$pid "
@@ -800,10 +789,10 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ -d "$artifacts_dir" ]]; then
 	  interactive=0
 	  [[ -t 1 ]] && interactive=1
-	  _cleanse_kill_tree() {  # kills a pid's children first (via _cleanse_get_children) then the pid itself, so Ctrl+C can't orphan a still-traversing find/awk pipeline behind a killed wrapper subshell
+	  _cleanse_kill_tree() {  # kills a pid's children first then the pid itself, so Ctrl+C can't orphan a still-traversing find/awk pipeline behind a killed wrapper subshell. Deliberately NOT routed through _cleanse_get_children/CIM the way _cleanse_kill_pid_tree is: scan_pid/rm_pid and their descendants are this bash process's own job-control children (`$!`), always tracked by the MSYS/Cygwin runtime regardless of host -- unlike a CIM-discovered build-server/node-worker/BuildHost survivor, they were never invisible to plain `ps` in the first place, and querying CIM with an MSYS pid it doesn't recognize (a different pid namespace) would just find nothing
 		local pid="$1" child
 		[[ -z "$pid" ]] && return 0
-		for child in $(_cleanse_get_children "$pid"); do
+		for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
 		  _cleanse_kill_tree "$child"
 		done
 		kill "$pid" 2>/dev/null
