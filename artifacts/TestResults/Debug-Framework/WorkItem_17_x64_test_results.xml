@@ -1,8 +1,8 @@
-<assemblies timestamp="09/01/2026 14:24:38">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.ResultProvider.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll" run-date="2026-09-01" run-time="14:24:38" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.ResultProvider.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll.config" total="351" passed="344" failed="0" skipped="7" time="58.022" errors="0">
+<assemblies timestamp="09/02/2026 10:04:46">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.ResultProvider.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll" run-date="2026-09-02" run-time="10:04:46" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.ResultProvider.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests.dll.config" total="351" passed="344" failed="0" skipped="7" time="44.375" errors="0">
     <errors />
-    <collection total="3" passed="1" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests" time="0.024">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests.NoModule" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests" method="NoModule" time="0.0220000" result="Pass">
+    <collection total="3" passed="1" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests" time="0.011">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests.NoModule" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests" method="NoModule" time="0.0090000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests.HideNonPublicMembersBaseClass" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.AccessibilityTests" method="HideNonPublicMembersBaseClass" time="0.0010000" result="Skip">
@@ -18,28 +18,28 @@
         </traits>
       </test>
     </collection>
-    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" time="0.147">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.LazyExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="LazyExpansion" time="0.0150000" result="Pass">
+    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" time="0.093">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.LazyExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="LazyExpansion" time="0.0130000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.Array" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="Array" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.NestedArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="NestedArray" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.NestedArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="NestedArray" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.IdentifyFixedBuffer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="IdentifyFixedBuffer" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.IdentifyFixedBuffer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="IdentifyFixedBuffer" time="0.0220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.BaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="BaseType" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.BaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="BaseType" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.BaseElementType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="BaseElementType" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.BaseElementType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="BaseElementType" time="0.0080000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.Interface" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="Interface" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.Interface" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="Interface" time="0.0070000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1001844" />
         </traits>
@@ -50,7 +50,7 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.ZeroLengthMultiDimensionalArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="ZeroLengthMultiDimensionalArray" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.Covariance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="Covariance" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.Covariance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="Covariance" time="0.0250000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1022157" />
         </traits>
@@ -64,216 +64,216 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.Hexadecimal" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="Hexadecimal" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.MultiDimensionalArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="MultiDimensionalArray" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.MultiDimensionalArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="MultiDimensionalArray" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests.ZeroLengthArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ArrayExpansionTests" method="ZeroLengthArray" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="16" passed="16" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" time="8.961">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.DebuggerBrowsable_GenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="DebuggerBrowsable_GenericType" time="6.9910000" result="Pass">
+    <collection total="16" passed="16" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" time="6.809">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.DebuggerBrowsable_GenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="DebuggerBrowsable_GenericType" time="5.5970000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_OnStaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_OnStaticMembers" time="0.2490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_OnStaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_OnStaticMembers" time="0.1670000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_Empty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_Empty" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_Empty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_Empty" time="0.0110000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/934800" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_WithStaticAndNonPublicMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_WithStaticAndNonPublicMembers" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_WithStaticAndNonPublicMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_WithStaticAndNonPublicMembers" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_Exception" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_Exception" time="0.1670000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_Exception" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_Exception" time="0.1070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden" time="0.2940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden" time="0.1210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.Never_ExplicitNamespaceGeneric" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="Never_ExplicitNamespaceGeneric" time="0.1610000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.Never_ExplicitNamespaceGeneric" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="Never_ExplicitNamespaceGeneric" time="0.2850000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.AccessibilityNotTrumpedByAttribute" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="AccessibilityNotTrumpedByAttribute" time="0.0390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.AccessibilityNotTrumpedByAttribute" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="AccessibilityNotTrumpedByAttribute" time="0.0320000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/18581" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.DuplicateAttributes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="DuplicateAttributes" time="0.1940000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.DuplicateAttributes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="DuplicateAttributes" time="0.1550000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.Never_OverridesAndImplements" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="Never_OverridesAndImplements" time="0.0760000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.Never_OverridesAndImplements" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="Never_OverridesAndImplements" time="0.0600000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_Recursive" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_Recursive" time="0.0200000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_Recursive" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_Recursive" time="0.0270000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_OnNonPublicMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_OnNonPublicMembers" time="0.0260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_OnNonPublicMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_OnNonPublicMembers" time="0.0290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_ExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_ExplicitImplementation" time="0.0350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_ExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_ExplicitImplementation" time="0.0240000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.Never" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="Never" time="0.1310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.Never" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="Never" time="0.0580000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_ProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_ProxyType" time="0.5150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.RootHidden_ProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="RootHidden_ProxyType" time="0.0950000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.ConstructedGenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="ConstructedGenericType" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests.ConstructedGenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerBrowsableAttributeTests" method="ConstructedGenericType" time="0.0230000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" time="0.634">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.WithoutExpressionHoles" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="WithoutExpressionHoles" time="0.0160000" result="Pass">
+    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" time="0.552">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.WithoutExpressionHoles" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="WithoutExpressionHoles" time="0.0240000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.ExceptionDuringEvaluate" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="ExceptionDuringEvaluate" time="0.1080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.ExceptionDuringEvaluate" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="ExceptionDuringEvaluate" time="0.1110000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="171123" />
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DefaultCollection/DevDiv" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.FormatStrings" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="FormatStrings" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.FormatStrings" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="FormatStrings" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.DebuggerTypeProxyExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="DebuggerTypeProxyExpansion" time="0.0570000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.DebuggerTypeProxyExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="DebuggerTypeProxyExpansion" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.PointerDereferenceExpansion_NonNull" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="PointerDereferenceExpansion_NonNull" time="0.0550000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.PointerDereferenceExpansion_NonNull" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="PointerDereferenceExpansion_NonNull" time="0.0340000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.NullValues" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="NullValues" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.SynthesizedCollections" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="SynthesizedCollections" time="0.1700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.SynthesizedCollections" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="SynthesizedCollections" time="0.2040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.EmptyStringValues" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="EmptyStringValues" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.EmptyStringValues" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="EmptyStringValues" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.RecursiveDebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="RecursiveDebuggerDisplay" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.RecursiveDebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="RecursiveDebuggerDisplay" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.RootVersusInternal" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="RootVersusInternal" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.RootVersusInternal" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="RootVersusInternal" time="0.0100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1016895" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.NullInstance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="NullInstance" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.NullInstance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="NullInstance" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.MemberExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="MemberExpansion" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.MemberExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="MemberExpansion" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.UnhandledException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="UnhandledException" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.UnhandledException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="UnhandledException" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.OnlyExpressionHoles" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="OnlyExpressionHoles" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.OnlyExpressionHoles" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="OnlyExpressionHoles" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.PointerDereferenceExpansion_Null" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="PointerDereferenceExpansion_Null" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.PointerDereferenceExpansion_Null" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="PointerDereferenceExpansion_Null" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.NonGenericDisplayAttributeOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="NonGenericDisplayAttributeOnGenericBase" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.NonGenericDisplayAttributeOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="NonGenericDisplayAttributeOnGenericBase" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.ConstructedGenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="ConstructedGenericType" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.ConstructedGenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="ConstructedGenericType" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.MultipleAttributes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="MultipleAttributes" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.MultipleAttributes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="MultipleAttributes" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.Error" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="Error" time="0.0360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.Error" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="Error" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.BindingError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="BindingError" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.BindingError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="BindingError" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.ArrayExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="ArrayExpansion" time="0.0260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests.ArrayExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerDisplayAttributeTests" method="ArrayExpansion" time="0.0240000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="20" passed="20" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" time="0.796">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.NullInstanceStaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="NullInstanceStaticMembers" time="0.0240000" result="Pass">
+    <collection total="20" passed="20" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" time="0.324">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.NullInstanceStaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="NullInstanceStaticMembers" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.InstantiateProxyTypeException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="InstantiateProxyTypeException" time="0.0560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.InstantiateProxyTypeException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="InstantiateProxyTypeException" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnRuntimeType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnRuntimeType" time="0.0440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnRuntimeType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnRuntimeType" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.NullInstance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="NullInstance" time="0.0530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.NullInstance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="NullInstance" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.NonGenericProxyOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="NonGenericProxyOnGenericBase" time="0.0230000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.NonGenericProxyOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="NonGenericProxyOnGenericBase" time="0.0110000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1024016" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.GenericTypeWithGenericTypeArgument" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="GenericTypeWithGenericTypeArgument" time="0.0280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.GenericTypeWithGenericTypeArgument" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="GenericTypeWithGenericTypeArgument" time="0.0190000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnRuntimeTypeBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnRuntimeTypeBase" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ValueTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ValueTypeProxy" time="0.0220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ValueTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ValueTypeProxy" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.Pointers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="Pointers" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.Pointers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="Pointers" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.EmptyProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="EmptyProxy" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.EmptyProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="EmptyProxy" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="StaticMembers" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="StaticMembers" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.OrderedMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="OrderedMembers" time="0.0360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.OrderedMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="OrderedMembers" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.HideIndexers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="HideIndexers" time="0.0990000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.HideIndexers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="HideIndexers" time="0.0290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.GenericTypeProxyWrongArity" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="GenericTypeProxyWrongArity" time="0.0580000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.GenericTypeProxyWrongArity" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="GenericTypeProxyWrongArity" time="0.0230000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.EmptyRawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="EmptyRawView" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.EmptyRawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="EmptyRawView" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.AccessibilityTrumpedByAttribute" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="AccessibilityTrumpedByAttribute" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.AccessibilityTrumpedByAttribute" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="AccessibilityTrumpedByAttribute" time="0.0170000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/18581" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.Proxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="Proxy" time="0.0280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.Proxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="Proxy" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnBase" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnBase" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyWithBaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyWithBaseType" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyWithBaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyWithBaseType" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnGenericBase" time="0.1990000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerVisualizerAttributeTests" time="0.036">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerVisualizerAttributeTests.Visualizer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerVisualizerAttributeTests" method="Visualizer" time="0.0360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests.ProxyOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerTypeProxyAttributeTests" method="ProxyOnGenericBase" time="0.0400000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" time="0.050">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.SkipOne" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="SkipOne" time="0.0100000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerVisualizerAttributeTests" time="0.015">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerVisualizerAttributeTests.Visualizer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DebuggerVisualizerAttributeTests" method="Visualizer" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.ToBytes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="ToBytes" time="0.0010000" result="Pass">
+    </collection>
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" time="0.046">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.SkipOne" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="SkipOne" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.EncodeAndDecode" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="EncodeAndDecode" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.ToBytes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="ToBytes" time="0.0030000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.EncodeAndDecode" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="EncodeAndDecode" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.CustomTypeInfoConstructor_OtherGuid" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="CustomTypeInfoConstructor_OtherGuid" time="0.0010000" result="Pass">
@@ -282,50 +282,50 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.CopyTo" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="CopyTo" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.CustomTypeInfoConstructor" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="CustomTypeInfoConstructor" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.CustomTypeInfoConstructor" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="CustomTypeInfoConstructor" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.Indexer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="Indexer" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests.Indexer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicFlagsCustomTypeInfoTests" method="Indexer" time="0.0110000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="9" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" time="0.631">
+    <collection total="10" passed="9" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" time="0.926">
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.DynamicBaseTypeArgument" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="DynamicBaseTypeArgument" time="0.0010000" result="Skip">
         <reason><![CDATA[13554]]></reason>
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/13554" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_ExplicitInterfaceImplementation" time="0.0440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_ExplicitInterfaceImplementation" time="0.0380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member" time="0.0470000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.ArrayElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="ArrayElement" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.TypeVariables" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="TypeVariables" time="0.4880000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.TypeVariables" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="TypeVariables" time="0.6890000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_BaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_BaseType" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_BaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_BaseType" time="0.0440000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_ConstructedTypeMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_ConstructedTypeMember" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_ConstructedTypeMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_ConstructedTypeMember" time="0.0700000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_NestedType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_NestedType" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_NestedType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_NestedType" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_ConstructedType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_ConstructedType" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Member_ConstructedType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Member_ConstructedType" time="0.0170000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests.Simple" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicTests" method="Simple" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" time="0.946">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.NoMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NoMembers" time="0.8360000" result="Pass">
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" time="0.697">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.NoMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NoMembers" time="0.5970000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5666" />
         </traits>
@@ -342,10 +342,10 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.NullIDynamicMetaObjectProvider" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="NullIDynamicMetaObjectProvider" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicMetaObjectProviderDebugViewItemsException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicMetaObjectProviderDebugViewItemsException" time="0.0460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicMetaObjectProviderDebugViewItemsException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicMetaObjectProviderDebugViewItemsException" time="0.0330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicTypeMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicTypeMember" time="0.0220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicTypeMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicTypeMember" time="0.0230000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicMetaObjectProviderDebugViewItemsError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicMetaObjectProviderDebugViewItemsError" time="0.0040000" result="Pass">
@@ -354,40 +354,40 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.ExceptionTypeMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="ExceptionTypeMember" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.MultipleExpansions" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="MultipleExpansions" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.MultipleExpansions" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="MultipleExpansions" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicFormatSpecifierError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicFormatSpecifierError" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.MultipleMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="MultipleMembers" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.MultipleMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="MultipleMembers" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicFormatSpecifier" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicFormatSpecifier" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests.DynamicFormatSpecifier" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.DynamicViewTests" method="DynamicFormatSpecifier" time="0.0050000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="73" passed="71" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" time="5.269">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject_Array" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject_Array" time="0.0230000" result="Pass">
+    <collection total="73" passed="71" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" time="3.694">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject_Array" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject_Array" time="0.0380000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.IntPtrPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="IntPtrPointer" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.IntPtrPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="IntPtrPointer" time="0.0120000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1022632" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithIndexerOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithIndexerOnBase" time="0.0270000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithIndexerOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithIndexerOnBase" time="0.0130000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Nullable" time="0.0160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Interface" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Interface" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Interface" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Interface" time="0.0160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DoNotCopyParentState" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DoNotCopyParentState" time="0.1640000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DoNotCopyParentState" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DoNotCopyParentState" time="0.0280000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1028624" />
         </traits>
@@ -395,25 +395,25 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetItemsRequestOutsideRange" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetItemsRequestOutsideRange" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_Nullable" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_Nullable" time="0.0060000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1043730" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithExplicitInterfaceImplementation" time="0.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithExplicitInterfaceImplementation" time="0.0100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1074435" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullableValue_Error" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullableValue_Error" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullableValue_Error" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullableValue_Error" time="0.0090000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1130978" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExplicitInterfaceImplementation2" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExplicitInterfaceImplementation2" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExplicitInterfaceImplementation2" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExplicitInterfaceImplementation2" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.InvalidPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="InvalidPointer" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.InvalidPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="InvalidPointer" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Primitives" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Primitives" time="0.0040000" result="Pass">
@@ -422,35 +422,35 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ImmutableArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ImmutableArray" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullInstance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullInstance" time="0.0430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullInstance" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullInstance" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.WriteOnlyProperty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="WriteOnlyProperty" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.WriteOnlyProperty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="WriteOnlyProperty" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.BaseTypeEditableValue" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseTypeEditableValue" time="0.0440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.BaseTypeEditableValue" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseTypeEditableValue" time="0.0380000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1002381" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_DebuggerDisplay" time="0.0180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_DebuggerDisplay" time="0.0370000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_DebuggerTypeProxy" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_DebuggerTypeProxy" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.BaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseAndDerived" time="0.0220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.BaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseAndDerived" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyOnNestedBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyOnNestedBase" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyOnNestedBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyOnNestedBase" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetChildrenTest" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetChildrenTest" time="0.0180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetChildrenTest" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetChildrenTest" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMembersBaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMembersBaseAndDerived" time="0.1080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMembersBaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMembersBaseAndDerived" time="0.0160000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.UnicodeString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="UnicodeString" time="0.0010000" result="Pass">
@@ -458,13 +458,13 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1138095" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_Members" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_Members" time="0.0320000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_Members" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_Members" time="0.0210000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyHiddenByNameOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyHiddenByNameOnBase" time="0.0800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyHiddenByNameOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyHiddenByNameOnBase" time="0.0330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_DerivedExceptionType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_DerivedExceptionType" time="0.2450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_DerivedExceptionType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_DerivedExceptionType" time="0.0320000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/967366" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
@@ -476,24 +476,24 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/62156" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.UIntPtrPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="UIntPtrPointer" time="0.0180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.UIntPtrPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="UIntPtrPointer" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExplicitInterfaceImplementationVb" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExplicitInterfaceImplementationVb" time="0.5510000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExplicitInterfaceImplementationVb" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExplicitInterfaceImplementationVb" time="0.7970000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Pointers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Pointers" time="0.0430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Pointers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Pointers" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrown_Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrown_Member" time="0.2760000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrown_Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrown_Member" time="0.0300000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1003260" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMembers" time="0.0420000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMembers" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.BaseTypeWithNamespace" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseTypeWithNamespace" time="0.0930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.BaseTypeWithNamespace" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="BaseTypeWithNamespace" time="0.0160000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.VoidPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="VoidPointer" time="0.0110000" result="Pass">
@@ -501,72 +501,72 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1154608" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject" time="0.0110000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithFieldOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithFieldOnBase" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithFieldOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithFieldOnBase" time="0.0970000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMemberOfBaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMemberOfBaseType" time="0.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.StaticMemberOfBaseType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="StaticMemberOfBaseType" time="0.0220000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.RefReturnProperty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="RefReturnProperty" time="0.1750000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.RefReturnProperty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="RefReturnProperty" time="0.1220000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72544" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/81763" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullPointer" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullPointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullPointer" time="0.0020000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1064176" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_NullableMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_NullableMember" time="0.1260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_NullableMember" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_NullableMember" time="0.1440000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1043730" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_Pointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_Pointer" time="0.0180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_Pointer" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_Pointer" time="0.0190000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_AtRoot" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_AtRoot" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeAndRuntimeTypeDifferByCase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeAndRuntimeTypeDifferByCase" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeAndRuntimeTypeDifferByCase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeAndRuntimeTypeDifferByCase" time="0.0300000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithInterfaceReimplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithInterfaceReimplementation" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithInterfaceReimplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithInterfaceReimplementation" time="0.0260000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1074435" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.HiddenMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="HiddenMembers" time="0.5730000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.HiddenMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="HiddenMembers" time="0.4260000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.PropertyNameConflictsWithFieldOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="PropertyNameConflictsWithFieldOnBase" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.PropertyNameConflictsWithFieldOnBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="PropertyNameConflictsWithFieldOnBase" time="0.0220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrown_ReadOnly" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrown_ReadOnly" time="0.1930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrown_ReadOnly" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrown_ReadOnly" time="0.0710000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1026721" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.EmptyBaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="EmptyBaseAndDerived" time="0.0300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.EmptyBaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="EmptyBaseAndDerived" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_ProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_ProxyType" time="0.0660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag_ProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag_ProxyType" time="0.0720000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetChildrenRequestOutsideRange" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetChildrenRequestOutsideRange" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetChildrenRequestOutsideRange" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetChildrenRequestOutsideRange" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExplicitInterfaceImplementation" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExplicitInterfaceImplementation" time="0.0130000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullFormatSpecifiers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullFormatSpecifiers" time="0.0010000" result="Pass">
@@ -575,48 +575,48 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.UnicodeChar" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="UnicodeChar" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.OrderedMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="OrderedMembers" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.OrderedMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="OrderedMembers" time="0.0240000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullableProperty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullableProperty" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NullableProperty" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NullableProperty" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ValueTypeBaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ValueTypeBaseAndDerived" time="0.0280000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ValueTypeBaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ValueTypeBaseAndDerived" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyOnGenericBase" time="0.0310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithPropertyOnGenericBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithPropertyOnGenericBase" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithFieldsOnMultipleBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithFieldsOnMultipleBase" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithFieldsOnMultipleBase" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithFieldsOnMultipleBase" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ManyItemsSync" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ManyItemsSync" time="1.4370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ManyItemsSync" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ManyItemsSync" time="1.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetChildrenOutOfOrder" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetChildrenOutOfOrder" time="0.0410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.GetChildrenOutOfOrder" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="GetChildrenOutOfOrder" time="0.0190000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.MultilineString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="MultilineString" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.ExceptionThrownFlag" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="ExceptionThrownFlag" time="0.0200000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithVirtualPropertiesAcrossDeclaredType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithVirtualPropertiesAcrossDeclaredType" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NameConflictsWithVirtualPropertiesAcrossDeclaredType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NameConflictsWithVirtualPropertiesAcrossDeclaredType" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.RootCastExpression" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="RootCastExpression" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.RootCastExpression" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="RootCastExpression" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.NoExpansion_Array" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="NoExpansion_Array" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Enums" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Enums" time="0.0140000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.Enums" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="Enums" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.MultipleItemsAsync" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="MultipleItemsAsync" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.MultipleItemsAsync" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="MultipleItemsAsync" time="0.0190000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeAndRuntimeTypeDifferent" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeAndRuntimeTypeDifferent" time="0.0050000" result="Pass">
@@ -630,49 +630,49 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/9895" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.RefReturnProperty_ReferenceTypeAndGeneric" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="RefReturnProperty_ReferenceTypeAndGeneric" time="0.0300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.RefReturnProperty_ReferenceTypeAndGeneric" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="RefReturnProperty_ReferenceTypeAndGeneric" time="0.0130000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/72544" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.MultipleItemsAndExceptions" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="MultipleItemsAndExceptions" time="0.2590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.MultipleItemsAndExceptions" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="MultipleItemsAndExceptions" time="0.0570000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject_Static" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject_Static" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests.DeclaredTypeObject_Static" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ExpansionTests" method="DeclaredTypeObject_Static" time="0.0080000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/933845" />
         </traits>
       </test>
     </collection>
-    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" time="0.163">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_TypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_TypeProxy" time="0.0190000" result="Pass">
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" time="0.621">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_TypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_TypeProxy" time="0.2840000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.NoQuotes_DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="NoQuotes_DebuggerDisplay" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.NoQuotes_DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="NoQuotes_DebuggerDisplay" time="0.0330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_ExceptionThrown" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_ExceptionThrown" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_ExceptionThrown" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_ExceptionThrown" time="0.0600000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_NoSystemCore" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_NoSystemCore" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_NoSystemCore" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_NoSystemCore" time="0.0150000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.NoQuotes_String" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="NoQuotes_String" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_IEnumerableOfT" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_IEnumerableOfT" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_IEnumerableOfT" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_IEnumerableOfT" time="0.0330000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_Error" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_Error" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_Error" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_Error" time="0.0700000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_FrameworkTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_FrameworkTypes" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_FrameworkTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_FrameworkTypes" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_GetChildren" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_GetChildren" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_GetChildren" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_GetChildren" time="0.0720000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.RawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="RawView" time="0.0350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.RawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="RawView" time="0.0340000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.RawView_NoProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="RawView_NoProxy" time="0.0010000" result="Pass">
@@ -681,42 +681,42 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.NoQuotes_Char" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="NoQuotes_Char" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_IEnumerable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_IEnumerable" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests.ResultsView_IEnumerable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FormatSpecifierTests" method="ResultsView_IEnumerable" time="0.0100000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="32" passed="32" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" time="9.876">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_FirstCharacter" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_FirstCharacter" time="0.5350000" result="Pass">
+    <collection total="32" passed="32" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" time="9.358">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_FirstCharacter" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_FirstCharacter" time="0.3390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_StaticMembers" time="0.0580000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_StaticMembers" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_DebuggerTypeProxy" time="0.8240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_DebuggerTypeProxy" time="0.3550000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_ArrayElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_ArrayElement" time="0.5340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_ArrayElement" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_ArrayElement" time="0.6350000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_ExplicitInterfaceImplementation" time="0.9480000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_ExplicitInterfaceImplementation" time="0.5850000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_NonGenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_NonGenericType" time="0.3950000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_NonGenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_NonGenericType" time="0.6730000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_StaticMembers" time="0.4650000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_StaticMembers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_StaticMembers" time="0.5540000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_RuntimeType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_RuntimeType" time="0.0140000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_RuntimeType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_RuntimeType" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_CastRequired" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_CastRequired" time="0.3950000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_CastRequired" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_CastRequired" time="0.5080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_Namespace" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_Namespace" time="0.6650000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_Namespace" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_Namespace" time="0.5070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyBackingField_01" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyBackingField_01" time="0.4320000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyBackingField_01" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyBackingField_01" time="0.3790000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifySynthesizedLocalName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifySynthesizedLocalName" time="0.0010000" result="Pass">
@@ -728,119 +728,119 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Null" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Null" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_ProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_ProxyType" time="0.0230000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_ProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_ProxyType" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_MemberAccess" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_MemberAccess" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_MemberAccess" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_MemberAccess" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_ExplicitInterfaceImplementation" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_ExplicitInterfaceImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_ExplicitInterfaceImplementation" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootMixedExtras" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootMixedExtras" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootMixedExtras" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootMixedExtras" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyThisProxyField" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyThisProxyField" time="0.4580000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyThisProxyField" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyThisProxyField" time="0.3190000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.This" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="This" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_Member" time="0.4440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_Member" time="0.3750000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootFormatSpecifiers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootFormatSpecifiers" time="0.0400000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootFormatSpecifiers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootFormatSpecifiers" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootTrailingSemicolons" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootTrailingSemicolons" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootTrailingSemicolons" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootTrailingSemicolons" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_PointerDereference" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_PointerDereference" time="0.5660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledNames_PointerDereference" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledNames_PointerDereference" time="0.4890000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.GenericTypeWithoutBacktick" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="GenericTypeWithoutBacktick" time="0.6120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.GenericTypeWithoutBacktick" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="GenericTypeWithoutBacktick" time="0.5490000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyHoistedLocal" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyHoistedLocal" time="0.5730000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyHoistedLocal" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyHoistedLocal" time="0.6580000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootParentheses" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootParentheses" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootParentheses" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootParentheses" time="0.0230000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Cast" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Cast" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Cast" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Cast" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_Root" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_Root" time="0.0130000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.Keywords_Root" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="Keywords_Root" time="0.1220000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1022165" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_GenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_GenericType" time="1.2370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.BackTick_GenericType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="BackTick_GenericType" time="0.6910000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootComment" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootComment" time="0.0500000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.RootComment" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="RootComment" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyBackingField_02" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyBackingField_02" time="0.4900000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests" time="0.045">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests.Root" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests" method="Root" time="0.0200000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests.Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests" method="Member" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests.MangledName_SimplifyBackingField_02" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FullNameTests" method="MangledName_SimplifyBackingField_02" time="1.4680000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests" time="0.048">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests.NativeView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests" method="NativeView" time="0.0240000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests" time="0.057">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests.Root" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests" method="Root" time="0.0460000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests.NativeViewManagedOnly" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests" method="NativeViewManagedOnly" time="0.0240000" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" time="0.120">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.ExpansionOfNullValue" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="ExpansionOfNullValue" time="0.0300000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.DuplicateNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="DuplicateNames" time="0.0140000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.DisplayString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="DisplayString" time="0.0160000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="Nullable" time="0.0230000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.SimpleDisplayString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="SimpleDisplayString" time="0.0150000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.FilteredExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="FilteredExpansion" time="0.0120000" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.Expansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="Expansion" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests.Member" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.FunctionPointerTests" method="Member" time="0.0110000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" time="0.160">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="DebuggerDisplay" time="0.0230000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests" time="0.039">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests.NativeView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests" method="NativeView" time="0.0160000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests.NativeViewManagedOnly" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.NativeViewTests" method="NativeViewManagedOnly" time="0.0230000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="7" passed="7" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" time="0.123">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.ExpansionOfNullValue" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="ExpansionOfNullValue" time="0.0240000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.DuplicateNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="DuplicateNames" time="0.0160000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.DisplayString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="DisplayString" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="Nullable" time="0.0270000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.SimpleDisplayString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="SimpleDisplayString" time="0.0200000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.FilteredExpansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="FilteredExpansion" time="0.0110000" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests.Expansion" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectFavoritesTests" method="Expansion" time="0.0140000" result="Pass">
+        <traits />
+      </test>
+    </collection>
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" time="0.071">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.DebuggerDisplay" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="DebuggerDisplay" time="0.0150000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.OtherIds" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="OtherIds" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.ToStringOverride" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="ToStringOverride" time="0.0340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.ToStringOverride" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="ToStringOverride" time="0.0240000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.BaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="BaseAndDerived" time="0.0610000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.BaseAndDerived" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="BaseAndDerived" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.SpecialTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="SpecialTypes" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.SpecialTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="SpecialTypes" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="DebuggerTypeProxy" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests.DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ObjectIdTests" method="DebuggerTypeProxy" time="0.0130000" result="Pass">
         <traits />
       </test>
     </collection>
@@ -849,91 +849,91 @@
         <traits />
       </test>
     </collection>
-    <collection total="29" passed="29" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" time="3.813">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfAnonymousType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfAnonymousType" time="1.2520000" result="Pass">
+    <collection total="29" passed="29" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" time="1.739">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfAnonymousType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfAnonymousType" time="0.3100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/4098" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableNull" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableNull" time="0.2060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableNull" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableNull" time="0.0110000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1009646" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetProxyPropertyValueError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetProxyPropertyValueError" time="0.1510000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetProxyPropertyValueError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetProxyPropertyValueError" time="0.0100000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1043746" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="Nullable" time="0.2520000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="Nullable" time="0.0650000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.Array" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="Array" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.Array" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="Array" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MissingProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MissingProxyType" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MissingProxyType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MissingProxyType" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerator" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerator" time="0.1070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerator" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerator" time="0.0910000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumerableException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumerableException" time="0.0410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumerableException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumerableException" time="0.0390000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1145125" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/5666" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumeratorException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumeratorException" time="0.2300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumeratorException" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumeratorException" time="0.3620000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTPattern" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTPattern" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTPattern" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTPattern" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumerableError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumerableError" time="0.0630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumerableError" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumerableError" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableImplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableImplicitImplementation" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableImplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableImplicitImplementation" time="0.0140000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.BaseTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="BaseTypes" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.BaseTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="BaseTypes" time="0.0290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.LiftedPrimaryConstructorParameters" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="LiftedPrimaryConstructorParameters" time="0.0380000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.LiftedPrimaryConstructorParameters" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="LiftedPrimaryConstructorParameters" time="0.0230000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/74082" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="DebuggerTypeProxy" time="0.0390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.DebuggerTypeProxy" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="DebuggerTypeProxy" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.String" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="String" time="0.0450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.String" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="String" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableExplicitImplementation" time="0.0370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableExplicitImplementation" time="0.0150000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MissingProxyType_SystemCore" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MissingProxyType_SystemCore" time="0.0960000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MissingProxyType_SystemCore" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MissingProxyType_SystemCore" time="0.0480000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTImplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTImplicitImplementation" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTImplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTImplicitImplementation" time="0.0110000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.Overrides" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="Overrides" time="0.0440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.Overrides" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="Overrides" time="0.0390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MultipleImplementations_SameImplementor" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MultipleImplementations_SameImplementor" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MultipleImplementations_SameImplementor" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MultipleImplementations_SameImplementor" time="0.0180000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IteratorStateMachine" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IteratorStateMachine" time="0.0930000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IteratorStateMachine" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IteratorStateMachine" time="0.0670000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.AsyncStateMachine" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="AsyncStateMachine" time="0.1960000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.AsyncStateMachine" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="AsyncStateMachine" time="0.0810000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerablePattern" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerablePattern" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerablePattern" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerablePattern" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumeratorEmptyOrNull" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumeratorEmptyOrNull" time="0.6520000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.GetEnumeratorEmptyOrNull" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="GetEnumeratorEmptyOrNull" time="0.3340000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.MultipleImplementations_DifferentImplementors" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="MultipleImplementations_DifferentImplementors" time="0.0320000" result="Pass">
@@ -941,20 +941,20 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1006160" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.ConstructedType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="ConstructedType" time="0.0310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.ConstructedType" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="ConstructedType" time="0.0260000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTExplicitImplementation" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.IEnumerableOfTExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="IEnumerableOfTExplicitImplementation" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.SyntheticIEnumerable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="SyntheticIEnumerable" time="0.0430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests.SyntheticIEnumerable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ResultsViewTests" method="SyntheticIEnumerable" time="0.0220000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1114276" />
         </traits>
       </test>
     </collection>
-    <collection total="27" passed="25" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" time="4.443">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.ExceptionTupleField" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="ExceptionTupleField" time="0.3640000" result="Pass">
+    <collection total="27" passed="25" failed="0" skipped="2" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" time="3.510">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.ExceptionTupleField" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="ExceptionTupleField" time="0.3450000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.ValueAndTypeDifferentElementCount" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="ValueAndTypeDifferentElementCount" time="0.0010000" result="Skip">
@@ -963,30 +963,30 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/13420" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Names_LongTuple" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Names_LongTuple" time="0.1630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Names_LongTuple" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Names_LongTuple" time="0.0360000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/13625" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesAndDynamic_Other" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesAndDynamic_Other" time="0.1440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesAndDynamic_Other" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesAndDynamic_Other" time="0.0830000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.LongTuple_ElementNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="LongTuple_ElementNames" time="0.8450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.LongTuple_ElementNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="LongTuple_ElementNames" time="0.5000000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Keywords" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Keywords" time="0.0710000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Keywords" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Keywords" time="0.0920000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible" time="0.0380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.RawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="RawView" time="0.0490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.RawView" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="RawView" time="0.0410000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible_InvalidName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible_InvalidName" time="0.9550000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible_InvalidName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible_InvalidName" time="0.6230000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible_NonStruct" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible_NonStruct" time="0.0450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible_NonStruct" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible_NonStruct" time="0.0220000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.ValueAndTypeDifferentElementCount_LongTuple" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="ValueAndTypeDifferentElementCount_LongTuple" time="0.0010000" result="Skip">
@@ -995,62 +995,62 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/13420" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.ObjectId" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="ObjectId" time="0.0230000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.ObjectId" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="ObjectId" time="0.0360000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.InvalidElementName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="InvalidElementName" time="0.5740000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.InvalidElementName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="InvalidElementName" time="0.5470000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Tuples" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Tuples" time="0.0590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Tuples" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Tuples" time="0.0520000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.TupleElementNames_IncorrectCount" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="TupleElementNames_IncorrectCount" time="0.5700000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.TupleElementNames_IncorrectCount" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="TupleElementNames_IncorrectCount" time="0.4490000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.LongTuple_NoNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="LongTuple_NoNames" time="0.0500000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.PartialNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="PartialNames" time="0.0430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.PartialNames" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="PartialNames" time="0.0610000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesFromTypeArguments" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesFromTypeArguments" time="0.0720000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesFromTypeArguments" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesFromTypeArguments" time="0.0530000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesAndValueTuple1" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesAndValueTuple1" time="0.0650000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesAndValueTuple1" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesAndValueTuple1" time="0.0480000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesFromTypeArguments_LongTuples" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesFromTypeArguments_LongTuples" time="0.0400000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesFromTypeArguments_LongTuples" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesFromTypeArguments_LongTuples" time="0.0760000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NullNullableAndArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NullNullableAndArray" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NullNullableAndArray" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NullNullableAndArray" time="0.0540000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible_Other" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible_Other" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.IsTupleCompatible_Other" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="IsTupleCompatible_Other" time="0.0340000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesAndDynamic" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesAndDynamic" time="0.0450000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.NamesAndDynamic" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="NamesAndDynamic" time="0.0400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Exception" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Exception" time="0.0570000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Exception" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Exception" time="0.0510000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.OtherPayload" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="OtherPayload" time="0.0440000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.OtherPayload" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="OtherPayload" time="0.0290000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/13715" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Dynamic" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Dynamic" time="0.0630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.Dynamic" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="Dynamic" time="0.0770000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.DebuggerDisplayAttribute" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="DebuggerDisplayAttribute" time="0.0540000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests.DebuggerDisplayAttribute" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TupleTests" method="DebuggerDisplayAttribute" time="0.0710000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="18" passed="18" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" time="0.984">
+    <collection total="18" passed="18" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" time="0.477">
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PrimitivePointerTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PrimitivePointerTypes" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.DynamicAttribute_Locations" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="DynamicAttribute_Locations" time="0.0360000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.DynamicAttribute_Locations" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="DynamicAttribute_Locations" time="0.0080000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087216" />
         </traits>
@@ -1058,27 +1058,27 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.Primitives" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="Primitives" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.GenericTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="GenericTypes" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.GenericTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="GenericTypes" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NestedTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NestedTypes" time="0.0620000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NestedTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NestedTypes" time="0.0190000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1016796" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NonGenericInGeneric" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NonGenericInGeneric" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NonGenericInGeneric" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NonGenericInGeneric" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NullableTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NullableTypes" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.NullableTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="NullableTypes" time="0.0070000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PrimitiveNullableTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PrimitiveNullableTypes" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PointerTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PointerTypes" time="0.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PointerTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PointerTypes" time="0.0160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.DynamicAttribute_InvalidFlags" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="DynamicAttribute_InvalidFlags" time="0.0390000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.DynamicAttribute_InvalidFlags" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="DynamicAttribute_InvalidFlags" time="0.0080000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087216" />
         </traits>
@@ -1091,13 +1091,13 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087216" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.ArrayTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="ArrayTypes" time="0.2550000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.ArrayTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="ArrayTypes" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.PrimitiveArrayTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="PrimitiveArrayTypes" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.KeywordIdentifiers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="KeywordIdentifiers" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.KeywordIdentifiers" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="KeywordIdentifiers" time="0.0070000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.CustomBoundsArrayTypes" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="CustomBoundsArrayTypes" time="0.0010000" result="Pass">
@@ -1108,20 +1108,20 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1087216" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.MangledTypeParameterName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="MangledTypeParameterName" time="0.4970000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests.MangledTypeParameterName" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeNameFormatterTests" method="MangledTypeParameterName" time="0.3760000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests" time="0.755">
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests.TypeVariables" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests" method="TypeVariables" time="0.7550000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests" time="0.405">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests.TypeVariables" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.TypeVariablesExpansionTests" method="TypeVariables" time="0.4050000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="32" passed="32" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" time="0.266">
+    <collection total="32" passed="32" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" time="0.221">
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.VisualizeString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="VisualizeString" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Negative" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Negative" time="0.0560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Negative" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Negative" time="0.0370000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.HostValueNotFound_int" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="HostValueNotFound_int" time="0.0010000" result="Pass">
@@ -1130,7 +1130,7 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.HostValueNotFound_IntPtr" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="HostValueNotFound_IntPtr" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.ToStringOverrides" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="ToStringOverrides" time="0.0270000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.ToStringOverrides" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="ToStringOverrides" time="0.0090000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.HostValueNotFound_char" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="HostValueNotFound_char" time="0.0010000" result="Pass">
@@ -1142,7 +1142,7 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Double" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Double" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.NonFlagsEnum" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="NonFlagsEnum" time="0.0180000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.NonFlagsEnum" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="NonFlagsEnum" time="0.0140000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.String" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="String" time="0.0020000" result="Pass">
@@ -1154,7 +1154,7 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.HostValueNotFound_UIntPtr" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="HostValueNotFound_UIntPtr" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.VisualizeSqlString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="VisualizeSqlString" time="0.0300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.VisualizeSqlString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="VisualizeSqlString" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Void" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Void" time="0.0010000" result="Pass">
@@ -1166,13 +1166,13 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Float" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Float" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.VisualizeXNode" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="VisualizeXNode" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.VisualizeXNode" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="VisualizeXNode" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Nullable" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Nullable" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Nullable" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Order" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Order" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Order" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Order" time="0.0300000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Bool" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Bool" time="0.0010000" result="Pass">
@@ -1187,13 +1187,13 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.ValuesWithUnderlyingString" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="ValuesWithUnderlyingString" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.NonFlagsEnum_Negative" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="NonFlagsEnum_Negative" time="0.0140000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.NonFlagsEnum_Negative" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="NonFlagsEnum_Negative" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Arrays" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Arrays" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Arrays" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum" time="0.0150000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.InvalidValue_2" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="InvalidValue_2" time="0.0010000" result="Pass">
@@ -1202,24 +1202,24 @@
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Char" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Char" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.NonFlagsEnum_Order" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="NonFlagsEnum_Order" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.NonFlagsEnum_Order" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="NonFlagsEnum_Order" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Combination" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Combination" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Combination" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Combination" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.Decimal" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="Decimal" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Zero" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Zero" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests.FlagsEnum_Zero" type="Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.UnitTests.ValueFormattingTests" method="FlagsEnum_Zero" time="0.0180000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests" time="1.272">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests.Member" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests" method="Member" time="0.7730000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests" time="1.154">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests.Member" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests" method="Member" time="0.8020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests.Root" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests" method="Root" time="0.4990000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests.Root" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CustomResultProviderTests" method="Root" time="0.3520000" result="Pass">
         <traits />
       </test>
     </collection>

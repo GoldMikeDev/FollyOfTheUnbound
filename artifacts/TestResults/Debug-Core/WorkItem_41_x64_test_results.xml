@@ -1,92 +1,92 @@
-<assemblies timestamp="09/01/2026 13:45:32">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests\Debug\net10.0\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.dll" run-date="2026-09-01" run-time="13:45:32" total="27" passed="27" failed="0" skipped="0" time="7.689" errors="0">
+<assemblies timestamp="09/02/2026 09:29:03">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests\Debug\net10.0\Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.dll" run-date="2026-09-02" run-time="09:29:03" total="27" passed="27" failed="0" skipped="0" time="5.640" errors="0">
     <errors />
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" time="1.017">
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.ShutdownServer_Succeeds" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="ShutdownServer_Succeeds" time="0.7870366" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" time="0.941">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.ShutdownServer_Succeeds" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="ShutdownServer_Succeeds" time="0.6355120" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.InitializeServer_WithMultipleHandlerRegistration_Succeeds" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="InitializeServer_WithMultipleHandlerRegistration_Succeeds" time="0.1553983" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.InitializeServer_WithMultipleHandlerRegistration_Succeeds" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="InitializeServer_WithMultipleHandlerRegistration_Succeeds" time="0.1937251" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.InitializeServer_SerializesCorrectly" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="InitializeServer_SerializesCorrectly" time="0.0712429" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.InitializeServer_SerializesCorrectly" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="InitializeServer_SerializesCorrectly" time="0.0930711" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.InitializeServer_WithMethodRegisteredTwice_Fails" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="InitializeServer_WithMethodRegisteredTwice_Fails" time="0.0029039" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" time="0.031">
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler(supportsMethodHandlerProvider: False)" time="0.0164964" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler(supportsMethodHandlerProvider: True)" time="0.0042509" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Notification(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Notification(supportsMethodHandlerProvider: True)" time="0.0003153" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Notification(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Notification(supportsMethodHandlerProvider: False)" time="0.0003956" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Parameterless(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Parameterless(supportsMethodHandlerProvider: True)" time="0.0003004" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Parameterless(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Parameterless(supportsMethodHandlerProvider: False)" time="0.0003597" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: False)" time="0.0003025" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: True)" time="0.0003889" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_LanguageHandlers" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_LanguageHandlers" time="0.0038003" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_WrongMethod_Throws" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_WrongMethod_Throws" time="0.0005982" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_WrongResponseType_Throws" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_WrongResponseType_Throws" time="0.0005250" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetRegisteredMethods(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetRegisteredMethods(supportsMethodHandlerProvider: False)" time="0.0030242" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetRegisteredMethods(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetRegisteredMethods(supportsMethodHandlerProvider: True)" time="0.0005245" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests.InitializeServer_WithMethodRegisteredTwice_Fails" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.ExampleTests" method="InitializeServer_WithMethodRegisteredTwice_Fails" time="0.0191640" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.QueueItemTests" time="0.502">
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.QueueItemTests.QueueItem_CancellationToken_Cancelled" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.QueueItemTests" method="QueueItem_CancellationToken_Cancelled" time="0.5017085" result="Pass">
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" time="0.019">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler(supportsMethodHandlerProvider: False)" time="0.0032707" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler(supportsMethodHandlerProvider: True)" time="0.0055866" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Notification(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Notification(supportsMethodHandlerProvider: True)" time="0.0004419" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Notification(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Notification(supportsMethodHandlerProvider: False)" time="0.0004593" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Parameterless(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Parameterless(supportsMethodHandlerProvider: True)" time="0.0003856" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_Parameterless(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_Parameterless(supportsMethodHandlerProvider: False)" time="0.0005193" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: False)" time="0.0003869" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_ParameterlessNotification(supportsMethodHandlerProvider: True)" time="0.0004457" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_LanguageHandlers" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_LanguageHandlers" time="0.0033074" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_WrongMethod_Throws" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_WrongMethod_Throws" time="0.0006053" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetMethodHandler_WrongResponseType_Throws" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetMethodHandler_WrongResponseType_Throws" time="0.0006791" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetRegisteredMethods(supportsMethodHandlerProvider: False)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetRegisteredMethods(supportsMethodHandlerProvider: False)" time="0.0020918" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests.GetRegisteredMethods(supportsMethodHandlerProvider: True)" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.HandlerProviderTests" method="GetRegisteredMethods(supportsMethodHandlerProvider: True)" time="0.0005563" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" time="1.576">
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_WithCancelInProgressWork_CancelsInProgressWorkWhenMutatingRequestArrives" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_WithCancelInProgressWork_CancelsInProgressWorkWhenMutatingRequestArrives" time="0.1679948" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.QueueItemTests" time="0.139">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.QueueItemTests.QueueItem_CancellationToken_Cancelled" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.QueueItemTests" method="QueueItem_CancellationToken_Cancelled" time="0.1390778" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.Queue_CompletionDoesNotShutdownServer" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="Queue_CompletionDoesNotShutdownServer" time="0.1786888" result="Pass">
+    </collection>
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" time="1.049">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_WithCancelInProgressWork_CancelsInProgressWorkWhenMutatingRequestArrives" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_WithCancelInProgressWork_CancelsInProgressWorkWhenMutatingRequestArrives" time="0.5168020" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_ThrowCompletes" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_ThrowCompletes" time="0.2394395" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.Queue_CompletionDoesNotShutdownServer" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="Queue_CompletionDoesNotShutdownServer" time="0.0607413" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Notification" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Notification" time="0.1486268" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_ThrowCompletes" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_ThrowCompletes" time="0.1609494" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.Queue_DrainsOnShutdown" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="Queue_DrainsOnShutdown" time="0.1284766" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Notification" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Notification" time="0.0197318" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.Dispose_MultipleTimes_Succeeds" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="Dispose_MultipleTimes_Succeeds" time="0.1314288" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.Queue_DrainsOnShutdown" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="Queue_DrainsOnShutdown" time="0.0427221" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask" time="0.3147503" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.Dispose_MultipleTimes_Succeeds" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="Dispose_MultipleTimes_Succeeds" time="0.0203397" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Notification_Parameterless" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Notification_Parameterless" time="0.1218601" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask" time="0.0919294" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Parameterless" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Parameterless" time="0.1442492" result="Pass">
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Notification_Parameterless" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Notification_Parameterless" time="0.0811510" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests.ExecuteAsync_CompletesTask_Parameterless" type="Microsoft.CommonLanguageServerProtocol.Framework.UnitTests.RequestExecutionQueueTests" method="ExecuteAsync_CompletesTask_Parameterless" time="0.0544302" result="Pass">
         <traits />
       </test>
     </collection>
