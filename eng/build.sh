@@ -414,12 +414,31 @@ function MakeBootstrapBuild {
   _MakeBootstrapBuild=$dir
 }
 
+# Converts a POSIX path to the native Windows form MSBuild.exe (a non-MSYS, non-cygpath-aware
+# native executable) actually needs, using cygpath (shipped with Git Bash/MSYS2). This script's
+# caller, folly.sh, disables Git-for-Windows' bash (MSYS2) auto path-conversion heuristic
+# entirely (`MSYS2_ARG_CONV_EXCL='*'`, see the comment above that line in folly.sh and
+# .github/memory/KNOWN_ISSUES.md) because that heuristic actively corrupts MSBuild's own
+# '/'-prefixed switches (e.g. '/p:Projects=...') -- but that means it also no longer converts a
+# genuine POSIX path this script hands to MSBuild.exe on that same command line, which needs an
+# explicit conversion here instead. A no-op everywhere else (WSL, native Linux/macOS have no
+# $MSYSTEM and no such translation gap to begin with).
+function ToNativePath {
+  local posix_path=$1
+  if [[ -n "${MSYSTEM:-}" ]] && command -v cygpath >/dev/null 2>&1; then
+    cygpath -w "$posix_path"
+  else
+    echo "$posix_path"
+  fi
+}
+
 function BuildSolution {
   local solution=$solution_to_build
   echo "$solution:"
 
   InitializeToolset
-  local toolset_build_proj=$_InitializeToolset
+  local toolset_build_proj
+  toolset_build_proj=$(ToNativePath "$_InitializeToolset")
 
   local bl=""
   if [[ "$binary_log" = true ]]; then
@@ -427,7 +446,10 @@ function BuildSolution {
     export RoslynCommandLineLogFile="$log_dir/vbcscompiler.log"
   fi
 
-  local projects="$repo_root/$solution"
+  local projects
+  projects=$(ToNativePath "$repo_root/$solution")
+  local repo_root_native
+  repo_root_native=$(ToNativePath "$repo_root")
 
   UNAME="$(uname)"
   # NuGet often exceeds the limit of open files on Mac and Linux
@@ -494,7 +516,7 @@ function BuildSolution {
     $bl \
     /p:Configuration=$configuration \
     /p:Projects="$projects" \
-    /p:RepoRoot="$repo_root" \
+    /p:RepoRoot="$repo_root_native" \
     /p:Restore=$restore \
     /p:Build=$build \
     /p:Rebuild=$rebuild \

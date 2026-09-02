@@ -253,6 +253,65 @@ try {
         Test-Fail "suppress-summary core-only (exit=$($result.ExitCode)): received='$received'"
     }
 
+    # --- both legs, unequal name-column widths: combined tables realign to a shared Status/Elapsed
+    # column position (see folly.ps1's $resultRowPattern realignment block) instead of each leg's
+    # already-formatted table keeping its own leg-local width (TestRunner.Print sizes each leg's
+    # name column to that leg's own longest name, so a longer Framework name would otherwise push
+    # its Status/Elapsed columns further right than Core's). Only exercisable where both legs
+    # actually run -- an actual Windows host -- same as the -testSuppressConsoleSummary case above.
+    if ($onWindows) {
+        function Format-CenterPad([string]$Text, [int]$Width) {
+            $pad = $Width - $Text.Length
+            $left = [Math]::Floor($pad / 2)
+            $right = $pad - $left
+            return (" " * $left) + $Text + (" " * $right)
+        }
+        $dir = Join-Path $workRoot "realign-unequal-widths"
+        Remove-Item -Recurse -Force -LiteralPath $dir -ErrorAction SilentlyContinue
+        New-Item -ItemType Directory -Force -Path (Join-Path $dir "eng") | Out-Null
+        Copy-Item -LiteralPath $follyPs1 -Destination (Join-Path $dir "folly.ps1")
+        $coreName = "Short.Fake.UnitTests_0"
+        $frameworkName = "Very.Long.Namespace.That.Pushes.Well.Past.The.Seventyfive.Character.Floor.Fake.UnitTests_0"
+        $coreWidth = 75
+        $frameworkWidth = $frameworkName.Length
+        $coreRow = $coreName.PadRight($coreWidth) + " " + (Format-CenterPad "PASSED" 10) + " " + (Format-CenterPad "00:01" 10)
+        $frameworkRow = $frameworkName.PadRight($frameworkWidth) + " " + (Format-CenterPad "PASSED" 10) + " " + (Format-CenterPad "00:02" 10)
+        $mockBuild = @"
+param(
+    [switch]`$restore,[switch]`$build,[switch]`$testCoreClr,[switch]`$testDesktop,
+    [switch]`$testInteractiveConsole,[switch]`$testSuppressConsoleSummary,
+    [int]`$testTimeout,[string]`$solution,[string]`$configuration
+)
+`$scriptroot = `$PSScriptRoot
+`$repoRoot = Split-Path `$scriptroot -Parent
+`$suffix = `$env:FOTU_TEST_RESULTS_SUFFIX
+`$logDir = Join-Path `$repoRoot "artifacts\log\`$configuration-`$suffix"
+if (`$testCoreClr) {
+    New-Item -ItemType Directory -Force -Path `$logDir | Out-Null
+    Set-Content -LiteralPath (Join-Path `$logDir "runtestsCore.log") -Value @("================", "$coreRow", "================", "Extra run diagnostics for logging, did not impact run results")
+    exit 0
+}
+elseif (`$testDesktop) {
+    New-Item -ItemType Directory -Force -Path `$logDir | Out-Null
+    Set-Content -LiteralPath (Join-Path `$logDir "runtestsFramework.log") -Value @("================", "$frameworkRow", "================", "Extra run diagnostics for logging, did not impact run results")
+    exit 0
+}
+else { exit 0 }
+"@
+        Set-Content -LiteralPath (Join-Path $dir "eng\build.ps1") -Value $mockBuild
+        $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research")
+        $coreLine = ($result.Output -split "`r?`n") | Where-Object { $_ -like "*$coreName*" } | Select-Object -First 1
+        $frameworkLine = ($result.Output -split "`r?`n") | Where-Object { $_ -like "*$frameworkName*" } | Select-Object -First 1
+        $coreStatusCol = if ($coreLine) { $coreLine.IndexOf("PASSED") } else { -1 }
+        $frameworkStatusCol = if ($frameworkLine) { $frameworkLine.IndexOf("PASSED") } else { -1 }
+        if ($result.ExitCode -eq 0 -and $coreStatusCol -ge 0 -and $coreStatusCol -eq $frameworkStatusCol) {
+            Test-Pass "combined Core/Framework tables realign to the same Status column despite unequal name widths"
+        }
+        else {
+            Test-Fail "realign-unequal-widths (exit=$($result.ExitCode)): core_col=$coreStatusCol framework_col=$frameworkStatusCol output=$($result.Output)"
+        }
+    }
+
     # --- positional primary arg alongside a selector ---
     $dir = New-TestCase "positional-config"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "truth", "--core")
