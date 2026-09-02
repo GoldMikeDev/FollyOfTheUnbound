@@ -618,41 +618,163 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ ! -x "$dotnet_exe" ]]; then
 	  dotnet_exe=$(command -v dotnet 2>/dev/null) || dotnet_exe=""  # fall back to a global dotnet only if this repo's own bootstrapped SDK under .dotnet/ isn't there
 	fi
-	_cleanse_ps_snapshot() {  # `ps -eo pid,command` with the header stripped and our own transient grep rows excluded -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command searching for it
-	  ps -eo pid,command 2>/dev/null | tail -n +2 | grep -v '^[[:space:]]*[0-9]\+[[:space:]]\+grep ' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
+	scriptroot_dotnet_scope="$scriptroot/.dotnet/"  # substring scope used to confine a build-server/node-reuse match to this checkout's own bootstrapped SDK
+	artifacts_scope="$artifacts_dir/"  # same, for a BuildHost match against this checkout's own artifacts/
+	if is_windows_host && command -v cygpath >/dev/null 2>&1; then
+	  # `Get-CimInstance Win32_Process`'s CommandLine is always a native Win32 path (e.g. "C:\repo\.dotnet\dotnet.exe"),
+	  # never the MSYS-style "/c/repo/.dotnet/..." $scriptroot/$artifacts_dir already are on this host -- a plain-text
+	  # substring match against the MSYS form never matches the native one, silently finding nothing to scope against
+	  # (the exact "locked artifacts survive cleanse" symptom this fix chases). cygpath -w converts once, up front.
+	  scriptroot_dotnet_scope="$(cygpath -w "$scriptroot/.dotnet" 2>/dev/null)\\"
+	  artifacts_scope="$(cygpath -w "$artifacts_dir" 2>/dev/null)\\"
+	  [[ "$scriptroot_dotnet_scope" == '\' ]] && scriptroot_dotnet_scope="$scriptroot/.dotnet/"  # cygpath failed -- fall back rather than scope against a useless bare backslash
+	  [[ "$artifacts_scope" == '\' ]] && artifacts_scope="$artifacts_dir/"
+	fi
+	native_self_pid="$$"  # bash's own $$ is MSYS/Cygwin's emulated pid, which the CIM queries this script otherwise uses (native Win32_Process.ProcessId) can't be trusted to match. Computed here, directly in this process via a plain redirect (`read ... < file`) rather than any `$(...)` command substitution -- command substitution always forks a subshell to run its command, so a value read *inside* one (including inside a shell function called as `$(fn)`) would give that transient subshell's own pid, not this persistent script process's, one hop short of where the ancestor walk below needs to start. MSYS/Cygwin's /proc exposes the real native pid directly per-process as /proc/<pid>/winpid, no spawned helper needed.
+	if is_windows_host && [[ -r /proc/self/winpid ]]; then
+	  read -r native_self_pid < /proc/self/winpid 2>/dev/null || native_self_pid="$$"
+	fi
+	_cleanse_pwsh_exe() {  # resolves whichever PowerShell this Windows host actually has, once per call site -- pwsh (PS7+) preferred over the inbox powershell.exe
+	  command -v pwsh 2>/dev/null || command -v powershell.exe 2>/dev/null || command -v powershell 2>/dev/null || true
+	}
+	_cleanse_exclude_self_matchers() {  # strips rows whose own command is this pipeline's own transient grep matcher -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command line searching for it. Matches a bare "grep"/"grep.exe" name optionally preceded by a path (native CommandLine gives a full path like "C:\...\grep.exe -Ei ...", not just "grep ..." the way Unix ps's COMMAND field does) -- including a quoted path, which is how CIM reports an executable under a directory containing spaces (e.g. Git for Windows' default "C:\Program Files\Git\..."); the unquoted alternative can't contain spaces itself, since nothing then marks where the path ends and the arguments begin
+	  grep -v -E '^[[:space:]]*[0-9]+[[:space:]]+("[^"]*[\\/]grep(\.exe)?"|([^[:space:]]*[\\/])?grep(\.exe)?)([[:space:]]|$)' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
+	}
+	_cleanse_ps_snapshot() {  # `ps -eo pid,command` with the header stripped and our own transient grep rows excluded
+	  if is_windows_host; then
+		# Git-for-Windows' bash runs on MSYS2/Cygwin's own `ps`, which is NOT procps -- it has no `-eo`/`-o`
+		# custom-field support at all, and by default only lists processes reachable through the MSYS/Cygwin
+		# runtime's own pid table, not arbitrary native Windows processes. A BuildHost `dotnet <dll>` child
+		# spawned by .NET's own Process.Start (BuildHostProcessManager, see KNOWN_ISSUES.md) never touches
+		# msys-2.0.dll, so it's invisible to plain `ps` here even though it's a perfectly live Windows
+		# process -- this is what made cleanse silently fail to find/kill it on bash while folly.ps1 (which
+		# uses Win32_Process via CIM, see below) always could. Route through the same CIM query folly.ps1
+		# uses instead, via whichever PowerShell this host has. CIM's ProcessId/CommandLine are native Win32
+		# values throughout -- callers must scope substring matches against native (backslash) paths, not
+		# the MSYS-style ($scriptroot/$artifacts_dir) forms this script otherwise uses everywhere else.
+		local pwsh_exe
+		pwsh_exe=$(_cleanse_pwsh_exe)
+		if [[ -n "$pwsh_exe" ]]; then
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command 'Get-CimInstance Win32_Process | ForEach-Object { "$($_.ProcessId) $($_.CommandLine)" }' 2>/dev/null | _cleanse_exclude_self_matchers && return
+		fi
+		# No usable PowerShell found -- fall back to MSYS/Cygwin's own `-W` (include native Windows processes,
+		# not just MSYS ones), best-effort. Cygwin/MSYS ps has no -o/-eo custom-field support at all (unlike
+		# procps), so -W's fixed columns (PID PPID PGID WINPID TTY UID STIME COMMAND) have to be parsed
+		# directly; WINPID (not the leading PID column) is the native Win32 id CIM-style scoping expects
+		# elsewhere. COMMAND here is the bare executable path with no arguments, so substring matches against
+		# a DLL/switch name (e.g. "MSBuild.BuildHost.dll") won't work through this path -- only the plain
+		# regex name matches (VBCSCompiler et al.) will.
+		ps -W 2>/dev/null | tail -n +2 | awk '{winpid=$4; cmd=$8; for (i=9;i<=NF;i++) cmd=cmd" "$i; if (winpid!="") print winpid, cmd}' | _cleanse_exclude_self_matchers
+		return
+	  fi
+	  ps -eo pid,command 2>/dev/null | tail -n +2 | _cleanse_exclude_self_matchers
 	}
 	_cleanse_pids_matching_regex() {  # PIDs of processes (from a snapshot already on stdin) whose command line matches an extended regex
 	  grep -Ei -- "$1" | awk 'NF{print $1}' || true  # `|| true`: zero matches is the common case, not a failure
 	}
-	_cleanse_pids_matching_all() {  # PIDs of processes (from a snapshot already on stdin) whose command line contains every literal substring given as an argument (no regex escaping needed for paths)
-	  local lines pat
+	_cleanse_pids_matching_all() {  # PIDs of processes (from a snapshot already on stdin) whose command line contains every literal substring given as an argument (no regex escaping needed for paths). Case-insensitive on Windows: NTFS paths are case-insensitive at the OS level (matches folly.ps1's Get-PidsMatchingAll), while two Unix checkouts can legitimately differ only by path casing so stay case-sensitive there
+	  local lines pat grep_flags="-F"
+	  is_windows_host && grep_flags="-Fi"
 	  lines=$(cat)
 	  for pat in "$@"; do
-		lines=$(printf '%s\n' "$lines" | grep -F -- "$pat" || true)
+		lines=$(printf '%s\n' "$lines" | grep $grep_flags -- "$pat" || true)
 	  done
 	  printf '%s\n' "$lines" | awk 'NF{print $1}'
 	}
 	build_server_pattern='VBCSCompiler|Microsoft\.CodeAnalysis\.Razor\.[A-Za-z.]*Server|[[:space:]]rzc(\.dll)?([[:space:]]|$)'
-	_cleanse_pids_matching_regex_and_substring() {  # PIDs (from a snapshot already on stdin) whose command line matches an extended regex AND contains a literal substring -- used to scope the build-server name pattern to this checkout's own bootstrapped SDK, so a force-kill can never reach some other checkout's or tool's build server
-	  local pattern="$1" substr="$2"
-	  grep -Ei -- "$pattern" | grep -F -- "$substr" | awk 'NF{print $1}' || true
+	_cleanse_pids_matching_regex_and_substring() {  # PIDs (from a snapshot already on stdin) whose command line matches an extended regex AND contains a literal substring -- used to scope the build-server name pattern to this checkout's own bootstrapped SDK, so a force-kill can never reach some other checkout's or tool's build server. Same Windows case-insensitivity as _cleanse_pids_matching_all
+	  local pattern="$1" substr="$2" grep_flags="-F"
+	  is_windows_host && grep_flags="-Fi"
+	  grep -Ei -- "$pattern" | grep $grep_flags -- "$substr" | awk 'NF{print $1}' || true
 	}
-	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own PID up to and including PID 1 (or as far as `ps` can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
-	  local pid="$$" ppid seen=" "
+	_cleanse_get_ppid() {  # `ps -o ppid=` is a procps custom-field lookup -- MSYS/Cygwin's `ps` doesn't support it (see _cleanse_ps_snapshot), so the ancestor walk below would silently stop after this script's own PID on Git-Bash and lose its self-protection past that point; ask Windows itself via CIM there instead, same as _cleanse_ps_snapshot's fallback
+	  local pid="$1" pwsh_exe
+	  if is_windows_host; then
+		pwsh_exe=$(_cleanse_pwsh_exe)
+		if [[ -n "$pwsh_exe" ]]; then
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$pid\").ParentProcessId" 2>/dev/null | tr -d '[:space:]'
+		  return
+		fi
+		# No usable PowerShell -- same ps -W fallback as _cleanse_ps_snapshot/_cleanse_get_children:
+		# `ps -o ppid= -p` is unsupported syntax here too. PPID (column 2) is in -W's own Cygwin-internal
+		# pid namespace, NOT the native Win32 one WINPID (column 4) is -- naively returning column 2 here
+		# would hand the ancestor walk below a pid it then compares against WINPID again next iteration,
+		# a cross-namespace mismatch that silently stops the walk one level up (exactly the bug this
+		# fallback exists to avoid). Two-pass single awk: build a Cygwin-pid -> WINPID map from every row,
+		# find the target row's PPID (still Cygwin-namespace), then translate that PPID back to a WINPID
+		# via the map before printing -- staying in the native namespace throughout, like every other
+		# pid this Windows-host code path passes around.
+		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{target=$2} {winpid[$1]=$4} END{if (target != "") print winpid[target]}'
+		return
+	  fi
+	  ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]'
+	}
+	_cleanse_ancestor_pids() {  # walks the PPID chain from this script's own native PID ($native_self_pid, computed once in the main shell -- not via any $(...) command substitution, see its definition) up to and including PID 1 (or as far as it can resolve) -- kill candidates get filtered against this set so cleanse can never terminate its own invoking shell/CI agent, even if that ancestor's command line happens to match the build-server/node-worker patterns (e.g. an automation wrapper that embeds the search text in its own argv). PID 1 is deliberately included, not just a loop bound: in a container where the invoking CI agent *is* PID 1, leaving it unprotected would make the container's own init process a killable candidate.
+	  local pid="$native_self_pid" ppid seen=" "
 	  while [[ -n "$pid" && "$pid" != "0" && "$seen" != *" $pid "* ]]; do
 		printf '%s\n' "$pid"
 		seen="$seen$pid "
 		[[ "$pid" == "1" ]] && break
-		ppid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d '[:space:]')
+		ppid=$(_cleanse_get_ppid "$pid")
 		pid="$ppid"
 	  done
 	}
-	_cleanse_kill_pid_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM), and a candidate that exited on its own between snapshot and kill attempt (e.g. the shutdown RPC took effect a little late) was never force-killed by cleanse at all
+	_cleanse_get_children() {  # PIDs of the direct children of $1 -- `ps -eo pid,ppid | awk` is procps/BSD syntax and, even patched, MSYS/Cygwin ps only sees processes in its own runtime's pid table (see _cleanse_ps_snapshot); a build-server/node-worker/BuildHost child spawned via .NET's own Process.Start is invisible to it just like the parent PIDs those found before this fix. Same CIM fallback as _cleanse_get_ppid.
+	  local pid="$1" pwsh_exe
+	  if is_windows_host; then
+		pwsh_exe=$(_cleanse_pwsh_exe)
+		if [[ -n "$pwsh_exe" ]]; then
+		  # Windows PowerShell (not pwsh 7+) writes CRLF line endings here; command substitution/piping only
+		  # strips a *trailing* LF, leaving a stray \r on each pid this multi-line output returns (unlike
+		  # _cleanse_get_ppid's single-value `tr -d '[:space:]'`, which can't be reused as-is here since it
+		  # would also delete the newlines separating multiple children into one unusable blob). A pid of
+		  # "1234\r" fails every subsequent `tasklist`/`taskkill` match by a hair, silently leaving that
+		  # child unsignaled. `tr -d '\r'` strips only the carriage return, keeping one pid per line intact.
+		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ParentProcessId=$pid\").ProcessId" 2>/dev/null | tr -d '\r' && return
+		fi
+		# No usable PowerShell -- same MSYS/Cygwin `-W` fallback as _cleanse_ps_snapshot: `ps -eo pid,ppid`
+		# isn't supported syntax here either. -W's fixed columns are PID PPID PGID WINPID TTY UID STIME
+		# COMMAND; PPID (column 2) is -W's own Cygwin-internal pid namespace, not the native Win32 one $1
+		# and WINPID (column 4) are in -- matching column 2 directly against $1 (as an earlier pass here
+		# did) is a cross-namespace comparison that would silently find no children at all. Two-pass single
+		# awk: find $1's own Cygwin pid (the row whose WINPID equals $1) as the parent id to match against,
+		# then print the WINPID of every row whose PPID equals that -- staying in one namespace throughout.
+		ps -W 2>/dev/null | tail -n +2 | awk -v p="$pid" '$4==p{target=$1} {ppid[$1]=$2; winpid[$1]=$4} END{for (cp in ppid) if (ppid[cp]==target) print winpid[cp]}'
+		return
+	  fi
+	  ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'
+	}
+	_cleanse_native_alive() {  # MSYS/Cygwin's `kill -0` only resolves PIDs known to its own runtime's process table -- a native Win32 PID discovered via CIM (e.g. a BuildHost that never touched msys-2.0.dll) isn't in it, so liveness/signals have to go through Windows' own tools instead
+	  tasklist //FI "PID eq $1" //NH 2>/dev/null | grep -q -- "$1"
+	}
+	_cleanse_native_term() {  # graceful stop -- taskkill without //F, mirroring kill -TERM's "ask nicely first"
+	  taskkill //PID "$1" >/dev/null 2>&1
+	}
+	_cleanse_native_kill() {  # forceful stop -- taskkill //F, mirroring kill -KILL
+	  taskkill //F //PID "$1" >/dev/null 2>&1
+	}
+	_cleanse_kill_pid_tree() {  # kills a pid's children first (via _cleanse_get_children) then the pid itself, TERM then escalating to KILL if it's still alive after a short wait -- only reports success once the pid is confirmed gone AND this call actually had to signal it, since a delivered signal (kill's own exit code) doesn't mean the process actually died (e.g. it traps/ignores TERM), and a candidate that exited on its own between snapshot and kill attempt (e.g. the shutdown RPC took effect a little late) was never force-killed by cleanse at all. On a Windows host this all goes through tasklist/taskkill instead of bash's kill builtin/`kill -0`, which -- like the ps-based PID discovery above -- can't see or signal a native Win32 PID CIM found but MSYS never tracked
 	  local pid="$1" child deadline
 	  [[ -z "$pid" ]] && return 1
-	  for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
+	  for child in $(_cleanse_get_children "$pid"); do
 		_cleanse_kill_pid_tree "$child"
 	  done
+	  if is_windows_host; then
+		local signaled=0
+		_cleanse_native_alive "$pid" || return 1
+		_cleanse_native_term "$pid" && signaled=1  # taskkill itself reports failure (e.g. "not found") when the target already exited between the alive-check above and this call -- track that rather than assuming our own signal is what did it
+		deadline=$((SECONDS + 5))
+		while _cleanse_native_alive "$pid" && (( SECONDS < deadline )); do
+		  sleep 0.2
+		done
+		if _cleanse_native_alive "$pid"; then
+		  _cleanse_native_kill "$pid" && signaled=1
+		  sleep 0.2
+		fi
+		_cleanse_native_alive "$pid" && return 1  # still alive after both attempts -- not killed, whatever signaled says
+		(( signaled ))  # gone, but only count it if one of our own taskkill calls actually reported hitting it -- otherwise it exited on its own and cleanse never force-killed it at all, matching the Unix branch's "actually had to signal it" invariant below
+		return
+	  fi
 	  kill -0 "$pid" 2>/dev/null || return 1  # already gone on its own -- nothing for this call to count as killed
 	  kill -TERM "$pid" 2>/dev/null
 	  deadline=$((SECONDS + 5))
@@ -686,7 +808,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		# trailing "/" on the scope substring is required, not cosmetic: without it, a sibling directory whose
 		# name merely starts with ".dotnet" (e.g. a ".dotnet-old" leftover from a prior bootstrap) would also
 		# match, since "$scriptroot/.dotnet-old/..." contains "$scriptroot/.dotnet" as a plain substring.
-		scoped_after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex_and_substring "$build_server_pattern" "$scriptroot/.dotnet/")
+		scoped_after_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_regex_and_substring "$build_server_pattern" "$scriptroot_dotnet_scope")
 		survivor_pids=$(comm -12 <(sort -u <<<"$before_pids") <(sort -u <<<"$scoped_after_pids"))
 		# Never kill this script's own invoking shell/CI agent, even if it happens to match the scoped
 		# pattern above (e.g. an automation wrapper whose own command line embeds the search text).
@@ -710,7 +832,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# so any live MSBuild.dll worker rooted at this repo's own bootstrapped SDK is unconditionally stale.
 	# Trailing "/" on the scope substring is required for the same reason as the build-server scope above --
 	# without it, a ".dotnet-old"-style sibling directory would falsely match too.
-	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot/.dotnet/" "MSBuild.dll")
+	node_worker_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$scriptroot_dotnet_scope" "MSBuild.dll")
 	node_worker_pids=$(comm -23 <(sort -u <<<"$node_worker_pids") <(sort -u <<<"$ancestor_pids"))  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 	if [[ -n "$node_worker_pids" ]]; then
 	  killed=0
@@ -732,7 +854,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	# output's DLLs open, which cleanse can otherwise never explain (build-server shutdown doesn't see it, and
 	# it isn't a node-reuse worker). cleanse itself never launches one, so any live match rooted at this
 	# checkout's own artifacts/ is unconditionally stale.
-	buildhost_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$artifacts_dir/" "MSBuild.BuildHost.dll")
+	buildhost_pids=$(_cleanse_ps_snapshot | _cleanse_pids_matching_all "$artifacts_scope" "MSBuild.BuildHost.dll")
 	buildhost_pids=$(comm -23 <(sort -u <<<"$buildhost_pids") <(sort -u <<<"$ancestor_pids"))  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
 	if [[ -n "$buildhost_pids" ]]; then
 	  killed=0
@@ -756,7 +878,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if [[ -d "$artifacts_dir" ]]; then
 	  interactive=0
 	  [[ -t 1 ]] && interactive=1
-	  _cleanse_kill_tree() {  # kills a pid's children first (portable ps -eo pid,ppid) then the pid itself, so Ctrl+C can't orphan a still-traversing find/awk pipeline behind a killed wrapper subshell
+	  _cleanse_kill_tree() {  # kills a pid's children first then the pid itself, so Ctrl+C can't orphan a still-traversing find/awk pipeline behind a killed wrapper subshell. Deliberately NOT routed through _cleanse_get_children/CIM the way _cleanse_kill_pid_tree is: scan_pid/rm_pid and their descendants are this bash process's own job-control children (`$!`), always tracked by the MSYS/Cygwin runtime regardless of host -- unlike a CIM-discovered build-server/node-worker/BuildHost survivor, they were never invisible to plain `ps` in the first place, and querying CIM with an MSYS pid it doesn't recognize (a different pid namespace) would just find nothing
 		local pid="$1" child
 		[[ -z "$pid" ]] && return 0
 		for child in $(ps -eo pid,ppid 2>/dev/null | awk -v p="$pid" '$2==p{print $1}'); do
@@ -844,33 +966,26 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		  since_redraw=$(( since_redraw + 1 ))
 		  if (( interactive )) && (( since_redraw >= redraw_every )); then
 			since_redraw=0
-			percent=$(( total_bytes > 0 ? deleted_bytes * 100 / total_bytes : (total_count > 0 ? deleted_count * 100 / total_count : 100) ))
-			(( percent > 99 )) && percent=99  # find is still running here -- only the post-wait report below may claim 100%
 			elapsed=$(( $(date +%s) - start_time ))
 			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
 		  fi
 		done < "$rm_fifo"
 		rm -f "$rm_fifo"
 		(( interactive )) && printf '\r\033[K'
 		wait "$rm_pid" || true
 	  else
-		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to scan + rm -rf + periodic rescan (the exact contention the GNU branch above eliminates)
+		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to a plain rm -rf with a spinner, not a periodic full-tree rescan (that rescan-while-deleting contention was what made cleanse slow on macOS/BSD)
 		rm_pid=$!
 		deleted_bytes=$total_bytes
 		deleted_count=$total_count
 		if (( interactive )); then
-		  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
+		  spinner_index=0
+		  printf '\r\033[KCleansing artefacts %s' "${spinner_frames[$spinner_index]}"
 		  while kill -0 "$rm_pid" 2>/dev/null; do
 			sleep 0.15
-			read -r remaining_bytes remaining_count _ <<< "$(dir_stats "$artifacts_dir")"
-			deleted_bytes=$(( total_bytes > remaining_bytes ? total_bytes - remaining_bytes : 0 ))
-			deleted_count=$(( total_count > remaining_count ? total_count - remaining_count : 0 ))
-			percent=$(( total_bytes > 0 ? deleted_bytes * 100 / total_bytes : (total_count > 0 ? deleted_count * 100 / total_count : 100) ))
-			(( percent > 99 )) && percent=99  # rm -rf is still running here -- only the post-wait report below may claim 100%
-			elapsed=$(( $(date +%s) - start_time ))
-			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s (%d%%)' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")" "$percent"
+			spinner_index=$(( (spinner_index + 1) % ${#spinner_frames[@]} ))
+			printf '\r\033[KCleansing artefacts %s' "${spinner_frames[$spinner_index]}"
 		  done
 		  printf '\r\033[K'
 		fi
