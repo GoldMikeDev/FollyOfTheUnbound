@@ -321,19 +321,27 @@ namespace RunTests
         }
 
         /// <summary>
-        /// Name column width for the final summary table below. Unlike <see cref="LiveTestProgressDisplay"/>'s
+        /// Floor for the final summary table's name column below. Unlike <see cref="LiveTestProgressDisplay"/>'s
         /// live table, this isn't derived from <see cref="Console.WindowWidth"/> -- this summary is always
-        /// printed (including to the log file in CI, where there's no real terminal width to read), so it needs
-        /// a width that's sensible on its own. A name longer than this is truncated (see
-        /// <see cref="TestResultDisplay.FitName"/>) rather than left to grow and push the Status/Elapsed columns
-        /// out of alignment for every row after it, which is what the previous plain <c>{DisplayName,-75}</c>
-        /// padding did for any work item name past 75 characters.
+        /// printed (including to the log file in CI, where there's no real terminal width to read), so it can't
+        /// size itself to a terminal that may not exist. <see cref="Print"/> instead widens this per run to fit
+        /// the longest actual name in <c>testResults</c>, so an assembly name longer than 75 characters (e.g.
+        /// <c>Microsoft.CodeAnalysis.CSharp.ExpressionEvaluator.ResultProvider.UnitTests</c>'s partitioned names)
+        /// isn't needlessly ellipsis-truncated (see <see cref="TestResultDisplay.FitName"/>) just because this
+        /// floor happened to be picked before any name that long existed -- 75 remains the width used (and the
+        /// truncation guard kept) for the common case, rather than left to grow unbounded and push the
+        /// Status/Elapsed columns out of alignment for every row, which is what the previous plain
+        /// <c>{DisplayName,-75}</c> padding did for any work item name past 75 characters.
         /// </summary>
-        private const int SummaryNameColumnWidth = 75;
+        private const int MinSummaryNameColumnWidth = 75;
 
         private void Print(List<TestResult> testResults)
         {
             testResults.Sort((x, y) => string.Compare(x.DisplayName, y.DisplayName, StringComparison.OrdinalIgnoreCase));
+
+            var summaryNameColumnWidth = testResults.Count == 0
+                ? MinSummaryNameColumnWidth
+                : Math.Max(MinSummaryNameColumnWidth, testResults.Max(x => x.DisplayName.Length));
 
             foreach (var testResult in testResults.Where(x => !x.Succeeded))
             {
@@ -347,7 +355,7 @@ namespace RunTests
                 line.Length = 0;
                 var status = testResult.IsTimeout ? LiveRowStatus.Timeout : testResult.Succeeded ? LiveRowStatus.Passed : LiveRowStatus.Failed;
                 var color = LiveTestProgressDisplay.GetRowColor(status) ?? ConsoleColor.Gray;
-                line.Append(TestResultDisplay.FitName(testResult.DisplayName, SummaryNameColumnWidth));
+                line.Append(TestResultDisplay.FitName(testResult.DisplayName, summaryNameColumnWidth));
                 line.Append(' ');
                 line.Append(TestResultDisplay.CenterPad(TestResultDisplay.GetStatusText(testResult.Succeeded, testResult.IsTimeout), TestResultDisplay.StatusColumnWidth));
                 line.Append(' ');
