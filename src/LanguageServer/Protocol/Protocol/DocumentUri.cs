@@ -44,6 +44,14 @@ internal sealed record class DocumentUri(string UriString)
 
     private static ParsedUri? ParseUri(string uriString)
     {
+        if (uriString.Length == 0)
+        {
+            // Non-strict parsing treats an empty string as having no scheme and defaults it to "file", which would
+            // otherwise turn a malformed/empty URI (e.g. an uninitialized workspaceFolder.uri) into a valid root
+            // ("file:///") instead of failing to parse.
+            return null;
+        }
+
         try
         {
             return Protocol.ParsedUri.Parse(uriString);

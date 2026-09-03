@@ -854,53 +854,53 @@ internal sealed class ParsedUri : IEquatable<ParsedUri>
             }
         }
 
-        // validFrom[i] is whether the run of hex-valid bytes starting at i decodes, as a whole, as well-formed
-        // UTF-8 up to the next invalid-hex triplet (or the end); runEndAt[i] is where that run ends when it does.
-        // A hex-invalid triplet is never part of a byte sequence -- like the original char-by-char loop hitting
-        // a non-hex-digit, it's a hard boundary an earlier run's validity can't reach across, and on its own it
-        // trivially "decodes" as the empty run. Computed right-to-left in one pass (each position only needs the
-        // next sequence's length plus the already-computed result for the position right after it) so the "does
-        // the *whole* remaining run decode" check the loop below needs at every candidate start is an O(1) lookup
-        // instead of a fresh decode attempt -- the naive retry-the-whole-remainder-per-peeled-triplet approach is
-        // quadratic in the number of triplets.
+        // The original char-by-char decoder accumulates consecutive hex-valid bytes and only validates them (as
+        // one UTF-8 run) when it hits a flush point -- an invalid-hex triplet or the end -- and a single throw
+        // anywhere aborts decoding the *entire* remaining value, at which point everything gets peeled literally
+        // one triplet at a time, invalid-hex triplets included, until a suffix is reached that decodes cleanly
+        // end to end. So whether i..byteCount decodes successfully depends on EVERY run at or after i, not just
+        // the one i starts in: validFrom[i] chains through invalid-hex positions (pass-through, since a lone '%'
+        // literal never itself throws) to the next run's validFrom, so success at i requires the rest of the
+        // value to also be clean -- matching the real algorithm's all-or-nothing-per-attempt rollback semantics
+        // without actually re-attempting a decode of the remainder at every peel. runBoundary[i] is separately
+        // just the next invalid-hex triplet at or after i (or byteCount): the emission loop below needs it to
+        // know how far a successful decode should read, independent of whether it succeeds.
+        //
+        // Both are computed right-to-left in one pass (each position only needs the next sequence's length plus
+        // the already-computed results for the position right after it), so both are an O(1) lookup instead of a
+        // fresh decode attempt at every peeled position -- the naive retry-the-whole-remainder-per-peeled-triplet
+        // approach is quadratic in the number of triplets.
         var validFrom = new bool[byteCount + 1];
-        var runEndAt = new int[byteCount + 1];
+        var runBoundary = new int[byteCount + 1];
         validFrom[byteCount] = true;
-        runEndAt[byteCount] = byteCount;
+        runBoundary[byteCount] = byteCount;
         for (var i = byteCount - 1; i >= 0; i--)
         {
             if (!hexValid[i])
             {
-                validFrom[i] = true;
-                runEndAt[i] = i;
+                validFrom[i] = validFrom[i + 1];
+                runBoundary[i] = i;
                 continue;
             }
 
+            runBoundary[i] = runBoundary[i + 1];
             var seqLength = GetUtf8SequenceLength(bytes, hexValid, i, byteCount);
             validFrom[i] = seqLength > 0 && validFrom[i + seqLength];
-            if (validFrom[i])
-            {
-                runEndAt[i] = runEndAt[i + seqLength];
-            }
         }
 
         var bytePos = 0;
         while (bytePos < byteCount)
         {
-            if (!hexValid[bytePos])
+            if (hexValid[bytePos] && validFrom[bytePos])
             {
-                // Matches the original per-character loop hitting a non-hex-digit: never attempted as a byte.
-                Append(result, value.Slice(bytePos * 3, 3));
-                bytePos++;
-            }
-            else if (validFrom[bytePos])
-            {
-                var runEnd = runEndAt[bytePos];
+                var runEnd = runBoundary[bytePos];
                 result.Append(s_strictUtf8.GetString(bytes, bytePos, runEnd - bytePos));
                 bytePos = runEnd;
             }
             else
             {
+                // Either an invalid-hex triplet (never attempted as a byte, matching the original char-by-char
+                // loop hitting a non-hex-digit) or a hex-valid one whose run ultimately fails to decode cleanly.
                 Append(result, value.Slice(bytePos * 3, 3));
                 bytePos++;
             }
