@@ -269,7 +269,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
 
     public async ValueTask<TextDocument?> AddDocumentAsync(DocumentUri documentUri, TrackedDocumentInfo? documentInfo)
     {
-        if (documentInfo is null && documentUri.ParsedUri?.IsFile != true)
+        if (documentInfo is null && documentUri.ParsedDocumentUri?.IsFile != true)
             return null;
 
         var languageInfoProvider = _lspServices.GetRequiredService<ILanguageInfoProvider>();
@@ -283,7 +283,7 @@ internal sealed class FileBasedProgramsProjectSystem : LanguageServerProjectLoad
         var documentFilePath = GetDocumentFilePath(documentUri);
         if (documentInfo is null)
         {
-            Contract.ThrowIfFalse(documentUri.ParsedUri?.IsFile == true);
+            Contract.ThrowIfFalse(documentUri.ParsedDocumentUri?.IsFile == true);
 
             // The file may have already been deleted by the time an untracked request for it arrives
             // (e.g. post-removal pull diagnostics in RequestContext.CreateAsync). Without this check we'd
