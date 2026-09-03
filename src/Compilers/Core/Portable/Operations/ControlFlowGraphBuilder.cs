@@ -3541,6 +3541,8 @@ oneMoreTime:
             SpillEvalStack();
             Debug.Assert(captureIdForResult == null);
 
+            RegionBuilder resultCaptureRegion = CurrentRegionRequired;
+
             var operations = ArrayBuilder<IOperation>.GetInstance();
             IConditionalAccessOperation currentConditionalAccess = operation.Access;
             IOperation testExpression;
@@ -3575,6 +3577,13 @@ oneMoreTime:
             _currentConditionalAccessTracker = previousTracker;
 
             AddStatement(whenNotNullResult);
+
+            // Close out the receiver-chain's capture region(s) here, before branching to whenNullBlock:
+            // WhenNull doesn't reference any of those captures, so leaving the region open across the
+            // branch would make its last block the (capture-less) whenNullBlock instead of the block
+            // that actually used the capture, tripping ControlFlowGraphVerifier's "capture used before
+            // leaving its region" check. Mirrors VisitConditionalAccess's non-statement-level path.
+            LeaveRegionsUpTo(resultCaptureRegion);
 
             var afterBlock = new BasicBlockBuilder(BasicBlockKind.Block);
             UnconditionalBranch(afterBlock);
