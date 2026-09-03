@@ -60,6 +60,20 @@ public MyService(IDependency dependency) { }
 - For localizable strings: `new LocalizableResourceString(nameof(FeaturesResources.Some_string), FeaturesResources.ResourceManager, typeof(FeaturesResources))`
 - After modifying `.resx` files, run `dotnet msbuild <path to csproj> /t:UpdateXlf` to update `.xlf` localization files
 
+## LSP URI Parsing (`src/LanguageServer/Protocol/Protocol/ParsedUri.cs`)
+
+`ParsedUri` (arrived via upstream sync) is the LSP layer's own URI parser/formatter, replacing
+`System.Uri` for LSP document/file identity: it implements vscode-uri's parsing and encoding
+semantics (including `ParsedUri.File` for filesystem paths and `ParsedUri.Parse` for LSP-supplied
+URI strings) rather than .NET's own `Uri` rules, since editors send URIs following the
+JavaScript/vscode-uri conventions the LSP spec was written against. `DocumentUri` (the LSP wire
+type) is constructed from a `ParsedUri` — prefer that constructor over the `System.Uri`-based one
+(marked obsolete, tracked at https://github.com/dotnet/roslyn/issues/84785) when producing a
+`DocumentUri` from a string that isn't already a validated `System.Uri`. Percent-decoding
+(`DecodeURIComponentGraceful`) degrades gracefully on malformed escapes by peeling one `%XX` triplet
+at a time and retrying the remainder iteratively (not recursively — a long run of invalid escapes
+must not grow the call stack).
+
 ## Language Server Project Loading (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/HostWorkspace/`)
 
 Design-time build and workspace-project lifecycle for the language server daemon is split across
