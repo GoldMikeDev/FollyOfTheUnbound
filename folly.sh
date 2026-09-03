@@ -903,13 +903,21 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		# timer (the same kill -0 + sleep pattern the scan spinner above already uses) -- the two are
 		# fully decoupled, the way two ordinary background jobs would be, not forced into lockstep by a
 		# shared pipe.
-		rm_log=$(mktemp)
+		rm_log=$(mktemp -p "$scriptroot" .folly-cleanse-log.XXXXXX)  # -p "$scriptroot", not a bare `mktemp`: a workspace-local $TMPDIR pointed under artifacts_dir would put this log file inside the very tree `find` below is deleting -- getting it unlinked out from under the still-running job, after which every read below fails. $scriptroot (this checkout's own root, holding artifacts_dir as a child) is never itself inside artifacts_dir, so it's always outside the tree being traversed
 		( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true
 		  find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true
 		) > "$rm_log" &
 		rm_pid=$!
-		_cleanse_read_rm_log() {  # sums the size column of every line logged so far -- cheap relative to find's own work, and never touches the filesystem this delete is racing against (unlike the old rescan-based BSD/non-GNU fallback this deliberately doesn't repeat that mistake for)
-		  awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}' "$rm_log" 2>/dev/null  # trailing newline required -- `read` returns nonzero on EOF without one, which would abort the whole script under `set -e`
+		rm_log_offset=0  # bytes of $rm_log already folded into deleted_bytes/deleted_count -- read incrementally from here, not the whole file each time
+		_cleanse_read_rm_log_delta() {  # sums only the lines appended to $rm_log since rm_log_offset, then advances it -- re-summing the *entire* log on every one-second redraw would cost O(total lines already deleted) each time, i.e. O(n^2) work over a large cleanse, exactly the kind of quadratic blowup a live-progress display must not add on top of the deletion it's reporting on. `tail -c +N` seeks directly to a byte offset instead of scanning from the start, so this stays proportional to what's new, not to how much has already been processed
+		  local chunk
+		  chunk=$(tail -c "+$((rm_log_offset + 1))" "$rm_log" 2>/dev/null)
+		  if [[ -z "$chunk" ]]; then
+			printf '0 0\n'
+			return
+		  fi
+		  rm_log_offset=$(( rm_log_offset + ${#chunk} + 1 ))  # +1 for the trailing newline `$(...)` strips -- if find's write of the last line is still in flight (no newline yet), nothing is stripped and this overshoots by one byte, silently dropping that line's leading digit into the next poll's chunk; a live progress estimate, not the final count (which re-reads the whole file after `wait` below), so this is an acceptable one-line-wide race, not a correctness bug in the reported total
+		  printf '%s\n' "$chunk" | awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}'
 		}
 		if (( interactive )); then
 		  last_redraw_second=-1
@@ -918,7 +926,9 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 			sleep 0.2
 			if (( SECONDS != last_redraw_second )); then
 			  last_redraw_second=$SECONDS
-			  read -r deleted_bytes deleted_count < <(_cleanse_read_rm_log)
+			  read -r new_bytes new_count < <(_cleanse_read_rm_log_delta)
+			  deleted_bytes=$(( deleted_bytes + new_bytes ))
+			  deleted_count=$(( deleted_count + new_count ))
 			  elapsed=$(( SECONDS - start_time ))
 			  bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
 			  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
@@ -927,7 +937,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		  printf '\r\033[K'
 		fi
 		wait "$rm_pid" || true
-		read -r deleted_bytes deleted_count < <(_cleanse_read_rm_log)
+		read -r deleted_bytes deleted_count < <(awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}' "$rm_log" 2>/dev/null)  # final tally re-reads the whole (now-complete, no longer being appended to) log once, so it's always exact regardless of any incremental-read race above
 		rm -f "$rm_log"
 	  else
 		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to a plain rm -rf with a spinner, not a periodic full-tree rescan (that rescan-while-deleting contention was what made cleanse slow on macOS/BSD)
