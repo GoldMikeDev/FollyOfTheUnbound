@@ -829,27 +829,33 @@ internal sealed class ParsedUri : IEquatable<ParsedUri>
 
     private static void DecodeURIComponentGraceful(ReadOnlySpan<char> value, StringBuilder result)
     {
-        var originalLength = result.Length;
+        // A contiguous %XX run may represent one multi-byte UTF-8 sequence, so it is decoded as a whole first.
+        // If that fails, preserve the first %XX literally and retry the remainder so any valid suffix still decodes.
+        // This intentionally matches vscode-uri: because it peels from the front without locating the invalid byte,
+        // a failure near the end can leave valid preceding escapes encoded (for example, %41%A0 remains %41%A0).
+        // Implemented iteratively (rather than recursively) so a long run of invalid escapes can't blow the stack.
+        while (true)
+        {
+            var originalLength = result.Length;
 
-        try
-        {
-            DecodeURIComponent(value, result);
-        }
-        catch
-        {
-            // A contiguous %XX run may represent one multi-byte UTF-8 sequence, so it is decoded as a whole first.
-            // If that fails, preserve the first %XX literally and retry the remainder so any valid suffix still decodes.
-            // This intentionally matches vscode-uri: because it peels from the front without locating the invalid byte,
-            // a failure near the end can leave valid preceding escapes encoded (for example, %41%A0 remains %41%A0).
-            result.Length = originalLength;
-            if (value.Length > 3)
+            try
             {
-                Append(result, value[..3]);
-                DecodeURIComponentGraceful(value[3..], result);
+                DecodeURIComponent(value, result);
+                return;
             }
-            else
+            catch
             {
-                Append(result, value);
+                result.Length = originalLength;
+                if (value.Length > 3)
+                {
+                    Append(result, value[..3]);
+                    value = value[3..];
+                }
+                else
+                {
+                    Append(result, value);
+                    return;
+                }
             }
         }
     }

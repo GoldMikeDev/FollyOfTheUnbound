@@ -639,7 +639,19 @@ internal static partial class ProtocolConversions
 
     public static LSP.CodeDescription? HelpLinkToCodeDescription(string? helpLinkUri)
     {
-        return (helpLinkUri != null) ? new LSP.CodeDescription { Href = new DocumentUri(helpLinkUri) } : null;
+        if (!Uri.TryCreate(helpLinkUri, UriKind.Absolute, out var uri))
+        {
+            return null;
+        }
+
+        try
+        {
+            return new LSP.CodeDescription { Href = new DocumentUri(ParsedUri.Parse(uri.AbsoluteUri)) };
+        }
+        catch (Exception) when (FatalError.ReportAndCatch(new InvalidOperationException($"Failed to parse help link '{helpLinkUri}'"), ErrorSeverity.Diagnostic))
+        {
+            return null;
+        }
     }
 
     public static LSP.SymbolKind NavigateToKindToSymbolKind(string kind)
