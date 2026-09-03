@@ -835,6 +835,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  }
 	  trap '_cleanse_kill_bg; exit 130' INT  # background jobs run with job control off (non-interactive script), so POSIX has them ignore SIGINT/SIGQUIT -- forward it explicitly or Ctrl+C would kill only this foreground script
 	  trap '_cleanse_kill_bg; exit 143' TERM
+	  trap '_cleanse_kill_bg; exit 129' HUP  # a closing terminal/SSH session sends SIGHUP, not INT/TERM -- the old fifo-based design happened to catch this for free (the reader disappearing broke the pipe and find got SIGPIPE on its next write), but the regular-file-backed rm_log has no such side effect, so the background find/rm job and its log file would otherwise survive this script's own exit
 	  format_bytes() {
 		local bytes=$1
 		if (( bytes >= 1073741824 )); then
@@ -908,17 +909,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		  find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true
 		) > "$rm_log" &
 		rm_pid=$!
-		rm_log_offset=0  # bytes of $rm_log already folded into deleted_bytes/deleted_count -- read incrementally from here, not the whole file each time
-		_cleanse_read_rm_log_delta() {  # sums only the lines appended to $rm_log since rm_log_offset, then advances it -- re-summing the *entire* log on every one-second redraw would cost O(total lines already deleted) each time, i.e. O(n^2) work over a large cleanse, exactly the kind of quadratic blowup a live-progress display must not add on top of the deletion it's reporting on. `tail -c +N` seeks directly to a byte offset instead of scanning from the start, so this stays proportional to what's new, not to how much has already been processed
-		  local chunk
-		  chunk=$(tail -c "+$((rm_log_offset + 1))" "$rm_log" 2>/dev/null)
-		  if [[ -z "$chunk" ]]; then
-			printf '0 0\n'
-			return
-		  fi
-		  rm_log_offset=$(( rm_log_offset + ${#chunk} + 1 ))  # +1 for the trailing newline `$(...)` strips -- if find's write of the last line is still in flight (no newline yet), nothing is stripped and this overshoots by one byte, silently dropping that line's leading digit into the next poll's chunk; a live progress estimate, not the final count (which re-reads the whole file after `wait` below), so this is an acceptable one-line-wide race, not a correctness bug in the reported total
-		  printf '%s\n' "$chunk" | awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}'
-		}
+		rm_log_offset=0  # bytes of $rm_log already folded into deleted_bytes/deleted_count -- read incrementally from here, not the whole file each time. Updated directly in this loop (never inside a `<(...)`/`$(...)` subshell) -- a subshell's variable changes never propagate back to this shell, which was tried first and silently left rm_log_offset stuck at 0 forever: every poll re-summed the entire log from byte 1 and then *added* that whole-log sum on top of the already-accumulated total, so the displayed counts grew past the real ones with every redraw instead of tracking them
 		if (( interactive )); then
 		  last_redraw_second=-1
 		  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' 0 "$total_count" "$(format_bytes 0)" "$total_formatted"
@@ -926,9 +917,13 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 			sleep 0.2
 			if (( SECONDS != last_redraw_second )); then
 			  last_redraw_second=$SECONDS
-			  read -r new_bytes new_count < <(_cleanse_read_rm_log_delta)
-			  deleted_bytes=$(( deleted_bytes + new_bytes ))
-			  deleted_count=$(( deleted_count + new_count ))
+			  chunk=$(tail -c "+$((rm_log_offset + 1))" "$rm_log" 2>/dev/null)  # seeks to a byte offset instead of scanning from the start, so this stays proportional to what's new since the last poll, not to how much has already been processed -- re-summing the *entire* log every second would cost O(total lines already deleted) each time, i.e. O(n^2) work over a large cleanse
+			  if [[ -n "$chunk" ]]; then
+				rm_log_offset=$(( rm_log_offset + ${#chunk} + 1 ))  # +1 for the trailing newline `$(...)` strips -- if find's write of the last line is still in flight (no newline yet), nothing is stripped and this overshoots by one byte, silently dropping that line's leading digit into the next poll's chunk; a live progress estimate, not the final count (which re-reads the whole file after `wait` below), so this is an acceptable one-line-wide race, not a correctness bug in the reported total
+				read -r new_bytes new_count < <(printf '%s\n' "$chunk" | awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}')
+				deleted_bytes=$(( deleted_bytes + new_bytes ))
+				deleted_count=$(( deleted_count + new_count ))
+			  fi
 			  elapsed=$(( SECONDS - start_time ))
 			  bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
 			  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
