@@ -1,0 +1,98 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_45_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_45_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\dumps\45
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (49336).
+  Failed Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AsyncAwait.Legacy_Async_Overload_Change_3 [42 s]
+  Error Message:
+   System.AggregateException : One or more errors occurred.
+---- ValidateIOperations took too long: 15024 ms
+---- Pool leak detected! The following pooled objects were not returned:
+  Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
+
+  Stack Trace:
+  
+----- Inner Stack Trace #1 (Xunit.Sdk.FalseException) -----
+   at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.<ValidateIOperations>g__checkTimeout|17_0(<>c__DisplayClass17_0& ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
+   at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 331
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.ValidateCompilation(Func`1 createCompilationLambda) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 77
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.CreateEmptyCompilationWithReferences(IEnumerable`1 source, IEnumerable`1 references, VisualBasicCompilationOptions options, String assemblyName) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 338
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.CreateEmptyCompilationWithReferences(XElement source, IEnumerable`1 references, VisualBasicCompilationOptions options, VisualBasicParseOptions parseOptions, String assemblyName) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 294
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AsyncAwait.Legacy_Async_Overload_Change_3() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Semantic\Semantics\AsyncAwait.vb:line 5501
+----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
+   at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 118
+[xUnit.net 00:07:04.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_07 [SKIP]
+[xUnit.net 00:07:04.38]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_08 [SKIP]
+[xUnit.net 00:07:04.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_07 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_08 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_01 [1 ms]
+[xUnit.net 00:07:06.63]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_12 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_12 [1 ms]
+[xUnit.net 00:07:10.59]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_10 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_10 [1 ms]
+[xUnit.net 00:07:11.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_06 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_06 [1 ms]
+[xUnit.net 00:07:15.42]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_02 [SKIP]
+[xUnit.net 00:07:15.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_03 [SKIP]
+[xUnit.net 00:07:15.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_09 [SKIP]
+[xUnit.net 00:07:15.62]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_11 [SKIP]
+[xUnit.net 00:07:15.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_05 [SKIP]
+[xUnit.net 00:07:15.82]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_02 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_03 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_09 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_11 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_05 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.CompoundAssignment.Bug1021941_04 [1 ms]
+[xUnit.net 00:11:58.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.DiagnosticAnalyzerTests.TestParametersAnalyzer_InDelegateTypes [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.DiagnosticAnalyzerTests.TestParametersAnalyzer_InDelegateTypes [1 ms]
+[xUnit.net 00:12:48.82]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.OperationAnalyzerTests.StaticMemberReferenceVisualBasic [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.OperationAnalyzerTests.StaticMemberReferenceVisualBasic [1 ms]
+[xUnit.net 00:13:59.02]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_01 [1 ms]
+[xUnit.net 00:14:05.89]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.InitOnlyMemberTests.LateBound_02 [1 ms]
+[xUnit.net 00:14:12.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_Modules [SKIP]
+[xUnit.net 00:14:12.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_WeakIdentities2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_Modules [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_WeakIdentities2 [1 ms]
+[xUnit.net 00:14:13.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToImplicitReference1 [SKIP]
+[xUnit.net 00:14:13.32]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution1 [SKIP]
+[xUnit.net 00:14:13.33]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToImplicitReference2 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToImplicitReference1 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution1 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToImplicitReference2 [1 ms]
+[xUnit.net 00:14:13.42]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToExplicitReference_WorseVersion [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToExplicitReference_WorseVersion [1 ms]
+[xUnit.net 00:14:13.90]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToExplicitReference_BetterVersion [SKIP]
+[xUnit.net 00:14:15.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_ActualMissing [SKIP]
+[xUnit.net 00:14:15.15]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_WeakIdentities1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_BindingToExplicitReference_BetterVersion [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_ActualMissing [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_WeakIdentities1 [1 ms]
+[xUnit.net 00:14:15.23]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_MissingDueToResolutionMismatch [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.ReferenceManagerTests.MissingAssemblyResolution_MissingDueToResolutionMismatch [1 ms]
+[xUnit.net 00:14:16.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationAPITests.MetadataConsistencyWhileEvolvingCompilation [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationAPITests.MetadataConsistencyWhileEvolvingCompilation [1 ms]
+[xUnit.net 00:14:19.54]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Binder_Expressions_Tests.Bug679765 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Binder_Expressions_Tests.Bug679765 [1 ms]
+[xUnit.net 00:18:42.31]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.IntrinsicSymbols [SKIP]
+[xUnit.net 00:18:42.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.Bug529600 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.IntrinsicSymbols [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.Bug529600 [1 ms]
+[xUnit.net 00:20:38.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.TestLargeStringConcatenation [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.BinaryOperators.TestLargeStringConcatenation [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_45_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_45_x64_test_results.html
+
+Failed!  - Failed:     1, Passed:  5559, Skipped:    31, Total:  5591, Duration: 20 m 30 s - Microsoft.CodeAnalysis.VisualBasic.Semantic.UnitTests.dll (net472)

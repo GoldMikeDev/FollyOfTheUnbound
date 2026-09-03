@@ -1,8 +1,8 @@
-<assemblies timestamp="09/03/2026 11:25:35">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll" run-date="2026-09-03" run-time="11:25:35" total="27" passed="16" failed="8" skipped="3" time="443.327" errors="0">
+<assemblies timestamp="09/03/2026 13:40:13">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll" run-date="2026-09-03" run-time="13:40:13" total="27" passed="16" failed="8" skipped="3" time="396.818" errors="0">
     <errors />
-    <collection total="27" passed="16" failed="8" skipped="3" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" time="380.870">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.DeeplyNestedGeneric" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="DeeplyNestedGeneric" time="5.3072711" result="Pass">
+    <collection total="27" passed="16" failed="8" skipped="3" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" time="393.382">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.DeeplyNestedGeneric" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="DeeplyNestedGeneric" time="7.1029884" result="Pass">
         <traits>
           <trait name="WorkItemId" value="33909" />
           <trait name="WorkItemId" value="34880" />
@@ -12,7 +12,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/53361" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyUnreferencedSuppressMessageAttributes" time="18.3006985" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyUnreferencedSuppressMessageAttributes" time="18.6797044" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15001 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
@@ -52,34 +52,34 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/pull/83087" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyTupleSwitchArms_01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyTupleSwitchArms_01" time="2.1242437" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyTupleSwitchArms_01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyTupleSwitchArms_01" time="2.8756263" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" time="1.0224060" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" time="1.8614423" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" time="0.0555466" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" time="0.0690003" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" time="0.0317222" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" time="0.1634406" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" time="0.0183828" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" time="0.0637453" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" time="19.7643007" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" time="23.1555593" result="Fail">
         <failure>
-          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 19665 ms
+          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 22979 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -91,7 +91,7 @@
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43) (Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 )
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 19665 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 22979 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -115,9 +115,9 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" time="15.1093509" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" time="15.0802369" result="Fail">
         <failure>
-          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15015 ms
+          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15019 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -129,7 +129,7 @@
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43) (Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 )
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15015 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15019 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -153,12 +153,12 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.LongInitializerList" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="LongInitializerList" time="0.4799826" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.LongInitializerList" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="LongInitializerList" time="0.5009825" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1819416" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="OverflowOnFluentCall" time="2.3961824" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="OverflowOnFluentCall" time="2.8133460" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred. (System.InsufficientExecutionStackException: Insufficient stack to continue executing the program safely. This can happen from having too many functions on the call stack or function on the stack using too much stack space.
    at System.Runtime.CompilerServices.RuntimeHelpers.EnsureSufficientExecutionStack()
@@ -11171,6 +11171,202 @@
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
    at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitExpressionStatement(BoundExpressionStatement node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10589
    at Microsoft.CodeAnalysis.CSharp.BoundExpressionStatement.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 3740
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
@@ -11204,9 +11400,9 @@
    at Microsoft.CodeAnalysis.CSharp.Test.Utilities.CSharpTestBase.CreateCompilation(CSharpTestSource source, IEnumerable`1 references, CSharpCompilationOptions options, CSharpParseOptions parseOptions, TargetFramework targetFramework, String assemblyName, String sourceFileName, Boolean skipUsesIsNullable) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\CSharp\CSharpTestBase.cs:line 1861
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass2_0.&lt;OverflowOnFluentCall&gt;b__1() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 169
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43) (Pool leak detected! The following pooled objects were not returned:
-  Microsoft.CodeAnalysis.PooledObjects.PooledDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2+ValueSet[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode]] (from PooledDictionary.cs:55) (allocated at OrderPreservingMultiDictionary.cs:88): 1
-  Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
   Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode] (from OrderPreservingMultiDictionary.cs:60) (allocated at OrderPreservingMultiDictionary.cs:68): 1
+  Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
+  Microsoft.CodeAnalysis.PooledObjects.PooledDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2+ValueSet[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode]] (from PooledDictionary.cs:55) (allocated at OrderPreservingMultiDictionary.cs:88): 1
 )
 ---- System.InsufficientExecutionStackException: Insufficient stack to continue executing the program safely. This can happen from having too many functions on the call stack or function on the stack using too much stack space.
    at System.Runtime.CompilerServices.RuntimeHelpers.EnsureSufficientExecutionStack()
@@ -22219,6 +22415,202 @@
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
    at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitExpressionStatement(BoundExpressionStatement node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10589
    at Microsoft.CodeAnalysis.CSharp.BoundExpressionStatement.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 3740
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
@@ -22253,9 +22645,9 @@
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass2_0.&lt;OverflowOnFluentCall&gt;b__1() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 169
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43
 ---- Pool leak detected! The following pooled objects were not returned:
-  Microsoft.CodeAnalysis.PooledObjects.PooledDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2+ValueSet[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode]] (from PooledDictionary.cs:55) (allocated at OrderPreservingMultiDictionary.cs:88): 1
-  Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
   Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode] (from OrderPreservingMultiDictionary.cs:60) (allocated at OrderPreservingMultiDictionary.cs:68): 1
+  Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
+  Microsoft.CodeAnalysis.PooledObjects.PooledDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2+ValueSet[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode]] (from PooledDictionary.cs:55) (allocated at OrderPreservingMultiDictionary.cs:88): 1
 </message>
           <stack-trace>
 ----- Inner Stack Trace #1 (Xunit.Sdk.FailException) -----
@@ -22274,17 +22666,17 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/34880" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" time="2.8929681" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" time="2.8406906" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Interceptors" time="264.1509107" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Interceptors" time="269.4676370" result="Fail">
         <failure>
-          <message>System.AggregateException : One or more errors occurred. (ValidateIOperations took too long: 15002 ms) (Pool leak detected! The following pooled objects were not returned:
+          <message>System.AggregateException : One or more errors occurred. (ValidateIOperations took too long: 15001 ms) (Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 )
----- ValidateIOperations took too long: 15002 ms
+---- ValidateIOperations took too long: 15001 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 </message>
@@ -22306,9 +22698,9 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_03" time="15.0959515" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_03" time="15.0838944" result="Fail">
         <failure>
-          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15006 ms
+          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15003 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -22320,7 +22712,7 @@
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43) (Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 )
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15006 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15003 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -22349,12 +22741,12 @@
         <reason><![CDATA[Test not supported in ROSLYN_TEST_IOPERATION]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ForAttributeWithMetadataName_DeepRecursion" time="15.1002698" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ForAttributeWithMetadataName_DeepRecursion" time="15.1374036" result="Fail">
         <failure>
-          <message>System.AggregateException : One or more errors occurred. (ValidateIOperations took too long: 15015 ms) (Pool leak detected! The following pooled objects were not returned:
+          <message>System.AggregateException : One or more errors occurred. (ValidateIOperations took too long: 15025 ms) (Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 )
----- ValidateIOperations took too long: 15015 ms
+---- ValidateIOperations took too long: 15025 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 </message>
@@ -22377,24 +22769,24 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/pull/70791" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: True)" time="0.3801661" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: True)" time="0.4167560" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69093" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: False)" time="0.1503795" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: False)" time="0.1775754" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69093" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" time="2.8714366" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" time="2.4960769" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_02" time="15.1890614" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_02" time="15.0798475" result="Fail">
         <failure>
-          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15004 ms
+          <message>System.AggregateException : One or more errors occurred. (Xunit.Sdk.FalseException: ValidateIOperations took too long: 15010 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -22406,7 +22798,7 @@
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43) (Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 )
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15004 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15010 ms
    at Xunit.Assert.False(Boolean condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 64
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp;) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -22431,22 +22823,22 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" time="0.1495713" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" time="0.0668358" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" time="0.0377694" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" time="0.0366592" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" time="0.0227348" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" time="0.0109276" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" time="0.0272735" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" time="0.0153097" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
@@ -22463,7 +22855,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1874763" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Constraints" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Constraints" time="0.1888602" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Constraints" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Constraints" time="0.1832016" result="Pass">
         <traits>
           <trait name="WorkItemId" value="42361" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/42361" />

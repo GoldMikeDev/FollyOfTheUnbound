@@ -10,16 +10,34 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost.net472 (44736).
-[xUnit.net 00:09:47.14]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationCreationTests.RootNamespace_NoTrees_SuppressEmbeddedDeclarations [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationCreationTests.RootNamespace_NoTrees_SuppressEmbeddedDeclarations [1 ms]
-[xUnit.net 00:10:13.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.RetargetingTests.Retarget_Events [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.RetargetingTests.Retarget_Events [1 ms]
+Blame: Attaching crash dump utility to process testhost.net472 (34580).
 Test Logger: Unable to parse one or more test names provided by your test runner. These will be logged using Namespace='UnknownNamespace', Type='UnknownType'. The entire test name will be used as the Method name. Please open a ticket so we can review this issue
-  Failed Microsoft.CodeAnalysis.VisualBasic.UnitTests.EnumTests.LongDependencyChain [1 m 37 s]
+[xUnit.net 00:02:07.40]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.RetargetingTests.Retarget_Events [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Symbols.RetargetingTests.Retarget_Events [1 ms]
+[xUnit.net 00:03:42.34]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationCreationTests.RootNamespace_NoTrees_SuppressEmbeddedDeclarations [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationCreationTests.RootNamespace_NoTrees_SuppressEmbeddedDeclarations [1 ms]
+[xUnit.net 00:04:25.84]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.GroupClassTests.SimpleTest1 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.GroupClassTests.SimpleTest1 [1 ms]
+[xUnit.net 00:10:44.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XmlError_WRN_XMLDocBadFormedXML [SKIP]
+[xUnit.net 00:10:44.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathError_WRN_XMLDocBadFormedXML [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XmlError_WRN_XMLDocBadFormedXML [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathError_WRN_XMLDocBadFormedXML [1 ms]
+[xUnit.net 00:10:46.76]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_IOError_WRN_XMLDocBadFormedXML [SKIP]
+[xUnit.net 00:10:46.76]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathNotFound_WRN_XMLDocInvalidXMLFragment [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_IOError_WRN_XMLDocBadFormedXML [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathNotFound_WRN_XMLDocInvalidXMLFragment [1 ms]
+[xUnit.net 00:10:48.35]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_FileNotFound_WRN_XMLDocBadFormedXML [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_FileNotFound_WRN_XMLDocBadFormedXML [1 ms]
+[xUnit.net 00:10:49.68]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XDocument_WRN_XMLDocInvalidXMLFragment [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XDocument_WRN_XMLDocInvalidXMLFragment [1 ms]
+[xUnit.net 00:10:51.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Bug684184 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Bug684184 [1 ms]
+[xUnit.net 00:14:09.86]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.SymbolErrorTests.BC30645ERR_InvalidOptionalParameterUsage1b [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.SymbolErrorTests.BC30645ERR_InvalidOptionalParameterUsage1b [1 ms]
+  Failed Microsoft.CodeAnalysis.VisualBasic.UnitTests.EnumTests.LongDependencyChain [1 m 35 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- ValidateIOperations took too long: 15011 ms
+---- ValidateIOperations took too long: 15002 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 
@@ -34,26 +52,8 @@ Test Logger: Unable to parse one or more test names provided by your test runner
    at Microsoft.CodeAnalysis.VisualBasic.UnitTests.EnumTests.LongDependencyChain() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Symbol\SymbolsTests\Source\EnumTests.vb:line 1525
 ----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
    at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 118
-[xUnit.net 00:15:47.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.SymbolErrorTests.BC30645ERR_InvalidOptionalParameterUsage1b [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.SymbolErrorTests.BC30645ERR_InvalidOptionalParameterUsage1b [1 ms]
-[xUnit.net 00:16:49.04]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XmlError_WRN_XMLDocBadFormedXML [SKIP]
-[xUnit.net 00:16:49.05]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathError_WRN_XMLDocBadFormedXML [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XmlError_WRN_XMLDocBadFormedXML [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathError_WRN_XMLDocBadFormedXML [1 ms]
-[xUnit.net 00:16:50.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_IOError_WRN_XMLDocBadFormedXML [SKIP]
-[xUnit.net 00:16:50.92]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathNotFound_WRN_XMLDocInvalidXMLFragment [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_IOError_WRN_XMLDocBadFormedXML [1 ms]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XPathNotFound_WRN_XMLDocInvalidXMLFragment [1 ms]
-[xUnit.net 00:16:52.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_FileNotFound_WRN_XMLDocBadFormedXML [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_FileNotFound_WRN_XMLDocBadFormedXML [1 ms]
-[xUnit.net 00:16:53.87]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XDocument_WRN_XMLDocInvalidXMLFragment [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Include_XDocument_WRN_XMLDocInvalidXMLFragment [1 ms]
-[xUnit.net 00:16:57.33]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Bug684184 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.DocCommentTests.Bug684184 [1 ms]
-[xUnit.net 00:17:23.87]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.GroupClassTests.SimpleTest1 [SKIP]
-  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.GroupClassTests.SimpleTest1 [1 ms]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_46_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_46_x64_test_results.html
 
-Failed!  - Failed:     1, Passed:  3378, Skipped:    11, Total:  3390, Duration: 17 m 55 s - Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests.dll (net472)
+Failed!  - Failed:     1, Passed:  3378, Skipped:    11, Total:  3390, Duration: 19 m 25 s - Microsoft.CodeAnalysis.VisualBasic.Symbol.UnitTests.dll (net472)

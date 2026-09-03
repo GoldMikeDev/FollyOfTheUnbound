@@ -1,44 +1,44 @@
-<assemblies timestamp="09/03/2026 11:56:55">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests.dll" run-date="2026-09-03" run-time="11:56:55" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests.dll.config" total="74" passed="68" failed="0" skipped="6" time="68.264" errors="0">
+<assemblies timestamp="09/03/2026 14:09:41">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests.dll" run-date="2026-09-03" run-time="14:09:41" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.WinRT.UnitTests.dll.config" total="74" passed="68" failed="0" skipped="6" time="64.447" errors="0">
     <errors />
-    <collection total="12" passed="11" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" time="0.390">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_EventAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_EventAssignment" time="0.0400000" result="Pass">
+    <collection total="12" passed="11" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" time="0.521">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_EventAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_EventAssignment" time="0.0120000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAssignment" time="0.1000000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAssignment" time="0.1010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.StaticFieldLikeEventAccessors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="StaticFieldLikeEventAccessors" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.StaticFieldLikeEventAccessors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="StaticFieldLikeEventAccessors" time="0.0270000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1003193" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1003193" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAssignmentExpression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAssignmentExpression" time="0.0310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAssignmentExpression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAssignmentExpression" time="0.0430000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1079725" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1079725" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.InstanceFieldLikeEventAccessors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="InstanceFieldLikeEventAccessors" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.InstanceFieldLikeEventAccessors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="InstanceFieldLikeEventAccessors" time="0.0100000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1003193" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1003193" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_SynthesizedAccessors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_SynthesizedAccessors" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_SynthesizedAccessors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_SynthesizedAccessors" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAssignmentExpression_SemanticModel" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAssignmentExpression_SemanticModel" time="0.0190000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAssignmentExpression_SemanticModel" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAssignmentExpression_SemanticModel" time="0.0440000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1079725" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1079725" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAccess" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAccess" time="0.0770000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventAccess" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventAccess" time="0.1380000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_EventFieldAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_EventFieldAssignment" time="0.0200000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_EventFieldAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_EventFieldAssignment" time="0.0370000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.FieldLikeEventSerialization" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="FieldLikeEventSerialization" time="0.0010000" result="Skip">
@@ -48,40 +48,40 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1003193" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventFieldAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventFieldAssignment" time="0.0430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.EventFieldAssignment" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="EventFieldAssignment" time="0.0820000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_EventAccess" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_EventAccess" time="0.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests.MissingReferences_EventAccess" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinMdEventTests" method="MissingReferences_EventAccess" time="0.0160000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="26" passed="22" failed="0" skipped="4" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" time="39.126">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.MultipleInterfaceMethodConflictTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="MultipleInterfaceMethodConflictTests" time="5.0850000" result="Pass">
+    <collection total="26" passed="22" failed="0" skipped="4" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" time="31.501">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.MultipleInterfaceMethodConflictTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="MultipleInterfaceMethodConflictTests" time="0.0450000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.Bug1034461" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="Bug1034461" time="0.3980000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.Bug1034461" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="Bug1034461" time="0.0490000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1034461" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1034461" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest07" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest07" time="4.6340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest07" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest07" time="1.0770000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="IVectorProjectionTests" time="0.4170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.IVectorProjectionTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="IVectorProjectionTests" time="0.7260000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.WinRTCompilationReference" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="WinRTCompilationReference" time="0.4760000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.WinRTCompilationReference" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="WinRTCompilationReference" time="0.0810000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest15" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest15" time="0.0010000" result="Skip">
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/386]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest05" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest05" time="0.8770000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest05" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest05" time="1.4800000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.InheritFromTypeWithProjections" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="InheritFromTypeWithProjections" time="0.0670000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.InheritFromTypeWithProjections" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="InheritFromTypeWithProjections" time="0.0220000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="762316" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/762316" />
@@ -91,40 +91,40 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/386]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest19" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest19" time="0.5860000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest19" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest19" time="0.3750000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest09" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest09" time="0.7470000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest09" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest09" time="0.7900000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest06" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest06" time="0.7600000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest06" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest06" time="0.4410000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest10" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest10" time="0.4070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest10" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest10" time="0.5300000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="IVectorViewProjectionTests" time="0.0660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.IVectorViewProjectionTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="IVectorViewProjectionTests" time="0.1310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest04" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest04" time="4.6790000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest04" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest04" time="4.5400000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest01" time="0.8090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest01" time="0.7610000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest20" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest20" time="0.3150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest20" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest20" time="0.2830000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="IMapProjectionTests" time="0.2840000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.IMapProjectionTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="IMapProjectionTests" time="0.2820000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest12" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest12" time="0.3350000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest12" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest12" time="0.1960000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest13" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest13" time="1.6590000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest13" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest13" time="0.9850000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest11" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest11" time="0.5380000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest11" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest11" time="0.7930000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest17" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest17" time="0.0010000" result="Skip">
@@ -135,73 +135,73 @@
         <reason><![CDATA[https://github.com/dotnet/roslyn/issues/386]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest02" time="10.4530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest02" time="13.0310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest14" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest14" time="0.7100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest14" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest14" time="0.3550000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest03" time="4.8200000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests.LegacyCollectionTest03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.CodeGen.WinRTCollectionTests" method="LegacyCollectionTest03" time="4.5240000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" time="0.158">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToStreamWithNonZeroPosition" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToStreamWithNonZeroPosition" time="0.1050000" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" time="0.176">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToStreamWithNonZeroPosition" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToStreamWithNonZeroPosition" time="0.1290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToMemoryStreams" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToMemoryStreams" time="0.0310000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToMemoryStreams" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToMemoryStreams" time="0.0270000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToBoundedStreams" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToBoundedStreams" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToBoundedStreams" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToBoundedStreams" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToNonSeekableStreams" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToNonSeekableStreams" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.EmitToNonSeekableStreams" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="EmitToNonSeekableStreams" time="0.0090000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests.NegEmit" type="Microsoft.CodeAnalysis.CSharp.UnitTests.PdbTests" method="NegEmit" time="0.0040000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest" time="3.015">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest.DumpWindowsWinMD" type="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest" method="DumpWindowsWinMD" time="2.9820000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest" time="5.246">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest.DumpWindowsWinMD" type="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest" method="DumpWindowsWinMD" time="5.2290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest.DumpWinMDPrefixing" type="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest" method="DumpWinMDPrefixing" time="0.0330000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest.DumpWinMDPrefixing" type="Microsoft.CodeAnalysis.CSharp.UnitTests.Symbols.Metadata.WinMdDumpTest" method="DumpWinMDPrefixing" time="0.0170000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="20" passed="19" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" time="10.434">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventTestLocalGeneration" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventTestLocalGeneration" time="0.4880000" result="Pass">
+    <collection total="20" passed="19" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" time="15.370">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventTestLocalGeneration" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventTestLocalGeneration" time="5.8260000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.EventAccess_RefKind" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="EventAccess_RefKind" time="0.3560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.EventAccess_RefKind" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="EventAccess_RefKind" time="0.2980000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventTest" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventTest" time="0.1530000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventTest" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventTest" time="0.1680000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.CallMethodsDirectly_Static" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="CallMethodsDirectly_Static" time="1.9200000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.CallMethodsDirectly_Static" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="CallMethodsDirectly_Static" time="0.4490000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.ERR_MixingWinRTEventWithRegular_TwoInterfaces" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="ERR_MixingWinRTEventWithRegular_TwoInterfaces" time="1.1900000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.ERR_MixingWinRTEventWithRegular_TwoInterfaces" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="ERR_MixingWinRTEventWithRegular_TwoInterfaces" time="1.1290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_EventSymbolSubtypes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_EventSymbolSubtypes" time="0.5430000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_EventSymbolSubtypes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_EventSymbolSubtypes" time="0.5310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.AccessorSignatures" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="AccessorSignatures" time="0.1560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.AccessorSignatures" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="AccessorSignatures" time="0.0390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_OutputKind" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_OutputKind" time="0.3790000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_OutputKind" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_OutputKind" time="0.1070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.ERR_MixingWinRTEventWithRegular_OverrideVsImplementation" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="ERR_MixingWinRTEventWithRegular_OverrideVsImplementation" time="0.9410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.ERR_MixingWinRTEventWithRegular_OverrideVsImplementation" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="ERR_MixingWinRTEventWithRegular_OverrideVsImplementation" time="0.8420000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdExternalEventTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdExternalEventTests" time="0.9670000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdExternalEventTests" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdExternalEventTests" time="1.5600000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventInternalStaticAccess" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventInternalStaticAccess" time="0.4540000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventInternalStaticAccess" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventInternalStaticAccess" time="0.9740000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.ERR_MixingWinRTEventWithRegular_BaseTypeImplementsInterface" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="ERR_MixingWinRTEventWithRegular_BaseTypeImplementsInterface" time="0.0010000" result="Skip">
@@ -211,45 +211,45 @@
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/547321" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventLambda" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventLambda" time="0.0850000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.WinMdEventLambda" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="WinMdEventLambda" time="0.0730000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_Overriding" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_Overriding" time="1.0250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_Overriding" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_Overriding" time="1.1690000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.AssociatedField" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="AssociatedField" time="0.4370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.AssociatedField" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="AssociatedField" time="0.7460000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1055825" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1055825" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_ImplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_ImplicitImplementation" time="0.6290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_ImplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_ImplicitImplementation" time="0.5020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.VerifySignatures" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="VerifySignatures" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.VerifySignatures" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="VerifySignatures" time="0.0200000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.MissingEventRegistrationTokenType" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="MissingEventRegistrationTokenType" time="0.0340000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.MissingEventRegistrationTokenType" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="MissingEventRegistrationTokenType" time="0.0390000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.EventAccess_MissingInvocationListAccessor" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="EventAccess_MissingInvocationListAccessor" time="0.0560000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.EventAccess_MissingInvocationListAccessor" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="EventAccess_MissingInvocationListAccessor" time="0.1680000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_ExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_ExplicitImplementation" time="0.6090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests.IsWindowsRuntimeEvent_Source_ExplicitImplementation" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdEventTests" method="IsWindowsRuntimeEvent_Source_ExplicitImplementation" time="0.7290000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" time="0.359">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.DelegateConstructorMarkedPublic" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="DelegateConstructorMarkedPublic" time="0.0120000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" time="0.457">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.DelegateConstructorMarkedPublic" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="DelegateConstructorMarkedPublic" time="0.0100000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdColorTest" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdColorTest" time="0.0980000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdColorTest" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdColorTest" time="0.0880000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdColorType" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdColorType" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdAssemblyQualifiedType" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdAssemblyQualifiedType" time="0.1020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdAssemblyQualifiedType" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdAssemblyQualifiedType" time="0.1450000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="1169511" />
           <trait name="WorkItemUrl" value="http://vstfdevdiv:8080/DevDiv2/DevDiv/_workitems/edit/1169511" />
@@ -267,7 +267,7 @@
       <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.TypeForwardingRenaming" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="TypeForwardingRenaming" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdIReferenceINullableTest" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdIReferenceINullableTest" time="0.1370000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests.WinMdIReferenceINullableTest" type="Microsoft.CodeAnalysis.CSharp.UnitTests.WinMdMetadataTests" method="WinMdIReferenceINullableTest" time="0.2040000" result="Pass">
         <traits />
       </test>
     </collection>

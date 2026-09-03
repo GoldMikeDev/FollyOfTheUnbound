@@ -10,7 +10,7 @@ vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\
 
 Starting test execution, please wait...
 A total of 1 test files matched the specified pattern.
-Blame: Attaching crash dump utility to process testhost.net472 (9124).
+Blame: Attaching crash dump utility to process testhost.net472 (39220).
   Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes [18 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
@@ -34,10 +34,10 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 1167
 ----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
    at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 118
-  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: "or", expectedOutput: "1") [58 s]
+  Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: "or", expectedOutput: "1") [52 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 58793 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 52763 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.<ValidateIOperations>g__checkTimeout|17_0(<>c__DisplayClass17_0& ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -60,7 +60,7 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
   Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: "and not", expectedOutput: "0") [15 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15027 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15015 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.<ValidateIOperations>g__checkTimeout|17_0(<>c__DisplayClass17_0& ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -88,6 +88,13 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
    at Microsoft.CodeAnalysis.StackGuard.EnsureSufficientExecutionStack(Int32 recursionDepth) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Core\Portable\InternalUtilities\StackGuard.cs:line 29
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.EnsureSufficientExecutionStack(Int32 recursionDepth) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 230
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32& recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 211
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32& recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
    at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
@@ -15329,8 +15336,8 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.<>c__DisplayClass0_0.<RunInThread>b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
-  Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode] (from OrderPreservingMultiDictionary.cs:60) (allocated at OrderPreservingMultiDictionary.cs:68): 1
   Microsoft.CodeAnalysis.PooledObjects.PooledDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2+ValueSet[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode]] (from PooledDictionary.cs:55) (allocated at OrderPreservingMultiDictionary.cs:88): 1
+  Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode] (from OrderPreservingMultiDictionary.cs:60) (allocated at OrderPreservingMultiDictionary.cs:68): 1
 
   Stack Trace:
   
@@ -15343,7 +15350,7 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
   Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors [15 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- ValidateIOperations took too long: 15005 ms
+---- ValidateIOperations took too long: 15013 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[System.String,System.String]] (from ArrayBuilder.cs:508) (allocated at EndToEndTests.cs:631): 1
@@ -15364,7 +15371,7 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
   Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03 [15 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15031 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15016 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.<ValidateIOperations>g__checkTimeout|17_0(<>c__DisplayClass17_0& ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -15384,12 +15391,12 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 1008
 ----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
    at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 118
-[xUnit.net 00:02:53.56]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfStatements [SKIP]
+[xUnit.net 00:02:34.21]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfStatements [SKIP]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfStatements [1 ms]
   Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion [15 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- ValidateIOperations took too long: 15070 ms
+---- ValidateIOperations took too long: 15023 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 
@@ -15408,7 +15415,7 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
   Failed Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02 [15 s]
   Error Message:
    System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15005 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15030 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.<ValidateIOperations>g__checkTimeout|17_0(<>c__DisplayClass17_0& ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -15428,12 +15435,12 @@ Blame: Attaching crash dump utility to process testhost.net472 (9124).
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 944
 ----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
    at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 118
-[xUnit.net 00:03:35.19]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse [SKIP]
-[xUnit.net 00:03:35.19]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall_ExtensionMethods [SKIP]
+[xUnit.net 00:03:17.53]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse [SKIP]
+[xUnit.net 00:03:17.53]     Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall_ExtensionMethods [SKIP]
 Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedIfElse [1 ms]
   Skipped Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall_ExtensionMethods [1 ms]
 Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_14_x64_test_results.xml
 Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_14_x64_test_results.html
 
-Failed!  - Failed:     8, Passed:    16, Skipped:     3, Total:    27, Duration: 3 m 33 s - Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll (net472)
+Failed!  - Failed:     8, Passed:    16, Skipped:     3, Total:    27, Duration: 3 m 15 s - Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll (net472)

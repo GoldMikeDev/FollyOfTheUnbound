@@ -1,8 +1,8 @@
-<assemblies timestamp="09/03/2026 12:01:05">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll" run-date="2026-09-03" run-time="12:01:05" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll.config" total="27" passed="16" failed="8" skipped="3" time="233.155" errors="0">
+<assemblies timestamp="09/03/2026 14:13:48">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll" run-date="2026-09-03" run-time="14:13:48" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests\Debug\net472\Microsoft.CodeAnalysis.CSharp.EndToEnd.UnitTests.dll.config" total="27" passed="16" failed="8" skipped="3" time="227.250" errors="0">
     <errors />
-    <collection total="27" passed="16" failed="8" skipped="3" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" time="211.976">
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.DeeplyNestedGeneric" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="DeeplyNestedGeneric" time="10.6790000" result="Pass">
+    <collection total="27" passed="16" failed="8" skipped="3" name="Test collection for Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" time="194.313">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.DeeplyNestedGeneric" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="DeeplyNestedGeneric" time="10.3000000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="33909" />
           <trait name="WorkItemId" value="34880" />
@@ -12,7 +12,7 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/53361" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyUnreferencedSuppressMessageAttributes" time="18.9150000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyUnreferencedSuppressMessageAttributes" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyUnreferencedSuppressMessageAttributes" time="18.8360000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
 ---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15001 ms
@@ -39,35 +39,35 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/pull/83087" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyTupleSwitchArms_01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyTupleSwitchArms_01" time="13.9820000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyTupleSwitchArms_01" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyTupleSwitchArms_01" time="7.5730000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" time="1.0210000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: False)" time="1.5150000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" time="0.0140000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: False)" time="0.0160000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" time="0.0460000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: True, concurrent: True)" time="0.0190000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" time="0.0120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_VisualBasic(reverse: False, concurrent: True)" time="0.0210000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" time="58.9720000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;or&quot;, expectedOutput: &quot;1&quot;)" time="52.8470000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 58793 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 52763 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp; ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -89,10 +89,10 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" time="15.1300000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_01(pattern: &quot;and not&quot;, expectedOutput: &quot;0&quot;)" time="15.0640000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15027 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15015 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp; ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -114,12 +114,12 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.LongInitializerList" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="LongInitializerList" time="2.8850000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.LongInitializerList" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="LongInitializerList" time="2.1530000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1819416" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="OverflowOnFluentCall" time="4.3720000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.OverflowOnFluentCall" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="OverflowOnFluentCall" time="4.1380000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
 ---- System.InsufficientExecutionStackException: Insufficient stack to continue executing the program safely. This can happen from having too many functions on the call stack or function on the stack using too much stack space.
@@ -127,6 +127,13 @@
    at Microsoft.CodeAnalysis.StackGuard.EnsureSufficientExecutionStack(Int32 recursionDepth) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Core\Portable\InternalUtilities\StackGuard.cs:line 29
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.EnsureSufficientExecutionStack(Int32 recursionDepth) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 230
    at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 211
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
+   at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
+   at Microsoft.CodeAnalysis.CSharp.BoundCall.Accept(BoundTreeVisitor visitor) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 6390
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 151
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.VisitExpressionOrPatternWithoutStackGuard(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 89
+   at Microsoft.CodeAnalysis.CSharp.BoundTreeVisitor.VisitExpressionOrPatternWithStackGuard(Int32&amp; recursionDepth, BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeVisitors.cs:line 213
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalkerWithStackGuard.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\BoundTree\BoundTreeWalker.cs:line 75
    at Microsoft.CodeAnalysis.CSharp.MemberSemanticModel.NodeMapBuilder.Visit(BoundNode node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Compilation\MemberSemanticModel.NodeMapBuilder.cs:line 252
    at Microsoft.CodeAnalysis.CSharp.BoundTreeWalker.VisitCall(BoundCall node) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Portable\Generated\BoundNodes.xml.Generated.cs:line 10952
@@ -15368,8 +15375,8 @@
    at Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.&lt;&gt;c__DisplayClass0_0.&lt;RunInThread&gt;b__0() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\CSharp\Test\EndToEnd\EndToEndTests.cs:line 43
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
-  Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode] (from OrderPreservingMultiDictionary.cs:60) (allocated at OrderPreservingMultiDictionary.cs:68): 1
   Microsoft.CodeAnalysis.PooledObjects.PooledDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2+ValueSet[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode]] (from PooledDictionary.cs:55) (allocated at OrderPreservingMultiDictionary.cs:88): 1
+  Microsoft.CodeAnalysis.Collections.OrderPreservingMultiDictionary`2[Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.CSharp.BoundNode] (from OrderPreservingMultiDictionary.cs:60) (allocated at OrderPreservingMultiDictionary.cs:68): 1
 </message>
           <stack-trace>
 ----- Inner Stack Trace #1 (Xunit.Sdk.FailException) -----
@@ -15386,15 +15393,15 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/34880" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" time="13.3850000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_04_RedundantPatternCheckRespectsPragmaSuppression" time="7.7900000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Interceptors" time="15.3200000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Interceptors" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Interceptors" time="15.3610000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
----- ValidateIOperations took too long: 15005 ms
+---- ValidateIOperations took too long: 15013 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[System.String,System.String]] (from ArrayBuilder.cs:508) (allocated at EndToEndTests.cs:631): 1
@@ -15414,10 +15421,10 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_03" time="15.2300000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_03" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_03" time="15.2270000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15031 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15016 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp; ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -15443,10 +15450,10 @@
         <reason><![CDATA[Test not supported in ROSLYN_TEST_IOPERATION]]></reason>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ForAttributeWithMetadataName_DeepRecursion" time="15.3020000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ForAttributeWithMetadataName_DeepRecursion" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ForAttributeWithMetadataName_DeepRecursion" time="15.2430000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
----- ValidateIOperations took too long: 15070 ms
+---- ValidateIOperations took too long: 15023 ms
 ---- Pool leak detected! The following pooled objects were not returned:
   Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
 </message>
@@ -15466,25 +15473,25 @@
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/pull/70791" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: True)" time="0.6600000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: True)" time="0.5630000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69093" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: False)" time="0.8660000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.NestedLambdas(localFunctions: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="NestedLambdas(localFunctions: False)" time="0.2820000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69093" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" time="9.1810000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_05_RedundantPatternCheckRespectsSpecificDiagnosticOption" time="11.6500000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/75506" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_02" time="15.1350000" result="Fail">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.ManyBinaryPatterns_02" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="ManyBinaryPatterns_02" time="15.2110000" result="Fail">
         <failure>
           <message>System.AggregateException : One or more errors occurred.
----- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15005 ms
+---- Xunit.Sdk.FalseException: ValidateIOperations took too long: 15030 ms
    at Xunit.Assert.False(Nullable`1 condition, String userMessage) in /_/src/xunit.assert/Asserts/BooleanAsserts.cs:line 83
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.&lt;ValidateIOperations&gt;g__checkTimeout|17_0(&lt;&gt;c__DisplayClass17_0&amp; ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
    at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 298
@@ -15506,22 +15513,22 @@
         </failure>
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" time="0.2020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: True)" time="0.1490000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" time="0.0290000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: True)" time="0.0480000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" time="0.0300000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: True, concurrent: False)" time="0.0410000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" time="0.1250000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="GenericInheritanceCascade_CSharp(reverse: False, concurrent: False)" time="0.0410000" result="Pass">
         <traits>
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/69515" />
         </traits>
@@ -15538,7 +15545,7 @@
           <trait name="WorkItemUrl" value="https://devdiv.visualstudio.com/DevDiv/_workitems/edit/1874763" />
         </traits>
       </test>
-      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Constraints" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Constraints" time="0.4800000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests.Constraints" type="Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd.EndToEndTests" method="Constraints" time="0.2220000" result="Pass">
         <traits>
           <trait name="WorkItemId" value="42361" />
           <trait name="WorkItemUrl" value="https://github.com/dotnet/roslyn/issues/42361" />

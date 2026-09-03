@@ -1,8 +1,8 @@
-<assemblies timestamp="09/03/2026 11:51:42">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.dll" run-date="2026-09-03" run-time="11:51:42" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.dll.config" total="180" passed="180" failed="0" skipped="0" time="9.337" errors="0">
+<assemblies timestamp="09/03/2026 14:04:13">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.dll" run-date="2026-09-03" run-time="14:04:13" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests\Debug\net472\Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.dll.config" total="180" passed="180" failed="0" skipped="0" time="10.821" errors="0">
     <errors />
-    <collection total="157" passed="157" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" time="0.171">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EventInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EventInternal)" time="0.0080000" result="Pass">
+    <collection total="157" passed="157" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" time="0.172">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: EventInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: EventInternal)" time="0.0090000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests.MapsCorrectly(glyph: MethodInternal)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpGlyphTests" method="MapsCorrectly(glyph: MethodInternal)" time="0.0010000" result="Pass">
@@ -474,8 +474,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" time="0.011">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: Definition)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: Definition)" time="0.0080000" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" time="0.039">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: Definition)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: Definition)" time="0.0360000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests.MapsCorrectly(kind: WrittenReference)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpHighlightSpanKindTests" method="MapsCorrectly(kind: WrittenReference)" time="0.0010000" result="Pass">
@@ -488,8 +488,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" time="0.052">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: ResolvedReferenceConflict)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: ResolvedReferenceConflict)" time="0.0480000" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" time="0.050">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: ResolvedReferenceConflict)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: ResolvedReferenceConflict)" time="0.0460000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests.MapsCorrectly(kind: Complexified)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpInlineRenameReplacementKindTests" method="MapsCorrectly(kind: Complexified)" time="0.0010000" result="Pass">
@@ -505,8 +505,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="11" passed="11" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" time="0.086">
-      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCasePrefix)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCasePrefix)" time="0.0760000" result="Pass">
+    <collection total="11" passed="11" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" time="0.018">
+      <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCasePrefix)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCasePrefix)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests.MapsCorrectly(kind: CamelCaseNonContiguousSubstring)" type="Microsoft.CodeAnalysis.ExternalAccess.FSharp.UnitTests.FSharpNavigateToMatchKindTests" method="MapsCorrectly(kind: CamelCaseNonContiguousSubstring)" time="0.0010000" result="Pass">
