@@ -891,11 +891,12 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		_cleanse_kill_tree "${scan_pid:-}"
 		_cleanse_kill_tree "${rm_pid:-}"
 		[[ -n "${scan_tmp:-}" && -e "${scan_tmp:-}" ]] && rm -f "$scan_tmp"
-		[[ -n "${rm_fifo:-}" && -e "${rm_fifo:-}" ]] && rm -f "$rm_fifo"
+		[[ -n "${rm_log:-}" && -e "${rm_log:-}" ]] && rm -f "$rm_log"
 		return 0
 	  }
 	  trap '_cleanse_kill_bg; exit 130' INT  # background jobs run with job control off (non-interactive script), so POSIX has them ignore SIGINT/SIGQUIT -- forward it explicitly or Ctrl+C would kill only this foreground script
 	  trap '_cleanse_kill_bg; exit 143' TERM
+	  trap '_cleanse_kill_bg; exit 129' HUP  # a closing terminal/SSH session sends SIGHUP, not INT/TERM -- the old fifo-based design happened to catch this for free (the reader disappearing broke the pipe and find got SIGPIPE on its next write), but the regular-file-backed rm_log has no such side effect, so the background find/rm job and its log file would otherwise survive this script's own exit
 	  format_bytes() {
 		local bytes=$1
 		if (( bytes >= 1073741824 )); then
@@ -950,30 +951,50 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  total_formatted=$(format_bytes "$total_bytes")
 	  deleted_bytes=0
 	  deleted_count=0
-	  start_time=$(date +%s)
+	  start_time=$SECONDS  # bash builtin (whole seconds since this shell started) -- no subprocess, and paired with the same $SECONDS the redraw-gating below reads
 	  if (( gnu_find )); then
-		rm_fifo=$(mktemp -u)
-		mkfifo "$rm_fifo"  # single traversal that both deletes and reports each file's size as it goes -- no second, concurrently racing rescan (that contention, not live progress itself, was the source of the old jumpy redraw)
-		( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true; find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true; printf 'DONE\n' ) > "$rm_fifo" &
+		# A named pipe (the prior design here) has a small fixed kernel buffer (64 KiB on Linux --
+		# a few thousand lines of "<size>\n"). find writes one line per deleted file as fast as the
+		# filesystem allows; every time this shell paused to spawn format_bytes/awk for a redraw, the
+		# reader fell behind, the pipe filled, and find's own next write() -- and therefore its next
+		# delete -- blocked until the reader caught up. That's not a display artifact: it's the actual
+		# deletion visibly stopping and starting in lockstep with how often this loop redrew. A plain
+		# regular file has no such backpressure -- writes to it are buffered by the kernel and never
+		# block on a slow (or entirely absent) reader, so find now just runs flat out, appending each
+		# deleted file's size, while this shell independently polls the file's current size on its own
+		# timer (the same kill -0 + sleep pattern the scan spinner above already uses) -- the two are
+		# fully decoupled, the way two ordinary background jobs would be, not forced into lockstep by a
+		# shared pipe.
+		rm_log=$(mktemp -p "$scriptroot" .folly-cleanse-log.XXXXXX)  # -p "$scriptroot", not a bare `mktemp`: a workspace-local $TMPDIR pointed under artifacts_dir would put this log file inside the very tree `find` below is deleting -- getting it unlinked out from under the still-running job, after which every read below fails. $scriptroot (this checkout's own root, holding artifacts_dir as a child) is never itself inside artifacts_dir, so it's always outside the tree being traversed
+		( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true
+		  find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true
+		) > "$rm_log" &
 		rm_pid=$!
-		redraw_every=$(( total_count / 100 > 0 ? total_count / 100 : 1 ))  # ~100 redraws over the run, not one per file (format_bytes spawns awk -- exactly the per-file cost this exists to avoid)
-		since_redraw=0
-		(( interactive )) && printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
-		while IFS= read -r line; do
-		  [[ "$line" == DONE ]] && break
-		  deleted_bytes=$(( deleted_bytes + line ))
-		  deleted_count=$(( deleted_count + 1 ))
-		  since_redraw=$(( since_redraw + 1 ))
-		  if (( interactive )) && (( since_redraw >= redraw_every )); then
-			since_redraw=0
-			elapsed=$(( $(date +%s) - start_time ))
-			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
-		  fi
-		done < "$rm_fifo"
-		rm -f "$rm_fifo"
-		(( interactive )) && printf '\r\033[K'
+		rm_log_offset=0  # bytes of $rm_log already folded into deleted_bytes/deleted_count -- read incrementally from here, not the whole file each time. Updated directly in this loop (never inside a `<(...)`/`$(...)` subshell) -- a subshell's variable changes never propagate back to this shell, which was tried first and silently left rm_log_offset stuck at 0 forever: every poll re-summed the entire log from byte 1 and then *added* that whole-log sum on top of the already-accumulated total, so the displayed counts grew past the real ones with every redraw instead of tracking them
+		if (( interactive )); then
+		  last_redraw_second=-1
+		  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' 0 "$total_count" "$(format_bytes 0)" "$total_formatted"
+		  while kill -0 "$rm_pid" 2>/dev/null; do
+			sleep 0.2
+			if (( SECONDS != last_redraw_second )); then
+			  last_redraw_second=$SECONDS
+			  chunk=$(tail -c "+$((rm_log_offset + 1))" "$rm_log" 2>/dev/null)  # seeks to a byte offset instead of scanning from the start, so this stays proportional to what's new since the last poll, not to how much has already been processed -- re-summing the *entire* log every second would cost O(total lines already deleted) each time, i.e. O(n^2) work over a large cleanse
+			  if [[ -n "$chunk" ]]; then
+				rm_log_offset=$(( rm_log_offset + ${#chunk} + 1 ))  # +1 for the trailing newline `$(...)` strips -- if find's write of the last line is still in flight (no newline yet), nothing is stripped and this overshoots by one byte, silently dropping that line's leading digit into the next poll's chunk; a live progress estimate, not the final count (which re-reads the whole file after `wait` below), so this is an acceptable one-line-wide race, not a correctness bug in the reported total
+				read -r new_bytes new_count < <(printf '%s\n' "$chunk" | awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}')
+				deleted_bytes=$(( deleted_bytes + new_bytes ))
+				deleted_count=$(( deleted_count + new_count ))
+			  fi
+			  elapsed=$(( SECONDS - start_time ))
+			  bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+			  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
+			fi
+		  done
+		  printf '\r\033[K'
+		fi
 		wait "$rm_pid" || true
+		read -r deleted_bytes deleted_count < <(awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}' "$rm_log" 2>/dev/null)  # final tally re-reads the whole (now-complete, no longer being appended to) log once, so it's always exact regardless of any incremental-read race above
+		rm -f "$rm_log"
 	  else
 		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to a plain rm -rf with a spinner, not a periodic full-tree rescan (that rescan-while-deleting contention was what made cleanse slow on macOS/BSD)
 		rm_pid=$!
