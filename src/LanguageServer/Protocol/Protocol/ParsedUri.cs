@@ -827,90 +827,160 @@ internal sealed class ParsedUri : IEquatable<ParsedUri>
     private static bool IsAsciiLetterOrDigit(char ch)
         => ch is (>= 'A' and <= 'Z') or (>= 'a' and <= 'z') or (>= '0' and <= '9');
 
+    /// <summary>
+    /// <paramref name="value"/> is always a contiguous run of %XX triplets (see <see cref="TryFindEncodedAsHex"/>),
+    /// representing one or more UTF-8 code units. Decodes it as a whole first, since a contiguous run may be one
+    /// multi-byte UTF-8 sequence. If that fails, preserves the first %XX literally and retries the remainder so
+    /// any valid suffix still decodes. This intentionally matches vscode-uri: because it peels from the front
+    /// without locating the invalid byte, a failure near the end can leave valid preceding escapes encoded (for
+    /// example, %41%A0 remains %41%A0).
+    /// </summary>
     private static void DecodeURIComponentGraceful(ReadOnlySpan<char> value, StringBuilder result)
     {
-        // A contiguous %XX run may represent one multi-byte UTF-8 sequence, so it is decoded as a whole first.
-        // If that fails, preserve the first %XX literally and retry the remainder so any valid suffix still decodes.
-        // This intentionally matches vscode-uri: because it peels from the front without locating the invalid byte,
-        // a failure near the end can leave valid preceding escapes encoded (for example, %41%A0 remains %41%A0).
-        // Implemented iteratively (rather than recursively) so a long run of invalid escapes can't blow the stack.
-        while (true)
+        // TryFindEncodedAsHex only guarantees the two digits of each %XX triplet are ASCII letters or digits, not
+        // that they're valid hex (e.g. %GG matches its shape check but isn't a real escape) -- hexValid tracks
+        // which triplets actually decoded to a byte; bytes[i] is meaningless where hexValid[i] is false.
+        var byteCount = value.Length / 3;
+        var bytes = new byte[byteCount];
+        var hexValid = new bool[byteCount];
+        for (var i = 0; i < byteCount; i++)
         {
-            var originalLength = result.Length;
-
-            try
+            var hi = HexToInt(value[i * 3 + 1]);
+            var lo = HexToInt(value[i * 3 + 2]);
+            hexValid[i] = hi >= 0 && lo >= 0;
+            if (hexValid[i])
             {
-                DecodeURIComponent(value, result);
-                return;
-            }
-            catch
-            {
-                result.Length = originalLength;
-                if (value.Length > 3)
-                {
-                    Append(result, value[..3]);
-                    value = value[3..];
-                }
-                else
-                {
-                    Append(result, value);
-                    return;
-                }
+                bytes[i] = (byte)((hi << 4) | lo);
             }
         }
+
+        // validFrom[i] is whether the run of hex-valid bytes starting at i decodes, as a whole, as well-formed
+        // UTF-8 up to the next invalid-hex triplet (or the end); runEndAt[i] is where that run ends when it does.
+        // A hex-invalid triplet is never part of a byte sequence -- like the original char-by-char loop hitting
+        // a non-hex-digit, it's a hard boundary an earlier run's validity can't reach across, and on its own it
+        // trivially "decodes" as the empty run. Computed right-to-left in one pass (each position only needs the
+        // next sequence's length plus the already-computed result for the position right after it) so the "does
+        // the *whole* remaining run decode" check the loop below needs at every candidate start is an O(1) lookup
+        // instead of a fresh decode attempt -- the naive retry-the-whole-remainder-per-peeled-triplet approach is
+        // quadratic in the number of triplets.
+        var validFrom = new bool[byteCount + 1];
+        var runEndAt = new int[byteCount + 1];
+        validFrom[byteCount] = true;
+        runEndAt[byteCount] = byteCount;
+        for (var i = byteCount - 1; i >= 0; i--)
+        {
+            if (!hexValid[i])
+            {
+                validFrom[i] = true;
+                runEndAt[i] = i;
+                continue;
+            }
+
+            var seqLength = GetUtf8SequenceLength(bytes, hexValid, i, byteCount);
+            validFrom[i] = seqLength > 0 && validFrom[i + seqLength];
+            if (validFrom[i])
+            {
+                runEndAt[i] = runEndAt[i + seqLength];
+            }
+        }
+
+        var bytePos = 0;
+        while (bytePos < byteCount)
+        {
+            if (!hexValid[bytePos])
+            {
+                // Matches the original per-character loop hitting a non-hex-digit: never attempted as a byte.
+                Append(result, value.Slice(bytePos * 3, 3));
+                bytePos++;
+            }
+            else if (validFrom[bytePos])
+            {
+                var runEnd = runEndAt[bytePos];
+                result.Append(s_strictUtf8.GetString(bytes, bytePos, runEnd - bytePos));
+                bytePos = runEnd;
+            }
+            else
+            {
+                Append(result, value.Slice(bytePos * 3, 3));
+                bytePos++;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Returns the length (1-4) of the well-formed UTF-8 sequence starting at <paramref name="index"/> (itself
+    /// already confirmed valid by the caller), matching <see cref="s_strictUtf8"/>'s strict acceptance rules
+    /// (rejects overlong encodings, surrogate code points, and code points beyond U+10FFFF), or 0 if
+    /// <paramref name="index"/> does not start a well-formed sequence (including a sequence truncated by
+    /// <paramref name="length"/> or one whose continuation bytes came from an invalid-hex triplet).
+    /// </summary>
+    private static int GetUtf8SequenceLength(byte[] bytes, bool[] hexValid, int index, int length)
+    {
+        var b0 = bytes[index];
+        if (b0 <= 0x7F)
+        {
+            return 1;
+        }
+
+        if ((b0 & 0xE0) == 0xC0)
+        {
+            return b0 >= 0xC2 && HasContinuations(1) ? 2 : 0;
+        }
+
+        if ((b0 & 0xF0) == 0xE0)
+        {
+            if (!HasContinuations(2))
+            {
+                return 0;
+            }
+
+            var codePoint = ((b0 & 0x0F) << 12) | ((bytes[index + 1] & 0x3F) << 6) | (bytes[index + 2] & 0x3F);
+            return codePoint is >= 0x800 and (< 0xD800 or > 0xDFFF) ? 3 : 0;
+        }
+
+        if ((b0 & 0xF8) == 0xF0)
+        {
+            if (!HasContinuations(3))
+            {
+                return 0;
+            }
+
+            var codePoint = ((b0 & 0x07) << 18) | ((bytes[index + 1] & 0x3F) << 12) | ((bytes[index + 2] & 0x3F) << 6) | (bytes[index + 3] & 0x3F);
+            return codePoint is >= 0x10000 and <= 0x10FFFF ? 4 : 0;
+        }
+
+        return 0;
+
+        bool HasContinuations(int count)
+        {
+            if (index + count >= length)
+            {
+                return false;
+            }
+
+            for (var i = 1; i <= count; i++)
+            {
+                if (!hexValid[index + i] || (bytes[index + i] & 0xC0) != 0x80)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    private static int HexToInt(char ch)
+    {
+        // TryFindEncodedAsHex only guarantees ASCII letters or digits here, not valid hex digits (e.g. 'G'..'Z').
+        Contract.ThrowIfFalse(IsAsciiLetterOrDigit(ch));
+        if (ch <= '9') return ch - '0';
+        if (ch <= 'F') return ch - 'A' + 10;
+        if (ch >= 'a' && ch <= 'f') return ch - 'a' + 10;
+        return -1;
     }
 
     private static readonly Encoding s_strictUtf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
-
-    /// <summary>
-    /// Decodes a percent-encoded string using UTF-8, equivalent to JavaScript's decodeURIComponent.
-    /// Throws on invalid UTF-8 sequences, matching JavaScript's behavior.
-    /// </summary>
-    private static void DecodeURIComponent(ReadOnlySpan<char> value, StringBuilder result)
-    {
-        var bytes = new byte[value.Length / 3];
-        var byteCount = 0;
-
-        for (var i = 0; i < value.Length;)
-        {
-            if (value[i] == '%' && i + 2 < value.Length)
-            {
-                var hi = HexToInt(value[i + 1]);
-                var lo = HexToInt(value[i + 2]);
-                if (hi >= 0 && lo >= 0)
-                {
-                    bytes[byteCount++] = (byte)((hi << 4) | lo);
-                    i += 3;
-                    continue;
-                }
-            }
-
-            // Flush any accumulated bytes
-            if (byteCount > 0)
-            {
-                result.Append(s_strictUtf8.GetString(bytes, 0, byteCount));
-                byteCount = 0;
-            }
-
-            result.Append(value[i]);
-            i++;
-        }
-
-        if (byteCount > 0)
-        {
-            result.Append(s_strictUtf8.GetString(bytes, 0, byteCount));
-        }
-
-        static int HexToInt(char ch)
-        {
-            // TryFindEncodedAsHex only includes percent-encoded candidates whose digits are ASCII letters or digits.
-            Contract.ThrowIfFalse(IsAsciiLetterOrDigit(ch));
-            if (ch <= '9') return ch - '0';
-            if (ch <= 'F') return ch - 'A' + 10;
-            if (ch >= 'a' && ch <= 'f') return ch - 'a' + 10;
-            return -1;
-        }
-    }
 
     #endregion
 

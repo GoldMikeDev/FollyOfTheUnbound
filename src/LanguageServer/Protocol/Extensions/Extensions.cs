@@ -224,7 +224,7 @@ internal static partial class Extensions
             return null;
         }
 
-        var projects = solution.Projects.WhereAsArray(project => string.Equals(project.FilePath, parsedDocumentUri.FsPath, StringComparison.OrdinalIgnoreCase));
+        var projects = solution.Projects.WhereAsArray(project => PathUtilities.Comparer.Equals(project.FilePath, parsedDocumentUri.FsPath));
         return !projects.Any()
             ? null
             : FindItemInProjectContext(projects, projectIdentifier, projectIdGetter: (item) => item.Id, defaultGetter: () => projects[0]);
