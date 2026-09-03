@@ -179,3 +179,8 @@ recommended/highlighted inside it. See `known-issues/ide.md`.
 - **ImportingConstructor must be marked `[Obsolete]`** with `MefConstruction.ImportingConstructorMessage`
 - **Language services must be exported with a specific language name** — don't use generic exports for both C#/VB
 - **Workspace changes must use immutable updates** — `Workspace.SetCurrentSolution()`
+- **`[VisualStudioContribution]` metadata properties can't use collection expressions** — properties like
+  `CommandConfiguration.Placements` and `CommandGroupConfiguration.Children`
+  (`src/VisualStudio/CSharp/Impl/**`) are evaluated by the `Microsoft.VisualStudio.Extensibility` SDK's
+  compile-time interpreter, which doesn't support `CollectionExpressionSyntax` (`[...]`) and fails the
+  build with `CEE0001`. Use `new[] { ... }` array initializers instead.
