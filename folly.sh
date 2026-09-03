@@ -889,23 +889,21 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  total_formatted=$(format_bytes "$total_bytes")
 	  deleted_bytes=0
 	  deleted_count=0
-	  start_time=$(date +%s)
+	  start_time=$SECONDS  # bash builtin (whole seconds since this shell started) -- no subprocess, and paired with the same $SECONDS the redraw-gating below reads
 	  if (( gnu_find )); then
 		rm_fifo=$(mktemp -u)
 		mkfifo "$rm_fifo"  # single traversal that both deletes and reports each file's size as it goes -- no second, concurrently racing rescan (that contention, not live progress itself, was the source of the old jumpy redraw)
 		( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true; find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true; printf 'DONE\n' ) > "$rm_fifo" &
 		rm_pid=$!
-		redraw_every=$(( total_count / 100 > 0 ? total_count / 100 : 1 ))  # ~100 redraws over the run, not one per file (format_bytes spawns awk -- exactly the per-file cost this exists to avoid)
-		since_redraw=0
+		last_redraw_second=-1  # redraw gated on wall-clock time ($SECONDS, a bash builtin -- no subprocess), not a fixed count of files: a fixed "redraw every ~1% of files" interval is exactly what made this stutter -- deleting 1% of a mixed tree can take 10ms (a burst of tiny files) or several seconds (one huge one), so the line either flickers faster than anyone can read it or sits frozen for seconds before jumping. Once-a-second, however fast or slow files are actually landing, is what every other real progress display (top, a download bar) does, and it's what the pwsh side's Write-Progress throttling was already approximating -- so this isn't "the bash way" replacing "the pwsh way," it's fixing the bash port to actually hit the same steady cadence instead of a file-count proxy for it
 		(( interactive )) && printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
 		while IFS= read -r line; do
 		  [[ "$line" == DONE ]] && break
 		  deleted_bytes=$(( deleted_bytes + line ))
 		  deleted_count=$(( deleted_count + 1 ))
-		  since_redraw=$(( since_redraw + 1 ))
-		  if (( interactive )) && (( since_redraw >= redraw_every )); then
-			since_redraw=0
-			elapsed=$(( $(date +%s) - start_time ))
+		  if (( interactive )) && (( SECONDS != last_redraw_second )); then
+			last_redraw_second=$SECONDS
+			elapsed=$(( SECONDS - start_time ))
 			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
 			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
 		  fi
