@@ -1,43 +1,43 @@
-<assemblies timestamp="09/02/2026 09:58:00">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests.dll" run-date="2026-09-02" run-time="09:58:00" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests.dll.config" total="12" passed="12" failed="0" skipped="0" time="21.417" errors="0">
+<assemblies timestamp="09/03/2026 11:53:54">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests.dll" run-date="2026-09-03" run-time="11:53:54" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Scripting.Desktop.UnitTests.dll.config" total="12" passed="12" failed="0" skipped="0" time="11.534" errors="0">
     <errors />
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" time="1.346">
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.XmlDocComments_SpecificCulture" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="XmlDocComments_SpecificCulture" time="0.6640000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" time="0.797">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.XmlDocComments_SpecificCulture" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="XmlDocComments_SpecificCulture" time="0.4230000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy1" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy1" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy1" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy1" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy_ShadowCopyDirectory" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy_ShadowCopyDirectory" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy_ShadowCopyDirectory" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy_ShadowCopyDirectory" time="0.0500000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Errors" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Errors" time="0.2400000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Errors" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Errors" time="0.0250000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.GetMetadata" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="GetMetadata" time="0.0760000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.GetMetadata" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="GetMetadata" time="0.0650000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.SuppressCopy_Framework" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="SuppressCopy_Framework" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Modules" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Modules" time="0.2090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Modules" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Modules" time="0.1290000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Copy" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Copy" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.Copy" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="Copy" time="0.0500000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.DisposalOnFailure" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="DisposalOnFailure" time="0.1120000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests.DisposalOnFailure" type="Microsoft.CodeAnalysis.Scripting.Hosting.UnitTests.MetadataShadowCopyProviderTests" method="DisposalOnFailure" time="0.0480000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" time="2.834">
-      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.GetFacadeAssemblyIdentities" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="GetFacadeAssemblyIdentities" time="0.3950000" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" time="2.451">
+      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.GetFacadeAssemblyIdentities" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="GetFacadeAssemblyIdentities" time="0.0220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.GetAssemblyIdentities" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="GetAssemblyIdentities" time="0.0680000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.GetAssemblyIdentities" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="GetAssemblyIdentities" time="0.0320000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.AssemblyAndGacLocation" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="AssemblyAndGacLocation" time="2.3710000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests.AssemblyAndGacLocation" type="Microsoft.CodeAnalysis.UnitTests.GlobalAssemblyCacheTests" method="AssemblyAndGacLocation" time="2.3970000" result="Pass">
         <traits />
       </test>
     </collection>

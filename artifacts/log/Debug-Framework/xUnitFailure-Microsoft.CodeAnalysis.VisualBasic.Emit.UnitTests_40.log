@@ -1,0 +1,187 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests\Debug\net472\Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_40_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_40_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\dumps\40
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (2092).
+[xUnit.net 00:01:43.21]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [SKIP]
+[xUnit.net 00:01:43.22]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleSharedWithEvents [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.SimpleWithEventsTest [1 ms]
+[xUnit.net 00:01:43.70]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_02 [1 ms]
+[xUnit.net 00:01:45.29]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenWithEvents.MultipleInitializationsWithAsNew_01 [1 ms]
+[xUnit.net 00:01:52.27]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenRefReturnTests.SpillingByRefCall_Spilling [1 ms]
+Test Logger: Unable to parse one or more test names provided by your test runner. These will be logged using Namespace='UnknownNamespace', Type='UnknownType'. The entire test name will be used as the Method name. Please open a ticket so we can review this issue
+  Failed Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.NativeWriterLimit [15 s]
+  Error Message:
+   System.AggregateException : One or more errors occurred.
+---- ValidateIOperations took too long: 15005 ms
+---- Pool leak detected! The following pooled objects were not returned:
+  Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder`1[System.ValueTuple`2[Microsoft.CodeAnalysis.IOperation,Microsoft.CodeAnalysis.ISymbol]] (from ArrayBuilder.cs:508) (allocated at CompilationExtensions.cs:281): 1
+
+  Stack Trace:
+  
+----- Inner Stack Trace #1 (Xunit.Sdk.FalseException) -----
+   at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.<ValidateIOperations>g__checkTimeout|17_0(<>c__DisplayClass17_0& ) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 288
+   at Microsoft.CodeAnalysis.Test.Utilities.CompilationExtensions.ValidateIOperations(Func`1 createCompilation) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Compilation\CompilationExtensions.cs:line 331
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.ValidateCompilation(Func`1 createCompilationLambda) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 77
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.CreateEmptyCompilation(BasicTestSource source, IEnumerable`1 references, VisualBasicCompilationOptions options, VisualBasicParseOptions parseOptions, String assemblyName) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 72
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.CompilationUtils.CreateCompilation(BasicTestSource source, IEnumerable`1 references, VisualBasicCompilationOptions options, VisualBasicParseOptions parseOptions, TargetFramework targetFramework, String assemblyName) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Utilities\VisualBasic\CompilationTestUtils.vb:line 32
+   at Microsoft.CodeAnalysis.VisualBasic.UnitTests.PDB.PDBTests.NativeWriterLimit() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\VisualBasic\Test\Emit\PDB\PDBTests.vb:line 232
+----- Inner Stack Trace #2 (Xunit.Sdk.XunitException) -----
+   at Roslyn.Test.Utilities.ValidatePooledObjectsAttribute.After(MethodInfo methodUnderTest) in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Test\Core\Assert\ValidatePooledObjectsAttribute.cs:line 118
+[xUnit.net 00:25:55.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_DifferentAssembly_AttributeConstructor [SKIP]
+[xUnit.net 00:25:55.53]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExpressionHasTrivia [SKIP]
+[xUnit.net 00:25:55.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExtensionMethod_NotThisParameter [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_DifferentAssembly_AttributeConstructor [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExpressionHasTrivia [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExtensionMethod_NotThisParameter [1 ms]
+[xUnit.net 00:25:55.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithUserDefinedConversionFromString [SKIP]
+[xUnit.net 00:25:55.55]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsSelfReferential_Metadata [SKIP]
+[xUnit.net 00:25:55.56]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter4 [SKIP]
+[xUnit.net 00:25:55.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpression_OnByRefParameter01 [SKIP]
+[xUnit.net 00:25:55.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter1 [SKIP]
+[xUnit.net 00:25:55.57]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_SwapArguments [SKIP]
+[xUnit.net 00:25:55.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentNonOptionalParameter2 [SKIP]
+[xUnit.net 00:25:55.59]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithFilePathAttributes2 [SKIP]
+[xUnit.net 00:25:55.60]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsCallerMember [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithUserDefinedConversionFromString [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsSelfReferential_Metadata [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter4 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpression_OnByRefParameter01 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter1 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_SwapArguments [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentNonOptionalParameter2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithFilePathAttributes2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsCallerMember [1 ms]
+[xUnit.net 00:25:55.60]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExpressionHasTrivia_Attribute [SKIP]
+[xUnit.net 00:25:55.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestOperator [SKIP]
+[xUnit.net 00:25:55.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithOptionalTargetParameter [SKIP]
+[xUnit.net 00:25:55.61]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestIncorrectParameterNameInCallerArgumentExpressionAttribute [SKIP]
+[xUnit.net 00:25:55.63]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter6 [SKIP]
+[xUnit.net 00:25:55.64]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestIncorrectParameterNameInCallerArgumentExpressionAttribute_AttributeConstructor [SKIP]
+[xUnit.net 00:25:55.64]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter3 [SKIP]
+[xUnit.net 00:25:55.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithOverride [SKIP]
+[xUnit.net 00:25:55.65]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExpressionHasTrivia_Attribute [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestOperator [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithOptionalTargetParameter [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestIncorrectParameterNameInCallerArgumentExpressionAttribute [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter6 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestIncorrectParameterNameInCallerArgumentExpressionAttribute_AttributeConstructor [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter3 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithOverride [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute [1 ms]
+[xUnit.net 00:25:55.66]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestDelegate2 [SKIP]
+[xUnit.net 00:25:55.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionAttribute_ExtensionMethod_IncorrectParameter [SKIP]
+[xUnit.net 00:25:55.67]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestIndexers [SKIP]
+[xUnit.net 00:25:55.68]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionInAttributeConstructor_OptionalAndFieldInitializer [SKIP]
+[xUnit.net 00:25:55.68]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes2 [SKIP]
+[xUnit.net 00:25:55.69]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_CaseInsensitivity_Metadata [SKIP]
+[xUnit.net 00:25:55.70]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.ComClass [SKIP]
+[xUnit.net 00:25:55.70]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_CaseInsensitivity [SKIP]
+[xUnit.net 00:25:55.70]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_DifferentAssembly [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestDelegate2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionAttribute_ExtensionMethod_IncorrectParameter [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestIndexers [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionInAttributeConstructor_OptionalAndFieldInitializer [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_CaseInsensitivity_Metadata [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.ComClass [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_CaseInsensitivity [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_DifferentAssembly [1 ms]
+[xUnit.net 00:25:55.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpression_OnByRefParameter02 [SKIP]
+[xUnit.net 00:25:55.72]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_MultipleAttributes_IncorrectCtor [SKIP]
+[xUnit.net 00:25:55.73]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithMultipleOptionalAttribute [SKIP]
+[xUnit.net 00:25:55.73]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes3 [SKIP]
+[xUnit.net 00:25:55.73]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsSelfReferential [SKIP]
+[xUnit.net 00:25:55.74]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestDelegate1 [SKIP]
+[xUnit.net 00:25:55.75]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_MultipleAttributes [SKIP]
+[xUnit.net 00:25:55.75]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.Tuple [SKIP]
+[xUnit.net 00:25:55.75]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithDifferentParametersReferringToEachOther [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpression_OnByRefParameter02 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_MultipleAttributes_IncorrectCtor [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithMultipleOptionalAttribute [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes3 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsSelfReferential [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestDelegate1 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_MultipleAttributes [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.Tuple [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithDifferentParametersReferringToEachOther [1 ms]
+[xUnit.net 00:25:55.76]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_OldVersion [SKIP]
+[xUnit.net 00:25:55.76]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithFilePathAttributes [SKIP]
+[xUnit.net 00:25:55.77]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithMemberNameAttributes [SKIP]
+[xUnit.net 00:25:55.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsReferringToItself_AttributeConstructor [SKIP]
+[xUnit.net 00:25:55.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes [SKIP]
+[xUnit.net 00:25:55.78]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithMemberNameAttributes2 [SKIP]
+[xUnit.net 00:25:55.79]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter5 [SKIP]
+[xUnit.net 00:25:55.80]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes4 [SKIP]
+[xUnit.net 00:25:55.80]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithOptionalTargetParameter_AttributeConstructor [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_OldVersion [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithFilePathAttributes [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithMemberNameAttributes [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestArgumentExpressionIsReferringToItself_AttributeConstructor [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithMemberNameAttributes2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter5 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentWithLineNumberAttributes4 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentExpressionWithOptionalTargetParameter_AttributeConstructor [1 ms]
+[xUnit.net 00:25:55.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentNonOptionalParameter [SKIP]
+[xUnit.net 00:25:55.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExtensionMethod_ThisParameter [SKIP]
+[xUnit.net 00:25:55.81]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter2 [SKIP]
+[xUnit.net 00:25:55.82]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_Attribute [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestCallerArgumentNonOptionalParameter [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_ExtensionMethod_ThisParameter [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestSetter2 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Semantics.AttributeTests_CallerArgumentExpression.TestGoodCallerArgumentExpressionAttribute_Attribute [1 ms]
+[xUnit.net 00:30:33.96]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleAsyncCapture03 [1 ms]
+[xUnit.net 00:30:36.51]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.HugeTupleCreationParses [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.HugeTupleCreationParses [1 ms]
+[xUnit.net 00:30:37.43]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.GetSymbolInfo_01 [1 ms]
+[xUnit.net 00:30:38.80]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02Long [1 ms]
+[xUnit.net 00:30:42.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [SKIP]
+[xUnit.net 00:30:42.37]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture05 [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture04 [1 ms]
+[xUnit.net 00:30:44.46]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullable02 [1 ms]
+[xUnit.net 00:30:47.44]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.HugeTupleDeclarationParses [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.HugeTupleDeclarationParses [1 ms]
+[xUnit.net 00:30:50.13]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [SKIP]
+[xUnit.net 00:30:50.30]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TargetTypingNullableOverload [1 ms]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTuples.TupleLambdaCapture03 [1 ms]
+[xUnit.net 00:31:22.58]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.EditAndContinueTests.LocalType_CustomModifiers [1 ms]
+[xUnit.net 00:32:03.06]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_03 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_03 [1 ms]
+[xUnit.net 00:32:06.47]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_01 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_01 [1 ms]
+[xUnit.net 00:32:16.44]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_06 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_06 [1 ms]
+[xUnit.net 00:32:17.09]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_04 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_04 [1 ms]
+[xUnit.net 00:32:18.88]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_02 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_02 [1 ms]
+[xUnit.net 00:32:19.25]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_05 [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.CodeGenTests.EmitSequenceOfBinaryExpressions_05 [1 ms]
+[xUnit.net 00:32:31.71]     Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestStringWithOptionalDateTimeValue [SKIP]
+  Skipped Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit.OptionalArgumentsTests.TestStringWithOptionalDateTimeValue [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_40_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_40_x64_test_results.html
+
+Failed!  - Failed:     1, Passed:  4276, Skipped:    75, Total:  4352, Duration: 32 m 29 s - Microsoft.CodeAnalysis.VisualBasic.Emit.UnitTests.dll (net472)

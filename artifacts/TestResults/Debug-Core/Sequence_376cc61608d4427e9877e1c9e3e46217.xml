@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<TestSequence>
-  <Test Name="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.RestoresSolutionInsteadOfIndividualProjectsWhenSolutionLoaded" DisplayName="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.RestoresSolutionInsteadOfIndividualProjectsWhenSolutionLoaded" Source="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll" Completed="True" />
-  <Test Name="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen" DisplayName="Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.Workspaces.AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen" Source="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests.dll" Completed="False" />
-</TestSequence>

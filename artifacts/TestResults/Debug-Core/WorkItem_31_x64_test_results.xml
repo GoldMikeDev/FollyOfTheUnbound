@@ -1,57 +1,57 @@
-<assemblies timestamp="09/02/2026 09:29:33">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-09-02" run-time="09:29:33" total="16" passed="16" failed="0" skipped="0" time="8.747" errors="0">
+<assemblies timestamp="09/03/2026 11:22:18">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests\Debug\net10.0\Microsoft.CodeAnalysis.Remote.ServiceHub.UnitTests.dll" run-date="2026-09-03" run-time="11:22:18" total="16" passed="16" failed="0" skipped="0" time="10.224" errors="0">
     <errors />
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" time="3.154">
-      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests.FirstLoadWins" type="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" method="FirstLoadWins" time="2.5391034" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" time="1.268">
+      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests.FirstLoadWins" type="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" method="FirstLoadWins" time="0.4353602" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests.ChooseServiceHubFolder" type="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" method="ChooseServiceHubFolder" time="0.3931338" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests.ChooseServiceHubFolder" type="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" method="ChooseServiceHubFolder" time="0.3526412" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests.FallbackToCompilerContext" type="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" method="FallbackToCompilerContext" time="0.2217165" result="Pass">
-        <traits />
-      </test>
-    </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" time="2.394">
-      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests.CompilerAssemblyShouldBeLoadedInLoaderALC" type="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" method="CompilerAssemblyShouldBeLoadedInLoaderALC" time="0.0107075" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests.IdeAnalyzerAssemblyShouldBeLoadedInLoaderALC" type="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" method="IdeAnalyzerAssemblyShouldBeLoadedInLoaderALC" time="0.0166687" result="Pass">
-        <traits />
-      </test>
-      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests.NonIdeAnalyzerAssemblyShouldBeLoadedInSeparateALC" type="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" method="NonIdeAnalyzerAssemblyShouldBeLoadedInSeparateALC" time="2.3670880" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests.FallbackToCompilerContext" type="Microsoft.CodeAnalysis.Remote.UnitTests.RazorAnalyzerAssemblyResolverTests" method="FallbackToCompilerContext" time="0.4804438" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" time="0.044">
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Debug)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Debug)" time="0.0180634" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" time="5.400">
+      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests.CompilerAssemblyShouldBeLoadedInLoaderALC" type="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" method="CompilerAssemblyShouldBeLoadedInLoaderALC" time="0.0230384" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Warning)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Warning)" time="0.0099297" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests.IdeAnalyzerAssemblyShouldBeLoadedInLoaderALC" type="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" method="IdeAnalyzerAssemblyShouldBeLoadedInLoaderALC" time="0.0167854" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Information)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Information)" time="0.0005846" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests.NonIdeAnalyzerAssemblyShouldBeLoadedInSeparateALC" type="Microsoft.CodeAnalysis.Remote.UnitTests.RemoteAnalyzerAssemblyLoaderTests" method="NonIdeAnalyzerAssemblyShouldBeLoadedInSeparateALC" time="5.3605419" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Critical)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Critical)" time="0.0000488" result="Pass">
+    </collection>
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" time="0.076">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Debug)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Debug)" time="0.0389794" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: None)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: None)" time="0.0000510" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Warning)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Warning)" time="0.0124983" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Trace)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Trace)" time="0.0000202" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Information)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Information)" time="0.0007432" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Error)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Error)" time="0.0000360" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Critical)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Critical)" time="0.0000432" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.EventWithProperties" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="EventWithProperties" time="0.0106120" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: None)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: None)" time="0.0000347" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: False)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: False)" time="0.0042103" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Trace)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Trace)" time="0.0000164" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: True)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: True)" time="0.0003816" result="Pass">
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.IgnoredSeverity(level: Error)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="IgnoredSeverity(level: Error)" time="0.0000537" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.EventWithProperties" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="EventWithProperties" time="0.0179072" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: False)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: False)" time="0.0053137" result="Pass">
+        <traits />
+      </test>
+      <test name="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests.LogBlockStartEnd(logDelta: True)" type="Microsoft.CodeAnalysis.UnitTests.TelemetryLoggerTests" method="LogBlockStartEnd(logDelta: True)" time="0.0003374" result="Pass">
         <traits />
       </test>
     </collection>
