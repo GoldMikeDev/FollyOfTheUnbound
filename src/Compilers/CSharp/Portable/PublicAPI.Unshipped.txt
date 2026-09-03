@@ -201,3 +201,4 @@ override Microsoft.CodeAnalysis.CSharp.Syntax.NamespaceDeclarationSyntax.RootNam
 override Microsoft.CodeAnalysis.CSharp.Syntax.FileScopedNamespaceDeclarationSyntax.RootNamespaceQualifier.get -> Microsoft.CodeAnalysis.CSharp.Syntax.RootNamespaceQualifierSyntax?
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitRootNamespaceQualifier(Microsoft.CodeAnalysis.CSharp.Syntax.RootNamespaceQualifierSyntax! node) -> void
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitRootNamespaceQualifier(Microsoft.CodeAnalysis.CSharp.Syntax.RootNamespaceQualifierSyntax! node) -> TResult?
+static Microsoft.CodeAnalysis.CSharp.CSharpExtensions.GetValueConversion(this Microsoft.CodeAnalysis.Operations.ICoalesceOperation! coalesceExpression) -> Microsoft.CodeAnalysis.CSharp.Conversion
