@@ -830,7 +830,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		_cleanse_kill_tree "${scan_pid:-}"
 		_cleanse_kill_tree "${rm_pid:-}"
 		[[ -n "${scan_tmp:-}" && -e "${scan_tmp:-}" ]] && rm -f "$scan_tmp"
-		[[ -n "${rm_fifo:-}" && -e "${rm_fifo:-}" ]] && rm -f "$rm_fifo"
+		[[ -n "${rm_log:-}" && -e "${rm_log:-}" ]] && rm -f "$rm_log"
 		return 0
 	  }
 	  trap '_cleanse_kill_bg; exit 130' INT  # background jobs run with job control off (non-interactive script), so POSIX has them ignore SIGINT/SIGQUIT -- forward it explicitly or Ctrl+C would kill only this foreground script
@@ -891,26 +891,44 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	  deleted_count=0
 	  start_time=$SECONDS  # bash builtin (whole seconds since this shell started) -- no subprocess, and paired with the same $SECONDS the redraw-gating below reads
 	  if (( gnu_find )); then
-		rm_fifo=$(mktemp -u)
-		mkfifo "$rm_fifo"  # single traversal that both deletes and reports each file's size as it goes -- no second, concurrently racing rescan (that contention, not live progress itself, was the source of the old jumpy redraw)
-		( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true; find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true; printf 'DONE\n' ) > "$rm_fifo" &
+		# A named pipe (the prior design here) has a small fixed kernel buffer (64 KiB on Linux --
+		# a few thousand lines of "<size>\n"). find writes one line per deleted file as fast as the
+		# filesystem allows; every time this shell paused to spawn format_bytes/awk for a redraw, the
+		# reader fell behind, the pipe filled, and find's own next write() -- and therefore its next
+		# delete -- blocked until the reader caught up. That's not a display artifact: it's the actual
+		# deletion visibly stopping and starting in lockstep with how often this loop redrew. A plain
+		# regular file has no such backpressure -- writes to it are buffered by the kernel and never
+		# block on a slow (or entirely absent) reader, so find now just runs flat out, appending each
+		# deleted file's size, while this shell independently polls the file's current size on its own
+		# timer (the same kill -0 + sleep pattern the scan spinner above already uses) -- the two are
+		# fully decoupled, the way two ordinary background jobs would be, not forced into lockstep by a
+		# shared pipe.
+		rm_log=$(mktemp)
+		( find "$artifacts_dir" -depth -type f -printf '%s\n' -delete 2>/dev/null || true
+		  find "$artifacts_dir" -depth -type d -empty -delete 2>/dev/null || true
+		) > "$rm_log" &
 		rm_pid=$!
-		last_redraw_second=-1  # redraw gated on wall-clock time ($SECONDS, a bash builtin -- no subprocess), not a fixed count of files: a fixed "redraw every ~1% of files" interval is exactly what made this stutter -- deleting 1% of a mixed tree can take 10ms (a burst of tiny files) or several seconds (one huge one), so the line either flickers faster than anyone can read it or sits frozen for seconds before jumping. Once-a-second, however fast or slow files are actually landing, is what every other real progress display (top, a download bar) does, and it's what the pwsh side's Write-Progress throttling was already approximating -- so this isn't "the bash way" replacing "the pwsh way," it's fixing the bash port to actually hit the same steady cadence instead of a file-count proxy for it
-		(( interactive )) && printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted"
-		while IFS= read -r line; do
-		  [[ "$line" == DONE ]] && break
-		  deleted_bytes=$(( deleted_bytes + line ))
-		  deleted_count=$(( deleted_count + 1 ))
-		  if (( interactive )) && (( SECONDS != last_redraw_second )); then
-			last_redraw_second=$SECONDS
-			elapsed=$(( SECONDS - start_time ))
-			bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
-			printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
-		  fi
-		done < "$rm_fifo"
-		rm -f "$rm_fifo"
-		(( interactive )) && printf '\r\033[K'
+		_cleanse_read_rm_log() {  # sums the size column of every line logged so far -- cheap relative to find's own work, and never touches the filesystem this delete is racing against (unlike the old rescan-based BSD/non-GNU fallback this deliberately doesn't repeat that mistake for)
+		  awk '{s+=$1; n++} END{printf "%d %d\n", s+0, n+0}' "$rm_log" 2>/dev/null  # trailing newline required -- `read` returns nonzero on EOF without one, which would abort the whole script under `set -e`
+		}
+		if (( interactive )); then
+		  last_redraw_second=-1
+		  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s' 0 "$total_count" "$(format_bytes 0)" "$total_formatted"
+		  while kill -0 "$rm_pid" 2>/dev/null; do
+			sleep 0.2
+			if (( SECONDS != last_redraw_second )); then
+			  last_redraw_second=$SECONDS
+			  read -r deleted_bytes deleted_count < <(_cleanse_read_rm_log)
+			  elapsed=$(( SECONDS - start_time ))
+			  bytes_per_second=$(( elapsed > 0 ? deleted_bytes / elapsed : 0 ))
+			  printf '\r\033[KCleansing artefacts %d / %d files, %s / %s, %s/s' "$deleted_count" "$total_count" "$(format_bytes "$deleted_bytes")" "$total_formatted" "$(format_bytes "$bytes_per_second")"
+			fi
+		  done
+		  printf '\r\033[K'
+		fi
 		wait "$rm_pid" || true
+		read -r deleted_bytes deleted_count < <(_cleanse_read_rm_log)
+		rm -f "$rm_log"
 	  else
 		rm -rf "$artifacts_dir" &  # BSD find has no -printf, so it can't report a deleted file's size in the same pass as -delete -- fall back to a plain rm -rf with a spinner, not a periodic full-tree rescan (that rescan-while-deleting contention was what made cleanse slow on macOS/BSD)
 		rm_pid=$!
