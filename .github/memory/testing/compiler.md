@@ -74,3 +74,38 @@ runs: `EndToEndTests.{OverflowOnFluentCall, Interceptors,
 ForAttributeWithMetadataName_DeepRecursion, ManyBinaryPatterns_01/02/03,
 ManyUnreferencedSuppressMessageAttributes}`, `PDBTests.NativeWriterLimit`
 (C# `_EndToEnd` and VB), and VB `EnumTests.LongDependencyChain` all needed this.
+A full `.\folly scry --testIOperation` run (no `--bootstrap`) additionally hit the
+same thing across the whole "Binary Operations" region of
+`CodeGenExprLambda.vb` (`src/Compilers/VisualBasic/Test/Emit/ExpressionTrees/`) —
+18 `TestBinaryOperator_{Unchecked,Checked}_*` tests sharing
+`TestBinaryOperator_AllTypesAndSomeOperations`-style helpers that each generate a
+large combinatorial (all-types × all-operators) VB program — plus VB
+`Emit.Perf.Test` (compiles `VBPerfTest.vb`, a whole perf-benchmark file). Different
+individual tests in that region tripped the timeout on different runs (whichever
+one lost the race that run), which is the tell that the *whole* helper-sharing
+group is near the edge, not just the specific method that happened to fail — worth
+checking neighboring tests that share a "generates a big combinatorial program"
+helper whenever one of them shows up in a scry failure, rather than patching only
+the one that failed that run.
+
+## `CompilationCacheTests` "Access to the path ... is denied" is a Windows AV/real-time-scan issue, not a code bug
+
+`Server/VBCSCompilerTests/CompilationCacheTests.cs`'s `TryStoreResult_*` tests
+occasionally fail with `Assert.True() Failure` because
+`CompilationCache.TryStoreResult` (`Server/VBCSCompiler/CompilationCache.cs`)
+caught an `UnauthorizedAccessException`/`IOException` while writing into its
+staging directory and returned `CompilationCacheStoreResult.Failed` (by design —
+see the method's doc comment: "Failures are logged but do not propagate as
+exceptions"). The staging/cache-entry directories are named after the literal
+target DLL, e.g. `...\Created.dll\<hash>.<guid>.tmp` — a filesystem path ending in
+`.dll`, which is exactly the shape Windows Defender (or other AV) real-time
+protection is known to transiently lock for on-access scanning right after
+creation. `CompilationCache.cs` already treats `UnauthorizedAccessException` as
+non-fatal in its own cleanup path (same file, staging-dir cleanup in `finally`),
+so this production code already assumes transient access-denial is expected on
+Windows — this is environment interference, not a fork regression. Not something
+to silently mark `Skip` on (it's a legitimate assertion of the happy path, and a
+flaky failure is still worth knowing about) — if it recurs, the actionable fix is
+either excluding `%LOCALAPPDATA%\Temp\RoslynTests\` from AV real-time scanning on
+the dev machine, or adding retry-with-backoff around the staging-dir writes in
+`TryStoreResult` (not done here — wasn't reproducible outside Windows to verify).
