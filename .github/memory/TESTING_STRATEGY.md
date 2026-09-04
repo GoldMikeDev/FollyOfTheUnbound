@@ -51,6 +51,20 @@ Targeted runs are strongly preferred — the full suite is large and slow. Tests
 - A handful of tests fail only for environmental reasons:
   - `RuntimeHostInfoTests.DotNetInPath_Symlinked` requires symlink-creation privilege (run elevated).
   - `Workspaces.MSBuild` `NewlyCreatedProjectsFromDotNetNew.Validate*TemplateProjects` fail without mobile (ios/tvos/macos/maccatalyst) dotnet workloads installed.
+- `--testIOperation` (`.\folly scry ... --testIOperation` / `eng/build.{sh,ps1} -testIOperation`) makes
+  `CreateCompilation` walk the whole semantic-model/IOperation tree for every compilation in every
+  test, on top of ordinary bind/emit — this can push several of this fork's heaviest test assemblies
+  (`Semantic`, `Symbol`, `Emit3`, `Workspaces.MSBuild`, etc.) well past 15-29 minutes each. `eng/build.
+  {sh,ps1}` now default RunTests' whole-run `--timeout` watchdog to 240 minutes (not 90) whenever
+  `-testIOperation`/`--testIOperation` is set, precisely so a real `--testIOperation` run doesn't get
+  killed as a false "hang" partway through — this happened for real on a Core leg where the watchdog
+  fired mid-run while individual assemblies were still actively completing (`RunTests.Program`'s
+  `Test timeout exceeded, dumping remaining processes`), not because anything was actually stuck.
+  `--testTimeout`/`-testTimeout` still overrides either default explicitly. Individual large or
+  deeply-recursive tests that separately blow the *per-validation* 15s watchdog inside
+  `CompilationExtensions.ValidateIOperations` (a different, inner timeout — see
+  `testing/compiler.md`'s `NoIOperationValidation` section) are unaffected by this; that one is fixed
+  per-test, not by raising a global run timeout.
 
 ## CI
 

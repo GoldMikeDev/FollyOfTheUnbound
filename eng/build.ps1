@@ -128,7 +128,8 @@ function Print-Usage() {
   Write-Host "                            diagnostics are unaffected. For a caller building its own combined summary"
   Write-Host "                            across multiple RunTests passes -- see folly.ps1 scry"
   Write-Host "  -testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog (default: 90 for -testCoreClr/"
-  Write-Host "                            -testDesktop, 220 for -testVsi; ignored when -helix is set)"
+  Write-Host "                            -testDesktop (240 if -testIOperation is also set), 220 for -testVsi;"
+  Write-Host "                            ignored when -helix is set)"
   Write-Host "  -skipCustomRoslynDeploy   Skip custom Roslyn deployment when running integration tests (uses Roslyn from the VS)"
   Write-Host ""
   Write-Host "Advanced settings:"
@@ -474,9 +475,17 @@ function TestUsingRunTests() {
   $args += " --configuration $configuration"
   $testFilters = @()
 
+  # --testIOperation makes CreateCompilation walk the whole semantic-model/IOperation tree for every
+  # compilation in every test on top of the ordinary bind/emit work, which can push several of this
+  # fork's heaviest assemblies (Semantic/Symbol/Emit3/Workspaces.MSBuild, etc.) well past 15-29 minutes
+  # each -- easily blowing the plain 90-minute default across a whole Core/Framework run even though
+  # nothing actually hung. Give it a much looser watchdog so a real hang still gets caught without
+  # discarding a slow-but-progressing run; -testTimeout still overrides either default.
+  $defaultTestTimeout = if ($testIOperation) { 240 } else { 90 }
+
   if ($testCoreClr) {
     $args += " --runtime core"
-    $timeout = 90
+    $timeout = $defaultTestTimeout
     if ($testCompilerOnly) {
       $args += GetCompilerTestAssembliesIncludePaths
     } else {
@@ -485,7 +494,7 @@ function TestUsingRunTests() {
   }
   elseif ($testDesktop -or ($testIOperation -and -not $testCoreClr)) {
     $args += " --runtime framework"
-    $timeout = 90
+    $timeout = $defaultTestTimeout
 
     if ($testRuntimeAsync) {
       Write-Host "Cannot run desktop tests with runtime async validation enabled."

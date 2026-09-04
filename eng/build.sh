@@ -649,12 +649,18 @@ if [[ "$test_core_clr" == true ]]; then
     runtests_args="$runtests_args --suppressConsoleSummary"
   fi
 
-  # Matches build.ps1's own -testCoreClr default of 90 minutes for RunTests' whole-run watchdog;
-  # --testTimeout overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since
-  # Helix has its own external timeout management.
+  # Matches build.ps1's own -testCoreClr default of 90 minutes for RunTests' whole-run watchdog (240
+  # when --testIOperation is also set, since walking the whole semantic-model/IOperation tree for
+  # every compilation in every test can push this fork's heaviest assemblies well past 90 minutes in
+  # aggregate even with nothing actually hung); --testTimeout overrides it, and (matching build.ps1)
+  # Helix runs skip the watchdog entirely since Helix has its own external timeout management.
   if [[ "$helix" != true ]]; then
     if [[ "$test_timeout" -le 0 ]]; then
-      test_timeout=90
+      if [[ "$test_ioperation" == true ]]; then
+        test_timeout=240
+      else
+        test_timeout=90
+      fi
     fi
     runtests_args="$runtests_args --timeout $test_timeout"
   fi
@@ -723,12 +729,17 @@ elif [[ "$test_desktop" == true ]]; then
     runtests_args="$runtests_args --suppressConsoleSummary"
   fi
 
-  # Matches build.ps1's own -testDesktop default of 90 minutes for RunTests' whole-run watchdog;
-  # --testTimeout overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since
-  # Helix has its own external timeout management.
+  # Matches build.ps1's own -testDesktop default of 90 minutes for RunTests' whole-run watchdog (240
+  # when --testIOperation is also set -- see the -testCoreClr branch above for why); --testTimeout
+  # overrides it, and (matching build.ps1) Helix runs skip the watchdog entirely since Helix has its
+  # own external timeout management.
   if [[ "$helix" != true ]]; then
     if [[ "$test_timeout" -le 0 ]]; then
-      test_timeout=90
+      if [[ "$test_ioperation" == true ]]; then
+        test_timeout=240
+      else
+        test_timeout=90
+      fi
     fi
     runtests_args="$runtests_args --timeout $test_timeout"
   fi
