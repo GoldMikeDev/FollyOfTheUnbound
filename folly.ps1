@@ -166,7 +166,7 @@ Commands:
         Restore & rebuild.
 
     'scry       <primary>   [switches]'
-        Restore, build & run Core (and, on Windows, Framework) unit tests.
+        Restore, build & run unit tests.
 
     'weave      <primary>   [switches]'
         Restore & build.
@@ -201,27 +201,20 @@ Switches:
         Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
 
     '<scry>     <primary>   --testIOperation'
-        Run tests with the IOperation test hook enabled. Raises RunTests' whole-run watchdog default
-        from 90 to 240 minutes (validating the whole IOperation tree for every compilation is much
-        slower) -- an explicit '--timeout' still overrides that 240 default, same as it overrides the
-        plain 90-minute one.
+        Run tests with the IOperation test hook enabled. (raises default timeout to 240)
 
     '<scry>     <primary>   --testUsedAssemblies'
         Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
 
     '<scry>     <primary>   --testRuntimeAsync'
-        Run tests with runtime async validation enabled (DOTNET_RuntimeAsync). Incompatible with the
-        Framework leg (.NET Framework can't run it), so this pushes '--core' through automatically
-        when neither '--core' nor '--framework' was given -- an explicit '--framework' alongside it
-        is still rejected as a real conflict.
+        Run tests with runtime async validation enabled (DOTNET_RuntimeAsync).
+		Incompatible with .NET Framework so always enables '--core'
 
     '<scry>     <primary>   --collectDumps'
-        Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
-        WER registry key and its timeout-dump path can capture unrelated processes' memory -- see
-        API_MAP.md for details).
+        Enable RunTests' Windows-only crash/hang dump collection.
 
     '<scry>     <primary>   --timeout <minutes>'
-        Override RunTests' whole-run watchdog (default: 90, or 240 with '--testIOperation').
+        Override RunTests' whole-run watchdog (default: 90. raises to 240 when '--testIOperation' is used).
 
     '<command>  <primary>   --verbosity <level>'
         MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic (default: minimal).
