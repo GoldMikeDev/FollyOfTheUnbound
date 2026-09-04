@@ -361,6 +361,17 @@ fi
 function EnsureProcDump {
   _EnsureProcDumpFailed=0
 
+  # Prefer an already-installed procdump.exe resolvable on PATH -- avoids an unnecessary download
+  # (which requires network access to download.sysinternals.com) when the caller already has it.
+  # Matches build.ps1's own Get-Command check; like the rest of this value, never consumed for more
+  # than console output, so the directory-not-file-path return value here is harmless.
+  local on_path
+  on_path="$(command -v procdump.exe 2>/dev/null || command -v procdump 2>/dev/null || true)"
+  if [[ -n "$on_path" ]]; then
+    _EnsureProcDump="$(ToNativePath "$(dirname "$on_path")")"
+    return
+  fi
+
   # Jenkins images default to having procdump installed in the root -- use that if available to
   # avoid an unnecessary download, matching build.ps1's own check (and its directory-not-file-path
   # return value in this one case, which -- like the rest of this value -- is never consumed for

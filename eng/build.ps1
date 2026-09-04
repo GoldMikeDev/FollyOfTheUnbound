@@ -805,6 +805,13 @@ function Deploy-VsixViaTool() {
 # the procdump binaries (both 32 and 64 bit)
 function Ensure-ProcDump() {
 
+  # Prefer an already-installed procdump.exe resolvable on PATH -- avoids an unnecessary download
+  # (which requires network access to download.sysinternals.com) when the caller already has it.
+  $onPath = Get-Command "procdump.exe" -ErrorAction SilentlyContinue
+  if ($onPath) {
+    return Split-Path -Parent $onPath.Source
+  }
+
   # Jenkins images default to having procdump installed in the root.  Use that if available to avoid
   # an unnecessary download.
   if (Test-Path "C:\SysInternals\procdump.exe") {
