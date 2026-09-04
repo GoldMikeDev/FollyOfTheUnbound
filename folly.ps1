@@ -208,7 +208,7 @@ Switches:
 
     '<scry>     <primary>   --testRuntimeAsync'
         Run tests with runtime async validation enabled (DOTNET_RuntimeAsync).
-		Incompatible with .NET Framework so always enables '--core'
+        Incompatible with .NET Framework so always enables '--core'
 
     '<scry>     <primary>   --collectDumps'
         Enable RunTests' Windows-only crash/hang dump collection.
