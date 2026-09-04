@@ -211,8 +211,9 @@ Switches:
 
     '<scry>     <primary>   --testRuntimeAsync'
         Run tests with runtime async validation enabled (DOTNET_RuntimeAsync). Incompatible with the
-        Framework leg (.NET Framework can't run it) -- requires '--core' when both legs would
-        otherwise run.
+        Framework leg (.NET Framework can't run it), so this pushes '--core' through automatically
+        when neither '--core' nor '--framework' was given -- an explicit '--framework' alongside it
+        is still rejected as a real conflict.
 
     '<scry>     <primary>   --collectDumps'
         Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
@@ -247,13 +248,19 @@ Switches:
 	# support -- eng/build.ps1's own -testDesktop/-testRuntimeAsync guard would reject it there
 	# anyway, but failing fast here avoids burning a build first). Checked against the raw
 	# '--core'/'--framework' selectors, not the derived $runCore/$runFramework (computed later, only
-	# inside the scry branch): explicit '--framework' is always a rejection; so is neither switch
-	# given, since scry then defaults to running both legs together. Checked before the
-	# '--framework requires Windows' rule below (matching folly.sh's own ordering) so this message
-	# wins on a genuine Windows host where '--framework' would otherwise be valid on its own.
-	if ($testRuntimeAsync -and ($framework -or -not $core)) {
-		Write-Host "'--testRuntimeAsync' can't run against the Framework leg -- pass '--core' too (or instead) to restrict the run to Core." -ForegroundColor Red
+	# inside the scry branch). An explicit '--framework' is a real, irreconcilable conflict with the
+	# caller's own stated intent, so that's still a hard rejection -- checked before the '--framework
+	# requires Windows' rule below (matching folly.sh's own ordering) so this message wins on a
+	# genuine Windows host where '--framework' would otherwise be valid on its own. But when the
+	# caller just didn't say either way, there's nothing to reconcile -- push '--core' through
+	# automatically instead of making them retype what this switch already implies, matching how
+	# eng/build.ps1 itself auto-selects testCoreClr for '-testIOperation'.
+	if ($testRuntimeAsync -and $framework) {
+		Write-Host "'--testRuntimeAsync' can't run against the Framework leg -- drop '--framework' (or drop '--testRuntimeAsync') to resolve the conflict." -ForegroundColor Red
 		exit 1
+	}
+	if ($testRuntimeAsync -and -not $core) {
+		$core = $true
 	}
 	if ($framework -and -not $onWindows) {
 		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red

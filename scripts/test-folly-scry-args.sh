@@ -540,19 +540,22 @@ else
   test_fail "testRuntimeAsync on non-scry action (exit=$exit_code): $output"
 fi
 
-# --- --testRuntimeAsync without --core is rejected (would otherwise run against the Framework leg
-# too, which can't run it) ---
+# --- --testRuntimeAsync without --core pushes --core through automatically instead of erroring
+# (this host never runs Framework anyway, so the observable proof is that the run now succeeds
+# rather than getting rejected -- the actual "Framework never runs" half is proven on Windows by
+# the PowerShell harness's own $runFramework-based assertion) ---
 dir="$(new_test_case "test-runtime-async-without-core")"
 result="$(run_case "$dir" scry research --testRuntimeAsync)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
-if [[ "$exit_code" == "1" && "$output" == *"can't run against the Framework leg"* ]]; then
-  test_pass "'--testRuntimeAsync' without '--core' is rejected"
+if [[ "$exit_code" == "0" && "$output" == *"Core: 1 passed"* ]]; then
+  test_pass "'--testRuntimeAsync' without '--core' pushes '--core' through instead of erroring"
 else
   test_fail "testRuntimeAsync without --core (exit=$exit_code): $output"
 fi
 
-# --- --testRuntimeAsync --framework is rejected even with --core also given ---
+# --- --testRuntimeAsync --framework is still rejected even with --core also given (a real,
+# irreconcilable conflict, unlike just omitting --core/--framework entirely) ---
 dir="$(new_test_case "test-runtime-async-with-framework")"
 result="$(run_case "$dir" scry research --testRuntimeAsync --core --framework)"
 exit_code="${result%%$'\x1e'*}"

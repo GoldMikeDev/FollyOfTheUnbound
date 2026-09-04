@@ -185,8 +185,9 @@ Switches:
 
     '<scry>     <primary>   --testRuntimeAsync'
         Run tests with runtime async validation enabled (DOTNET_RuntimeAsync). Incompatible with the
-        Framework leg (.NET Framework can't run it) -- requires '--core' when both legs would
-        otherwise run.
+        Framework leg (.NET Framework can't run it), so this pushes '--core' through automatically
+        when neither '--core' nor '--framework' was given -- an explicit '--framework' alongside it
+        is still rejected as a real conflict.
 
     '<scry>     <primary>   --collectDumps'
         Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
@@ -334,14 +335,17 @@ if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq
 fi
 # '--testRuntimeAsync' can't run against the Framework leg (.NET Framework has no runtime-async
 # support -- eng/build.sh's own test_desktop/test_runtime_async guard would reject it there anyway,
-# but failing fast here avoids burning a build first). Checked against the raw '--core'/'--framework'
-# selectors, not the derived run_core/run_framework (computed later, only inside the scry branch):
-# explicit '--framework' is always a rejection: so is neither switch given, since scry then defaults to
-# running both legs together (or just Core on a non-Windows host, but this rule applies uniformly
-# regardless of host so the error message stays predictable either way).
-if [[ "$test_runtime_async" -eq 1 && ( "$framework" -eq 1 || "$core" -eq 0 ) ]]; then
-  echo "'--testRuntimeAsync' can't run against the Framework leg -- pass '--core' too (or instead) to restrict the run to Core." >&2
+# but failing fast here avoids burning a build first). An explicit '--framework' is a real,
+# irreconcilable conflict with the caller's own stated intent, so that's still a hard rejection. But
+# when the caller just didn't say either way, there's nothing to reconcile -- push '--core' through
+# automatically instead of making them retype what this switch already implies, matching how
+# eng/build.ps1/eng/build.sh themselves auto-select testCoreClr for '-testIOperation'.
+if [[ "$test_runtime_async" -eq 1 && "$framework" -eq 1 ]]; then
+  echo "'--testRuntimeAsync' can't run against the Framework leg -- drop '--framework' (or drop '--testRuntimeAsync') to resolve the conflict." >&2
   exit 1
+fi
+if [[ "$test_runtime_async" -eq 1 && "$core" -eq 0 ]]; then
+  core=1
 fi
 # '--framework' requires a Windows host regardless of which selector combination was given -- checked
 # unconditionally here (not deferred into the scry branch below) so the error surfaces before any

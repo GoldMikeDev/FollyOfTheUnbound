@@ -516,19 +516,23 @@ else { exit 0 }
         Test-Fail "testRuntimeAsync on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- --testRuntimeAsync without --core is rejected (would otherwise run against the Framework
-    # leg too, which can't run it) ---
+    # --- --testRuntimeAsync without --core pushes --core through automatically instead of erroring
+    # (Framework can't run it): on Windows this proves Framework genuinely never runs, not just that
+    # the command happened to succeed -- off-Windows, '--framework' is unreachable anyway (rejected
+    # by its own rule before this one), so this still exercises the auto-push path and just can't
+    # additionally prove the Framework-suppression half here (folly.sh's harness notes the same). ---
     $dir = New-TestCase "test-runtime-async-without-core"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--testRuntimeAsync")
-    if ($result.ExitCode -eq 1 -and $result.Output -match "can't run against the Framework leg") {
-        Test-Pass "'--testRuntimeAsync' without '--core' is rejected"
+    if ($result.ExitCode -eq 0 -and $result.Output -match "Core: 1 passed" -and $result.Output -notmatch "Framework:") {
+        Test-Pass "'--testRuntimeAsync' without '--core' pushes '--core' through instead of erroring"
     }
     else {
         Test-Fail "testRuntimeAsync without --core (exit=$($result.ExitCode)): $($result.Output)"
     }
 
-    # --- --testRuntimeAsync --framework is rejected even with --core also given -- this script's
-    # own testRuntimeAsync-vs-framework check runs before the '--framework requires Windows' rule
+    # --- --testRuntimeAsync --framework is still rejected even with --core also given (a real,
+    # irreconcilable conflict, unlike just omitting --core/--framework entirely) -- this script's own
+    # testRuntimeAsync-vs-framework check runs before the '--framework requires Windows' rule
     # (matching folly.sh's own ordering), so this message wins on every host, not just Windows. ---
     $dir = New-TestCase "test-runtime-async-with-framework"
     $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--testRuntimeAsync", "--core", "--framework")
