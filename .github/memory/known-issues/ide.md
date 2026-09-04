@@ -32,11 +32,13 @@ into `Solution.FallbackAnalyzerOptions` via `SolutionAnalyzerConfigOptionsUpdate
 and per-connection `ExtensionLogDirectory`/`SourceGeneratorExecutionPreference` (via a `ConnectionHandshake`
 a connecting client sends before its stream becomes the LSP channel, no longer baked into the daemon pipe
 key) are all isolated per connection. **Still open, by design, not deferred:** `TelemetryLevel`/`SessionId`
-still come from whichever client happened to launch the daemon — `RoslynLogger` is a hard process-wide
-singleton with no way for two instances (one per connection) to coexist without a telemetry-plumbing
-redesign that's out of scope, and telemetry answers "how is this tool used in aggregate," not "what did this
-workspace do," so misattributing it across a shared daemon's connections isn't a correctness/privacy problem
-the way the option/log gaps were.
+still come from whichever client happened to launch the daemon — the shared `LanguageServerTelemetry`
+reporter (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/Telemetry/LanguageServerTelemetry.cs`,
+successor to the old process-wide `RoslynLogger` singleton) and its `IEventSink`/`IMetricSink` sinks are
+still owned once per daemon process, with no way for two instances (one per connection) to coexist without
+a telemetry-plumbing redesign that's out of scope, and telemetry answers "how is this tool used in
+aggregate," not "what did this workspace do," so misattributing it across a shared daemon's connections
+isn't a correctness/privacy problem the way the option/log gaps were.
 **Fixed since the above was written:** `RazorClientServerManagerProvider`
 (`src/Razor/.../Services/RazorClientServerManagerProvider.cs`), `CohostConfigurationChangedService`'s
 `IClientSettingsManager` (`src/Razor/.../Services/ClientSettingsManager.cs`), and the separate remote/OOP
