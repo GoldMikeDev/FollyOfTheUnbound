@@ -175,7 +175,10 @@ Switches:
         Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
 
     '<scry>     <primary>   --testIOperation'
-        Run tests with the IOperation test hook enabled.
+        Run tests with the IOperation test hook enabled. Raises RunTests' whole-run watchdog default
+        from 90 to 240 minutes (validating the whole IOperation tree for every compilation is much
+        slower) -- an explicit '--timeout' still overrides that 240 default, same as it overrides the
+        plain 90-minute one.
 
     '<scry>     <primary>   --collectDumps'
         Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
@@ -183,10 +186,10 @@ Switches:
         API_MAP.md for details).
 
     '<scry>     <primary>   --timeout <minutes>'
-        Override RunTests' whole-run watchdog (default: 90).
+        Override RunTests' whole-run watchdog (default: 90, or 240 with '--testIOperation').
 
     '<command>  <primary>   --verbosity <level>'
-        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
+        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic (default: minimal).
 
 EOF
   exit 0
