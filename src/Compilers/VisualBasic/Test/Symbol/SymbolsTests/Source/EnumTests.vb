@@ -1502,7 +1502,7 @@ BC30652: Reference required to assembly 'UseSiteError_sourceA, Version=0.0.0.0, 
 </expected>)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         <WorkItem(50163, "https://github.com/dotnet/roslyn/issues/50163")>
         Public Sub LongDependencyChain()
             Dim text As New StringBuilder()
