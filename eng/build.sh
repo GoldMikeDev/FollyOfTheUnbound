@@ -31,6 +31,7 @@ usage()
   echo "  --testCompilerOnly         Run only the compiler unit tests"
   echo "  --testFilter <value>       xUnit filter to pass to RunTests' --testfilter, e.g. FullyQualifiedName~TestClass1|Category=CategoryA"
   echo "  --testIOperation           Run unit tests with the IOperation test hook"
+  echo "  --testUsedAssemblies       Run extra checks to validate used assemblies feature (see ROSLYN_TEST_USEDASSEMBLIES in codebase)"
   echo "  --testSuppressConsoleSummary  Suppress only RunTests' own final PASSED/FAILED/TIMEOUT table"
   echo "                             from the console (still written to the log file); the live"
   echo "                             progress table is unaffected. For a caller building its own"
@@ -80,6 +81,7 @@ test_core_clr=false
 test_desktop=false
 test_mono=false
 test_ioperation=false
+test_used_assemblies=false
 test_runtime_async=false
 test_compiler_only=false
 test_filter=""
@@ -178,6 +180,9 @@ while [[ $# > 0 ]]; do
       ;;
     --testioperation)
       test_ioperation=true
+      ;;
+    --testusedassemblies)
+      test_used_assemblies=true
       ;;
     --testsuppressconsolesummary)
       # Suppresses only RunTests' own final PASSED/FAILED/TIMEOUT table from the console (still
@@ -482,6 +487,10 @@ function BuildSolution {
     if [[ "$test_mono" != true && "$test_core_clr" != true ]]; then
       test_core_clr=true
     fi
+  fi
+
+  if [[ "$test_used_assemblies" == true ]]; then
+    export ROSLYN_TEST_USEDASSEMBLIES="true"
   fi
 
   if [[ "$test_runtime_async" == true ]]; then

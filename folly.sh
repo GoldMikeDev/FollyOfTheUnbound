@@ -180,6 +180,14 @@ Switches:
         slower) -- an explicit '--timeout' still overrides that 240 default, same as it overrides the
         plain 90-minute one.
 
+    '<scry>     <primary>   --testUsedAssemblies'
+        Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
+
+    '<scry>     <primary>   --testRuntimeAsync'
+        Run tests with runtime async validation enabled (DOTNET_RuntimeAsync). Incompatible with the
+        Framework leg (.NET Framework can't run it) -- requires '--core' when both legs would
+        otherwise run.
+
     '<scry>     <primary>   --collectDumps'
         Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
         WER registry key and its timeout-dump path can capture unrelated processes' memory -- see
@@ -204,6 +212,8 @@ framework=0
 test_compiler_only=0
 test_filter=""
 test_ioperation=0
+test_used_assemblies=0
+test_runtime_async=0
 collect_dumps=0
 bootstrap=0
 while [[ $# -gt 0 ]]; do
@@ -234,6 +244,14 @@ while [[ $# -gt 0 ]]; do
 	  ;;
 	--testIOperation)
 	  test_ioperation=1
+	  shift
+	  ;;
+	--testUsedAssemblies)
+	  test_used_assemblies=1
+	  shift
+	  ;;
+	--testRuntimeAsync)
+	  test_runtime_async=1
 	  shift
 	  ;;
 	--collectDumps)
@@ -299,18 +317,30 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
-# '--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--timeout'/reflection
-# are scoped to 'scry' -- one combined check/message rather than one per selector, since they're all
-# the same rule applied to different args. '--bootstrap' is NOT scoped to 'scry': like '--binaryLog'/
-# '--verbosity' it's valid on any build-invoking action, just rejected on 'cleanse' below.
-if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$collect_dumps" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
-  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
+# '--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--testUsedAssemblies'/
+# '--testRuntimeAsync'/'--timeout'/reflection are scoped to 'scry' -- one combined check/message rather
+# than one per selector, since they're all the same rule applied to different args. '--bootstrap' is
+# NOT scoped to 'scry': like '--binaryLog'/'--verbosity' it's valid on any build-invoking action, just
+# rejected on 'cleanse' below.
+if [[ ( "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$test_used_assemblies" -eq 1 || "$test_runtime_async" -eq 1 || "$collect_dumps" -eq 1 || "$test_timeout" -gt 0 || "$reflection" -eq 1 ) && "$action" != "scry" ]]; then
+  echo "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--testUsedAssemblies'/'--testRuntimeAsync'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." >&2
   exit 1
 fi
 # By this point "$action" == "scry" is already guaranteed whenever reflection is set (the check
 # above would have rejected it otherwise), so this doesn't need to re-check "$action" itself.
-if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$collect_dumps" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" || "$bootstrap" -eq 1 ) ]]; then
+if [[ "$reflection" -eq 1 && ( -n "$config" || "$core" -eq 1 || "$framework" -eq 1 || "$test_compiler_only" -eq 1 || -n "$test_filter" || "$test_ioperation" -eq 1 || "$test_used_assemblies" -eq 1 || "$test_runtime_async" -eq 1 || "$collect_dumps" -eq 1 || "$test_timeout" -gt 0 || "$binary_log" -eq 1 || -n "$verbosity" || "$bootstrap" -eq 1 ) ]]; then
   echo "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." >&2
+  exit 1
+fi
+# '--testRuntimeAsync' can't run against the Framework leg (.NET Framework has no runtime-async
+# support -- eng/build.sh's own test_desktop/test_runtime_async guard would reject it there anyway,
+# but failing fast here avoids burning a build first). Checked against the raw '--core'/'--framework'
+# selectors, not the derived run_core/run_framework (computed later, only inside the scry branch):
+# explicit '--framework' is always a rejection: so is neither switch given, since scry then defaults to
+# running both legs together (or just Core on a non-Windows host, but this rule applies uniformly
+# regardless of host so the error message stays predictable either way).
+if [[ "$test_runtime_async" -eq 1 && ( "$framework" -eq 1 || "$core" -eq 0 ) ]]; then
+  echo "'--testRuntimeAsync' can't run against the Framework leg -- pass '--core' too (or instead) to restrict the run to Core." >&2
   exit 1
 fi
 # '--framework' requires a Windows host regardless of which selector combination was given -- checked
@@ -429,6 +459,12 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	fi
 	if [[ "$test_ioperation" -eq 1 ]]; then
 	  test_args+=(--testIOperation)
+	fi
+	if [[ "$test_used_assemblies" -eq 1 ]]; then
+	  test_args+=(--testUsedAssemblies)
+	fi
+	if [[ "$test_runtime_async" -eq 1 ]]; then
+	  test_args+=(--testRuntimeAsync)
 	fi
 	# Opt-in, not unconditional (see the --collectDumps arg-parsing comment above for why): only
 	# forwarded when the caller explicitly asked for it. build.sh's own is_windows_host gate still

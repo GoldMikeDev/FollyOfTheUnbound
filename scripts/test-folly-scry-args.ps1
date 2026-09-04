@@ -46,6 +46,7 @@ param(
     [switch]$testCoreClr,[switch]$testDesktop,[switch]$testInteractiveConsole,
     [switch]$testSuppressConsoleSummary,
     [switch]$testCompilerOnly,[string]$testFilter,[switch]$testIOperation,
+    [switch]$testUsedAssemblies,[switch]$testRuntimeAsync,
     [switch]$collectDumps,
     [switch]$bootstrap,[string]$bootstrapDir,
     [int]$testTimeout,
@@ -66,8 +67,8 @@ Add-Content -LiteralPath (Join-Path $repoRoot "testSuppressConsoleSummary-receiv
 # Same idea for -binaryLog/-verbosity: records what this mock actually received so the harness can
 # assert folly.ps1 forwarded them unchanged, without a $suffix qualifier since these aren't per-leg.
 Add-Content -LiteralPath (Join-Path $repoRoot "buildArgs-received.log") -Value "binaryLog=$binaryLog verbosity=$verbosity"
-# Same idea for -testCompilerOnly/-testFilter/-testIOperation.
-Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter testIOperation=$testIOperation"
+# Same idea for -testCompilerOnly/-testFilter/-testIOperation/-testUsedAssemblies/-testRuntimeAsync.
+Add-Content -LiteralPath (Join-Path $repoRoot "testArgs-received.log") -Value "$suffix testCompilerOnly=$testCompilerOnly testFilter=$testFilter testIOperation=$testIOperation testUsedAssemblies=$testUsedAssemblies testRuntimeAsync=$testRuntimeAsync"
 # Same idea for -collectDumps: unlike -testIOperation, folly.ps1's own --collectDumps is opt-in
 # (mutates a machine-wide WER registry key and its timeout-dump path can capture unrelated
 # processes, so it isn't safe as scry's silent default) -- this confirms it's forwarded only when
@@ -469,6 +470,73 @@ else { exit 0 }
     }
     else {
         Test-Fail "testIOperation on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testUsedAssemblies is forwarded to eng/build.ps1 for each requested leg ---
+    $dir = New-TestCase "test-used-assemblies-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--testUsedAssemblies")
+    $receivedPath = Join-Path $dir "testArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "testUsedAssemblies=True") {
+        Test-Pass "'--testUsedAssemblies' is forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "testUsedAssemblies forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --testUsedAssemblies rejected for non-scry actions ---
+    $dir = New-TestCase "test-used-assemblies-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--testUsedAssemblies")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--testUsedAssemblies' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "testUsedAssemblies on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testRuntimeAsync + --core is forwarded to eng/build.ps1 for each requested leg ---
+    $dir = New-TestCase "test-runtime-async-forwarded"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--testRuntimeAsync")
+    $receivedPath = Join-Path $dir "testArgs-received.log"
+    $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
+    if ($result.ExitCode -eq 0 -and $received -match "testRuntimeAsync=True") {
+        Test-Pass "'--testRuntimeAsync' is forwarded to .\eng\build.ps1"
+    }
+    else {
+        Test-Fail "testRuntimeAsync forwarding (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
+    }
+
+    # --- --testRuntimeAsync rejected for non-scry actions ---
+    $dir = New-TestCase "test-runtime-async-on-non-scry"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("weave", "--testRuntimeAsync")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "only valid with the 'scry' action") {
+        Test-Pass "'--testRuntimeAsync' is rejected on a non-scry action"
+    }
+    else {
+        Test-Fail "testRuntimeAsync on non-scry action (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testRuntimeAsync without --core is rejected (would otherwise run against the Framework
+    # leg too, which can't run it) ---
+    $dir = New-TestCase "test-runtime-async-without-core"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--testRuntimeAsync")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "can't run against the Framework leg") {
+        Test-Pass "'--testRuntimeAsync' without '--core' is rejected"
+    }
+    else {
+        Test-Fail "testRuntimeAsync without --core (exit=$($result.ExitCode)): $($result.Output)"
+    }
+
+    # --- --testRuntimeAsync --framework is rejected even with --core also given -- this script's
+    # own testRuntimeAsync-vs-framework check runs before the '--framework requires Windows' rule
+    # (matching folly.sh's own ordering), so this message wins on every host, not just Windows. ---
+    $dir = New-TestCase "test-runtime-async-with-framework"
+    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--testRuntimeAsync", "--core", "--framework")
+    if ($result.ExitCode -eq 1 -and $result.Output -match "can't run against the Framework leg") {
+        Test-Pass "'--testRuntimeAsync' with '--framework' is rejected even alongside '--core'"
+    }
+    else {
+        Test-Fail "testRuntimeAsync with --framework (exit=$($result.ExitCode)): $($result.Output)"
     }
 
     # --- '--collectDumps' is opt-in: absent by default, not forwarded to eng/build.ps1's test call ---

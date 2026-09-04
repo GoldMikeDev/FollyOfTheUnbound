@@ -49,6 +49,8 @@ try {
 	$testFilter = $null
 	$expectTestFilterValue = $false
 	$testIOperation = $false
+	$testUsedAssemblies = $false
+	$testRuntimeAsync = $false
 	$collectDumps = $false
 	$bootstrap = $false
 	$reflection = $false
@@ -91,6 +93,12 @@ try {
 		}
 		elseif ($arg -eq "--testIOperation") {
 			$testIOperation = $true
+		}
+		elseif ($arg -eq "--testUsedAssemblies") {
+			$testUsedAssemblies = $true
+		}
+		elseif ($arg -eq "--testRuntimeAsync") {
+			$testRuntimeAsync = $true
 		}
 		elseif ($arg -eq "--collectDumps") {
 			# Opt-in, not unconditional: RunTests' Windows Error Reporting registry-based dump
@@ -198,6 +206,14 @@ Switches:
         slower) -- an explicit '--timeout' still overrides that 240 default, same as it overrides the
         plain 90-minute one.
 
+    '<scry>     <primary>   --testUsedAssemblies'
+        Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
+
+    '<scry>     <primary>   --testRuntimeAsync'
+        Run tests with runtime async validation enabled (DOTNET_RuntimeAsync). Incompatible with the
+        Framework leg (.NET Framework can't run it) -- requires '--core' when both legs would
+        otherwise run.
+
     '<scry>     <primary>   --collectDumps'
         Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
         WER registry key and its timeout-dump path can capture unrelated processes' memory -- see
@@ -217,18 +233,30 @@ Switches:
 	# one per selector, since they're all the same rule applied to different args. '--bootstrap' is
 	# NOT scoped to 'scry': like '--binaryLog'/'--verbosity' it's valid on any build-invoking action,
 	# just rejected on 'cleanse' below.
-	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $collectDumps -or $testTimeout -gt 0 -or $reflection)) {
-		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
-		exit 1
-	}
-	if ($framework -and -not $onWindows) {
-		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red
+	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testUsedAssemblies -or $testRuntimeAsync -or $collectDumps -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--testUsedAssemblies'/'--testRuntimeAsync'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
 	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
-	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $collectDumps -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testUsedAssemblies -or $testRuntimeAsync -or $collectDumps -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
 		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
+		exit 1
+	}
+	# '--testRuntimeAsync' can't run against the Framework leg (.NET Framework has no runtime-async
+	# support -- eng/build.ps1's own -testDesktop/-testRuntimeAsync guard would reject it there
+	# anyway, but failing fast here avoids burning a build first). Checked against the raw
+	# '--core'/'--framework' selectors, not the derived $runCore/$runFramework (computed later, only
+	# inside the scry branch): explicit '--framework' is always a rejection; so is neither switch
+	# given, since scry then defaults to running both legs together. Checked before the
+	# '--framework requires Windows' rule below (matching folly.sh's own ordering) so this message
+	# wins on a genuine Windows host where '--framework' would otherwise be valid on its own.
+	if ($testRuntimeAsync -and ($framework -or -not $core)) {
+		Write-Host "'--testRuntimeAsync' can't run against the Framework leg -- pass '--core' too (or instead) to restrict the run to Core." -ForegroundColor Red
+		exit 1
+	}
+	if ($framework -and -not $onWindows) {
+		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red
 		exit 1
 	}
 	if (($binaryLog -or $verbosity -or $bootstrap) -and $action -eq "cleanse") {
@@ -402,6 +430,12 @@ Switches:
 		}
 		if ($testIOperation) {
 			$extraTestArgs["testIOperation"] = $true
+		}
+		if ($testUsedAssemblies) {
+			$extraTestArgs["testUsedAssemblies"] = $true
+		}
+		if ($testRuntimeAsync) {
+			$extraTestArgs["testRuntimeAsync"] = $true
 		}
 		# --collectDumps is opt-in (see its own arg-parsing comment above for why): RunTests' Windows-only
 		# crash/hang dump support mutates a machine-wide WER registry key with no cross-process

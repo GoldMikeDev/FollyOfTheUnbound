@@ -494,6 +494,75 @@ else
   test_fail "testIOperation on non-scry action (exit=$exit_code): $output"
 fi
 
+# --- --testUsedAssemblies is forwarded to eng/build.sh's test call ---
+dir="$(new_test_case "test-used-assemblies-forwarded")"
+result="$(run_case "$dir" scry research --testUsedAssemblies)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testUsedAssemblies" <<<"$args_log"; then
+  test_pass "'--testUsedAssemblies' is forwarded to ./eng/build.sh"
+else
+  test_fail "testUsedAssemblies forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testUsedAssemblies rejected for non-scry actions ---
+dir="$(new_test_case "test-used-assemblies-on-non-scry")"
+result="$(run_case "$dir" weave --testUsedAssemblies)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--testUsedAssemblies' is rejected on a non-scry action"
+else
+  test_fail "testUsedAssemblies on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- --testRuntimeAsync + --core is forwarded to eng/build.sh's test call ---
+dir="$(new_test_case "test-runtime-async-forwarded")"
+result="$(run_case "$dir" scry research --testRuntimeAsync --core)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
+if [[ "$exit_code" == "0" ]] && grep -qx -- "--testRuntimeAsync" <<<"$args_log"; then
+  test_pass "'--testRuntimeAsync' is forwarded to ./eng/build.sh"
+else
+  test_fail "testRuntimeAsync forwarding (exit=$exit_code): args='$args_log' output=$output"
+fi
+
+# --- --testRuntimeAsync rejected for non-scry actions ---
+dir="$(new_test_case "test-runtime-async-on-non-scry")"
+result="$(run_case "$dir" weave --testRuntimeAsync)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"only valid with the 'scry' action"* ]]; then
+  test_pass "'--testRuntimeAsync' is rejected on a non-scry action"
+else
+  test_fail "testRuntimeAsync on non-scry action (exit=$exit_code): $output"
+fi
+
+# --- --testRuntimeAsync without --core is rejected (would otherwise run against the Framework leg
+# too, which can't run it) ---
+dir="$(new_test_case "test-runtime-async-without-core")"
+result="$(run_case "$dir" scry research --testRuntimeAsync)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"can't run against the Framework leg"* ]]; then
+  test_pass "'--testRuntimeAsync' without '--core' is rejected"
+else
+  test_fail "testRuntimeAsync without --core (exit=$exit_code): $output"
+fi
+
+# --- --testRuntimeAsync --framework is rejected even with --core also given ---
+dir="$(new_test_case "test-runtime-async-with-framework")"
+result="$(run_case "$dir" scry research --testRuntimeAsync --core --framework)"
+exit_code="${result%%$'\x1e'*}"
+output="${result#*$'\x1e'}"
+if [[ "$exit_code" == "1" && "$output" == *"can't run against the Framework leg"* ]]; then
+  test_pass "'--testRuntimeAsync' with '--framework' is rejected even alongside '--core'"
+else
+  test_fail "testRuntimeAsync with --framework (exit=$exit_code): $output"
+fi
+
 # --- --collectDumps is opt-in: absent by default, forwarded to eng/build.sh's test call only when
 # requested (mutates a machine-wide WER registry key and its timeout-dump path can capture unrelated
 # processes, so it isn't safe as scry's silent default -- see folly.sh's own comment at the
