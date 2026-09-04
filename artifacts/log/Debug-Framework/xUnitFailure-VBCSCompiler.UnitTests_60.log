@@ -1,0 +1,46 @@
+VSTest version 18.10.0-preview-26359-118 (x64)
+
+vstest.console.exe "C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\VBCSCompiler.UnitTests\Debug\net472\VBCSCompiler.UnitTests.dll"
+/Platform:x64
+/Logger:xunit;LogFilePath=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_60_x64_test_results.xml
+/Logger:html;LogFileName=C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_60_x64_test_results.html
+/Blame:CollectDump;CollectHangDump;TestTimeout=25minutes;DumpType=full
+/ResultsDirectory:C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\dumps\60
+
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+Blame: Attaching crash dump utility to process testhost.net472 (53216).
+  Failed Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_WritesCreatedFile [48 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_WritesCreatedFile() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Server\VBCSCompilerTests\CompilationCacheTests.cs:line 705
+  Standard Output Messages:
+ Cache store failed for Created.dll [729b38bc9b934d10856cadfb44eb07bf968dd4a0426951c292d5b285a6ac1632]: Access to the path 'C:\Users\mhole\AppData\Local\Temp\RoslynTests\bb220e24-04cb-44e3-b56e-14aaf7e10767\Created.dll\729b38bc9b934d10856cadfb44eb07bf968dd4a0426951c292d5b285a6ac1632.3d0b8390e68e4f80b7405c9adee46a4a.tmp' is denied.
+
+
+  Failed Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_TouchesLastUsedFile [78 ms]
+  Error Message:
+   Assert.True() Failure
+Expected: True
+Actual:   False
+  Stack Trace:
+     at Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilationCacheTests.TryStoreResult_TouchesLastUsedFile() in C:\Users\mhole\source\repos\FollyOfTheUnbound\src\Compilers\Server\VBCSCompilerTests\CompilationCacheTests.cs:line 685
+  Standard Output Messages:
+ Cache store failed for Stored.dll [78758f35868df3da07eda00776810f58f08fabfdd57c569651332d072ada3060]: Access to the path 'C:\Users\mhole\AppData\Local\Temp\RoslynTests\785b673e-a78d-44ec-888e-b9f7a1fb4187\Stored.dll\78758f35868df3da07eda00776810f58f08fabfdd57c569651332d072ada3060.1a663cbd3b56434fb6ff6e8c48af6834.tmp' is denied.
+
+
+[xUnit.net 00:01:20.08]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost [SKIP]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.MissingCompilerAssembly_CompilerServerHost [1 ms]
+[xUnit.net 00:01:27.98]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [SKIP]
+[xUnit.net 00:01:27.98]     Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [SKIP]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ServerFailsWithLongTempPathUnix [1 ms]
+  Skipped Microsoft.CodeAnalysis.CompilerServer.UnitTests.CompilerServerUnitTests.ReferenceCachingVB [1 ms]
+Data collector 'Blame' message: All tests finished running, Sequence file will not be generated.
+Results File: C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_60_x64_test_results.xml
+Html test results file : C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\TestResults\Debug-Framework\WorkItem_60_x64_test_results.html
+
+Failed!  - Failed:     2, Passed:   194, Skipped:     3, Total:   199, Duration: 1 m 28 s - VBCSCompiler.UnitTests.dll (net472)

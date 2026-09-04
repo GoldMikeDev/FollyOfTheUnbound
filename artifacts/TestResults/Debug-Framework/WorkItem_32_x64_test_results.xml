@@ -1,37 +1,37 @@
-<assemblies timestamp="09/03/2026 16:05:29">
-  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll" run-date="2026-09-03" run-time="16:05:29" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll.config" total="412" passed="410" failed="0" skipped="2" time="23.268" errors="0">
+<assemblies timestamp="09/04/2026 10:05:50">
+  <assembly name="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll" run-date="2026-09-04" run-time="10:05:50" config-file="C:\Users\mhole\source\repos\FollyOfTheUnbound\artifacts\bin\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests\Debug\net472\Microsoft.CodeAnalysis.Razor.Workspaces.UnitTests.dll.config" total="412" passed="410" failed="0" skipped="2" time="23.536" errors="0">
     <errors />
-    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Serialization.PlatformAgnosticClientCapabilitiesJsonConverterTest" time="0.674">
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Serialization.PlatformAgnosticClientCapabilitiesJsonConverterTest.ReadJson_ReadsValues" type="Microsoft.AspNetCore.Razor.LanguageServer.Serialization.PlatformAgnosticClientCapabilitiesJsonConverterTest" method="ReadJson_ReadsValues" time="0.6740000" result="Pass">
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Serialization.PlatformAgnosticClientCapabilitiesJsonConverterTest" time="0.815">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Serialization.PlatformAgnosticClientCapabilitiesJsonConverterTest.ReadJson_ReadsValues" type="Microsoft.AspNetCore.Razor.LanguageServer.Serialization.PlatformAgnosticClientCapabilitiesJsonConverterTest" method="ReadJson_ReadsValues" time="0.8150000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="177" passed="177" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" time="0.652">
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 885, end: 887, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 885, end: 887, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0140000" result="Pass">
+    <collection total="177" passed="177" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" time="0.947">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 885, end: 887, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 885, end: 887, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.3880000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 708, end: 730, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 708, end: 730, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 323, end: 328, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 323, end: 328, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 323, end: 328, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 323, end: 328, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 570, end: 571, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 570, end: 571, kind: CSharpTransition, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 539, end: 549, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 539, end: 549, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 539, end: 549, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 539, end: 549, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 937, end: 939, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 937, end: 939, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 937, end: 939, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 937, end: 939, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: True)" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 136, end: 140, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 136, end: 140, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -40,7 +40,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 361, end: 365, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 361, end: 365, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: True)" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 383, end: 387, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 383, end: 387, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
@@ -49,10 +49,10 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 516, end: 521, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 516, end: 521, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 0, end: 1162, kind: MarkupBlock, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 0, end: 1162, kind: MarkupBlock, includeWhitespace: False)" time="0.0090000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 0, end: 1162, kind: MarkupBlock, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 0, end: 1162, kind: MarkupBlock, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 1, end: 5, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 1, end: 5, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 1, end: 5, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 1, end: 5, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 809, end: 814, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 809, end: 814, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -61,160 +61,160 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 120, end: 132, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 120, end: 132, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: True)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 427, end: 432, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 427, end: 432, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 427, end: 432, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 427, end: 432, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 316, end: 321, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 316, end: 321, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 669, end: 670, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 104, end: 120, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 104, end: 120, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 104, end: 120, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 104, end: 120, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: True)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 924, end: 932, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 924, end: 932, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 924, end: 932, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 924, end: 932, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 549, end: 556, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 549, end: 556, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 549, end: 556, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 549, end: 556, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 939, end: 940, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 939, end: 940, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 939, end: 940, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 939, end: 940, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 225, end: 229, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 225, end: 229, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 225, end: 229, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 225, end: 229, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 5, end: 20, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 5, end: 20, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 5, end: 20, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 5, end: 20, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: False)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 490, end: 497, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 490, end: 497, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 490, end: 497, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 490, end: 497, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 50, end: 93, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 50, end: 93, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 50, end: 93, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 50, end: 93, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 571, end: 623, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 571, end: 623, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 261, end: 265, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 261, end: 265, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 261, end: 265, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 261, end: 265, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 265, end: 268, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 468, end: 486, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 468, end: 486, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 468, end: 486, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 468, end: 486, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 703, end: 708, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 703, end: 708, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 814, end: 836, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 814, end: 836, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 814, end: 836, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 814, end: 836, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 387, end: 391, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 387, end: 391, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 387, end: 391, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 387, end: 391, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 454, end: 463, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 140, end: 156, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 809, end: 814, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 809, end: 814, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 809, end: 814, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 809, end: 814, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: False)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 730, end: 734, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 414, end: 418, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 0, end: 1, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 665, end: 669, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 643, end: 665, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 643, end: 665, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 643, end: 665, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 643, end: 665, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 857, end: 862, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 944, end: 1162, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 944, end: 1162, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 944, end: 1162, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 944, end: 1162, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 168, end: 225, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 168, end: 225, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 168, end: 225, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 168, end: 225, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 840, end: 841, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 840, end: 841, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 840, end: 841, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 840, end: 841, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 229, end: 233, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 229, end: 233, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 229, end: 233, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 229, end: 233, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 531, end: 539, kind: MarkupEndTag, includeWhitespace: True)" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 939, end: 940, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 939, end: 940, kind: CSharpTransition, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -247,7 +247,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 293, end: 305, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 293, end: 305, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 396, end: 414, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 396, end: 414, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 396, end: 414, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 396, end: 414, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 549, end: 556, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 549, end: 556, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
@@ -259,22 +259,22 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 233, end: 234, kind: CSharpTransition, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 233, end: 234, kind: CSharpTransition, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 670, end: 703, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 282, end: 287, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 282, end: 287, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 272, end: 282, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 272, end: 282, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 21, end: 41, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 328, end: 329, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 328, end: 329, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
@@ -298,7 +298,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 309, end: 330, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 309, end: 330, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 234, end: 261, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 234, end: 261, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 234, end: 261, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 234, end: 261, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 450, end: 454, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 450, end: 454, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -313,7 +313,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 703, end: 708, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 703, end: 708, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 383, end: 387, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 383, end: 387, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 383, end: 387, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 383, end: 387, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 234, end: 261, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 234, end: 261, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
@@ -331,7 +331,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 225, end: 229, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 225, end: 229, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: False)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 287, end: 291, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 315, end: 316, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 315, end: 316, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -346,16 +346,16 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 556, end: 558, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 556, end: 558, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 44, end: 50, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 268, end: 272, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 268, end: 272, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 268, end: 272, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 268, end: 272, kind: MarkupStartTag, includeWhitespace: False)" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 41, end: 43, kind: RazorMetaCode, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 41, end: 43, kind: RazorMetaCode, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 756, end: 761, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 571, end: 623, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 571, end: 623, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -364,7 +364,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 783, end: 787, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 783, end: 787, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 486, end: 490, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 330, end: 340, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 330, end: 340, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -382,7 +382,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 502, end: 516, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 502, end: 516, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 623, end: 639, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 623, end: 639, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 623, end: 639, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 623, end: 639, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 940, end: 944, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 940, end: 944, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -415,13 +415,13 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 910, end: 918, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 910, end: 918, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 880, end: 885, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 841, end: 857, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 841, end: 857, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 841, end: 857, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 841, end: 857, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 391, end: 396, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 391, end: 396, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 391, end: 396, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 391, end: 396, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 322, end: 323, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 322, end: 323, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
@@ -430,52 +430,52 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 940, end: 944, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 940, end: 944, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 233, end: 234, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 233, end: 234, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 233, end: 234, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 233, end: 234, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 161, end: 165, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 161, end: 165, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 161, end: 165, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 161, end: 165, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 43, end: 44, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 836, end: 840, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 136, end: 140, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 136, end: 140, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 136, end: 140, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 136, end: 140, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 734, end: 735, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 734, end: 735, kind: CSharpTransition, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 734, end: 735, kind: CSharpTransition, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 734, end: 735, kind: CSharpTransition, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 418, end: 427, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 418, end: 427, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 418, end: 427, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 418, end: 427, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 165, end: 168, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 365, end: 383, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 365, end: 383, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 365, end: 383, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 365, end: 383, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 497, end: 502, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 788, end: 809, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 309, end: 330, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 309, end: 330, kind: MarkupStartTag, includeWhitespace: False)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 309, end: 330, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 309, end: 330, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 463, end: 468, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 93, end: 104, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 340, end: 347, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 340, end: 347, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 340, end: 347, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 340, end: 347, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 168, end: 225, kind: MarkupTextLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 168, end: 225, kind: MarkupTextLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
@@ -484,7 +484,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 1, end: 5, kind: CSharpExpressionLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 1, end: 5, kind: CSharpExpressionLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 934, end: 937, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0050000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 305, end: 309, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 305, end: 309, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -508,7 +508,7 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 391, end: 396, kind: MarkupEndTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 391, end: 396, kind: MarkupEndTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 887, end: 902, kind: CSharpStatementLiteral, includeWhitespace: False)" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 347, end: 361, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 347, end: 361, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
@@ -517,25 +517,25 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 918, end: 924, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 918, end: 924, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 639, end: 643, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 639, end: 643, kind: MarkupStartTag, includeWhitespace: True)" time="0.0050000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 639, end: 643, kind: MarkupStartTag, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 639, end: 643, kind: MarkupStartTag, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 293, end: 305, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 293, end: 305, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 293, end: 305, kind: CSharpStatementLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 293, end: 305, kind: CSharpStatementLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 120, end: 132, kind: MarkupEndTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 120, end: 132, kind: MarkupEndTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 291, end: 293, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 291, end: 293, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 291, end: 293, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 291, end: 293, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 450, end: 454, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 450, end: 454, kind: MarkupStartTag, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 450, end: 454, kind: MarkupStartTag, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 450, end: 454, kind: MarkupStartTag, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 132, end: 136, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 132, end: 136, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 132, end: 136, kind: MarkupTextLiteral, includeWhitespace: True)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 132, end: 136, kind: MarkupTextLiteral, includeWhitespace: True)" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests.Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.FindNodeTests" method="Test_On_FetchData(start: 735, end: 756, kind: CSharpExpressionLiteral, includeWhitespace: False)" time="0.0030000" result="Pass">
         <traits />
       </test>
     </collection>
@@ -556,11 +556,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" time="0.067">
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_MinimizedDirectiveAttributeWithParameter" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_MinimizedDirectiveAttributeWithParameter" time="0.0430000" result="Pass">
+    <collection total="9" passed="9" failed="0" skipped="0" name="Test collection for Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" time="0.069">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_MinimizedDirectiveAttributeWithParameter" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_MinimizedDirectiveAttributeWithParameter" time="0.0410000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_IgnoresMiscContent" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_IgnoresMiscContent" time="0.0060000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_IgnoresMiscContent" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_IgnoresMiscContent" time="0.0140000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_DirectiveAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_DirectiveAttribute" time="0.0020000" result="Pass">
@@ -569,24 +569,24 @@
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_MinimizedDirectiveAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_MinimizedDirectiveAttribute" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_UnboundMinimizedAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_UnboundMinimizedAttribute" time="0.0020000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_UnboundMinimizedAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_UnboundMinimizedAttribute" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_TagHelperAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_TagHelperAttribute" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_TagHelperAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_TagHelperAttribute" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_DirectiveAttributeWithParameter" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_DirectiveAttributeWithParameter" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_UnboundAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_UnboundAttribute" time="0.0030000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_UnboundAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_UnboundAttribute" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_MinimizedTagHelperAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_MinimizedTagHelperAttribute" time="0.0040000" result="Pass">
+      <test name="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest.StringifyAttributes_MinimizedTagHelperAttribute" type="Microsoft.AspNetCore.Razor.LanguageServer.Test.TagHelperFactsServiceTest" method="StringifyAttributes_MinimizedTagHelperAttribute" time="0.0030000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest" time="0.587">
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest.TryGet_EvictedCompletionList_ReturnsFalse" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest" method="TryGet_EvictedCompletionList_ReturnsFalse" time="0.5820000" result="Pass">
+    <collection total="6" passed="6" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest" time="0.478">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest.TryGet_EvictedCompletionList_ReturnsFalse" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest" method="TryGet_EvictedCompletionList_ReturnsFalse" time="0.4730000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest.TryGet_UnknownCompletionList_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListCacheTest" method="TryGet_UnknownCompletionList_ReturnsTrue" time="0.0010000" result="Pass">
@@ -605,14 +605,14 @@
         <traits />
       </test>
     </collection>
-    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" time="0.044">
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_EditRange_OnlyOneListHasEditRange_Preserved" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_EditRange_OnlyOneListHasEditRange_Preserved" time="0.0060000" result="Pass">
+    <collection total="15" passed="15" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" time="0.032">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_EditRange_OnlyOneListHasEditRange_Preserved" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_EditRange_OnlyOneListHasEditRange_Preserved" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_CommitCharacters_OneInherits" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_CommitCharacters_OneInherits" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_EditRange_DifferentRanges_UsesLabelWhenNoTextEditText" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_EditRange_DifferentRanges_UsesLabelWhenNoTextEditText" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_EditRange_DifferentRanges_UsesLabelWhenNoTextEditText" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_EditRange_DifferentRanges_UsesLabelWhenNoTextEditText" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_EditRange_DifferentRanges_SkipsItemsWithExistingTextEdit" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_EditRange_DifferentRanges_SkipsItemsWithExistingTextEdit" time="0.0010000" result="Pass">
@@ -627,7 +627,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_RepresentsSuggestionModeOfBothLists" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_RepresentsSuggestionModeOfBothLists" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_RepresentsAllItems" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_RepresentsAllItems" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_RepresentsAllItems" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_RepresentsAllItems" time="0.0150000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest.Merge_SecondCompletionListNull_ReturnsFirst" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListMergerTest" method="Merge_SecondCompletionListNull_ReturnsFirst" time="0.0010000" result="Pass">
@@ -652,46 +652,46 @@
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" time="0.163">
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_SomeItemsLackTextEdit_DoesNotPromote" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_SomeItemsLackTextEdit_DoesNotPromote" time="0.0840000" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" time="0.029">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_SomeItemsLackTextEdit_DoesNotPromote" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_SomeItemsLackTextEdit_DoesNotPromote" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.Convert_CommitCharactersTrue_RemovesCommitCharactersFromItems" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="Convert_CommitCharactersTrue_RemovesCommitCharactersFromItems" time="0.0150000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.Convert_CommitCharactersTrue_RemovesCommitCharactersFromItems" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="Convert_CommitCharactersTrue_RemovesCommitCharactersFromItems" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteCommitCharacters_ItemDefaultsPath_ItemsWithNoCommitChars_GetExplicitEmpty" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteCommitCharacters_ItemDefaultsPath_ItemsWithNoCommitChars_GetExplicitEmpty" time="0.0170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteCommitCharacters_ItemDefaultsPath_ItemsWithNoCommitChars_GetExplicitEmpty" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteCommitCharacters_ItemDefaultsPath_ItemsWithNoCommitChars_GetExplicitEmpty" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_ClientDoesNotSupportEditRange_DoesNotPromote" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_ClientDoesNotSupportEditRange_DoesNotPromote" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.Convert_CommitCharactersFalse_DoesNotTouchCommitCharacters" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="Convert_CommitCharactersFalse_DoesNotTouchCommitCharacters" time="0.0220000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.Convert_CommitCharactersFalse_DoesNotTouchCommitCharacters" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="Convert_CommitCharactersFalse_DoesNotTouchCommitCharacters" time="0.0110000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_TextEditTextEqualsLabel_OmitsTextEditText" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_TextEditTextEqualsLabel_OmitsTextEditText" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_AllItemsShareSameRange_PromotesToItemDefaults" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_AllItemsShareSameRange_PromotesToItemDefaults" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_AllItemsShareSameRange_PromotesToItemDefaults" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_AllItemsShareSameRange_PromotesToItemDefaults" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteEditRange_ItemsHaveDifferentRanges_DoesNotPromote" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteEditRange_ItemsHaveDifferentRanges_DoesNotPromote" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteCommitCharacters_ItemDefaultsPath_PromotesToItemDefaultsCommitCharacters" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteCommitCharacters_ItemDefaultsPath_PromotesToItemDefaultsCommitCharacters" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteCommitCharacters_ItemDefaultsPath_PromotesToItemDefaultsCommitCharacters" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteCommitCharacters_ItemDefaultsPath_PromotesToItemDefaultsCommitCharacters" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest.PromoteCommitCharacters_ItemDefaultsPath_FiltersInsertFalseCharacters" type="Microsoft.CodeAnalysis.Razor.Completion.CompletionListOptimizerTest" method="PromoteCommitCharacters_ItemDefaultsPath_FiltersInsertFalseCharacters" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" time="0.037">
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x$$)&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x$$)&lt;/div&gt;&quot;)" time="0.0270000" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" time="0.028">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x$$)&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x$$)&lt;/div&gt;&quot;)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x =&gt; x.Select(y$$))&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x =&gt; x.Select(y$$))&lt;/div&gt;&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@{ h$$ }&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@{ h$$ }&lt;/div&gt;&quot;)" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@{ h$$ }&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="Nested_PreservesSuggestionMode(markup: &quot;&lt;div&gt;@{ h$$ }&lt;/div&gt;&quot;)" time="0.0040000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.TopLevel_ClearsSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x =&gt; x.Name).First()$$&lt;/div&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="TopLevel_ClearsSuggestionMode(markup: &quot;&lt;div&gt;@items.Where(x =&gt; x.Name).First()$$&lt;/div&gt;&quot;)" time="0.0010000" result="Pass">
@@ -706,7 +706,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.SuggestionModeAlreadyFalse_RemainsUnchanged" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="SuggestionModeAlreadyFalse_RemainsUnchanged" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.AtTransition_SetsIsIncompleteAndClearsCommitChars(markup: &quot;&lt;div&gt;@$$&lt;/div&gt;&quot;, fileKind: Component)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="AtTransition_SetsIsIncompleteAndClearsCommitChars(markup: &quot;&lt;div&gt;@$$&lt;/div&gt;&quot;, fileKind: Component)" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.AtTransition_SetsIsIncompleteAndClearsCommitChars(markup: &quot;&lt;div&gt;@$$&lt;/div&gt;&quot;, fileKind: Component)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="AtTransition_SetsIsIncompleteAndClearsCommitChars(markup: &quot;&lt;div&gt;@$$&lt;/div&gt;&quot;, fileKind: Component)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest.AtTransition_SetsIsIncompleteAndClearsCommitChars(markup: &quot;&lt;div&gt;@$$&lt;/div&gt;&quot;, fileKind: Legacy)" type="Microsoft.CodeAnalysis.Razor.Completion.ImplicitExpressionSuggestionModeRewriterTest" method="AtTransition_SetsIsIncompleteAndClearsCommitChars(markup: &quot;&lt;div&gt;@$$&lt;/div&gt;&quot;, fileKind: Legacy)" time="0.0010000" result="Pass">
@@ -716,8 +716,8 @@
         <traits />
       </test>
     </collection>
-    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest" time="0.093">
-      <test name="Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest.TryExtractNamespace_WithStatic_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest" method="TryExtractNamespace_WithStatic_ReturnsTrue" time="0.0900000" result="Pass">
+    <collection total="4" passed="4" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest" time="0.016">
+      <test name="Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest.TryExtractNamespace_WithStatic_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest" method="TryExtractNamespace_WithStatic_ReturnsTrue" time="0.0130000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest.TryExtractNamespace_ReturnsTrue" type="Microsoft.CodeAnalysis.Razor.Formatting.AddUsingsHelperTest" method="TryExtractNamespace_ReturnsTrue" time="0.0010000" result="Pass">
@@ -738,17 +738,17 @@
         <traits />
       </test>
     </collection>
-    <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" time="0.099">
-      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;b&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;b&quot;)" time="0.0400000" result="Pass">
+    <collection total="31" passed="31" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" time="0.080">
+      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;b&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;b&quot;)" time="0.0270000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;a&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;a&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;&quot;, newStr: &quot;a&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;&quot;, newStr: &quot;a&quot;)" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;&quot;, newStr: &quot;a&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;&quot;, newStr: &quot;a&quot;)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;\t&lt;div class=\&quot;~\&quot;/&gt;&quot;, newStr: &quot;    &lt;div class=\&quot;~\&quot; /&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;\t&lt;div class=\&quot;~\&quot;/&gt;&quot;, newStr: &quot;    &lt;div class=\&quot;~\&quot; /&gt;&quot;)" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;\t&lt;div class=\&quot;~\&quot;/&gt;&quot;, newStr: &quot;    &lt;div class=\&quot;~\&quot; /&gt;&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;\t&lt;div class=\&quot;~\&quot;/&gt;&quot;, newStr: &quot;    &lt;div class=\&quot;~\&quot; /&gt;&quot;)" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults_WordDiffer(oldStr: &quot;a&quot;, newStr: &quot;&quot;)" time="0.0010000" result="Pass">
@@ -826,23 +826,23 @@
       <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsAccurateResults(oldStr: &quot;Hello\\r\\nWorld\\r\\n123&quot;, newStr: &quot;Hola\r\nWorld\r\n\r\n1234&quot;)" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsAccurateResults(oldStr: &quot;Hello\\r\\nWorld\\r\\n123&quot;, newStr: &quot;Hola\r\nWorld\r\n\r\n1234&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_MultiLineChange_ReturnsExpectedResults" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_MultiLineChange_ReturnsExpectedResults" time="0.0160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_MultiLineChange_ReturnsExpectedResults" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_MultiLineChange_ReturnsExpectedResults" time="0.0140000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest.GetMinimalTextChanges_ReturnsExpectedResults" type="Microsoft.CodeAnalysis.Razor.TextDifferencing.SourceTextDifferTest" method="GetMinimalTextChanges_ReturnsExpectedResults" time="0.0020000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" time="0.002">
-      <test name="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest.ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" type="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" method="ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" time="0.0010000" result="Pass">
+    <collection total="2" passed="2" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" time="0.007">
+      <test name="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest.ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" type="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" method="ResolveTagHelperTypeName_ExtractsTypeName_SimpleReturnType" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest.ResolveTagHelperTypeName_ExtractsTypeName_ComplexReturnType" type="Microsoft.CodeAnalysis.Razor.Tooltip.BoundAttributeDescriptionInfoTest" method="ResolveTagHelperTypeName_ExtractsTypeName_ComplexReturnType" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="17" passed="16" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.Razor.UriExtensionsTest" time="0.404">
-      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" time="0.2510000" result="Pass">
+    <collection total="17" passed="16" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.Razor.UriExtensionsTest" time="0.142">
+      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_UNCPath_HandlesSpacePaths" time="0.0400000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:\\\\path\\to\\dir\\Index.cshtml&quot;, expected: &quot;\\\\path\\to\\dir\\Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:\\\\path\\to\\dir\\Index.cshtml&quot;, expected: &quot;\\\\path\\to\\dir\\Index.cshtml&quot;)" time="0.0020000" result="Pass">
@@ -851,7 +851,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///c:/path/to/dir/Index.cshtml&quot;, expected: &quot;c:/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///c:/path/to/dir/Index.cshtml&quot;, expected: &quot;c:/path/to/dir/Index.cshtml&quot;)" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///c:\\path/to\\dir/Index.cshtml&quot;, expected: &quot;c:/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///c:\\path/to\\dir/Index.cshtml&quot;, expected: &quot;c:/path/to/dir/Index.cshtml&quot;)" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///c:\\path/to\\dir/Index.cshtml&quot;, expected: &quot;c:/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///c:\\path/to\\dir/Index.cshtml&quot;, expected: &quot;c:/path/to/dir/Index.cshtml&quot;)" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///path/to/dir/Index.cshtml&quot;, expected: &quot;/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///path/to/dir/Index.cshtml&quot;, expected: &quot;/path/to/dir/Index.cshtml&quot;)" time="0.0010000" result="Pass">
@@ -863,10 +863,10 @@
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///C:\\PATH\\TO\\DIR\\Index.cshtml&quot;, expected: &quot;C:/PATH/TO/DIR/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesFileScheme(filePath: &quot;file:///C:\\PATH\\TO\\DIR\\Index.cshtml&quot;, expected: &quot;C:/PATH/TO/DIR/Index.cshtml&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c%3A/path/to/dir/Index.cshtml&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c%3A/path/to/dir/Index.cshtml&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" time="0.1160000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c%3A/path/to/dir/Index.cshtml&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c%3A/path/to/dir/Index.cshtml&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" time="0.0730000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c:/path%2Fto/dir/Index.cshtml?%7B%22p&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c:/path%2Fto/dir/Index.cshtml?%7B%22p&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c:/path%2Fto/dir/Index.cshtml?%7B%22p&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;git:/c:/path%2Fto/dir/Index.cshtml?%7B%22p&quot;, expected: &quot;c:/_git_/path/to/dir/Index.cshtml&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.UriExtensionsTest.GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;chat-editing-text-model:/c:/path/to/dir/Index.csht&quot;···, expected: &quot;c:/_chat-editing-text-model_/path/to/dir/Index.csh&quot;···)" type="Microsoft.CodeAnalysis.Razor.UriExtensionsTest" method="GetAbsoluteOrUNCPath_AbsolutePath_HandlesGitScheme(filePath: &quot;chat-editing-text-model:/c:/path/to/dir/Index.csht&quot;···, expected: &quot;c:/_chat-editing-text-model_/path/to/dir/Index.csh&quot;···)" time="0.0010000" result="Pass">
@@ -895,22 +895,22 @@
         <traits />
       </test>
     </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" time="0.173">
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest.AddItemsAndWaitForBatch" type="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" method="AddItemsAndWaitForBatch" time="0.0830000" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" time="0.300">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest.AddItemsAndWaitForBatch" type="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" method="AddItemsAndWaitForBatch" time="0.2270000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest.DedupesItems" type="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" method="DedupesItems" time="0.0410000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest.DedupesItems" type="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" method="DedupesItems" time="0.0220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest.CancelExistingWork" type="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" method="CancelExistingWork" time="0.0490000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest.CancelExistingWork" type="Microsoft.CodeAnalysis.Razor.Utilities.AsyncBatchingWorkQueueTest" method="CancelExistingWork" time="0.0510000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="38" passed="37" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" time="0.054">
+    <collection total="38" passed="37" failed="0" skipped="1" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" time="0.040">
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.NormalizeDirectory_HandlesSingleSlashDirectory" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="NormalizeDirectory_HandlesSingleSlashDirectory" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.AreDirectoryPathsEquivalent(path1: &quot;path/to/&quot;, path2: &quot;path/to/&quot;, expected: True)" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="AreDirectoryPathsEquivalent(path1: &quot;path/to/&quot;, path2: &quot;path/to/&quot;, expected: True)" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.AreDirectoryPathsEquivalent(path1: &quot;path/to/&quot;, path2: &quot;path/to/&quot;, expected: True)" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="AreDirectoryPathsEquivalent(path1: &quot;path/to/&quot;, path2: &quot;path/to/&quot;, expected: True)" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.AreDirectoryPathsEquivalent(path1: &quot;path/to1/&quot;, path2: &quot;path/to2/&quot;, expected: False)" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="AreDirectoryPathsEquivalent(path1: &quot;path/to1/&quot;, path2: &quot;path/to2/&quot;, expected: False)" time="0.0010000" result="Pass">
@@ -956,7 +956,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.NormalizeDirectory_Windows_HandlesSingleSlashDirectory" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="NormalizeDirectory_Windows_HandlesSingleSlashDirectory" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_UrlDecodesOnlyOnce" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Normalize_UrlDecodesOnlyOnce" time="0.0080000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_UrlDecodesOnlyOnce" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Normalize_UrlDecodesOnlyOnce" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.NormalizeDirectory_DedupesMismatchedSlashes" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="NormalizeDirectory_DedupesMismatchedSlashes" time="0.0010000" result="Pass">
@@ -983,7 +983,7 @@
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Normalize_FixesUNCPaths" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Normalize_FixesUNCPaths" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Comparer_CaseInsensitiveDictionary(fileName: &quot;C:/path/to/document.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Comparer_CaseInsensitiveDictionary(fileName: &quot;C:/path/to/document.cshtml&quot;)" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Comparer_CaseInsensitiveDictionary(fileName: &quot;C:/path/to/document.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Comparer_CaseInsensitiveDictionary(fileName: &quot;C:/path/to/document.cshtml&quot;)" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest.Comparer_CaseInsensitiveDictionary(fileName: &quot;c:/path/to/document.cshtml&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.FilePathNormalizerTest" method="Comparer_CaseInsensitiveDictionary(fileName: &quot;c:/path/to/document.cshtml&quot;)" time="0.0010000" result="Pass">
@@ -1023,20 +1023,20 @@
         <traits />
       </test>
     </collection>
-    <collection total="17" passed="17" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" time="2.717">
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.CompactionWithSizeLimitOne_BehavesCorrectly" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="CompactionWithSizeLimitOne_BehavesCorrectly" time="0.0120000" result="Pass">
+    <collection total="17" passed="17" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" time="2.593">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.CompactionWithSizeLimitOne_BehavesCorrectly" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="CompactionWithSizeLimitOne_BehavesCorrectly" time="0.0130000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentAccess_DuringCompaction_DoesNotLoseHotEntries" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentAccess_DuringCompaction_DoesNotLoseHotEntries" time="0.1810000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentAccess_DuringCompaction_DoesNotLoseHotEntries" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentAccess_DuringCompaction_DoesNotLoseHotEntries" time="0.1550000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.RapidCompactionTriggers_DoesNotCauseExcessiveCompaction" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="RapidCompactionTriggers_DoesNotCauseExcessiveCompaction" time="0.0040000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.RapidCompactionTriggers_DoesNotCauseExcessiveCompaction" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="RapidCompactionTriggers_DoesNotCauseExcessiveCompaction" time="0.0030000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LastAccessTime_UnderHighContention_IsReasonablyAccurate" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LastAccessTime_UnderHighContention_IsReasonablyAccurate" time="0.0080000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentSets_DoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentSets_DoesNotThrow" time="0.0240000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentSets_DoesNotThrow" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentSets_DoesNotThrow" time="0.0510000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.SetAndGet_WithValidKeyAndValue_ReturnsExpectedValue" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="SetAndGet_WithValidKeyAndValue_ReturnsExpectedValue" time="0.0010000" result="Pass">
@@ -1045,10 +1045,10 @@
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.Compaction_TriggersWhenSizeLimitReached" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="Compaction_TriggersWhenSizeLimitReached" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.NullKey_ThrowsArgumentNullException" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="NullKey_ThrowsArgumentNullException" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.NullKey_ThrowsArgumentNullException" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="NullKey_ThrowsArgumentNullException" time="0.0190000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.Clear_WhileConcurrentOperations_IsThreadSafe" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="Clear_WhileConcurrentOperations_IsThreadSafe" time="0.1170000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.Clear_WhileConcurrentOperations_IsThreadSafe" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="Clear_WhileConcurrentOperations_IsThreadSafe" time="0.1100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.TryGetValue_WithMissingKey_ReturnsFalse" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="TryGetValue_WithMissingKey_ReturnsFalse" time="0.0010000" result="Pass">
@@ -1057,27 +1057,27 @@
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentSetsWithSameKey_LastWriterWins" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentSetsWithSameKey_LastWriterWins" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentSets_DuringCompaction_AreThreadSafe" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentSets_DuringCompaction_AreThreadSafe" time="0.0630000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.ConcurrentSets_DuringCompaction_AreThreadSafe" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="ConcurrentSets_DuringCompaction_AreThreadSafe" time="0.0660000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.AccessingEntryDuringRemoval_IsThreadSafe" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="AccessingEntryDuringRemoval_IsThreadSafe" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.AccessingEntryDuringRemoval_IsThreadSafe" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="AccessingEntryDuringRemoval_IsThreadSafe" time="0.0070000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LastAccessTime_IsUpdatedOnGet" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LastAccessTime_IsUpdatedOnGet" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LastAccessTime_IsUpdatedOnGet" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LastAccessTime_IsUpdatedOnGet" time="0.0220000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.CompactionLocking_PreventsMultipleSimultaneousCompactions" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="CompactionLocking_PreventsMultipleSimultaneousCompactions" time="0.0030000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.CompactionLocking_PreventsMultipleSimultaneousCompactions" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="CompactionLocking_PreventsMultipleSimultaneousCompactions" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LRUEviction_WithConcurrentAccess_BehavesReasonably" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LRUEviction_WithConcurrentAccess_BehavesReasonably" time="2.2830000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LRUEviction_WithConcurrentAccess_BehavesReasonably" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LRUEviction_WithConcurrentAccess_BehavesReasonably" time="2.1310000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest.LargeValues_DoNotCauseIssues" type="Microsoft.CodeAnalysis.Razor.Utilities.MemoryCacheTest" method="LargeValues_DoNotCauseIssues" time="0.0010000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="12" passed="12" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" time="0.012">
-      <test name="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests.Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" method="Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" time="0.0010000" result="Pass">
+    <collection total="12" passed="12" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" time="0.019">
+      <test name="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests.Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" method="Decode(decoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/app%Dir/page.aspx?foo=b%%61r&quot;)" time="0.0080000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests.Decode(decoded: &quot;http://127.0.0.1:8080/appDir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/appDir/page.aspx?foo=b%%61r&quot;)" type="Microsoft.CodeAnalysis.Razor.Utilities.UrlDecoderTests" method="Decode(decoded: &quot;http://127.0.0.1:8080/appDir/page.aspx?foo=b%ar&quot;, encoded: &quot;http://127.0.0.1:8080/appDir/page.aspx?foo=b%%61r&quot;)" time="0.0010000" result="Pass">
@@ -1114,11 +1114,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" time="0.115">
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest.IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor&quot;, expectedResult: False, expectedFilePath: null)" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" method="IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor&quot;, expectedResult: False, expectedFilePath: null)" time="0.1000000" result="Pass">
+    <collection total="10" passed="10" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" time="0.189">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest.IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor&quot;, expectedResult: False, expectedFilePath: null)" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" method="IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor&quot;, expectedResult: False, expectedFilePath: null)" time="0.1750000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest.IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor__virtual.html&quot;, expectedResult: True, expectedFilePath: &quot;c:/path/to/file.razor&quot;)" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" method="IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor__virtual.html&quot;, expectedResult: True, expectedFilePath: &quot;c:/path/to/file.razor&quot;)" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest.IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor__virtual.html&quot;, expectedResult: True, expectedFilePath: &quot;c:/path/to/file.razor&quot;)" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" method="IsRazorHtmlDocumentUri_ReturnsExpectedResult(inputUri: &quot;C:\\path\\to\\file.razor__virtual.html&quot;, expectedResult: True, expectedFilePath: &quot;c:/path/to/file.razor&quot;)" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest.IsRazorHtmlDocumentUri_HtmlVirtualSuffixNotAtEnd_ReturnsFalse(inputUri: &quot;C:\\path\\to\\file.razor__virtual.html.backup&quot;)" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.DocumentUriExtensionsTest" method="IsRazorHtmlDocumentUri_HtmlVirtualSuffixNotAtEnd_ReturnsFalse(inputUri: &quot;C:\\path\\to\\file.razor__virtual.html.backup&quot;)" time="0.0010000" result="Pass">
@@ -1146,59 +1146,59 @@
         <traits />
       </test>
     </collection>
-    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" time="1.494">
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_CSharpEdgeWithCSharpMarker" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_CSharpEdgeWithCSharpMarker" time="1.0570000" result="Pass">
+    <collection total="21" passed="21" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" time="0.169">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_CSharpEdgeWithCSharpMarker" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_CSharpEdgeWithCSharpMarker" time="0.0740000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_Html" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_Html" time="0.1260000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_Html" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_Html" time="0.0160000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelperElementOwnsName" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelperElementOwnsName" time="0.1770000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelperElementOwnsName" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelperElementOwnsName" time="0.0310000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelpersDoNotOwnTrailingEdge" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelpersDoNotOwnTrailingEdge" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelpersDoNotOwnTrailingEdge" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelpersDoNotOwnTrailingEdge" time="0.0030000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_GetsLastClassifiedSpanLanguageIfAtEndOfDocument" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_GetsLastClassifiedSpanLanguageIfAtEndOfDocument" time="0.0110000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_GetsLastClassifiedSpanLanguageIfAtEndOfDocument" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_GetsLastClassifiedSpanLanguageIfAtEndOfDocument" time="0.0050000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_CSharpEdgeEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_CSharpEdgeEnd" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_CSharpEdgeEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_CSharpEdgeEnd" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_RazorEdgeWithCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_RazorEdgeWithCSharp" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ExplicitExpressionInProgressCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ExplicitExpressionInProgressCSharp" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ExplicitExpressionInProgressCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ExplicitExpressionInProgressCSharp" time="0.0040000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelperNestedCSharpAttribute" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelperNestedCSharpAttribute" time="0.0710000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelperNestedCSharpAttribute" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelperNestedCSharpAttribute" time="0.0140000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_DefaultsToRazorLanguageIfCannotLocateOwner" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_DefaultsToRazorLanguageIfCannotLocateOwner" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ImplicitExpressionInProgressCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ImplicitExpressionInProgressCSharp" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ImplicitExpressionInProgressCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ImplicitExpressionInProgressCSharp" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_RazorEdgeWithHtml" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_RazorEdgeWithHtml" time="0.0060000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_RazorEdgeWithHtml" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_RazorEdgeWithHtml" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ExplicitExpressionStartCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ExplicitExpressionStartCSharp" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ImplicitExpressionStartCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ImplicitExpressionStartCSharp" time="0.0070000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_ImplicitExpressionStartCSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_ImplicitExpressionStartCSharp" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_HtmlInCSharpRightAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_HtmlInCSharpRightAssociative" time="0.0050000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_HtmlInCSharpRightAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_HtmlInCSharpRightAssociative" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelperInCSharpRightAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelperInCSharpRightAssociative" time="0.0100000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_TagHelperInCSharpRightAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_TagHelperInCSharpRightAssociative" time="0.0060000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_HtmlAtCSharpBraceLeftAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_HtmlAtCSharpBraceLeftAssociative" time="0.0010000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_HtmlAtCSharpBraceLeftAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_HtmlAtCSharpBraceLeftAssociative" time="0.0020000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_CSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_CSharp" time="0.0020000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_CSharp" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_CSharp" time="0.0010000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest.GetLanguageKind_HtmlAtCSharpBraceRightAssociative" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.RazorCodeDocumentExtensionsTest" method="GetLanguageKind_HtmlAtCSharpBraceRightAssociative" time="0.0010000" result="Pass">
@@ -1211,11 +1211,11 @@
         <traits />
       </test>
     </collection>
-    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" time="0.013">
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest.TryGetAbsoluteIndex_ClampsCharacterInsideLineBreakToLineEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" method="TryGetAbsoluteIndex_ClampsCharacterInsideLineBreakToLineEnd" time="0.0010000" result="Pass">
+    <collection total="5" passed="5" failed="0" skipped="0" name="Test collection for Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" time="0.103">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest.TryGetAbsoluteIndex_ClampsCharacterInsideLineBreakToLineEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" method="TryGetAbsoluteIndex_ClampsCharacterInsideLineBreakToLineEnd" time="0.0940000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest.GetTextSpan_ClampsCharactersPastLineEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" method="GetTextSpan_ClampsCharactersPastLineEnd" time="0.0090000" result="Pass">
+      <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest.GetTextSpan_ClampsCharactersPastLineEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" method="GetTextSpan_ClampsCharactersPastLineEnd" time="0.0060000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest.TryGetAbsoluteIndex_ClampsCharacterPastLineEnd" type="Microsoft.CodeAnalysis.Razor.Workspaces.Test.Extensions.SourceTextExtensionsTest" method="TryGetAbsoluteIndex_ClampsCharacterPastLineEnd" time="0.0010000" result="Pass">
@@ -1233,37 +1233,37 @@
         <traits />
       </test>
     </collection>
-    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" time="5.397">
-      <test name="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest.TryGetAttributeName_DirectiveAttributeWithoutParameter_NameLocationSpansName" type="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" method="TryGetAttributeName_DirectiveAttributeWithoutParameter_NameLocationSpansName" time="5.1800000" result="Pass">
+    <collection total="3" passed="3" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" time="5.515">
+      <test name="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest.TryGetAttributeName_DirectiveAttributeWithoutParameter_NameLocationSpansName" type="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" method="TryGetAttributeName_DirectiveAttributeWithoutParameter_NameLocationSpansName" time="5.3710000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest.TryGetAttributeName_MinimizedDirectiveAttributeWithParameter_NameLocationSpansFullName" type="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" method="TryGetAttributeName_MinimizedDirectiveAttributeWithParameter_NameLocationSpansFullName" time="0.1560000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest.TryGetAttributeName_MinimizedDirectiveAttributeWithParameter_NameLocationSpansFullName" type="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" method="TryGetAttributeName_MinimizedDirectiveAttributeWithParameter_NameLocationSpansFullName" time="0.1090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest.TryGetAttributeName_DirectiveAttributeWithParameter_NameLocationSpansFullName" type="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" method="TryGetAttributeName_DirectiveAttributeWithParameter_NameLocationSpansFullName" time="0.0610000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest.TryGetAttributeName_DirectiveAttributeWithParameter_NameLocationSpansFullName" type="Microsoft.VisualStudio.Editor.Razor.HtmlFactsTest" method="TryGetAttributeName_DirectiveAttributeWithParameter_NameLocationSpansFullName" time="0.0350000" result="Pass">
         <traits />
       </test>
     </collection>
-    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" time="0.037">
-      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenTag_RestrictsTagHelpersBasedOnTagHelperPrefix" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenTag_RestrictsTagHelpersBasedOnTagHelperPrefix" time="0.0050000" result="Pass">
+    <collection total="13" passed="13" failed="0" skipped="0" name="Test collection for Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" time="0.253">
+      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenTag_RestrictsTagHelpersBasedOnTagHelperPrefix" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenTag_RestrictsTagHelpersBasedOnTagHelperPrefix" time="0.1370000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenParent_AllowsUnspecifiedParentTagHelpers" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenParent_AllowsUnspecifiedParentTagHelpers" time="0.0020000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenParent_AllowsUnspecifiedParentTagHelpers" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenParent_AllowsUnspecifiedParentTagHelpers" time="0.0090000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetBoundTagHelperAttributes_MatchesPrefixedAttributeName" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetBoundTagHelperAttributes_MatchesPrefixedAttributeName" time="0.0050000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetBoundTagHelperAttributes_MatchesPrefixedAttributeName" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetBoundTagHelperAttributes_MatchesPrefixedAttributeName" time="0.0820000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenParent_AllowsRootParentTag" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenParent_AllowsRootParentTag" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenTag_DoesNotAllowOptOutCharacterPrefix" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenTag_DoesNotAllowOptOutCharacterPrefix" time="0.0110000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenTag_DoesNotAllowOptOutCharacterPrefix" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenTag_DoesNotAllowOptOutCharacterPrefix" time="0.0020000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenParent_AllowsRootParentTagForParentRestrictedTagHelperDescriptors" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenParent_AllowsRootParentTagForParentRestrictedTagHelperDescriptors" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetBoundTagHelperAttributes_MatchesAttributeName" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetBoundTagHelperAttributes_MatchesAttributeName" time="0.0020000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetBoundTagHelperAttributes_MatchesAttributeName" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetBoundTagHelperAttributes_MatchesAttributeName" time="0.0100000" result="Pass">
         <traits />
       </test>
       <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelperBinding_DoesNotAllowOptOutCharacterPrefix" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelperBinding_DoesNotAllowOptOutCharacterPrefix" time="0.0010000" result="Pass">
@@ -1281,7 +1281,7 @@
       <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelpersGivenParent_RestrictsTagHelpersBasedOnParent" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelpersGivenParent_RestrictsTagHelpersBasedOnParent" time="0.0010000" result="Pass">
         <traits />
       </test>
-      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelperBinding_WorksAsExpected" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelperBinding_WorksAsExpected" time="0.0050000" result="Pass">
+      <test name="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest.GetTagHelperBinding_WorksAsExpected" type="Microsoft.VisualStudio.Editor.Razor.TagHelperFactsTest" method="GetTagHelperBinding_WorksAsExpected" time="0.0060000" result="Pass">
         <traits />
       </test>
     </collection>
