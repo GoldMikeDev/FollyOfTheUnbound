@@ -406,7 +406,21 @@ Switches:
 						exit 1
 					}
 					$startArgs = @("-NoExit", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $scriptPath) + $relaunchArgs
-					Start-Process -FilePath $pwshCmd.Source -ArgumentList $startArgs -Verb RunAs
+					$quotedStartArgs = ($startArgs | ForEach-Object { "'" + ($_ -replace "'", "''") + "'" }) -join ", "
+					$escapedPwsh = $pwshCmd.Source -replace "'", "''"
+					$tmpPs1 = Join-Path ([System.IO.Path]::GetTempPath()) ([System.IO.Path]::GetRandomFileName() + ".ps1")
+					$escapedTmpPs1 = $tmpPs1 -replace "'", "''"
+					@"
+Start-Process -FilePath '$escapedPwsh' -ArgumentList @($quotedStartArgs) -Verb RunAs
+Remove-Item -LiteralPath '$escapedTmpPs1' -Force -ErrorAction SilentlyContinue
+"@ | Set-Content -LiteralPath $tmpPs1 -Encoding UTF8
+					# Third-party UAC interceptors (e.g. Admin by Request) can make a direct '-Verb RunAs' call
+					# block this window until the elevated process is closed, instead of returning as soon as
+					# it launches -- defeating the "unelevated window exits immediately" design below. Doing
+					# the actual RunAs call inside a separate, hidden, non-elevated helper process sidesteps
+					# that: launching an ordinary (non-elevated) process is never subject to that hook, so it
+					# returns immediately regardless of how long the helper's own elevation call takes.
+					Start-Process -FilePath $pwshCmd.Source -ArgumentList @("-NoProfile", "-WindowStyle", "Hidden", "-File", $tmpPs1) -WindowStyle Hidden
 					Write-Host "Launched an elevated scry window; this window is done."
 					exit 0
 				}
