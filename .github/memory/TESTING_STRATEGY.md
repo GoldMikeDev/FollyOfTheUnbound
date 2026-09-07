@@ -54,15 +54,15 @@ Targeted runs are strongly preferred — the full suite is large and slow. Tests
 - `--testIOperation` (`.\folly scry ... --testIOperation` / `eng/build.{sh,ps1} -testIOperation`) makes
   `CreateCompilation` walk the whole semantic-model/IOperation tree for every compilation in every
   test, on top of ordinary bind/emit — this can push several of this fork's heaviest test assemblies
-  (`Semantic`, `Symbol`, `Emit3`, `Workspaces.MSBuild`, etc.) well past 15-29 minutes each. `eng/build.
-  {sh,ps1}` now default RunTests' whole-run `--timeout` watchdog to 240 minutes (not 90) whenever
-  `-testIOperation`/`--testIOperation` is set, precisely so a real `--testIOperation` run doesn't get
-  killed as a false "hang" partway through — this happened for real on a Core leg where the watchdog
-  fired mid-run while individual assemblies were still actively completing (`RunTests.Program`'s
-  `Test timeout exceeded, dumping remaining processes`), not because anything was actually stuck.
-  `--testTimeout`/`-testTimeout` still overrides either default explicitly. Individual large or
-  deeply-recursive tests that separately blow the *per-validation* 15s watchdog inside
-  `CompilationExtensions.ValidateIOperations` (a different, inner timeout — see
+  (`Semantic`, `Symbol`, `Emit3`, `Workspaces.MSBuild`, etc.) well past 15-29 minutes each. A Core leg
+  was once killed by RunTests' whole-run `--timeout` watchdog (`RunTests.Program`'s `Test timeout
+  exceeded, dumping remaining processes`) while individual assemblies were still actively completing,
+  not because anything was actually stuck; `eng/build.{sh,ps1}` temporarily raised the `-testIOperation`
+  default from 90 to 240 minutes to cover that, but a later clean `--testIOperation` run stayed well
+  under even 90 minutes on both legs, so the bump was reverted back to a flat 90-minute default for
+  every leg. `--testTimeout`/`-testTimeout` still overrides the default explicitly if a slow run needs
+  more room. Individual large or deeply-recursive tests that separately blow the *per-validation* 15s
+  watchdog inside `CompilationExtensions.ValidateIOperations` (a different, inner timeout — see
   `testing/compiler.md`'s `NoIOperationValidation` section) are unaffected by this; that one is fixed
   per-test, not by raising a global run timeout.
 

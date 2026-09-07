@@ -233,7 +233,7 @@ Switches:
         Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
 
     '<scry>     <primary>   --testIOperation'
-        Run tests with the IOperation test hook enabled. (raises default timeout to 240)
+        Run tests with the IOperation test hook enabled.
 
     '<scry>     <primary>   --testRuntimeAsync'
         Run tests with runtime async validation enabled (DOTNET_RuntimeAsync).
@@ -243,7 +243,7 @@ Switches:
         Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
 
     '<scry>     <primary>   --timeout <minutes>'
-        Override RunTests' whole-run watchdog (default: 90. raises to 240 when '--testIOperation' is used).
+        Override RunTests' whole-run watchdog (default: 90).
 
     '<command>  <primary>   --verbosity <level>'
         MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic (default: minimal).
