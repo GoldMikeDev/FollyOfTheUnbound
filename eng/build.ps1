@@ -474,9 +474,11 @@ function TestUsingRunTests() {
   $args += " --configuration $configuration"
   $testFilters = @()
 
+  $defaultTestTimeout = 90
+
   if ($testCoreClr) {
     $args += " --runtime core"
-    $timeout = 90
+    $timeout = $defaultTestTimeout
     if ($testCompilerOnly) {
       $args += GetCompilerTestAssembliesIncludePaths
     } else {
@@ -485,7 +487,7 @@ function TestUsingRunTests() {
   }
   elseif ($testDesktop -or ($testIOperation -and -not $testCoreClr)) {
     $args += " --runtime framework"
-    $timeout = 90
+    $timeout = $defaultTestTimeout
 
     if ($testRuntimeAsync) {
       Write-Host "Cannot run desktop tests with runtime async validation enabled."
@@ -795,6 +797,13 @@ function Deploy-VsixViaTool() {
 # Ensure that procdump is available on the machine.  Returns the path to the directory that contains
 # the procdump binaries (both 32 and 64 bit)
 function Ensure-ProcDump() {
+
+  # Prefer an already-installed procdump.exe resolvable on PATH -- avoids an unnecessary download
+  # (which requires network access to download.sysinternals.com) when the caller already has it.
+  $onPath = Get-Command "procdump.exe" -ErrorAction SilentlyContinue
+  if ($onPath) {
+    return Split-Path -Parent $onPath.Source
+  }
 
   # Jenkins images default to having procdump installed in the root.  Use that if available to avoid
   # an unnecessary download.

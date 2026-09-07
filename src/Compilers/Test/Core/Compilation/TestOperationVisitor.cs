@@ -905,6 +905,12 @@ namespace Microsoft.CodeAnalysis.Test.Utilities
             }
         }
 
+        public override void VisitVoidCoalesce(IVoidCoalesceOperation operation)
+        {
+            Assert.Equal(OperationKind.VoidCoalesce, operation.Kind);
+            AssertEx.Equal(new[] { operation.Access, operation.WhenNull }, operation.ChildOperations);
+        }
+
         public override void VisitCoalesce(ICoalesceOperation operation)
         {
             Assert.Equal(OperationKind.Coalesce, operation.Kind);

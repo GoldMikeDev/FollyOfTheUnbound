@@ -62,6 +62,29 @@ namespace RunTests.UnitTests
         }
 
         [Fact]
+        public void GetKey_DisambiguatesByIOperationEnvironmentVariable()
+        {
+            var original = Environment.GetEnvironmentVariable("ROSLYN_TEST_IOPERATION");
+            try
+            {
+                Environment.SetEnvironmentVariable("ROSLYN_TEST_IOPERATION", null);
+                var withoutIOperation = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Debug", "x64");
+
+                Environment.SetEnvironmentVariable("ROSLYN_TEST_IOPERATION", "true");
+                var withIOperation = LocalTestTimingHistory.GetKey("Some.Assembly", "net10.0", "Debug", "x64");
+
+                // IOperation validation can make a work item take many times longer than the same
+                // work item without it (see TESTING_STRATEGY.md), so a "Previous" duration recorded
+                // under one shouldn't be shown as the comparison point for a run under the other.
+                Assert.NotEqual(withoutIOperation, withIOperation);
+            }
+            finally
+            {
+                Environment.SetEnvironmentVariable("ROSLYN_TEST_IOPERATION", original);
+            }
+        }
+
+        [Fact]
         public void FreshHistory_NoFileYet_ReturnsNullForAnyKey()
         {
             var history = LocalTestTimingHistory.Load(_artifactsDirectory, _artifactsDirectory);

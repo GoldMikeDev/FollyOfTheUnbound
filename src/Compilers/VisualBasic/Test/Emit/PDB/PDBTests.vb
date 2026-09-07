@@ -208,7 +208,7 @@ End Class
             result.Diagnostics.Verify(Diagnostic(ERRID.ERR_DebugEntryPointNotSourceMethodDefinition))
         End Sub
 
-        <ConditionalFact(GetType(WindowsOnly), Reason:=ConditionalSkipReason.NativePdbRequiresDesktop)>
+        <ConditionalFact(GetType(WindowsOnly), GetType(NoIOperationValidation), Reason:=ConditionalSkipReason.NativePdbRequiresDesktop)>
         <WorkItem("https://github.com/dotnet/roslyn/issues/75237")>
         Public Sub NativeWriterLimit()
             Dim locals = Enumerable.Range(0, 14_000).

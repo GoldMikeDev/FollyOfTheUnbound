@@ -423,7 +423,7 @@ public class C
                 });
         }
 
-        [ConditionalFact(typeof(WindowsOnly), Reason = ConditionalSkipReason.NativePdbRequiresDesktop)]
+        [ConditionalFact(typeof(WindowsOnly), typeof(NoIOperationValidation), Reason = ConditionalSkipReason.NativePdbRequiresDesktop)]
         [WorkItem("https://github.com/dotnet/roslyn/issues/75237")]
         public void NativeWriterLimit_EndToEnd()
         {

@@ -82,18 +82,47 @@ namespace RunTests
             return timings;
         }
 
+        // Mirrors HelixTestRunner's own IOperationEnvironmentVariable/RuntimeAsyncEnvironmentVariable/
+        // UsedAssembliesEnvironmentVariable + AddEnvironmentVariableToken, which distinguishes Helix job
+        // names the same way and for the same reason: each of these materially changes how long a work
+        // item takes (IOperation validation in particular can turn a normal run into one many times
+        // slower -- see TESTING_STRATEGY.md), so a "Previous" duration recorded under one combination is
+        // not a meaningful comparison for a run under another.
+        private const string IOperationEnvironmentVariable = "ROSLYN_TEST_IOPERATION";
+        private const string RuntimeAsyncEnvironmentVariable = "DOTNET_RuntimeAsync";
+        private const string UsedAssembliesEnvironmentVariable = "ROSLYN_TEST_USEDASSEMBLIES";
+
         /// <summary>
         /// Key used both to look up and to record a work item's history -- see <see cref="LiveTestProgressDisplay"/>'s
         /// row construction. Includes <paramref name="configuration"/> (Debug/Release) and
         /// <paramref name="architecture"/> (x86/x64/arm64) alongside the assembly/TFM identity: Debug and Release
         /// builds of the same assembly can have very different runtimes (JIT optimizations, assertion/diagnostic
         /// code compiled in), so without this a Release "research" run and a Debug "truth" run would silently
-        /// overwrite each other's "Previous" baseline.
+        /// overwrite each other's "Previous" baseline. Also folds in a token per environment variable in
+        /// <see cref="IOperationEnvironmentVariable"/>/<see cref="RuntimeAsyncEnvironmentVariable"/>/
+        /// <see cref="UsedAssembliesEnvironmentVariable"/> that's currently set, for the same reason.
         /// </summary>
         internal static string GetKey(string baseName, string? tfmTag, string configuration, string architecture)
-            => tfmTag is null
+        {
+            var key = tfmTag is null
                 ? $"{baseName}|{configuration}|{architecture}"
                 : $"{baseName}|{tfmTag}|{configuration}|{architecture}";
+
+            var tokens = new List<string>();
+            addToken(IOperationEnvironmentVariable, "IOperation");
+            addToken(RuntimeAsyncEnvironmentVariable, "RuntimeAsync");
+            addToken(UsedAssembliesEnvironmentVariable, "UsedAssemblies");
+
+            return tokens.Count == 0 ? key : $"{key}|{string.Join(",", tokens)}";
+
+            void addToken(string environmentVariable, string token)
+            {
+                if (Environment.GetEnvironmentVariable(environmentVariable) is { Length: > 0 })
+                {
+                    tokens.Add(token);
+                }
+            }
+        }
 
         internal TimeSpan? TryGetPreviousDuration(string key)
         {

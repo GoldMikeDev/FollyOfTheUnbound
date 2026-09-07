@@ -15,6 +15,26 @@ try {
 	# Windows host, even though this script itself (pwsh) can run elsewhere -- '--framework' is
 	# rejected outright off-Windows, and 'scry's own no-switches default only includes Framework here.
 	$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
+	# Only used by an --elevatedRelaunch'd scry invocation (see the --collectDumps elevation block
+	# below) -- replaces every plain `exit` in the scry action so its window pauses for an explicit
+	# close confirmation instead of vanishing before the output can be reviewed. 'n' drops into a
+	# live nested prompt in the same window (scrollback intact) rather than just leaving it idle;
+	# typing 'exit' there falls back through to the real exit below.
+	function Exit-Scry([int]$ExitCode) {
+		if (-not $elevatedRelaunch) {
+			exit $ExitCode
+		}
+		Write-Host ""
+		$answer = $null
+		while ($answer -ne "y" -and $answer -ne "n") {
+			$answer = (Read-Host "scry finished (exit code $ExitCode). Close this window? [y/n]").ToLowerInvariant()
+		}
+		if ($answer -eq "n") {
+			Write-Host "Dropping to an interactive prompt in this window so you can review the output -- type 'exit' when you're done to close it."
+			$host.EnterNestedPrompt()
+		}
+		exit $ExitCode
+	}
     	function Write-GrimoireHelp([string]$text) {
 		$literalPattern = "(?<=')(?:attune|bind|cleanse|grimoire|reweave|scry|weave)\b|\b(?:reflection|research|truth)\b|--[A-Za-z][A-Za-z0-9]*"
 		$tokenPattern = "<[^>]+>|\[switches\]|$literalPattern"
@@ -49,7 +69,10 @@ try {
 	$testFilter = $null
 	$expectTestFilterValue = $false
 	$testIOperation = $false
+	$testUsedAssemblies = $false
+	$testRuntimeAsync = $false
 	$collectDumps = $false
+	$elevatedRelaunch = $false  # internal marker set only by our own self-elevation relaunch below -- not a documented switch
 	$bootstrap = $false
 	$reflection = $false
 	$testTimeout = 0
@@ -92,6 +115,12 @@ try {
 		elseif ($arg -eq "--testIOperation") {
 			$testIOperation = $true
 		}
+		elseif ($arg -eq "--testUsedAssemblies") {
+			$testUsedAssemblies = $true
+		}
+		elseif ($arg -eq "--testRuntimeAsync") {
+			$testRuntimeAsync = $true
+		}
 		elseif ($arg -eq "--collectDumps") {
 			# Opt-in, not unconditional: RunTests' Windows Error Reporting registry-based dump
 			# collection (DumpUtil in src/Tools/RunTests/ProcDumpUtil.cs) mutates a single machine-wide
@@ -102,6 +131,12 @@ try {
 			# every ordinary local run (e.g. two concurrent elevated scry runs racing that same
 			# registry key, or a timed-out run capturing an unrelated IDE-hosted testhost's memory).
 			$collectDumps = $true
+		}
+		elseif ($arg -eq "--elevatedRelaunch") {
+			# Internal marker set only by our own self-elevation relaunch (see the --collectDumps
+			# handling in the scry action below) -- not documented in the grimoire, not meant to be
+			# typed by hand.
+			$elevatedRelaunch = $true
 		}
 		elseif ($arg -eq "--bootstrap") {
 			$bootstrap = $true
@@ -158,7 +193,7 @@ Commands:
         Restore & rebuild.
 
     'scry       <primary>   [switches]'
-        Restore, build & run Core (and, on Windows, Framework) unit tests.
+        Restore, build & run unit tests.
 
     'weave      <primary>   [switches]'
         Restore & build.
@@ -180,6 +215,11 @@ Switches:
     '<command>  <primary>   --bootstrap'
         Build/test using a locally-built bootstrap compiler.
 
+    '<scry>     <primary>   --collectDumps'
+        Enable RunTests' Windows-only crash/hang dump collection. The WER registry hook this
+        needs requires an elevated (Administrator) process; if not already elevated, prompts
+        to relaunch scry as one.
+
     '<scry>     <primary>   --core'
         Run only the Core tests (skip Framework).
 
@@ -195,16 +235,18 @@ Switches:
     '<scry>     <primary>   --testIOperation'
         Run tests with the IOperation test hook enabled.
 
-    '<scry>     <primary>   --collectDumps'
-        Enable RunTests' Windows-only crash/hang dump collection (opt-in: mutates a machine-wide
-        WER registry key and its timeout-dump path can capture unrelated processes' memory -- see
-        API_MAP.md for details).
+    '<scry>     <primary>   --testRuntimeAsync'
+        Run tests with runtime async validation enabled (DOTNET_RuntimeAsync).
+        Incompatible with .NET Framework so always enables '--core'
+
+    '<scry>     <primary>   --testUsedAssemblies'
+        Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
 
     '<scry>     <primary>   --timeout <minutes>'
         Override RunTests' whole-run watchdog (default: 90).
 
     '<command>  <primary>   --verbosity <level>'
-        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic.
+        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic (default: minimal).
 
 "@
 		Write-GrimoireHelp $helpText
@@ -214,18 +256,36 @@ Switches:
 	# one per selector, since they're all the same rule applied to different args. '--bootstrap' is
 	# NOT scoped to 'scry': like '--binaryLog'/'--verbosity' it's valid on any build-invoking action,
 	# just rejected on 'cleanse' below.
-	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $collectDumps -or $testTimeout -gt 0 -or $reflection)) {
-		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
-		exit 1
-	}
-	if ($framework -and -not $onWindows) {
-		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red
+	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testUsedAssemblies -or $testRuntimeAsync -or $collectDumps -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--testUsedAssemblies'/'--testRuntimeAsync'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
 	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
-	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $collectDumps -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testUsedAssemblies -or $testRuntimeAsync -or $collectDumps -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
 		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
+		exit 1
+	}
+	# '--testRuntimeAsync' can't run against the Framework leg (.NET Framework has no runtime-async
+	# support -- eng/build.ps1's own -testDesktop/-testRuntimeAsync guard would reject it there
+	# anyway, but failing fast here avoids burning a build first). Checked against the raw
+	# '--core'/'--framework' selectors, not the derived $runCore/$runFramework (computed later, only
+	# inside the scry branch). An explicit '--framework' is a real, irreconcilable conflict with the
+	# caller's own stated intent, so that's still a hard rejection -- checked before the '--framework
+	# requires Windows' rule below (matching folly.sh's own ordering) so this message wins on a
+	# genuine Windows host where '--framework' would otherwise be valid on its own. But when the
+	# caller just didn't say either way, there's nothing to reconcile -- push '--core' through
+	# automatically instead of making them retype what this switch already implies, matching how
+	# eng/build.ps1 itself auto-selects testCoreClr for '-testIOperation'.
+	if ($testRuntimeAsync -and $framework) {
+		Write-Host "'--testRuntimeAsync' can't run against the Framework leg -- drop '--framework' (or drop '--testRuntimeAsync') to resolve the conflict." -ForegroundColor Red
+		exit 1
+	}
+	if ($testRuntimeAsync -and -not $core) {
+		$core = $true
+	}
+	if ($framework -and -not $onWindows) {
+		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red
 		exit 1
 	}
 	if (($binaryLog -or $verbosity -or $bootstrap) -and $action -eq "cleanse") {
@@ -304,13 +364,76 @@ Switches:
 		exit ($(if ($harnessFail) { 1 } else { 0 }))
 	}
 	elseif ($action -eq "scry") {
+		# '--collectDumps' needs an elevated (Administrator) process to install its WER registry dump
+		# hook. Gated entirely behind an already-elevated check: if we're already Administrator
+		# (including a relaunch of ourselves via --elevatedRelaunch), none of this fires and scry
+		# just proceeds.
+		if ($collectDumps -and -not $elevatedRelaunch -and $onWindows) {
+			$currentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
+			$currentPrincipal = New-Object Security.Principal.WindowsPrincipal($currentIdentity)
+			$isAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+			if (-not $isAdmin) {
+				$answer = $null
+				while ($answer -ne "y" -and $answer -ne "n") {
+					$answer = (Read-Host "'--collectDumps' needs an elevated (Administrator) process for its Windows Error Reporting registry hook. Re-launch scry elevated now? [y/n]").ToLowerInvariant()
+				}
+				if ($answer -eq "y") {
+					$relaunchArgs = [System.Collections.Generic.List[string]]::new()
+					$relaunchArgs.Add("scry")
+					if ($config) { $relaunchArgs.Add($config) }
+					if ($core) { $relaunchArgs.Add("--core") }
+					if ($framework) { $relaunchArgs.Add("--framework") }
+					if ($testCompilerOnly) { $relaunchArgs.Add("--testCompilerOnly") }
+					if ($testFilter) { $relaunchArgs.Add("--testFilter"); $relaunchArgs.Add($testFilter) }
+					if ($testIOperation) { $relaunchArgs.Add("--testIOperation") }
+					if ($testRuntimeAsync) { $relaunchArgs.Add("--testRuntimeAsync") }
+					if ($testUsedAssemblies) { $relaunchArgs.Add("--testUsedAssemblies") }
+					$relaunchArgs.Add("--collectDumps")
+					if ($bootstrap) { $relaunchArgs.Add("--bootstrap") }
+					if ($testTimeout -gt 0) { $relaunchArgs.Add("--timeout"); $relaunchArgs.Add($testTimeout.ToString()) }
+					if ($binaryLog) { $relaunchArgs.Add("--binaryLog") }
+					if ($verbosity) { $relaunchArgs.Add("--verbosity"); $relaunchArgs.Add($verbosity) }
+					$relaunchArgs.Add("--elevatedRelaunch")
+
+					$scriptPath = Join-Path $PSScriptRoot "folly.ps1"
+					$pwshCmd = Get-Command -Name (Get-Process -Id $PID).Path -ErrorAction SilentlyContinue
+					if (-not $pwshCmd) {
+						$pwshCmd = Get-Command pwsh -ErrorAction SilentlyContinue
+						if (-not $pwshCmd) { $pwshCmd = Get-Command powershell -ErrorAction SilentlyContinue }
+					}
+					if (-not $pwshCmd) {
+						Write-Host "Could not find 'pwsh'/'powershell' to relaunch elevated." -ForegroundColor Red
+						exit 1
+					}
+					$startArgs = @("-NoExit", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $scriptPath) + $relaunchArgs
+					$quotedStartArgs = ($startArgs | ForEach-Object { "'" + ($_ -replace "'", "''") + "'" }) -join ", "
+					$escapedPwsh = $pwshCmd.Source -replace "'", "''"
+					$tmpPs1 = Join-Path ([System.IO.Path]::GetTempPath()) ([System.IO.Path]::GetRandomFileName() + ".ps1")
+					$escapedTmpPs1 = $tmpPs1 -replace "'", "''"
+					@"
+Start-Process -FilePath '$escapedPwsh' -ArgumentList @($quotedStartArgs) -Verb RunAs
+Remove-Item -LiteralPath '$escapedTmpPs1' -Force -ErrorAction SilentlyContinue
+"@ | Set-Content -LiteralPath $tmpPs1 -Encoding UTF8
+					# Third-party UAC interceptors (e.g. Admin by Request) can make a direct '-Verb RunAs' call
+					# block this window until the elevated process is closed, instead of returning as soon as
+					# it launches -- defeating the "unelevated window exits immediately" design below. Doing
+					# the actual RunAs call inside a separate, hidden, non-elevated helper process sidesteps
+					# that: launching an ordinary (non-elevated) process is never subject to that hook, so it
+					# returns immediately regardless of how long the helper's own elevation call takes.
+					Start-Process -FilePath $pwshCmd.Source -ArgumentList @("-NoProfile", "-WindowStyle", "Hidden", "-File", $tmpPs1) -WindowStyle Hidden
+					Write-Host "Launched an elevated scry window; this window is done."
+					exit 0
+				}
+				Write-Host "Continuing without elevation -- the WER registry dump hook will be unavailable."
+			}
+		}
 		$runCore = $core -or -not ($core -or $framework)  # default to both (on Windows) when neither switch is given; either switch alone runs just that one
 		$runFramework = ($framework -or -not ($core -or $framework)) -and $onWindows  # off-Windows the no-switches default is Core-only; '--framework' itself was already rejected above on a non-Windows host
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
 		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
-			exit $buildExitCode
+			Exit-Scry $buildExitCode
 		}
 		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw table lines -- from its already-logged runtests.log. RunTests always writes this table to the log file regardless of -testSuppressConsoleSummary (only whether it *also* goes to the console is conditional -- see that switch's comment below); the raw Lines rebuild both legs' tables together in the "combined results" block once both have finished, and the tallies drive the compact numeric recap after it.
 			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode; Lines = @() }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
@@ -399,6 +522,12 @@ Switches:
 		}
 		if ($testIOperation) {
 			$extraTestArgs["testIOperation"] = $true
+		}
+		if ($testUsedAssemblies) {
+			$extraTestArgs["testUsedAssemblies"] = $true
+		}
+		if ($testRuntimeAsync) {
+			$extraTestArgs["testRuntimeAsync"] = $true
 		}
 		# --collectDumps is opt-in (see its own arg-parsing comment above for why): RunTests' Windows-only
 		# crash/hang dump support mutates a machine-wide WER registry key with no cross-process
@@ -560,15 +689,15 @@ Switches:
 			Write-Host "Framework test results: $frameworkTestResultsDir (logs: $frameworkLogDir)"
 		}
 		if ($coreExitCode -ne 0) {
-			exit $coreExitCode
+			Exit-Scry $coreExitCode
 		}
 		if ($frameworkExitCode -ne 0) {
-			exit $frameworkExitCode
+			Exit-Scry $frameworkExitCode
 		}
 		if (-not $overallSuccess) {
-			exit 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
+			Exit-Scry 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
 		}
-		exit 0
+		Exit-Scry 0
 	}
 	elseif ($action -eq "cleanse") {
 		$artifactsDir = Join-Path $PSScriptRoot "artifacts"

@@ -233,72 +233,72 @@ Lambda(
 
 #Region "Binary Operations"
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_Arithmetic()
             TestBinaryOperator_AllTypes_NumericOperations(False, result:=ExpTreeTestResources.UncheckedArithmeticBinaryOperators)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_Arithmetic()
             TestBinaryOperator_AllTypes_NumericOperations(True, result:=ExpTreeTestResources.CheckedArithmeticBinaryOperators)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_AndOrXor()
             TestBinaryOperator_AllTypes_AndOrXor(False, result:=ExpTreeTestResources.UncheckedAndOrXor)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_AndOrXor()
             TestBinaryOperator_AllTypes_AndOrXor(True, result:=ExpTreeTestResources.CheckedAndOrXor)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_ShortCircuit()
             TestBinaryOperator_AllTypes_ShortCircuit(False, result:=ExpTreeTestResources.UncheckedShortCircuit)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_ShortCircuit()
             TestBinaryOperator_AllTypes_ShortCircuit(True, result:=ExpTreeTestResources.CheckedShortCircuit)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_Comparisons()
             TestBinaryOperator_AllTypes_Comparisons(False, result:=ExpTreeTestResources.UncheckedComparisonOperators)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_Comparisons()
             TestBinaryOperator_AllTypes_Comparisons(True, result:=ExpTreeTestResources.CheckedComparisonOperators)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_IsIsNot()
             TestBinaryOperator_AllTypes_IsIsNot(False, result:=ExpTreeTestResources.CheckedAndUncheckedIsIsNot)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_IsIsNot()
             TestBinaryOperator_AllTypes_IsIsNot(True, result:=ExpTreeTestResources.CheckedAndUncheckedIsIsNot)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_IsIsNot_Nothing()
             TestUnaryOperator_AllTypes_IsIsNot(False, result:=ExpTreeTestResources.CheckedAndUncheckedIsIsNotNothing)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_IsIsNot_Nothing()
             TestUnaryOperator_AllTypes_IsIsNot(True, result:=ExpTreeTestResources.CheckedAndUncheckedIsIsNotNothing)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_Concatenate()
             TestBinaryOperator_ConcatenatePlus(False, result:=ExpTreeTestResources.UncheckedConcatenate)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_Concatenate()
             TestBinaryOperator_ConcatenatePlus(True, result:=ExpTreeTestResources.CheckedConcatenate)
         End Sub
@@ -313,22 +313,22 @@ Lambda(
             TestBinaryOperator_Like(True, result:=ExpTreeTestResources.CheckedLike)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_WithDate()
             TestBinaryOperator_DateAsOperand(False, result:=ExpTreeTestResources.CheckedAndUncheckedWithDate)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_WithDate()
             TestBinaryOperator_DateAsOperand(True, result:=ExpTreeTestResources.CheckedAndUncheckedWithDate)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Unchecked_UserDefinedBinaryOperator()
             TestBinaryOperator_UserDefinedBinaryOperator(False, result:=ExpTreeTestResources.UncheckedUserDefinedBinaryOperators)
         End Sub
 
-        <Fact>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub TestBinaryOperator_Checked_UserDefinedBinaryOperator()
             TestBinaryOperator_UserDefinedBinaryOperator(True, result:=ExpTreeTestResources.CheckedUserDefinedBinaryOperators)
         End Sub
