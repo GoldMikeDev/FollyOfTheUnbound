@@ -362,3 +362,27 @@ bounds itself internally. Any future override of `ShutdownAndWaitForExitAsync`/`
 daemon-mode `TestLspClient` subclass) gets this protection for free since `DisposeAsync` calls the virtual members;
 don't reintroduce an unbounded await in a shutdown/teardown path in this test class without the same
 timeout-then-kill treatment.
+
+## `LspServices.DisposeAsync` had no per-service timeout, so one stuck service wedged the whole process
+
+**Affected area:** `src/LanguageServer/Protocol/LspServices/LspServices.cs`
+**Description:** Same class of bug as the `TestLspClient.DisposeAsync` entry above, but in production
+server code rather than test infra, and diagnosed from a real `.\folly scry --testIOperation` run: the
+Core leg hung for 3+ hours past its 240-minute watchdog on a single stuck work item
+(`Microsoft.CodeAnalysis.LanguageServer.UnitTests`) that had already reported all 405 tests
+passed (its own xUnit result file shows `total="405" passed="404" skipped="1" time="731.830"`, ~12
+minutes) -- the test host process itself never exited afterward. `DisposeAsync` iterates every
+registered `IAsyncDisposable` `ILspService` sequentially with a bare `await service.DisposeAsync()`;
+the existing `catch (Exception ex) when (FatalError.ReportAndCatch(ex))` only guards a **thrown**
+exception, nothing protected against a service's `DisposeAsync()` simply never completing. One wedged
+service therefore blocks the whole loop -- and therefore `AbstractLanguageServer.ExitAsync`, and the
+process hosting it -- forever, with no diagnostic trace of which service is actually stuck. The exact
+service was never identified (no dump was captured; vstest's `/Blame:CollectDump;CollectHangDump`
+watches for a test-*execution* hang and had already stopped watching once xUnit reported the last
+result, so it never fired for this post-test-completion hang).
+**Invariant:** Each service's `DisposeAsync()` is now raced against a 30-second `Task.Delay` via
+`Task.WhenAny`; on timeout, `FatalError.ReportAndCatch` reports a `TimeoutException` naming the
+service's type (so a recurrence is at least diagnosable from the Watson/telemetry report) and the loop
+moves on to the next service rather than blocking forever. The abandoned `DisposeAsync()` task is
+deliberately left unawaited past the timeout -- it may still complete or fault in the background, but
+nothing here depends on it any longer. Don't reintroduce a bare unbounded `await` in this loop.

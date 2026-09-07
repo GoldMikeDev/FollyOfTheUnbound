@@ -267,7 +267,19 @@ internal sealed class LspServices : ILspServices, IMethodHandlerProvider
         {
             try
             {
-                await service.DisposeAsync().ConfigureAwait(false);
+                // A service whose DisposeAsync() never completes (as opposed to throwing) would otherwise wedge
+                // this whole loop -- and therefore the server's exit and the process hosting it -- forever, with
+                // no trace of which service is actually stuck. Race it against a generous timeout instead: on
+                // timeout, report which service's type didn't finish (the same non-fatal-Watson channel the
+                // catch below already uses for real exceptions) and move on to the rest. The abandoned
+                // DisposeAsync() task is intentionally left unawaited past the timeout -- it may still complete
+                // (or fault) in the background; either way nothing here depends on it any longer.
+                var disposeTask = service.DisposeAsync().AsTask();
+                var completed = await Task.WhenAny(disposeTask, Task.Delay(TimeSpan.FromSeconds(30))).ConfigureAwait(false);
+                if (completed != disposeTask)
+                {
+                    FatalError.ReportAndCatch(new TimeoutException($"Timed out disposing LSP service '{service.GetType()}'."));
+                }
             }
             catch (Exception ex) when (FatalError.ReportAndCatch(ex))
             {
