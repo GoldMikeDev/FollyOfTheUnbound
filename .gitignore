@@ -17,6 +17,7 @@ BenchmarkDotNet.Artifacts/
 [Bb]inaries/
 [Bb]in/
 [Oo]bj/
+src/VisualStudio/EditorConfig/Templates/ModifiedTemplates/
 .dotnet/
 .tools/
 .packages/
