@@ -17,26 +17,26 @@ namespace Microsoft.VisualStudio.Templates.Editorconfig.Wizard.Logging
         public const string ErrorName = "vs/ide/vbcs/editorconfig/error";
         private const string EventPrefix = "vs/ide/vbcs/editorconfig/";
         private const string PropertyPrefix = "vs.ide.vbcs.editorconfig.";
-        private static readonly ConcurrentDictionary<int, string> s_eventMap = new();
-        private static readonly ConcurrentDictionary<(int id, string name), string> s_propertyMap = new();
+        private static readonly ConcurrentDictionary<(Type type, int id), string> s_eventMap = new();
+        private static readonly ConcurrentDictionary<(Type type, int id, string name), string> s_propertyMap = new();
 
         public static string GetEventName(EventId id)
-             => s_eventMap.GetOrAdd(id.AsInt(), number => EventPrefix + GetTelemetryName(id, separator: '/'));
+             => s_eventMap.GetOrAdd((typeof(EventId), id.AsInt()), key => EventPrefix + GetTelemetryName(id, separator: '/'));
 
         public static string GetOperationName(OperationId id)
-            => s_eventMap.GetOrAdd(id.AsInt(), number => EventPrefix + GetTelemetryName(id, separator: '/'));
+            => s_eventMap.GetOrAdd((typeof(OperationId), id.AsInt()), key => EventPrefix + GetTelemetryName(id, separator: '/'));
 
         public static string GetUserTaskName(UserTask id)
-            => s_eventMap.GetOrAdd(id.AsInt(), number => EventPrefix + GetTelemetryName(id, separator: '/'));
+            => s_eventMap.GetOrAdd((typeof(UserTask), id.AsInt()), key => EventPrefix + GetTelemetryName(id, separator: '/'));
 
         public static string GetPropertyName(EventId id, string name)
-            => s_propertyMap.GetOrAdd((id.AsInt(), name), key => PropertyPrefix + GetTelemetryName(id, separator: '.') + "." + name.ToLowerInvariant());
+            => s_propertyMap.GetOrAdd((typeof(EventId), id.AsInt(), name), key => PropertyPrefix + GetTelemetryName(id, separator: '.') + "." + name.ToLowerInvariant());
 
         public static string GetPropertyName(OperationId id, string name)
-            => s_propertyMap.GetOrAdd((id.AsInt(), name), key => PropertyPrefix + GetTelemetryName(id, separator: '.') + "." + name.ToLowerInvariant());
+            => s_propertyMap.GetOrAdd((typeof(OperationId), id.AsInt(), name), key => PropertyPrefix + GetTelemetryName(id, separator: '.') + "." + name.ToLowerInvariant());
 
         public static string GetPropertyName(UserTask id, string name)
-            => s_propertyMap.GetOrAdd((id.AsInt(), name), key => PropertyPrefix + GetTelemetryName(id, separator: '.') + "." + name.ToLowerInvariant());
+            => s_propertyMap.GetOrAdd((typeof(UserTask), id.AsInt(), name), key => PropertyPrefix + GetTelemetryName(id, separator: '.') + "." + name.ToLowerInvariant());
 
         public static string GetTelemetryName(EventId id, char separator)
             => Enum.GetName(typeof(EventId), id)!.Replace('_', separator).ToLowerInvariant();

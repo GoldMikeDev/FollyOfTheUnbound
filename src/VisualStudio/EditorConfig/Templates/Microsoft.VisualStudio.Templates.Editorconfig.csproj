@@ -22,10 +22,28 @@
     </ProjectReference>
     <None Include="source.extension.vsixmanifest" />
     <None Include="*.vstemplate" />
+    <VSTemplate Include="EditorconfigDefault.vstemplate">
+      <OutputSubPath>General</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="EditorconfigDotnet.vstemplate">
+      <OutputSubPath>General</OutputSubPath>
+    </VSTemplate>
     <VSTemplate Include="Editorconfig.CS.Default.vstemplate">
       <OutputSubPath>General</OutputSubPath>
     </VSTemplate>
     <VSTemplate Include="Editorconfig.CS.DotNet.vstemplate">
+      <OutputSubPath>General</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="Editorconfig.CS.AspNetCore.Default.vstemplate">
+      <OutputSubPath>General</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="Editorconfig.CS.AspNetCore.DotNet.vstemplate">
+      <OutputSubPath>General</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="Editorconfig.VB.DotNet.vstemplate">
+      <OutputSubPath>General</OutputSubPath>
+    </VSTemplate>
+    <VSTemplate Include="Editorconfig.VB.Default.vstemplate">
       <OutputSubPath>General</OutputSubPath>
     </VSTemplate>
   </ItemGroup>

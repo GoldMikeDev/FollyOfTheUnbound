@@ -20,13 +20,20 @@ internal class TemplateInfo : ILogMessage<MessageData>
         this.replacementsDictionary = replacementsDictionary;
     }
 
+    // Only an explicit allowlist of non-user-identifying replacement keys is safe to log;
+    // most other entries can carry user-controlled project/user names or local paths.
+    private static readonly ImmutableArray<string> s_allowedReplacementKeys = ImmutableArray.Create("$type$");
+
     public ImmutableArray<MessageData> GetMessageData()
     {
         var builder = ImmutableArray.CreateBuilder<MessageData>();
         builder.Add(new MessageData("WizardRunKind", () => Enum.GetName(runKind.GetType(), runKind)));
-        foreach (var kvp in replacementsDictionary)
+        foreach (var key in s_allowedReplacementKeys)
         {
-            builder.Add(new MessageData("ReplacementsDictionaryValue", () => kvp.Value));
+            if (replacementsDictionary.TryGetValue(key, out var value))
+            {
+                builder.Add(new MessageData("ReplacementsDictionaryValue", () => value));
+            }
         }
         return builder.ToImmutable();
     }

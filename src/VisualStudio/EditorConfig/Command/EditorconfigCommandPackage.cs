@@ -21,6 +21,6 @@ public sealed class EditorconfigCommandPackage : AsyncPackage
     protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
     {
         using var _ = LogOperation(OperationId.InitializePackage);
-        await CommandBase.InitializeAsync<AddEditorConfigFileCommand>(this).ConfigureAwait(true);
+        await CommandBase.InitializeAsync<AddEditorConfigFileCommand>(this, cancellationToken).ConfigureAwait(true);
     }
 }

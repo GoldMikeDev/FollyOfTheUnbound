@@ -29,7 +29,47 @@ public static class VSHelpers
 
     public static bool IsDotnet()
     {
-        return DTE.Solution.Projects.OfType<Project>().Any(p => p.IsKind(PrjKind.prjKindCSharpProject, PrjKind.prjKindVBProject));
+        return EnumerateAllProjects().Any(p => p.IsKind(PrjKind.prjKindCSharpProject, PrjKind.prjKindVBProject));
+    }
+
+    /// <summary>
+    /// Enumerates all projects in the solution, recursing through solution folders so that
+    /// projects nested under them (rather than only the top-level solution-folder "projects"
+    /// EnvDTE exposes directly) are included.
+    /// </summary>
+    public static System.Collections.Generic.IEnumerable<Project> EnumerateAllProjects()
+    {
+        foreach (Project project in DTE.Solution.Projects)
+        {
+            foreach (var flattened in EnumerateProject(project))
+            {
+                yield return flattened;
+            }
+        }
+
+        static System.Collections.Generic.IEnumerable<Project> EnumerateProject(Project project)
+        {
+            if (project.Kind == SolutionFolder)
+            {
+                if (project.ProjectItems is not null)
+                {
+                    foreach (ProjectItem item in project.ProjectItems)
+                    {
+                        if (item.SubProject is Project subProject)
+                        {
+                            foreach (var flattened in EnumerateProject(subProject))
+                            {
+                                yield return flattened;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                yield return project;
+            }
+        }
     }
 
     public static bool IsDotnet(string directory)
@@ -64,12 +104,12 @@ public static class VSHelpers
 
     public static bool HasCSharpProjects()
     {
-        return DTE.Solution.Projects.OfType<Project>().Any(p => p.IsKind(PrjKind.prjKindCSharpProject));
+        return EnumerateAllProjects().Any(p => p.IsKind(PrjKind.prjKindCSharpProject));
     }
 
     public static bool HasVisualBasicProjects()
     {
-        return DTE.Solution.Projects.OfType<Project>().Any(p => p.IsKind(PrjKind.prjKindVBProject));
+        return EnumerateAllProjects().Any(p => p.IsKind(PrjKind.prjKindVBProject));
     }
 
     public static (bool isSolutionLevel, string? path, string? language, object? selectedItem) TryGetSelectedItemLanguageAndPath()

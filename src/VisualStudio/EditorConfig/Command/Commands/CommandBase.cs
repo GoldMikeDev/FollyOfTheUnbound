@@ -4,6 +4,7 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Templates.Editorconfig.Wizard.Logging.Kinds;
@@ -13,16 +14,16 @@ namespace Microsoft.VisualStudio.Templates.Editorconfig.Command.Commands;
 
 internal abstract class CommandBase
 {
-    public static async Task<T> InitializeAsync<T>(AsyncPackage package)
+    public static async Task<T> InitializeAsync<T>(AsyncPackage package, CancellationToken cancellationToken)
         where T : CommandBase, new()
     {
         T command = new();
 
         command.Command = new OleMenuCommand(command.Execute, command.Id);
         command.Package = package;
-        await package.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
+        await package.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
         var menuCommandService = await package.GetServiceAsync<IMenuCommandService, IMenuCommandService>(
-            throwOnFailure: true, package.DisposalToken).ConfigureAwait(true);
+            throwOnFailure: true, cancellationToken).ConfigureAwait(true);
         Assumes.Present(menuCommandService);
         menuCommandService.AddCommand(command.Command);
         LogEvent(EventId.CommandRegistered);

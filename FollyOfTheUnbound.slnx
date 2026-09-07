@@ -297,6 +297,13 @@
     <Project Path="src/VisualStudio/ExternalAccess/FSharp/Microsoft.CodeAnalysis.ExternalAccess.FSharp.csproj" />
     <Project Path="src/VisualStudio/ExternalAccess/Test/Microsoft.VisualStudio.LanguageServices.ExternalAccess.UnitTests.csproj" />
   </Folder>
+  <Folder Name="/VisualStudio/EditorConfig/">
+    <Project Path="src/VisualStudio/EditorConfig/Command/Microsoft.VisualStudio.Templates.Editorconfig.Command.csproj" />
+    <Project Path="src/VisualStudio/EditorConfig/Setup/Microsoft.VisualStudio.Templates.Editorconfig.Setup.csproj" />
+    <Project Path="src/VisualStudio/EditorConfig/Templates/Microsoft.VisualStudio.Templates.Editorconfig.csproj" />
+    <Project Path="src/VisualStudio/EditorConfig/Wizard/Microsoft.VisualStudio.Templates.Editorconfig.Wizard.csproj" />
+    <Project Path="src/VisualStudio/EditorConfig/WizardSetup/Microsoft.VisualStudio.Templates.Editorconfig.Wizard.Setup.csproj" />
+  </Folder>
   <Folder Name="/VisualStudio/Insertion/">
     <Project Path="src/Setup/DevDivInsertionFiles/DevDivInsertionFiles.csproj" />
   </Folder>

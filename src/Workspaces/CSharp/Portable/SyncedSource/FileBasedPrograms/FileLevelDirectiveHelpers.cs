@@ -1486,12 +1486,24 @@ internal struct DirectiveDeduplicator
             return false;
         }
 
-        for (var i = 0; i < existingMetadata.Length; i++)
+        foreach (var existing in existingMetadata)
         {
-            var existing = existingMetadata[i];
-            var current = currentMetadata[i];
-            if (!CSharpDirective.MetadataNameComparer.Equals(existing.Name, current.Name) ||
-                !CSharpDirective.MetadataValueComparer.Equals(existing.Value, current.Value))
+            var found = false;
+            foreach (var current in currentMetadata)
+            {
+                if (CSharpDirective.MetadataNameComparer.Equals(existing.Name, current.Name))
+                {
+                    if (!CSharpDirective.MetadataValueComparer.Equals(existing.Value, current.Value))
+                    {
+                        return false;
+                    }
+
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
             {
                 return false;
             }

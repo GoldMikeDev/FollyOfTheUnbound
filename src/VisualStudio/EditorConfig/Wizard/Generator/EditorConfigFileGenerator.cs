@@ -103,16 +103,22 @@ public static class EditorConfigFileGenerator
         }
         else
         {
-            WriteFile(fileName, isDotnet, isAtSolutionLevel, language);
-            return (true, fileName);
+            return (WriteFile(fileName, isDotnet, isAtSolutionLevel, language), fileName);
         }
     }
 
-    private static void WriteFile(string fileName, bool isDotnet, bool isAtSolutionLevel, string language)
+    private static bool WriteFile(string fileName, bool isDotnet, bool isAtSolutionLevel, string language)
     {
         var editorconfigFileContents = GetEditorconfigFileContents(isDotnet, isAtSolutionLevel, language);
+        if (editorconfigFileContents is null)
+        {
+            Assert(editorconfigFileContents is not null, "Unable to generate editorconfig file content");
+            return false;
+        }
+
         File.WriteAllText(fileName, editorconfigFileContents);
         LogEvent(EventId.FileCreatedSuccessfully);
+        return true;
 
         static string? GetEditorconfigFileContents(bool isDotnet, bool isAtSolutionLevel, string language)
         {
@@ -135,11 +141,30 @@ public static class EditorConfigFileGenerator
             }
 
             var generator = new RoslynEditorConfigFileGenerator();
+
+            // At the solution level, a mixed-language solution needs settings for both languages;
+            // a single language switch on the selected item's language would only ever emit one.
+            if (isAtSolutionLevel && VSHelpers.HasCSharpProjects() && VSHelpers.HasVisualBasicProjects())
+            {
+                var csharpContent = generator.Generate(LanguageNames.CSharp);
+                var visualBasicContent = generator.Generate(LanguageNames.VisualBasic);
+                if (csharpContent is not null && visualBasicContent is not null)
+                {
+                    return csharpContent + Environment.NewLine + visualBasicContent;
+                }
+
+                return csharpContent ?? visualBasicContent;
+            }
+
             return language switch
             {
                 LanguageNames.CSharp => generator.Generate(LanguageNames.CSharp),
                 LanguageNames.VisualBasic => generator.Generate(LanguageNames.VisualBasic),
                 _ => null
+            } ?? isAtSolutionLevel switch
+            {
+                true => TemplateConstants.DotNetFileContentIsRoot,
+                false => TemplateConstants.DotNetFileContent,
             };
         }
     }
