@@ -502,21 +502,14 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 			exit 1
 		  fi
 		  bash_native="$(cygpath -w "$bash_exe" 2>/dev/null || echo "$bash_exe")"
-		  ps_exe_native="$(cygpath -w "$ps_exe" 2>/dev/null || echo "$ps_exe")"
 		  script_posix="$scriptroot/folly.sh"
 
-		  # Build the relaunch as temp .ps1 trampolines rather than a one-line -Command string --
+		  # Build the relaunch as a temp .ps1 trampoline rather than a one-line -Command string --
 		  # avoids nested quoting hazards translating an arbitrary bash argv into a PowerShell literal.
-		  # Two tiers, not one: third-party UAC interceptors (e.g. Admin by Request) can make a direct
-		  # '-Verb RunAs' call block the calling process until the elevated window is closed, instead of
-		  # returning as soon as it launches -- which would hang this bash window (waiting on $ps_exe
-		  # below) until the elevated one closes, defeating the "this window exits immediately" design.
-		  # So the actual RunAs call lives in an inner script run by a separate, hidden, non-elevated
-		  # helper process (launched by the outer script) -- an ordinary process launch is never subject
-		  # to that hook, so $ps_exe below returns immediately regardless of how long the helper's own
-		  # elevation call takes to come back.
-		  tmp_inner_ps1="$(mktemp --suffix=.ps1 2>/dev/null || mktemp)"
-		  tmp_inner_ps1_native="$(cygpath -w "$tmp_inner_ps1" 2>/dev/null || echo "$tmp_inner_ps1")"
+		  # It self-deletes on exit, since it's backgrounded below rather than waited on: bash can't rely
+		  # on its own completion to know it's safe to clean up.
+		  tmp_ps1="$(mktemp --suffix=.ps1 2>/dev/null || mktemp)"
+		  tmp_ps1_native="$(cygpath -w "$tmp_ps1" 2>/dev/null || echo "$tmp_ps1")"
 		  {
 			echo '$elevatedArgs = @('
 			printf "  '%s',\n" "$(printf '%s' "$script_posix" | sed "s/'/''/g")"
@@ -525,16 +518,16 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 			done
 			echo ')'
 			printf "Start-Process -FilePath '%s' -ArgumentList \$elevatedArgs -Verb RunAs\n" "$(printf '%s' "$bash_native" | sed "s/'/''/g")"
-			printf "Remove-Item -LiteralPath '%s' -Force -ErrorAction SilentlyContinue\n" "$(printf '%s' "$tmp_inner_ps1_native" | sed "s/'/''/g")"
-		  } > "$tmp_inner_ps1"
-
-		  tmp_ps1="$(mktemp --suffix=.ps1 2>/dev/null || mktemp)"
-		  printf "Start-Process -FilePath '%s' -ArgumentList @('-NoProfile','-WindowStyle','Hidden','-File','%s') -WindowStyle Hidden\n" \
-			"$(printf '%s' "$ps_exe_native" | sed "s/'/''/g")" \
-			"$(printf '%s' "$tmp_inner_ps1_native" | sed "s/'/''/g")" > "$tmp_ps1"
-		  tmp_ps1_native="$(cygpath -w "$tmp_ps1" 2>/dev/null || echo "$tmp_ps1")"
-		  "$ps_exe" -NoProfile -ExecutionPolicy Bypass -File "$tmp_ps1_native"
-		  rm -f "$tmp_ps1"
+			printf "Remove-Item -LiteralPath '%s' -Force -ErrorAction SilentlyContinue\n" "$(printf '%s' "$tmp_ps1_native" | sed "s/'/''/g")"
+		  } > "$tmp_ps1"
+		  # Backgrounded and disowned, not waited on: third-party UAC interceptors (e.g. Admin by
+		  # Request) can make the '-Verb RunAs' call inside this pwsh process block until the elevated
+		  # window is closed, instead of returning as soon as it launches -- waiting on it here would
+		  # hang this bash window until the elevated one closes, defeating the "this window exits
+		  # immediately" design. Backgrounding hands that wait off to a detached process instead, so
+		  # this window moves on regardless of how long the pwsh child's own elevation call takes.
+		  "$ps_exe" -NoProfile -ExecutionPolicy Bypass -File "$tmp_ps1_native" </dev/null >/dev/null 2>&1 &
+		  disown
 		  echo "Launched an elevated scry window; this window is done."
 		  exit 0
 		fi
