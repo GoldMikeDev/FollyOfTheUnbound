@@ -4,6 +4,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using Microsoft.CodeAnalysis;
 using Microsoft.VisualStudio.Templates.Editorconfig.Wizard.Logging.Kinds;
@@ -157,29 +158,62 @@ public static class EditorConfigFileGenerator
 
             // A mixed-language target (a mixed-language solution, or an open folder containing both
             // C# and VB files) needs settings for both languages; a single language switch on just the
-            // selected item's language would only ever emit one.
-            if (hasBothLanguages)
-            {
-                var csharpContent = generator.Generate(LanguageNames.CSharp);
-                var visualBasicContent = generator.Generate(LanguageNames.VisualBasic);
-                if (csharpContent is not null && visualBasicContent is not null)
+            // selected item's language would only ever emit one. If either language's generation fails
+            // (e.g. the IEditorConfigGenerator MEF export is unavailable), fall through to the static
+            // template below rather than silently emitting settings for only the other language.
+            var generatedContent = hasBothLanguages
+                ? CombineIfBothPresent(generator.Generate(LanguageNames.CSharp), generator.Generate(LanguageNames.VisualBasic))
+                : language switch
                 {
-                    return csharpContent + Environment.NewLine + visualBasicContent;
-                }
+                    LanguageNames.CSharp => generator.Generate(LanguageNames.CSharp),
+                    LanguageNames.VisualBasic => generator.Generate(LanguageNames.VisualBasic),
+                    _ => null
+                };
 
-                return csharpContent ?? visualBasicContent;
+            if (generatedContent is null)
+            {
+                return isAtSolutionLevel switch
+                {
+                    true => TemplateConstants.DotNetFileContentIsRoot,
+                    false => TemplateConstants.DotNetFileContent,
+                };
             }
 
-            return language switch
+            // The underlying generator always prepends a 'root = true' preamble. That's only correct at
+            // the solution level; a project/folder-local .editorconfig with 'root = true' would otherwise
+            // unexpectedly block every solution- or repository-level .editorconfig above it, unlike the
+            // non-root static templates used everywhere else in this non-solution-level path.
+            return isAtSolutionLevel ? generatedContent : StripRootPreamble(generatedContent);
+
+            static string? CombineIfBothPresent(string? csharpContent, string? visualBasicContent)
+                => csharpContent is not null && visualBasicContent is not null
+                    ? csharpContent + Environment.NewLine + visualBasicContent
+                    : null;
+
+            static string StripRootPreamble(string content)
             {
-                LanguageNames.CSharp => generator.Generate(LanguageNames.CSharp),
-                LanguageNames.VisualBasic => generator.Generate(LanguageNames.VisualBasic),
-                _ => null
-            } ?? isAtSolutionLevel switch
-            {
-                true => TemplateConstants.DotNetFileContentIsRoot,
-                false => TemplateConstants.DotNetFileContent,
-            };
+                const string RootMarker = "root = true";
+
+                var lines = content.Replace("\r\n", "\n").Split('\n');
+                var rootIndex = Array.FindIndex(lines, line => line.Trim() == RootMarker);
+                if (rootIndex < 0)
+                {
+                    return content;
+                }
+
+                // Also drop an immediately preceding explanatory comment line, and the blank line
+                // that follows the marker, so no empty gap is left at the top of the file.
+                var start = rootIndex > 0 && lines[rootIndex - 1].TrimStart().StartsWith("#", StringComparison.Ordinal)
+                    ? rootIndex - 1
+                    : rootIndex;
+                var end = rootIndex + 1;
+                if (end < lines.Length && lines[end].Length == 0)
+                {
+                    end++;
+                }
+
+                return string.Join(Environment.NewLine, lines.Take(start).Concat(lines.Skip(end)));
+            }
         }
     }
 }

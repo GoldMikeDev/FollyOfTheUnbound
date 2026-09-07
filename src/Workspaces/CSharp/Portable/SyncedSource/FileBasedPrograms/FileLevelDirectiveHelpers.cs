@@ -683,7 +683,7 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
 
             if (!name.Contains(separator) && tokens[1] == separatorText)
             {
-                if (tokens.Length > 2 && !LooksLikeMetadataPair(tokens[2]))
+                if (tokens.Length > 2 && !LooksLikeMetadataPairAt(tokens, 2))
                 {
                     // 'Name  @  Value' (whitespace surrounds the separator)
                     return ImmutableArray.Create(name + separator + tokens[2]).AddRange(tokens.Skip(3));
@@ -702,7 +702,7 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
 
             if (name.Length > 0 && name[name.Length - 1] == separator)
             {
-                if (!LooksLikeMetadataPair(tokens[1]))
+                if (!LooksLikeMetadataPairAt(tokens, 1))
                 {
                     // 'Name@ Value' (whitespace only after the separator)
                     return ImmutableArray.Create(name + tokens[1]).AddRange(tokens.Skip(2));
@@ -715,7 +715,27 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
             return tokens;
         }
 
-        static bool LooksLikeMetadataPair(string token) => token.IndexOf('=') > 0;
+        // Recognizes both a single-token 'Name=Value' pair and the start of a whitespace-spaced one
+        // ('Name', '=', ...' or 'Name', '=Value'), so a preceding empty value doesn't swallow a
+        // metadata pair whose own '=' separator happens to be surrounded by whitespace too
+        // (e.g. 'GeneratePath= PrivateAssets = all' shouldn't merge 'PrivateAssets' into 'GeneratePath=').
+        static bool LooksLikeMetadataPairAt(ImmutableArray<string> tokens, int index)
+        {
+            if (index >= tokens.Length)
+            {
+                return false;
+            }
+
+            var token = tokens[index];
+            if (token.IndexOf('=') > 0)
+            {
+                return true;
+            }
+
+            return !token.Contains('=')
+                && index + 1 < tokens.Length
+                && (tokens[index + 1] == "=" || tokens[index + 1].StartsWith("=", StringComparison.Ordinal));
+        }
 
         static ImmutableArray<string> MergeMetadataSeparatorWhitespace(ImmutableArray<string> tokens, int start)
         {
@@ -737,7 +757,7 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
 
                 if (!token.Contains('=') && index + 1 < tokens.Length && tokens[index + 1] == "=")
                 {
-                    if (index + 2 < tokens.Length && !LooksLikeMetadataPair(tokens[index + 2]))
+                    if (index + 2 < tokens.Length && !LooksLikeMetadataPairAt(tokens, index + 2))
                     {
                         // 'Name  =  Value' (whitespace on both sides of '=')
                         builder.Add(token + "=" + tokens[index + 2]);
@@ -760,7 +780,7 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
                     continue;
                 }
 
-                if (token.IndexOf('=') == token.Length - 1 && index + 1 < tokens.Length && !LooksLikeMetadataPair(tokens[index + 1]))
+                if (token.IndexOf('=') == token.Length - 1 && index + 1 < tokens.Length && !LooksLikeMetadataPairAt(tokens, index + 1))
                 {
                     // 'Name= Value' (whitespace only after '='). Skipped when the next token is itself a
                     // 'Name=Value' pair (e.g. 'GeneratePath= PrivateAssets=all'), since 'Name=' already has
@@ -1268,7 +1288,10 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
                 return null;
             }
 
-            if (ParseMetadata(context, tokens, start: 1) is not { IsDefault: false } metadata)
+            // VirtualProjectBuilder writes its own FromRefDirectiveMetadataName attribute on the generated
+            // ProjectReference item to record the resolved source path; reject it here so a user-supplied
+            // value of the same name can't collide with (or override) that generator-owned metadata.
+            if (ParseMetadata(context, tokens, start: 1, conflictingName: VirtualProjectBuilder.FromRefDirectiveMetadataName) is not { IsDefault: false } metadata)
             {
                 return null;
             }
