@@ -48,17 +48,17 @@ public static class EditorConfigFileGenerator
         return (true, fileName);
     }
 
-    private static IDisposable LogCreateOperation(bool hasDotNetProjects, bool isAtSolutionLevel, string language)
+    private static IDisposable LogCreateOperation(bool hasDotNetProjects, bool isAtSolutionLevel, string? language)
     {
         var operation = GetOperationKind(hasDotNetProjects, isAtSolutionLevel, language);
         return LogOperation(operation);
 
-        static OperationId GetOperationKind(bool isDotnet, bool isAtSolutionLevel, string language)
+        static OperationId GetOperationKind(bool isDotnet, bool isAtSolutionLevel, string? language)
         {
             return (isDotnet, isAtSolutionLevel, language) switch
             {
-                (_, _, LanguageNames.CSharp) => OperationId.CreatingRoslynCSharpFileContent,
-                (_, _, LanguageNames.VisualBasic) => OperationId.CreatingRoslynVisualBasicFileContent,
+                (true, _, LanguageNames.CSharp) => OperationId.CreatingRoslynCSharpFileContent,
+                (true, _, LanguageNames.VisualBasic) => OperationId.CreatingRoslynVisualBasicFileContent,
                 (false, true, _) => OperationId.CreatingDefaultFileContentIsRoot,
                 (false, false, _) => OperationId.CreatingDefaultFileContent,
                 (true, true, _) => OperationId.CreatingDotNetFileContentIsRoot,
@@ -76,10 +76,6 @@ public static class EditorConfigFileGenerator
         {
             LogEvent(EventId.FoundDotnetLanguage, language);
         }
-        else
-        {
-            return (false, null);
-        }
 
         using var _ = LogCreateOperation(isDotnet, true, language);
         var (success, fileName) = TryCreateFile(directory, isDotnet, true, language);
@@ -92,7 +88,7 @@ public static class EditorConfigFileGenerator
         return (true, fileName);
     }
 
-    private static (bool success, string? fileName) TryCreateFile(string projectPath, bool isDotnet, bool isAtSolutionLevel, string language)
+    private static (bool success, string? fileName) TryCreateFile(string projectPath, bool isDotnet, bool isAtSolutionLevel, string? language)
     {
         var fileName = Path.Combine(projectPath, TemplateConstants.FileName);
         if (File.Exists(fileName))
@@ -107,7 +103,7 @@ public static class EditorConfigFileGenerator
         }
     }
 
-    private static bool WriteFile(string fileName, bool isDotnet, bool isAtSolutionLevel, string language)
+    private static bool WriteFile(string fileName, bool isDotnet, bool isAtSolutionLevel, string? language)
     {
         var editorconfigFileContents = GetEditorconfigFileContents(isDotnet, isAtSolutionLevel, language);
         if (editorconfigFileContents is null)
@@ -120,7 +116,7 @@ public static class EditorConfigFileGenerator
         LogEvent(EventId.FileCreatedSuccessfully);
         return true;
 
-        static string? GetEditorconfigFileContents(bool isDotnet, bool isAtSolutionLevel, string language)
+        static string? GetEditorconfigFileContents(bool isDotnet, bool isAtSolutionLevel, string? language)
         {
             if (!isDotnet)
             {

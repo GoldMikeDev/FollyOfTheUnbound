@@ -651,14 +651,69 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
 
         // Multiple unquoted whitespace-separated tokens.
         // Interpret the trailing ones as item metadata only when metadata is supported and every trailing token is a valid 'Name=Value' pair.
-        if (allowMetadata && AllValidMetadata(rawTokens, start: 1))
+        // Whitespace may itself surround the '=' (e.g. 'PrivateAssets = all'), which the plain whitespace split above
+        // would otherwise turn into separate 'PrivateAssets', '=', 'all' tokens; re-merge those before validating.
+        if (allowMetadata)
         {
-            return ToLegacyTokens(rawTokens, nameSeparator);
+            var mergedTokens = MergeMetadataSeparatorWhitespace(rawTokens, start: 1);
+            if (AllValidMetadata(mergedTokens, start: 1))
+            {
+                return ToLegacyTokens(mergedTokens, nameSeparator);
+            }
         }
 
         // Legacy: the whole remainder is a single value (preserves pre-quoting behavior).
         isLegacy = true;
         return ImmutableArray.Create(DirectiveToken.Create(text, nameSeparator));
+
+        static ImmutableArray<string> MergeMetadataSeparatorWhitespace(ImmutableArray<string> tokens, int start)
+        {
+            if (tokens.Length <= start + 1)
+            {
+                return tokens;
+            }
+
+            var builder = ImmutableArray.CreateBuilder<string>(tokens.Length);
+            for (var i = 0; i < start; i++)
+            {
+                builder.Add(tokens[i]);
+            }
+
+            var index = start;
+            while (index < tokens.Length)
+            {
+                var token = tokens[index];
+
+                if (!token.Contains('=') && index + 1 < tokens.Length && tokens[index + 1] == "=" && index + 2 < tokens.Length)
+                {
+                    // 'Name  =  Value' (whitespace on both sides of '=')
+                    builder.Add(token + "=" + tokens[index + 2]);
+                    index += 3;
+                    continue;
+                }
+
+                if (!token.Contains('=') && index + 1 < tokens.Length && tokens[index + 1].StartsWith("=", StringComparison.Ordinal))
+                {
+                    // 'Name =Value' (whitespace only before '=')
+                    builder.Add(token + tokens[index + 1]);
+                    index += 2;
+                    continue;
+                }
+
+                if (token.IndexOf('=') == token.Length - 1 && index + 1 < tokens.Length)
+                {
+                    // 'Name= Value' (whitespace only after '=')
+                    builder.Add(token + tokens[index + 1]);
+                    index += 2;
+                    continue;
+                }
+
+                builder.Add(token);
+                index++;
+            }
+
+            return builder.MoveToImmutable();
+        }
 
         static ImmutableArray<DirectiveToken> ToLegacyTokens(ImmutableArray<string> rawTokens, char? nameSeparator)
         {

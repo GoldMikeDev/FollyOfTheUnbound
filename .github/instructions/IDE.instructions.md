@@ -105,6 +105,11 @@ partial-class files, one concept per file:
 - Always provide a `FixAllProvider` for code fixes (typically `WellKnownFixAllProviders.BatchFixer`)
 - Diagnostic ID constants live in `src/Analyzers/Core/Analyzers/IDEDiagnosticIds.cs`
 
+## File-Based Programs (`src/Workspaces/CSharp/Portable/SyncedSource/FileBasedPrograms/`)
+
+- Synced source shared with the .NET SDK CLI — `FileLevelDirectiveHelpers.cs` parses/dedupes `#:sdk`/`#:property`/`#:package` directives at the top of a file-based program, and `VirtualProjectBuilder.cs` turns them into an in-memory project.
+- `FileBasedProgramDirectiveValueHelpers.cs` holds the low-level directive-value parsing/formatting primitives, shared between `FileLevelDirectiveHelpers` and the analyzer that flags the deprecated unquoted directive form (`FileBasedProgramDirectiveQuoting`).
+
 ## Out-of-Process (OOP) Services
 
 - ServiceHub components live under `src/Workspaces/Remote/` and have special deployment considerations for .NET Core vs .NET Framework — keep both targets in mind when changing remote services

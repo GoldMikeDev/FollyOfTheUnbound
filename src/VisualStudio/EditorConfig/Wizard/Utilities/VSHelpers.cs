@@ -127,6 +127,13 @@ public static class VSHelpers
                 return (true, Path.GetDirectoryName(DTE.Solution.FullName), HasVisualBasicProjects() ? LanguageNames.VisualBasic : LanguageNames.CSharp, selectedItem);
             }
 
+            if (selectedItem is Project solutionFolder && solutionFolder.Kind == SolutionFolder)
+            {
+                // The selected item is a solution folder; add the .editorconfig next to the solution.
+                var rootFolder = solutionFolder.GetRootFolder();
+                return (false, rootFolder, HasVisualBasicProjects() ? LanguageNames.VisualBasic : LanguageNames.CSharp, selectedItem);
+            }
+
             var containingProject = GetVSProject(selectedItem);
             if (containingProject is null)
             {
