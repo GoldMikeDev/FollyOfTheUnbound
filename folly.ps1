@@ -15,6 +15,26 @@ try {
 	# Windows host, even though this script itself (pwsh) can run elsewhere -- '--framework' is
 	# rejected outright off-Windows, and 'scry's own no-switches default only includes Framework here.
 	$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
+	# Only used by an --elevatedRelaunch'd scry invocation (see the --collectDumps elevation block
+	# below) -- replaces every plain `exit` in the scry action so its window pauses for an explicit
+	# close confirmation instead of vanishing before the output can be reviewed. 'n' drops into a
+	# live nested prompt in the same window (scrollback intact) rather than just leaving it idle;
+	# typing 'exit' there falls back through to the real exit below.
+	function Exit-Scry([int]$ExitCode) {
+		if (-not $elevatedRelaunch) {
+			exit $ExitCode
+		}
+		Write-Host ""
+		$answer = $null
+		while ($answer -ne "y" -and $answer -ne "n") {
+			$answer = (Read-Host "scry finished (exit code $ExitCode). Close this window? [y/n]").ToLowerInvariant()
+		}
+		if ($answer -eq "n") {
+			Write-Host "Dropping to an interactive prompt in this window so you can review the output -- type 'exit' when you're done to close it."
+			$host.EnterNestedPrompt()
+		}
+		exit $ExitCode
+	}
     	function Write-GrimoireHelp([string]$text) {
 		$literalPattern = "(?<=')(?:attune|bind|cleanse|grimoire|reweave|scry|weave)\b|\b(?:reflection|research|truth)\b|--[A-Za-z][A-Za-z0-9]*"
 		$tokenPattern = "<[^>]+>|\[switches\]|$literalPattern"
@@ -52,6 +72,7 @@ try {
 	$testUsedAssemblies = $false
 	$testRuntimeAsync = $false
 	$collectDumps = $false
+	$elevatedRelaunch = $false  # internal marker set only by our own self-elevation relaunch below -- not a documented switch
 	$bootstrap = $false
 	$reflection = $false
 	$testTimeout = 0
@@ -110,6 +131,12 @@ try {
 			# every ordinary local run (e.g. two concurrent elevated scry runs racing that same
 			# registry key, or a timed-out run capturing an unrelated IDE-hosted testhost's memory).
 			$collectDumps = $true
+		}
+		elseif ($arg -eq "--elevatedRelaunch") {
+			# Internal marker set only by our own self-elevation relaunch (see the --collectDumps
+			# handling in the scry action below) -- not documented in the grimoire, not meant to be
+			# typed by hand.
+			$elevatedRelaunch = $true
 		}
 		elseif ($arg -eq "--bootstrap") {
 			$bootstrap = $true
@@ -189,7 +216,9 @@ Switches:
         Build/test using a locally-built bootstrap compiler.
 
     '<scry>     <primary>   --collectDumps'
-        Enable RunTests' Windows-only crash/hang dump collection.
+        Enable RunTests' Windows-only crash/hang dump collection. The WER registry hook this
+        needs requires an elevated (Administrator) process; if not already elevated, prompts
+        to relaunch scry as one.
 
     '<scry>     <primary>   --core'
         Run only the Core tests (skip Framework).
@@ -335,13 +364,62 @@ Switches:
 		exit ($(if ($harnessFail) { 1 } else { 0 }))
 	}
 	elseif ($action -eq "scry") {
+		# '--collectDumps' needs an elevated (Administrator) process to install its WER registry dump
+		# hook. Gated entirely behind an already-elevated check: if we're already Administrator
+		# (including a relaunch of ourselves via --elevatedRelaunch), none of this fires and scry
+		# just proceeds.
+		if ($collectDumps -and -not $elevatedRelaunch -and $onWindows) {
+			$currentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
+			$currentPrincipal = New-Object Security.Principal.WindowsPrincipal($currentIdentity)
+			$isAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+			if (-not $isAdmin) {
+				$answer = $null
+				while ($answer -ne "y" -and $answer -ne "n") {
+					$answer = (Read-Host "'--collectDumps' needs an elevated (Administrator) process for its Windows Error Reporting registry hook. Re-launch scry elevated now? [y/n]").ToLowerInvariant()
+				}
+				if ($answer -eq "y") {
+					$relaunchArgs = [System.Collections.Generic.List[string]]::new()
+					$relaunchArgs.Add("scry")
+					if ($config) { $relaunchArgs.Add($config) }
+					if ($core) { $relaunchArgs.Add("--core") }
+					if ($framework) { $relaunchArgs.Add("--framework") }
+					if ($testCompilerOnly) { $relaunchArgs.Add("--testCompilerOnly") }
+					if ($testFilter) { $relaunchArgs.Add("--testFilter"); $relaunchArgs.Add($testFilter) }
+					if ($testIOperation) { $relaunchArgs.Add("--testIOperation") }
+					if ($testRuntimeAsync) { $relaunchArgs.Add("--testRuntimeAsync") }
+					if ($testUsedAssemblies) { $relaunchArgs.Add("--testUsedAssemblies") }
+					$relaunchArgs.Add("--collectDumps")
+					if ($bootstrap) { $relaunchArgs.Add("--bootstrap") }
+					if ($testTimeout -gt 0) { $relaunchArgs.Add("--timeout"); $relaunchArgs.Add($testTimeout.ToString()) }
+					if ($binaryLog) { $relaunchArgs.Add("--binaryLog") }
+					if ($verbosity) { $relaunchArgs.Add("--verbosity"); $relaunchArgs.Add($verbosity) }
+					$relaunchArgs.Add("--elevatedRelaunch")
+
+					$scriptPath = Join-Path $PSScriptRoot "folly.ps1"
+					$pwshCmd = Get-Command -Name (Get-Process -Id $PID).Path -ErrorAction SilentlyContinue
+					if (-not $pwshCmd) {
+						$pwshCmd = Get-Command pwsh -ErrorAction SilentlyContinue
+						if (-not $pwshCmd) { $pwshCmd = Get-Command powershell -ErrorAction SilentlyContinue }
+					}
+					if (-not $pwshCmd) {
+						Write-Host "Could not find 'pwsh'/'powershell' to relaunch elevated." -ForegroundColor Red
+						exit 1
+					}
+					$startArgs = @("-NoExit", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $scriptPath) + $relaunchArgs
+					Start-Process -FilePath $pwshCmd.Source -ArgumentList $startArgs -Verb RunAs
+					Write-Host "Launched an elevated scry window; this window is done."
+					exit 0
+				}
+				Write-Host "Continuing without elevation -- the WER registry dump hook will be unavailable."
+			}
+		}
 		$runCore = $core -or -not ($core -or $framework)  # default to both (on Windows) when neither switch is given; either switch alone runs just that one
 		$runFramework = ($framework -or -not ($core -or $framework)) -and $onWindows  # off-Windows the no-switches default is Core-only; '--framework' itself was already rejected above on a non-Windows host
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
 		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
-			exit $buildExitCode
+			Exit-Scry $buildExitCode
 		}
 		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw table lines -- from its already-logged runtests.log. RunTests always writes this table to the log file regardless of -testSuppressConsoleSummary (only whether it *also* goes to the console is conditional -- see that switch's comment below); the raw Lines rebuild both legs' tables together in the "combined results" block once both have finished, and the tallies drive the compact numeric recap after it.
 			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode; Lines = @() }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
@@ -597,15 +675,15 @@ Switches:
 			Write-Host "Framework test results: $frameworkTestResultsDir (logs: $frameworkLogDir)"
 		}
 		if ($coreExitCode -ne 0) {
-			exit $coreExitCode
+			Exit-Scry $coreExitCode
 		}
 		if ($frameworkExitCode -ne 0) {
-			exit $frameworkExitCode
+			Exit-Scry $frameworkExitCode
 		}
 		if (-not $overallSuccess) {
-			exit 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
+			Exit-Scry 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
 		}
-		exit 0
+		Exit-Scry 0
 	}
 	elseif ($action -eq "cleanse") {
 		$artifactsDir = Join-Path $PSScriptRoot "artifacts"

@@ -54,6 +54,32 @@ is_windows_host() {
   esac
   return 1
 }
+# Resolves whichever PowerShell this Windows host actually has -- pwsh (PS7+) preferred over the
+# inbox powershell.exe. Shared by the cleanse action and the scry elevation relaunch below, since
+# bash case-statement branches don't share function definitions with each other at runtime.
+resolve_pwsh_exe() {
+  command -v pwsh 2>/dev/null || command -v powershell.exe 2>/dev/null || command -v powershell 2>/dev/null || true
+}
+# Registered (see --elevatedRelaunch handling below) as an EXIT trap rather than wrapped around
+# each individual `exit` call in the scry action: a trap fires on every way this script can end --
+# a plain `exit N`, or `set -euo pipefail` killing it early on a failed command -- so this is the
+# one place that needs to know about the close-prompt at all, instead of every exit site. Pauses
+# for an explicit close confirmation instead of letting the window vanish before its output can be
+# reviewed; 'n' drops to a live interactive shell in the same window (scrollback intact) rather
+# than just leaving the process idle, so the caller can actually poke around, not just read.
+scry_close_prompt() {
+  local code="$1"
+  echo ""
+  local answer=""
+  while [[ "$answer" != "y" && "$answer" != "n" ]]; do
+    read -r -p "scry finished (exit code $code). Close this window? [y/n]: " answer
+    answer="$(printf '%s' "$answer" | tr '[:upper:]' '[:lower:]')"
+  done
+  if [[ "$answer" == "n" ]]; then
+    echo "Dropping to an interactive shell in this window so you can review the output -- type 'exit' when you're done to close it."
+    exec bash -i
+  fi
+}
 if [[ -t 1 ]]; then  # plain text when redirected/piped (e.g. a CI log), colored in an interactive terminal -- matches scripts/test-folly-scry-args.sh's own convention
   color_reset=$'\033[0m'; color_red=$'\033[31m'; color_green=$'\033[32m'; color_yellow=$'\033[33m'; color_cyan=$'\033[36m'; color_gray=$'\033[90m'
 else
@@ -163,7 +189,9 @@ Switches:
         Build/test using a locally-built bootstrap compiler.
 
     '<scry>     <primary>   --collectDumps'
-        Enable RunTests' Windows-only crash/hang dump collection.
+        Enable RunTests' Windows-only crash/hang dump collection. The WER registry hook this
+        needs requires an elevated (Administrator) process; if not already elevated, prompts
+        to relaunch scry as one.
 
     '<scry>     <primary>   --core'
         Run only the Core tests (skip Framework).
@@ -209,6 +237,7 @@ test_ioperation=0
 test_used_assemblies=0
 test_runtime_async=0
 collect_dumps=0
+elevated_relaunch=0  # internal marker set only by our own self-elevation relaunch below -- not a documented switch
 bootstrap=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -246,6 +275,12 @@ while [[ $# -gt 0 ]]; do
 	  ;;
 	--testRuntimeAsync)
 	  test_runtime_async=1
+	  shift
+	  ;;
+	--elevatedRelaunch)
+	  # Internal marker set only by our own self-elevation relaunch (see the --collectDumps handling
+	  # in the scry action below) -- not documented in the grimoire, not meant to be typed by hand.
+	  elevated_relaunch=1
 	  shift
 	  ;;
 	--collectDumps)
@@ -311,6 +346,14 @@ while [[ $# -gt 0 ]]; do
 	  ;;
   esac
 done
+# See scry_close_prompt's own comment for why this is a trap rather than a wrapper around each
+# `exit` call in the scry action -- only ever meaningfully true on our own self-elevation relaunch
+# (--elevatedRelaunch is internal, not documented, and --collectDumps/--elevatedRelaunch are already
+# scoped to 'scry' below), so registering it unconditionally here rather than only inside that
+# action's own case body is harmless and simpler.
+if [[ "$elevated_relaunch" -eq 1 ]]; then
+  trap 'scry_close_prompt $?' EXIT
+fi
 # '--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--testUsedAssemblies'/
 # '--testRuntimeAsync'/'--timeout'/reflection are scoped to 'scry' -- one combined check/message rather
 # than one per selector, since they're all the same rule applied to different args. '--bootstrap' is
@@ -416,6 +459,71 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		echo
 	  done
 	  exit "$harness_fail"
+	fi
+	# '--collectDumps' needs an elevated (Administrator) process to install its WER registry dump
+	# hook. Gated entirely behind an already-elevated check: if we're already Administrator (including
+	# a relaunch of ourselves via --elevatedRelaunch below), none of this fires and scry just proceeds.
+	if [[ "$collect_dumps" -eq 1 && "$elevated_relaunch" -eq 0 ]] && is_windows_host; then
+	  is_admin=0
+	  if net session >/dev/null 2>&1; then
+		is_admin=1
+	  fi
+	  if [[ "$is_admin" -eq 0 ]]; then
+		answer=""
+		while [[ "$answer" != "y" && "$answer" != "n" ]]; do
+		  read -r -p "'--collectDumps' needs an elevated (Administrator) process for its Windows Error Reporting registry hook. Re-launch scry elevated now? [y/n]: " answer
+		  answer="$(printf '%s' "$answer" | tr '[:upper:]' '[:lower:]')"
+		done
+		if [[ "$answer" == "y" ]]; then
+		  relaunch_args=(scry)
+		  [[ -n "$config" ]] && relaunch_args+=("$config")
+		  [[ "$core" -eq 1 ]] && relaunch_args+=(--core)
+		  [[ "$framework" -eq 1 ]] && relaunch_args+=(--framework)
+		  [[ "$test_compiler_only" -eq 1 ]] && relaunch_args+=(--testCompilerOnly)
+		  [[ -n "$test_filter" ]] && relaunch_args+=(--testFilter "$test_filter")
+		  [[ "$test_ioperation" -eq 1 ]] && relaunch_args+=(--testIOperation)
+		  [[ "$test_runtime_async" -eq 1 ]] && relaunch_args+=(--testRuntimeAsync)
+		  [[ "$test_used_assemblies" -eq 1 ]] && relaunch_args+=(--testUsedAssemblies)
+		  relaunch_args+=(--collectDumps)
+		  [[ "$bootstrap" -eq 1 ]] && relaunch_args+=(--bootstrap)
+		  [[ "$test_timeout" -gt 0 ]] && relaunch_args+=(--timeout "$test_timeout")
+		  [[ "$binary_log" -eq 1 ]] && relaunch_args+=(--binaryLog)
+		  [[ -n "$verbosity" ]] && relaunch_args+=(--verbosity "$verbosity")
+		  relaunch_args+=(--elevatedRelaunch)
+
+		  bash_exe="$(command -v bash 2>/dev/null || true)"
+		  if [[ -z "$bash_exe" ]]; then
+			echo "Could not find 'bash' on PATH to relaunch elevated." >&2
+			exit 1
+		  fi
+		  ps_exe="$(resolve_pwsh_exe)"
+		  if [[ -z "$ps_exe" ]]; then
+			echo "Could not find 'pwsh'/'powershell' on PATH to relaunch elevated." >&2
+			exit 1
+		  fi
+		  bash_native="$(cygpath -w "$bash_exe" 2>/dev/null || echo "$bash_exe")"
+		  script_posix="$scriptroot/folly.sh"
+
+		  # Build the relaunch as a temp .ps1 trampoline rather than a one-line -Command string --
+		  # avoids nested quoting hazards translating an arbitrary bash argv into a PowerShell literal.
+		  tmp_ps1="$(mktemp --suffix=.ps1 2>/dev/null || mktemp)"
+		  {
+			echo '$elevatedArgs = @('
+			printf "  '%s',\n" "$(printf '%s' "$script_posix" | sed "s/'/''/g")"
+			for a in "${relaunch_args[@]}"; do
+			  printf "  '%s',\n" "$(printf '%s' "$a" | sed "s/'/''/g")"
+			done
+			echo ')'
+			printf "Start-Process -FilePath '%s' -ArgumentList \$elevatedArgs -Verb RunAs\n" "$(printf '%s' "$bash_native" | sed "s/'/''/g")"
+		  } > "$tmp_ps1"
+		  tmp_ps1_native="$(cygpath -w "$tmp_ps1" 2>/dev/null || echo "$tmp_ps1")"
+		  "$ps_exe" -NoProfile -ExecutionPolicy Bypass -File "$tmp_ps1_native"
+		  rm -f "$tmp_ps1"
+		  echo "Launched an elevated scry window; this window is done."
+		  exit 0
+		fi
+		echo "Continuing without elevation -- the WER registry dump hook will be unavailable."
+	  fi
 	fi
 	# Default to both Core and Framework on Windows when neither switch is given (matching
 	# folly.ps1); elsewhere Framework can never run (rejected above), so only Core ever does.
@@ -670,9 +778,6 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	if is_windows_host && [[ -r /proc/self/winpid ]]; then
 	  read -r native_self_pid < /proc/self/winpid 2>/dev/null || native_self_pid="$$"
 	fi
-	_cleanse_pwsh_exe() {  # resolves whichever PowerShell this Windows host actually has, once per call site -- pwsh (PS7+) preferred over the inbox powershell.exe
-	  command -v pwsh 2>/dev/null || command -v powershell.exe 2>/dev/null || command -v powershell 2>/dev/null || true
-	}
 	_cleanse_exclude_self_matchers() {  # strips rows whose own command is this pipeline's own transient grep matcher -- otherwise a pattern like "VBCSCompiler" or "MSBuild.dll" matches the literal text of the very grep command line searching for it. Matches a bare "grep"/"grep.exe" name optionally preceded by a path (native CommandLine gives a full path like "C:\...\grep.exe -Ei ...", not just "grep ..." the way Unix ps's COMMAND field does) -- including a quoted path, which is how CIM reports an executable under a directory containing spaces (e.g. Git for Windows' default "C:\Program Files\Git\..."); the unquoted alternative can't contain spaces itself, since nothing then marks where the path ends and the arguments begin
 	  grep -v -E '^[[:space:]]*[0-9]+[[:space:]]+("[^"]*[\\/]grep(\.exe)?"|([^[:space:]]*[\\/])?grep(\.exe)?)([[:space:]]|$)' || true  # `|| true`: no matches is not an error here (grep exits 1), and must never abort the script under `set -e`/pipefail
 	}
@@ -689,7 +794,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 		# values throughout -- callers must scope substring matches against native (backslash) paths, not
 		# the MSYS-style ($scriptroot/$artifacts_dir) forms this script otherwise uses everywhere else.
 		local pwsh_exe
-		pwsh_exe=$(_cleanse_pwsh_exe)
+		pwsh_exe=$(resolve_pwsh_exe)
 		if [[ -n "$pwsh_exe" ]]; then
 		  "$pwsh_exe" -NoProfile -NonInteractive -Command 'Get-CimInstance Win32_Process | ForEach-Object { "$($_.ProcessId) $($_.CommandLine)" }' 2>/dev/null | _cleanse_exclude_self_matchers && return
 		fi
@@ -726,7 +831,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	_cleanse_get_ppid() {  # `ps -o ppid=` is a procps custom-field lookup -- MSYS/Cygwin's `ps` doesn't support it (see _cleanse_ps_snapshot), so the ancestor walk below would silently stop after this script's own PID on Git-Bash and lose its self-protection past that point; ask Windows itself via CIM there instead, same as _cleanse_ps_snapshot's fallback
 	  local pid="$1" pwsh_exe
 	  if is_windows_host; then
-		pwsh_exe=$(_cleanse_pwsh_exe)
+		pwsh_exe=$(resolve_pwsh_exe)
 		if [[ -n "$pwsh_exe" ]]; then
 		  "$pwsh_exe" -NoProfile -NonInteractive -Command "(Get-CimInstance Win32_Process -Filter \"ProcessId=$pid\").ParentProcessId" 2>/dev/null | tr -d '[:space:]'
 		  return
@@ -758,7 +863,7 @@ case "$action" in  # --nodeReuse false on every branch below: Arcade's tools.sh 
 	_cleanse_get_children() {  # PIDs of the direct children of $1 -- `ps -eo pid,ppid | awk` is procps/BSD syntax and, even patched, MSYS/Cygwin ps only sees processes in its own runtime's pid table (see _cleanse_ps_snapshot); a build-server/node-worker/BuildHost child spawned via .NET's own Process.Start is invisible to it just like the parent PIDs those found before this fix. Same CIM fallback as _cleanse_get_ppid.
 	  local pid="$1" pwsh_exe
 	  if is_windows_host; then
-		pwsh_exe=$(_cleanse_pwsh_exe)
+		pwsh_exe=$(resolve_pwsh_exe)
 		if [[ -n "$pwsh_exe" ]]; then
 		  # Windows PowerShell (not pwsh 7+) writes CRLF line endings here; command substitution/piping only
 		  # strips a *trailing* LF, leaving a stray \r on each pid this multi-line output returns (unlike
