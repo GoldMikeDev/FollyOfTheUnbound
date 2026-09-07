@@ -51,6 +51,15 @@ their original sub-tree layout
   the user's global C# options. Include the resolved options in `RazorFormattingOptions` sent to
   remote formatting consumers; remote `IClientSettingsManager` state does not contain the user's
   C# formatting preferences.
+- **Analyzer-config options for generated C# in code-action cleanup**: `[*.razor]`/`[*.cshtml]`
+  `.editorconfig` sections must also govern cleanup of the *generated* C# document, not just
+  cohost formatting. `RazorSourceGeneratedDocumentAnalyzerConfigOptionsProvider`
+  (`ExportWorkspaceService<ISourceGeneratedDocumentAnalyzerConfigOptionsProvider>`) maps a
+  Razor source-generated document back to its originating `.razor`/`.cshtml` additional document
+  (matching on the generated document's hint name, full-path or project-relative) and resolves
+  options from that path via `GetAnalyzerOptionsForPath`. Preserve this provider when touching
+  cohost code-action cleanup — without it, generated-document cleanup silently falls back to the
+  global/OOP analyzer-config path and loses the `.razor`-specific settings.
 - **Runtime-declared attribute lists**: When the runtime declares a set the compiler must read
   (e.g. `[EventHandler]`, `[AcceptsAssetPath]`), it applies the attributes to a public type with
   a well-known name (`EventHandlers`, `AssetPathAttributes`). A `TagHelperProducer` under
