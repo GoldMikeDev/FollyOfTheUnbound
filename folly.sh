@@ -162,6 +162,9 @@ Switches:
     '<command>  <primary>   --bootstrap'
         Build/test using a locally-built bootstrap compiler.
 
+    '<scry>     <primary>   --collectDumps'
+        Enable RunTests' Windows-only crash/hang dump collection.
+
     '<scry>     <primary>   --core'
         Run only the Core tests (skip Framework).
 
@@ -177,15 +180,12 @@ Switches:
     '<scry>     <primary>   --testIOperation'
         Run tests with the IOperation test hook enabled. (raises default timeout to 240)
 
-    '<scry>     <primary>   --testUsedAssemblies'
-        Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
-
     '<scry>     <primary>   --testRuntimeAsync'
         Run tests with runtime async validation enabled (DOTNET_RuntimeAsync).
         Incompatible with .NET Framework so always enables '--core'
 
-    '<scry>     <primary>   --collectDumps'
-        Enable RunTests' Windows-only crash/hang dump collection.
+    '<scry>     <primary>   --testUsedAssemblies'
+        Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
 
     '<scry>     <primary>   --timeout <minutes>'
         Override RunTests' whole-run watchdog (default: 90. raises to 240 when '--testIOperation' is used).
