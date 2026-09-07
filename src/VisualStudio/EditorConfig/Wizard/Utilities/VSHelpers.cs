@@ -74,11 +74,12 @@ public static class VSHelpers
 
     /// <summary>
     /// Determines, in a single error-tolerant directory walk, whether <paramref name="directory"/>
-    /// contains any C#/VB source files and which language dominates. A single traversal is used so
-    /// that large or partially inaccessible folders aren't scanned multiple times (once per language
-    /// per caller), and inaccessible subdirectories are skipped instead of aborting the whole scan.
+    /// contains any C#/VB source files, which language dominates, and whether both are present
+    /// (so a mixed-language folder can get settings for both instead of just one). A single traversal
+    /// is used so that large or partially inaccessible folders aren't scanned multiple times (once per
+    /// language per caller), and inaccessible subdirectories are skipped instead of aborting the whole scan.
     /// </summary>
-    public static (bool isDotnet, string? language) GetDotnetLanguageInfo(string directory)
+    public static (bool isDotnet, string? language, bool hasBothLanguages) GetDotnetLanguageInfo(string directory)
     {
         var hasCSharp = false;
         var hasVisualBasic = false;
@@ -101,17 +102,24 @@ public static class VSHelpers
         }
 
         var language = hasCSharp ? LanguageNames.CSharp : hasVisualBasic ? LanguageNames.VisualBasic : null;
-        return (hasCSharp || hasVisualBasic, language);
+        return (hasCSharp || hasVisualBasic, language, hasCSharp && hasVisualBasic);
     }
 
     private static System.Collections.Generic.IEnumerable<string> EnumerateFilesTolerant(string root)
     {
         var pending = new System.Collections.Generic.Stack<string>();
+        var visited = new System.Collections.Generic.HashSet<string>(StringComparer.OrdinalIgnoreCase);
         pending.Push(root);
 
         while (pending.Count > 0)
         {
             var directory = pending.Pop();
+            if (!visited.Add(directory))
+            {
+                // Already visited: a directory junction/symlink cycle would otherwise re-enqueue this
+                // directory forever and hang the (UI-thread) traversal.
+                continue;
+            }
 
             string[] files;
             try
@@ -140,6 +148,23 @@ public static class VSHelpers
 
             foreach (var subDirectory in subDirectories)
             {
+                // Skip directory junctions/symlinks: following them can walk back up to an ancestor
+                // (or elsewhere entirely) and defeat cycle detection based on path alone.
+                FileAttributes attributes;
+                try
+                {
+                    attributes = File.GetAttributes(subDirectory);
+                }
+                catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+                {
+                    continue;
+                }
+
+                if ((attributes & FileAttributes.ReparsePoint) != 0)
+                {
+                    continue;
+                }
+
                 pending.Push(subDirectory);
             }
         }

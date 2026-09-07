@@ -31,7 +31,8 @@ public static class EditorConfigFileGenerator
 
         using var _ = LogCreateOperation(hasDotNetProjects, isAtSolutionLevel, language);
 
-        var (success1, fileName) = TryCreateFile(path, hasDotNetProjects, isAtSolutionLevel, language);
+        var hasBothLanguages = isAtSolutionLevel && VSHelpers.HasCSharpProjects() && VSHelpers.HasVisualBasicProjects();
+        var (success1, fileName) = TryCreateFile(path, hasDotNetProjects, isAtSolutionLevel, language, hasBothLanguages);
         if (!success1 || fileName is null)
         {
             Assert(success1, "Unable to create editorconfig file");
@@ -42,10 +43,27 @@ public static class EditorConfigFileGenerator
         if (projectItem is null)
         {
             Assert(projectItem is not null, "Unable to add editorconfig file to hierarchy");
+
+            // The file was already physically written by TryCreateFile; since it couldn't be attached to
+            // the hierarchy, remove it instead of leaving an orphaned file that blocks every later attempt
+            // via the existing-file check in TryCreateFile.
+            TryDeleteFile(fileName);
             return (false, null);
         }
 
         return (true, fileName);
+    }
+
+    private static void TryDeleteFile(string fileName)
+    {
+        try
+        {
+            File.Delete(fileName);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            System.Diagnostics.Debug.Write(ex);
+        }
     }
 
     private static IDisposable LogCreateOperation(bool hasDotNetProjects, bool isAtSolutionLevel, string? language)
@@ -69,7 +87,7 @@ public static class EditorConfigFileGenerator
 
     public static (bool success, string? fileName) TryAddFileToFolder(string directory)
     {
-        var (isDotnet, language) = VSHelpers.GetDotnetLanguageInfo(directory);
+        var (isDotnet, language, hasBothLanguages) = VSHelpers.GetDotnetLanguageInfo(directory);
         LogEvent(EventId.FoundDotnetProjects, isDotnet);
         if (language is not null)
         {
@@ -77,7 +95,7 @@ public static class EditorConfigFileGenerator
         }
 
         using var _ = LogCreateOperation(isDotnet, true, language);
-        var (success, fileName) = TryCreateFile(directory, isDotnet, true, language);
+        var (success, fileName) = TryCreateFile(directory, isDotnet, true, language, hasBothLanguages);
         if (!success)
         {
             Assert(success, "Unable to create editorconfig file");
@@ -87,7 +105,7 @@ public static class EditorConfigFileGenerator
         return (true, fileName);
     }
 
-    private static (bool success, string? fileName) TryCreateFile(string projectPath, bool isDotnet, bool isAtSolutionLevel, string? language)
+    private static (bool success, string? fileName) TryCreateFile(string projectPath, bool isDotnet, bool isAtSolutionLevel, string? language, bool hasBothLanguages)
     {
         var fileName = Path.Combine(projectPath, TemplateConstants.FileName);
         if (File.Exists(fileName))
@@ -98,13 +116,13 @@ public static class EditorConfigFileGenerator
         }
         else
         {
-            return (WriteFile(fileName, isDotnet, isAtSolutionLevel, language), fileName);
+            return (WriteFile(fileName, isDotnet, isAtSolutionLevel, language, hasBothLanguages), fileName);
         }
     }
 
-    private static bool WriteFile(string fileName, bool isDotnet, bool isAtSolutionLevel, string? language)
+    private static bool WriteFile(string fileName, bool isDotnet, bool isAtSolutionLevel, string? language, bool hasBothLanguages)
     {
-        var editorconfigFileContents = GetEditorconfigFileContents(isDotnet, isAtSolutionLevel, language);
+        var editorconfigFileContents = GetEditorconfigFileContents(isDotnet, isAtSolutionLevel, language, hasBothLanguages);
         if (editorconfigFileContents is null)
         {
             Assert(editorconfigFileContents is not null, "Unable to generate editorconfig file content");
@@ -115,7 +133,7 @@ public static class EditorConfigFileGenerator
         LogEvent(EventId.FileCreatedSuccessfully);
         return true;
 
-        static string? GetEditorconfigFileContents(bool isDotnet, bool isAtSolutionLevel, string? language)
+        static string? GetEditorconfigFileContents(bool isDotnet, bool isAtSolutionLevel, string? language, bool hasBothLanguages)
         {
             if (!isDotnet)
             {
@@ -137,9 +155,10 @@ public static class EditorConfigFileGenerator
 
             var generator = new RoslynEditorConfigFileGenerator();
 
-            // At the solution level, a mixed-language solution needs settings for both languages;
-            // a single language switch on the selected item's language would only ever emit one.
-            if (isAtSolutionLevel && VSHelpers.HasCSharpProjects() && VSHelpers.HasVisualBasicProjects())
+            // A mixed-language target (a mixed-language solution, or an open folder containing both
+            // C# and VB files) needs settings for both languages; a single language switch on just the
+            // selected item's language would only ever emit one.
+            if (hasBothLanguages)
             {
                 var csharpContent = generator.Generate(LanguageNames.CSharp);
                 var visualBasicContent = generator.Generate(LanguageNames.VisualBasic);

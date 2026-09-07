@@ -681,10 +681,17 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
             var name = tokens[0];
             var separatorText = separator.ToString();
 
-            if (!name.Contains(separator) && tokens[1] == separatorText && tokens.Length > 2)
+            if (!name.Contains(separator) && tokens[1] == separatorText)
             {
-                // 'Name  @  Value' (whitespace surrounds the separator)
-                return ImmutableArray.Create(name + separator + tokens[2]).AddRange(tokens.Skip(3));
+                if (tokens.Length > 2 && !LooksLikeMetadataPair(tokens[2]))
+                {
+                    // 'Name  @  Value' (whitespace surrounds the separator)
+                    return ImmutableArray.Create(name + separator + tokens[2]).AddRange(tokens.Skip(3));
+                }
+
+                // 'Name  @' with an empty value: the next token is itself a 'Name=Value' metadata pair
+                // (or there simply is no next token), so don't swallow it as the separator's value.
+                return ImmutableArray.Create(name + separator).AddRange(tokens.Skip(2));
             }
 
             if (!name.Contains(separator) && tokens[1].StartsWith(separatorText, StringComparison.Ordinal))
@@ -695,12 +702,20 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
 
             if (name.Length > 0 && name[name.Length - 1] == separator)
             {
-                // 'Name@ Value' (whitespace only after the separator)
-                return ImmutableArray.Create(name + tokens[1]).AddRange(tokens.Skip(2));
+                if (!LooksLikeMetadataPair(tokens[1]))
+                {
+                    // 'Name@ Value' (whitespace only after the separator)
+                    return ImmutableArray.Create(name + tokens[1]).AddRange(tokens.Skip(2));
+                }
+
+                // 'Name@' with an empty value immediately followed by 'Name=Value' metadata; nothing to merge.
+                return tokens;
             }
 
             return tokens;
         }
+
+        static bool LooksLikeMetadataPair(string token) => token.IndexOf('=') > 0;
 
         static ImmutableArray<string> MergeMetadataSeparatorWhitespace(ImmutableArray<string> tokens, int start)
         {
@@ -720,11 +735,20 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
             {
                 var token = tokens[index];
 
-                if (!token.Contains('=') && index + 1 < tokens.Length && tokens[index + 1] == "=" && index + 2 < tokens.Length)
+                if (!token.Contains('=') && index + 1 < tokens.Length && tokens[index + 1] == "=")
                 {
-                    // 'Name  =  Value' (whitespace on both sides of '=')
-                    builder.Add(token + "=" + tokens[index + 2]);
-                    index += 3;
+                    if (index + 2 < tokens.Length && !LooksLikeMetadataPair(tokens[index + 2]))
+                    {
+                        // 'Name  =  Value' (whitespace on both sides of '=')
+                        builder.Add(token + "=" + tokens[index + 2]);
+                        index += 3;
+                        continue;
+                    }
+
+                    // 'Name  =' with an empty value: the next token is itself a 'Name=Value' pair
+                    // (or there simply is no next token), so don't swallow it.
+                    builder.Add(token + "=");
+                    index += 2;
                     continue;
                 }
 
@@ -736,9 +760,11 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
                     continue;
                 }
 
-                if (token.IndexOf('=') == token.Length - 1 && index + 1 < tokens.Length)
+                if (token.IndexOf('=') == token.Length - 1 && index + 1 < tokens.Length && !LooksLikeMetadataPair(tokens[index + 1]))
                 {
-                    // 'Name= Value' (whitespace only after '=')
+                    // 'Name= Value' (whitespace only after '='). Skipped when the next token is itself a
+                    // 'Name=Value' pair (e.g. 'GeneratePath= PrivateAssets=all'), since 'Name=' already has
+                    // its (empty) value and merging would swallow the next metadata pair's name.
                     builder.Add(token + tokens[index + 1]);
                     index += 2;
                     continue;
