@@ -72,34 +72,77 @@ public static class VSHelpers
         }
     }
 
-    public static bool IsDotnet(string directory)
+    /// <summary>
+    /// Determines, in a single error-tolerant directory walk, whether <paramref name="directory"/>
+    /// contains any C#/VB source files and which language dominates. A single traversal is used so
+    /// that large or partially inaccessible folders aren't scanned multiple times (once per language
+    /// per caller), and inaccessible subdirectories are skipped instead of aborting the whole scan.
+    /// </summary>
+    public static (bool isDotnet, string? language) GetDotnetLanguageInfo(string directory)
     {
-        return HasCSharpFiles(directory) || HasVisualBasicFiles(directory);
-    }
+        var hasCSharp = false;
+        var hasVisualBasic = false;
 
-    public static string? GetLanguageFromDirectory(string directory)
-    {
-        if (HasCSharpFiles(directory))
+        foreach (var file in EnumerateFilesTolerant(directory))
         {
-            return LanguageNames.CSharp;
+            if (!hasCSharp && file.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
+            {
+                hasCSharp = true;
+            }
+            else if (!hasVisualBasic && file.EndsWith(".vb", StringComparison.OrdinalIgnoreCase))
+            {
+                hasVisualBasic = true;
+            }
+
+            if (hasCSharp && hasVisualBasic)
+            {
+                break;
+            }
         }
 
-        if (HasVisualBasicFiles(directory))
+        var language = hasCSharp ? LanguageNames.CSharp : hasVisualBasic ? LanguageNames.VisualBasic : null;
+        return (hasCSharp || hasVisualBasic, language);
+    }
+
+    private static System.Collections.Generic.IEnumerable<string> EnumerateFilesTolerant(string root)
+    {
+        var pending = new System.Collections.Generic.Stack<string>();
+        pending.Push(root);
+
+        while (pending.Count > 0)
         {
-            return LanguageNames.VisualBasic;
+            var directory = pending.Pop();
+
+            string[] files;
+            try
+            {
+                files = Directory.GetFiles(directory);
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                files = Array.Empty<string>();
+            }
+
+            foreach (var file in files)
+            {
+                yield return file;
+            }
+
+            string[] subDirectories;
+            try
+            {
+                subDirectories = Directory.GetDirectories(directory);
+            }
+            catch (Exception ex) when (ex is UnauthorizedAccessException or IOException)
+            {
+                subDirectories = Array.Empty<string>();
+            }
+
+            foreach (var subDirectory in subDirectories)
+            {
+                pending.Push(subDirectory);
+            }
         }
-
-        return null;
-    }
-
-    public static bool HasCSharpFiles(string directory)
-    {
-        return Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories).Any();
-    }
-
-    public static bool HasVisualBasicFiles(string directory)
-    {
-        return Directory.EnumerateFiles(directory, "*.vb", SearchOption.AllDirectories).Any();
     }
 
     public static bool HasCSharpProjects()
@@ -129,9 +172,12 @@ public static class VSHelpers
 
             if (selectedItem is Project solutionFolder && solutionFolder.Kind == SolutionFolder)
             {
-                // The selected item is a solution folder; add the .editorconfig next to the solution.
+                // The selected item is a solution folder; GetRootFolder() places the .editorconfig
+                // next to the solution itself, so this is a solution-level file and needs to go
+                // through the mixed-language path in GetEditorconfigFileContents just like picking
+                // the solution node directly does.
                 var rootFolder = solutionFolder.GetRootFolder();
-                return (false, rootFolder, HasVisualBasicProjects() ? LanguageNames.VisualBasic : LanguageNames.CSharp, selectedItem);
+                return (true, rootFolder, HasVisualBasicProjects() ? LanguageNames.VisualBasic : LanguageNames.CSharp, selectedItem);
             }
 
             var containingProject = GetVSProject(selectedItem);

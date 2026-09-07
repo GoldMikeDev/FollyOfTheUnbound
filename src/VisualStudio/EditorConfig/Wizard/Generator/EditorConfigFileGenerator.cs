@@ -24,7 +24,7 @@ public static class EditorConfigFileGenerator
             LogEvent(EventId.FoundDotnetLanguage, language);
         }
         Assert(path is not null && selectedItem is not null, "Unable to get the selected item");
-        if (path is null || selectedItem is null || language is null)
+        if (path is null || selectedItem is null)
         {
             return (false, null);
         }
@@ -69,9 +69,8 @@ public static class EditorConfigFileGenerator
 
     public static (bool success, string? fileName) TryAddFileToFolder(string directory)
     {
-        var isDotnet = VSHelpers.IsDotnet(directory);
+        var (isDotnet, language) = VSHelpers.GetDotnetLanguageInfo(directory);
         LogEvent(EventId.FoundDotnetProjects, isDotnet);
-        var language = VSHelpers.GetLanguageFromDirectory(directory);
         if (language is not null)
         {
             LogEvent(EventId.FoundDotnetLanguage, language);

@@ -653,9 +653,14 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
         // Interpret the trailing ones as item metadata only when metadata is supported and every trailing token is a valid 'Name=Value' pair.
         // Whitespace may itself surround the '=' (e.g. 'PrivateAssets = all'), which the plain whitespace split above
         // would otherwise turn into separate 'PrivateAssets', '=', 'all' tokens; re-merge those before validating.
+        // The primary name/value separator (e.g. '@' in '#:package P @ 1') can be surrounded by whitespace the same
+        // way, so re-merge that first, or the leftover '@'/version fragments get misread as (invalid) metadata.
         if (allowMetadata)
         {
-            var mergedTokens = MergeMetadataSeparatorWhitespace(rawTokens, start: 1);
+            var afterNameSeparatorMerge = nameSeparator is { } separator
+                ? MergeNameSeparatorWhitespace(rawTokens, separator)
+                : rawTokens;
+            var mergedTokens = MergeMetadataSeparatorWhitespace(afterNameSeparatorMerge, start: 1);
             if (AllValidMetadata(mergedTokens, start: 1))
             {
                 return ToLegacyTokens(mergedTokens, nameSeparator);
@@ -665,6 +670,37 @@ internal abstract class CSharpDirective(in CSharpDirective.ParseInfo info)
         // Legacy: the whole remainder is a single value (preserves pre-quoting behavior).
         isLegacy = true;
         return ImmutableArray.Create(DirectiveToken.Create(text, nameSeparator));
+
+        static ImmutableArray<string> MergeNameSeparatorWhitespace(ImmutableArray<string> tokens, char separator)
+        {
+            if (tokens.Length <= 1)
+            {
+                return tokens;
+            }
+
+            var name = tokens[0];
+            var separatorText = separator.ToString();
+
+            if (!name.Contains(separator) && tokens[1] == separatorText && tokens.Length > 2)
+            {
+                // 'Name  @  Value' (whitespace surrounds the separator)
+                return ImmutableArray.Create(name + separator + tokens[2]).AddRange(tokens.Skip(3));
+            }
+
+            if (!name.Contains(separator) && tokens[1].StartsWith(separatorText, StringComparison.Ordinal))
+            {
+                // 'Name @Value' (whitespace only before the separator)
+                return ImmutableArray.Create(name + tokens[1]).AddRange(tokens.Skip(2));
+            }
+
+            if (name.Length > 0 && name[name.Length - 1] == separator)
+            {
+                // 'Name@ Value' (whitespace only after the separator)
+                return ImmutableArray.Create(name + tokens[1]).AddRange(tokens.Skip(2));
+            }
+
+            return tokens;
+        }
 
         static ImmutableArray<string> MergeMetadataSeparatorWhitespace(ImmutableArray<string> tokens, int start)
         {
