@@ -26,6 +26,8 @@ Roslyn uses a **layered service architecture** built on MEF (Managed Extensibili
   this repo's normal `PublicAPI.*.txt` tracking (`.github/memory/API_MAP.md`).
 - **EditorFeatures** (`src/EditorFeatures/`): VS Editor integration and text manipulation
 - **VisualStudio** (`src/VisualStudio/`): Visual Studio-specific implementations
+- **EditorConfig templates** (`src/VisualStudio/EditorConfig/`): item templates, generation wizard, context-menu command, VSIX projects, and Visual Studio insertion setup
+  - The setup insertion component is `Templates.Editorconfig.Setup`, but its SWR package identity must remain `Templates.Editorconfig.SolutionFile.Setup` because existing Visual Studio template packages depend on that ID.
 
 ### Service Resolution
 ```csharp
@@ -102,6 +104,11 @@ partial-class files, one concept per file:
 - IDE code-style analyzers inherit from `AbstractBuiltInCodeStyleDiagnosticAnalyzer` — not raw `DiagnosticAnalyzer`
 - Always provide a `FixAllProvider` for code fixes (typically `WellKnownFixAllProviders.BatchFixer`)
 - Diagnostic ID constants live in `src/Analyzers/Core/Analyzers/IDEDiagnosticIds.cs`
+
+## File-Based Programs (`src/Workspaces/CSharp/Portable/SyncedSource/FileBasedPrograms/`)
+
+- Synced source shared with the .NET SDK CLI — `FileLevelDirectiveHelpers.cs` parses/dedupes `#:sdk`/`#:property`/`#:package` directives at the top of a file-based program, and `VirtualProjectBuilder.cs` turns them into an in-memory project.
+- `FileBasedProgramDirectiveValueHelpers.cs` holds the low-level directive-value parsing/formatting primitives, shared between `FileLevelDirectiveHelpers` and the analyzer that flags the deprecated unquoted directive form (`FileBasedProgramDirectiveQuoting`).
 
 ## Out-of-Process (OOP) Services
 
