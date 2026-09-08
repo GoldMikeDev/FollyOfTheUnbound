@@ -167,6 +167,28 @@ function Invoke-Folly([string]$Dir, [string[]]$FollyArgs) {
     return [pscustomobject]@{ Output = $output; ExitCode = $LASTEXITCODE }
 }
 
+# Same as Invoke-Folly, but forces folly.ps1's own $onWindows check to false -- for exercising an
+# off-Windows-only path (e.g. --collectDumps's forwarding without also hitting its own interactive
+# elevation prompt, gated on $onWindows) even though this harness always actually runs on Windows.
+# $IsWindows is a read-only automatic variable folly.ps1 reads via `Test-Path variable:IsWindows`,
+# so it can't be set with plain assignment; a wrapper script overrides it with Set-Variable -Force
+# (works on ReadOnly, not Constant, variables) before dot-invoking folly.ps1 in the same process.
+# Mirrors test-folly-scry-args.sh's invoke_folly_non_windows -- see the folly.sh/folly.ps1 parity
+# rule in CONVENTIONS.md for why this pair needs to stay in lockstep.
+function Invoke-FollyNonWindows([string]$Dir, [string[]]$FollyArgs) {
+    $wrapperPath = Join-Path $Dir "non-windows-wrapper.ps1"
+    if (-not (Test-Path -LiteralPath $wrapperPath)) {
+        Set-Content -LiteralPath $wrapperPath -Value @'
+param([Parameter(ValueFromRemainingArguments = $true)][string[]]$FollyArgs)
+Set-Variable -Name IsWindows -Value $false -Force -Scope Global
+& (Join-Path $PSScriptRoot "folly.ps1") @FollyArgs
+exit $LASTEXITCODE
+'@
+    }
+    $output = & $pwshExe -NoProfile -File $wrapperPath @FollyArgs 2>&1 | Out-String
+    return [pscustomobject]@{ Output = $output; ExitCode = $LASTEXITCODE }
+}
+
 try {
     # --- default: both legs run on Windows, Core-only elsewhere ---
     $dir = New-TestCase "default"
@@ -555,9 +577,12 @@ else { exit 0 }
         Test-Fail "collectDumps default (exit=$($result.ExitCode)): received='$received' output=$($result.Output)"
     }
 
-    # --- '--collectDumps' is forwarded when explicitly requested ---
+    # --- '--collectDumps' is forwarded when explicitly requested. Forced off-Windows: on a real
+    # Windows host this flag also triggers an interactive elevation prompt (gated on $onWindows, see
+    # the --collectDumps arg-parsing comment in folly.ps1), which isn't what this case means to
+    # exercise and would otherwise hang waiting on a Read-Host with no one to answer it. ---
     $dir = New-TestCase "collectdumps-forwarded-when-requested"
-    $result = Invoke-Folly -Dir $dir -FollyArgs @("scry", "research", "--core", "--collectDumps")
+    $result = Invoke-FollyNonWindows -Dir $dir -FollyArgs @("scry", "research", "--core", "--collectDumps")
     $receivedPath = Join-Path $dir "collectDumps-received.log"
     $received = if (Test-Path -LiteralPath $receivedPath) { Get-Content -LiteralPath $receivedPath -Raw } else { "" }
     if ($result.ExitCode -eq 0 -and $received -match "Core collectDumps=True") {
