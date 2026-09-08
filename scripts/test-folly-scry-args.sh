@@ -115,6 +115,28 @@ invoke_folly_windows() {
   printf '%s\x1e%s' "$exit_code" "$output"
 }
 
+# Same as invoke_folly, but forces is_windows_host() to false -- for exercising the Core-only/
+# --framework-rejected paths even when this harness itself runs on a real Windows machine via Git
+# Bash/MSYS2, whose $OSTYPE and `uname -s` both genuinely report Windows (cygwin/msys, CYGWIN_NT/
+# MINGW64_NT), unlike invoke_folly_windows's one-directional fake-out of an actually-non-Windows
+# sandbox. Shadows `uname` on PATH with a fake that always reports "Linux", since is_windows_host()
+# falls back to `uname -s` and overriding $OSTYPE alone isn't enough on a real Windows host.
+invoke_folly_non_windows() {
+  local dir="$1"
+  shift
+  local fake_bin="$dir/.fake-uname-bin"
+  mkdir -p "$fake_bin"
+  cat > "$fake_bin/uname" <<'FAKE'
+#!/usr/bin/env bash
+echo "Linux"
+FAKE
+  chmod +x "$fake_bin/uname"
+  local output exit_code
+  output="$(cd "$dir" && OSTYPE=linux-gnu PATH="$fake_bin:$PATH" bash ./folly.sh "$@" 2>&1)"
+  exit_code=$?
+  printf '%s\x1e%s' "$exit_code" "$output"
+}
+
 # --- default: no --testTimeout forwarded ---
 dir="$(new_test_case "default")"
 result="$(run_case "$dir" scry research)"
@@ -196,9 +218,9 @@ else
   test_fail "timeout on non-scry action (exit=$exit_code): $output"
 fi
 
-# --- default 'scry' on this (non-Windows) sandbox runs Core only, never --testDesktop ---
+# --- default 'scry' off-Windows runs Core only, never --testDesktop ---
 dir="$(new_test_case "default-core-only")"
-result="$(run_case "$dir" scry research)"
+result="$(invoke_folly_non_windows "$dir" scry research)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
@@ -405,7 +427,7 @@ fi
 
 # --- --framework only: rejected off-Windows before any build/test call happens ---
 dir="$(new_test_case "framework-only")"
-result="$(run_case "$dir" scry research --framework)"
+result="$(invoke_folly_non_windows "$dir" scry research --framework)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 if [[ "$exit_code" == "1" && "$output" == *"requires a Windows host"* && ! -e "$dir/build-args.log" ]]; then
@@ -581,9 +603,12 @@ else
   test_fail "collectDumps default (exit=$exit_code): args='$args_log' output=$output"
 fi
 
-# --- --collectDumps is forwarded when explicitly requested ---
+# --- --collectDumps is forwarded when explicitly requested. Forced non-Windows: on a real Windows
+# host this flag also triggers an interactive elevation prompt (gated on is_windows_host, see the
+# --collectDumps arg-parsing comment in folly.sh), which isn't what this case means to exercise and
+# would otherwise fail here for lack of a terminal to prompt against.
 dir="$(new_test_case "collectdumps-forwarded-when-requested")"
-result="$(run_case "$dir" scry research --collectDumps)"
+result="$(invoke_folly_non_windows "$dir" scry research --collectDumps)"
 exit_code="${result%%$'\x1e'*}"
 output="${result#*$'\x1e'}"
 args_log="$(cat "$dir/build-args.log" 2>/dev/null || echo "")"
