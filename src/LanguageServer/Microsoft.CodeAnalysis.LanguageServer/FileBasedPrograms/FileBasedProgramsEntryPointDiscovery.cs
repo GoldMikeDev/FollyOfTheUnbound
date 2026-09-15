@@ -70,19 +70,6 @@ internal sealed partial class FileBasedProgramsEntryPointDiscovery(
         cancellationToken => FindAndLoadEntryPointsAsync(globalOptionService, fileBasedProgramService, workspaceFolderTracker, lspServices, logger, cancellationToken),
         listener);
 
-    /// <summary>
-    /// This instance's own lifetime token, cancelled from <see cref="Dispose"/> (which <c>LspServices</c> calls
-    /// when this connection's logical server is torn down -- <see cref="ILspService"/> implementations that are
-    /// also <see cref="IDisposable"/> are disposed automatically). The <see cref="CancellationToken"/>
-    /// <see cref="OnInitializedAsync"/> receives is scoped to the triggering LSP request/notification, not this
-    /// connection's lifetime, and only prevents the background task that runs
-    /// <see cref="FindAndLoadEntryPointsAsync"/> from starting at all if already cancelled by the time it would
-    /// run -- it does nothing to stop the scan once started, since that request is long since complete. Without
-    /// a token scoped to the connection itself, a client that disconnects mid-scan leaves this background
-    /// discovery (and the project loads it triggers) running to completion regardless.
-    /// </summary>
-    private readonly CancellationTokenSource _disposalTokenSource = new();
-
     public Task OnInitializedAsync(ClientCapabilities clientCapabilities, RequestContext context, CancellationToken cancellationToken)
     {
         workspaceFolderTracker.WorkspaceFoldersChanged += OnWorkspaceFoldersChanged;

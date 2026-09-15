@@ -45,27 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing" />
-    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.Analyzer.Testing" />
-    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.CodeFix.Testing" />
-    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.CodeRefactoring.Testing" />
-    <!-- The *.Testing packages above transitively pull in the real, released Microsoft.CodeAnalysis.CSharp.Workspaces
-         NuGet package, which collides (CS0433) with our own renamed ProjectReference below since they no longer
-         share an assembly name for MSBuild to silently de-duplicate. Exclude the transitive copy. -->
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" ExcludeAssets="all" />
     <PackageReference Include="xunit.extensibility.core" Version="$(xunitextensibilitycoreVersion)" />
     <PackageReference Include="xunit.extensibility.execution" Version="$(xunitextensibilityexecutionVersion)" />
     <PackageReference Include="Xunit.Combinatorial" Version="$(XunitCombinatorialVersion)" />
-  </ItemGroup>
-  <ItemGroup Label="Project References">
-    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CSharp.Analyzer.Testing\Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.csproj" />
-    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CSharp.CodeFix.Testing\Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.csproj" />
-    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing\Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing.csproj" />
-    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.VisualBasic.Analyzer.Testing\Microsoft.CodeAnalysis.VisualBasic.Analyzer.Testing.vbproj" />
-    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeFix.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeFix.Testing.vbproj" />
-    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeRefactoring.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeRefactoring.Testing.vbproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <PackageReference Include="System.Diagnostics.DiagnosticSource" />
