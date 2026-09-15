@@ -26,8 +26,20 @@ Roslyn uses a **layered service architecture** built on MEF (Managed Extensibili
   this repo's normal `PublicAPI.*.txt` tracking (`.github/memory/API_MAP.md`).
 - **EditorFeatures** (`src/EditorFeatures/`): VS Editor integration and text manipulation
 - **VisualStudio** (`src/VisualStudio/`): Visual Studio-specific implementations
+- **VisualStudio integration-test harness** (`src/VisualStudio/IntegrationTest/Harness/`): shared integration-test infrastructure
 - **EditorConfig templates** (`src/VisualStudio/EditorConfig/`): item templates, generation wizard, context-menu command, VSIX projects, and Visual Studio insertion setup
   - The setup insertion component is `Templates.Editorconfig.Setup`, but its SWR package identity must remain `Templates.Editorconfig.SolutionFile.Setup` because existing Visual Studio template packages depend on that ID.
+
+### External Access assemblies
+
+Partner APIs that depend on IDE layers are grouped into one ExternalAccess assembly per layer:
+
+- `src/Features/ExternalAccess/Core/`
+- `src/EditorFeatures/ExternalAccess/Core/`
+- `src/LanguageServer/ExternalAccess/Core/`
+- `src/VisualStudio/ExternalAccess/Core/`
+
+Partner-specific compatibility assembly for ASP.NET remains under `src/Features/ExternalAccess/AspNetCore/`; ExternalAccess projects for APIs that are not part of the unified layer assemblies remain separate.
 
 ### Service Resolution
 ```csharp
@@ -205,3 +217,4 @@ recommended/highlighted inside it. See `known-issues/ide.md`.
   (`src/VisualStudio/CSharp/Impl/**`) are evaluated by the `Microsoft.VisualStudio.Extensibility` SDK's
   compile-time interpreter, which doesn't support `CollectionExpressionSyntax` (`[...]`) and fails the
   build with `CEE0001`. Use `new[] { ... }` array initializers instead.
+- **MSBuild project extensions are stored with a leading `.`.** `ProjectFileExtensionRegistry` accepts registration and lookup values with or without the dot, but its enumeration API returns the canonical dot-prefixed form.

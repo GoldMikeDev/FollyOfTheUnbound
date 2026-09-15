@@ -47,7 +47,9 @@ internal sealed class CodeLensRefreshQueue : AbstractRefreshQueue
     }
 
     protected override bool IsRefreshRelevantOption(IOption2 option)
-        => option.Equals(LspOptionsStorage.LspEnableReferencesCodeLens) || option.Equals(LspOptionsStorage.LspEnableTestsCodeLens);
+        => option.Equals(LspOptionsStorage.LspEnableReferencesCodeLens)
+        || option.Equals(LspOptionsStorage.LspEnableTestsCodeLens)
+        || option.Equals(LspOptionsStorage.LspUseSemanticTestDiscovery);
 
     public override void Dispose()
     {

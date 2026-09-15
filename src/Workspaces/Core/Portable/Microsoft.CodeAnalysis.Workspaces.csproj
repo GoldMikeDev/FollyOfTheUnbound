@@ -165,6 +165,7 @@
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.EditorConfigGenerator" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.VisualDiagnostics" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.TestDiscovery" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Templates.Editorconfig.Wizard" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.TypeScript.EditorFeatures" Key="$(TypeScriptKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35077" />
     <InternalsVisibleTo Include="Microsoft.VisualStudio.LanguageServices.TypeScript" Key="$(TypeScriptKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35077" />
     <InternalsVisibleTo Include="Roslyn.Services.Editor.TypeScript.UnitTests" Key="$(TypeScriptKey)" WorkItem="https://github.com/dotnet/roslyn/issues/35077" />
