@@ -96,7 +96,7 @@ internal sealed class RunTestsHandler(
 
         var runSettingsPath = request.RunSettingsPath;
         var runSettings = await GetRunSettingsAsync(runSettingsPath, progress, context, cancellationToken);
-        var useSemanticTestDiscovery = globalOptionService.GetOption(LspOptionsStorage.LspUseSemanticTestDiscovery, document.Project.Language);
+        var useSemanticTestDiscovery = globalOptionService.GetConnectionScopedOption(LspOptionsStorage.LspUseSemanticTestDiscovery, document.Project.Language);
         var testCases = await testDiscoverer.DiscoverTestsAsync(
             request.Range, document, projectOutputPath, runSettings, progress, vsTestConsoleWrapper, useSemanticTestDiscovery, cancellationToken);
         if (!testCases.IsEmpty)

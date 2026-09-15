@@ -76,7 +76,7 @@ internal sealed class CodeLensHandler : ILspServiceDocumentRequestHandler<LSP.Co
         if (!globalOptionService.GetConnectionScopedOption(LspOptionsStorage.LspUsingDevkitFeatures) && testsCodeLensEnabled)
         {
             // Only return test codelenses if we're not using devkit.
-            var useSemanticTestDiscovery = globalOptionService.GetOption(LspOptionsStorage.LspUseSemanticTestDiscovery, document.Project.Language);
+            var useSemanticTestDiscovery = globalOptionService.GetConnectionScopedOption(LspOptionsStorage.LspUseSemanticTestDiscovery, document.Project.Language);
             if (useSemanticTestDiscovery)
             {
                 await AddSemanticTestCodeLensAsync(codeLenses, members, document, text, textDocumentIdentifier, cancellationToken).ConfigureAwait(false);
