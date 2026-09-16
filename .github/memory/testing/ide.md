@@ -86,8 +86,8 @@ checking only the expected connections tear down) before adding another ad hoc p
 
 ## ProjectData test projects use an xUnit v2 `TestContext` shim
 
-**Affected area:** `src/LanguageServer/ProjectData/Microsoft.NET.ProjectData.Tests/XunitV2TestContext.cs`,
-`src/LanguageServer/ProjectData/Microsoft.NET.ProjectData.Generators.Tests/XunitV2TestContext.cs`
+**Affected area:** `src/ProjectData/Microsoft.NET.ProjectData.Tests/XunitV2TestContext.cs`,
+`src/ProjectData/Microsoft.NET.ProjectData.Generators.Tests/XunitV2TestContext.cs`
 
 Both `ProjectData` test projects still run on xUnit v2, but their test bodies use the xUnit v3-shaped
 `TestContext.Current.CancellationToken` API. Each project carries its own identical, file-local
@@ -114,3 +114,7 @@ shared library), so:
   test source code.
 - Keep tests focused — avoid unnecessary intermediary assertions; use `.Single()`
   rather than asserting a count then indexing.
+- Language Server orchestration tests can pass additional MEF parts to
+  `LanguageServerTestComposition.GetSharedExportProvider`. A controllable
+  `PartNotDiscoverable` project loader can provide deterministic design-time
+  build timing and results without invoking MSBuild.

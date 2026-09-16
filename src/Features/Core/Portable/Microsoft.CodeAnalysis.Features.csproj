@@ -61,6 +61,7 @@
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.VisualDiagnostics" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.Xaml" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.EditorConfigGenerator" Key="$(MicrosoftSharedPublicKey)" />
+    <InternalsVisibleTo Include="Templates.Editorconfig.Wizard" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.HotReload" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.ExternalAccess.HotReload.UnitTests" Key="$(MicrosoftSharedPublicKey)" />
     <InternalsVisibleTo Include="Microsoft.CodeAnalysis.Features.DiagnosticsTests.Utilities" Key="$(MicrosoftSharedPublicKey)" />

@@ -53,6 +53,12 @@ When code cancels/kills a `Process` it started, use `process.Kill(entireProcessT
 
 Conversely, don't try to patch over an orphan risk by enumerating *all* processes on the machine by name and killing whatever matches (e.g. `ProcessUtil.GetTestHostProcesses()` in `RunTests`) — that risks killing an unrelated process from a concurrent run or an IDE. That enumeration exists only for best-effort diagnostics (dumping a hung process before a timeout), never for termination; termination stays scoped to processes this run itself is tracking, via the entire-process-tree kill above.
 
+### CodeAnalysis testing-library dependencies
+
+- Compatible internal repository build and test projects reference the testing-library projects under `src/RoslynSdk/Microsoft.CodeAnalysis.Testing` so source changes are exercised directly.
+- The testing-library projects do not copy NuGet runtime dependencies into their .NET Framework output directories. Final test projects resolve and copy the unified dependency graph.
+- Roslyn SDK samples and Visual Studio SDK project templates retain NuGet package references because they model standalone consumers outside the repository source graph.
+
 ## Patterns Explicitly Avoided
 
 - **No `TODO` or `TODO2` comments** — CI correctness leg flags `TODO`. Track follow-up work as a GitHub issue and link it in code (e.g. `// https://github.com/dotnet/roslyn/issues/NNNN`). Existing `TODO2` markers are a frozen baseline from when enforcement started, not a pattern to follow.
