@@ -3,10 +3,11 @@
 ' See the LICENSE file in the project root for more information.
 
 Imports Basic.Reference.Assemblies
+Imports Roslyn.Test.Utilities
 
 Namespace Microsoft.CodeAnalysis.VisualBasic.UnitTests.Emit
     Public Class Perf : Inherits BasicTestBase
-        <Fact()>
+        <ConditionalFact(GetType(NoIOperationValidation))>
         Public Sub Test()
             ' This test ensures that our perf benchmark code compiles without problems.
             ' Benchmark code can be found in the following file under the 

@@ -146,7 +146,7 @@ namespace RunTests
                 return ExitFailure;
             }
 
-            ConsoleUtil.WriteLine($"Proc dump location: {options.ProcDumpFilePath}");
+            ConsoleUtil.WriteLine($"Proc dump location: {options.ProcDumpFilePath ?? "(not configured)"}");
 
             var result = await testRunner.RunAllAsync(assemblyFilePaths, cancellationToken).ConfigureAwait(true);
             var elapsed = DateTime.Now - start;

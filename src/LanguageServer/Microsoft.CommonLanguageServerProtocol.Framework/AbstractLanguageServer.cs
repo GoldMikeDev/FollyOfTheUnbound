@@ -355,7 +355,7 @@ internal abstract class AbstractLanguageServer<TRequestContext>
 
                 var queueFullyDrained = await ShutdownRequestExecutionQueueAsync().ConfigureAwait(false);
 
-                lspServices.Dispose();
+                await lspServices.DisposeAsync().ConfigureAwait(false);
 
                 // Only invoke this if the request execution queue actually finished draining -- e.g.
                 // LanguageServerHost's clean-exit sentinel, written directly to the raw transport bypassing

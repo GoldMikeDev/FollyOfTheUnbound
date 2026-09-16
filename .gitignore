@@ -17,6 +17,7 @@ BenchmarkDotNet.Artifacts/
 [Bb]inaries/
 [Bb]in/
 [Oo]bj/
+src/VisualStudio/EditorConfig/Templates/ModifiedTemplates/
 .dotnet/
 .tools/
 .packages/
@@ -210,3 +211,10 @@ artifacts/TestResults/**/dumps/
 build-verbose.log
 
 artifacts/LanguageServer/
+
+# Per-machine build cache marker (eng/targets/DeveloperSettings.targets)
+artifacts/developer-settings-validated.txt
+
+# Per-machine scry live-table test timing history (src/Tools/RunTests/LocalTestTimingHistory.cs) --
+# deliberately outside artifacts/ so `folly.sh`/`folly.ps1 cleanse` doesn't wipe it, but still local-only.
+/.test-timings.json

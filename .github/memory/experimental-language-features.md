@@ -75,6 +75,31 @@ shadowing the other. **Verified**: `Microsoft.CodeAnalysis.CSharp.csproj` builds
 for both cases — a reference-type receiver still binds with no diagnostics via the statement-level
 path, and a `Nullable<T>` receiver reports `ERR_VoidCoalesceRequiresReferenceTypeReceiver`.
 
+**Two `--testIOperation` gaps found and fixed via `.\folly scry --testIOperation` (both in
+`VoidCoalesceTests`, unrelated to each other):**
+1. `TestOperationVisitor` (`src/Compilers/Test/Core/Compilation/TestOperationVisitor.cs`) had no
+   `VisitVoidCoalesce` override for `IVoidCoalesceOperation`, so `--testIOperation` walked into
+   `DefaultVisit` and threw `NotImplementedException`. Fixed by adding an override next to
+   `VisitCoalesce`, asserting `OperationKind.VoidCoalesce` and validating `Access`/`WhenNull` as the
+   two `ChildOperations`.
+2. `ControlFlowGraphBuilder.VisitVoidCoalesce` (`src/Compilers/Core/Portable/Operations/
+   ControlFlowGraphBuilder.cs`) never closed the receiver-chain's capture spill region before
+   branching to the `WhenNull` block. `VisitConditionalAccessTestExpression`'s `PopStackFrame` (shared
+   with `VisitConditionalAccess`) merges the spill region into whatever region was current, but leaves
+   it *open* — for a bare `a?.M();` statement this is harmless because the `WhenNull` block is empty
+   and gets elided, letting the region's last block resolve to wherever the receiver capture was
+   actually used. `VoidCoalesceExpression`'s `WhenNull` is a real fallback statement, so that trailing
+   block survives and, if the capture region were left open across the branch, would silently become
+   the region's *last* block — even though it never references the capture — tripping
+   `ControlFlowGraphVerifier`'s "capture used before leaving its region" check
+   (`Capture [n] is not used in region [Rx] before leaving it after block [Bx]`). Fixed by capturing
+   `resultCaptureRegion = CurrentRegionRequired` up front and calling `LeaveRegionsUpTo
+   (resultCaptureRegion)` right after finishing the `WhenNotNull` chain, before creating the `WhenNull`
+   block — mirroring `VisitConditionalAccess`'s non-statement-level (captured-value) path. **Verified**:
+   `VoidCoalesceTests` pass (2/2), plus the broader `FlowAnalysis`/`ConditionalAccess`/`IOperation`
+   filter in `Microsoft.CodeAnalysis.CSharp.Semantic.UnitTests` (103/103) on net10.0 in this
+   environment (net472 can't run under Linux/Mono here — same fix applies, untested on that TFM).
+
 ## `*.` root-namespace placeholder qualifier
 
 Motivation: shared-source files (e.g. `AddonModules`) want a namespace segment that resolves to

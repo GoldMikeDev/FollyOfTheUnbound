@@ -13,7 +13,7 @@ Roslyn uses a **layered service architecture** built on MEF (Managed Extensibili
 - **Analyzers** (`src/Analyzers/`): IDE diagnostic analyzers and code fixes (IDE0xxx diagnostics)
 - **CodeStyle** (`src/CodeStyle/`): Code-style analyzer packaging shared with the command-line
 - **LanguageServer** (`src/LanguageServer/`): Shared LSP protocol implementation and Roslyn LSP executable (`roslyn-language-server`). This fork's `roslyn-language-server` is split into three processes: a dependency-light **thin client** (`src/LanguageServer/roslyn-language-server/`, entry point `ServerExecutable.ResolveSelf`/`ResolveLanguageServer`) that editors launch directly and that relays stdio LSP traffic over a named pipe (`LspRelay`); a short-lived **bootstrap** (`DaemonBootstrap`, re-launched copy of the thin client) that starts the long-lived daemon and exits so the daemon is orphaned out of the editor's process tree; and the **daemon** itself (`Microsoft.CodeAnalysis.LanguageServer`, the full MEF/Roslyn workspace host), shared across client connections and keyed by pipe name (`DaemonPipeName.GetPipeName`, derived from user/elevation/tool path/server arguments so incompatible clients never share a daemon). See `src/LanguageServer/roslyn-language-server/DaemonClient.cs` for the connect/launch flow. On Windows, both the thin-client→bootstrap and bootstrap→daemon launches (`ServerExecutable.Start`) also attempt to break the child out of any Windows Job Object the launching process belongs to (`Interop/Win32BreakawayProcessLauncher.cs`) — editors like VS Code run their own process tree inside a kill-on-close job, so without this the "orphaned" daemon would still die when the editor closes. It falls back to a normal `ProcessStartInfo` launch on any failure, including a job that doesn't permit breakaway. Covered by `Win32BreakawayLauncherTests` in `Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests/Lifecycle/` (Windows-only, `[ConditionalFact(typeof(WindowsOnly))]`), which drives a hidden `--breakaway-self-test` CLI hook (`Interop/BreakawaySelfTest.cs`) so a real kill-on-close job's termination lands on a helper process rather than the test host. **Confirmed passing on real Windows** (`DaemonLaunchBreaksAwayFromKillOnCloseJobObject`, GoldMikeDev/roslyn#11) — the escaped child survives the job being torn down. The launcher also scopes handle inheritance to just the three stdio pipes via `PROC_THREAD_ATTRIBUTE_HANDLE_LIST` (rather than `CreateProcess`'s all-or-nothing `bInheritHandles: true`, which was found to leak unrelated inheritable handles — e.g. named pipes/mutexes — into the breakaway-launched daemon and broke `DaemonServerLifecycleTests` handshakes); the same test's sentinel-handle assertion (`SENTINEL:Inaccessible`) proves the scoping in the source, but the fix itself is still pending a confirmed real-Windows run — treat the handle-list scoping specifically as unverified until that lands, even though the underlying breakaway mechanism is verified.
-- **LanguageServer/ProjectData** (`src/LanguageServer/ProjectData/Microsoft.NET.ProjectData/`): a public
+- **ProjectData** (`src/ProjectData/Microsoft.NET.ProjectData/`): a public
   `Microsoft.NET.ProjectData` contract (arrived via upstream sync) for caching MSBuild project-evaluation
   results across builds/worktrees so the language server can skip a full design-time build when a cached
   result is still valid. Key pieces: `ProjectDataBuildReceipt` (per-project, per-attempt completion evidence
@@ -26,6 +26,20 @@ Roslyn uses a **layered service architecture** built on MEF (Managed Extensibili
   this repo's normal `PublicAPI.*.txt` tracking (`.github/memory/API_MAP.md`).
 - **EditorFeatures** (`src/EditorFeatures/`): VS Editor integration and text manipulation
 - **VisualStudio** (`src/VisualStudio/`): Visual Studio-specific implementations
+- **VisualStudio integration-test harness** (`src/VisualStudio/IntegrationTest/Harness/`): shared integration-test infrastructure
+- **EditorConfig templates** (`src/VisualStudio/EditorConfig/`): item templates, generation wizard, context-menu command, VSIX projects, and Visual Studio insertion setup
+  - The setup insertion component is `Templates.Editorconfig.Setup`, but its SWR package identity must remain `Templates.Editorconfig.SolutionFile.Setup` because existing Visual Studio template packages depend on that ID.
+
+### External Access assemblies
+
+Partner APIs that depend on IDE layers are grouped into one ExternalAccess assembly per layer:
+
+- `src/Features/ExternalAccess/Core/`
+- `src/EditorFeatures/ExternalAccess/Core/`
+- `src/LanguageServer/ExternalAccess/Core/`
+- `src/VisualStudio/ExternalAccess/Core/`
+
+Partner-specific compatibility assembly for ASP.NET remains under `src/Features/ExternalAccess/AspNetCore/`; ExternalAccess projects for APIs that are not part of the unified layer assemblies remain separate.
 
 ### Service Resolution
 ```csharp
@@ -60,11 +74,53 @@ public MyService(IDependency dependency) { }
 - For localizable strings: `new LocalizableResourceString(nameof(FeaturesResources.Some_string), FeaturesResources.ResourceManager, typeof(FeaturesResources))`
 - After modifying `.resx` files, run `dotnet msbuild <path to csproj> /t:UpdateXlf` to update `.xlf` localization files
 
+## LSP URI Parsing (`src/LanguageServer/Protocol/Protocol/ParsedUri.cs`)
+
+`ParsedUri` (arrived via upstream sync) is the LSP layer's own URI parser/formatter, replacing
+`System.Uri` for LSP document/file identity: it implements vscode-uri's parsing and encoding
+semantics (including `ParsedUri.File` for filesystem paths and `ParsedUri.Parse` for LSP-supplied
+URI strings) rather than .NET's own `Uri` rules, since editors send URIs following the
+JavaScript/vscode-uri conventions the LSP spec was written against. `DocumentUri` (the LSP wire
+type) is constructed from a `ParsedUri` — prefer that constructor over the `System.Uri`-based one
+(marked obsolete, tracked at https://github.com/dotnet/roslyn/issues/84785) when producing a
+`DocumentUri` from a string that isn't already a validated `System.Uri`. Percent-decoding
+(`DecodeURIComponentGraceful`) degrades gracefully on malformed escapes by peeling one `%XX` triplet
+at a time and retrying the remainder iteratively (not recursively — a long run of invalid escapes
+must not grow the call stack).
+
+## Language Server Project Loading (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/HostWorkspace/`)
+
+Design-time build and workspace-project lifecycle for the language server daemon is split across
+partial-class files, one concept per file:
+
+- **`LanguageServerProjectLoader.cs`** — the abstract base loader: queues and batches project
+  (re)loads (`_projectsToReload`), runs design-time builds via `BuildHostProcessManager`, tracks
+  loaded projects in `_loadedProjects` (`Dictionary<string, LoadedProject>`), and owns automatic
+  NuGet restore.
+- **`LanguageServerProjectLoader.ProjectToLoad.cs`** — the `ProjectToLoad` record (path + optional
+  `WorkDoneProgressTracker`) queued onto `_projectsToReload`.
+- **`LanguageServerProjectLoader.WorkDoneProgressTracker.cs`** — `WorkDoneProgressTracker`, which
+  coalesces LSP `WorkDoneProgress` percentage updates from parallel callers and reports 100% on
+  disposal.
+- **`LoadedProject.cs`** — one instance per loaded project *file* (not per target framework); owns
+  the project's file watches and holds a `List<Target>` — one `Target` per target framework when the
+  project is multi-targeted.
+- **`LoadedProject.Target.cs`** — the nested `Target` type: one loaded `Microsoft.CodeAnalysis.Project`
+  registered in the workspace, its own asset-file watcher and options processor. `Target.Dispose()`
+  releases those first, then calls `RemoveFromWorkspace()` last — so a caller disposing multiple
+  targets must not let one `RemoveFromWorkspace()` failure (e.g. the owning `Workspace` already torn
+  down) skip disposing the rest; `LoadedProject.DisposeAsync()` catches per-target for this reason.
+
 ## Analyzers & Code Fixes (IDE0xxx)
 
 - IDE code-style analyzers inherit from `AbstractBuiltInCodeStyleDiagnosticAnalyzer` — not raw `DiagnosticAnalyzer`
 - Always provide a `FixAllProvider` for code fixes (typically `WellKnownFixAllProviders.BatchFixer`)
 - Diagnostic ID constants live in `src/Analyzers/Core/Analyzers/IDEDiagnosticIds.cs`
+
+## File-Based Programs (`src/Workspaces/CSharp/Portable/SyncedSource/FileBasedPrograms/`)
+
+- Synced source shared with the .NET SDK CLI — `FileLevelDirectiveHelpers.cs` parses/dedupes `#:sdk`/`#:property`/`#:package` directives at the top of a file-based program, and `VirtualProjectBuilder.cs` turns them into an in-memory project.
+- `FileBasedProgramDirectiveValueHelpers.cs` holds the low-level directive-value parsing/formatting primitives, shared between `FileLevelDirectiveHelpers` and the analyzer that flags the deprecated unquoted directive form (`FileBasedProgramDirectiveQuoting`).
 
 ## Out-of-Process (OOP) Services
 
@@ -106,6 +162,7 @@ var methodDecl = generator.MethodDeclaration("MyMethod", ...);
 - **Immutability**: All `Document`, `Solution`, `Project` instances are immutable — use `With*` methods
 - **Cancellation**: Always thread `CancellationToken` through async operations
 - **Performance**: Avoid LINQ in hot paths, prefer `for` loops or `.AsSpan()`, use `ObjectPool<T>`
+- **LanguageServer request context**: Handlers should use the asynchronous `RequestContext.Get*Async` methods for workspace, solution, and document access. Obsolete synchronous members remain only for compatibility with existing external-access consumers and forward to the asynchronous accessors.
 
 ## Adding IDE Support for a New Statement/Expression SyntaxKind
 
@@ -155,3 +212,9 @@ recommended/highlighted inside it. See `known-issues/ide.md`.
 - **ImportingConstructor must be marked `[Obsolete]`** with `MefConstruction.ImportingConstructorMessage`
 - **Language services must be exported with a specific language name** — don't use generic exports for both C#/VB
 - **Workspace changes must use immutable updates** — `Workspace.SetCurrentSolution()`
+- **`[VisualStudioContribution]` metadata properties can't use collection expressions** — properties like
+  `CommandConfiguration.Placements` and `CommandGroupConfiguration.Children`
+  (`src/VisualStudio/CSharp/Impl/**`) are evaluated by the `Microsoft.VisualStudio.Extensibility` SDK's
+  compile-time interpreter, which doesn't support `CollectionExpressionSyntax` (`[...]`) and fails the
+  build with `CEE0001`. Use `new[] { ... }` array initializers instead.
+- **MSBuild project extensions are stored with a leading `.`.** `ProjectFileExtensionRegistry` accepts registration and lookup values with or without the dot, but its enumeration API returns the canonical dot-prefixed form.

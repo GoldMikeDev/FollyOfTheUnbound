@@ -15,20 +15,20 @@ This is the loading map for the agent knowledge base under `.github/memory/`. **
 | **`CONVENTIONS.md`** | Repo-wide code style, naming, immutability, resource & public-API rules | When writing or reviewing code |
 | **`FILE_MAP.md`** | Top-level `src/` map (one line per area) + layer pointers | When deciding which area/layer to work in |
 | **`API_MAP.md`** | Build/test entry points & PublicAPI tracking | When changing build, tests, or public APIs |
-| **`KNOWN_ISSUES.md`** | Repo-wide / cross-cutting quirks & workarounds | Always for code review; unfamiliar areas |
 | **`TESTING_STRATEGY.md`** | Test layout, shared authoring conventions & how to run tests | When writing tests or debugging test failures |
+| **`KNOWN_ISSUES.md`** | Repo-wide / cross-cutting quirks & workarounds | Always for code review; unfamiliar areas |
 | **`experimental-language-features.md`** | This fork's new constructs (do/until, mutate, inline expression declaration, if/catch/finally chains, `*.` root-namespace placeholder, null-conditional-coalescing statement, void-coalescing expression) — syntax shape, compiler status, and IDE support status | Working on any of these constructs, or on `src/Features/CSharp/Portable` IDE support generally |
 
 ## Layer-specific knowledge
 
 Per-layer directory detail, key files/APIs, and coding conventions live in the
 path-scoped **instruction files**, which auto-apply when you edit `.cs`/`.vb`
-under their glob. **Known issues** and **testing** are broken out into dedicated
+under their glob. **Testing** conventions are broken out into dedicated
 per-layer memory files so you load only what the task needs. Read the row for the
 area you're working in:
 
 | Layer (src areas) | Instruction file (rules + dir detail) | Known issues | Testing |
-|-------------------|---------------------------------------|--------------|---------|
+|-------------------|---------------------------------------|---------------|---------|
 | `Compilers`, `Dependencies`, `ExpressionEvaluator`, `Tools` | `.github/instructions/Compiler.instructions.md` | `known-issues/compiler.md` | `testing/compiler.md` |
 | `Analyzers`, `CodeStyle`, `Features`, `Workspaces`, `EditorFeatures`, `VisualStudio`, `LanguageServer` | `.github/instructions/IDE.instructions.md` | `known-issues/ide.md` | `testing/ide.md` |
 | `Razor` | `.github/instructions/Razor.instructions.md` | `known-issues/razor.md` | `testing/razor.md` |

@@ -76,6 +76,7 @@ param (
   [string]$helixQueueName = "",
   [string]$helixApiAccessToken = "",
   [switch]$testInteractiveConsole,
+  [switch]$testSuppressConsoleSummary,
   [int]$testTimeout = 0,
 
   [parameter(ValueFromRemainingArguments=$true)][string[]]$properties)
@@ -122,6 +123,10 @@ function Print-Usage() {
   Write-Host "                            script's own stdout isn't itself being consumed by something else (e.g. piped to"
   Write-Host "                            Tee-Object/a file): PowerShell's object pipeline doesn't mark Console.Out as"
   Write-Host "                            redirected the way OS-level redirection does, so that can't be auto-detected here"
+  Write-Host "  -testSuppressConsoleSummary  Suppress only RunTests' own final PASSED/FAILED/TIMEOUT table from the console"
+  Write-Host "                            (still written to the log file); the live progress table and per-failure"
+  Write-Host "                            diagnostics are unaffected. For a caller building its own combined summary"
+  Write-Host "                            across multiple RunTests passes -- see folly.ps1 scry"
   Write-Host "  -testTimeout <minutes>    Override RunTests' whole-run --timeout watchdog (default: 90 for -testCoreClr/"
   Write-Host "                            -testDesktop, 220 for -testVsi; ignored when -helix is set)"
   Write-Host "  -skipCustomRoslynDeploy   Skip custom Roslyn deployment when running integration tests (uses Roslyn from the VS)"
@@ -469,9 +474,11 @@ function TestUsingRunTests() {
   $args += " --configuration $configuration"
   $testFilters = @()
 
+  $defaultTestTimeout = 90
+
   if ($testCoreClr) {
     $args += " --runtime core"
-    $timeout = 90
+    $timeout = $defaultTestTimeout
     if ($testCompilerOnly) {
       $args += GetCompilerTestAssembliesIncludePaths
     } else {
@@ -480,7 +487,7 @@ function TestUsingRunTests() {
   }
   elseif ($testDesktop -or ($testIOperation -and -not $testCoreClr)) {
     $args += " --runtime framework"
-    $timeout = 90
+    $timeout = $defaultTestTimeout
 
     if ($testRuntimeAsync) {
       Write-Host "Cannot run desktop tests with runtime async validation enabled."
@@ -526,15 +533,42 @@ function TestUsingRunTests() {
   }
 
   if ($collectDumps) {
-    $procdumpFilePath = Ensure-ProcDump
-    $args += " --procdumppath $procDumpFilePath"
-    $args += " --collectdumps";
+    # RunTests' --collectdumps enables Windows Error Reporting registry-based dump collection
+    # (DumpUtil.EnableRegistryDumpCollection in src/Tools/RunTests/ProcDumpUtil.cs -- calls
+    # WindowsIdentity.GetCurrent() with no OS guard), which only exists on a genuine Windows host.
+    # build.ps1 itself is a PowerShell script, but PowerShell Core (pwsh) is cross-platform and
+    # folly.ps1's own scry action explicitly supports a Core-only run under pwsh on Linux/macOS (see
+    # its own $onWindows checks) -- unlike -testDesktop, this isn't a hard requirement to satisfy the
+    # caller's request, so a non-Windows host just skips it with a note rather than throwing
+    # PlatformNotSupportedException partway through RunTests. Matches eng/build.sh's own
+    # is_windows_host gate around the same switch.
+    if (-not (IsWindowsPlatform)) {
+      Write-Host "Skipping '-collectDumps': Windows Error Reporting registry-based dump collection requires a genuine Windows host."
+    } else {
+      # --collectdumps and --procdumppath are independent: --collectdumps alone is what enables
+      # DumpUtil's WER registry collection; --procdumppath only ever feeds RunTests' console
+      # "Proc dump location:" line (see Program.cs), nothing functional. So a failure acquiring
+      # ProcDump (Ensure-ProcDump downloads Procdump.zip from sysinternals.com on a machine that
+      # doesn't already have procdump.exe cached -- offline, blocked network) should only drop the
+      # cosmetic --procdumppath, never --collectdumps itself.
+      $args += " --collectdumps";
+      try {
+        $procdumpFilePath = Ensure-ProcDump
+        $args += " --procdumppath $procDumpFilePath"
+      } catch {
+        Write-Host "Failed to acquire ProcDump ($_); '--collectDumps' is still enabled, but 'Proc dump location:' will show as not configured." -ForegroundColor Yellow
+      }
+    }
   }
 
   $args += " --arch $testArch"
 
   if ($sequential) {
     $args += " --sequential"
+  }
+
+  if ($testSuppressConsoleSummary) {
+    $args += " --suppressConsoleSummary"
   }
 
   if ($helix) {
@@ -703,7 +737,6 @@ function Deploy-VsixViaTool() {
         "Microsoft.VisualStudio.RazorExtension.Dependencies.vsix",
         "Microsoft.VisualStudio.RazorExtension.vsix",
         "ExpressionEvaluatorPackage.vsix",
-        "Roslyn.VisualStudio.DiagnosticsWindow.vsix",
         "Microsoft.VisualStudio.IntegrationTest.Setup.vsix")
 
       foreach ($vsixFileName in $orderedVsixFileNames) {
@@ -763,6 +796,13 @@ function Deploy-VsixViaTool() {
 # Ensure that procdump is available on the machine.  Returns the path to the directory that contains
 # the procdump binaries (both 32 and 64 bit)
 function Ensure-ProcDump() {
+
+  # Prefer an already-installed procdump.exe resolvable on PATH -- avoids an unnecessary download
+  # (which requires network access to download.sysinternals.com) when the caller already has it.
+  $onPath = Get-Command "procdump.exe" -ErrorAction SilentlyContinue
+  if ($onPath) {
+    return Split-Path -Parent $onPath.Source
+  }
 
   # Jenkins images default to having procdump installed in the root.  Use that if available to avoid
   # an unnecessary download.

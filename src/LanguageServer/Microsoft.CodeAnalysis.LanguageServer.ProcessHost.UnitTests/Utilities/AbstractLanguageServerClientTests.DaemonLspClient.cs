@@ -128,6 +128,14 @@ public partial class AbstractLanguageServerClientTests
             CloseEditorTransport();
             await ThinClientProcess.WaitForExitAsync();
         }
+
+        /// <summary>
+        /// Same reasoning as <see cref="ShutdownAndWaitForExitAsync"/>: the "server process" here is the shared
+        /// daemon, not something this client owns, so the forced-kill fallback must never touch it - only every
+        /// other client sharing the same daemon pipe would be collateral damage. Kill just this client's own thin
+        /// client process.
+        /// </summary>
+        internal override void KillProcessesIfRunning() => TryKillThinClient();
     }
 
     internal sealed class DaemonStdioLspClient : DaemonLspClient

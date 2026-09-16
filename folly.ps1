@@ -11,8 +11,69 @@ try {
 	$solution = "FollyOfTheUnbound.slnx"
 	$buildScript = Join-Path $PSScriptRoot "eng\build.ps1"
 	$nupkgRoot = Join-Path $PSScriptRoot "..\.nupkg\FotU"
+	# .NET Framework (net472) tests have no cross-platform runtime and only ever run on a genuine
+	# Windows host, even though this script itself (pwsh) can run elsewhere -- '--framework' is
+	# rejected outright off-Windows, and 'scry's own no-switches default only includes Framework here.
+	$onWindows = if (Test-Path variable:IsWindows) { $IsWindows } else { $true }  # $IsWindows only exists on PowerShell Core (6+); Windows PowerShell 5.1 (Desktop edition) has no such variable and only ever runs on Windows anyway
+	# Only used by an --elevatedRelaunch'd scry invocation (see the --collectDumps elevation block
+	# below) -- replaces every plain `exit` in the scry action so its window pauses for an explicit
+	# close confirmation instead of vanishing before the output can be reviewed. 'n' drops into a
+	# live nested prompt in the same window (scrollback intact) rather than just leaving it idle;
+	# typing 'exit' there falls back through to the real exit below.
+	function Exit-Scry([int]$ExitCode) {
+		if (-not $elevatedRelaunch) {
+			exit $ExitCode
+		}
+		Write-Host ""
+		$answer = $null
+		while ($answer -ne "y" -and $answer -ne "n") {
+			$answer = (Read-Host "scry finished (exit code $ExitCode). Close this window? [y/n]").ToLowerInvariant()
+		}
+		if ($answer -eq "n") {
+			Write-Host "Dropping to an interactive prompt in this window so you can review the output -- type 'exit' when you're done to close it."
+			$host.EnterNestedPrompt()
+		}
+		exit $ExitCode
+	}
+    	function Write-GrimoireHelp([string]$text) {
+		$literalPattern = "(?<=')(?:attune|bind|cleanse|grimoire|reweave|scry|weave)\b|\b(?:reflection|research|truth)\b|--[A-Za-z][A-Za-z0-9]*"
+		$tokenPattern = "<[^>]+>|\[switches\]|$literalPattern"
+
+		foreach ($line in ($text -split "`r?`n")) {
+			if ($line -match '^[^\s].*:$') {
+				Write-Host $line -ForegroundColor Cyan
+				continue
+			}
+
+			$lineTokenPattern = if ($line -match "^\s+'") { $tokenPattern } else { '<[^>]+>' }
+			$position = 0
+			foreach ($match in [regex]::Matches($line, $lineTokenPattern)) {
+				if ($match.Index -gt $position) {
+					Write-Host $line.Substring($position, $match.Index - $position) -NoNewline
+				}
+
+				$colour = if ($match.Value[0] -eq '<') { 'Yellow' } elseif ($match.Value[0] -eq '[') { 'DarkGray' } else { 'Green' }
+				Write-Host $match.Value -ForegroundColor $colour -NoNewline
+				$position = $match.Index + $match.Length
+			}
+
+			if ($position -lt $line.Length) {
+				Write-Host $line.Substring($position) -NoNewline
+			}
+			Write-Host
+		}
+	}
 	$core = $false  # PowerShell's automatic binding only recognises single-dash switches, so --core/--framework/--timeout (matching folly.sh's style) are parsed by hand below
 	$framework = $false
+	$testCompilerOnly = $false
+	$testFilter = $null
+	$expectTestFilterValue = $false
+	$testIOperation = $false
+	$testUsedAssemblies = $false
+	$testRuntimeAsync = $false
+	$collectDumps = $false
+	$elevatedRelaunch = $false  # internal marker set only by our own self-elevation relaunch below -- not a documented switch
+	$bootstrap = $false
 	$reflection = $false
 	$testTimeout = 0
 	$expectTimeoutValue = $false
@@ -27,6 +88,10 @@ try {
 			}
 			$expectTimeoutValue = $false
 		}
+		elseif ($expectTestFilterValue) {
+			$testFilter = $arg
+			$expectTestFilterValue = $false
+		}
 		elseif ($expectVerbosityValue) {
 			if ($arg -notin @("quiet", "minimal", "normal", "detailed", "diagnostic")) {  # full words only, not MSBuild's own q/m/n/d/diag shorthand -- explicit over terse
 				Write-Host "'--verbosity' requires one of: quiet, minimal, normal, detailed, diagnostic. Got '$arg'." -ForegroundColor Red
@@ -40,6 +105,41 @@ try {
 		}
 		elseif ($arg -eq "--framework") {
 			$framework = $true
+		}
+		elseif ($arg -eq "--testCompilerOnly") {
+			$testCompilerOnly = $true
+		}
+		elseif ($arg -eq "--testFilter") {
+			$expectTestFilterValue = $true
+		}
+		elseif ($arg -eq "--testIOperation") {
+			$testIOperation = $true
+		}
+		elseif ($arg -eq "--testUsedAssemblies") {
+			$testUsedAssemblies = $true
+		}
+		elseif ($arg -eq "--testRuntimeAsync") {
+			$testRuntimeAsync = $true
+		}
+		elseif ($arg -eq "--collectDumps") {
+			# Opt-in, not unconditional: RunTests' Windows Error Reporting registry-based dump
+			# collection (DumpUtil in src/Tools/RunTests/ProcDumpUtil.cs) mutates a single machine-wide
+			# HKLM key with no cross-process coordination, and its own timeout-dump path
+			# (Program.HandleTimeout/ProcessUtil.GetTestHostProcesses) sweeps every testhost-like
+			# process on the machine, not just this run's -- both are safe for a caller who explicitly
+			# asked for dump collection and knows the tradeoff, but not as scry's silent default for
+			# every ordinary local run (e.g. two concurrent elevated scry runs racing that same
+			# registry key, or a timed-out run capturing an unrelated IDE-hosted testhost's memory).
+			$collectDumps = $true
+		}
+		elseif ($arg -eq "--elevatedRelaunch") {
+			# Internal marker set only by our own self-elevation relaunch (see the --collectDumps
+			# handling in the scry action below) -- not documented in the grimoire, not meant to be
+			# typed by hand.
+			$elevatedRelaunch = $true
+		}
+		elseif ($arg -eq "--bootstrap") {
+			$bootstrap = $true
 		}
 		elseif ($arg -eq "--timeout") {
 			$expectTimeoutValue = $true
@@ -65,47 +165,131 @@ try {
 		Write-Host "'--timeout' requires a minute count argument." -ForegroundColor Red
 		exit 1
 	}
+	if ($expectTestFilterValue) {
+		Write-Host "'--testFilter' requires a value." -ForegroundColor Red
+		exit 1
+	}
 	if ($expectVerbosityValue) {
 		Write-Host "'--verbosity' requires a value: quiet, minimal, normal, detailed, or diagnostic." -ForegroundColor Red
 		exit 1
 	}
 	if ([string]::IsNullOrEmpty($action) -or $action -eq "grimoire") {
-		Write-Host ""
-		Write-Host "Commands:"
-		Write-Host "    'attune'                                    Restore only."
-		Write-Host "    'bind'                                      Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\)."
-		Write-Host "    'cleanse'                                   Delete artefacts."
-		Write-Host "    'grimoire'                                  Show this text (default when no action is given)."
-		Write-Host "    'reweave'                                   Restore & rebuild."
-		Write-Host "    'scry'                                      Restore, build & run unit tests."
-		Write-Host "    'weave'                                     Restore & build."
-		Write-Host "Primary args:"
-		Write-Host "    '<scry> reflection'                         Runs folly script test harnesses."
-		Write-Host "    '<command> research [switches]'             Debug configuration."
-		Write-Host "    '<command> truth [switches]'                Release configuration."
-		Write-Host "Switches:"
-		Write-Host "    '<scry> <primary> --core'                   Run only the Core tests (skip Framework)."
-		Write-Host "    '<scry> <primary> --framework'              Run only the Framework tests (skip Core)."
-		Write-Host "    '<scry> <primary> --timeout <minutes>'      Override RunTests' whole-run watchdog (default: 90)."
-		Write-Host "    '<command> <primary> --binaryLog'           Write MSBuild binary log to .\artifacts\log\<config>\Build.binlog."
-		Write-Host "    '<command> <primary> --verbosity <level>'	MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic."
-		Write-Host ""
+        $helpText = @"
+
+Commands:
+    'attune     <primary>   [switches]'
+        Restore only.
+
+    'bind       <primary>   [switches]'
+        Restore, build & pack (nupkg files packed to ..\.nupkg\FotU\<config>\).
+
+    'cleanse'
+        Delete artefacts.
+
+    'grimoire'
+        Show this text (default when no action is given).
+
+    'reweave    <primary>   [switches]'
+        Restore & rebuild.
+
+    'scry       <primary>   [switches]'
+        Restore, build & run unit tests.
+
+    'weave      <primary>   [switches]'
+        Restore & build.
+
+Primary args:
+    '<scry>     reflection'
+        Runs folly script test harnesses.
+
+    '<command>  research    [switches]'
+        Debug configuration.
+
+    '<command>  truth       [switches]'
+        Release configuration.
+
+Switches:
+    '<command>  <primary>   --binaryLog'
+        Write MSBuild binary log to .\artifacts\log\<config>\Build.binlog.
+
+    '<command>  <primary>   --bootstrap'
+        Build/test using a locally-built bootstrap compiler.
+
+    '<scry>     <primary>   --collectDumps'
+        Enable RunTests' Windows-only crash/hang dump collection. The WER registry hook this
+        needs requires an elevated (Administrator) process; if not already elevated, prompts
+        to relaunch scry as one.
+
+    '<scry>     <primary>   --core'
+        Run only the Core tests (skip Framework).
+
+    '<scry>     <primary>   --framework'
+        Run only the Framework tests (skip Core; Windows only).
+
+    '<scry>     <primary>   --testCompilerOnly'
+        Run only the compiler unit test assemblies.
+
+    '<scry>     <primary>   --testFilter <xunit filter>'
+        Filter tests to run, e.g. FullyQualifiedName~TestClass1|Category=CategoryA.
+
+    '<scry>     <primary>   --testIOperation'
+        Run tests with the IOperation test hook enabled.
+
+    '<scry>     <primary>   --testRuntimeAsync'
+        Run tests with runtime async validation enabled (DOTNET_RuntimeAsync).
+        Incompatible with .NET Framework so always enables '--core'
+
+    '<scry>     <primary>   --testUsedAssemblies'
+        Run extra checks to validate the used-assemblies feature (ROSLYN_TEST_USEDASSEMBLIES).
+
+    '<scry>     <primary>   --timeout <minutes>'
+        Override RunTests' whole-run watchdog (default: 90).
+
+    '<command>  <primary>   --verbosity <level>'
+        MSBuild verbosity: quiet, minimal, normal, detailed, diagnostic (default: minimal).
+
+"@
+		Write-GrimoireHelp $helpText
 		exit 0
 	}
 	# Every '<selector>'/reflection is scoped to 'scry' -- one combined check/message rather than
-	# one per selector, since they're all the same rule applied to different args.
-	if ($action -ne "scry" -and ($core -or $framework -or $testTimeout -gt 0 -or $reflection)) {
-		Write-Host "'--core'/'--framework'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
+	# one per selector, since they're all the same rule applied to different args. '--bootstrap' is
+	# NOT scoped to 'scry': like '--binaryLog'/'--verbosity' it's valid on any build-invoking action,
+	# just rejected on 'cleanse' below.
+	if ($action -ne "scry" -and ($core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testUsedAssemblies -or $testRuntimeAsync -or $collectDumps -or $testTimeout -gt 0 -or $reflection)) {
+		Write-Host "'--core'/'--framework'/'--testCompilerOnly'/'--testFilter'/'--testIOperation'/'--testUsedAssemblies'/'--testRuntimeAsync'/'--collectDumps'/'--timeout'/'reflection' are only valid with the 'scry' action." -ForegroundColor Red
 		exit 1
 	}
 	# By this point $action -eq "scry" is already guaranteed whenever $reflection is true (the
 	# check above would have rejected it otherwise), so this doesn't need to re-check $action itself.
-	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testTimeout -gt 0 -or $binaryLog -or $verbosity)) {
+	if ($reflection -and (-not [string]::IsNullOrEmpty($config) -or $core -or $framework -or $testCompilerOnly -or $testFilter -or $testIOperation -or $testUsedAssemblies -or $testRuntimeAsync -or $collectDumps -or $testTimeout -gt 0 -or $binaryLog -or $verbosity -or $bootstrap)) {
 		Write-Host "'reflection' doesn't take a primary arg or any switches -- it runs folly's own test harnesses, not a build/RunTests." -ForegroundColor Red
 		exit 1
 	}
-	if (($binaryLog -or $verbosity) -and $action -eq "cleanse") {
-		Write-Host "'--binaryLog'/'--verbosity' aren't valid with 'cleanse' -- there's no build to log." -ForegroundColor Red
+	# '--testRuntimeAsync' can't run against the Framework leg (.NET Framework has no runtime-async
+	# support -- eng/build.ps1's own -testDesktop/-testRuntimeAsync guard would reject it there
+	# anyway, but failing fast here avoids burning a build first). Checked against the raw
+	# '--core'/'--framework' selectors, not the derived $runCore/$runFramework (computed later, only
+	# inside the scry branch). An explicit '--framework' is a real, irreconcilable conflict with the
+	# caller's own stated intent, so that's still a hard rejection -- checked before the '--framework
+	# requires Windows' rule below (matching folly.sh's own ordering) so this message wins on a
+	# genuine Windows host where '--framework' would otherwise be valid on its own. But when the
+	# caller just didn't say either way, there's nothing to reconcile -- push '--core' through
+	# automatically instead of making them retype what this switch already implies, matching how
+	# eng/build.ps1 itself auto-selects testCoreClr for '-testIOperation'.
+	if ($testRuntimeAsync -and $framework) {
+		Write-Host "'--testRuntimeAsync' can't run against the Framework leg -- drop '--framework' (or drop '--testRuntimeAsync') to resolve the conflict." -ForegroundColor Red
+		exit 1
+	}
+	if ($testRuntimeAsync -and -not $core) {
+		$core = $true
+	}
+	if ($framework -and -not $onWindows) {
+		Write-Host "'--framework' requires a Windows host (.NET Framework tests have no cross-platform runtime)." -ForegroundColor Red
+		exit 1
+	}
+	if (($binaryLog -or $verbosity -or $bootstrap) -and $action -eq "cleanse") {
+		Write-Host "'--binaryLog'/'--verbosity'/'--bootstrap' aren't valid with 'cleanse' -- there's no build to log or bootstrap." -ForegroundColor Red
 		exit 1
 	}
 	if ($action -eq "cleanse" -or ($action -eq "scry" -and $reflection)) {
@@ -142,17 +326,30 @@ try {
 	# "FollyOfTheUnbound" here -- see the matching comment in Microsoft.CodeAnalysis.Analyzer.Testing.csproj
 	# for the RoslynSdk collision this was added to fix.
 	$identityArgs = @("/p:FollyOfTheUnboundBuild=true")
+	# --bootstrap gets two different forwarded forms, not just one flag folded into $extraBuildArgs
+	# above: a "build" invocation (attune/weave/reweave/bind, and scry's own initial restore+build
+	# call) passes plain -bootstrap, which builds the bootstrap compiler fresh into a deterministic
+	# artifacts\bootstrap\build dir (see eng/build.ps1's own -bootstrapDir handling). scry then runs
+	# each requested test leg as its own separate eng/build.ps1 invocation -- passing -bootstrap again
+	# there would rebuild it from scratch per leg, so those instead pass -bootstrapDir pointing at the
+	# same dir to reuse it.
+	$bootstrapBuildArgs = @{}
+	$bootstrapTestArgs = @{}
+	if ($bootstrap) {
+		$bootstrapBuildArgs["bootstrap"] = $true
+		$bootstrapTestArgs["bootstrapDir"] = Join-Path (Join-Path $PSScriptRoot "artifacts") "bootstrap\build"
+	}
 	if ($action -eq "attune") {  # -nodeReuse:$false everywhere below: eng/common/tools.ps1 defaults nodeReuse true locally, leaving MSBuild workers running after exit, still holding DLLs open under artifacts/ (cleanse's build-server shutdown only stops VBCSCompiler/Razor, not these)
-		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "weave") {
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "reweave") {
-		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -rebuild -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "bind") {
-		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -build -pack -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 	}
 	elseif ($action -eq "scry" -and $reflection) {
 		$pwshExe = (Get-Process -Id $PID).Path  # a harness's own `exit` would otherwise terminate this process too -- run each in its own child pwsh, same as the harnesses do to folly.ps1 under test
@@ -167,15 +364,78 @@ try {
 		exit ($(if ($harnessFail) { 1 } else { 0 }))
 	}
 	elseif ($action -eq "scry") {
-		$runCore = $core -or -not ($core -or $framework)  # default to both when neither switch is given; either switch alone runs just that one
-		$runFramework = $framework -or -not ($core -or $framework)
+		# '--collectDumps' needs an elevated (Administrator) process to install its WER registry dump
+		# hook. Gated entirely behind an already-elevated check: if we're already Administrator
+		# (including a relaunch of ourselves via --elevatedRelaunch), none of this fires and scry
+		# just proceeds.
+		if ($collectDumps -and -not $elevatedRelaunch -and $onWindows) {
+			$currentIdentity = [Security.Principal.WindowsIdentity]::GetCurrent()
+			$currentPrincipal = New-Object Security.Principal.WindowsPrincipal($currentIdentity)
+			$isAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+			if (-not $isAdmin) {
+				$answer = $null
+				while ($answer -ne "y" -and $answer -ne "n") {
+					$answer = (Read-Host "'--collectDumps' needs an elevated (Administrator) process for its Windows Error Reporting registry hook. Re-launch scry elevated now? [y/n]").ToLowerInvariant()
+				}
+				if ($answer -eq "y") {
+					$relaunchArgs = [System.Collections.Generic.List[string]]::new()
+					$relaunchArgs.Add("scry")
+					if ($config) { $relaunchArgs.Add($config) }
+					if ($core) { $relaunchArgs.Add("--core") }
+					if ($framework) { $relaunchArgs.Add("--framework") }
+					if ($testCompilerOnly) { $relaunchArgs.Add("--testCompilerOnly") }
+					if ($testFilter) { $relaunchArgs.Add("--testFilter"); $relaunchArgs.Add($testFilter) }
+					if ($testIOperation) { $relaunchArgs.Add("--testIOperation") }
+					if ($testRuntimeAsync) { $relaunchArgs.Add("--testRuntimeAsync") }
+					if ($testUsedAssemblies) { $relaunchArgs.Add("--testUsedAssemblies") }
+					$relaunchArgs.Add("--collectDumps")
+					if ($bootstrap) { $relaunchArgs.Add("--bootstrap") }
+					if ($testTimeout -gt 0) { $relaunchArgs.Add("--timeout"); $relaunchArgs.Add($testTimeout.ToString()) }
+					if ($binaryLog) { $relaunchArgs.Add("--binaryLog") }
+					if ($verbosity) { $relaunchArgs.Add("--verbosity"); $relaunchArgs.Add($verbosity) }
+					$relaunchArgs.Add("--elevatedRelaunch")
+
+					$scriptPath = Join-Path $PSScriptRoot "folly.ps1"
+					$pwshCmd = Get-Command -Name (Get-Process -Id $PID).Path -ErrorAction SilentlyContinue
+					if (-not $pwshCmd) {
+						$pwshCmd = Get-Command pwsh -ErrorAction SilentlyContinue
+						if (-not $pwshCmd) { $pwshCmd = Get-Command powershell -ErrorAction SilentlyContinue }
+					}
+					if (-not $pwshCmd) {
+						Write-Host "Could not find 'pwsh'/'powershell' to relaunch elevated." -ForegroundColor Red
+						exit 1
+					}
+					$startArgs = @("-NoExit", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $scriptPath) + $relaunchArgs
+					$quotedStartArgs = ($startArgs | ForEach-Object { "'" + ($_ -replace "'", "''") + "'" }) -join ", "
+					$escapedPwsh = $pwshCmd.Source -replace "'", "''"
+					$tmpPs1 = Join-Path ([System.IO.Path]::GetTempPath()) ([System.IO.Path]::GetRandomFileName() + ".ps1")
+					$escapedTmpPs1 = $tmpPs1 -replace "'", "''"
+					@"
+Start-Process -FilePath '$escapedPwsh' -ArgumentList @($quotedStartArgs) -Verb RunAs
+Remove-Item -LiteralPath '$escapedTmpPs1' -Force -ErrorAction SilentlyContinue
+"@ | Set-Content -LiteralPath $tmpPs1 -Encoding UTF8
+					# Third-party UAC interceptors (e.g. Admin by Request) can make a direct '-Verb RunAs' call
+					# block this window until the elevated process is closed, instead of returning as soon as
+					# it launches -- defeating the "unelevated window exits immediately" design below. Doing
+					# the actual RunAs call inside a separate, hidden, non-elevated helper process sidesteps
+					# that: launching an ordinary (non-elevated) process is never subject to that hook, so it
+					# returns immediately regardless of how long the helper's own elevation call takes.
+					Start-Process -FilePath $pwshCmd.Source -ArgumentList @("-NoProfile", "-WindowStyle", "Hidden", "-File", $tmpPs1) -WindowStyle Hidden
+					Write-Host "Launched an elevated scry window; this window is done."
+					exit 0
+				}
+				Write-Host "Continuing without elevation -- the WER registry dump hook will be unavailable."
+			}
+		}
+		$runCore = $core -or -not ($core -or $framework)  # default to both (on Windows) when neither switch is given; either switch alone runs just that one
+		$runFramework = ($framework -or -not ($core -or $framework)) -and $onWindows  # off-Windows the no-switches default is Core-only; '--framework' itself was already rejected above on a non-Windows host
 		$callerMsbuildDebugPath = $env:MSBUILDDEBUGPATH  # captured before the restore/build below sets its own default, or this would snapshot that build-created value instead of "nothing was set"
-		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
+		& $buildScript -restore -build -nodeReuse:$false -solution $solution -configuration $configuration @extraBuildArgs @bootstrapBuildArgs @identityArgs
 		$buildExitCode = $LASTEXITCODE
 		if ($buildExitCode -ne 0) {
-			exit $buildExitCode
+			Exit-Scry $buildExitCode
 		}
-		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw per-test list -- from its already-logged runtests.log rather than re-printing RunTests' own live table a second time as it happens; this lets both legs' lists be printed together once both have finished instead of each printing immediately (interleaved with the other leg's own build/test output) as RunTests' own console output does
+		function Get-TestSummary([string]$LogPath, [string]$Label, [int]$ExitCode) {  # tallies each leg's PASSED/FAILED/TIMEOUT counts -- and keeps the raw table lines -- from its already-logged runtests.log. RunTests always writes this table to the log file regardless of -testSuppressConsoleSummary (only whether it *also* goes to the console is conditional -- see that switch's comment below); the raw Lines rebuild both legs' tables together in the "combined results" block once both have finished, and the tallies drive the compact numeric recap after it.
 			$result = [pscustomobject]@{ Label = $Label; Found = $false; Passed = 0; Failed = 0; Timeout = 0; ExitCode = $ExitCode; Lines = @() }  # ExitCode carried through unchanged so a work item that threw before producing a TestResult still marks this leg red
 			if (-not (Test-Path -LiteralPath $LogPath)) {
 				return $result
@@ -221,91 +481,6 @@ try {
 			$result.Found = $true
 			return $result
 		}
-		# Runs one leg's build.ps1 invocation and lets its per-work-item progress (the bulk of a leg's output,
-		# potentially most of the --timeout watchdog's 90 minutes) print live as it arrives, same as it always
-		# has -- only RunTests' final PASSED/FAILED/TIMEOUT table itself (the divider/rows/divider/footer span
-		# TestRunner.Print writes -- see src/Tools/RunTests/TestRunner.cs) is held back instead of printing
-		# immediately, so that table can be shown together with the other leg's once both have finished (see the
-		# "results together" block below) instead of one leg's getting buried under the other leg's own
-		# subsequent build/progress output. Note this does NOT cover Print's PrintFailedTestResult dumps for
-		# failed tests, which it writes just before that span (still live, undeferred, same as always) -- there's
-		# no marker distinguishing where those begin from ordinary progress output, so unlike the table itself
-		# they can't be reliably held back without risking swallowing real progress lines too.
-		#
-		# The real epilogue is always the *last* "================"/rows/"================" span immediately
-		# followed by RunTests' exact footer line -- not the first divider seen. A failed test's own captured
-		# stdout/stderr can itself contain a line that's exactly "================" (see this repo's own
-		# New-FalseMarkerTestCase harness fixture for this), and TestRunner prints that per work item as each one
-		# completes -- i.e. potentially long before the leg is anywhere near done. Latching "buffer everything
-		# from the first divider on" would then silently swallow the rest of a 90-minute run the moment one early
-		# work item happened to fail with such output. Instead this keeps only the two most recently *unresolved*
-		# divider-delimited spans buffered at any time (mirroring how Get-TestSummary itself resolves "last two
-		# markers before the footer" from the completed log) -- a third divider arriving proves the oldest of the
-		# two spans wasn't real, so it's released to live output then; only once the footer text arrives right
-		# after a divider is the immediately preceding span confirmed as the real table, and both stay buffered.
-		function Invoke-ScryLeg([scriptblock]$Invocation) {
-			$divider = "================"
-			$footerText = "Extra run diagnostics for logging, did not impact run results"
-			$spans = [System.Collections.Generic.List[System.Collections.Generic.List[string]]]::new()  # at most the 2 most recently unresolved divider-delimited spans, oldest first
-			$deferredLines = [System.Collections.Generic.List[string]]::new()
-			$sawFooter = $false
-			& $Invocation 2>&1 | ForEach-Object {
-				$line = $_.ToString()
-				if ($sawFooter) {
-					# Past the ambiguity zone entirely -- nothing here needs deferring, whatever it contains.
-					Write-Host $line
-					return
-				}
-				if ($spans.Count -eq 0) {
-					if ($line -eq $divider) {
-						$spans.Add([System.Collections.Generic.List[string]]::new())
-						$spans[0].Add($line)
-					}
-					else {
-						Write-Host $line
-					}
-					return
-				}
-				if ($line -eq $footerText) {
-					# The current (most recent) span holds just its own opening divider -- straight into the footer,
-					# no rows -- so it's the real table's *end* marker, and the real table itself (begin marker +
-					# rows) is the span immediately *before* it (index Count-2), if there is one. Everything older
-					# than that (index 0 .. Count-3) is stale and goes live now; the real span, the end-marker span,
-					# and this footer line are the deferred output.
-					$realSpanIndex = $spans.Count - 2
-					for ($i = 0; $i -lt $realSpanIndex; $i++) {
-						foreach ($l in $spans[$i]) { Write-Host $l }
-					}
-					for ($i = [Math]::Max($realSpanIndex, 0); $i -lt $spans.Count; $i++) {
-						foreach ($l in $spans[$i]) { $deferredLines.Add($l) }
-					}
-					$deferredLines.Add($line)
-					$sawFooter = $true
-					return
-				}
-				if ($line -eq $divider) {
-					$spans.Add([System.Collections.Generic.List[string]]::new())
-					$spans[$spans.Count - 1].Add($line)
-					if ($spans.Count -gt 2) {
-						# A third unresolved span means the oldest one is now proven not to have led straight into
-						# the footer -- it wasn't the real table, so release it to live output instead of holding it
-						# (and everything after it) hostage for the rest of the run.
-						foreach ($l in $spans[0]) { Write-Host $l }
-						$spans.RemoveAt(0)
-					}
-					return
-				}
-				$spans[$spans.Count - 1].Add($line)
-			}
-			if (-not $sawFooter) {
-				# Ran out of output before ever reaching a real table (e.g. a crash mid-Print, or before Print ever
-				# ran at all) -- nothing to defer; release whatever's still pending so it isn't silently dropped.
-				foreach ($span in $spans) {
-					foreach ($l in $span) { Write-Host $l }
-				}
-			}
-			return ($deferredLines -join [Environment]::NewLine)
-		}
 		$coreTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Core"
 		$coreLogDir = Join-Path $PSScriptRoot "artifacts\log\$configuration-Core"
 		$frameworkTestResultsDir = Join-Path $PSScriptRoot "artifacts\TestResults\$configuration-Framework"
@@ -315,26 +490,61 @@ try {
 		Remove-Item -Recurse -Force -LiteralPath $coreLogDir -ErrorAction SilentlyContinue
 		Remove-Item -Recurse -Force -LiteralPath $frameworkTestResultsDir -ErrorAction SilentlyContinue
 		Remove-Item -Recurse -Force -LiteralPath $frameworkLogDir -ErrorAction SilentlyContinue
-		# -testInteractiveConsole lets RunTests inherit the real console directly (its live per-work-item
-		# progress table, and its own final PASSED/FAILED/TIMEOUT table, both go straight to the terminal,
-		# bypassing PowerShell's pipeline entirely -- see eng/build.ps1's own comment on this switch). That's
-		# fine, and preferred, when only one leg is running. But when both legs run, passing it for each would
-		# print that leg's own final table live the moment that leg finishes -- exactly the interleaving this
-		# unified, both-legs-together printing below exists to avoid. So when both legs are requested, this is
-		# omitted instead: eng/build.ps1 then relays RunTests' output through the ordinary object pipeline,
-		# which is captured into $coreRunOutput/$frameworkRunOutput below (suppressing it from the console
-		# entirely, live table included) rather than left to print immediately.
+		# -testInteractiveConsole lets RunTests inherit the real console directly: its live per-work-item
+		# progress table (LiveTestProgressDisplay, drawn into the terminal's alternate screen buffer -- see
+		# src/Tools/RunTests/LiveTestProgressDisplay.cs) goes straight to the terminal, bypassing PowerShell's
+		# pipeline entirely. This is passed unconditionally, for both legs, always, and neither leg's output
+		# is ever piped -- piping a leg's output through the pipeline at all (even just to relay it back out
+		# line-by-line) makes Console.IsOutputRedirected true for that child process, a one-way flag
+		# TryCreate checks once up front: nothing downstream can "un-redirect" it and get the real redrawn
+		# table back, only the plain scrolling fallback RunTests uses outside a real terminal. So each leg's
+		# live table always prints live, unpiped, immediately, same as a single-leg run always has.
+		#
+		# -testSuppressConsoleSummary is different: it doesn't touch the console mode or piping at all, only
+		# whether RunTests' own final PASSED/FAILED/TIMEOUT table (src/Tools/RunTests/TestRunner.cs's Print)
+		# additionally prints straight to that same real console -- the table is still written to that leg's
+		# log file regardless (RunTests logs everything it prints via ConsoleUtil, console-suppressed or
+		# not). Passed only when both legs are requested: each leg's own table would otherwise print live the
+		# moment that leg finishes, which then gets buried under the *other* leg's own subsequent build/live
+		# progress output -- so instead both legs' tables are read back from their log files once everything
+		# finishes (Get-TestSummary) and shown together, once, in the "combined results" block below. A
+		# single-leg run passes neither leg two logs to combine, so its one table just prints live as normal.
 		$bothLegs = $runCore -and $runFramework
+		# Same hashtable-splat reasoning as $extraBuildArgs above ([switch]$testCompilerOnly needs a
+		# real $true value, not a bare splatted string) -- scoped separately since these two are
+		# 'scry'-only, unlike $extraBuildArgs which every build-invoking action forwards.
+		$extraTestArgs = @{}
+		if ($testCompilerOnly) {
+			$extraTestArgs["testCompilerOnly"] = $true
+		}
+		if ($testFilter) {
+			$extraTestArgs["testFilter"] = $testFilter
+		}
+		if ($testIOperation) {
+			$extraTestArgs["testIOperation"] = $true
+		}
+		if ($testUsedAssemblies) {
+			$extraTestArgs["testUsedAssemblies"] = $true
+		}
+		if ($testRuntimeAsync) {
+			$extraTestArgs["testRuntimeAsync"] = $true
+		}
+		# --collectDumps is opt-in (see its own arg-parsing comment above for why): RunTests' Windows-only
+		# crash/hang dump support mutates a machine-wide WER registry key with no cross-process
+		# coordination, and its timeout-dump path can capture unrelated processes' memory, so this isn't
+		# safe as scry's silent default -- only forwarded when the caller explicitly asked for it. When
+		# forwarded, eng/build.ps1's own -collectDumps handling acquires procdump.exe (downloading
+		# Procdump.zip from sysinternals.com on first use if not already cached) purely for RunTests'
+		# console "Proc dump location:" line, and gates the whole thing to a genuine Windows host.
+		if ($collectDumps) {
+			$extraTestArgs["collectDumps"] = $true
+		}
 		$coreExitCode = 0
 		if ($runCore) {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Core"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath  # set explicitly every pass -- tools.ps1 only sets this itself when unset, so only the very first build.ps1 invocation in this process would otherwise ever set it
 			try {
-				if ($bothLegs) {
-					$coreRunOutput = Invoke-ScryLeg { & $buildScript -testCoreClr -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs }
-				} else {
-					& $buildScript -testCoreClr -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
-				}
+				& $buildScript -testCoreClr -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				$coreExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -350,11 +560,7 @@ try {
 			$env:FOTU_TEST_RESULTS_SUFFIX = "Framework"
 			$env:MSBUILDDEBUGPATH = $msbuildDebugPath
 			try {
-				if ($bothLegs) {
-					$frameworkRunOutput = Invoke-ScryLeg { & $buildScript -testDesktop -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs }
-				} else {
-					& $buildScript -testDesktop -testInteractiveConsole -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraBuildArgs @identityArgs
-				}
+				& $buildScript -testDesktop -testInteractiveConsole -testSuppressConsoleSummary:$bothLegs -nodeReuse:$false -testTimeout $testTimeout -solution $solution -configuration $configuration @extraTestArgs @extraBuildArgs @bootstrapTestArgs @identityArgs
 				$frameworkExitCode = $LASTEXITCODE
 			} finally {
 				Remove-Item Env:\FOTU_TEST_RESULTS_SUFFIX -ErrorAction SilentlyContinue
@@ -377,38 +583,87 @@ try {
 		$totalPassed = ($summaries | Measure-Object -Property Passed -Sum).Sum
 		$totalFailed = ($summaries | Measure-Object -Property Failed -Sum).Sum
 		$totalTimeout = ($summaries | Measure-Object -Property Timeout -Sum).Sum
-		# Print each requested leg's own PASSED/FAILED/TIMEOUT list here, together, once every leg has finished --
-		# rather than letting each leg's own RunTests process print its list live the moment that leg completes,
-		# which (when both --core and --framework run) buries the first leg's list under the second leg's own
-		# build/live-table output instead of leaving both visible together at the end.
+		# Each leg's own summary table (TestRunner.Print) sizes its name column to that leg's own longest
+		# name (see TestResultDisplay.FitName / MinSummaryNameColumnWidth) -- fine standalone, but when
+		# both legs' already-formatted tables are combined below, a leg with shorter names (e.g. Core) ends
+		# up with a narrower name column than a leg with longer ones (e.g. Framework), so their Status/
+		# Elapsed columns no longer line up with each other even though both individually align internally.
+		# Re-pad every result row here to a single shared width (the longest name across both legs) before
+		# printing, rather than in TestRunner.Print itself -- each leg is a separate RunTests process with
+		# no visibility into the other leg's names, so this cross-leg alignment can only happen here, after
+		# both logs exist. Only the name field is touched: Status/Elapsed are already fixed-width (see
+		# TestResultDisplay.StatusColumnWidth/ElapsedColumnWidth, constant across every run) and untouched.
+		if ($bothLegs) {
+			# The single literal space before the alternation is the ColumnGap TestRunner.Print always
+			# emits between the name field and the Status field (line.Append(' ')) -- matched explicitly
+			# here, not folded into the alternation's own leading spaces, so it lands in neither group 1
+			# nor group 2 and survives reconstruction below unchanged. The three alternatives are
+			# CenterPad's exact, fixed-width (StatusColumnWidth=10) renderings of the only three possible
+			# status values -- not a loose "some spaces around the word" guess -- so this can't
+			# accidentally consume part of that gap into group 1 the way a bare '\s+PASSED\s+'-style
+			# pattern would (which previously left the reconstructed row one column short of
+			# TestRunner.Print's own).
+			$resultRowPattern = '^(.*) (  PASSED  |  FAILED  | TIMEOUT  )(.*)$'
+			# Floored at TestRunner.cs's own MinSummaryNameColumnWidth (75): each leg's own table was
+			# already padded to at least that width by TestRunner.Print (see its own remarks), so
+			# trimming this to the shorter of two below-75 names -- rather than flooring the same way
+			# here -- would shrink the combined table's name column below every single-leg table's own
+			# established width instead of just realigning Core and Framework's Status/Elapsed columns
+			# with each other.
+			$sharedNameWidth = 75
+			foreach ($summary in $summaries) {
+				foreach ($line in $summary.Lines) {
+					$rowMatch = [regex]::Match($line, $resultRowPattern)
+					if ($rowMatch.Success) {
+						$nameLength = $rowMatch.Groups[1].Value.TrimEnd().Length
+						if ($nameLength -gt $sharedNameWidth) {
+							$sharedNameWidth = $nameLength
+						}
+					}
+				}
+			}
+			foreach ($summary in $summaries) {
+				$summary.Lines = @($summary.Lines | ForEach-Object {
+					$rowMatch = [regex]::Match($_, $resultRowPattern)
+					if ($rowMatch.Success) {
+						$rowMatch.Groups[1].Value.TrimEnd().PadRight($sharedNameWidth) + " " + $rowMatch.Groups[2].Value + $rowMatch.Groups[3].Value
+					}
+					else {
+						$_
+					}
+				})
+			}
+		}
+		# Print both legs' own PASSED/FAILED/TIMEOUT tables together here, once every requested leg has
+		# finished -- read back from each leg's own runtests*.log, which -testSuppressConsoleSummary above
+		# kept out of the console the first time around specifically so this is the only place either leg's
+		# table appears, not a second copy of something already shown live. Single-leg runs never pass that
+		# switch, so their one table already printed live as normal -- nothing to combine here.
 		if ($bothLegs) {
 			foreach ($summary in $summaries) {
 				Write-Host ""
 				Write-Host "=== $($summary.Label) results ===" -ForegroundColor Cyan
-				if ($summary.ExitCode -ne 0) {
-					# A nonzero exit means something beyond a plain test failure/timeout may have happened (a
-					# crash, a dump, RunTests' own error output before it could even produce a parseable
-					# runtests*.log -- e.g. failing to start at all) that never makes it into the concise
-					# PASSED/FAILED/TIMEOUT table below (and, when the log itself is missing/unparseable,
-					# $summary.Found is false and there'd otherwise be nothing at all to show here) -- so
-					# show this leg's deferred tail (see Invoke-ScryLeg) instead of just that table. Only the
-					# tail, not the whole captured run: everything before it already streamed live as it ran,
-					# so re-printing it here too would duplicate it. Checked before $summary.Found precisely
-					# so a failure that happened too early to leave a parseable log still surfaces its
-					# deferred output instead of just "unavailable" -- which can itself be empty (e.g. a crash
-					# before any divider was ever seen), since then everything was already shown live above.
-					$deferredTail = if ($summary.Label -eq "Core") { $coreRunOutput } else { $frameworkRunOutput }
-					if ($deferredTail) {
-						Write-Host $deferredTail
+				if ($summary.Found) {
+					# Colored per-line to match RunTests' own live-console table (TestRunner.Print) and the
+					# scry live table (LiveTestProgressDisplay) -- PASSED/FAILED/TIMEOUT are exactly the
+					# same three tokens Get-TestSummary above already tallies each line by.
+					foreach ($line in $summary.Lines) {
+						if ($line -match '\bTIMEOUT\b') {
+							Write-Host $line -ForegroundColor Yellow
+						}
+						elseif ($line -match '\bFAILED\b') {
+							Write-Host $line -ForegroundColor Red
+						}
+						elseif ($line -match '\bPASSED\b') {
+							Write-Host $line -ForegroundColor Green
+						}
+						else {
+							Write-Host $line
+						}
 					}
-				}
-				elseif (-not $summary.Found) {
-					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
 				}
 				else {
-					foreach ($line in $summary.Lines) {
-						Write-Host $line
-					}
+					Write-Host "summary unavailable (no runtests.log found)" -ForegroundColor Yellow
 				}
 			}
 		}
@@ -434,15 +689,15 @@ try {
 			Write-Host "Framework test results: $frameworkTestResultsDir (logs: $frameworkLogDir)"
 		}
 		if ($coreExitCode -ne 0) {
-			exit $coreExitCode
+			Exit-Scry $coreExitCode
 		}
 		if ($frameworkExitCode -ne 0) {
-			exit $frameworkExitCode
+			Exit-Scry $frameworkExitCode
 		}
 		if (-not $overallSuccess) {
-			exit 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
+			Exit-Scry 1  # every requested leg exited 0, but the summary itself says otherwise (e.g. a caught I/O error writing runtests.log) -- don't let that read as success to automation
 		}
-		exit 0
+		Exit-Scry 0
 	}
 	elseif ($action -eq "cleanse") {
 		$artifactsDir = Join-Path $PSScriptRoot "artifacts"
@@ -572,6 +827,23 @@ try {
 			$killedNodeCount = @($nodeWorkerPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
 			if ($killedNodeCount -gt 0) {
 				Write-Host "Killed $killedNodeCount leftover MSBuild node-reuse worker process(es)."
+			}
+		}
+		# BuildHost processes (Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll, launched by
+		# BuildHostProcessManager as a plain `dotnet <dll>` child -- shown as ".NET Host" in Task Manager on
+		# Windows) are a third, separate mechanism from both above: they're spawned on demand by MSBuildWorkspace
+		# consumers (e.g. the LanguageServer's ProcessHost tests) to load projects, never register as build
+		# servers, and don't match the MSBuild.dll node-reuse pattern either (their own assembly is
+		# MSBuild.BuildHost.dll, loaded from this checkout's own artifacts\bin\...\BuildHost-netcore\ output). A
+		# host whose test process was killed/debugged-out from under it can survive indefinitely holding that
+		# output's DLLs open, which is exactly the "cleanse can't remove two files" symptom this fixes: build-server
+		# shutdown doesn't see it, and it isn't a node-reuse worker either. cleanse itself never launches one, so
+		# any live match rooted at this checkout's own artifacts\ is unconditionally stale.
+		$buildHostPids = @(Get-PidsMatchingAll @(($artifactsDir + [System.IO.Path]::DirectorySeparatorChar), "MSBuild.BuildHost.dll") | Where-Object { -not $ancestorPids.Contains($_) })  # never kill this script's own invoking shell/CI agent -- see the build-server exclusion above
+		if ($buildHostPids.Count -gt 0) {
+			$killedBuildHostCount = @($buildHostPids | Where-Object { Stop-ProcessTree -ProcessId $_ }).Count
+			if ($killedBuildHostCount -gt 0) {
+				Write-Host "Killed $killedBuildHostCount leftover MSBuild BuildHost process(es)."
 			}
 		}
 		if (Test-Path -LiteralPath $artifactsDir) {

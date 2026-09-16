@@ -53,6 +53,12 @@ When code cancels/kills a `Process` it started, use `process.Kill(entireProcessT
 
 Conversely, don't try to patch over an orphan risk by enumerating *all* processes on the machine by name and killing whatever matches (e.g. `ProcessUtil.GetTestHostProcesses()` in `RunTests`) — that risks killing an unrelated process from a concurrent run or an IDE. That enumeration exists only for best-effort diagnostics (dumping a hung process before a timeout), never for termination; termination stays scoped to processes this run itself is tracking, via the entire-process-tree kill above.
 
+### CodeAnalysis testing-library dependencies
+
+- Compatible internal repository build and test projects reference the testing-library projects under `src/RoslynSdk/Microsoft.CodeAnalysis.Testing` so source changes are exercised directly.
+- The testing-library projects do not copy NuGet runtime dependencies into their .NET Framework output directories. Final test projects resolve and copy the unified dependency graph.
+- Roslyn SDK samples and Visual Studio SDK project templates retain NuGet package references because they model standalone consumers outside the repository source graph.
+
 ## Patterns Explicitly Avoided
 
 - **No `TODO` or `TODO2` comments** — CI correctness leg flags `TODO`. Track follow-up work as a GitHub issue and link it in code (e.g. `// https://github.com/dotnet/roslyn/issues/NNNN`). Existing `TODO2` markers are a frozen baseline from when enforcement started, not a pattern to follow.
@@ -69,6 +75,8 @@ Conversely, don't try to patch over an orphan risk by enumerating *all* processe
 ## `folly.sh` / `folly.ps1` parity
 
 `folly.sh` and `folly.ps1` implement the same commands (`attune`, `weave`, `cleanse`, `scry`, etc.) for bash and PowerShell respectively, and must stay in behavioral lockstep. When editing an action in one, make the equivalent change in the other in the same commit/PR — a bug fix, a new safety check, a changed message format, a retry, a test case — don't land it in only one language. A genuinely platform-specific fix (e.g. an NTFS ACE vs. Unix file permissions, `.dotnet/dotnet` vs. `.dotnet/dotnet.exe`) still needs the equivalent *behavior* added on the other side via whatever mechanism that platform actually has, not a silent omission. Same expectation for their manual test harnesses (`scripts/test-folly-cleanse.sh` / `scripts/test-folly-cleanse.ps1`, and any future `*.sh`/`*.ps1` harness pair) — see `TESTING_STRATEGY.md`.
+
+This still leaves room for a platform-specific *implementation* to differ when the underlying mechanism genuinely differs and forcing identical code would hurt one side: `cleanse`'s progress reporting deliberately isn't identical between the two. `folly.ps1` reports a live percent because its background job streams each deleted file's size back without any rescan. `folly.sh`'s GNU-find branch does the same (a single `find -delete` pass, each deleted file's size appended to a plain log file the display polls independently -- see KNOWN_ISSUES.md for why it's a log file and not a pipe), so it could keep a percent just as cheaply — but its non-GNU-find fallback (macOS/BSD, which lacks `-printf` alongside `-delete`) can't stream sizes that way at all, so computing a percent there meant periodically re-walking the *entire remaining tree* with `find | xargs stat | awk` while `rm -rf` was still deleting from underneath it — real, measured slowness on large `artifacts/` trees, not a paper cost. That branch now just runs `rm -rf` with a spinner and no live percent/rate; `folly.ps1` is unaffected and keeps its percent. `folly.sh`'s GNU-find branch dropped percent too (it kept the cheap file/byte/rate counts, just not the percent field) purely so both bash paths print a consistent, quieter line — not because it shares the non-GNU branch's cost problem. If BSD `find` ever gains a way to stream per-file sizes during deletion, restoring percent on that branch (and, if wanted, the GNU one) is fair game — but don't reintroduce the rescan-while-deleting pattern to chase percent parity.
 
 ## Disk-constrained sandboxes: never run a full solution build
 

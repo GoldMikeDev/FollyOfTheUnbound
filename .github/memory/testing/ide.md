@@ -62,14 +62,32 @@ selection, or process-kill/crash lifecycle behavior that an in-memory host can't
 - `TestLspClient.CreateSingleServerPipeAsync` — single-server (non-daemon) mode over a named pipe.
 - `TestLspClient.CreateSingleServerStdioAsync` — single-server mode over stdio.
 
+When `LspWorkspaceContent.LoadPath` is set, `CreateLanguageServerAsync` launches the client/server processes
+and then itself awaits `WaitForProjectInitializationAsync()`, bounded by `TestHelpers.HangMitigatingTimeout`
+(it doesn't just leave that wait to the caller, unlike ordinary work-done-progress assertions in individual
+tests). If that wait times out, the method never returns `lspClient` to the caller's `await using`, so nothing
+else would dispose the already-launched processes — the timeout catch disposes it there instead before
+rethrowing. `TestLspClient.DisposeAsync()`'s own clean shutdown handshake (the LSP `shutdown`/`exit` RPC,
+then process exit) is now itself bounded by `TestHelpers.HangMitigatingTimeout`, falling back to
+`KillProcessesIfRunning()` (forcibly kills the owned process tree(s)) and swallowing the timeout so the rest
+of `DisposeAsync`'s cleanup still runs, rather than throwing out of an `await using` — this was added after a
+real Windows hang (`AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen` blocked past the 25-minute
+Blame hang-dump timeout because that handshake had no timeout of its own). The `WaitForProjectInitializationAsync`
+timeout catch above still wraps its own call to `DisposeAsync` in the same bounded-timeout/`KillProcessesIfRunning`
+pattern as a belt-and-suspenders layer — the server being disposed may be exactly what just failed to
+respond, so a second independent bound here is cheap insurance even though `DisposeAsync` now bounds itself
+internally. Preserve this bounded-wait/owned-cleanup contract in any new process-host helper that similarly
+awaits initialization before returning a client, or that adds another unbounded await to a shutdown/teardown
+path in this test class.
+
 See `Lifecycle/DaemonServerLifecycleTests.cs` and `Lifecycle/SingleServerLifecycleTests.cs` for the existing
 lifecycle/cleanup conventions (e.g. asserting on process exit codes, killing one client/the daemon and
 checking only the expected connections tear down) before adding another ad hoc process-launching test.
 
 ## ProjectData test projects use an xUnit v2 `TestContext` shim
 
-**Affected area:** `src/LanguageServer/ProjectData/Microsoft.NET.ProjectData.Tests/XunitV2TestContext.cs`,
-`src/LanguageServer/ProjectData/Microsoft.NET.ProjectData.Generators.Tests/XunitV2TestContext.cs`
+**Affected area:** `src/ProjectData/Microsoft.NET.ProjectData.Tests/XunitV2TestContext.cs`,
+`src/ProjectData/Microsoft.NET.ProjectData.Generators.Tests/XunitV2TestContext.cs`
 
 Both `ProjectData` test projects still run on xUnit v2, but their test bodies use the xUnit v3-shaped
 `TestContext.Current.CancellationToken` API. Each project carries its own identical, file-local
@@ -96,3 +114,7 @@ shared library), so:
   test source code.
 - Keep tests focused — avoid unnecessary intermediary assertions; use `.Single()`
   rather than asserting a count then indexing.
+- Language Server orchestration tests can pass additional MEF parts to
+  `LanguageServerTestComposition.GetSharedExportProvider`. A controllable
+  `PartNotDiscoverable` project loader can provide deterministic design-time
+  build timing and results without invoking MSBuild.

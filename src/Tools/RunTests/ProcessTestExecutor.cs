@@ -141,6 +141,19 @@ namespace RunTests
                 // Define environment variables for processes started via ProcessRunner.
                 var environmentVariables = new Dictionary<string, string>();
 
+                // vstest's own /Blame:CollectDump;CollectHangDump (set below in BuildRspFileContents)
+                // needs to locate procdump.exe itself, via the PROCDUMP_PATH environment variable --
+                // see Microsoft.TestPlatform.Extensions.BlameDataCollector's own "Required environment
+                // variable PROCDUMP_PATH was null or empty" message. Options.ProcDumpFilePath is
+                // resolved by Ensure-ProcDump in eng/build.{ps1,sh} for exactly this purpose, but was
+                // previously only ever surfaced in the "Proc dump location:" console line -- never
+                // actually threaded into the vstest child process's environment, so the Blame collector
+                // could never see it even when Ensure-ProcDump found a real procdump.exe.
+                if (options.CollectDumps && options.ProcDumpFilePath is { } procDumpFilePath)
+                {
+                    environmentVariables["PROCDUMP_PATH"] = procDumpFilePath;
+                }
+
                 // NOTE: xUnit seems to have an occasional issue creating logs create
                 // an empty log just in case, so our runner will still fail.
                 File.Create(resultsFilePath).Close();

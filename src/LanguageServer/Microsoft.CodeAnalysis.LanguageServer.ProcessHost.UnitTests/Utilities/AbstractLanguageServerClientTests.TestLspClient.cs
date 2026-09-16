@@ -12,6 +12,7 @@ using Microsoft.CodeAnalysis.LanguageServer.UnitTests;
 using Microsoft.CodeAnalysis.Text;
 using Microsoft.Extensions.Logging;
 using Roslyn.LanguageServer.Protocol;
+using Roslyn.Test.Utilities;
 using Roslyn.Utilities;
 using StreamJsonRpc;
 using LSP = Roslyn.LanguageServer.Protocol;
@@ -403,7 +404,7 @@ public partial class AbstractLanguageServerClientTests
 
         private string GetRelativePath(DocumentUri documentUri)
         {
-            var localPath = Path.GetFullPath(documentUri.GetRequiredParsedUri().LocalPath);
+            var localPath = Path.GetFullPath(documentUri.GetRequiredParsedUri().FsPath);
             var relativePath = PathUtilities.GetRelativePath(_workspaceRootPath, localPath);
 
             Assert.False(PathUtilities.IsAbsolute(relativePath), $"Document URI is not under the workspace root: {documentUri}");
@@ -422,7 +423,24 @@ public partial class AbstractLanguageServerClientTests
 
             var serverProcess = await GetServerProcessAsync();
 
-            await ShutdownAndWaitForExitAsync(serverProcess);
+            try
+            {
+                // The clean shutdown handshake (RPC completion, then process exit) has no timeout of its own --
+                // if the server or thin client is wedged (e.g. the connection already broke during an earlier
+                // timed-out wait), this would otherwise block the caller's 'await using' forever with nothing to
+                // catch it, all the way out to the test host's own Blame hang-dump timeout. Bound it here and, on
+                // timeout, forcibly kill the owned process tree(s) instead -- same fallback CreateLanguageServerAsync
+                // already uses for a stalled WaitForProjectInitializationAsync.
+                await ShutdownAndWaitForExitAsync(serverProcess).WaitAsync(TestHelpers.HangMitigatingTimeout);
+            }
+            catch
+            {
+                // Shutdown handshake stalled or failed -- fall back to forcibly killing the owned process
+                // tree(s) instead of leaving them (and this ValueTask) hanging. Still fall through to dispose
+                // the managed wrappers below rather than rethrowing, so a stalled shutdown doesn't also leak
+                // handles/RPC connections and DisposeAsync doesn't itself throw out of an `await using`.
+                KillProcessesIfRunning();
+            }
 
             _clientRpc.Dispose();
             _thinClientProcess.Dispose();
@@ -430,6 +448,41 @@ public partial class AbstractLanguageServerClientTests
             DisposeTransport();
 
             logger.LogTrace("Process shut down.");
+        }
+
+        /// <summary>
+        /// Best-effort fallback for a caller that couldn't afford to wait on <see cref="DisposeAsync"/>'s clean
+        /// shutdown handshake (e.g. it already timed out waiting on something else and this client may be wedged).
+        /// Forcibly kills the process tree(s) this client owns instead of asking them to exit gracefully. Safe to
+        /// call alongside/after a still-running <see cref="DisposeAsync"/>: killing the processes makes its pending
+        /// <c>WaitForExitAsync</c>/RPC-completion awaits observe the exit and unblock on their own, and the
+        /// <see cref="_disposed"/> gate keeps the rest of its cleanup (dispose calls) from running twice.
+        /// Single-server mode owns its dedicated server process, so this kills both it and the thin client; daemon
+        /// mode overrides this the same way it overrides <see cref="ShutdownAndWaitForExitAsync"/>, to kill only its
+        /// own thin client and never the shared daemon other clients depend on.
+        /// </summary>
+        internal virtual void KillProcessesIfRunning()
+        {
+            TryKillThinClient();
+
+            if (_serverProcessTask.IsCompletedSuccessfully)
+                TryKill(_serverProcessTask.Result);
+        }
+
+        private protected void TryKillThinClient() => TryKill(_thinClientProcess);
+
+        private protected static void TryKill(Process process)
+        {
+            try
+            {
+                if (!process.HasExited)
+                    process.Kill(entireProcessTree: true);
+            }
+            catch
+            {
+                // The process may have exited between the HasExited check and Kill, or already be gone;
+                // this is a best-effort fallback so swallow and move on.
+            }
         }
 
         /// <summary>

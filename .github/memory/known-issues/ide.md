@@ -32,11 +32,13 @@ into `Solution.FallbackAnalyzerOptions` via `SolutionAnalyzerConfigOptionsUpdate
 and per-connection `ExtensionLogDirectory`/`SourceGeneratorExecutionPreference` (via a `ConnectionHandshake`
 a connecting client sends before its stream becomes the LSP channel, no longer baked into the daemon pipe
 key) are all isolated per connection. **Still open, by design, not deferred:** `TelemetryLevel`/`SessionId`
-still come from whichever client happened to launch the daemon — `RoslynLogger` is a hard process-wide
-singleton with no way for two instances (one per connection) to coexist without a telemetry-plumbing
-redesign that's out of scope, and telemetry answers "how is this tool used in aggregate," not "what did this
-workspace do," so misattributing it across a shared daemon's connections isn't a correctness/privacy problem
-the way the option/log gaps were.
+still come from whichever client happened to launch the daemon — the shared `LanguageServerTelemetry`
+reporter (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/Telemetry/LanguageServerTelemetry.cs`,
+successor to the old process-wide `RoslynLogger` singleton) and its `IEventSink`/`IMetricSink` sinks are
+still owned once per daemon process, with no way for two instances (one per connection) to coexist without
+a telemetry-plumbing redesign that's out of scope, and telemetry answers "how is this tool used in
+aggregate," not "what did this workspace do," so misattributing it across a shared daemon's connections
+isn't a correctness/privacy problem the way the option/log gaps were.
 **Fixed since the above was written:** `RazorClientServerManagerProvider`
 (`src/Razor/.../Services/RazorClientServerManagerProvider.cs`), `CohostConfigurationChangedService`'s
 `IClientSettingsManager` (`src/Razor/.../Services/ClientSettingsManager.cs`), and the separate remote/OOP
@@ -335,3 +337,54 @@ starts the `dotnet restore` process directly and bounds it with `Process.WaitFor
 exceeded, rather than reusing the shared unguarded `ProcessUtilities.Run`. `ProcessUtilities.Run` itself was left
 unchanged since it's a broadly-shared utility outside this fork's scope; new setup-time subprocess calls in LSP
 test infrastructure should follow this file's bounded pattern instead of calling it directly.
+
+## `TestLspClient.DisposeAsync`'s shutdown handshake had no timeout, hanging `AutoLoadProjectsTests` for the full Blame timeout
+
+**Affected area:** `src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer.ProcessHost.UnitTests/Utilities/AbstractLanguageServerClientTests.TestLspClient.cs`
+**Description:** Diagnosed from a real Windows hang (WinDbg dumps of both the test host and the spawned
+`roslyn-language-server.dll` child process) on `AutoLoadProjectsTests.ReportsProgressForExplicitProjectOpen`.
+Every wait inside the test body itself is already bounded by `TestHelpers.HangMitigatingTimeout` (4 minutes), so
+the test's own assertions weren't the unbounded wait. The dumps showed both processes genuinely idle -- no thread
+executing test code, no forward progress -- consistent with an `await using var testLspServer` teardown that ran
+`TestLspClient.DisposeAsync()` (either after a normal test completion or while unwinding a prior bounded-wait
+`TimeoutException`) and then wedged: `DisposeAsync`'s `ShutdownAndWaitForExitAsync` sequence (the LSP
+`shutdown`/`exit` RPC handshake, then `Process.WaitForExitAsync()` for both the server and thin client) had no
+timeout of its own, unlike every other wait in this test class. If the connection was already broken (e.g. from
+an earlier timed-out wait) or the server otherwise failed to respond to the shutdown request, this blocked the
+caller's `await using` forever with nothing to catch it, all the way out to the test host's own ~25-minute Blame
+hang-dump timeout -- a real hang, not a case of the test just needing more time.
+**Invariant:** `DisposeAsync` now wraps `ShutdownAndWaitForExitAsync` in
+`.WaitAsync(TestHelpers.HangMitigatingTimeout)` and falls back to the existing `KillProcessesIfRunning()` (forcibly
+kills the owned process tree(s)) on timeout, swallowing the timeout rather than rethrowing so cleanup of the
+managed wrappers (`_clientRpc`, `_thinClientProcess`, `serverProcess`) still runs and `DisposeAsync` doesn't itself
+throw out of an `await using`. `CreateLanguageServerAsync` in `AbstractLanguageServerClientTests.cs` already used
+this same bound-then-kill pattern around its own call to `DisposeAsync` for a stalled
+`WaitForProjectInitializationAsync`, kept here as a belt-and-suspenders wrapper even though `DisposeAsync` now
+bounds itself internally. Any future override of `ShutdownAndWaitForExitAsync`/`KillProcessesIfRunning` (e.g. the
+daemon-mode `TestLspClient` subclass) gets this protection for free since `DisposeAsync` calls the virtual members;
+don't reintroduce an unbounded await in a shutdown/teardown path in this test class without the same
+timeout-then-kill treatment.
+
+## `LspServices.DisposeAsync` had no per-service timeout, so one stuck service wedged the whole process
+
+**Affected area:** `src/LanguageServer/Protocol/LspServices/LspServices.cs`
+**Description:** Same class of bug as the `TestLspClient.DisposeAsync` entry above, but in production
+server code rather than test infra, and diagnosed from a real `.\folly scry --testIOperation` run: the
+Core leg hung for 3+ hours past its 240-minute watchdog on a single stuck work item
+(`Microsoft.CodeAnalysis.LanguageServer.UnitTests`) that had already reported all 405 tests
+passed (its own xUnit result file shows `total="405" passed="404" skipped="1" time="731.830"`, ~12
+minutes) -- the test host process itself never exited afterward. `DisposeAsync` iterates every
+registered `IAsyncDisposable` `ILspService` sequentially with a bare `await service.DisposeAsync()`;
+the existing `catch (Exception ex) when (FatalError.ReportAndCatch(ex))` only guards a **thrown**
+exception, nothing protected against a service's `DisposeAsync()` simply never completing. One wedged
+service therefore blocks the whole loop -- and therefore `AbstractLanguageServer.ExitAsync`, and the
+process hosting it -- forever, with no diagnostic trace of which service is actually stuck. The exact
+service was never identified (no dump was captured; vstest's `/Blame:CollectDump;CollectHangDump`
+watches for a test-*execution* hang and had already stopped watching once xUnit reported the last
+result, so it never fired for this post-test-completion hang).
+**Invariant:** Each service's `DisposeAsync()` is now raced against a 30-second `Task.Delay` via
+`Task.WhenAny`; on timeout, `FatalError.ReportAndCatch` reports a `TimeoutException` naming the
+service's type (so a recurrence is at least diagnosable from the Watson/telemetry report) and the loop
+moves on to the next service rather than blocking forever. The abandoned `DisposeAsync()` task is
+deliberately left unawaited past the timeout -- it may still complete or fault in the background, but
+nothing here depends on it any longer. Don't reintroduce a bare unbounded `await` in this loop.

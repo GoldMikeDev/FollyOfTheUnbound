@@ -29,8 +29,8 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd
     public class EndToEndTests : EmitMetadataTestBase
     {
         /// <summary>
-        /// These tests are very sensitive to stack size hence we use a fresh thread to ensure there 
-        /// is a consistent stack size for them to execute in. 
+        /// These tests are very sensitive to stack size hence we use a fresh thread to ensure there
+        /// is a consistent stack size for them to execute in.
         /// </summary>
         /// <param name="action"></param>
         private static void RunInThread(Action action, TimeSpan? timeout = null)
@@ -118,7 +118,7 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests.EndToEnd
         // This test is a canary attempting to make sure that we don't regress the # of fluent calls that 
         // the compiler can handle. 
         [WorkItem(16669, "https://github.com/dotnet/roslyn/issues/16669")]
-        [ConditionalFact(typeof(WindowsOrLinuxOnly)), WorkItem(34880, "https://github.com/dotnet/roslyn/issues/34880")]
+        [ConditionalFact(typeof(WindowsOrLinuxOnly), typeof(NoIOperationValidation)), WorkItem(34880, "https://github.com/dotnet/roslyn/issues/34880")]
         public void OverflowOnFluentCall()
         {
             int numberFluentCalls = (IntPtr.Size, ExecutionConditionUtil.Configuration) switch
@@ -621,7 +621,7 @@ $@"        if (F({i}))
             Assert.Equal(1, counter.BindCount);
         }
 
-        [Fact]
+        [ConditionalFact(typeof(NoIOperationValidation))]
         public void Interceptors()
         {
             const int numberOfInterceptors = 10000;
@@ -779,7 +779,7 @@ $@"        if (F({i}))
             }, timeout: TimeSpan.FromSeconds(5));
         }
 
-        [Fact, WorkItem("https://github.com/dotnet/roslyn/pull/70791")]
+        [ConditionalFact(typeof(NoIOperationValidation)), WorkItem("https://github.com/dotnet/roslyn/pull/70791")]
         public void ForAttributeWithMetadataName_DeepRecursion()
         {
             var deeplyRecursive = string.Join("+", Enumerable.Repeat(""" "a" """, 20_000));
@@ -833,7 +833,7 @@ $@"        if (F({i}))
                 step => Assert.True(step.Outputs.Single().Value is ClassDeclarationSyntax { Identifier.ValueText: "C1" }));
         }
 
-        [Theory]
+        [ConditionalTheory(typeof(NoIOperationValidation))]
         [InlineData("or", "1")]
         [InlineData("and not", "0")]
         public void ManyBinaryPatterns_01(string pattern, string expectedOutput)
@@ -887,7 +887,7 @@ $@"        if (F({i}))
             });
         }
 
-        [Fact]
+        [ConditionalFact(typeof(NoIOperationValidation))]
         public void ManyBinaryPatterns_02()
         {
             const int numOfEnumMembers = 5_000;
@@ -967,7 +967,7 @@ _{i},
             });
         }
 
-        [Fact]
+        [ConditionalFact(typeof(NoIOperationValidation))]
         public void ManyBinaryPatterns_03()
         {
             const int numOfEnumMembers = 4_000;
@@ -1129,7 +1129,7 @@ or E._{i}
             }, timeout: TimeSpan.FromSeconds(10));
         }
 
-        [Fact]
+        [ConditionalFact(typeof(NoIOperationValidation))]
         [WorkItem("https://github.com/dotnet/roslyn/pull/83087")]
         public void ManyUnreferencedSuppressMessageAttributes()
         {

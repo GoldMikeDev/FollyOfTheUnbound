@@ -76,6 +76,17 @@ namespace RunTests
         public bool Sequential { get; set; }
 
         /// <summary>
+        /// Suppresses only the final PASSED/FAILED/TIMEOUT summary table (<see cref="TestRunner.Print"/>)
+        /// from the console -- the live per-work-item progress table/fallback status line, and any
+        /// live per-failure diagnostics, are unaffected. The table is still written to the log file as
+        /// usual regardless of this option; it's meant for a caller running multiple passes (e.g.
+        /// folly.ps1 scry, which runs one TestRunner pass per --core/--framework leg) that wants to build
+        /// its own combined presentation from each pass's log file instead of each pass also printing its
+        /// own copy to the console.
+        /// </summary>
+        public bool SuppressConsoleSummary { get; set; }
+
+        /// <summary>
         /// Whether to submit test partitions as Helix work items for the external job monitor.
         /// </summary>
         public bool UseHelix { get; set; }
@@ -142,6 +153,7 @@ namespace RunTests
             var includeFilter = new List<string>();
             var excludeFilter = new List<string>();
             var sequential = false;
+            var suppressConsoleSummary = false;
             var helix = false;
             var helixQueueName = "Windows.10.Amd64.Open";
             string? helixApiAccessToken = null;
@@ -167,6 +179,7 @@ namespace RunTests
                 { "arch=", "Architecture to test on: x86, x64 or arm64", s => architecture = s },
                 { "html", "Include HTML file output", o => includeHtml = o is object },
                 { "sequential", "Run tests sequentially", o => sequential = o is object },
+                { "suppressConsoleSummary", "Suppress only the final PASSED/FAILED/TIMEOUT summary table from the console (still written to the log file)", o => suppressConsoleSummary = o is object },
                 { "helix", "Submit tests to Helix for the external job monitor", o => helix = o is object },
                 { "helixQueueName=", "Name of the Helix queue to run tests on", s => helixQueueName = s },
                 { "helixApiAccessToken=", "Access token for internal helix queues", s => helixApiAccessToken = s },
@@ -241,6 +254,7 @@ namespace RunTests
                 ProcDumpFilePath = procDumpFilePath,
                 CollectDumps = collectDumps,
                 Sequential = sequential,
+                SuppressConsoleSummary = suppressConsoleSummary,
                 UseHelix = helix,
                 HelixQueueName = helixQueueName,
                 HelixApiAccessToken = helixApiAccessToken,

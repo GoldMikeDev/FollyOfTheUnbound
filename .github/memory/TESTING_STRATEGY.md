@@ -19,6 +19,7 @@ the one for your area):
 | Compiler tests | `src/Compilers/*/Test/`. |
 | IDE/analyzer tests | `*Test` projects under `src/Features`, `src/Analyzers`, `src/EditorFeatures`. |
 | RoslynSdk testing-library tests | `src/RoslynSdk/Microsoft.CodeAnalysis.Testing/Test/*.UnitTests/` -- one `*.UnitTests` project per RoslynSdk testing-framework library (`Microsoft.CodeAnalysis.Analyzer.Testing`, `.CodeFix.Testing`, the `CSharp.*`/`VisualBasic.*` variants, etc.), imported alongside the libraries themselves. Run a specific one with `dotnet test src/RoslynSdk/Microsoft.CodeAnalysis.Testing/Test/<Project>.UnitTests/<Project>.UnitTests.csproj`, same as any other `*.UnitTests` project. |
+| Project-data tests | `src/ProjectData/Microsoft.NET.ProjectData{,.Generators,.Tasks}.Tests/`; assemblies use the `UnitTests` suffix. |
 | Integration tests | VS integration tests (`azure-pipelines-integration*.yml`); runnable locally on **Windows** hosts with a VS install, also run in CI. |
 
 Frameworks: xUnit with Roslyn test utilities.
@@ -27,6 +28,11 @@ Frameworks: xUnit with Roslyn test utilities.
 
 - Prefer raw string literals (`"""..."""`) over verbatim strings for test source code.
 - Keep tests focused: use `.Single()` rather than asserting a count then indexing.
+- Analyzer testing-library tests should use `ReferenceAssemblies.Default` for
+  the stable .NET Core 3.1 reference surface. Use an explicit
+  `ReferenceAssemblies` value, such as `ReferenceAssemblies.Net.Net100`, when
+  the scenario intentionally depends on a newer or specific framework API
+  surface.
 - For issue-linked changes, add a `WorkItem` attribute next to the test
   attribute, e.g. `[Fact, WorkItem("https://github.com/dotnet/roslyn/issues/1234")]`
   or `[Theory, WorkItem("https://github.com/dotnet/roslyn/issues/1234")]`.
@@ -48,7 +54,23 @@ Targeted runs are strongly preferred — the full suite is large and slow. Tests
 
 ### Test types to be aware of
 - VS integration tests (`azure-pipelines-integration*.yml`) require a VS install, so they run only on **Windows** hosts (not CI-only — they can be run locally on Windows). Prefer unit tests for the inner development loop; reach for integration tests when validating end-to-end VS behavior.
-- A handful of tests fail only for environmental reasons — see `KNOWN_ISSUES.md`.
+- A handful of tests fail only for environmental reasons:
+  - `RuntimeHostInfoTests.DotNetInPath_Symlinked` requires symlink-creation privilege (run elevated).
+  - `Workspaces.MSBuild` `NewlyCreatedProjectsFromDotNetNew.Validate*TemplateProjects` fail without mobile (ios/tvos/macos/maccatalyst) dotnet workloads installed.
+- `--testIOperation` (`.\folly scry ... --testIOperation` / `eng/build.{sh,ps1} -testIOperation`) makes
+  `CreateCompilation` walk the whole semantic-model/IOperation tree for every compilation in every
+  test, on top of ordinary bind/emit — this can push several of this fork's heaviest test assemblies
+  (`Semantic`, `Symbol`, `Emit3`, `Workspaces.MSBuild`, etc.) well past 15-29 minutes each. A Core leg
+  was once killed by RunTests' whole-run `--timeout` watchdog (`RunTests.Program`'s `Test timeout
+  exceeded, dumping remaining processes`) while individual assemblies were still actively completing,
+  not because anything was actually stuck; `eng/build.{sh,ps1}` temporarily raised the `-testIOperation`
+  default from 90 to 240 minutes to cover that, but a later clean `--testIOperation` run stayed well
+  under even 90 minutes on both legs, so the bump was reverted back to a flat 90-minute default for
+  every leg. `--testTimeout`/`-testTimeout` still overrides the default explicitly if a slow run needs
+  more room. Individual large or deeply-recursive tests that separately blow the *per-validation* 15s
+  watchdog inside `CompilationExtensions.ValidateIOperations` (a different, inner timeout — see
+  `testing/compiler.md`'s `NoIOperationValidation` section) are unaffected by this; that one is fixed
+  per-test, not by raising a global run timeout.
 
 ## CI
 
@@ -60,7 +82,7 @@ Not every test lives in a `dotnet test` project — `folly.sh cleanse`'s file-en
 ```bash
 ./scripts/test-folly-cleanse.sh
 ```
-Covers: empty `artifacts/`, a populated tree, redirected (non-TTY) output staying free of escape codes, a permission failure reporting an accurate count with a nonzero exit, a file vanishing mid-scan under a concurrent writer, an unreadable subtree during the background scan reporting an honest uncertain remainder rather than a false "0 files could not be removed" (skips under root, since root bypasses the permission check needed to trigger it), `artifacts/` existing as a non-directory, and `cleanse`'s build-server process-killing fallback itself (not just file deletion): a synthetic same-checkout build server that traps `SIGTERM` still ends up force-killed and confirmed dead (proving the TERM-then-KILL escalation) while a synthetic foreign-checkout one matching the same name pattern survives untouched (proving the `.dotnet`-path scoping), and a synthetic wrapper process whose own command line matches the build-server pattern survives `cleanse` running as its child (proving the ancestor-process exclusion). These process-killing cases register their synthetic PIDs with the harness's `EXIT` trap immediately upon spawning, so an interrupted run can't leak them.
+Covers: empty `artifacts/`, a populated tree, redirected (non-TTY) output staying free of escape codes, a permission failure reporting an accurate count with a nonzero exit, a file vanishing mid-scan under a concurrent writer, an unreadable subtree during the background scan reporting an honest uncertain remainder rather than a false "0 files could not be removed" (skips under root, since root bypasses the permission check needed to trigger it), `artifacts/` existing as a non-directory, and `cleanse`'s build-server process-killing fallback itself (not just file deletion): a synthetic same-checkout build server that traps `SIGTERM` still ends up force-killed and confirmed dead (proving the TERM-then-KILL escalation) while a synthetic foreign-checkout one matching the same name pattern survives untouched (proving the `.dotnet`-path scoping), and a synthetic wrapper process whose own command line matches the build-server pattern survives `cleanse` running as its child (proving the ancestor-process exclusion). These process-killing cases register their synthetic PIDs with the harness's `EXIT` trap immediately upon spawning, so an interrupted run can't leak them. Unlike `test-folly-cleanse.ps1` (below), these two cases are *not* Unix-only: the synthetic processes are ordinary trap-catching bash scripts, which Git-Bash's own real bash runs identically to Linux/macOS, so they're meant to also be this PR's only real coverage of `folly.sh cleanse`'s Windows-host CIM/native-Win32 PID discovery (see `KNOWN_ISSUES.md`'s "Git-Bash/MSYS2 caveat") -- but a review round on PR #87 caught that the harness's own PID-verification (confirming a spawned pid is genuinely the synthetic process it's tracking, before trusting it in an assertion) used the same unconditional `ps -eo pid,command` MSYS/Cygwin's `ps` doesn't support, so on that exact host these checks always came back empty and both cases silently skipped -- exercising nothing. `_verify_pid_marker` (mirroring `folly.sh`'s own `is_windows_host`-gated CIM/`ps -W` split) fixed that.
 
 Similarly, `folly.ps1`'s argument parsing (primary arg, `--core`/`--framework`, `--timeout <minutes>`, `--binaryLog`, `--verbosity <level>` -- including that `--timeout`'s value is actually forwarded to `eng/build.ps1` for both legs, `--binaryLog`/`--verbosity` are forwarded across every build-invoking action, `--verbosity` accepts only full words (`quiet`/`minimal`/`normal`/`detailed`/`diagnostic`, case-insensitively, never MSBuild's own `q`/`m`/`n`/`d`/`diag` shorthand), and that a missing/invalid value and use on the wrong action are all rejected -- including `--binaryLog`/`--verbosity` on `cleanse` and on `scry reflection` -- and the pre-existing named `-action`/`-config` form) and its unified pass/fail/timeout summary have a manual harness at `scripts/test-folly-scry-args.ps1`, run against a mocked `eng/build.ps1` so no real build/test happens. Run it by hand after touching `folly.ps1`'s argument parsing or `scry` action:
 ```powershell

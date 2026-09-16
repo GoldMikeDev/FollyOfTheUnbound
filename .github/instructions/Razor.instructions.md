@@ -36,6 +36,9 @@ their original sub-tree layout
   fields through the constructor. When adding a new field, thread it through every existing
   `With*` method. Prefer computing derived data via extension methods (e.g.,
   `GetUnusedDirectives()`) rather than storing computed results as fields.
+- **Razor engine concurrency**: Hosts can process multiple documents concurrently through one
+  `RazorProjectEngine`. Phase and pass instances are shared, so keep per-document state in locals
+  or an execution context rather than mutable instance fields.
 - **Razor documents in Roslyn**: Stored as additional documents. Resolve via
   `solution.GetDocumentIdsWithFilePath(filePath)` then `solution.GetAdditionalDocument(documentId)`.
 - **Razor documents with virtual URIs**: Remote Razor document classification preserves the full
@@ -51,6 +54,15 @@ their original sub-tree layout
   the user's global C# options. Include the resolved options in `RazorFormattingOptions` sent to
   remote formatting consumers; remote `IClientSettingsManager` state does not contain the user's
   C# formatting preferences.
+- **Analyzer-config options for generated C# in code-action cleanup**: `[*.razor]`/`[*.cshtml]`
+  `.editorconfig` sections must also govern cleanup of the *generated* C# document, not just
+  cohost formatting. `RazorSourceGeneratedDocumentAnalyzerConfigOptionsProvider`
+  (`ExportWorkspaceService<ISourceGeneratedDocumentAnalyzerConfigOptionsProvider>`) maps a
+  Razor source-generated document back to its originating `.razor`/`.cshtml` additional document
+  (matching on the generated document's hint name, full-path or project-relative) and resolves
+  options from that path via `GetAnalyzerOptionsForPath`. Preserve this provider when touching
+  cohost code-action cleanup — without it, generated-document cleanup silently falls back to the
+  global/OOP analyzer-config path and loses the `.razor`-specific settings.
 - **Runtime-declared attribute lists**: When the runtime declares a set the compiler must read
   (e.g. `[EventHandler]`, `[AcceptsAssetPath]`), it applies the attributes to a public type with
   a well-known name (`EventHandlers`, `AssetPathAttributes`). A `TagHelperProducer` under
@@ -87,7 +99,7 @@ When adding a new `IRemote*Service` and `Remote*Service`:
 3. Register in
    `src\Razor\src\Razor\src\Microsoft.CodeAnalysis.Razor.Workspaces\Remote\RazorServices.cs`
    (add to `MessagePackServices` or `JsonServices`).
-4. **Add an entry to `eng\targets\RazorServices.props`** (at the Roslyn repo root, not under
+4. **Add an entry to the repo-root `eng\targets\RazorServices.props` file** (not under
    `src\Razor`):
    `Include="Microsoft.VisualStudio.Razor.{ShortName}"` with
    `ClassName="{FullTypeName}+Factory"`. The `ShortName` is your interface name with

@@ -95,7 +95,33 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
                     throw new InvalidOperationException($"Unsupported load path extension: {PathUtilities.GetExtension(workspaceContent.LoadPath)}");
             }
 
-            await lspClient.WaitForProjectInitializationAsync();
+            try
+            {
+                await lspClient.WaitForProjectInitializationAsync().WaitAsync(TestHelpers.HangMitigatingTimeout);
+            }
+            catch
+            {
+                // If initialization stalls and the timeout fires, this method never returns the client to its
+                // caller's 'await using', so nothing else will dispose the already-launched client/server
+                // processes. Tear them down here before rethrowing so a stalled init doesn't leak them for the
+                // rest of the test host's lifetime.
+                //
+                // DisposeAsync itself now bounds its clean shutdown handshake (see its own remarks) and falls back
+                // to KillProcessesIfRunning on timeout, so this doesn't strictly need its own timeout/fallback --
+                // but the server we're disposing may be exactly what just failed to respond, so keep this belt-
+                // and-suspenders wrapper rather than relying solely on DisposeAsync's internal bound.
+                try
+                {
+                    await lspClient.DisposeAsync().AsTask().WaitAsync(TestHelpers.HangMitigatingTimeout);
+                }
+                catch
+                {
+                    lspClient.KillProcessesIfRunning();
+                }
+
+                throw;
+            }
+
             lspClient.ProjectInitializationCompleted = true;
         }
 
@@ -141,7 +167,7 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
                 {
                     foreach (var (title, source) in _unitSourcesByTitle)
                     {
-                        if (title == begin.Title)
+                        if (MatchingTitle(title, begin.Title))
                             source.TrySetResult(unit);
                     }
                 }
@@ -154,7 +180,7 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
         {
             lock (_gate)
             {
-                if (_unitsByToken.Values.FirstOrDefault(unit => unit.Title == title) is { } unit)
+                if (_unitsByToken.Values.FirstOrDefault(unit => MatchingTitle(title, unit.Title)) is { } unit)
                     return Task.FromResult(unit);
 
                 var unitSource = new TaskCompletionSource<WorkDoneProgressUnit>(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -162,6 +188,10 @@ public abstract partial class AbstractLanguageServerClientTests(ITestOutputHelpe
                 return unitSource.Task;
             }
         }
+
+        // Progress titles can contain URIs whose canonical form changes casing, so compare them case-insensitively.
+        private static bool MatchingTitle(string expectedTitle, string? actualTitle)
+            => expectedTitle.Equals(actualTitle, StringComparison.OrdinalIgnoreCase);
 
         private static string GetToken(SumType<int, string> token)
             => token.Value?.ToString() ?? throw new InvalidOperationException("Work-done progress token must not be null.");

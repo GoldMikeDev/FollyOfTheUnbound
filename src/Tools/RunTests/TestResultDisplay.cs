@@ -14,7 +14,7 @@ namespace RunTests
     /// </summary>
     internal static class TestResultDisplay
     {
-        internal const int StatusColumnWidth = 9;
+        internal const int StatusColumnWidth = 10;
 
         /// <summary>
         /// Wide enough for <see cref="FormatElapsed"/>'s longest possible output, <c>"99:59:59"</c> (8 chars),
