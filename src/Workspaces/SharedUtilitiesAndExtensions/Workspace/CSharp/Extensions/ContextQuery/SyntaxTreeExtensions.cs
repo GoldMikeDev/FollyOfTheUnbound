@@ -2978,6 +2978,13 @@ internal static partial class SyntaxTreeExtensions
                 {
                     return true;
                 }
+
+                // Deliberately NOT offered after a *plain* if-block (IfStatementSyntax) with no existing
+                // catch/finally/block-condition to establish the if/catch-chain shape -- unlike 'else'
+                // (which upstream's ElseKeywordRecommender offers unconditionally after any if-block),
+                // catch/finally are only surfaced once something already signals intent to use this
+                // fork's if/catch/finally chain extension, keeping this from firing on every ordinary
+                // if-statement in existing code.
             }
         }
 
