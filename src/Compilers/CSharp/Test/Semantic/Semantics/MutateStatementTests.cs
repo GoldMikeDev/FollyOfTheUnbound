@@ -1,0 +1,77 @@
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
+
+using Xunit;
+
+namespace Microsoft.CodeAnalysis.CSharp.UnitTests.Semantics
+{
+    public class MutateStatementTests : CompilingTestBase
+    {
+        [Fact]
+        public void BasicValidMutation_BoolToInt()
+        {
+            var text =
+@"using System;
+class C
+{
+    static void Main()
+    {
+        bool b = true;
+        mutate b to int;
+        Console.WriteLine(b);
+    }
+}";
+            CompileAndVerify(source: text, expectedOutput: "1");
+        }
+
+        [Fact]
+        public void ConditionalMutation_ReportsWarningButStillCompiles()
+        {
+            // int -> byte can fail at runtime for out-of-range values, so it's Conditional:
+            // a warning, not an error, and the program still compiles and runs.
+            var text =
+@"using System;
+class C
+{
+    static void Main()
+    {
+        int i = 300;
+        mutate i to byte;
+        Console.WriteLine(i);
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                Diagnostic(ErrorCode.WRN_MutationMayFail, "mutate i to byte;").WithArguments("i", "byte").WithLocation(7, 9));
+        }
+
+        // No genuine `NeverValid` (from, to) pair is reachable through ordinary source: per
+        // MutationValidity.GetValidity, NeverValid is only returned when `from` or `to` is null,
+        // which BindMutateStatement never observes for a successfully-bound local and a
+        // successfully-bound type -- every real (from, to) SpecialType combination falls through
+        // to AlwaysValid or Conditional. So this test is skipped rather than faked; see
+        // src/Compilers/CSharp/Portable/Binder/MutationValidity.cs for the reachability argument.
+
+        [Fact]
+        public void Regression_NullableWalker_TracksMutatedLocalNullability()
+        {
+            // Before the fix, NullableWalker never tracked the mutate-declared local's nullable
+            // state, so no CS8602 warning fired here. After the fix it should.
+            var text =
+@"#nullable enable
+using System;
+class C
+{
+    static void M()
+    {
+        string? s = null;
+        mutate s to string;
+        s.ToString();
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                Diagnostic(ErrorCode.HDN_UnusedUsingDirective, "using System;").WithLocation(2, 1),
+                Diagnostic(ErrorCode.WRN_NullReferenceReceiver, "s").WithLocation(9, 9));
+        }
+    }
+}
