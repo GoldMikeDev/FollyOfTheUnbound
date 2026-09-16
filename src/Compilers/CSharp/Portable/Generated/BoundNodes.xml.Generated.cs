@@ -4098,31 +4098,34 @@ namespace Microsoft.CodeAnalysis.CSharp
 
     internal sealed partial class BoundMutateStatement : BoundStatement
     {
-        public BoundMutateStatement(SyntaxNode syntax, LocalSymbol originalLocal, LocalSymbol newLocal, BoundExpression conversionExpression, bool hasErrors = false)
+        public BoundMutateStatement(SyntaxNode syntax, LocalSymbol originalLocal, LocalSymbol newLocal, BoundExpression conversionExpression, MutationValidityKind validity, bool hasErrors = false)
             : base(BoundKind.MutateStatement, syntax, hasErrors || conversionExpression.HasErrors())
         {
 
             RoslynDebug.Assert(originalLocal is object, "Field 'originalLocal' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
             RoslynDebug.Assert(newLocal is object, "Field 'newLocal' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
             RoslynDebug.Assert(conversionExpression is object, "Field 'conversionExpression' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
+            RoslynDebug.Assert(validity is object, "Field 'validity' cannot be null (make the type nullable in BoundNodes.xml to remove this check)");
 
             this.OriginalLocal = originalLocal;
             this.NewLocal = newLocal;
             this.ConversionExpression = conversionExpression;
+            this.Validity = validity;
         }
 
         public LocalSymbol OriginalLocal { get; }
         public LocalSymbol NewLocal { get; }
         public BoundExpression ConversionExpression { get; }
+        public MutationValidityKind Validity { get; }
 
         [DebuggerStepThrough]
         public override BoundNode? Accept(BoundTreeVisitor visitor) => visitor.VisitMutateStatement(this);
 
-        public BoundMutateStatement Update(LocalSymbol originalLocal, LocalSymbol newLocal, BoundExpression conversionExpression)
+        public BoundMutateStatement Update(LocalSymbol originalLocal, LocalSymbol newLocal, BoundExpression conversionExpression, MutationValidityKind validity)
         {
-            if (!Symbols.SymbolEqualityComparer.ConsiderEverything.Equals(originalLocal, this.OriginalLocal) || !Symbols.SymbolEqualityComparer.ConsiderEverything.Equals(newLocal, this.NewLocal) || conversionExpression != this.ConversionExpression)
+            if (!Symbols.SymbolEqualityComparer.ConsiderEverything.Equals(originalLocal, this.OriginalLocal) || !Symbols.SymbolEqualityComparer.ConsiderEverything.Equals(newLocal, this.NewLocal) || conversionExpression != this.ConversionExpression || validity != this.Validity)
             {
-                var result = new BoundMutateStatement(this.Syntax, originalLocal, newLocal, conversionExpression, this.HasErrors);
+                var result = new BoundMutateStatement(this.Syntax, originalLocal, newLocal, conversionExpression, validity, this.HasErrors);
                 result.CopyAttributes(this);
                 return result;
             }
@@ -11988,7 +11991,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             LocalSymbol originalLocal = this.VisitLocalSymbol(node.OriginalLocal);
             LocalSymbol newLocal = this.VisitLocalSymbol(node.NewLocal);
             BoundExpression conversionExpression = (BoundExpression)this.Visit(node.ConversionExpression);
-            return node.Update(originalLocal, newLocal, conversionExpression);
+            return node.Update(originalLocal, newLocal, conversionExpression, node.Validity);
         }
         public override BoundNode? VisitForStatement(BoundForStatement node)
         {
@@ -14173,7 +14176,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             LocalSymbol originalLocal = GetUpdatedSymbol(node, node.OriginalLocal);
             LocalSymbol newLocal = GetUpdatedSymbol(node, node.NewLocal);
             BoundExpression conversionExpression = (BoundExpression)this.Visit(node.ConversionExpression);
-            return node.Update(originalLocal, newLocal, conversionExpression);
+            return node.Update(originalLocal, newLocal, conversionExpression, node.Validity);
         }
 
         public override BoundNode? VisitForStatement(BoundForStatement node)
@@ -16705,6 +16708,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             new TreeDumperNode("originalLocal", node.OriginalLocal, null),
             new TreeDumperNode("newLocal", node.NewLocal, null),
             new TreeDumperNode("conversionExpression", null, new TreeDumperNode[] { Visit(node.ConversionExpression, null) }),
+            new TreeDumperNode("validity", node.Validity, null),
             new TreeDumperNode("hasErrors", node.HasErrors, null)
         }
         );

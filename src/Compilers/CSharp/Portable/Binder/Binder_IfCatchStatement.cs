@@ -44,16 +44,24 @@ namespace Microsoft.CodeAnalysis.CSharp
                     // LocalBinderFactory visits the block itself), not the IfCatchArmBinder that
                     // introduces 'ifout' -- both are keyed to the same ConditionBlock syntax node in the
                     // binder map, and the block's own registration wins (last one registered). However
-                    // that BlockBinder's parent chain does include the IfCatchArmBinder, so ordinary name
-                    // lookup for "ifout" through it still finds the right local.
-                    Binder armBinder = this.GetBinder(arm.ConditionBlock) ?? this;
+                    // that BlockBinder's parent chain does include the IfCatchArmBinder, so walking up from
+                    // it finds the right binder directly without a general name-resolution pass.
+                    Binder? armBinder = this.GetBinder(arm.ConditionBlock);
                     BoundBlock boundConditionBlock = this.BindEmbeddedBlock(arm.ConditionBlock, diagnostics);
 
-                    LookupResult ifoutLookup = LookupResult.GetInstance();
-                    CompoundUseSiteInfo<AssemblySymbol> ifoutUseSiteInfo = GetNewCompoundUseSiteInfo(diagnostics);
-                    armBinder.LookupSymbolsWithFallback(ifoutLookup, IfOutLocalSymbol.IfOutName, arity: 0, useSiteInfo: ref ifoutUseSiteInfo, options: LookupOptions.Default);
-                    LocalSymbol? ifoutLocal = ifoutLookup.IsSingleViable ? ifoutLookup.SingleSymbolOrDefault as LocalSymbol : null;
-                    ifoutLookup.Free();
+                    IfCatchArmBinder? ifCatchArmBinder = null;
+                    for (Binder? candidate = armBinder; candidate != null; candidate = candidate.Next)
+                    {
+                        if (candidate is IfCatchArmBinder found && found.ScopeDesignator == arm.ConditionBlock)
+                        {
+                            ifCatchArmBinder = found;
+                            break;
+                        }
+                    }
+
+                    LocalSymbol? ifoutLocal = ifCatchArmBinder?.GetDeclaredLocalsForScope(arm.ConditionBlock) is [var single]
+                        ? single
+                        : null;
 
                     if (ifoutLocal is null)
                     {
