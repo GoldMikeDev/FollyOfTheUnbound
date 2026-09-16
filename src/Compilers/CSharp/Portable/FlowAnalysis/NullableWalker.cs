@@ -3656,6 +3656,19 @@ namespace Microsoft.CodeAnalysis.CSharp
             return base.VisitWhileStatement(node);
         }
 
+        public override BoundNode? VisitMutateStatement(BoundMutateStatement node)
+        {
+            var conversionResult = VisitRvalueWithState(node.ConversionExpression);
+            var type = node.NewLocal.TypeWithAnnotations;
+            int slot = GetOrCreateSlot(node.NewLocal);
+            if (slot > 0)
+            {
+                this.State[slot] = conversionResult.State;
+            }
+            TrackNullableStateForAssignment(node.ConversionExpression, type, slot, conversionResult);
+            return null;
+        }
+
         public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
         {
             var operandResult = VisitRvalueWithState(node.Operand);
