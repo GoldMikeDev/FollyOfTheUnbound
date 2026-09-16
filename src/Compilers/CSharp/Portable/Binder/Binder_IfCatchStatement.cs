@@ -86,10 +86,10 @@ namespace Microsoft.CodeAnalysis.CSharp
             BoundStatement chainResult = alternative
                 ?? new BoundBlock(node, ImmutableArray<LocalSymbol>.Empty, ImmutableArray<MethodSymbol>.Empty, hasUnsafeModifier: false, instrumentation: null, statements: ImmutableArray<BoundStatement>.Empty);
 
-            if (anyBlockCondition && node.Catches.Count == 0)
+            bool requiresCatch = anyBlockCondition && node.Catches.Count == 0;
+            if (requiresCatch)
             {
                 diagnostics.Add(ErrorCode.ERR_IfBlockConditionRequiresCatch, node.Location);
-                return chainResult;
             }
 
             bool hasCatchesOrFinally = node.Catches.Count > 0 || node.Finally != null;
@@ -104,7 +104,10 @@ namespace Microsoft.CodeAnalysis.CSharp
             BoundBlock tryBlock = chainResult as BoundBlock
                 ?? new BoundBlock(node, ImmutableArray<LocalSymbol>.Empty, ImmutableArray<MethodSymbol>.Empty, hasUnsafeModifier: false, instrumentation: null, statements: ImmutableArray.Create(chainResult));
 
-            return new BoundTryStatement(node, tryBlock, catchBlocks, finallyBlockOpt, finallyLabelOpt: null, preferFaultHandler: false);
+            // Always keep the bound catch/finally blocks attached to the returned tree (even when the
+            // ERR_IfBlockConditionRequiresCatch diagnostic above already marked this chain invalid), so error
+            // recovery and IDE tooling (semantic model queries, hover, go-to-def) over those spans still work.
+            return new BoundTryStatement(node, tryBlock, catchBlocks, finallyBlockOpt, finallyLabelOpt: null, preferFaultHandler: false, hasErrors: requiresCatch);
         }
 
         /// <summary>
