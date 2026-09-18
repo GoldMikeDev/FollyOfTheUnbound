@@ -127,7 +127,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         internal override GeneratedLabelSymbol? GetContinueLabel(string? labelName) => null;
 
-        internal override GeneratedLabelSymbol? EscapeLabel => null;
+        internal override GeneratedLabelSymbol? GetEscapeLabel(SyntaxNode escapeStatementSyntax) => null;
 
         internal override BoundExpression? ConditionalReceiverExpression
         {

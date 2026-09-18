@@ -1851,8 +1851,11 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
 
     // Folly of the Unbound: an `escape;` statement targets the nearest enclosing block lexically. Wrapping an
     // unbraced embedded statement that is (or leads to) a top-level `escape;` in a new block would silently
-    // retarget that `escape;` -- so the fix must not perform that wrap. The diagnostic still fires (bracing is
-    // still "missing"), but applying the fix produces no textual change.
+    // retarget that `escape;`. The IDE0011 diagnostic itself still fires (bracing is still "missing" from the
+    // analyzer's point of view), but -- as of the PR #96 third review round -- the Add Braces code fix is no
+    // longer even *offered* for that diagnostic (round 2 only made the rewrite a no-op when applied, which left
+    // the action registered but ineffective forever). `expectDiagnostic: false` below drives
+    // TestMissingInRegularAndScriptAsync, i.e. "no code fix offered", which is what we're asserting.
     [Fact]
     public Task DoNotWrapIfBodyContainingTopLevelEscapeStatement()
         => TestAsync(
@@ -1881,7 +1884,7 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             }
             """,
             PreferBracesPreference.Always,
-            expectDiagnostic: true);
+            expectDiagnostic: false);
 
     [Fact]
     public Task DoNotWrapIfBodyContainingNestedTopLevelEscapeStatement()
@@ -1911,7 +1914,7 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             }
             """,
             PreferBracesPreference.Always,
-            expectDiagnostic: true);
+            expectDiagnostic: false);
 
     // Control case: the `escape;` here is already inside its own nested block, so wrapping the outer `if`'s
     // embedded statement is safe -- it doesn't change what the inner `escape;` targets. The fix should still

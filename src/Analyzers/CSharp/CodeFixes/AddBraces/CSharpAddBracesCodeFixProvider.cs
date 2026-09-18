@@ -24,6 +24,24 @@ internal sealed class CSharpAddBracesCodeFixProvider() : SyntaxEditorBasedCodeFi
 
     public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
     {
+        var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
+
+        // Folly of the Unbound: don't even offer the fix for a diagnostic whose statement is (or leads,
+        // through further unbraced embedded statements, to) a top-level `escape;` -- applying it would
+        // silently retarget that `escape;`, and offering an action that then does nothing (the FixAllAsync
+        // no-op guard below) leaves the diagnostic permanently "fixable" with no visible effect. Other
+        // diagnostics in the same Fix All operation are unaffected -- FixAllAsync still fixes those.
+        if (root is not null)
+        {
+            foreach (var diagnostic in context.Diagnostics)
+            {
+                var statement = root.FindNode(diagnostic.Location.SourceSpan, getInnermostNodeForTie: true);
+                var embeddedStatement = statement.GetEmbeddedStatement();
+                if (embeddedStatement is not null && embeddedStatement.ContainsTopLevelEscapeStatement())
+                    return;
+            }
+        }
+
         RegisterCodeFix(context, CSharpAnalyzersResources.Add_braces, nameof(CSharpAnalyzersResources.Add_braces));
     }
 

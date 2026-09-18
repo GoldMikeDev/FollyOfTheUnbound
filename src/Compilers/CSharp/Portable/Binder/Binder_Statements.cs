@@ -1996,7 +1996,7 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         private BoundStatement BindEscapeStatement(EscapeStatementSyntax node, BindingDiagnosticBag diagnostics)
         {
-            GeneratedLabelSymbol target = this.EscapeLabel;
+            GeneratedLabelSymbol target = this.GetEscapeLabel(node);
             if (target is null)
             {
                 // Every statement position is lexically inside some block (a method body is

@@ -8461,7 +8461,7 @@ done:
             {
                 return this.ParseMutateStatement(attributes);
             }
-            else if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && this.CurrentToken.ValueText == "escape" &&
+            else if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && this.CurrentToken.Text == "escape" &&
                      this.PeekToken(1).Kind == SyntaxKind.SemicolonToken)
             {
                 return this.ParseEscapeStatement(attributes);

@@ -32,10 +32,18 @@ expression statements using `escape` as an identifier — no real `SyntaxKind.Es
 including a `catch` or `finally` block's own body, and a `try` block's body (where `finally` still
 runs normally afterward, since the jump target is inside the `try`'s own protected region, not past
 it). Unlike `break`/`continue`, it never searches past the nearest block to find a loop/switch — it
-always targets the closest enclosing `BlockSyntax`, full stop. A method body is itself a block, so
-`escape;` at the top level of a method just runs to the end of the method (no dedicated diagnostic
-needed for "no enclosing block" — that case is unreachable in practice, since every statement
-position is lexically inside some block).
+always targets the closest enclosing `BlockSyntax`, full stop. An ordinary method body is itself a
+block, so `escape;` at the top level of a regular method just runs to the end of the method with no
+dedicated "no enclosing block" diagnostic needed there.
+
+The null-target case (`Binder.EscapeLabel` never overridden by a `BlockBinder`, so it bottoms out at
+`BuckStopsHereBinder.EscapeLabel => null`) **is** reachable, though: global/top-level statements and
+script code bind through `SimpleProgramBinder`/`BuckStopsHereBinder`, not through a `BlockBinder`, so
+an `escape;` written directly in top-level statements has no enclosing `BlockSyntax` binder at all and
+correctly reports `ERR_NoBreakOrCont` (see the IDE section below, which intentionally excludes `escape`
+from keyword completion at that scope for the same reason). The defensive `Error(diagnostics,
+ErrorCode.ERR_NoBreakOrCont, node)` branch in `Binder_Statements.BindEscapeStatement` is exercised by
+that case, not dead code.
 
 **Implementation — deliberately lowering-free:** rather than a new `BoundNode` kind with custom
 `LocalRewriter`/codegen handling, `escape;` binds directly to an ordinary `BoundGotoStatement`
@@ -152,6 +160,85 @@ same *plain* keyword coloring `mutate` gets, not `ControlKeyword` -- `IsControlK
 `mutate`'s) token kind is still `IdentifierToken`, not a real keyword `SyntaxKind`, that path can
 never be reached by either construct; a `ControlStatementKind` case for `EscapeStatement` would be a
 no-op. Keyword highlighting and outlining were not added (same limitation `mutate` already has).
+
+**Third review round on PR #96 (5 more Codex findings on commit `f7e424ad`, all confirmed real, fixed):**
+- **Split/Merge Nested If refactorings had the same block-retargeting hazard as round 2's AddBraces/
+  ConvertForEachToFor fix.** `SplitIntoNestedIfStatements` (`if (a && b) S;` → `if (a) { if (b) S; }`)
+  introduces a new `BlockSyntax` around the outer `if`'s original body via `IIfLikeStatementGenerator.
+  WithStatementInBlock` -- if that body is/leads to a top-level `escape;`, the new block silently
+  retargets it. `MergeNestedIfStatements` (the reverse) does the opposite: it *removes* the block that
+  wraps a nested `if`, which retargets an `escape;` that used to target that removed block. Fixed with
+  two new virtual hooks, both defaulting to "safe" and overridden only in the CSharp-specific providers
+  (the Core/Portable abstract classes are shared with VB and can't reference the CSharp-only
+  `ContainsTopLevelEscapeStatement()` extension):
+  - `AbstractSplitIfStatementCodeRefactoringProvider.IsSafeToRefactor(ifOrElseIf)`, checked in the
+    shared `ComputeRefactoringsAsync` before registering the action at all. Overridden in
+    `CSharpSplitIntoNestedIfStatementsCodeRefactoringProvider` to check `((IfStatementSyntax)ifOrElseIf).
+    Statement.ContainsTopLevelEscapeStatement()`.
+  - `AbstractMergeNestedIfStatementsCodeRefactoringProvider.IsSafeToMerge(innerIfStatement)`, checked in
+    `CanBeMergedAsync` (had to change from `static` to an instance method to call the virtual hook) for
+    both the "merge up" and "merge down" directions, which share that one implementation. Overridden in
+    `CSharpMergeNestedIfStatementsCodeRefactoringProvider` to check `((IfStatementSyntax)innerIfStatement).
+    ContainsTopLevelEscapeStatement()` -- reusing the helper's own `IfStatementSyntax` case (which already
+    walks `.Statement` and `.Else`) directly on the nested `if`, since *it* is the node whose wrapping
+    block is being removed.
+- **AddBraces still *offered* the code fix (IDE0011) for a hazardous diagnostic, even though round 2
+  made the rewrite a no-op when applied.** Triggering the action then visibly did nothing, and the
+  diagnostic stayed "fixable" forever. Fixed in `CSharpAddBracesCodeFixProvider.RegisterCodeFixesAsync`:
+  it now checks every diagnostic in `context.Diagnostics` for the hazard (via the same `GetEmbeddedStatement
+  ()`/`ContainsTopLevelEscapeStatement()` pair `FixAllAsync` already used) and skips registering the fix
+  entirely if any diagnostic in the context has it, while `FixAllAsync`'s existing per-diagnostic no-op
+  guard still lets Fix All fix the *other*, safe diagnostics in the same operation.
+- **`@escape;` parsed as the escape statement instead of an ordinary identifier expression.** The
+  parser's detection (`LanguageParser.TryParseStatementStartingWithIdentifier`) checked `CurrentToken.
+  ValueText == "escape"` -- the *unescaped* semantic text, which is `"escape"` for both `escape` and
+  `@escape`. But `@identifier` is specifically how source opts a contextual keyword *out* of its special
+  interpretation (same as `@if`, `@mutate`, etc.), so `@escape;` should parse as a bare identifier-expression
+  statement, not `EscapeStatementSyntax`. Fixed by checking `CurrentToken.Text` (the raw token text,
+  which differs for `@escape`) instead of `ValueText`, matching how the classifier already distinguishes
+  the two for this exact reason. (`mutate` has the same `ValueText`-based check and likely the same
+  latent bug for `@mutate;` -- not in scope of this fix, flagged here for whoever touches `mutate` next.)
+- **Speculative binding of a synthetic `escape;` mutated the real, long-lived `BlockBinder`'s lazy
+  label state.** `SemanticModel.TryGetSpeculativeSemanticModel(position, StatementSyntax, ...)` for a
+  synthetic `escape;` reuses the *real* enclosing binder chain (`this.GetEnclosingBinder(position)` in
+  `MethodBodySemanticModel.TryGetSpeculativeSemanticModelCore`), wrapping it in a new speculative
+  `ExecutableCodeBinder`. The old `BlockBinder.EscapeLabel` getter unconditionally lazily allocated and
+  cached `_lazyEscapeLabel` via `Interlocked.CompareExchange` on `this` -- with no way to tell whether
+  `this` was answering for a real `escape;` actually in the block's source, or a free-standing
+  speculative node that merely happens to reuse the same binder chain. A later real bind of that exact
+  block (same `BlockBinder` instance, since it's found via the compilation-shared per-tree binder cache)
+  would then see `EscapeLabelIfAllocated` non-null and append an unused synthesized label statement,
+  which `ControlFlowPass` would flag with a spurious `WRN_UnreferencedLabel`.
+  - **Fix:** `Binder.EscapeLabel` (a property, delegating to `Next`) became `Binder.GetEscapeLabel
+    (SyntaxNode escapeStatementSyntax)` (a method, mirroring `GetBreakLabel`/`GetContinueLabel`'s
+    parameterized pattern) so the callee can tell *which* syntax node is asking. `BlockBinder.
+    GetEscapeLabel` now first checks `IsDescendantOfThisBlock(escapeStatementSyntax)` (a manual `.Parent`
+    walk comparing reference identity against `_block`, not a `Span`/position check -- a speculative
+    node is a free-standing, unattached syntax tree that was never made a descendant of the real tree,
+    so this is robust regardless of what absolute offsets the parser happened to assign it): if the node
+    isn't a real descendant, it returns a **fresh, uncached** `GeneratedLabelSymbol` without touching
+    `_lazyEscapeLabel` at all; only a genuine descendant allocates/caches as before. `Binder_Statements.
+    BindEscapeStatement` now calls `this.GetEscapeLabel(node)` instead of `this.EscapeLabel`.
+    `BuckStopsHereBinder.GetEscapeLabel` still just returns `null`.
+  - **Verification note (matters for anyone re-validating this):** a straightforward repro through
+    `Compilation.GetDiagnostics()` or even `SemanticModel.GetDiagnostics()` called *after* the
+    speculative bind does **not** observe the corruption in this codebase, empirically -- each of those
+    entry points turns out to construct its own independent binder chain for the method body rather than
+    reusing the one `SemanticModel.GetEnclosingBinder` (and thus the speculative bind) obtained and
+    cached. That's an accidental insulation of *those two specific call paths*, not evidence the bug is
+    harmless: the real, mutated `BlockBinder` instance is reachable and demonstrably corrupted (confirmed
+    by instrumenting the old code -- a foreign/speculative node did allocate onto the real block's shared
+    instance), and any other consumer that reuses `SemanticModel.GetEnclosingBinder`'s result more
+    directly (which is exactly what the speculative-binding code itself does, and plausibly what some
+    IDE-side caching could do too) would see it. The regression test
+    (`EscapeStatementTests.Escape_SpeculativeBind_DoesNotMutateRealBlockBinder`) therefore exercises the
+    mechanism directly at the binder level -- obtains the real `BlockBinder` via `SemanticModel.
+    GetEnclosingBinder` (the same API the speculative-binding code path uses internally), calls
+    `GetEscapeLabel` with a free-standing `escape;` node the way the speculative code does, and asserts
+    `EscapeLabelIfAllocated` stays `null` on the real binder -- plus a control case confirming a genuine
+    descendant `escape;` still allocates and caches correctly. Confirmed failing (compile error against
+    the pre-fix `EscapeLabel` property API, and via direct instrumentation of the old getter showing it
+    allocate on the real block's shared instance for a foreign node) before the fix, passing after.
 
 **Second review round on PR #96 (3 more Codex findings, all confirmed real, fixed):**
 - **IDE refactorings that wrap an embedded statement in a new block can silently retarget an `escape;`

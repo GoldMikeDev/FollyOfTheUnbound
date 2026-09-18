@@ -123,7 +123,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// as we haven't actually moved down the original statement list
         ///
         /// <para><b>escape;</b>: if some `escape;` earlier in this same block requested a landing
-        /// label (see Binder_Statements.BindBlock / BlockBinder.EscapeLabel), that label is
+        /// label (see Binder_Statements.BindBlock / BlockBinder.GetEscapeLabel), that label is
         /// synthesized as the block's *last* statement, so it can end up as the last of the "trailing
         /// statements after a using declaration" this method collects into the try body it builds. It
         /// must not stay there: the escape's `BoundGotoStatement` originates *before* the using
@@ -191,7 +191,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         /// <summary>
         /// True if <paramref name="statement"/> is the compiler-generated, otherwise-empty labeled
         /// statement <see cref="Binder"/> appends to a block as a landing site for any `escape;`
-        /// that targets it (see Binder_Statements.BindBlock / BlockBinder.EscapeLabel).
+        /// that targets it (see Binder_Statements.BindBlock / BlockBinder.GetEscapeLabel).
         /// </summary>
         private static bool IsCompilerGeneratedEscapeLabel(BoundStatement statement)
             => statement is BoundLabeledStatement { WasCompilerGenerated: true, Label: GeneratedLabelSymbol, Body: BoundNoOpStatement { WasCompilerGenerated: true } };

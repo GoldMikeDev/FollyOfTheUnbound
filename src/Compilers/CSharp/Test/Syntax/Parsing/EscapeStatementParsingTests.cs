@@ -71,4 +71,23 @@ public sealed class EscapeStatementParsingTests : ParsingTests
         }
         EOF();
     }
+
+    [Fact]
+    public void EscapeVerbatim_DoesNotParseAsEscapeStatement()
+    {
+        // PR #96 review: `@escape;` is the verbatim-identifier escape hatch (same as `@if`, `@mutate`,
+        // etc.) and must parse as a plain identifier-expression statement, not EscapeStatementSyntax --
+        // the parser must check the token's raw Text ("@escape"), not its unescaped ValueText
+        // ("escape"), when deciding whether this is the escape statement.
+        UsingStatement("@escape;");
+        N(SyntaxKind.ExpressionStatement);
+        {
+            N(SyntaxKind.IdentifierName);
+            {
+                N(SyntaxKind.IdentifierToken, "@escape");
+            }
+            N(SyntaxKind.SemicolonToken);
+        }
+        EOF();
+    }
 }
