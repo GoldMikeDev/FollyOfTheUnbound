@@ -791,6 +791,10 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
                 // only check the condition, edits in the body are allowed:
                 return AreEquivalentActiveStatements((IfStatementSyntax)oldStatement, (IfStatementSyntax)newStatement);
 
+            case SyntaxKind.IfCatchArm:
+                // only check the condition, edits in the body are allowed:
+                return AreEquivalentActiveStatements((IfCatchArmSyntax)oldStatement, (IfCatchArmSyntax)newStatement);
+
             case SyntaxKind.WhileStatement:
                 // only check the condition, edits in the body are allowed:
                 return AreEquivalentActiveStatements((WhileStatementSyntax)oldStatement, (WhileStatementSyntax)newStatement);
@@ -798,6 +802,10 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
             case SyntaxKind.DoStatement:
                 // only check the condition, edits in the body are allowed:
                 return AreEquivalentActiveStatements((DoStatementSyntax)oldStatement, (DoStatementSyntax)newStatement);
+
+            case SyntaxKind.DoUntilStatement:
+                // only check the condition, edits in the body are allowed:
+                return AreEquivalentActiveStatements((DoUntilStatementSyntax)oldStatement, (DoUntilStatementSyntax)newStatement);
 
             case SyntaxKind.SwitchStatement:
                 return AreEquivalentActiveStatements((SwitchStatementSyntax)oldStatement, (SwitchStatementSyntax)newStatement);
@@ -828,6 +836,22 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
         return AreEquivalentIgnoringLambdaBodies(oldNode.Condition, newNode.Condition);
     }
 
+    private static bool AreEquivalentActiveStatements(IfCatchArmSyntax oldNode, IfCatchArmSyntax newNode)
+    {
+        // only check the condition (classic parenthesized form) or the condition block (block-condition
+        // form), edits in the consequence/body are allowed:
+        if (oldNode.Condition != null || newNode.Condition != null)
+        {
+            return oldNode.Condition != null &&
+                newNode.Condition != null &&
+                AreEquivalentIgnoringLambdaBodies(oldNode.Condition, newNode.Condition);
+        }
+
+        return oldNode.ConditionBlock != null &&
+            newNode.ConditionBlock != null &&
+            AreEquivalentIgnoringLambdaBodies(oldNode.ConditionBlock, newNode.ConditionBlock);
+    }
+
     private static bool AreEquivalentActiveStatements(WhileStatementSyntax oldNode, WhileStatementSyntax newNode)
     {
         // only check the condition, edits in the body are allowed:
@@ -835,6 +859,12 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
     }
 
     private static bool AreEquivalentActiveStatements(DoStatementSyntax oldNode, DoStatementSyntax newNode)
+    {
+        // only check the condition, edits in the body are allowed:
+        return AreEquivalentIgnoringLambdaBodies(oldNode.Condition, newNode.Condition);
+    }
+
+    private static bool AreEquivalentActiveStatements(DoUntilStatementSyntax oldNode, DoUntilStatementSyntax newNode)
     {
         // only check the condition, edits in the body are allowed:
         return AreEquivalentIgnoringLambdaBodies(oldNode.Condition, newNode.Condition);
@@ -1779,6 +1809,15 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
             case SyntaxKind.TryStatement:
                 return ((TryStatementSyntax)node).TryKeyword.Span;
 
+            case SyntaxKind.IfCatchStatement:
+                return ((IfCatchStatementSyntax)node).Arms[0].IfKeyword.Span;
+
+            case SyntaxKind.IfCatchArm:
+                var ifCatchArm = (IfCatchArmSyntax)node;
+                return TextSpan.FromBounds(
+                    ifCatchArm.IfKeyword.SpanStart,
+                    (ifCatchArm.CloseParenToken != default) ? ifCatchArm.CloseParenToken.Span.End : ifCatchArm.ConditionBlock!.Span.End);
+
             case SyntaxKind.CatchClause:
                 return ((CatchClauseSyntax)node).CatchKeyword.Span;
 
@@ -1810,6 +1849,9 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
 
             case SyntaxKind.DoStatement:
                 return ((DoStatementSyntax)node).DoKeyword.Span;
+
+            case SyntaxKind.DoUntilStatement:
+                return ((DoUntilStatementSyntax)node).DoKeyword.Span;
 
             case SyntaxKind.ForStatement:
                 var forStatement = (ForStatementSyntax)node;
@@ -2595,6 +2637,7 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
             switch (kind)
             {
                 case SyntaxKind.TryStatement:
+                case SyntaxKind.IfCatchStatement:
                     if (isNonLeaf)
                     {
                         result.Add(current);
@@ -2606,9 +2649,10 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
                 case SyntaxKind.FinallyClause:
                     result.Add(current);
 
-                    // skip try:
+                    // skip try/if-catch-chain: Catches/Finally on an if/catch/finally chain (IfCatchStatement)
+                    // reuse the exact same CatchClauseSyntax/FinallyClauseSyntax node types as an ordinary try.
                     RoslynDebug.Assert(current.Parent is object);
-                    RoslynDebug.Assert(current.Parent.Kind() == SyntaxKind.TryStatement);
+                    RoslynDebug.Assert(current.Parent.Kind() is SyntaxKind.TryStatement or SyntaxKind.IfCatchStatement);
                     current = current.Parent;
 
                     break;
@@ -2662,6 +2706,12 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
                 return SyntaxFactory.AreEquivalent(oldTryStatement.Finally, newTryStatement.Finally)
                     && SyntaxFactory.AreEquivalent(oldTryStatement.Catches, newTryStatement.Catches);
 
+            case SyntaxKind.IfCatchStatement:
+                var oldIfCatchStatement = (IfCatchStatementSyntax)oldNode;
+                var newIfCatchStatement = (IfCatchStatementSyntax)newNode;
+                return SyntaxFactory.AreEquivalent(oldIfCatchStatement.Finally, newIfCatchStatement.Finally)
+                    && SyntaxFactory.AreEquivalent(oldIfCatchStatement.Catches, newIfCatchStatement.Catches);
+
             case SyntaxKind.CatchClause:
             case SyntaxKind.FinallyClause:
                 return SyntaxFactory.AreEquivalent(oldNode, newNode);
@@ -2687,24 +2737,43 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
     /// </param>
     protected override TextSpan GetExceptionHandlingRegion(SyntaxNode node, out bool coversAllChildren)
     {
-        TryStatementSyntax tryStatement;
         switch (node.Kind())
         {
             case SyntaxKind.TryStatement:
-                tryStatement = (TryStatementSyntax)node;
-                coversAllChildren = false;
-
-                if (tryStatement.Catches is not [var firstCatch, ..])
                 {
-                    RoslynDebug.Assert(tryStatement.Finally != null);
-                    return tryStatement.Finally.Span;
+                    var tryStatement = (TryStatementSyntax)node;
+                    coversAllChildren = false;
+
+                    if (tryStatement.Catches is not [var firstCatch, ..])
+                    {
+                        RoslynDebug.Assert(tryStatement.Finally != null);
+                        return tryStatement.Finally.Span;
+                    }
+
+                    return TextSpan.FromBounds(
+                        firstCatch.SpanStart,
+                        (tryStatement.Finally != null)
+                            ? tryStatement.Finally.Span.End
+                            : tryStatement.Catches.Last().Span.End);
                 }
 
-                return TextSpan.FromBounds(
-                    firstCatch.SpanStart,
-                    (tryStatement.Finally != null)
-                        ? tryStatement.Finally.Span.End
-                        : tryStatement.Catches.Last().Span.End);
+            case SyntaxKind.IfCatchStatement:
+                {
+                    var ifCatchStatement = (IfCatchStatementSyntax)node;
+                    coversAllChildren = false;
+
+                    if (ifCatchStatement.Catches is not [var firstCatch, ..])
+                    {
+                        RoslynDebug.Assert(ifCatchStatement.Finally != null);
+                        return ifCatchStatement.Finally.Span;
+                    }
+
+                    return TextSpan.FromBounds(
+                        firstCatch.SpanStart,
+                        (ifCatchStatement.Finally != null)
+                            ? ifCatchStatement.Finally.Span.End
+                            : ifCatchStatement.Catches.Last().Span.End);
+                }
 
             case SyntaxKind.CatchClause:
                 coversAllChildren = true;
@@ -2712,8 +2781,16 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
 
             case SyntaxKind.FinallyClause:
                 coversAllChildren = true;
-                tryStatement = (TryStatementSyntax)node.Parent!;
-                return tryStatement.Span;
+
+                // Catches/Finally on an if/catch/finally chain (IfCatchStatement) reuse the exact same
+                // CatchClauseSyntax/FinallyClauseSyntax node types as an ordinary try, so node.Parent may
+                // be either a TryStatementSyntax or an IfCatchStatementSyntax.
+                return node.Parent switch
+                {
+                    TryStatementSyntax tryStatement => tryStatement.Span,
+                    IfCatchStatementSyntax ifCatchStatement => ifCatchStatement.Span,
+                    _ => throw ExceptionUtilities.UnexpectedValue(node.Parent?.Kind()),
+                };
 
             default:
                 throw ExceptionUtilities.UnexpectedValue(node.Kind());
