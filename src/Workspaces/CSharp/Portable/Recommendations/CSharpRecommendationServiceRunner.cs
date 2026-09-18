@@ -328,7 +328,7 @@ internal partial class CSharpRecommendationService
                 return true;
 
             return statement is ForStatementSyntax or ForEachStatementSyntax or ForEachVariableStatementSyntax
-                or WhileStatementSyntax or DoStatementSyntax;
+                or WhileStatementSyntax or DoStatementSyntax or DoUntilStatementSyntax;
         }
 
         private ImmutableArray<ISymbol> GetSymbolsForTypeOrNamespaceContext()
