@@ -19,6 +19,8 @@ using Microsoft.CodeAnalysis.LanguageServer.Daemon;
 using Microsoft.CodeAnalysis.LanguageServer.HostWorkspace;
 using Microsoft.CodeAnalysis.LanguageServer.LanguageServer;
 using Microsoft.CodeAnalysis.LanguageServer.Services;
+using Microsoft.CodeAnalysis.LanguageServer.Telemetry;
+using RoslynTelemetry = Microsoft.CodeAnalysis.Internal.Log.RoslynTelemetry;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.UnitTests;
 
@@ -98,6 +100,7 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         return await TestDaemon.CreateAsync(
             exportProvider,
             typeRefResolver,
+            configuration,
             keepAlive ?? Timeout.InfiniteTimeSpan,
             LoggerFactory,
             TestOutputHelper,
@@ -336,7 +339,7 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
             var connectionSource = new SingleLanguageServerConnectionSource(new LanguageServerConnection(serverInputStream, serverOutputStream));
             var logger = loggerFactory.CreateLogger<LanguageServerConnectionManager>();
             _serverTask = _connectionManager.RunAsync(
-                connectionSource, exportProvider, typeRefResolver, logger, CancellationToken.None);
+                connectionSource, exportProvider, typeRefResolver, logger, daemonSessionId: null, CancellationToken.None);
         }
 
         /// <summary>The host task; completes once the single in-memory server exits.</summary>
@@ -456,10 +459,13 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         private readonly CancellationTokenSource _cts;
         private readonly ExportProvider _exportProvider;
         private readonly ITestOutputHelper _testOutputHelper;
+        private readonly RoslynTelemetry _daemonTelemetry;
+        private readonly string? _daemonSessionId;
 
         internal static async Task<TestDaemon> CreateAsync(
             ExportProvider exportProvider,
             ExtensionTypeRefResolver typeRefResolver,
+            ServerConfiguration serverConfiguration,
             TimeSpan keepAlive,
             ILoggerFactory loggerFactory,
             ITestOutputHelper testOutputHelper,
@@ -467,31 +473,49 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
         {
             var pipeName = "roslyn-daemon-test." + Guid.NewGuid().ToString("N");
             var logger = loggerFactory.CreateLogger<LanguageServerConnectionManager>();
-            var created = NamedPipeDaemonConnectionSource.TryCreate(
-                pipeName, keepAlive, logger, out var source, initialConnectionTimeout);
-            Contract.ThrowIfFalse(
-                created,
-                "Unexpectedly failed to become the daemon for a fresh pipe name.");
-            Contract.ThrowIfNull(source);
+            var daemonTelemetry = new RoslynTelemetry();
+
+            // This mirrors Program's optional process-level owner. Each host always creates its own
+            // RoslynTelemetry and creates a child VS telemetry session only when telemetry is enabled.
+            var daemonTelemetryService = LanguageServerTelemetry.CreateSession(
+                serverConfiguration,
+                loggerFactory,
+                daemonTelemetry,
+                serverConfiguration.SessionId,
+                isDefaultSession: false);
 
             var connectionManager = new LanguageServerConnectionManager();
             var cts = new CancellationTokenSource();
-            var daemonTask = Task.Run(async () =>
+            NamedPipeDaemonConnectionSource? source;
+            Task daemonTask;
+            using (RoslynTelemetry.SetCurrent(daemonTelemetry))
             {
-                try
+                var created = NamedPipeDaemonConnectionSource.TryCreate(
+                    pipeName, keepAlive, logger, out source, initialConnectionTimeout);
+                Contract.ThrowIfFalse(
+                    created,
+                    "Unexpectedly failed to become the daemon for a fresh pipe name.");
+                Contract.ThrowIfNull(source);
+
+                daemonTask = Task.Run(async () =>
                 {
-                    await connectionManager.RunAsync(
-                        source,
-                        exportProvider,
-                        typeRefResolver,
-                        logger,
-                        cts.Token).ConfigureAwait(false);
-                }
-                finally
-                {
-                    source.Dispose();
-                }
-            });
+                    try
+                    {
+                        await connectionManager.RunAsync(
+                            source,
+                            exportProvider,
+                            typeRefResolver,
+                            logger,
+                            daemonTelemetryService?.SessionId,
+                            cts.Token).ConfigureAwait(false);
+                    }
+                    finally
+                    {
+                        source.Dispose();
+                        daemonTelemetryService?.Dispose();
+                    }
+                });
+            }
 
             // Wait for the accept loop to actually be listening before handing the daemon back: daemonTask above
             // only just started on a background Task, and unlike a real client (which connects with its own
@@ -500,7 +524,16 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
             // see "Pipe is broken" instead of ever reaching its own assertions.
             await source.GetTestAccessor().WaitForAcceptLoopStartedAsync().ConfigureAwait(false);
 
-            return new TestDaemon(pipeName, source, connectionManager, daemonTask, cts, exportProvider, testOutputHelper);
+            return new TestDaemon(
+                pipeName,
+                source,
+                connectionManager,
+                daemonTask,
+                cts,
+                exportProvider,
+                testOutputHelper,
+                daemonTelemetry,
+                daemonTelemetryService?.SessionId);
         }
 
         private TestDaemon(
@@ -510,7 +543,9 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
             Task daemonTask,
             CancellationTokenSource cts,
             ExportProvider exportProvider,
-            ITestOutputHelper testOutputHelper)
+            ITestOutputHelper testOutputHelper,
+            RoslynTelemetry daemonTelemetry,
+            string? daemonSessionId)
         {
             _pipeName = pipeName;
             _connectionSource = connectionSource;
@@ -519,6 +554,8 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
             _cts = cts;
             _exportProvider = exportProvider;
             _testOutputHelper = testOutputHelper;
+            _daemonTelemetry = daemonTelemetry;
+            _daemonSessionId = daemonSessionId;
         }
 
         /// <summary>The pipe the daemon listens on. Identifies the daemon for single-instance checks.</summary>
@@ -529,6 +566,8 @@ public abstract class AbstractLanguageServerHostTests : IDisposable
 
         /// <summary>Completes when the daemon exits (its keepalive elapsed with no clients, or it was disposed).</summary>
         internal Task DaemonExitTask => _daemonTask;
+        internal RoslynTelemetry DaemonTelemetry => _daemonTelemetry;
+        internal string? DaemonSessionId => _daemonSessionId;
 
         /// <summary>The language servers the daemon currently has running, one per connected client.</summary>
         internal ImmutableArray<LanguageServerHost> GetStartedServers() => _connectionManager.GetStartedServers();

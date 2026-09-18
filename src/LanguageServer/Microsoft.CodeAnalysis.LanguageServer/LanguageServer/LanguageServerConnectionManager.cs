@@ -1,4 +1,4 @@
-// Licensed to the .NET Foundation under one or more agreements.
+﻿// Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 // See the LICENSE file in the project root for more information.
 
@@ -35,6 +35,7 @@ internal sealed class LanguageServerConnectionManager
         ExportProvider exportProvider,
         AbstractTypeRefResolver typeRefResolver,
         ILogger logger,
+        string? daemonSessionId,
         CancellationToken cancellationToken)
     {
         // For a source that isolates faults (the daemon), a server fault is logged and confined to that one
@@ -142,7 +143,13 @@ internal sealed class LanguageServerConnectionManager
             LanguageServerHost server;
             try
             {
-                server = new LanguageServerHost(connection.InputStream, connection.OutputStream, exportProvider, typeRefResolver, isDaemonConnection: isolateFaults);
+                server = new LanguageServerHost(
+                    connection.InputStream,
+                    connection.OutputStream,
+                    exportProvider,
+                    typeRefResolver,
+                    isDaemonConnection: isolateFaults,
+                    daemonSessionId: daemonSessionId);
             }
             catch
             {
