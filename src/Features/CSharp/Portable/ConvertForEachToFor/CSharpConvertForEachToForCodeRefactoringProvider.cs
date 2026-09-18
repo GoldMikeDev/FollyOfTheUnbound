@@ -37,6 +37,17 @@ internal sealed class CSharpConvertForEachToForCodeRefactoringProvider :
 
     protected override bool ValidLocation(ForEachInfo foreachInfo)
     {
+        // Folly of the Unbound: the loop body always needs to become (or stay) a block so the new index/item
+        // variable declaration can be inserted into it. If the unbraced body is (or leads to) a top-level
+        // `escape;`, wrapping it in a new block would silently retarget that `escape;` to the newly introduced
+        // block instead of whatever block it used to target -- so don't offer the refactoring at all in that
+        // case. See ContainsTopLevelEscapeStatement and GetForLoopBody.
+        if (foreachInfo.ForEachStatement.Statement is not BlockSyntax &&
+            foreachInfo.ForEachStatement.Statement.ContainsTopLevelEscapeStatement())
+        {
+            return false;
+        }
+
         if (!foreachInfo.RequireCollectionStatement)
         {
             return true;

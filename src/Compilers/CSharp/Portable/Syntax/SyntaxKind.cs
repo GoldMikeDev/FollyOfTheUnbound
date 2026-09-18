@@ -969,5 +969,8 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         /// <summary>Represents the <c>*.</c> root-namespace placeholder qualifier at the start of a namespace declaration's name.</summary>
         RootNamespaceQualifier = 9089,
+
+        /// <summary>Represents an <c>escape;</c> statement, which jumps to the end of the nearest enclosing block.</summary>
+        EscapeStatement = 9090,
     }
 }

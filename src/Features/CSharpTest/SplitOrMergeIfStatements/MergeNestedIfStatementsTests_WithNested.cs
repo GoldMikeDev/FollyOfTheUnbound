@@ -562,4 +562,74 @@ public sealed partial class MergeNestedIfStatementsTests
             }
             """, index: 1);
     }
+
+    // Folly of the Unbound: merging `if (a) { if (b) escape; }` into `if (a && b) escape;` removes the
+    // block that wraps the inner `if`. Since that removed block is `escape;`'s nearest enclosing block,
+    // merging would silently retarget it to whatever block encloses the outer `if` instead -- so the
+    // merge must not be offered here.
+    [Fact]
+    public Task NotMergedWhenInnerIfBodyIsTopLevelEscapeStatement()
+        => TestMissingInRegularAndScriptAsync(
+            """
+            class C
+            {
+                void M(bool a, bool b)
+                {
+                    {
+                        [||]if (a)
+                        {
+                            if (b) escape;
+                        }
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """);
+
+    [Fact]
+    public Task NotMergedWhenInnerIfBodyIsNestedTopLevelEscapeStatement()
+        => TestMissingInRegularAndScriptAsync(
+            """
+            class C
+            {
+                void M(bool a, bool b, bool c)
+                {
+                    {
+                        [||]if (a)
+                        {
+                            if (b) if (c) escape; else System.Console.WriteLine();
+                        }
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """);
+
+    // Control case: the `escape;` here is already inside its own nested block, so removing the outer
+    // `if`'s wrapping block is safe -- it doesn't change what the inner `escape;` targets. The merge
+    // should still be offered normally.
+    [Fact]
+    public Task MergedWhenEscapeStatementIsInsideItsOwnNestedBlock()
+        => TestInRegularAndScriptAsync(
+            """
+            class C
+            {
+                void M(bool a, bool b)
+                {
+                    [||]if (a)
+                    {
+                        if (b) { escape; }
+                    }
+                }
+            }
+            """,
+            """
+            class C
+            {
+                void M(bool a, bool b)
+                {
+                    if (a && b) { escape; }
+                }
+            }
+            """);
 }

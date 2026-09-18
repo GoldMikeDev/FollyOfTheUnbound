@@ -792,4 +792,63 @@ public sealed class SplitIntoNestedIfStatementsTests
             LanguageVersion = LanguageVersion.CSharp9,
             TestState = { OutputKind = OutputKind.ConsoleApplication }
         }.RunAsync();
+
+    // Folly of the Unbound: splitting `if (a && b) escape;` into `if (a) { if (b) escape; } }` wraps the
+    // original body in a new block via WithStatementInBlock. Since that body is (or leads to) a top-level
+    // `escape;`, the new block would silently become its new target -- so the split must not be offered.
+    [Fact]
+    public Task NotSplitWhenBodyIsTopLevelEscapeStatement()
+        => VerifyCS.VerifyRefactoringAsync("""
+            class C
+            {
+                void M(bool a, bool b)
+                {
+                    {
+                        if (a [||]&& b) escape;
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """);
+
+    [Fact]
+    public Task NotSplitWhenBodyIsNestedTopLevelEscapeStatement()
+        => VerifyCS.VerifyRefactoringAsync("""
+            class C
+            {
+                void M(bool a, bool b, bool c)
+                {
+                    {
+                        if (a [||]&& b) if (c) escape; else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """);
+
+    // Control case: the `escape;` here is already inside its own block, so wrapping the split-off body
+    // in a new outer block is safe -- it doesn't change what the inner `escape;` targets. The split
+    // should still be offered normally.
+    [Fact]
+    public Task SplitWhenEscapeStatementIsInsideItsOwnNestedBlock()
+        => VerifyCS.VerifyRefactoringAsync("""
+            class C
+            {
+                void M(bool a, bool b)
+                {
+                    if (a [||]&& b) { escape; }
+                }
+            }
+            """, """
+            class C
+            {
+                void M(bool a, bool b)
+                {
+                    if (a)
+                    {
+                        if (b) { escape; }
+                    }
+                }
+            }
+            """);
 }

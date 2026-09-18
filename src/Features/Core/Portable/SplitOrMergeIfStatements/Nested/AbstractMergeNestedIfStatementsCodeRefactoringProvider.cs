@@ -40,6 +40,17 @@ internal abstract class AbstractMergeNestedIfStatementsCodeRefactoringProvider
         return CodeAction.Create(title, createChangedDocument, title);
     }
 
+    /// <summary>
+    /// Folly of the Unbound: hook allowing a derived provider to suppress the merge when it would be
+    /// unsafe -- e.g. because <paramref name="innerIfStatement"/>'s body is (or contains, through a
+    /// chain of further unbraced embedded statements) a top-level <c>escape;</c> statement whose
+    /// nearest enclosing block is the very block this merge eliminates, silently retargeting it.
+    /// Defaults to always safe; only overridden where the hazard can occur (see
+    /// <c>CSharpMergeNestedIfStatementsCodeRefactoringProvider</c>).
+    /// </summary>
+    protected virtual bool IsSafeToMerge(SyntaxNode innerIfStatement)
+        => true;
+
     protected sealed override Task<bool> CanBeMergedUpAsync(
         Document document, SyntaxNode ifOrElseIf, CancellationToken cancellationToken, out SyntaxNode outerIfOrElseIf)
     {
@@ -141,7 +152,7 @@ internal abstract class AbstractMergeNestedIfStatementsCodeRefactoringProvider
         return false;
     }
 
-    private static async Task<bool> CanBeMergedAsync(
+    private async Task<bool> CanBeMergedAsync(
         Document document,
         ISyntaxFactsService syntaxFacts,
         IBlockFactsService blockFacts,
@@ -150,6 +161,11 @@ internal abstract class AbstractMergeNestedIfStatementsCodeRefactoringProvider
         SyntaxNode innerIfStatement,
         CancellationToken cancellationToken)
     {
+        if (!IsSafeToMerge(innerIfStatement))
+        {
+            return false;
+        }
+
         // We can only merge this with the outer if statement if any inner else-if and else clauses are equal
         // to else-if and else clauses following the outer if statement because we'll be removing the inner ones.
         // Example of what we can merge:

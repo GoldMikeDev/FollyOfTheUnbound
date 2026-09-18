@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.PooledObjects;
 
 namespace Microsoft.CodeAnalysis.CSharp
@@ -341,6 +342,21 @@ namespace Microsoft.CodeAnalysis.CSharp
         public override BoundNode VisitGotoStatement(BoundGotoStatement node)
         {
             _labelsUsed.Add(node.Label);
+
+            // `escape;` binds directly to a BoundGotoStatement targeting a label synthesized at the
+            // end of its own nearest enclosing block (see Binder_Statements.BindEscapeStatement).
+            // Structurally that's the same kind of forward jump `break`/`return` already make
+            // legitimately past a later using declaration in the same block -- it targets "the end of
+            // this block", not an arbitrary user label -- so it's exempt from the using-declaration
+            // forward/backward-jump restrictions below, which exist to stop ordinary user `goto`s from
+            // jumping into or out of a using declaration's scope in a confusing way. (The corresponding
+            // lowering, LocalRewriter.VisitPossibleUsingDeclaration, keeps this label out of the
+            // try/finally generated for the using declaration so the goto never actually jumps into
+            // protected code.)
+            if (node.Syntax is EscapeStatementSyntax)
+            {
+                return base.VisitGotoStatement(node);
+            }
 
             // check for illegal jumps across using declarations
             var sourceLocation = node.Syntax.Location;

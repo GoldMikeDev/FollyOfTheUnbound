@@ -12739,6 +12739,100 @@ internal sealed partial class MutateStatementSyntax : StatementSyntax
         => new MutateStatementSyntax(this.Kind, this.attributeLists, this.mutateKeyword, this.variableName, this.toKeyword, this.type, this.semicolonToken, GetDiagnostics(), annotations);
 }
 
+internal sealed partial class EscapeStatementSyntax : StatementSyntax
+{
+    internal readonly GreenNode? attributeLists;
+    internal readonly SyntaxToken escapeKeyword;
+    internal readonly SyntaxToken semicolonToken;
+
+    internal EscapeStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken, DiagnosticInfo[]? diagnostics, SyntaxAnnotation[]? annotations)
+      : base(kind, diagnostics, annotations)
+    {
+        this.SlotCount = 3;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(escapeKeyword);
+        this.escapeKeyword = escapeKeyword;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal EscapeStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken, SyntaxFactoryContext context)
+      : base(kind)
+    {
+        this.SetFactoryContext(context);
+        this.SlotCount = 3;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(escapeKeyword);
+        this.escapeKeyword = escapeKeyword;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    internal EscapeStatementSyntax(SyntaxKind kind, GreenNode? attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken)
+      : base(kind)
+    {
+        this.SlotCount = 3;
+        if (attributeLists != null)
+        {
+            this.AdjustFlagsAndWidth(attributeLists);
+            this.attributeLists = attributeLists;
+        }
+        this.AdjustFlagsAndWidth(escapeKeyword);
+        this.escapeKeyword = escapeKeyword;
+        this.AdjustFlagsAndWidth(semicolonToken);
+        this.semicolonToken = semicolonToken;
+    }
+
+    public override CoreSyntax.SyntaxList<AttributeListSyntax> AttributeLists => new CoreSyntax.SyntaxList<AttributeListSyntax>(this.attributeLists);
+    public SyntaxToken EscapeKeyword => this.escapeKeyword;
+    public SyntaxToken SemicolonToken => this.semicolonToken;
+
+    internal override GreenNode? GetSlot(int index)
+        => index switch
+        {
+            0 => this.attributeLists,
+            1 => this.escapeKeyword,
+            2 => this.semicolonToken,
+            _ => null,
+        };
+
+    internal override SyntaxNode CreateRed(SyntaxNode? parent, int position) => new CSharp.Syntax.EscapeStatementSyntax(this, parent, position);
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitEscapeStatement(this);
+    public override TResult Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) => visitor.VisitEscapeStatement(this);
+
+    public EscapeStatementSyntax Update(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || escapeKeyword != this.EscapeKeyword || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.EscapeStatement(attributeLists, escapeKeyword, semicolonToken);
+            var diags = GetDiagnostics();
+            if (diags?.Length > 0)
+                newNode = newNode.WithDiagnosticsGreen(diags);
+            var annotations = GetAnnotations();
+            if (annotations?.Length > 0)
+                newNode = newNode.WithAnnotationsGreen(annotations);
+            return newNode;
+        }
+
+        return this;
+    }
+
+    internal override GreenNode SetDiagnostics(DiagnosticInfo[]? diagnostics)
+        => new EscapeStatementSyntax(this.Kind, this.attributeLists, this.escapeKeyword, this.semicolonToken, diagnostics, GetAnnotations());
+
+    internal override GreenNode SetAnnotations(SyntaxAnnotation[]? annotations)
+        => new EscapeStatementSyntax(this.Kind, this.attributeLists, this.escapeKeyword, this.semicolonToken, GetDiagnostics(), annotations);
+}
+
 internal sealed partial class ForStatementSyntax : StatementSyntax
 {
     internal readonly GreenNode? attributeLists;
@@ -28312,6 +28406,7 @@ internal partial class CSharpSyntaxVisitor<TResult>
     public virtual TResult VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitDoUntilStatement(DoUntilStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitMutateStatement(MutateStatementSyntax node) => this.DefaultVisit(node);
+    public virtual TResult VisitEscapeStatement(EscapeStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForEachStatement(ForEachStatementSyntax node) => this.DefaultVisit(node);
     public virtual TResult VisitForEachVariableStatement(ForEachVariableStatementSyntax node) => this.DefaultVisit(node);
@@ -28572,6 +28667,7 @@ internal partial class CSharpSyntaxVisitor
     public virtual void VisitDoStatement(DoStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitDoUntilStatement(DoUntilStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitMutateStatement(MutateStatementSyntax node) => this.DefaultVisit(node);
+    public virtual void VisitEscapeStatement(EscapeStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForEachStatement(ForEachStatementSyntax node) => this.DefaultVisit(node);
     public virtual void VisitForEachVariableStatement(ForEachVariableStatementSyntax node) => this.DefaultVisit(node);
@@ -29097,6 +29193,9 @@ internal partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<CSharpSyntaxNo
 
     public override CSharpSyntaxNode VisitMutateStatement(MutateStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.MutateKeyword), (IdentifierNameSyntax)Visit(node.VariableName), (SyntaxToken)Visit(node.ToKeyword), (TypeSyntax)Visit(node.Type), (SyntaxToken)Visit(node.SemicolonToken));
+
+    public override CSharpSyntaxNode VisitEscapeStatement(EscapeStatementSyntax node)
+        => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.EscapeKeyword), (SyntaxToken)Visit(node.SemicolonToken));
 
     public override CSharpSyntaxNode VisitForStatement(ForStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), (SyntaxToken)Visit(node.ForKeyword), (SyntaxToken)Visit(node.OpenParenToken), (VariableDeclarationSyntax)Visit(node.Declaration), VisitList(node.Initializers), (SyntaxToken)Visit(node.FirstSemicolonToken), (ExpressionSyntax)Visit(node.Condition), (SyntaxToken)Visit(node.SecondSemicolonToken), VisitList(node.Incrementors), (SyntaxToken)Visit(node.CloseParenToken), (StatementSyntax)Visit(node.Statement));
@@ -32311,6 +32410,28 @@ internal partial class ContextAwareSyntax
 #endif
 
         return new MutateStatementSyntax(SyntaxKind.MutateStatement, attributeLists.Node, mutateKeyword, variableName, toKeyword, type, semicolonToken, this.context);
+    }
+
+    public EscapeStatementSyntax EscapeStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken)
+    {
+#if DEBUG
+        if (escapeKeyword == null) throw new ArgumentNullException(nameof(escapeKeyword));
+        if (escapeKeyword.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(escapeKeyword));
+        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+#endif
+
+        int hash;
+        var cached = CSharpSyntaxNodeCache.TryGetNode((int)SyntaxKind.EscapeStatement, attributeLists.Node, escapeKeyword, semicolonToken, this.context, out hash);
+        if (cached != null) return (EscapeStatementSyntax)cached;
+
+        var result = new EscapeStatementSyntax(SyntaxKind.EscapeStatement, attributeLists.Node, escapeKeyword, semicolonToken, this.context);
+        if (hash >= 0)
+        {
+            SyntaxNodeCache.AddNode(result, hash);
+        }
+
+        return result;
     }
 
     public ForStatementSyntax ForStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken forKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> initializers, SyntaxToken firstSemicolonToken, ExpressionSyntax? condition, SyntaxToken secondSemicolonToken, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> incrementors, SyntaxToken closeParenToken, StatementSyntax statement)
@@ -37858,6 +37979,28 @@ internal static partial class SyntaxFactory
 #endif
 
         return new MutateStatementSyntax(SyntaxKind.MutateStatement, attributeLists.Node, mutateKeyword, variableName, toKeyword, type, semicolonToken);
+    }
+
+    public static EscapeStatementSyntax EscapeStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken)
+    {
+#if DEBUG
+        if (escapeKeyword == null) throw new ArgumentNullException(nameof(escapeKeyword));
+        if (escapeKeyword.Kind != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(escapeKeyword));
+        if (semicolonToken == null) throw new ArgumentNullException(nameof(semicolonToken));
+        if (semicolonToken.Kind != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+#endif
+
+        int hash;
+        var cached = SyntaxNodeCache.TryGetNode((int)SyntaxKind.EscapeStatement, attributeLists.Node, escapeKeyword, semicolonToken, out hash);
+        if (cached != null) return (EscapeStatementSyntax)cached;
+
+        var result = new EscapeStatementSyntax(SyntaxKind.EscapeStatement, attributeLists.Node, escapeKeyword, semicolonToken);
+        if (hash >= 0)
+        {
+            SyntaxNodeCache.AddNode(result, hash);
+        }
+
+        return result;
     }
 
     public static ForStatementSyntax ForStatement(CoreSyntax.SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken forKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> initializers, SyntaxToken firstSemicolonToken, ExpressionSyntax? condition, SyntaxToken secondSemicolonToken, CoreSyntax.SeparatedSyntaxList<ExpressionSyntax> incrementors, SyntaxToken closeParenToken, StatementSyntax statement)

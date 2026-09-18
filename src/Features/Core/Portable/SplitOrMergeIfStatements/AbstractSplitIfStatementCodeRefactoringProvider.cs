@@ -29,6 +29,16 @@ internal abstract class AbstractSplitIfStatementCodeRefactoringProvider : CodeRe
         SyntaxNode rightCondition,
         CancellationToken cancellationToken);
 
+    /// <summary>
+    /// Folly of the Unbound: hook allowing a derived provider to suppress the refactoring for a
+    /// given <paramref name="ifOrElseIf"/> when applying it would be unsafe -- e.g. because it would
+    /// silently retarget a top-level <c>escape;</c> statement inside the if's body by introducing a
+    /// new enclosing block around it. Defaults to always safe; only overridden where the specific
+    /// transform can introduce such a hazard (see <c>CSharpSplitIntoNestedIfStatementsCodeRefactoringProvider</c>).
+    /// </summary>
+    protected virtual bool IsSafeToRefactor(SyntaxNode ifOrElseIf)
+        => true;
+
     public sealed override async Task ComputeRefactoringsAsync(CodeRefactoringContext context)
     {
         var (document, textSpan, cancellationToken) = context;
@@ -46,7 +56,8 @@ internal abstract class AbstractSplitIfStatementCodeRefactoringProvider : CodeRe
         var ifGenerator = document.GetLanguageService<IIfLikeStatementGenerator>();
 
         if (IsPartOfBinaryExpressionChain(token, GetLogicalExpressionKind(syntaxKinds), out var rootExpression) &&
-            ifGenerator.IsCondition(rootExpression, out var ifOrElseIf))
+            ifGenerator.IsCondition(rootExpression, out var ifOrElseIf) &&
+            IsSafeToRefactor(ifOrElseIf))
         {
             context.RegisterRefactoring(
                 CreateCodeAction(
