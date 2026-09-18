@@ -132,7 +132,9 @@ internal static partial class SyntaxTokenExtensions
                         // There are two exceptions.
                         // try {}
                         // do {}
-                        if (token.Parent.Parent.Kind() is not SyntaxKind.TryStatement and not SyntaxKind.DoStatement)
+                        // (and this fork's do...until, which requires an 'until (...)' clause the same way
+                        // do...while requires 'while (...)')
+                        if (token.Parent.Parent.Kind() is not SyntaxKind.TryStatement and not SyntaxKind.DoStatement and not SyntaxKind.DoUntilStatement)
                             return true;
                     }
                     else if (token.Parent.Parent?.Kind()
@@ -166,6 +168,7 @@ internal static partial class SyntaxTokenExtensions
                     or SyntaxKind.ForEachVariableStatement
                     or SyntaxKind.WhileStatement
                     or SyntaxKind.IfStatement
+                    or SyntaxKind.IfCatchArm
                     or SyntaxKind.LockStatement
                     or SyntaxKind.UsingStatement
                     or SyntaxKind.FixedStatement;

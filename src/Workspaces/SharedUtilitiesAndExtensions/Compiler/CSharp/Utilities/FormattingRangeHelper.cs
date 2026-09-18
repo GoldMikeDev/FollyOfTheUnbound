@@ -347,6 +347,8 @@ internal static class FormattingRangeHelper
     {
         return
             node.Kind() is SyntaxKind.IfStatement or
+            SyntaxKind.IfCatchArm or
+            SyntaxKind.IfCatchStatement or
             SyntaxKind.ElseClause or
             SyntaxKind.WhileStatement or
             SyntaxKind.ForStatement or
@@ -354,6 +356,7 @@ internal static class FormattingRangeHelper
             SyntaxKind.ForEachVariableStatement or
             SyntaxKind.UsingStatement or
             SyntaxKind.DoStatement or
+            SyntaxKind.DoUntilStatement or
             SyntaxKind.TryStatement or
             SyntaxKind.CatchClause or
             SyntaxKind.FinallyClause or
