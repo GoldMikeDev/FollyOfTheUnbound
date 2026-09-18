@@ -7890,6 +7890,55 @@ public sealed partial class MutateStatementSyntax : StatementSyntax
 /// <remarks>
 /// <para>This node is associated with the following syntax kinds:</para>
 /// <list type="bullet">
+/// <item><description><see cref="SyntaxKind.EscapeStatement"/></description></item>
+/// </list>
+/// </remarks>
+public sealed partial class EscapeStatementSyntax : StatementSyntax
+{
+    private SyntaxNode? attributeLists;
+
+    internal EscapeStatementSyntax(InternalSyntax.CSharpSyntaxNode green, SyntaxNode? parent, int position)
+      : base(green, parent, position)
+    {
+    }
+
+    public override SyntaxList<AttributeListSyntax> AttributeLists => new SyntaxList<AttributeListSyntax>(GetRed(ref this.attributeLists, 0));
+
+    public SyntaxToken EscapeKeyword => new SyntaxToken(this, ((InternalSyntax.EscapeStatementSyntax)this.Green).escapeKeyword, GetChildPosition(1), GetChildIndex(1));
+
+    public SyntaxToken SemicolonToken => new SyntaxToken(this, ((InternalSyntax.EscapeStatementSyntax)this.Green).semicolonToken, GetChildPosition(2), GetChildIndex(2));
+
+    internal override SyntaxNode? GetNodeSlot(int index) => index == 0 ? GetRedAtZero(ref this.attributeLists)! : null;
+
+    internal override SyntaxNode? GetCachedSlot(int index) => index == 0 ? this.attributeLists : null;
+
+    public override void Accept(CSharpSyntaxVisitor visitor) => visitor.VisitEscapeStatement(this);
+    public override TResult? Accept<TResult>(CSharpSyntaxVisitor<TResult> visitor) where TResult : default => visitor.VisitEscapeStatement(this);
+
+    public EscapeStatementSyntax Update(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken)
+    {
+        if (attributeLists != this.AttributeLists || escapeKeyword != this.EscapeKeyword || semicolonToken != this.SemicolonToken)
+        {
+            var newNode = SyntaxFactory.EscapeStatement(attributeLists, escapeKeyword, semicolonToken);
+            var annotations = GetAnnotations();
+            return annotations?.Length > 0 ? newNode.WithAnnotations(annotations) : newNode;
+        }
+
+        return this;
+    }
+
+    internal override StatementSyntax WithAttributeListsCore(SyntaxList<AttributeListSyntax> attributeLists) => WithAttributeLists(attributeLists);
+    public new EscapeStatementSyntax WithAttributeLists(SyntaxList<AttributeListSyntax> attributeLists) => Update(attributeLists, this.EscapeKeyword, this.SemicolonToken);
+    public EscapeStatementSyntax WithEscapeKeyword(SyntaxToken escapeKeyword) => Update(this.AttributeLists, escapeKeyword, this.SemicolonToken);
+    public EscapeStatementSyntax WithSemicolonToken(SyntaxToken semicolonToken) => Update(this.AttributeLists, this.EscapeKeyword, semicolonToken);
+
+    internal override StatementSyntax AddAttributeListsCore(params AttributeListSyntax[] items) => AddAttributeLists(items);
+    public new EscapeStatementSyntax AddAttributeLists(params AttributeListSyntax[] items) => WithAttributeLists(this.AttributeLists.AddRange(items));
+}
+
+/// <remarks>
+/// <para>This node is associated with the following syntax kinds:</para>
+/// <list type="bullet">
 /// <item><description><see cref="SyntaxKind.ForStatement"/></description></item>
 /// </list>
 /// </remarks>

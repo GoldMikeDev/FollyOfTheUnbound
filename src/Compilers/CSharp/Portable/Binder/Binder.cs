@@ -399,6 +399,22 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         /// <summary>
+        /// The <see cref="GeneratedLabelSymbol"/> that an <c>escape;</c> statement branches to: a
+        /// label positioned just before the closing brace of the *nearest* enclosing block (unlike
+        /// break/continue, this never searches past the nearest block). Allocated lazily by the
+        /// <see cref="BlockBinder"/> that owns that block; <see cref="BindBlockParts"/> appends the
+        /// corresponding label statement only if it was actually requested.
+        /// </summary>
+        internal virtual GeneratedLabelSymbol? EscapeLabel
+        {
+            get
+            {
+                RoslynDebug.Assert(Next is object);
+                return Next.EscapeLabel;
+            }
+        }
+
+        /// <summary>
         /// Returns the <see cref="GeneratedLabelSymbol"/> for a continue statement targeting the given label,
         /// or the nearest enclosing loop if <paramref name="labelName"/> is null.
         /// </summary>

@@ -90,6 +90,9 @@ namespace Microsoft.CodeAnalysis.CSharp
                 case SyntaxKind.MutateStatement:
                     result = BindMutateStatement((MutateStatementSyntax)node, diagnostics);
                     break;
+                case SyntaxKind.EscapeStatement:
+                    result = BindEscapeStatement((EscapeStatementSyntax)node, diagnostics);
+                    break;
                 case SyntaxKind.WhileStatement:
                     result = BindWhile((WhileStatementSyntax)node, diagnostics);
                     break;
@@ -1980,7 +1983,30 @@ namespace Microsoft.CodeAnalysis.CSharp
                 boundStatements.Add(boundStatement);
             }
 
+            // If any `escape;` statement lexically inside this block (and not inside a nested
+            // block) requested this block's escape label, append it as a final, otherwise-empty
+            // labeled statement so the `goto` it lowers to has somewhere to land.
+            if (this is BlockBinder blockBinder && blockBinder.EscapeLabelIfAllocated is GeneratedLabelSymbol escapeLabel)
+            {
+                boundStatements.Add(new BoundLabeledStatement(node, escapeLabel, new BoundNoOpStatement(node, NoOpStatementFlavor.Default)));
+            }
+
             return FinishBindBlockParts(node, boundStatements.ToImmutableAndFree());
+        }
+
+        private BoundStatement BindEscapeStatement(EscapeStatementSyntax node, BindingDiagnosticBag diagnostics)
+        {
+            GeneratedLabelSymbol target = this.EscapeLabel;
+            if (target is null)
+            {
+                // Every statement position is lexically inside some block (a method body is
+                // itself a block), so this should be unreachable in practice; kept as a defensive
+                // diagnostic for any binder chain that doesn't route through a BlockBinder.
+                Error(diagnostics, ErrorCode.ERR_NoBreakOrCont, node);
+                return new BoundBadStatement(node, childBoundNodes: [], hasErrors: true);
+            }
+
+            return new BoundGotoStatement(node, target, null, null);
         }
 
         private BoundBlock FinishBindBlockParts(CSharpSyntaxNode node, ImmutableArray<BoundStatement> boundStatements)

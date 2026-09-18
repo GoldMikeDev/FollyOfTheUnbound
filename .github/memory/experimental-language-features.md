@@ -1,5 +1,5 @@
 ---
-coverage: This fork's experimental C# language features (do/until, mutate, inline expression declaration, if/catch/finally chains, '*.' root-namespace placeholder, null-conditional-coalescing statement, void-coalescing expression) — syntax shape, compiler status, and IDE support status
+coverage: This fork's experimental C# language features (do/until, mutate, inline expression declaration, if/catch/finally chains, '*.' root-namespace placeholder, null-conditional-coalescing statement, void-coalescing expression, escape statement) — syntax shape, compiler status, and IDE support status
 ---
 
 # Experimental Language Features ("Folly of the Unbound")
@@ -19,6 +19,73 @@ support is being added incrementally; this file tracks what's done.
 
 No `LanguageVersion` gating exists for any of these — they're unconditionally enabled regardless of
 declared `LangVersion`.
+
+## `escape;` — jump to the end of the nearest enclosing block
+
+`SyntaxKind.EscapeStatement`, `EscapeStatementSyntax` (`AttributeLists`, `EscapeKeyword`,
+`SemicolonToken`). `escape` is matched by identifier text in the parser (same trick as `mutate`:
+`LanguageParser.TryParseStatementStartingWithIdentifier` checks `CurrentToken.ValueText == "escape"`
+**and** that the very next token is `;`, so `escape();` and `escape = 1;` still parse as ordinary
+expression statements using `escape` as an identifier — no real `SyntaxKind.EscapeKeyword` exists).
+
+**Semantics:** jumps to just before the closing brace of the *nearest* enclosing `{ }` block —
+including a `catch` or `finally` block's own body, and a `try` block's body (where `finally` still
+runs normally afterward, since the jump target is inside the `try`'s own protected region, not past
+it). Unlike `break`/`continue`, it never searches past the nearest block to find a loop/switch — it
+always targets the closest enclosing `BlockSyntax`, full stop. A method body is itself a block, so
+`escape;` at the top level of a method just runs to the end of the method (no dedicated diagnostic
+needed for "no enclosing block" — that case is unreachable in practice, since every statement
+position is lexically inside some block).
+
+**Implementation — deliberately lowering-free:** rather than a new `BoundNode` kind with custom
+`LocalRewriter`/codegen handling, `escape;` binds directly to an ordinary `BoundGotoStatement`
+targeting a `GeneratedLabelSymbol` that is lazily allocated per block:
+- `Binder.EscapeLabel` (new virtual property, delegates to `Next` by default, `null` at
+  `BuckStopsHereBinder`) is overridden in `BlockBinder` to lazily allocate and always return *its
+  own* label (no further delegation — this is what gives `escape;` "nearest enclosing block, not
+  nearest enclosing loop" semantics, the opposite of `GetBreakLabel`/`GetContinueLabel`'s search).
+- `Binder_Statements.BindBlockParts` appends a `BoundLabeledStatement` (wrapping a no-op
+  `BoundNoOpStatement`) as the block's last statement, but **only if** `BlockBinder.
+  EscapeLabelIfAllocated` is non-null — i.e. only if some `escape;` inside that exact block actually
+  asked for the label. An unused block never gets the extra synthetic label statement.
+- `Binder_Statements.BindEscapeStatement` binds `escape;` to `new BoundGotoStatement(node,
+  this.EscapeLabel, null, null)`.
+
+Because the label always sits at the end of the *same* lexical block as any `escape;` that targets
+it, this is never a jump across a protected-region boundary from the CLR's point of view — it is
+lexically indistinguishable from a plain forward `goto` within one block. That means all the usual
+machinery (existing goto/label lowering in `LocalRewriter`, `ControlFlowPass` unreachable-code
+detection after an unconditional jump, the `ControlFlowGraphBuilder`) already handles it correctly
+with **zero new lowering code**. This is why escaping a `try`/`catch`/`finally` body "just works":
+it's not special-cased, it's a consequence of the label placement.
+
+**One real bug found and fixed along the way:** `GeneratedLabelSymbol.Locations` inherited
+`LabelSymbol`'s base `throw new NotSupportedException()` — harmless for `BreakLabel`/`ContinueLabel`
+because those are only ever referenced structurally (as fields on `BoundWhileStatement` etc.), never
+as the direct target of a real `BoundGotoStatement`. `ControlFlowPass.VisitGotoStatement` calls
+`node.Label.GetFirstLocation()` for its using-declaration forward/backward-jump check, which crashed
+(`FailFast`) the first time `escape;` lowered to a real goto targeting a `GeneratedLabelSymbol`.
+Fixed by adding an optional `Location?` to `GeneratedLabelSymbol`'s constructor (defaults to `null`
+for existing callers, which still get an empty `Locations` array instead of a throw — strictly safer,
+nothing depended on the throw) and having `BlockBinder` pass the block's `CloseBraceToken` location
+when allocating the escape label. **If any future feature also makes a `GeneratedLabelSymbol` the
+direct target of a `BoundGotoStatement` (as opposed to a break/continue-style structural reference),
+it needs a real location the same way.**
+
+**Verified end-to-end** by compiling+running a real program with the freshly-built `csc` (plain block,
+nested block — confirms "nearest only" — `try`/`finally` where `finally` still runs, and `catch`),
+not just unit tests: all four cases print exactly the expected output and skip the statements after
+`escape;`. Compiler tests: `EscapeStatementParsingTests`
+(`src/Compilers/CSharp/Test/Syntax/Parsing/`) and `EscapeStatementTests`
+(`src/Compilers/CSharp/Test/CSharp15/`, using `CompileAndVerify(..., expectedOutput: ...)` the same
+way `LabeledBreakContinueEmitTests` does).
+
+**IDE:** keyword completion only (`EscapeKeywordRecommender`, mirroring `MutateKeywordRecommender`'s
+identifier-text-based approach since there's no real `SyntaxKind.EscapeKeyword` for
+`AbstractSyntacticSingleKeywordRecommender` to key off), plus an explicit (already-correct-by-default)
+`SyntaxKind.EscapeStatement` case in `BreakpointSpans.cs`'s whole-statement-span fallback list.
+Classification, keyword highlighting, and outlining were not added (same limitation `mutate` already
+has, since `EscapeKeyword`'s token kind is `IdentifierToken`, not a real keyword `SyntaxKind`).
 
 ## IDE support status for the four constructs (see "Adding IDE Support for a New Statement/Expression SyntaxKind" in `.github/instructions/IDE.instructions.md`)
 

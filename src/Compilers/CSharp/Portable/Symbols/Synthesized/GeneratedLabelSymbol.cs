@@ -12,10 +12,24 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
     internal sealed class GeneratedLabelSymbol : LabelSymbol
     {
         private readonly string _name;
+        private readonly Location? _locationOpt;
 
         public GeneratedLabelSymbol(string name)
+            : this(name, locationOpt: null)
+        {
+        }
+
+        /// <summary>
+        /// A generated label that is itself the direct target of a real <see cref="BoundGotoStatement"/>
+        /// (as opposed to only being referenced structurally, e.g. as a loop's <c>BreakLabel</c>) needs a
+        /// real <paramref name="locationOpt"/>: <see cref="ControlFlowPass.VisitGotoStatement"/> calls
+        /// <c>Label.GetFirstLocation()</c> for using-declaration jump checks, which would otherwise throw
+        /// (the base <see cref="Locations"/> override is empty/unsupported for an ordinary generated label).
+        /// </summary>
+        public GeneratedLabelSymbol(string name, Location? locationOpt)
         {
             _name = LabelName(name);
+            _locationOpt = locationOpt;
 #if DEBUG
             NameNoSequence = $"<{name}>";
 #endif
@@ -42,6 +56,14 @@ namespace Microsoft.CodeAnalysis.CSharp.Symbols
 #else
             return name;
 #endif
+        }
+
+        public override ImmutableArray<Location> Locations
+        {
+            get
+            {
+                return _locationOpt is null ? ImmutableArray<Location>.Empty : ImmutableArray.Create(_locationOpt);
+            }
         }
 
         public override ImmutableArray<SyntaxReference> DeclaringSyntaxReferences

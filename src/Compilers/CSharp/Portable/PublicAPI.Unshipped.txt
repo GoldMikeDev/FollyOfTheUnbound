@@ -202,3 +202,18 @@ override Microsoft.CodeAnalysis.CSharp.Syntax.FileScopedNamespaceDeclarationSynt
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitRootNamespaceQualifier(Microsoft.CodeAnalysis.CSharp.Syntax.RootNamespaceQualifierSyntax! node) -> void
 virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitRootNamespaceQualifier(Microsoft.CodeAnalysis.CSharp.Syntax.RootNamespaceQualifierSyntax! node) -> TResult?
 static Microsoft.CodeAnalysis.CSharp.CSharpExtensions.GetValueConversion(this Microsoft.CodeAnalysis.Operations.ICoalesceOperation! coalesceExpression) -> Microsoft.CodeAnalysis.CSharp.Conversion
+Microsoft.CodeAnalysis.CSharp.SyntaxKind.EscapeStatement = 9090 -> Microsoft.CodeAnalysis.CSharp.SyntaxKind
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.EscapeKeyword.get -> Microsoft.CodeAnalysis.SyntaxToken
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.SemicolonToken.get -> Microsoft.CodeAnalysis.SyntaxToken
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Update(Microsoft.CodeAnalysis.SyntaxList<Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax!> attributeLists, Microsoft.CodeAnalysis.SyntaxToken escapeKeyword, Microsoft.CodeAnalysis.SyntaxToken semicolonToken) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.WithAttributeLists(Microsoft.CodeAnalysis.SyntaxList<Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax!> attributeLists) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.WithEscapeKeyword(Microsoft.CodeAnalysis.SyntaxToken escapeKeyword) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.WithSemicolonToken(Microsoft.CodeAnalysis.SyntaxToken semicolonToken) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
+override Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEscapeStatement(Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax! node) -> Microsoft.CodeAnalysis.SyntaxNode?
+override Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Accept(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor! visitor) -> void
+override Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Accept<TResult>(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>! visitor) -> TResult?
+static Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EscapeStatement(Microsoft.CodeAnalysis.SyntaxList<Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax!> attributeLists, Microsoft.CodeAnalysis.SyntaxToken escapeKeyword, Microsoft.CodeAnalysis.SyntaxToken semicolonToken) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
+static Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EscapeStatement() -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
+virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEscapeStatement(Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax! node) -> void
+virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitEscapeStatement(Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax! node) -> TResult?

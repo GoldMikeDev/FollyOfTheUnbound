@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Threading;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.PooledObjects;
@@ -17,6 +18,7 @@ namespace Microsoft.CodeAnalysis.CSharp
     internal sealed class BlockBinder : LocalScopeBinder
     {
         private readonly BlockSyntax _block;
+        private GeneratedLabelSymbol _lazyEscapeLabel;
 
         public BlockBinder(Binder enclosing, BlockSyntax block)
             : this(enclosing, block, enclosing.Flags)
@@ -90,5 +92,28 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             throw ExceptionUtilities.Unreachable();
         }
+
+        /// <summary>
+        /// The label an <c>escape;</c> statement lexically inside this block (and not inside any
+        /// nested block) branches to. Always answers for itself -- unlike break/continue's search up
+        /// through enclosing loops/switches, <c>escape;</c> always targets the *nearest* block.
+        /// Allocated lazily; <see cref="EscapeLabelIfAllocated"/> lets <c>BindBlockParts</c> avoid
+        /// emitting an unused label statement when no <c>escape;</c> in this block ever asked for it.
+        /// </summary>
+        internal override GeneratedLabelSymbol EscapeLabel
+        {
+            get
+            {
+                if (_lazyEscapeLabel is null)
+                {
+                    var label = new GeneratedLabelSymbol("escape", _block.CloseBraceToken.GetLocation());
+                    Interlocked.CompareExchange(ref _lazyEscapeLabel, label, null);
+                }
+
+                return _lazyEscapeLabel;
+            }
+        }
+
+        internal GeneratedLabelSymbol EscapeLabelIfAllocated => _lazyEscapeLabel;
     }
 }

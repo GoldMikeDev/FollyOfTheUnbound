@@ -8461,6 +8461,11 @@ done:
             {
                 return this.ParseMutateStatement(attributes);
             }
+            else if (this.CurrentToken.Kind == SyntaxKind.IdentifierToken && this.CurrentToken.ValueText == "escape" &&
+                     this.PeekToken(1).Kind == SyntaxKind.SemicolonToken)
+            {
+                return this.ParseEscapeStatement(attributes);
+            }
             else if (this.IsPossibleAwaitExpressionStatement())
             {
                 return this.ParseExpressionStatement(attributes);
@@ -9573,6 +9578,13 @@ done:
             var type = this.ParseType();
             var semicolon = this.EatToken(SyntaxKind.SemicolonToken);
             return _syntaxFactory.MutateStatement(attributes, mutateToken, variableName, toToken, type, semicolon);
+        }
+
+        private EscapeStatementSyntax ParseEscapeStatement(SyntaxList<AttributeListSyntax> attributes)
+        {
+            var escapeToken = this.EatToken(SyntaxKind.IdentifierToken); // "escape"
+            var semicolon = this.EatToken(SyntaxKind.SemicolonToken);
+            return _syntaxFactory.EscapeStatement(attributes, escapeToken, semicolon);
         }
 
         private DoUntilStatementSyntax ParseDoUntilStatementRest(SyntaxList<AttributeListSyntax> attributes, SyntaxToken @do, StatementSyntax statement)
