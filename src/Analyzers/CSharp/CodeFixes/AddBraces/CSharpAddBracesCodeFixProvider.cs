@@ -43,7 +43,14 @@ internal sealed class CSharpAddBracesCodeFixProvider() : SyntaxEditorBasedCodeFi
             editor.ReplaceNode(statement, (currentStatement, g) =>
             {
                 var embeddedStatement = currentStatement.GetEmbeddedStatement();
-                return embeddedStatement is null ? currentStatement : currentStatement.ReplaceNode(embeddedStatement, SyntaxFactory.Block(embeddedStatement));
+
+                // Folly of the Unbound: don't wrap an embedded statement that is (or leads, through further
+                // unbraced embedded statements, to) a top-level `escape;` -- doing so would silently retarget
+                // that `escape;` to the newly introduced block. See ContainsTopLevelEscapeStatement.
+                if (embeddedStatement is null || embeddedStatement.ContainsTopLevelEscapeStatement())
+                    return currentStatement;
+
+                return currentStatement.ReplaceNode(embeddedStatement, SyntaxFactory.Block(embeddedStatement));
             });
         }
     }

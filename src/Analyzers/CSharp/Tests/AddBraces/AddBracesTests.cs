@@ -1849,6 +1849,106 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             (PreferBracesPreference)bracesPreference,
             expectDiagnostic);
 
+    // Folly of the Unbound: an `escape;` statement targets the nearest enclosing block lexically. Wrapping an
+    // unbraced embedded statement that is (or leads to) a top-level `escape;` in a new block would silently
+    // retarget that `escape;` -- so the fix must not perform that wrap. The diagnostic still fires (bracing is
+    // still "missing"), but applying the fix produces no textual change.
+    [Fact]
+    public Task DoNotWrapIfBodyContainingTopLevelEscapeStatement()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        [|if|] (true) escape;
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        if (true) escape;
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: true);
+
+    [Fact]
+    public Task DoNotWrapIfBodyContainingNestedTopLevelEscapeStatement()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        [|if|] (true) if (false) escape; else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        if (true) if (false) escape; else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: true);
+
+    // Control case: the `escape;` here is already inside its own nested block, so wrapping the outer `if`'s
+    // embedded statement is safe -- it doesn't change what the inner `escape;` targets. The fix should still
+    // wrap normally.
+    [Fact]
+    public Task WrapIfBodyWhenEscapeStatementIsInsideItsOwnNestedBlock()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        [|if|] (true) if (false) { escape; } else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        if (true)
+                        {
+                            if (false) { escape; } else System.Console.WriteLine();
+                        }
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: true);
+
     private async Task TestAsync(string initialMarkup, string expectedMarkup, PreferBracesPreference bracesPreference, bool expectDiagnostic)
     {
         if (expectDiagnostic)

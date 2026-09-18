@@ -204,6 +204,7 @@ virtual Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor<TResult>.VisitRootName
 static Microsoft.CodeAnalysis.CSharp.CSharpExtensions.GetValueConversion(this Microsoft.CodeAnalysis.Operations.ICoalesceOperation! coalesceExpression) -> Microsoft.CodeAnalysis.CSharp.Conversion
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.EscapeStatement = 9090 -> Microsoft.CodeAnalysis.CSharp.SyntaxKind
 Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.AddAttributeLists(params Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax![]! items) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!
 Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.EscapeKeyword.get -> Microsoft.CodeAnalysis.SyntaxToken
 Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.SemicolonToken.get -> Microsoft.CodeAnalysis.SyntaxToken
 Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Update(Microsoft.CodeAnalysis.SyntaxList<Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax!> attributeLists, Microsoft.CodeAnalysis.SyntaxToken escapeKeyword, Microsoft.CodeAnalysis.SyntaxToken semicolonToken) -> Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax!

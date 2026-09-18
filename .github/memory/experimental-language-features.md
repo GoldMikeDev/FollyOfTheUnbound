@@ -153,6 +153,35 @@ same *plain* keyword coloring `mutate` gets, not `ControlKeyword` -- `IsControlK
 never be reached by either construct; a `ControlStatementKind` case for `EscapeStatement` would be a
 no-op. Keyword highlighting and outlining were not added (same limitation `mutate` already has).
 
+**Second review round on PR #96 (3 more Codex findings, all confirmed real, fixed):**
+- **IDE refactorings that wrap an embedded statement in a new block can silently retarget an `escape;`
+  inside it.** Because `escape;`'s target is purely syntactic ("nearest enclosing `BlockSyntax`"),
+  any refactoring that introduces a *new* `BlockSyntax` around an unbraced embedded statement changes
+  what a top-level `escape;` inside that statement targets, even though such refactorings (add braces,
+  convert `foreach` to `for`) are supposed to be behavior-preserving. Two call sites were affected:
+  `CSharpAddBracesCodeFixProvider.FixAllAsync` (`src/Analyzers/CSharp/CodeFixes/AddBraces/`) and
+  `CSharpConvertForEachToForCodeRefactoringProvider.GetForLoopBody`
+  (`src/Features/CSharp/Portable/ConvertForEachToFor/`). Fixed with a shared helper,
+  `StatementSyntax.ContainsTopLevelEscapeStatement()` (in the shared `SyntaxNodeExtensions.cs` under
+  `src/Workspaces/SharedUtilitiesAndExtensions/Compiler/CSharp/Extensions/`), which walks through a
+  chain of *further* unbraced embedded statements (nested `if`/`else`, `for`, `while`, etc. -- anything
+  `GetEmbeddedStatement()` recognizes, plus `IfStatementSyntax.Else`) looking for a top-level
+  `escape;`, and stops (returns `false`) the moment it hits an already-present `BlockSyntax`, since an
+  `escape;` already inside its own block is unaffected by wrapping an ancestor statement. AddBraces
+  uses this to leave the diagnostic's node unwrapped (returns `currentStatement` unchanged) when the
+  hazard applies; ConvertForEachToFor uses it in `ValidLocation` to not offer the refactoring at all
+  for such a `foreach` (its body always needs to become a block to host the new index/item variable,
+  so there's no safe partial fix like AddBraces has). Tests: `AddBracesTests` (do-not-wrap /
+  do-not-wrap-when-nested / control-case-still-wraps-when-escape-already-in-its-own-block) and
+  `ConvertForEachToForTests` (do-not-offer / do-not-offer-when-nested / still-offers-when-escape-
+  already-in-its-own-block).
+- `PublicAPI.Unshipped.txt` was missing the generated
+  `EscapeStatementSyntax.AddAttributeLists(params AttributeListSyntax[])` fluent method entry (the
+  generator emits one `Add*` method per list-typed property, same as every other statement syntax
+  type) -- added.
+- `KeywordCompletionProvider`'s registry is alphabetically ordered; `EscapeKeywordRecommender` had
+  been inserted before `Equals`/`Error` instead of after -- moved to sit between `Error` and `Event`.
+
 ## IDE support status for the four constructs (see "Adding IDE Support for a New Statement/Expression SyntaxKind" in `.github/instructions/IDE.instructions.md`)
 
 As of this writing, all four constructs have: classification, keyword completion, formatting rules,
