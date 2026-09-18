@@ -25,7 +25,12 @@ internal sealed class EscapeKeywordRecommender() : IKeywordRecommender<CSharpSyn
             return [];
         }
 
-        return context.IsStatementContext || context.IsGlobalStatementContext
+        // Unlike "mutate;", "escape;" only binds successfully inside a BlockBinder chain (it jumps
+        // to a label synthesized on the nearest enclosing block). Top-level/global statements bind
+        // through SimpleProgramBinder, whose chain bottoms out at BuckStopsHereBinder -- which
+        // returns a null EscapeLabel -- so an "escape;" inserted at global-statement scope can never
+        // bind and always produces ERR_NoBreakOrCont. Don't offer it there.
+        return context.IsStatementContext
             ? s_keywords
             : [];
     }

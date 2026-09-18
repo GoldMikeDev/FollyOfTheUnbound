@@ -157,4 +157,78 @@ public sealed class EscapeStatementTests : CSharpTestBase
             """;
         CompileAndVerify(source, expectedOutput: IncludeExpectedOutput("called")).VerifyDiagnostics();
     }
+
+    [Fact]
+    public void Escape_BeforeUsingDeclaration_SkipsDeclarationAndDisposesNothing()
+    {
+        // A regression test for https://github.com/GoldMikeDev/FollyOfTheUnbound/pull/96: an
+        // `escape;` that precedes a `using var` declaration in the same block must be able to
+        // jump past it (like `break`/`return` legitimately can) without the compiler reporting
+        // CS8641 (ERR_GoToForwardJumpOverUsingVar) and without ever constructing/disposing the
+        // resource, since the declaration is never reached.
+        var source = """
+            class D : System.IDisposable
+            {
+                public void Dispose() => System.Console.Write("SKIPPED-DISPOSE ");
+            }
+
+            class C
+            {
+                static void Main()
+                {
+                    System.Console.Write("A ");
+                    {
+                        System.Console.Write("B ");
+                        escape;
+                        using var d = new D();
+                        System.Console.Write("SKIPPED ");
+                    }
+                    System.Console.Write("C");
+                }
+            }
+            """;
+        CompileAndVerify(source, expectedOutput: IncludeExpectedOutput("A B C")).VerifyDiagnostics(
+            // (14,13): warning CS0162: Unreachable code detected
+            //             using var d = new D();
+            Diagnostic(ErrorCode.WRN_UnreachableCode, "using").WithLocation(14, 13));
+    }
+
+    [Fact]
+    public void Escape_BeforeUsingDeclaration_ConditionallyReached_DisposesCorrectly()
+    {
+        // Same shape as above, but the `escape;` is conditional, so both the "jump past the
+        // using declaration" path and the "reach and dispose the resource normally" path are
+        // exercised in the same compiled method.
+        // Note: "if (escapeEarly) escape;" (no braces) is deliberate -- `escape;` always targets
+        // the *nearest* enclosing `{ }` block (see the type's doc comment), so wrapping it in the
+        // `if`'s own braces would make it target that inner block instead of the outer one that
+        // contains the using declaration, defeating the point of this test.
+        var source = """
+            class D : System.IDisposable
+            {
+                public void Dispose() => System.Console.Write("disposed ");
+            }
+
+            class C
+            {
+                static void M(bool escapeEarly)
+                {
+                    System.Console.Write("A ");
+                    {
+                        if (escapeEarly) escape;
+                        using var d = new D();
+                        System.Console.Write("used ");
+                    }
+                    System.Console.Write("C ");
+                }
+
+                static void Main()
+                {
+                    M(escapeEarly: true);
+                    M(escapeEarly: false);
+                }
+            }
+            """;
+        CompileAndVerify(source, expectedOutput: IncludeExpectedOutput("A C A used disposed C ")).VerifyDiagnostics();
+    }
 }

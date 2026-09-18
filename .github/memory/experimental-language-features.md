@@ -59,6 +59,60 @@ detection after an unconditional jump, the `ControlFlowGraphBuilder`) already ha
 with **zero new lowering code**. This is why escaping a `try`/`catch`/`finally` body "just works":
 it's not special-cased, it's a consequence of the label placement.
 
+**One exception that did need special-casing (PR #96 review, fixed):** a `using var`/`await using`
+declaration in the same block as an `escape;` that precedes it breaks the "lexically indistinguishable
+from a plain goto" story above in two ways, because `LocalRewriter.VisitPossibleUsingDeclaration`
+wraps *every* statement textually after a using declaration -- including the synthesized escape
+label, since it's appended as the block's last statement -- inside the try/finally generated for that
+declaration:
+- `ControlFlowPass.VisitGotoStatement` treats the escape goto exactly like a user `goto` jumping
+  forward over a using declaration to a same-block label and reports `ERR_GoToForwardJumpOverUsingVar`
+  -- even though `escape;` is structurally the same kind of legitimate forward jump `break`/`return`
+  already make past a later using declaration, just spelled as a raw goto instead of a dedicated
+  bound node. Fixed by special-casing `node.Syntax is EscapeStatementSyntax` in
+  `VisitGotoStatement` to skip the using-declaration jump checks entirely (only a forward jump is
+  possible for `escape;`, since its target is always later in the same block).
+- Even with that diagnostic suppressed, the *label* would still end up nested inside the
+  using-declaration's generated try, making the goto (which originates before the try) an illegal
+  jump into protected code. Fixed in `LocalRewriter.VisitPossibleUsingDeclaration`
+  (`LocalRewriter_Block.cs`): the compiler-generated escape label -- always the *original*
+  (pre-lowering) block statement list's last entry -- is detected against the **raw** `statements[^1]`
+  (via `IsCompilerGeneratedEscapeLabel`, matching `WasCompilerGenerated`/`GeneratedLabelSymbol`/
+  `BoundNoOpStatement`) before it gets lowered and swept into the trailing-statements list that
+  becomes the using declaration's try body. When present, it's carried out through a new
+  `extraTrailingStatement` out-parameter and the caller (`VisitStatementSubList`) appends it as a
+  genuine sibling statement in whatever list it's building at that exact nesting level -- never
+  wrapped inside another node. Because every nesting level funnels its own trailing statements
+  through the same out-parameter, this hoists the label past *every* enclosing using declaration in
+  the block, not just the innermost one, and lands it as a plain sibling of the generated try/finally
+  in the enclosing `BoundBlock`'s statement list -- structurally identical to an ordinary
+  `goto End; try { ... } finally { ... } End: ;`.
+  - **Two mistakes caught along the way, both by hand-compiling repro programs with the fork's own
+    `csc` and inspecting the crash/output rather than trusting the reasoning in isolation:**
+    1. An earlier version of this fix checked the *already-lowered* `builder[^1]` instead of the raw
+       `statements[^1]`. Lowering a labeled statement rewrites `BoundLabeledStatement` into a
+       `BoundStatementList` (see `LocalRewriter_LabeledStatement.MakeLabeledStatement`), so by the
+       time the check ran it could never match -- the label silently stayed nested inside the try
+       after all, with the ControlFlowPass diagnostic now (wrongly) suppressed and no compile error
+       to reveal it. The result was a real `ILBuilder` assertion failure at emit time
+       (`BasicBlock.RewriteBranchesAcrossExceptionHandlers`: `BranchBlock?.EnclosingHandler == null`,
+       i.e. "cannot branch into a handler") that manifested as `dotnet test` hanging (the test host's
+       failure/crash handling did not fail fast). Caught by isolating the specific failing test with
+       `timeout` and reproducing it directly against `csc.dll` outside the test host.
+    2. An earlier version of the sibling-append also tried wrapping `[usingStatement,
+       trailingEscapeLabel]` in a `BoundStatementList` returned from the `UsingLocalDeclarations`
+       case, rather than appending both directly into the caller's output list via the out-parameter.
+       That *also* hit the same `ILBuilder` assertion, even once the raw-vs-lowered detection bug
+       above was fixed -- nesting the pair inside a `BoundStatementList` node (rather than making them
+       true flat siblings in the enclosing block's own `Statements` array) was apparently enough to
+       confuse the exception-handler-region bookkeeping. The final fix avoids constructing any wrapper
+       node at all for this pair.
+
+The synthesized label statement and its no-op body are both marked `WasCompilerGenerated = true`
+(the escape's own `BoundGotoStatement` is not -- it corresponds to real `escape;` syntax), so
+`GetOperation` doesn't expose the synthetic label/empty-statement pair as fake source-level
+`ILabeledOperation`/`IEmptyOperation` nodes to analyzers.
+
 **One real bug found and fixed along the way:** `GeneratedLabelSymbol.Locations` inherited
 `LabelSymbol`'s base `throw new NotSupportedException()` — harmless for `BreakLabel`/`ContinueLabel`
 because those are only ever referenced structurally (as fields on `BoundWhileStatement` etc.), never
@@ -80,12 +134,24 @@ not just unit tests: all four cases print exactly the expected output and skip t
 (`src/Compilers/CSharp/Test/CSharp15/`, using `CompileAndVerify(..., expectedOutput: ...)` the same
 way `LabeledBreakContinueEmitTests` does).
 
-**IDE:** keyword completion only (`EscapeKeywordRecommender`, mirroring `MutateKeywordRecommender`'s
+**IDE:** keyword completion (`EscapeKeywordRecommender`, mirroring `MutateKeywordRecommender`'s
 identifier-text-based approach since there's no real `SyntaxKind.EscapeKeyword` for
-`AbstractSyntacticSingleKeywordRecommender` to key off), plus an explicit (already-correct-by-default)
-`SyntaxKind.EscapeStatement` case in `BreakpointSpans.cs`'s whole-statement-span fallback list.
-Classification, keyword highlighting, and outlining were not added (same limitation `mutate` already
-has, since `EscapeKeyword`'s token kind is `IdentifierToken`, not a real keyword `SyntaxKind`).
+`AbstractSyntacticSingleKeywordRecommender` to key off) -- but, unlike `mutate`, **not** offered at
+global/top-level-statement scope: top-level statements bind through `SimpleProgramBinder`, whose
+chain bottoms out at `BuckStopsHereBinder.EscapeLabel => null`, so an `escape;` inserted there can
+never bind and always fails with `ERR_NoBreakOrCont`. An explicit `SyntaxKind.EscapeStatement` case
+was added to `BreakpointSpans.cs`'s whole-statement-span fallback list, and (initially missing, fixed
+in PR #96 review) to `SyntaxComparer.ClassifyStatementSyntax` (EnC active-statement tracking) as a
+leaf `Label.GotoStatement`, and to `LookupPosition.GetFirstIncludedToken`/`GetFirstExcludedToken` (a
+missing case there made any `SemanticModel` lookup whose position is inside `escape;`, e.g.
+`LookupSymbols`, throw `UnexpectedValue`). Basic keyword classification was also added: `escape` is
+now registered in `ClassificationHelpers.IsActualContextualKeyword` (same pattern as `mutate`), so it
+colors as `ClassificationTypeNames.Keyword` instead of a plain identifier. Note this gives it the
+same *plain* keyword coloring `mutate` gets, not `ControlKeyword` -- `IsControlKeyword`/
+`IsControlStatementKind` key off the token's actual `SyntaxKind`, and since `escape`'s (like
+`mutate`'s) token kind is still `IdentifierToken`, not a real keyword `SyntaxKind`, that path can
+never be reached by either construct; a `ControlStatementKind` case for `EscapeStatement` would be a
+no-op. Keyword highlighting and outlining were not added (same limitation `mutate` already has).
 
 ## IDE support status for the four constructs (see "Adding IDE Support for a New Statement/Expression SyntaxKind" in `.github/instructions/IDE.instructions.md`)
 

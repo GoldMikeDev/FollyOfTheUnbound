@@ -1988,7 +1988,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             // labeled statement so the `goto` it lowers to has somewhere to land.
             if (this is BlockBinder blockBinder && blockBinder.EscapeLabelIfAllocated is GeneratedLabelSymbol escapeLabel)
             {
-                boundStatements.Add(new BoundLabeledStatement(node, escapeLabel, new BoundNoOpStatement(node, NoOpStatementFlavor.Default)));
+                boundStatements.Add(new BoundLabeledStatement(node, escapeLabel, new BoundNoOpStatement(node, NoOpStatementFlavor.Default) { WasCompilerGenerated = true }) { WasCompilerGenerated = true });
             }
 
             return FinishBindBlockParts(node, boundStatements.ToImmutableAndFree());
