@@ -1952,6 +1952,41 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             PreferBracesPreference.Always,
             expectDiagnostic: true);
 
+    // Folly of the Unbound: same hazard, but reached through this fork's own do/until construct as the
+    // further unbraced embedded statement -- confirms GetEmbeddedStatement()'s DoUntilStatementSyntax case
+    // (added alongside this test) is actually consulted by ContainsTopLevelEscapeStatement()'s walk.
+    [Fact]
+    public Task DoNotWrapIfBodyContainingTopLevelEscapeStatementInsideDoUntil()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    bool done = false;
+                    {
+                        [|if|] (true) do escape; until (done);
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    bool done = false;
+                    {
+                        if (true) do escape; until (done);
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: false);
+
     private async Task TestAsync(string initialMarkup, string expectedMarkup, PreferBracesPreference bracesPreference, bool expectDiagnostic)
     {
         if (expectDiagnostic)

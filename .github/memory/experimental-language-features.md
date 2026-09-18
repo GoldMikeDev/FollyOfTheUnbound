@@ -24,9 +24,11 @@ declared `LangVersion`.
 
 `SyntaxKind.EscapeStatement`, `EscapeStatementSyntax` (`AttributeLists`, `EscapeKeyword`,
 `SemicolonToken`). `escape` is matched by identifier text in the parser (same trick as `mutate`:
-`LanguageParser.TryParseStatementStartingWithIdentifier` checks `CurrentToken.ValueText == "escape"`
-**and** that the very next token is `;`, so `escape();` and `escape = 1;` still parse as ordinary
-expression statements using `escape` as an identifier — no real `SyntaxKind.EscapeKeyword` exists).
+`LanguageParser.TryParseStatementStartingWithIdentifier` checks `CurrentToken.Text == "escape"`
+(the *raw* token text, not `ValueText` — see the third-review-round `@escape` fix below, since
+`ValueText` is the same `"escape"` for both `escape` and `@escape`) **and** that the very next token
+is `;`, so `escape();`, `escape = 1;` and `@escape;` all still parse as ordinary expression
+statements using `escape` as an identifier — no real `SyntaxKind.EscapeKeyword` exists).
 
 **Semantics:** jumps to just before the closing brace of the *nearest* enclosing `{ }` block —
 including a `catch` or `finally` block's own body, and a `try` block's body (where `finally` still
@@ -36,8 +38,8 @@ always targets the closest enclosing `BlockSyntax`, full stop. An ordinary metho
 block, so `escape;` at the top level of a regular method just runs to the end of the method with no
 dedicated "no enclosing block" diagnostic needed there.
 
-The null-target case (`Binder.EscapeLabel` never overridden by a `BlockBinder`, so it bottoms out at
-`BuckStopsHereBinder.EscapeLabel => null`) **is** reachable, though: global/top-level statements and
+The null-target case (`Binder.GetEscapeLabel(SyntaxNode)` never overridden by a `BlockBinder`, so it
+bottoms out at `BuckStopsHereBinder.GetEscapeLabel => null`) **is** reachable, though: global/top-level statements and
 script code bind through `SimpleProgramBinder`/`BuckStopsHereBinder`, not through a `BlockBinder`, so
 an `escape;` written directly in top-level statements has no enclosing `BlockSyntax` binder at all and
 correctly reports `ERR_NoBreakOrCont` (see the IDE section below, which intentionally excludes `escape`
@@ -48,16 +50,22 @@ that case, not dead code.
 **Implementation — deliberately lowering-free:** rather than a new `BoundNode` kind with custom
 `LocalRewriter`/codegen handling, `escape;` binds directly to an ordinary `BoundGotoStatement`
 targeting a `GeneratedLabelSymbol` that is lazily allocated per block:
-- `Binder.EscapeLabel` (new virtual property, delegates to `Next` by default, `null` at
-  `BuckStopsHereBinder`) is overridden in `BlockBinder` to lazily allocate and always return *its
-  own* label (no further delegation — this is what gives `escape;` "nearest enclosing block, not
-  nearest enclosing loop" semantics, the opposite of `GetBreakLabel`/`GetContinueLabel`'s search).
+- `Binder.GetEscapeLabel(SyntaxNode escapeStatementSyntax)` (a method, not a property — mirroring
+  `GetBreakLabel`/`GetContinueLabel`'s parameterized pattern so the callee can tell *which* syntax
+  node is asking; see the third-review-round speculative-binding fix below for why that parameter
+  exists) delegates to `Next` by default, `null` at `BuckStopsHereBinder`. Overridden in
+  `BlockBinder.GetEscapeLabel`: if `escapeStatementSyntax` is a genuine descendant of the block (a
+  manual `.Parent` walk, not a `Span`/position check), lazily allocates and caches *its own* label
+  (no further delegation — this is what gives `escape;` "nearest enclosing block, not nearest
+  enclosing loop" semantics, the opposite of `GetBreakLabel`/`GetContinueLabel`'s search); otherwise
+  (a free-standing/speculative node) returns a fresh, uncached label without touching the block's
+  cached state.
 - `Binder_Statements.BindBlockParts` appends a `BoundLabeledStatement` (wrapping a no-op
   `BoundNoOpStatement`) as the block's last statement, but **only if** `BlockBinder.
   EscapeLabelIfAllocated` is non-null — i.e. only if some `escape;` inside that exact block actually
   asked for the label. An unused block never gets the extra synthetic label statement.
 - `Binder_Statements.BindEscapeStatement` binds `escape;` to `new BoundGotoStatement(node,
-  this.EscapeLabel, null, null)`.
+  this.GetEscapeLabel(node), null, null)`.
 
 Because the label always sits at the end of the *same* lexical block as any `escape;` that targets
 it, this is never a jump across a protected-region boundary from the CLR's point of view — it is
@@ -146,7 +154,7 @@ way `LabeledBreakContinueEmitTests` does).
 identifier-text-based approach since there's no real `SyntaxKind.EscapeKeyword` for
 `AbstractSyntacticSingleKeywordRecommender` to key off) -- but, unlike `mutate`, **not** offered at
 global/top-level-statement scope: top-level statements bind through `SimpleProgramBinder`, whose
-chain bottoms out at `BuckStopsHereBinder.EscapeLabel => null`, so an `escape;` inserted there can
+chain bottoms out at `BuckStopsHereBinder.GetEscapeLabel => null`, so an `escape;` inserted there can
 never bind and always fails with `ERR_NoBreakOrCont`. An explicit `SyntaxKind.EscapeStatement` case
 was added to `BreakpointSpans.cs`'s whole-statement-span fallback list, and (initially missing, fixed
 in PR #96 review) to `SyntaxComparer.ClassifyStatementSyntax` (EnC active-statement tracking) as a
@@ -160,6 +168,95 @@ same *plain* keyword coloring `mutate` gets, not `ControlKeyword` -- `IsControlK
 `mutate`'s) token kind is still `IdentifierToken`, not a real keyword `SyntaxKind`, that path can
 never be reached by either construct; a `ControlStatementKind` case for `EscapeStatement` would be a
 no-op. Keyword highlighting and outlining were not added (same limitation `mutate` already has).
+
+**Fourth review round on PR #96 (3 more Codex findings on commit `737227b8`, both named production
+findings confirmed real and fixed, plus a proactive sweep):**
+- **`ContainsTopLevelEscapeStatement()`'s walk didn't know about this fork's own `do`/`until`
+  construct.** `GetEmbeddedStatement()` (the shared helper it falls through to for unrecognized
+  statement kinds) had cases for every *standard* embedded-statement owner (`do`/`while`/`for`/
+  `foreach`/etc.) but none for `DoUntilStatementSyntax` — so `if (condition) do escape; until (done);`
+  (a do-until as an *unbraced* embedded statement of an `if`) wasn't recognized as containing a
+  top-level `escape;`, and AddBraces would have silently retargeted it. Fixed by adding a
+  `DoUntilStatementSyntax n => n.Statement` case to `GetEmbeddedStatement()` (in the shared
+  `SyntaxNodeExtensions.cs`) and a `DoUntilStatementSyntax` case to `IsEmbeddedStatementOwner()`,
+  right next to `DoStatementSyntax` — `DoUntilStatementSyntax` is structurally identical to
+  `DoStatementSyntax` (`until` instead of `while`) and exposes its body the same way, via `.Statement`.
+  Test: `AddBracesTests.DoNotWrapIfBodyContainingTopLevelEscapeStatementInsideDoUntil`.
+- **`UseSimpleUsingStatementDiagnosticAnalyzer` (IDE0063, "convert to using declaration") removes a
+  block, retargeting an `escape;` inside it — the inverse of the AddBraces/ConvertForEachToFor hazard.**
+  All four prior fixes guarded actions that *add* a block; converting `using (var d = Get()) { ... }`
+  to `using var d = Get(); ...` *removes* the block that used to wrap the body, so a top-level
+  `escape;` in that body gets silently retargeted to whatever larger scope now contains it (e.g. an
+  enclosing `while` loop — turning an infinite-loop-avoidance `escape;` into a real infinite loop, or
+  vice versa). Fixed in `UsingStatementDoesNotInvolveJumps` (`UseSimpleUsingStatementDiagnosticAnalyzer.
+  cs`), the same helper that already walks the innermost using's direct body statements checking
+  `IsGotoOrLabeledStatement` for the analogous goto/label hazard: added a
+  `statement.ContainsTopLevelEscapeStatement()` check per direct statement, reusing the *existing*
+  helper as-is rather than adding a block-specific variant — `ContainsTopLevelEscapeStatement()`
+  already takes a `StatementSyntax` and stops at any nested `BlockSyntax` it encounters, which is
+  exactly right here: called once per statement *inside* the block being removed, it correctly leaves
+  alone an `escape;` that's already nested in its own inner block (unaffected by removing the
+  *outer* using's block) while still catching one reached through a chain of further unbraced
+  embedded statements (nested `if`/`for`/`while`/do-until/etc.) directly inside the removed block.
+  Tests: `TestMissingWithTopLevelEscapeInBody`, `TestMissingWithTopLevelEscapeInBodyThroughUnbracedIf`,
+  and the control case `TestOfferedWhenEscapeStatementIsInsideItsOwnNestedBlock` (still offered/fixes
+  normally).
+- **Proactive sweep for the same hazard shape elsewhere** (grepped `SyntaxFactory.Block(` across
+  `src/Analyzers/CSharp` and `src/Features/CSharp`, both the add-a-block and remove-a-block
+  directions):
+  - **Checked, confirmed clean:**
+    - `CSharpUseLabeledJumpStatementsCodeFixProvider.ReplaceLoop` wraps a labeled loop (`label: while
+      (...) { ... }`) in a new `SyntaxFactory.Block(...)` when the loop's own parent isn't already a
+      block/switch-section/top-level-statement. Looks identical to the AddBraces/ConvertForEachToFor
+      shape at a glance, but isn't: the loop being wrapped always already has a *braced* body by the
+      time this runs (both `TryGetGotoBreakPattern`/`TryGetGotoContinuePattern` and the flag-pattern
+      path require a labeled empty statement as the last statement of a `BlockSyntax` body to detect
+      the pattern at all — confirmed by the continue-path's own unconditional
+      `(BlockSyntax)newLoop.GetEmbeddedStatement()!` cast a few lines above). Wrapping the *outer*
+      labeled-loop statement in a new block cannot retarget an `escape;` that's already nested inside
+      the loop's own inner block body.
+    - `AssignOutParametersAboveReturnCodeFixProvider.AddAssignmentStatements` wraps `exprOrStatement`
+      (always the flagged `return` statement itself, or an expression standing in for one) together
+      with newly generated assignment statements in a new block when its parent is an embedded-
+      statement owner. `exprOrStatement` is the statement being wrapped, not a container of other
+      statements that could itself hold an unrelated `escape;` — no hazard.
+    - The `UseExpressionBody`/`UseExpressionBodyForLambda` families (block body ⇄ `=>` expression
+      body) only ever fire when the block body is a single expression-convertible `return`/`throw`
+      statement (or, for void members, a single expression statement) — `escape;` is a statement, not
+      an expression, and can't appear inside a body those analyzers consider convertible, so there's
+      no block-removal path an `escape;` could ever be caught by.
+    - `CSharpRemoveAsyncModifierCodeFixProvider.ConvertToBlockBody` and
+      `CSharpRemoveUnreachableCodeCodeFixProvider` also construct new blocks, but the former wraps a
+      brand-new statement derived from an expression body (no pre-existing statement content to
+      retarget) and the latter replaces genuinely unreachable code with an *empty* block (nothing to
+      retarget, and unreachable code past an unconditional jump like `escape;`'s goto is exactly the
+      kind of code `ControlFlowPass` already flags separately).
+  - **Found but ambiguous, left as an open question (not fixed this round):**
+    `CSharpMethodExtractor.CSharpCodeGenerator.CallSiteContainerRewriter.ReplaceStatementIfNeeded`
+    (Extract Method) has a narrow path (`// replace one statement with multiple statements (see bug
+    # 6310)`) that replaces a *single* embedded-statement-owner's body (e.g. a `do`/`while`/`for`
+    loop's unbraced `Statement`) with `SyntaxFactory.Block(statements)` when the extraction leaves
+    behind more than one statement in that position (the extracted call plus leftover code). If the
+    original unbraced body was itself a top-level `escape;` (or led to one through further unbraced
+    statements) that got selected for extraction such that residual statements remain, this is the
+    same block-introduction hazard. It's left undetermined rather than fixed because: (a) it's unclear
+    whether Extract Method's selection/analysis pipeline can ever select *through* an `escape;` in the
+    first place without already rejecting the selection for other control-flow reasons (jumping out of
+    a would-be-extracted region is exactly the kind of thing Extract Method's existing jump/control-
+    flow analysis is supposed to reject before this rewriter ever runs, but that hasn't been traced
+    end-to-end here) — if it does reject such selections already, this code path may be unreachable
+    for `escape;` specifically; (b) confirming the actual reachability requires a live repro through
+    the Extract Method command's full analysis pipeline (selection validity, `AnalyzeAsync`, control
+    flow), which is a substantially larger investigation than the pattern-matched fixes above.
+    Whoever next touches Extract Method or revisits this sweep should check whether Extract Method's
+    control-flow analysis already rejects selections containing `escape;`, and if not, apply the same
+    `ContainsTopLevelEscapeStatement()`-based guard here.
+  - **Not deeply investigated (skipped per the sweep's own time-budget guidance, judged unlikely):**
+    `ConvertSwitchStatementToExpression` (switches aren't `escape`'s domain — a `switch` block isn't a
+    `BlockSyntax` `escape;` could target in the first place), `InlineTemporaryVariable`,
+    lock/fixed-statement-specific simplifications beyond what's already covered by the embedded-
+    statement-owner cases above. No dedicated "remove unnecessary braces" analyzer exists in this
+    fork or upstream Roslyn to check.
 
 **Third review round on PR #96 (5 more Codex findings on commit `f7e424ad`, all confirmed real, fixed):**
 - **Split/Merge Nested If refactorings had the same block-retargeting hazard as round 2's AddBraces/

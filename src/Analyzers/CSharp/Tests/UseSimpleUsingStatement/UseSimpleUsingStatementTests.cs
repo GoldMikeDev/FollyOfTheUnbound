@@ -580,6 +580,96 @@ public sealed class UseSimpleUsingStatementTests
                 """
         }.RunAsync();
 
+    // Folly of the Unbound: converting `using (var a = b) { ... }` into `using var a = b; ...` removes the
+    // BlockSyntax that used to wrap the using statement's body. A top-level `escape;` in that body targets
+    // the nearest enclosing block lexically, so flattening would silently retarget it -- here, from "exit
+    // the using's body" to the enclosing `while` loop, turning an infinite-loop-avoidance `escape;` into an
+    // actual infinite loop. The diagnostic must not fire.
+    [Fact]
+    public Task TestMissingWithTopLevelEscapeInBody()
+        => new VerifyCS.Test
+        {
+            TestCode = """
+                using System;
+
+                class C
+                {
+                    void M()
+                    {
+                        while (true)
+                        {
+                            using (var a = {|CS0103:b|})
+                            {
+                                escape;
+                            }
+                        }
+                    }
+                }
+                """
+        }.RunAsync();
+
+    // Same hazard reached through a top-level `escape;` that isn't already inside its own block (an unbraced
+    // `if` body inside the using's block).
+    [Fact]
+    public Task TestMissingWithTopLevelEscapeInBodyThroughUnbracedIf()
+        => new VerifyCS.Test
+        {
+            TestCode = """
+                using System;
+
+                class C
+                {
+                    void M()
+                    {
+                        while (true)
+                        {
+                            using (var a = {|CS0103:b|})
+                            {
+                                if (true) escape;
+                            }
+                        }
+                    }
+                }
+                """
+        }.RunAsync();
+
+    // Control case: the `escape;` here is already inside its own nested block, so flattening the outer
+    // using's block is safe -- it doesn't change what the inner `escape;` targets. The fix should still
+    // apply normally.
+    [Fact]
+    public Task TestOfferedWhenEscapeStatementIsInsideItsOwnNestedBlock()
+        => VerifyCS.VerifyCodeFixAsync("""
+            using System;
+
+            class C
+            {
+                void M()
+                {
+                    while (true)
+                    {
+                        [|using|] (var a = {|CS0103:b|})
+                        {
+                            if (true) { escape; }
+                        }
+                    }
+                }
+            }
+            """, """
+            using System;
+
+            class C
+            {
+                void M()
+                {
+                    while (true)
+                    {
+                        using var a = {|CS0103:b|};
+                        if (true) { escape; }
+                    }
+                }
+            }
+            """);
+
     [Fact, WorkItem("https://github.com/dotnet/roslyn/issues/35879")]
     public Task TestCollision1()
         => new VerifyCS.Test

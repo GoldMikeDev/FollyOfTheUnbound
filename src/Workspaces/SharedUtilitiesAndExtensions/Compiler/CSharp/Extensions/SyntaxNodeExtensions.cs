@@ -116,6 +116,7 @@ internal static partial class SyntaxNodeExtensions
     public static bool IsEmbeddedStatementOwner([NotNullWhen(true)] this SyntaxNode? node)
     {
         return node is DoStatementSyntax or
+               DoUntilStatementSyntax or
                ElseClauseSyntax or
                FixedStatementSyntax or
                CommonForEachStatementSyntax or
@@ -131,6 +132,10 @@ internal static partial class SyntaxNodeExtensions
         => node switch
         {
             DoStatementSyntax n => n.Statement,
+            // Folly of the Unbound: this fork's do/until construct -- structurally identical to
+            // DoStatementSyntax with "until" instead of "while", including an unbraced embedded
+            // Statement.
+            DoUntilStatementSyntax n => n.Statement,
             ElseClauseSyntax n => n.Statement,
             FixedStatementSyntax n => n.Statement,
             CommonForEachStatementSyntax n => n.Statement,
