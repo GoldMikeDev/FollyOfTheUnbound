@@ -190,16 +190,22 @@ internal sealed partial class CSharpProximityExpressionsService
                 {
                     case SyntaxKind.ExpressionStatement:
                     case SyntaxKind.LocalDeclarationStatement:
+                    case SyntaxKind.MutateStatement:
                         AddRelevantExpressions(previousStatement, _expressions, includeDeclarations: true);
                         break;
                     case SyntaxKind.DoStatement:
                         AddExpressionTerms((previousStatement as DoStatementSyntax).Condition, _expressions);
                         AddLastStatementOfConstruct(previousStatement);
                         break;
+                    case SyntaxKind.DoUntilStatement:
+                        AddExpressionTerms((previousStatement as DoUntilStatementSyntax).Condition, _expressions);
+                        AddLastStatementOfConstruct(previousStatement);
+                        break;
                     case SyntaxKind.ForStatement:
                     case SyntaxKind.ForEachStatement:
                     case SyntaxKind.ForEachVariableStatement:
                     case SyntaxKind.IfStatement:
+                    case SyntaxKind.IfCatchStatement:
                     case SyntaxKind.CheckedStatement:
                     case SyntaxKind.UncheckedStatement:
                     case SyntaxKind.WhileStatement:
@@ -248,6 +254,9 @@ internal sealed partial class CSharpProximityExpressionsService
                 case SyntaxKind.DoStatement:
                     AddLastStatementOfConstruct((statement as DoStatementSyntax).Statement);
                     break;
+                case SyntaxKind.DoUntilStatement:
+                    AddLastStatementOfConstruct((statement as DoUntilStatementSyntax).Statement);
+                    break;
                 case SyntaxKind.ForStatement:
                     AddLastStatementOfConstruct((statement as ForStatementSyntax).Statement);
                     break;
@@ -287,6 +296,33 @@ internal sealed partial class CSharpProximityExpressionsService
                         foreach (var catchClause in tryStatement.Catches)
                         {
                             AddLastStatementOfConstruct(catchClause.Block);
+                        }
+                    }
+
+                    break;
+                case SyntaxKind.IfCatchStatement:
+                    var ifCatchStatement = statement as IfCatchStatementSyntax;
+                    if (ifCatchStatement.Finally != null)
+                    {
+                        AddLastStatementOfConstruct(ifCatchStatement.Finally.Block);
+                    }
+                    else if (ifCatchStatement.Catches.Count > 0)
+                    {
+                        foreach (var catchClause in ifCatchStatement.Catches)
+                        {
+                            AddLastStatementOfConstruct(catchClause.Block);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var arm in ifCatchStatement.Arms)
+                        {
+                            AddLastStatementOfConstruct(arm.Consequence);
+                        }
+
+                        if (ifCatchStatement.Else != null)
+                        {
+                            AddLastStatementOfConstruct(ifCatchStatement.Else.Statement);
                         }
                     }
 

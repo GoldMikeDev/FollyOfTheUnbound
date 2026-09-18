@@ -208,14 +208,17 @@ internal sealed class CurlyBraceCompletionService() : AbstractCurlyBraceOrBracke
             switch (parentKind.GetValueOrDefault())
             {
                 case SyntaxKind.IfStatement:
+                case SyntaxKind.IfCatchArm:
                 case SyntaxKind.ElseClause:
                 case SyntaxKind.WhileStatement:
                 case SyntaxKind.DoStatement:
+                case SyntaxKind.DoUntilStatement:
                 case SyntaxKind.ForEachStatement:
                 case SyntaxKind.ForEachVariableStatement:
                 case SyntaxKind.UsingStatement:
                 case SyntaxKind.ForStatement:
                 case SyntaxKind.TryStatement:
+                case SyntaxKind.IfCatchStatement:
                 case SyntaxKind.CatchClause:
                 case SyntaxKind.FinallyClause:
                 case SyntaxKind.LockStatement:

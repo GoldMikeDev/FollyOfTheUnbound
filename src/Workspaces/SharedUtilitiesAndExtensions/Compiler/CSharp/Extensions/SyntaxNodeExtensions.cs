@@ -116,11 +116,13 @@ internal static partial class SyntaxNodeExtensions
     public static bool IsEmbeddedStatementOwner([NotNullWhen(true)] this SyntaxNode? node)
     {
         return node is DoStatementSyntax or
+               DoUntilStatementSyntax or
                ElseClauseSyntax or
                FixedStatementSyntax or
                CommonForEachStatementSyntax or
                ForStatementSyntax or
                IfStatementSyntax or
+               IfCatchArmSyntax or
                LabeledStatementSyntax or
                LockStatementSyntax or
                UsingStatementSyntax or
@@ -131,11 +133,13 @@ internal static partial class SyntaxNodeExtensions
         => node switch
         {
             DoStatementSyntax n => n.Statement,
+            DoUntilStatementSyntax n => n.Statement,
             ElseClauseSyntax n => n.Statement,
             FixedStatementSyntax n => n.Statement,
             CommonForEachStatementSyntax n => n.Statement,
             ForStatementSyntax n => n.Statement,
             IfStatementSyntax n => n.Statement,
+            IfCatchArmSyntax n => n.Consequence,
             LabeledStatementSyntax n => n.Statement,
             LockStatementSyntax n => n.Statement,
             UsingStatementSyntax n => n.Statement,
