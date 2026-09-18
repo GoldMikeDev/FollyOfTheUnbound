@@ -113,5 +113,34 @@ class C
                 // (7,27): error CS0029: Cannot implicitly convert type 'string' to 'int'
                 Diagnostic(ErrorCode.ERR_NoImplicitConv, @"""not an int""").WithArguments("string", "int").WithLocation(7, 27));
         }
+
+        [Fact]
+        public void Regression_ClassicFormNonBlockConsequence_DoesNotCrashBinderFactory()
+        {
+            // Before the fix, LocalBinderFactory.VisitIfCatchArm called Visit(node.Consequence, ...)
+            // instead of VisitPossibleEmbeddedStatement(node.Consequence, ...) for the classic
+            // (non-block-condition) form's non-block consequence, so no binder was ever registered for
+            // it -- Binder.BindPossibleEmbeddedStatement's GetBinder(node) lookup came back null and hit
+            // a debug-only Assert (a real crash in any semantic-analysis consumer, including this exact
+            // "add braces" scenario). Verified here via a compile + semantic model pull (matching how the
+            // AddBraces analyzer reaches this code) rather than just VerifyDiagnostics, since the crash
+            // is in binder-factory setup rather than in error reporting itself.
+            var text =
+@"using System;
+class C
+{
+    static void M(bool cond)
+    {
+        if (cond) DoWork(); catch (Exception e) { Handle(e); }
+    }
+    static void DoWork() { }
+    static void Handle(Exception e) { }
+}";
+            var compilation = CreateCompilation(text);
+            var tree = compilation.SyntaxTrees[0];
+            var model = compilation.GetSemanticModel(tree);
+            _ = model.GetDiagnostics();
+            compilation.VerifyDiagnostics();
+        }
     }
 }

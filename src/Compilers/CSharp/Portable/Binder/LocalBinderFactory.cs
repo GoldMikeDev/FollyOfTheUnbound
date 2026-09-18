@@ -917,7 +917,7 @@ namespace Microsoft.CodeAnalysis.CSharp
                 Visit(node.Condition, _enclosing);
             }
 
-            Visit(node.Consequence, _enclosing);
+            VisitPossibleEmbeddedStatement(node.Consequence, _enclosing);
         }
 
         public override void VisitLabeledStatement(LabeledStatementSyntax node)
