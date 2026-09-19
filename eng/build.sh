@@ -635,7 +635,7 @@ fi
 # POSIX-path reads of it are unaffected.
 runtests_log_dir_native=$(ToNativePath "$runtests_log_dir")
 runtests_out_dir_native=$(ToNativePath "$runtests_out_dir")
-runtests_dll_path=$(ToNativePath "$scriptroot/../artifacts/bin/RunTests/${configuration}/net10.0/RunTests.dll")
+runtests_dll_path=$(ToNativePath "$scriptroot/../artifacts/bin/RunTests/${configuration}/net11.0/RunTests.dll")
 dotnet_cli_native=$(ToNativePath "${_InitializeDotNetCli}/dotnet")
 
 if [[ "$test_core_clr" == true ]]; then

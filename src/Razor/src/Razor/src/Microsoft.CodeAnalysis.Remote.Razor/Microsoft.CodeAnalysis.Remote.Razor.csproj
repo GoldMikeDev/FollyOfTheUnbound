@@ -143,7 +143,7 @@
   </Target>
 
   <!-- Remote.Razor needs direct Roslyn compile-time references when Remote.ServiceHub is a project reference. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net11.0'">
     <ProjectReference Include="..\..\..\..\..\Compilers\Core\Portable\Microsoft.CodeAnalysis.csproj" />
     <ProjectReference Include="..\..\..\..\..\Compilers\CSharp\Portable\Microsoft.CodeAnalysis.CSharp.csproj" />
     <ProjectReference Include="..\..\..\..\..\Features\Core\Portable\Microsoft.CodeAnalysis.Features.csproj" />
@@ -158,7 +158,7 @@
   </ItemGroup>
 
   <!-- Remote.Razor publish needs Roslyn references copy-local for R2R closure. -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' and '$(PublishReadyToRun)' == 'true' and '$(RuntimeIdentifier)' != ''">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net11.0' and '$(PublishReadyToRun)' == 'true' and '$(RuntimeIdentifier)' != ''">
     <ProjectReference Update="..\Microsoft.CodeAnalysis.Razor.Workspaces\Microsoft.CodeAnalysis.Razor.Workspaces.csproj">
       <Private>true</Private>
     </ProjectReference>

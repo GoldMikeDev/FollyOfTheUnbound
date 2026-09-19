@@ -16,14 +16,14 @@
             does not share test utilities or broadly-consumed library layers.
   -->
   <PropertyGroup>
-    <NetRoslyn>net10.0</NetRoslyn>
-    <NetRoslynAll>net10.0</NetRoslynAll>
-    <NetRoslynWindowsTests>net10.0-windows</NetRoslynWindowsTests>
-    <NetVS>net10.0</NetVS>
-    <NetVSCode>net10.0</NetVSCode>
-    <NetVSShared>net10.0</NetVSShared>
+    <NetRoslyn>net11.0</NetRoslyn>
+    <NetRoslynAll>net11.0</NetRoslynAll>
+    <NetRoslynWindowsTests>net11.0-windows</NetRoslynWindowsTests>
+    <NetVS>net11.0</NetVS>
+    <NetVSCode>net11.0</NetVSCode>
+    <NetVSShared>net11.0</NetVSShared>
     <NetRoslynBuildHostNetCoreVersion>net8.0</NetRoslynBuildHostNetCoreVersion>
-    <NetRoslynNext>net10.0</NetRoslynNext>
+    <NetRoslynNext>net11.0</NetRoslynNext>
   </PropertyGroup>
 
   <!--

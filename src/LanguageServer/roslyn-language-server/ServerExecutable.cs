@@ -121,18 +121,20 @@ internal sealed class ServerExecutable
         foreach (var argument in arguments)
             startInfo.ArgumentList.Add(argument);
 
+        // StartCore has two possible launch paths (the breakaway path and the normal Process.Start(startInfo)
+        // path below), and only one of them (Process.Start) goes through ProcessStartInfo at all -- the
+        // breakaway path hand-rolls its own CreateProcess call with no ProcessStartInfo to attach
+        // InheritedHandles to. WithStandardHandleInheritanceSuppressed wraps both uniformly. It's also applied
+        // to startInfo directly for the normal path, since ProcessStartInfo.InheritedHandles is the more
+        // precise, non-global mechanism where it's available.
         if (!suppressStandardHandleInheritance)
             return StartCore();
 
-        DaemonHandleInheritance.SetStandardHandlesInheritable(false);
-        try
-        {
-            return StartCore();
-        }
-        finally
-        {
-            DaemonHandleInheritance.SetStandardHandlesInheritable(true);
-        }
+        DaemonHandleInheritance.SuppressHandleInheritance(startInfo);
+
+        ILaunchedProcess? result = null;
+        DaemonHandleInheritance.WithStandardHandleInheritanceSuppressed(() => result = StartCore());
+        return result!;
 
         ILaunchedProcess StartCore()
         {
