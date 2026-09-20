@@ -2,7 +2,9 @@
 
 ## Status
 
-All phases are complete except phase 6 (telemetry), which is dropped by design: 1 (verify `AsyncLocal`
+All phases are complete except phase 6 (telemetry), which is dropped by design (see the "Update" note under
+Decisions below for a since-arrived, independent upstream change that partitions telemetry by daemon process
+without reopening this phase): 1 (verify `AsyncLocal`
 propagation), 2 (wire it into `GlobalLogMessageLogger`), 3 (audit `IGlobalOptionService` call sites reachable
 from LSP request handling), 4 (the per-connection option override facade + `DidChangeConfigurationNotificationHandler`
 rewire), 5 (per-connection `ExtensionLogDirectory` routing via a new client→daemon handshake), and 7
@@ -276,7 +278,9 @@ This is explicitly **not** a single PR. Recommended order, smallest/least-entang
      why "run the whole affected suite, not just what you wrote" stayed the standard here even under time
      pressure.
 6. **`TelemetryLevel`/`SessionId`/`RoslynLogger`**: **decided out of scope, by design** (see "Decisions" below)
-   — not deferred pending a future decision, just not going to happen.
+   — not deferred pending a future decision, just not going to happen. (An independent upstream change later
+   partitioned telemetry by daemon process along `telemetryLevel`; see the "Update" note under Decisions —
+   that's a side effect of unrelated work, not this phase being resumed.)
 7. **`SourceGeneratorExecutionPreference`**. **Done.** `LanguageServerConnectionManager.TryStartServerAsync`
    now parses `connection.Handshake.SourceGeneratorExecutionPreference` (case-insensitive
    `Enum.TryParse<SourceGeneratorExecutionPreference>`, matching how `LanguageServerCommandLine`'s
@@ -871,6 +875,14 @@ blocked on them.
   another the way the option-bleed and log-broadcast symptoms do. Phase 6 is dropped entirely, not deferred.
   This also removes the one open question that had no clean answer, so the remaining scope (phases 1–5, 7) is
   fully options + logs, both of which cause behavior a user would actually notice as wrong.
+  **Update (GoldMikeDev/FollyOfTheUnbound#97):** an `origin/roslyn` sync brought in upstream's unrelated
+  per-server telemetry sessions, which key the daemon pipe by `telemetryLevel` in addition to
+  `serverArguments` — so two clients that differ in telemetry level now get separate daemon processes (and
+  therefore separate `LanguageServerTelemetry` reporters/`daemonSessionId`s) instead of sharing one. This is
+  daemon-process partitioning by telemetry level, not the true per-connection isolation phase 6 describes:
+  connections that share both server arguments and telemetry level still share one reporter/session exactly
+  as before. Phase 6 itself remains dropped, not reopened; this is a side effect of an independent upstream
+  feature, not this fork resuming that work.
 - **Scope of the phase 3 option-read audit: bounded to the LSP request-handling path.** "Every option read
   anywhere in the IDE layer" is unbounded and is what made phase 3 look risky. Scope it instead to option
   reads reachable while a `LanguageServerHost` is handling a specific client's request or notification
