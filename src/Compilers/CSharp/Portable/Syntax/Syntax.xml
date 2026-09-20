@@ -2633,6 +2633,16 @@
       <Kind Name="SemicolonToken"/>
     </Field>
   </Node>
+  <Node Name="EscapeStatementSyntax" Base="StatementSyntax">
+    <Kind Name="EscapeStatement"/>
+    <Field Name="AttributeLists" Type="SyntaxList&lt;AttributeListSyntax&gt;" Override="true"/>
+    <Field Name="EscapeKeyword" Type="SyntaxToken">
+      <Kind Name="IdentifierToken"/>
+    </Field>
+    <Field Name="SemicolonToken" Type="SyntaxToken">
+      <Kind Name="SemicolonToken"/>
+    </Field>
+  </Node>
   <Node Name="ForStatementSyntax" Base="StatementSyntax">
     <Kind Name="ForStatement"/>
     <Field Name="AttributeLists" Type="SyntaxList&lt;AttributeListSyntax&gt;" Override="true"/>

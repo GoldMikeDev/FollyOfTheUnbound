@@ -1795,4 +1795,72 @@ public sealed partial class ConvertForEachToForTests : AbstractCSharpCodeActionT
                 }
             }
             """, new(options: ImplicitTypeEverywhere));
+
+    // Folly of the Unbound: `escape;` targets the nearest enclosing block lexically. Converting a foreach with
+    // an unbraced body to a for loop always wraps the body in a block (to make room for the new index/item
+    // variable declaration), so if the unbraced body is (or leads to) a top-level `escape;`, converting it
+    // would silently retarget that `escape;` -- so the refactoring must not be offered at all in that case.
+    [Fact]
+    public Task DoNotOfferForUnbracedBodyContainingTopLevelEscapeStatement()
+        => TestMissingInRegularAndScriptAsync("""
+            class Test
+            {
+                void Method()
+                {
+                    var array = new int[] { 1, 3, 4 };
+                    {
+                        foreach[||] (var a in array)
+                            escape;
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """);
+
+    [Fact]
+    public Task DoNotOfferForUnbracedBodyContainingNestedTopLevelEscapeStatement()
+        => TestMissingInRegularAndScriptAsync("""
+            class Test
+            {
+                void Method()
+                {
+                    var array = new int[] { 1, 3, 4 };
+                    {
+                        foreach[||] (var a in array)
+                            if (a > 0) escape; else System.Console.WriteLine(a);
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """);
+
+    // Control case: the `escape;` here is already inside its own nested block, so wrapping the foreach's
+    // unbraced body is safe -- it doesn't change what the inner `escape;` targets. Conversion should still be
+    // offered normally.
+    [Fact]
+    public Task OfferForUnbracedBodyWhenEscapeStatementIsInsideItsOwnNestedBlock()
+        => TestInRegularAndScriptAsync("""
+            class Test
+            {
+                void Method()
+                {
+                    var array = new int[] { 1, 3, 4 };
+                    foreach[||] (var a in array)
+                        if (a > 0) { escape; }
+                }
+            }
+            """, """
+            class Test
+            {
+                void Method()
+                {
+                    var array = new int[] { 1, 3, 4 };
+                    for (int {|Rename:i|} = 0; i < array.Length; i++)
+                    {
+                        int a = array[i];
+                        if (a > 0) { escape; }
+                    }
+                }
+            }
+            """);
 }

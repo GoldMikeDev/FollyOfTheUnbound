@@ -416,6 +416,9 @@ public partial class CSharpSyntaxVisitor<TResult>
     /// <summary>Called when the visitor visits a MutateStatementSyntax node.</summary>
     public virtual TResult? VisitMutateStatement(MutateStatementSyntax node) => this.DefaultVisit(node);
 
+    /// <summary>Called when the visitor visits a EscapeStatementSyntax node.</summary>
+    public virtual TResult? VisitEscapeStatement(EscapeStatementSyntax node) => this.DefaultVisit(node);
+
     /// <summary>Called when the visitor visits a ForStatementSyntax node.</summary>
     public virtual TResult? VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
 
@@ -1188,6 +1191,9 @@ public partial class CSharpSyntaxVisitor
     /// <summary>Called when the visitor visits a MutateStatementSyntax node.</summary>
     public virtual void VisitMutateStatement(MutateStatementSyntax node) => this.DefaultVisit(node);
 
+    /// <summary>Called when the visitor visits a EscapeStatementSyntax node.</summary>
+    public virtual void VisitEscapeStatement(EscapeStatementSyntax node) => this.DefaultVisit(node);
+
     /// <summary>Called when the visitor visits a ForStatementSyntax node.</summary>
     public virtual void VisitForStatement(ForStatementSyntax node) => this.DefaultVisit(node);
 
@@ -1959,6 +1965,9 @@ public partial class CSharpSyntaxRewriter : CSharpSyntaxVisitor<SyntaxNode?>
 
     public override SyntaxNode? VisitMutateStatement(MutateStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), VisitToken(node.MutateKeyword), (IdentifierNameSyntax?)Visit(node.VariableName) ?? throw new ArgumentNullException("variableName"), VisitToken(node.ToKeyword), (TypeSyntax?)Visit(node.Type) ?? throw new ArgumentNullException("type"), VisitToken(node.SemicolonToken));
+
+    public override SyntaxNode? VisitEscapeStatement(EscapeStatementSyntax node)
+        => node.Update(VisitList(node.AttributeLists), VisitToken(node.EscapeKeyword), VisitToken(node.SemicolonToken));
 
     public override SyntaxNode? VisitForStatement(ForStatementSyntax node)
         => node.Update(VisitList(node.AttributeLists), VisitToken(node.ForKeyword), VisitToken(node.OpenParenToken), (VariableDeclarationSyntax?)Visit(node.Declaration), VisitList(node.Initializers), VisitToken(node.FirstSemicolonToken), (ExpressionSyntax?)Visit(node.Condition), VisitToken(node.SecondSemicolonToken), VisitList(node.Incrementors), VisitToken(node.CloseParenToken), (StatementSyntax?)Visit(node.Statement) ?? throw new ArgumentNullException("statement"));
@@ -4494,6 +4503,26 @@ public static partial class SyntaxFactory
     /// <summary>Creates a new MutateStatementSyntax instance.</summary>
     public static MutateStatementSyntax MutateStatement(string mutateKeyword, string variableName, TypeSyntax type)
         => SyntaxFactory.MutateStatement(default, SyntaxFactory.Identifier(mutateKeyword), SyntaxFactory.IdentifierName(variableName), SyntaxFactory.Token(SyntaxKind.ToKeyword), type, SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+    /// <summary>Creates a new EscapeStatementSyntax instance.</summary>
+    public static EscapeStatementSyntax EscapeStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken escapeKeyword, SyntaxToken semicolonToken)
+    {
+        if (escapeKeyword.Kind() != SyntaxKind.IdentifierToken) throw new ArgumentException(nameof(escapeKeyword));
+        if (semicolonToken.Kind() != SyntaxKind.SemicolonToken) throw new ArgumentException(nameof(semicolonToken));
+        return (EscapeStatementSyntax)Syntax.InternalSyntax.SyntaxFactory.EscapeStatement(attributeLists.Node.ToGreenList<Syntax.InternalSyntax.AttributeListSyntax>(), (Syntax.InternalSyntax.SyntaxToken)escapeKeyword.Node!, (Syntax.InternalSyntax.SyntaxToken)semicolonToken.Node!).CreateRed();
+    }
+
+    /// <summary>Creates a new EscapeStatementSyntax instance.</summary>
+    public static EscapeStatementSyntax EscapeStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken escapeKeyword)
+        => SyntaxFactory.EscapeStatement(attributeLists, escapeKeyword, SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+    /// <summary>Creates a new EscapeStatementSyntax instance.</summary>
+    public static EscapeStatementSyntax EscapeStatement(SyntaxToken escapeKeyword)
+        => SyntaxFactory.EscapeStatement(default, escapeKeyword, SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
+    /// <summary>Creates a new EscapeStatementSyntax instance.</summary>
+    public static EscapeStatementSyntax EscapeStatement(string escapeKeyword)
+        => SyntaxFactory.EscapeStatement(default, SyntaxFactory.Identifier(escapeKeyword), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
     /// <summary>Creates a new ForStatementSyntax instance.</summary>
     public static ForStatementSyntax ForStatement(SyntaxList<AttributeListSyntax> attributeLists, SyntaxToken forKeyword, SyntaxToken openParenToken, VariableDeclarationSyntax? declaration, SeparatedSyntaxList<ExpressionSyntax> initializers, SyntaxToken firstSemicolonToken, ExpressionSyntax? condition, SyntaxToken secondSemicolonToken, SeparatedSyntaxList<ExpressionSyntax> incrementors, SyntaxToken closeParenToken, StatementSyntax statement)

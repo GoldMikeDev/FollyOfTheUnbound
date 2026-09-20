@@ -351,6 +351,10 @@ internal sealed class SyntaxComparer(
                 isLeaf = true;
                 return Label.GotoStatement;
 
+            case SyntaxKind.EscapeStatement:
+                isLeaf = true;
+                return Label.GotoStatement;
+
             case SyntaxKind.GotoCaseStatement:
             case SyntaxKind.GotoDefaultStatement:
                 isLeaf = true;

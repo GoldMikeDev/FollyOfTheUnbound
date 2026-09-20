@@ -474,6 +474,7 @@ statement
   | do_statement
   | do_until_statement
   | empty_statement
+  | escape_statement
   | expression_statement
   | fixed_statement
   | for_statement
@@ -530,6 +531,10 @@ do_until_statement
 
 empty_statement
   : attribute_list* ';'
+  ;
+
+escape_statement
+  : attribute_list* identifier_token ';'
   ;
 
 expression_statement

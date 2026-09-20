@@ -399,6 +399,27 @@ namespace Microsoft.CodeAnalysis.CSharp
         }
 
         /// <summary>
+        /// The <see cref="GeneratedLabelSymbol"/> that an <c>escape;</c> statement (<paramref
+        /// name="escapeStatementSyntax"/>) branches to: a label positioned just before the closing
+        /// brace of the *nearest* enclosing block (unlike break/continue, this never searches past the
+        /// nearest block). Allocated lazily and cached by the <see cref="BlockBinder"/> that owns that
+        /// block, <em>but only when <paramref name="escapeStatementSyntax"/> is actually lexically
+        /// inside the real block that binder was constructed for</em> -- see the override in <see
+        /// cref="BlockBinder"/> for why this parameter exists: without it, a speculative bind of an
+        /// `escape;` reusing the real enclosing <see cref="BlockBinder"/> chain (e.g. via
+        /// <c>SemanticModel.TryGetSpeculativeSemanticModel(int, StatementSyntax, out SemanticModel)</c>)
+        /// would permanently allocate/cache the label on that real, long-lived binder even though no
+        /// real `escape;` exists in the source, corrupting later real binds of the same block. The
+        /// caller that appends the corresponding label statement only does so if it was actually
+        /// requested by a real bind.
+        /// </summary>
+        internal virtual GeneratedLabelSymbol? GetEscapeLabel(SyntaxNode escapeStatementSyntax)
+        {
+            RoslynDebug.Assert(Next is object);
+            return Next.GetEscapeLabel(escapeStatementSyntax);
+        }
+
+        /// <summary>
         /// Returns the <see cref="GeneratedLabelSymbol"/> for a continue statement targeting the given label,
         /// or the nearest enclosing loop if <paramref name="labelName"/> is null.
         /// </summary>

@@ -330,6 +330,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((DoUntilStatementSyntax)statement).DoKeyword;
                 case SyntaxKind.MutateStatement:
                     return ((MutateStatementSyntax)statement).MutateKeyword;
+                case SyntaxKind.EscapeStatement:
+                    return ((EscapeStatementSyntax)statement).EscapeKeyword;
                 case SyntaxKind.EmptyStatement:
                     return default(SyntaxToken); //The caller will have to check for this.
                 case SyntaxKind.FixedStatement:
@@ -397,6 +399,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((DoUntilStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.MutateStatement:
                     return ((MutateStatementSyntax)statement).SemicolonToken;
+                case SyntaxKind.EscapeStatement:
+                    return ((EscapeStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.EmptyStatement:
                     return ((EmptyStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.ExpressionStatement:

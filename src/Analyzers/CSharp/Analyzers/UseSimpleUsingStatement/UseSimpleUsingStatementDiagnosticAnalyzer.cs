@@ -213,6 +213,21 @@ internal sealed class UseSimpleUsingStatementDiagnosticAnalyzer()
         {
             if (IsGotoOrLabeledStatement(statement))
                 return false;
+
+            // Folly of the Unbound: converting `using (var d = Get()) { ... }` into
+            // `using var d = Get(); ...` removes the BlockSyntax that used to wrap the using
+            // statement's body (whether that body was already a block, or a single unbraced
+            // embedded statement -- either way, that scope disappears). A top-level `escape;`
+            // anywhere in that body targets the nearest enclosing block lexically, so it would
+            // silently retarget from "exit the using's body" to whatever block now contains the
+            // flattened statements (e.g. an enclosing `while` loop), changing behavior. Reuse
+            // ContainsTopLevelEscapeStatement() per direct statement of the body: it already stops
+            // at any nested BlockSyntax (an escape already inside its own nested block is
+            // unaffected by removing the *outer* using's block) and walks through further unbraced
+            // embedded statements (nested if/for/while/do-until/etc.) looking for a top-level
+            // escape.
+            if (statement.ContainsTopLevelEscapeStatement())
+                return false;
         }
 
         return true;

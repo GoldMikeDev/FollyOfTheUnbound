@@ -409,6 +409,9 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static Syntax.InternalSyntax.MutateStatementSyntax GenerateMutateStatement()
             => InternalSyntaxFactory.MutateStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Identifier("MutateKeyword"), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.ToKeyword), GenerateIdentifierName(), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
+        private static Syntax.InternalSyntax.EscapeStatementSyntax GenerateEscapeStatement()
+            => InternalSyntaxFactory.EscapeStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Identifier("EscapeKeyword"), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
         private static Syntax.InternalSyntax.ForStatementSyntax GenerateForStatement()
             => InternalSyntaxFactory.ForStatement(new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SyntaxList<Syntax.InternalSyntax.AttributeListSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.ForKeyword), InternalSyntaxFactory.Token(SyntaxKind.OpenParenToken), null, new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SeparatedSyntaxList<Syntax.InternalSyntax.ExpressionSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken), null, InternalSyntaxFactory.Token(SyntaxKind.SemicolonToken), new Microsoft.CodeAnalysis.Syntax.InternalSyntax.SeparatedSyntaxList<Syntax.InternalSyntax.ExpressionSyntax>(), InternalSyntaxFactory.Token(SyntaxKind.CloseParenToken), GenerateBlock());
 
@@ -2374,6 +2377,18 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.NotNull(node.VariableName);
             Assert.Equal(SyntaxKind.ToKeyword, node.ToKeyword.Kind);
             Assert.NotNull(node.Type);
+            Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind);
+
+            AttachAndCheckDiagnostics(node);
+        }
+
+        [Fact]
+        public void TestEscapeStatementFactoryAndProperties()
+        {
+            var node = GenerateEscapeStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(SyntaxKind.IdentifierToken, node.EscapeKeyword.Kind);
             Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind);
 
             AttachAndCheckDiagnostics(node);
@@ -7552,6 +7567,32 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         }
 
         [Fact]
+        public void TestEscapeStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateEscapeStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestEscapeStatementIdentityRewriter()
+        {
+            var oldNode = GenerateEscapeStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
         public void TestForStatementTokenDeleteRewriter()
         {
             var oldNode = GenerateForStatement();
@@ -11153,6 +11194,9 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         private static MutateStatementSyntax GenerateMutateStatement()
             => SyntaxFactory.MutateStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Identifier("MutateKeyword"), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.ToKeyword), GenerateIdentifierName(), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
 
+        private static EscapeStatementSyntax GenerateEscapeStatement()
+            => SyntaxFactory.EscapeStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Identifier("EscapeKeyword"), SyntaxFactory.Token(SyntaxKind.SemicolonToken));
+
         private static ForStatementSyntax GenerateForStatement()
             => SyntaxFactory.ForStatement(new SyntaxList<AttributeListSyntax>(), SyntaxFactory.Token(SyntaxKind.ForKeyword), SyntaxFactory.Token(SyntaxKind.OpenParenToken), default(VariableDeclarationSyntax), new SeparatedSyntaxList<ExpressionSyntax>(), SyntaxFactory.Token(SyntaxKind.SemicolonToken), default(ExpressionSyntax), SyntaxFactory.Token(SyntaxKind.SemicolonToken), new SeparatedSyntaxList<ExpressionSyntax>(), SyntaxFactory.Token(SyntaxKind.CloseParenToken), GenerateBlock());
 
@@ -13120,6 +13164,18 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
             Assert.NotNull(node.Type);
             Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind());
             var newNode = node.WithAttributeLists(node.AttributeLists).WithMutateKeyword(node.MutateKeyword).WithVariableName(node.VariableName).WithToKeyword(node.ToKeyword).WithType(node.Type).WithSemicolonToken(node.SemicolonToken);
+            Assert.Equal(node, newNode);
+        }
+
+        [Fact]
+        public void TestEscapeStatementFactoryAndProperties()
+        {
+            var node = GenerateEscapeStatement();
+
+            Assert.Equal(default, node.AttributeLists);
+            Assert.Equal(SyntaxKind.IdentifierToken, node.EscapeKeyword.Kind());
+            Assert.Equal(SyntaxKind.SemicolonToken, node.SemicolonToken.Kind());
+            var newNode = node.WithAttributeLists(node.AttributeLists).WithEscapeKeyword(node.EscapeKeyword).WithSemicolonToken(node.SemicolonToken);
             Assert.Equal(node, newNode);
         }
 
@@ -18289,6 +18345,32 @@ namespace Microsoft.CodeAnalysis.CSharp.UnitTests
         public void TestMutateStatementIdentityRewriter()
         {
             var oldNode = GenerateMutateStatement();
+            var rewriter = new IdentityRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            Assert.Same(oldNode, newNode);
+        }
+
+        [Fact]
+        public void TestEscapeStatementTokenDeleteRewriter()
+        {
+            var oldNode = GenerateEscapeStatement();
+            var rewriter = new TokenDeleteRewriter();
+            var newNode = rewriter.Visit(oldNode);
+
+            if(!oldNode.IsMissing)
+            {
+                Assert.NotEqual(oldNode, newNode);
+            }
+
+            Assert.NotNull(newNode);
+            Assert.True(newNode.IsMissing, "No tokens => missing");
+        }
+
+        [Fact]
+        public void TestEscapeStatementIdentityRewriter()
+        {
+            var oldNode = GenerateEscapeStatement();
             var rewriter = new IdentityRewriter();
             var newNode = rewriter.Visit(oldNode);
 

@@ -7,6 +7,7 @@
 using System.Composition;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeRefactorings;
+using Microsoft.CodeAnalysis.CSharp.Extensions;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Shared.Extensions;
 using Microsoft.CodeAnalysis.SplitOrMergeIfStatements;
@@ -60,4 +61,11 @@ internal sealed class CSharpMergeNestedIfStatementsCodeRefactoringProvider
         ifOrElseIf = null;
         return false;
     }
+
+    // Folly of the Unbound: merging `if (a) { if (b) S; }` into `if (a && b) S;` removes the block
+    // that wraps the inner `if`. If S is (or contains, through a chain of further unbraced embedded
+    // statements) a top-level `escape;`, that removed block was its target -- merging would silently
+    // retarget it to whatever block encloses the outer `if` instead. Suppress the merge in that case.
+    protected override bool IsSafeToMerge(SyntaxNode innerIfStatement)
+        => innerIfStatement is not IfStatementSyntax ifStatement || !ifStatement.ContainsTopLevelEscapeStatement();
 }
