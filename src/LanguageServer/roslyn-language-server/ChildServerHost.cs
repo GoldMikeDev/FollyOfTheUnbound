@@ -59,8 +59,8 @@ internal static class ChildServerHost
         // or the editor's pipe (pipe transport). Our stdin -> the server's stdin carries the editor's LSP requests
         // in stdio mode; the server's stdout/stderr -> ours carries LSP responses (stdio mode) and diagnostics.
         _ = ForwardEditorInputAsync(process, forwardingCancellationSource.Token);
-        var stdoutTask = ProcessUtilities.ForwardStreamAsync(process.StandardOutput.BaseStream, Console.OpenStandardOutput(), forwardingCancellationSource.Token);
-        var stderrTask = ProcessUtilities.ForwardStreamAsync(process.StandardError.BaseStream, Console.OpenStandardError(), forwardingCancellationSource.Token);
+        var stdoutTask = ProcessUtilities.ForwardStreamAsync(process.StandardOutput, Console.OpenStandardOutput(), forwardingCancellationSource.Token);
+        var stderrTask = ProcessUtilities.ForwardStreamAsync(process.StandardError, Console.OpenStandardError(), forwardingCancellationSource.Token);
 
         await process.WaitForExitAsync().ConfigureAwait(false);
 
