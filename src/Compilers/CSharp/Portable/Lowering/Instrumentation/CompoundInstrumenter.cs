@@ -101,6 +101,16 @@ namespace Microsoft.CodeAnalysis.CSharp
             return Previous.InstrumentDoStatementConditionalGotoStart(original, ifConditionGotoStart);
         }
 
+        public override BoundExpression InstrumentDoUntilStatementCondition(BoundDoUntilStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
+        {
+            return Previous.InstrumentDoUntilStatementCondition(original, rewrittenCondition, factory);
+        }
+
+        public override BoundStatement InstrumentDoUntilStatementConditionalGotoStart(BoundDoUntilStatement original, BoundStatement ifConditionGotoStart)
+        {
+            return Previous.InstrumentDoUntilStatementConditionalGotoStart(original, ifConditionGotoStart);
+        }
+
         public override BoundStatement? InstrumentForEachStatementCollectionVarDeclaration(BoundForEachStatement original, BoundStatement? collectionVarDecl)
         {
             return Previous.InstrumentForEachStatementCollectionVarDeclaration(original, collectionVarDecl);

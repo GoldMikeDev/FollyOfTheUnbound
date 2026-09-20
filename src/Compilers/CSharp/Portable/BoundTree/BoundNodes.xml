@@ -1288,6 +1288,10 @@
     <Field Name="OriginalLocal" Type="LocalSymbol" Null="disallow"/>
     <Field Name="NewLocal" Type="LocalSymbol" Null="disallow"/>
     <Field Name="ConversionExpression" Type="BoundExpression" Null="disallow"/>
+    <!-- Computed once at bind time by MutationValidity.GetValidity; LocalRewriter_MutateStatement reads
+         this instead of recomputing it, since the classification only depends on OriginalLocal.Type and
+         NewLocal.Type, which don't change between binding and lowering. -->
+    <Field Name="Validity" Type="MutationValidityKind"/>
   </Node>
 
   <Node Name="BoundForStatement" Base="BoundLoopStatement">

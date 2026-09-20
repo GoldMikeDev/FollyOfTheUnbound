@@ -576,9 +576,11 @@ internal static partial class ExpressionSyntaxExtensions
             case SyntaxKind.ArrayRankSpecifier:
             case SyntaxKind.ConditionalExpression:
             case SyntaxKind.IfStatement:
+            case SyntaxKind.IfCatchArm:
             case SyntaxKind.CatchFilterClause:
             case SyntaxKind.WhileStatement:
             case SyntaxKind.DoStatement:
+            case SyntaxKind.DoUntilStatement:
             case SyntaxKind.ThrowStatement:
             case SyntaxKind.SwitchStatement:
             case SyntaxKind.InterpolatedStringExpression:

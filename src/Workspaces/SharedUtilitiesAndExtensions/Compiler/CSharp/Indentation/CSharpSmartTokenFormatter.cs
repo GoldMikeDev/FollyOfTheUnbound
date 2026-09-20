@@ -70,7 +70,7 @@ internal sealed class CSharpSmartTokenFormatter : ISmartTokenFormatter
     {
         return endToken.IsKind(SyntaxKind.CloseBraceToken) &&
             endToken.Parent.IsKind(SyntaxKind.Block) &&
-            endToken.Parent.Parent?.Kind() is SyntaxKind.TryStatement or SyntaxKind.DoStatement;
+            endToken.Parent.Parent?.Kind() is SyntaxKind.TryStatement or SyntaxKind.DoStatement or SyntaxKind.DoUntilStatement or SyntaxKind.IfCatchArm or SyntaxKind.IfCatchStatement;
     }
 
     public IList<TextChange> FormatToken(SyntaxToken token, CancellationToken cancellationToken)

@@ -180,12 +180,14 @@ internal sealed partial class CSharpMiscellaneousReducer : AbstractCSharpReducer
             switch (node.Kind())
             {
                 case SyntaxKind.IfStatement:
+                case SyntaxKind.IfCatchArm:
                 case SyntaxKind.ElseClause:
                 case SyntaxKind.ForStatement:
                 case SyntaxKind.ForEachStatement:
                 case SyntaxKind.ForEachVariableStatement:
                 case SyntaxKind.WhileStatement:
                 case SyntaxKind.DoStatement:
+                case SyntaxKind.DoUntilStatement:
                 case SyntaxKind.UsingStatement:
                 case SyntaxKind.LockStatement:
                     return true;

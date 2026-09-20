@@ -245,6 +245,13 @@ internal sealed class BlockSyntaxStructureProvider : AbstractSyntaxNodeStructure
             // extends through its own catches/finally by virtue of being their parent.
             return ifCatchStatement.Span.End;
         }
+        else if (node.Parent is IfCatchArmSyntax { ConditionBlock: var conditionBlock } && node == conditionBlock)
+        {
+            // The arm's ConditionBlock is not its last child -- Consequence always follows it -- so
+            // collapsing "up to the end of the parent" (the generic branch below) would swallow the
+            // Consequence too. Collapse just to the end of the condition block itself.
+            return node.Span.End;
+        }
         else
         {
             // For all other constructs, we collapse up to the end of the parent

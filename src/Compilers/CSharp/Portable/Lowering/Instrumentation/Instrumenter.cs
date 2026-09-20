@@ -132,6 +132,21 @@ namespace Microsoft.CodeAnalysis.CSharp
             return ifConditionGotoStart;
         }
 
+        public virtual BoundExpression InstrumentDoUntilStatementCondition(BoundDoUntilStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
+        {
+            Debug.Assert(!original.WasCompilerGenerated);
+            Debug.Assert(original.Syntax.Kind() == SyntaxKind.DoUntilStatement);
+            Debug.Assert(factory != null);
+            return rewrittenCondition;
+        }
+
+        public virtual BoundStatement InstrumentDoUntilStatementConditionalGotoStart(BoundDoUntilStatement original, BoundStatement ifConditionGotoStart)
+        {
+            Debug.Assert(!original.WasCompilerGenerated);
+            Debug.Assert(original.Syntax.Kind() == SyntaxKind.DoUntilStatement);
+            return ifConditionGotoStart;
+        }
+
         public virtual BoundStatement InstrumentWhileStatementConditionalGotoStartOrBreak(BoundWhileStatement original, BoundStatement ifConditionGotoStart)
         {
             Debug.Assert(!original.WasCompilerGenerated);

@@ -248,6 +248,23 @@ namespace Microsoft.CodeAnalysis.CSharp
             return new BoundSequencePointWithSpan(doSyntax, base.InstrumentDoStatementConditionalGotoStart(original, ifConditionGotoStart), span);
         }
 
+        public override BoundExpression InstrumentDoUntilStatementCondition(BoundDoUntilStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
+        {
+            // EnC: We need to insert a hidden sequence point to handle function remapping in case
+            // the containing method is edited while methods invoked in the condition are being executed.
+            return AddConditionSequencePoint(base.InstrumentDoUntilStatementCondition(original, rewrittenCondition, factory), original.Syntax, factory);
+        }
+
+        public override BoundStatement InstrumentDoUntilStatementConditionalGotoStart(BoundDoUntilStatement original, BoundStatement ifConditionGotoStart)
+        {
+            var doUntilSyntax = (DoUntilStatementSyntax)original.Syntax;
+            var span = TextSpan.FromBounds(
+                doUntilSyntax.UntilKeyword.SpanStart,
+                doUntilSyntax.SemicolonToken.Span.End);
+
+            return new BoundSequencePointWithSpan(doUntilSyntax, base.InstrumentDoUntilStatementConditionalGotoStart(original, ifConditionGotoStart), span);
+        }
+
         public override BoundStatement InstrumentWhileStatementConditionalGotoStartOrBreak(BoundWhileStatement original, BoundStatement ifConditionGotoStart)
         {
             WhileStatementSyntax whileSyntax = (WhileStatementSyntax)original.Syntax;

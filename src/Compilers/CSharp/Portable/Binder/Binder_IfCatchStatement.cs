@@ -44,16 +44,24 @@ namespace Microsoft.CodeAnalysis.CSharp
                     // LocalBinderFactory visits the block itself), not the IfCatchArmBinder that
                     // introduces 'ifout' -- both are keyed to the same ConditionBlock syntax node in the
                     // binder map, and the block's own registration wins (last one registered). However
-                    // that BlockBinder's parent chain does include the IfCatchArmBinder, so ordinary name
-                    // lookup for "ifout" through it still finds the right local.
-                    Binder armBinder = this.GetBinder(arm.ConditionBlock) ?? this;
+                    // that BlockBinder's parent chain does include the IfCatchArmBinder, so walking up from
+                    // it finds the right binder directly without a general name-resolution pass.
+                    Binder? armBinder = this.GetBinder(arm.ConditionBlock);
                     BoundBlock boundConditionBlock = this.BindEmbeddedBlock(arm.ConditionBlock, diagnostics);
 
-                    LookupResult ifoutLookup = LookupResult.GetInstance();
-                    CompoundUseSiteInfo<AssemblySymbol> ifoutUseSiteInfo = GetNewCompoundUseSiteInfo(diagnostics);
-                    armBinder.LookupSymbolsWithFallback(ifoutLookup, IfOutLocalSymbol.IfOutName, arity: 0, useSiteInfo: ref ifoutUseSiteInfo, options: LookupOptions.Default);
-                    LocalSymbol? ifoutLocal = ifoutLookup.IsSingleViable ? ifoutLookup.SingleSymbolOrDefault as LocalSymbol : null;
-                    ifoutLookup.Free();
+                    IfCatchArmBinder? ifCatchArmBinder = null;
+                    for (Binder? candidate = armBinder; candidate != null; candidate = candidate.Next)
+                    {
+                        if (candidate is IfCatchArmBinder found && found.ScopeDesignator == arm.ConditionBlock)
+                        {
+                            ifCatchArmBinder = found;
+                            break;
+                        }
+                    }
+
+                    LocalSymbol? ifoutLocal = ifCatchArmBinder?.GetDeclaredLocalsForScope(arm.ConditionBlock) is [var single]
+                        ? single
+                        : null;
 
                     if (ifoutLocal is null)
                     {
@@ -84,12 +92,12 @@ namespace Microsoft.CodeAnalysis.CSharp
             }
 
             BoundStatement chainResult = alternative
-                ?? new BoundBlock(node, ImmutableArray<LocalSymbol>.Empty, ImmutableArray<MethodSymbol>.Empty, hasUnsafeModifier: false, instrumentation: null, statements: ImmutableArray<BoundStatement>.Empty);
+                ?? EmptyBlock(node);
 
-            if (anyBlockCondition && node.Catches.Count == 0)
+            bool requiresCatch = anyBlockCondition && node.Catches.Count == 0;
+            if (requiresCatch)
             {
                 diagnostics.Add(ErrorCode.ERR_IfBlockConditionRequiresCatch, node.Location);
-                return chainResult;
             }
 
             bool hasCatchesOrFinally = node.Catches.Count > 0 || node.Finally != null;
@@ -102,10 +110,16 @@ namespace Microsoft.CodeAnalysis.CSharp
             BoundBlock? finallyBlockOpt = node.Finally != null ? this.BindEmbeddedBlock(node.Finally.Block, diagnostics) : null;
 
             BoundBlock tryBlock = chainResult as BoundBlock
-                ?? new BoundBlock(node, ImmutableArray<LocalSymbol>.Empty, ImmutableArray<MethodSymbol>.Empty, hasUnsafeModifier: false, instrumentation: null, statements: ImmutableArray.Create(chainResult));
+                ?? EmptyBlock(node, ImmutableArray.Create(chainResult));
 
-            return new BoundTryStatement(node, tryBlock, catchBlocks, finallyBlockOpt, finallyLabelOpt: null, preferFaultHandler: false);
+            // Always keep the bound catch/finally blocks attached to the returned tree (even when the
+            // ERR_IfBlockConditionRequiresCatch diagnostic above already marked this chain invalid), so error
+            // recovery and IDE tooling (semantic model queries, hover, go-to-def) over those spans still work.
+            return new BoundTryStatement(node, tryBlock, catchBlocks, finallyBlockOpt, finallyLabelOpt: null, preferFaultHandler: false, hasErrors: requiresCatch);
         }
+
+        private static BoundBlock EmptyBlock(SyntaxNode node, ImmutableArray<BoundStatement> statements = default)
+            => new BoundBlock(node, ImmutableArray<LocalSymbol>.Empty, ImmutableArray<MethodSymbol>.Empty, hasUnsafeModifier: false, instrumentation: null, statements: statements.IsDefault ? ImmutableArray<BoundStatement>.Empty : statements);
 
         /// <summary>
         /// Builds the expression <c>ifoutLocal.Value</c>, which throws <see cref="System.InvalidOperationException"/>

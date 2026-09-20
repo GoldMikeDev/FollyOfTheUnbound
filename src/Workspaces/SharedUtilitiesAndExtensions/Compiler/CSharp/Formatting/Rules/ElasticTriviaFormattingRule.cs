@@ -140,7 +140,7 @@ internal sealed class ElasticTriviaFormattingRule : BaseFormattingRule
         // Special case for formatting if-statements blocks on new lines
         if (CommonFormattingHelpers.HasAnyWhitespaceElasticTrivia(previousToken, currentToken) &&
             currentToken.IsKind(SyntaxKind.OpenBraceToken) &&
-            currentToken.Parent.IsParentKind(SyntaxKind.IfStatement))
+            currentToken.Parent?.Parent?.Kind() is SyntaxKind.IfStatement or SyntaxKind.IfCatchArm)
         {
             var num = LineBreaksAfter(previousToken, currentToken);
 
@@ -436,6 +436,12 @@ internal sealed class ElasticTriviaFormattingRule : BaseFormattingRule
         else if (
             nextToken.Kind() == SyntaxKind.WhileKeyword &&
             nextToken.Parent.IsKind(SyntaxKind.DoStatement))
+        {
+            return 1;
+        }
+        else if (
+            nextToken.Kind() == SyntaxKind.UntilKeyword &&
+            nextToken.Parent.IsKind(SyntaxKind.DoUntilStatement))
         {
             return 1;
         }

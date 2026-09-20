@@ -12,11 +12,9 @@ internal sealed class UntilKeywordRecommender() : AbstractSyntacticSingleKeyword
 {
     protected override bool IsValidContext(int position, CSharpSyntaxContext context, CancellationToken cancellationToken)
     {
-        if (context.IsStatementContext ||
-            context.IsGlobalStatementContext)
-        {
-            return true;
-        }
+        // Unlike `while`, `until` can never begin a fresh statement -- it is only ever valid as the tail
+        // of a `do { ... } until (...)` construct, so (unlike WhileKeywordRecommender) we deliberately do
+        // NOT recommend it for every IsStatementContext/IsGlobalStatementContext position.
 
         // do {
         // } |

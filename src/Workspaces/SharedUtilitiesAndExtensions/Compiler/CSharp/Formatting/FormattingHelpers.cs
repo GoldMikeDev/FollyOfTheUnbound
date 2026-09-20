@@ -365,6 +365,7 @@ internal static class FormattingHelpers
     public static bool IsEmbeddedStatementOwnerWithCloseParen([NotNullWhen(true)] this SyntaxNode? node)
     {
         return node is IfStatementSyntax or
+               IfCatchArmSyntax or
                WhileStatementSyntax or
                ForStatementSyntax or
                CommonForEachStatementSyntax or

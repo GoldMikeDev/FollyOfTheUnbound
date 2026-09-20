@@ -292,11 +292,13 @@ internal sealed class CSharpInlineDeclarationDiagnosticAnalyzer()
             {
                 case SyntaxKind.WhileStatement:
                 case SyntaxKind.DoStatement:
+                case SyntaxKind.DoUntilStatement:
                 case SyntaxKind.ForStatement:
                 case SyntaxKind.ForEachStatement:
                 case SyntaxKind.UsingStatement:
                 case SyntaxKind.FixedStatement:
                 case SyntaxKind.TryStatement:
+                case SyntaxKind.IfCatchStatement:
                     return current;
             }
 

@@ -764,8 +764,16 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public override BoundNode? VisitInlineExpressionDeclaration(BoundInlineExpressionDeclaration node)
         {
+            // default to the current scope in case we need to handle self-referential error cases.
             AddOrSetLocalScopes(node.LocalSymbol, _localScopeDepth, _localScopeDepth);
-            return base.VisitInlineExpressionDeclaration(node);
+
+            var result = base.VisitInlineExpressionDeclaration(node);
+
+            var valEscapeScope = GetValEscape(node.Operand);
+            var refEscapeScope = node.LocalSymbol.RefKind != RefKind.None ? GetRefEscape(node.Operand) : _localScopeDepth;
+            SetLocalScopes(node.LocalSymbol, refEscapeScope, valEscapeScope);
+
+            return result;
         }
 
         public override BoundNode? VisitConditionalOperator(BoundConditionalOperator node)

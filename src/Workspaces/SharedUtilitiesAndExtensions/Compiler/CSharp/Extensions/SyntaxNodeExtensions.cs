@@ -122,6 +122,7 @@ internal static partial class SyntaxNodeExtensions
                CommonForEachStatementSyntax or
                ForStatementSyntax or
                IfStatementSyntax or
+               IfCatchArmSyntax or
                LabeledStatementSyntax or
                LockStatementSyntax or
                UsingStatementSyntax or
@@ -141,6 +142,7 @@ internal static partial class SyntaxNodeExtensions
             CommonForEachStatementSyntax n => n.Statement,
             ForStatementSyntax n => n.Statement,
             IfStatementSyntax n => n.Statement,
+            IfCatchArmSyntax n => n.Consequence,
             LabeledStatementSyntax n => n.Statement,
             LockStatementSyntax n => n.Statement,
             UsingStatementSyntax n => n.Statement,

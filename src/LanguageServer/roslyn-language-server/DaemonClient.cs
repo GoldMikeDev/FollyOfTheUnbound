@@ -68,9 +68,11 @@ internal static class DaemonClient
 
     public static Task<DaemonConnectResult> ConnectAsync(
         ServerExecutable executable,
-        IReadOnlyList<string> serverArguments)
+        ThinClientArguments arguments)
     {
-        var pipeName = GetDaemonPipeName(executable, serverArguments);
+        var serverArguments = arguments.ServerArguments;
+        var telemetryLevel = TelemetryLevelResolver.Resolve(arguments.TelemetryLevel);
+        var pipeName = GetDaemonPipeName(executable, serverArguments, telemetryLevel);
         var daemonMutexTimeout = GetDaemonMutexTimeout(serverArguments);
 
         if (!DaemonClientMutex.TryAcquire(pipeName, daemonMutexTimeout, out var clientMutex))
@@ -145,14 +147,14 @@ internal static class DaemonClient
         }
     }
 
-    private static string GetDaemonPipeName(ServerExecutable executable, IReadOnlyList<string> serverArguments)
+    private static string GetDaemonPipeName(ServerExecutable executable, IReadOnlyList<string> serverArguments, string? telemetryLevel)
     {
         // Honor an explicit override so independent instances (chiefly end-to-end tests) can run isolated
         // daemons. Normal clients leave it unset and derive the name from the bundled server path and
         // startup arguments so only compatible clients share a daemon.
         var pipeNameOverride = Environment.GetEnvironmentVariable(DaemonPipeName.PipeNameOverrideEnvironmentVariable);
         return string.IsNullOrEmpty(pipeNameOverride)
-            ? DaemonPipeName.GetPipeName(executable.FileName, serverArguments)
+            ? DaemonPipeName.GetPipeName(executable.FileName, serverArguments, telemetryLevel)
             : pipeNameOverride;
     }
 

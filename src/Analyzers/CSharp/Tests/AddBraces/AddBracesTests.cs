@@ -998,6 +998,124 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             expectDiagnostic);
 
     [Theory]
+    [InlineData((int)PreferBracesPreference.None)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline)]
+    [InlineData((int)PreferBracesPreference.Always)]
+    public Task DoNotFireForDoUntilWithBraces(int bracesPreference)
+        => TestMissingInRegularAndScriptAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|do|]
+                    {
+                        return;
+                    }
+                    until (true);
+                }
+            }
+            """,
+            new TestParameters(options: Option(CSharpCodeStyleOptions.PreferBraces, (PreferBracesPreference)bracesPreference, NotificationOption2.Silent)));
+
+    [Theory]
+    [InlineData((int)PreferBracesPreference.None, false)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline, false)]
+    [InlineData((int)PreferBracesPreference.Always, true)]
+    public Task FireForDoUntilWithoutBraces(int bracesPreference, bool expectDiagnostic)
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|do|] DoWork(); until (true);
+                }
+
+                static void DoWork() { }
+            }
+            """,
+
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    do
+                    {
+                        DoWork();
+                    }
+                    until (true);
+                }
+
+                static void DoWork() { }
+            }
+            """,
+            (PreferBracesPreference)bracesPreference,
+            expectDiagnostic);
+
+    [Theory]
+    [InlineData((int)PreferBracesPreference.None)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline)]
+    [InlineData((int)PreferBracesPreference.Always)]
+    public Task DoNotFireForIfCatchArmWithBraces(int bracesPreference)
+        => TestMissingInRegularAndScriptAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|if|] (true)
+                    {
+                        DoWork();
+                    }
+                    catch (System.Exception e)
+                    {
+                        Handle(e);
+                    }
+                }
+
+                static void DoWork() { }
+                static void Handle(System.Exception e) { }
+            }
+            """,
+            new TestParameters(options: Option(CSharpCodeStyleOptions.PreferBraces, (PreferBracesPreference)bracesPreference, NotificationOption2.Silent)));
+
+    [Theory]
+    [InlineData((int)PreferBracesPreference.None, false)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline, false)]
+    [InlineData((int)PreferBracesPreference.Always, true)]
+    public Task FireForIfCatchArmWithoutBraces(int bracesPreference, bool expectDiagnostic)
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|if|] (true) DoWork(); catch (System.Exception e) { Handle(e); }
+                }
+
+                static void DoWork() { }
+                static void Handle(System.Exception e) { }
+            }
+            """,
+
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    if (true) { DoWork(); } catch (System.Exception e) { Handle(e); }
+                }
+
+                static void DoWork() { }
+                static void Handle(System.Exception e) { }
+            }
+            """,
+            (PreferBracesPreference)bracesPreference,
+            expectDiagnostic);
+
+    [Theory]
     [InlineData((int)PreferBracesPreference.None, false)]
     [InlineData((int)PreferBracesPreference.WhenMultiline, true)]
     [InlineData((int)PreferBracesPreference.Always, true)]

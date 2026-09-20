@@ -31,12 +31,14 @@ internal sealed class CSharpAddBracesDiagnosticAnalyzer :
     protected override void InitializeWorker(AnalysisContext context)
         => context.RegisterSyntaxNodeAction(AnalyzeNode,
             SyntaxKind.IfStatement,
+            SyntaxKind.IfCatchArm,
             SyntaxKind.ElseClause,
             SyntaxKind.ForStatement,
             SyntaxKind.ForEachStatement,
             SyntaxKind.ForEachVariableStatement,
             SyntaxKind.WhileStatement,
             SyntaxKind.DoStatement,
+            SyntaxKind.DoUntilStatement,
             SyntaxKind.UsingStatement,
             SyntaxKind.LockStatement,
             SyntaxKind.FixedStatement);

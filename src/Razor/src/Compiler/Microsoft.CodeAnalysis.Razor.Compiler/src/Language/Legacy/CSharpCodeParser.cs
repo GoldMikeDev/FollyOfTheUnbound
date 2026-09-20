@@ -2318,9 +2318,17 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
             Assert(CSharpSyntaxKind.ElseKeyword);
             ParseElseClause(builder);
         }
+        else if (At(CSharpSyntaxKind.CatchKeyword, CSharpSyntaxKind.FinallyKeyword))
+        {
+            // This fork's if/catch/finally chain: catch/finally clauses can attach directly after the
+            // final arm's block (or after a trailing plain 'else'), just like after a 'try' block. Reuse
+            // the same catch/finally parsing ParseAfterTryClause uses.
+            Accept(in whitespace);
+            ParseAfterTryClause(builder);
+        }
         else
         {
-            // No else, return whitespace
+            // No else/catch/finally, return whitespace
             PutCurrentBack();
             PutBack(in whitespace);
             SetAcceptedCharacters(AcceptedCharactersInternal.Any);
@@ -2441,7 +2449,7 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         }
 
         ParseUnconditionalBlock(builder);
-        ParseWhileClause(builder);
+        ParseWhileOrUntilClause(builder);
         var topLevel = transition != null;
         if (topLevel)
         {
@@ -2449,16 +2457,18 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         }
     }
 
-    private void ParseWhileClause(in SyntaxListBuilder<RazorSyntaxNode> builder)
+    private void ParseWhileOrUntilClause(in SyntaxListBuilder<RazorSyntaxNode> builder)
     {
         SetAcceptedCharacters(AcceptedCharactersInternal.Any);
         using var whitespace = new PooledArrayBuilder<SyntaxToken>();
         SkipToNextImportantToken(builder, ref whitespace.AsRef());
 
-        if (At(CSharpSyntaxKind.WhileKeyword))
+        // `do { ... } until (...)` is this fork's alternative to `do { ... } while (...)` -- same shape,
+        // just an inverted loop condition, so it needs to be consumed here the same way or the trailing
+        // `until (...);` is left unconsumed and mis-parsed as a new top-level statement/expression.
+        if (At(CSharpSyntaxKind.WhileKeyword, CSharpSyntaxKind.UntilKeyword))
         {
             Accept(in whitespace);
-            Assert(CSharpSyntaxKind.WhileKeyword);
             AcceptAndMoveNext();
             AcceptWhile(IsSpacingTokenIncludingNewLinesAndCommentsAndCSharpDirectives);
             if (TryParseCondition(builder) && TryAccept(SyntaxKind.Semicolon))

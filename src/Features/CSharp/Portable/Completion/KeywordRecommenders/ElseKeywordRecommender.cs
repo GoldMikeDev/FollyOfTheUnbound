@@ -39,6 +39,19 @@ internal sealed class ElseKeywordRecommender() : AbstractSyntacticSingleKeywordR
             }
         }
 
+        // Same idea, but for an if/catch/finally chain's arm-based representation: 'else' is only valid
+        // right after the *last* arm's consequence (an 'else if' arm attaches its own trailing 'else' to
+        // the next arm instead), and only if the chain doesn't already have a trailing 'else' clause.
+        foreach (var ifCatchArm in token.GetAncestors<IfCatchArmSyntax>())
+        {
+            if (ifCatchArm.Consequence.GetLastToken(includeZeroWidth: true) == token &&
+                ifCatchArm.Parent is IfCatchStatementSyntax { Else: null } ifCatchStatement &&
+                ifCatchStatement.Arms[^1] == ifCatchArm)
+            {
+                return true;
+            }
+        }
+
         return false;
     }
 }
