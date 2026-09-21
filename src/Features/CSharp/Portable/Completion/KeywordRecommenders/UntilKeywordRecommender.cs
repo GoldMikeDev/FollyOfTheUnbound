@@ -5,6 +5,7 @@
 using System.Threading;
 using Microsoft.CodeAnalysis.CSharp.Extensions;
 using Microsoft.CodeAnalysis.CSharp.Extensions.ContextQuery;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Microsoft.CodeAnalysis.CSharp.Completion.KeywordRecommenders;
 
@@ -13,8 +14,8 @@ internal sealed class UntilKeywordRecommender() : AbstractSyntacticSingleKeyword
     protected override bool IsValidContext(int position, CSharpSyntaxContext context, CancellationToken cancellationToken)
     {
         // Unlike `while`, `until` can never begin a fresh statement -- it is only ever valid as the tail
-        // of a `do { ... } until (...)` construct, so (unlike WhileKeywordRecommender) we deliberately do
-        // NOT recommend it for every IsStatementContext/IsGlobalStatementContext position.
+        // of a `do <statement> until (...)` construct, so (unlike WhileKeywordRecommender) we deliberately
+        // do NOT recommend it for every IsStatementContext/IsGlobalStatementContext position.
 
         // do {
         // } |
@@ -22,11 +23,19 @@ internal sealed class UntilKeywordRecommender() : AbstractSyntacticSingleKeyword
         // do {
         // } u|
 
+        // The parser (ParseDoOrDoUntilStatement) parses `do` followed by any embedded statement -- braced
+        // or not -- before deciding whether the tail is `while` or `until`; until that tail is parsed, the
+        // statement comes back as a DoStatement with a missing WhileKeyword. So this is also valid
+        // immediately after an unbraced embedded statement, not just after a block:
+
+        // do
+        //     Work();
+        // |
+
         var token = context.TargetToken;
 
-        if (token.Kind() == SyntaxKind.CloseBraceToken &&
-            token.Parent.IsKind(SyntaxKind.Block) &&
-            token.Parent.IsParentKind(SyntaxKind.DoStatement))
+        if (token.Parent?.FirstAncestorOrSelf<DoStatementSyntax>() is { WhileKeyword.IsMissing: true } doStatement &&
+            doStatement.Statement.GetLastToken() == token)
         {
             return true;
         }
