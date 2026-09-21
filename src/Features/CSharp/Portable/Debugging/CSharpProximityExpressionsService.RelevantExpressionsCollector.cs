@@ -38,6 +38,21 @@ internal sealed partial class CSharpProximityExpressionsService
         public override void VisitDoStatement(DoStatementSyntax node)
             => AddExpressionTerms(node.Condition, _expressions);
 
+        public override void VisitDoUntilStatement(DoUntilStatementSyntax node)
+            => AddExpressionTerms(node.Condition, _expressions);
+
+        public override void VisitMutateStatement(MutateStatementSyntax node)
+        {
+            // A mutate statement re-declares its variable under the same name with a new type, analogous
+            // to a local declaration -- record the name the same way AddVariableExpressions does for one,
+            // so a breakpoint on the following statement includes the mutated local in Autos/proximity
+            // expressions.
+            if (_includeDeclarations)
+            {
+                _expressions.Add(node.VariableName.Identifier.ValueText);
+            }
+        }
+
         public override void VisitLockStatement(LockStatementSyntax node)
             => AddExpressionTerms(node.Expression, _expressions);
 
