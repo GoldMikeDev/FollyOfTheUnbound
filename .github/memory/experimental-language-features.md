@@ -420,9 +420,15 @@ gaps beyond the "as of this writing" baseline above:**
   (non-`else if`) trailing `else`, via a `ParseTrailingCatchOrFinally` helper shared with
   `ParseAfterIfClause` — previously only the arm-chain-without-trailing-else path checked for a
   following catch/finally, so `if { ... } { ... } else { ... } catch { ... }` misparsed in
-  `.razor`/`.cshtml`. **No Razor test coverage exists for this fork's if/catch/mutate/until statements
-  at all** (wider gap than this specific fix) — building the baseline-tree parser test infrastructure
-  to cover it is still outstanding.
+  `.razor`/`.cshtml`. Covered by `CSharpBlockTest.SupportsCatchClauseAfterBracedTrailingElse`/
+  `SupportsCatchClauseAfterUnbracedTrailingElse` and the finally-clause equivalents
+  (`src/Razor/src/Compiler/Microsoft.AspNetCore.Razor.Language/test/Legacy/CSharpBlockTest.cs`), using
+  the existing `ParseDocumentTest`/baseline-tree infrastructure that file already has for `try`/`catch`/
+  `finally` and `if`/`else` — no new test infrastructure was needed. **Still an open gap:** that's the
+  only Razor parser coverage this fork's if/catch/mutate/until statements have; `do`/`until`, `mutate`,
+  and the rest of the if/catch chain shape (block-condition arms, multiple arms, `ifout`) remain
+  untested in Razor specifically (each has real compiler-level test coverage elsewhere in this file,
+  just not through Razor's embedded-C#-in-markup parsing path).
 - Also fixed while in the area (not from the Codex review, noticed alongside the mutate collector
   gap): `CSharpProximityExpressionsService.RelevantExpressionsCollector` had no
   `VisitDoUntilStatement` override, mirroring the existing `VisitDoStatement` one.

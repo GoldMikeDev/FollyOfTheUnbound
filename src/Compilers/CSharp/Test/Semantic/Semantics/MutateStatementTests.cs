@@ -154,9 +154,9 @@ class C
         {
             // Unlike int -> object? above, int? -> object? boxes a *nullable* value type: an empty
             // Nullable<T> boxes to an actual null reference, so (unlike the non-nullable-value-type
-            // boxing case) this can genuinely be null and CS8602 should still fire. Before this fix, the
-            // "boxing is never null" rule didn't exclude Nullable<T> sources and incorrectly suppressed
-            // the warning here too.
+            // boxing case) this can genuinely be null and CS8602 should still fire. The mutated local
+            // tracks the source local's own flow state here (the same state an ordinary `.Value` access's
+            // CS8629 would read), the same as a reference-to-reference cast.
             var text =
 @"#nullable enable
 class C
@@ -165,6 +165,31 @@ class C
     {
         int? value = null;
         mutate value to object?;
+        value.ToString();
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                Diagnostic(ErrorCode.WRN_NullReferenceReceiver, "value").WithLocation(8, 9));
+        }
+
+        [Fact]
+        public void Regression_NullableWalker_BoxingNullableValueTypeMutationCanBeNullEvenWithNonNullableTarget()
+        {
+            // Same as above, but with a non-nullable-annotated target (object, not object?): before this
+            // fix, a non-nullable-value-type source was the only thing excluded from the
+            // never-null-boxing rule, so this case fell through to the *opaque* annotation-based fallback,
+            // which read NotNull off the target's own (non-nullable) annotation -- still wrong, since
+            // boxing an empty Nullable<T> is unconditionally a null reference regardless of what the
+            // mutated local is declared as. Tracking the source directly (as the general fix now does)
+            // is correct independent of the target's own annotation.
+            var text =
+@"#nullable enable
+class C
+{
+    static void M()
+    {
+        int? value = null;
+        mutate value to object;
         value.ToString();
     }
 }";

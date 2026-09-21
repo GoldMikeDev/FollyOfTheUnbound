@@ -43,21 +43,19 @@ internal sealed partial class CSharpProximityExpressionsService
 
         public override void VisitMutateStatement(MutateStatementSyntax node)
         {
-            // A mutate statement re-declares its variable under the same name with a new type, analogous
-            // to a local declaration -- record the name the same way AddVariableExpressions does for one
-            // (gated on _includeDeclarations, same as a local declaration's own name), so a breakpoint on
-            // the *following* statement includes the mutated local in Autos/proximity expressions.
-            if (_includeDeclarations)
-            {
-                _expressions.Add(node.VariableName.Identifier.ValueText);
-            }
-
-            // Unlike a local declaration's name, though, the mutate statement itself also *reads* the
-            // variable's existing value to perform the conversion -- so at a breakpoint on the mutate
-            // statement itself (_includeDeclarations: false, via Worker.Do's initial
-            // AddRelevantExpressions(_parentStatement, ...) call), the variable still needs to show up in
-            // Autos, the same way an ordinary expression read of it would. Add it unconditionally as an
-            // expression term for that case.
+            // A mutate statement re-declares its variable under the same name with a new type, and also
+            // *reads* the variable's existing value to perform the conversion -- so unlike an ordinary
+            // local declaration's name (which AddVariableExpressions only records when
+            // _includeDeclarations is set, for a breakpoint on a *following* statement), this variable
+            // needs to show up in Autos/proximity expressions unconditionally: both for a breakpoint on
+            // the mutate statement itself (_includeDeclarations: false, via Worker.Do's initial
+            // AddRelevantExpressions(_parentStatement, ...) call, where it's read) and for one on the
+            // following statement (_includeDeclarations: true, where it's the re-declared local).
+            //
+            // AddExpressionTerms (not a raw Identifier.ValueText add, as an ordinary declaration would
+            // use) also preserves the source token's actual spelling, which matters for an escaped
+            // identifier like `mutate @class to long;` -- ValueText would give the debugger-invalid
+            // "class" instead of "@class".
             AddExpressionTerms(node.VariableName, _expressions);
         }
 
