@@ -3670,18 +3670,27 @@ namespace Microsoft.CodeAnalysis.CSharp
             //    through to a plain checked cast (`(T)value`), which throws or preserves the exact same
             //    reference -- including its null-ness -- so this also tracks the source (e.g.
             //    `object? value = Get(); mutate value to C;` preserves `value`'s maybe-null state).
-            //  - Everything else (anything -> string goes through `.ToString()`, string -> primitive
-            //    through `Type.Parse`, and the numeric/bool paths) produces a genuinely new value, so
-            //    model that opaquely using the new local's declared nullable annotation as its resulting
-            //    flow state, the same fallback used elsewhere for a value whose specific nullability
-            //    isn't otherwise analyzed.
+            //  - Value type source, reference type target (boxing, e.g. `int -> object`; also the
+            //    hand-rolled bool->string/numeric ternary in the AlwaysValid special case): the source is
+            //    never null (it's a value type) and boxing a non-null value is never null either, so the
+            //    result is unconditionally NotNull, regardless of what the new local's own annotation
+            //    says (e.g. `int value = 1; mutate value to object?;` must still report NotNull, not
+            //    MaybeNull just because the local's declared type happens to be annotated).
+            //  - Everything else (anything reference-typed -> string goes through `.ToString()`, string
+            //    -> primitive through `Type.Parse`, and the remaining numeric/bool paths) produces a
+            //    genuinely new value whose nullability isn't otherwise pinned down, so model that opaquely
+            //    using the new local's declared nullable annotation as its resulting flow state, the same
+            //    fallback used elsewhere for a value whose specific nullability isn't otherwise analyzed.
             var conversionResult = VisitRvalueWithState(node.ConversionExpression);
             var type = node.NewLocal.TypeWithAnnotations;
             bool isSameUnderlyingType = Symbols.SymbolEqualityComparer.Default.Equals(node.OriginalLocal.Type, node.NewLocal.Type);
             bool isNullPreservingCast = node.OriginalLocal.Type.IsReferenceType &&
                 node.NewLocal.Type.IsReferenceType &&
                 node.NewLocal.Type.SpecialType != SpecialType.System_String;
-            var resultType = (isSameUnderlyingType || isNullPreservingCast) ? conversionResult : type.ToTypeWithState();
+            bool isBoxingNeverNull = node.OriginalLocal.Type.IsValueType && node.NewLocal.Type.IsReferenceType;
+            var resultType = (isSameUnderlyingType || isNullPreservingCast) ? conversionResult
+                : isBoxingNeverNull ? TypeWithState.Create(type.Type, NullableFlowState.NotNull)
+                : type.ToTypeWithState();
             int slot = GetOrCreateSlot(node.NewLocal);
             if (slot > 0)
             {

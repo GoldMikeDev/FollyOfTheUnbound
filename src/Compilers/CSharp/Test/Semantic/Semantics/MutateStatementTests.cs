@@ -127,5 +127,26 @@ class C
                 Diagnostic(ErrorCode.WRN_MutationMayFail, "mutate value to string[];").WithArguments("value", "string[]").WithLocation(7, 9),
                 Diagnostic(ErrorCode.WRN_NullReferenceReceiver, "value").WithLocation(8, 9));
         }
+
+        [Fact]
+        public void Regression_NullableWalker_BoxingMutationIsNeverNull()
+        {
+            // int -> object? boxes a non-null value type: the result can never be null even though the
+            // mutated local's own declared type is annotated nullable, so no CS8602 should fire. Before
+            // this fix, the opaque fallback derived the result's state from the target's own annotation
+            // (MaybeNull for `object?`) instead of recognizing this as a never-null boxing conversion.
+            var text =
+@"#nullable enable
+class C
+{
+    static void M()
+    {
+        int value = 1;
+        mutate value to object?;
+        value.ToString();
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics();
+        }
     }
 }
