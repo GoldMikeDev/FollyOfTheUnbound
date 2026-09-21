@@ -21,6 +21,13 @@ internal interface IEventSink
     /// <summary>
     /// Reports a fault. Sinks that do not support fault reporting do nothing.
     /// </summary>
+    /// <remarks>
+    /// Called for every registered sink by <see cref="RoslynTelemetry.ReportFault"/>, which wraps the
+    /// whole call in a single try/catch and fail-fasts the process (<see cref="FailFast.OnFatalException"/>)
+    /// if any sink's <see cref="ReportFault"/> throws -- a throwing implementation takes down the host, not
+    /// just its own reporting path. Implementations must not let an exception escape this method; catch and
+    /// swallow (or otherwise handle) anything the underlying reporting mechanism itself can throw.
+    /// </remarks>
     void ReportFault(Exception exception, ErrorSeverity severity, bool forceDump);
 
     void Log(FunctionId functionId, LogMessage logMessage);
