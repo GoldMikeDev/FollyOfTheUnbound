@@ -3658,14 +3658,56 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public override BoundNode? VisitMutateStatement(BoundMutateStatement node)
         {
+            // node.ConversionExpression is deliberately just a reference to the original local (see
+            // Binder_MutateStatement.BindMutateStatement) -- it does not represent the real lowered
+            // conversion, which is synthesized independently by LocalRewriter_MutateStatement.BuildLoweredConversion.
+            // That method's actual lowering strategy determines whether the mutated local's nullability
+            // should track the source local's flow state or be modeled opaquely from its own declared
+            // annotation:
+            //  - Same underlying type (MutationValidity.GetValidity's "same type is always valid" case,
+            //    e.g. `string? -> string`): a same-type re-view, value unchanged -- track the source.
+            //  - Reference type to reference type, target not `string`: BuildLoweredConversion falls
+            //    through to a plain checked cast (`(T)value`), which throws or preserves the exact same
+            //    reference -- including its null-ness -- so this also tracks the source (e.g.
+            //    `object? value = Get(); mutate value to C;` preserves `value`'s maybe-null state).
+            //  - Nullable value type source (`Nullable<T>`), reference type target (boxing, e.g.
+            //    `int? -> object`): boxing maps HasValue directly onto null-ness (empty -> an actual null
+            //    reference, non-empty -> a boxed non-null value), which is exactly what the source local's
+            //    own tracked flow state already represents (the same state CS8629 "may be null" reads for
+            //    an ordinary `.Value` access) -- so this also tracks the source, the same as the
+            //    reference-to-reference case above (e.g. `int? value = null; mutate value to object;`
+            //    must still be able to report CS8602 on a later dereference).
+            //  - Non-nullable value type source, reference type target (boxing, e.g. `int -> object`; also
+            //    the hand-rolled bool->string/numeric ternary in the AlwaysValid special case): the source
+            //    is never null (it's a non-nullable value type) and boxing a non-null value is never null
+            //    either, so the result is unconditionally NotNull, regardless of what the new local's own
+            //    annotation says (e.g. `int value = 1; mutate value to object?;` must still report
+            //    NotNull, not MaybeNull just because the local's declared type happens to be annotated).
+            //  - Everything else (anything reference-typed -> string goes through `.ToString()`, string
+            //    -> primitive through `Type.Parse`, and the remaining numeric/bool paths) produces a
+            //    genuinely new value whose nullability isn't otherwise pinned down, so model that opaquely
+            //    using the new local's declared nullable annotation as its resulting flow state, the same
+            //    fallback used elsewhere for a value whose specific nullability isn't otherwise analyzed.
             var conversionResult = VisitRvalueWithState(node.ConversionExpression);
             var type = node.NewLocal.TypeWithAnnotations;
+            bool isSameUnderlyingType = Symbols.SymbolEqualityComparer.Default.Equals(node.OriginalLocal.Type, node.NewLocal.Type);
+            bool isNullPreservingCast = node.OriginalLocal.Type.IsReferenceType &&
+                node.NewLocal.Type.IsReferenceType &&
+                node.NewLocal.Type.SpecialType != SpecialType.System_String;
+            bool isNullableValueBoxing = node.OriginalLocal.Type.IsNullableType() &&
+                node.NewLocal.Type.IsReferenceType;
+            bool isBoxingNeverNull = node.OriginalLocal.Type.IsValueType &&
+                !node.OriginalLocal.Type.IsNullableType() &&
+                node.NewLocal.Type.IsReferenceType;
+            var resultType = (isSameUnderlyingType || isNullPreservingCast || isNullableValueBoxing) ? conversionResult
+                : isBoxingNeverNull ? TypeWithState.Create(type.Type, NullableFlowState.NotNull)
+                : type.ToTypeWithState();
             int slot = GetOrCreateSlot(node.NewLocal);
             if (slot > 0)
             {
-                this.State[slot] = conversionResult.State;
+                this.State[slot] = resultType.State;
             }
-            TrackNullableStateForAssignment(node.ConversionExpression, type, slot, conversionResult);
+            TrackNullableStateForAssignment(node.ConversionExpression, type, slot, resultType);
             return null;
         }
 
@@ -13845,8 +13887,16 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public override BoundNode? VisitLockStatement(BoundLockStatement node)
         {
-            VisitRvalue(node.Argument);
-            _ = CheckPossibleNullReceiver(node.Argument);
+            var argument = node.Argument;
+            VisitRvalue(argument);
+            _ = CheckPossibleNullReceiver(argument);
+
+            // Note: CheckPossibleNullReceiver does not report on a typeless expression such as a null literal.
+            if (argument is { Type: null, ConstantValueOpt.IsNull: true, IsSuppressed: false } && !compilation.FeatureStrictEnabled)
+            {
+                ReportDiagnostic(ErrorCode.WRN_NullReferenceReceiver, argument.Syntax);
+            }
+
             VisitStatement(node.Body);
             return null;
         }

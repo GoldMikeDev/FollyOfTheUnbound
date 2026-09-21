@@ -2988,6 +2988,21 @@ internal static partial class SyntaxTreeExtensions
             }
         }
 
+        // Same idea as the trailing-'else'-block case above, but for an unbraced trailing else statement:
+        // if { ifout = true; } { } else Work(); |
+        // The parser accepts a following catch/finally after any else statement, not only a block one, so
+        // this isn't gated on token being a close brace.
+        //
+        // Search for an ElseClauseSyntax whose Parent is the IfCatchStatementSyntax specifically -- not
+        // just the nearest one -- since the trailing else's own unbraced statement can itself contain
+        // further (ordinary) if/else nesting, e.g. `else while (a) if (b) F(); else G();`: the nearest
+        // ElseClauseSyntax there belongs to the inner ordinary 'if', not the if/catch chain.
+        if (token.Parent?.FirstAncestorOrSelf<ElseClauseSyntax>(e => e.Parent is IfCatchStatementSyntax) is { } elseClause &&
+            elseClause.Statement.GetLastToken(includeSkipped: true) == token)
+        {
+            return true;
+        }
+
         return false;
     }
 

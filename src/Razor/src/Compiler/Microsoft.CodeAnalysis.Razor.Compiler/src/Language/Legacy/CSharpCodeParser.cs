@@ -2317,22 +2317,16 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
             Accept(in whitespace);
             Assert(CSharpSyntaxKind.ElseKeyword);
             ParseElseClause(builder);
+            return;
         }
-        else if (At(CSharpSyntaxKind.CatchKeyword, CSharpSyntaxKind.FinallyKeyword))
-        {
-            // This fork's if/catch/finally chain: catch/finally clauses can attach directly after the
-            // final arm's block (or after a trailing plain 'else'), just like after a 'try' block. Reuse
-            // the same catch/finally parsing ParseAfterTryClause uses.
-            Accept(in whitespace);
-            ParseAfterTryClause(builder);
-        }
-        else
-        {
-            // No else/catch/finally, return whitespace
-            PutCurrentBack();
-            PutBack(in whitespace);
-            SetAcceptedCharacters(AcceptedCharactersInternal.Any);
-        }
+
+        // No else yet -- put back the whitespace we grabbed above and let the shared helper redo its own
+        // (identical) lookahead for a trailing catch/finally. This fork's if/catch/finally chain: those
+        // clauses can attach directly after the final arm's block (or after a trailing plain 'else'), just
+        // like after a 'try' block.
+        PutCurrentBack();
+        PutBack(in whitespace);
+        ParseTrailingCatchOrFinally(builder);
     }
 
     private void ParseElseClause(in SyntaxListBuilder<RazorSyntaxNode> builder)
@@ -2356,6 +2350,34 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         {
             // Else
             ParseExpectedCodeBlock(builder, block);
+
+            // A plain (non-'else if') trailing else can still be followed by catch/finally, same as the
+            // arm chain itself -- e.g. `if { ... } { ... } else { ... } catch { ... }`. Without this, the
+            // catch/finally were left unconsumed after a plain else, misparsing an otherwise-valid chain.
+            ParseTrailingCatchOrFinally(builder);
+        }
+    }
+
+    /// <summary>
+    /// Checks for a trailing catch/finally after an if/catch chain's last arm or trailing else, and parses
+    /// it via <see cref="ParseAfterTryClause"/> if present -- shared by <see cref="ParseAfterIfClause"/>
+    /// (arms with no trailing else) and <see cref="ParseElseClause"/> (a plain trailing else).
+    /// </summary>
+    private void ParseTrailingCatchOrFinally(SyntaxListBuilder<RazorSyntaxNode> builder)
+    {
+        using var whitespace = new PooledArrayBuilder<SyntaxToken>();
+        SkipToNextImportantToken(builder, ref whitespace.AsRef());
+
+        if (At(CSharpSyntaxKind.CatchKeyword, CSharpSyntaxKind.FinallyKeyword))
+        {
+            Accept(in whitespace);
+            ParseAfterTryClause(builder);
+        }
+        else
+        {
+            PutCurrentBack();
+            PutBack(in whitespace);
+            SetAcceptedCharacters(AcceptedCharactersInternal.Any);
         }
     }
 

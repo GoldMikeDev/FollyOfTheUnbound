@@ -237,6 +237,15 @@ internal sealed class CSharpAddBracesDiagnosticAnalyzer :
     /// </summary>
     private static bool RequiresBracesToMatchContext(SyntaxNode statement)
     {
+        // An if/catch chain's arms and trailing else are siblings in the same sense a classic
+        // if/else-if/else sequence's parts are: braces on one should be matched by the others.
+        if (statement.Kind() == SyntaxKind.IfCatchArm ||
+            (statement.Kind() == SyntaxKind.ElseClause && statement.Parent is IfCatchStatementSyntax))
+        {
+            var ifCatchStatement = (IfCatchStatementSyntax)statement.GetRequiredParent();
+            return AnyArmOfIfCatchChainUsesBraces(ifCatchStatement);
+        }
+
         if (statement.Kind() is not (SyntaxKind.IfStatement or SyntaxKind.ElseClause))
         {
             // 'if' statements are the only statements that can have multiple embedded statements which are
@@ -251,6 +260,23 @@ internal sealed class CSharpAddBracesDiagnosticAnalyzer :
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// Determines if any arm's consequence, or the trailing else's statement, of an if/catch chain uses
+    /// braces. A block-condition arm's consequence is always a required block, so it always counts.
+    /// </summary>
+    private static bool AnyArmOfIfCatchChainUsesBraces(IfCatchStatementSyntax ifCatchStatement)
+    {
+        foreach (var arm in ifCatchStatement.Arms)
+        {
+            if (arm.ConditionBlock != null || arm.Consequence.IsKind(SyntaxKind.Block))
+            {
+                return true;
+            }
+        }
+
+        return ifCatchStatement.Else?.Statement.IsKind(SyntaxKind.Block) == true;
     }
 
     /// <summary>
