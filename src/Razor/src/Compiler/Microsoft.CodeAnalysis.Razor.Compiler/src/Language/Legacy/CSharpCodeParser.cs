@@ -2356,6 +2356,34 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         {
             // Else
             ParseExpectedCodeBlock(builder, block);
+
+            // A plain (non-'else if') trailing else can still be followed by catch/finally, same as the
+            // arm chain itself -- e.g. `if { ... } { ... } else { ... } catch { ... }`. Without this, the
+            // catch/finally were left unconsumed after a plain else, misparsing an otherwise-valid chain.
+            ParseTrailingCatchOrFinally(builder);
+        }
+    }
+
+    /// <summary>
+    /// Checks for a trailing catch/finally after an if/catch chain's last arm or trailing else, and parses
+    /// it via <see cref="ParseAfterTryClause"/> if present -- shared by <see cref="ParseAfterIfClause"/>
+    /// (arms with no trailing else) and <see cref="ParseElseClause"/> (a plain trailing else).
+    /// </summary>
+    private void ParseTrailingCatchOrFinally(SyntaxListBuilder<RazorSyntaxNode> builder)
+    {
+        using var whitespace = new PooledArrayBuilder<SyntaxToken>();
+        SkipToNextImportantToken(builder, ref whitespace.AsRef());
+
+        if (At(CSharpSyntaxKind.CatchKeyword, CSharpSyntaxKind.FinallyKeyword))
+        {
+            Accept(in whitespace);
+            ParseAfterTryClause(builder);
+        }
+        else
+        {
+            PutCurrentBack();
+            PutBack(in whitespace);
+            SetAcceptedCharacters(AcceptedCharactersInternal.Any);
         }
     }
 
