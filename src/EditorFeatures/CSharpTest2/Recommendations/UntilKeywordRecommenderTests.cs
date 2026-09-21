@@ -49,8 +49,8 @@ public sealed class UntilKeywordRecommenderTests : KeywordRecommenderTests
             """));
 
     [Fact]
-    public Task TestNotAfterDo()
-        => VerifyAbsenceAsync(AddInsideMethod(
+    public Task TestAfterUnbracedDoBody()
+        => VerifyKeywordAsync(AddInsideMethod(
             """
             do
                 Console.WriteLine();

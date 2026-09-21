@@ -1,0 +1,42 @@
+﻿RazorDocument - [0..50)::50 - [@if(foo) { bar(); } else baz(); finally { biz(); }]
+    MarkupBlock - [0..50)::50
+        MarkupTextLiteral - [0..0)::0 - [] - Gen<Markup>
+            Marker;[];
+        CSharpCodeBlock - [0..50)::50
+            CSharpTransition - [0..1)::1 - Gen<None>
+                Transition;[@];
+            CSharpStatementLiteral - [1..50)::49 - [if(foo) { bar(); } else baz(); finally { biz(); }] - Gen<Stmt>
+                Keyword;[if];
+                LeftParenthesis;[(];
+                Identifier;[foo];
+                RightParenthesis;[)];
+                Whitespace;[ ];
+                LeftBrace;[{];
+                Whitespace;[ ];
+                Identifier;[bar];
+                LeftParenthesis;[(];
+                RightParenthesis;[)];
+                Semicolon;[;];
+                Whitespace;[ ];
+                RightBrace;[}];
+                Whitespace;[ ];
+                Keyword;[else];
+                Whitespace;[ ];
+                Identifier;[baz];
+                LeftParenthesis;[(];
+                RightParenthesis;[)];
+                Semicolon;[;];
+                Whitespace;[ ];
+                Keyword;[finally];
+                Whitespace;[ ];
+                LeftBrace;[{];
+                Whitespace;[ ];
+                Identifier;[biz];
+                LeftParenthesis;[(];
+                RightParenthesis;[)];
+                Semicolon;[;];
+                Whitespace;[ ];
+                RightBrace;[}];
+        MarkupTextLiteral - [50..50)::0 - [] - Gen<Markup>
+            Marker;[];
+    EndOfFile;[];

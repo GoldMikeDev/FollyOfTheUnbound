@@ -306,15 +306,11 @@ internal sealed partial class CSharpProximityExpressionsService
                     {
                         AddLastStatementOfConstruct(ifCatchStatement.Finally.Block);
                     }
-                    else if (ifCatchStatement.Catches.Count > 0)
-                    {
-                        foreach (var catchClause in ifCatchStatement.Catches)
-                        {
-                            AddLastStatementOfConstruct(catchClause.Block);
-                        }
-                    }
                     else
                     {
+                        // Mirrors TryStatement, which visits both its normal body and every catch: if the
+                        // chain completed normally, the last executed statement came from a selected arm
+                        // (or trailing else), not necessarily a catch, so both paths need to be included.
                         foreach (var arm in ifCatchStatement.Arms)
                         {
                             AddLastStatementOfConstruct(arm.Consequence);
@@ -323,6 +319,11 @@ internal sealed partial class CSharpProximityExpressionsService
                         if (ifCatchStatement.Else != null)
                         {
                             AddLastStatementOfConstruct(ifCatchStatement.Else.Statement);
+                        }
+
+                        foreach (var catchClause in ifCatchStatement.Catches)
+                        {
+                            AddLastStatementOfConstruct(catchClause.Block);
                         }
                     }
 

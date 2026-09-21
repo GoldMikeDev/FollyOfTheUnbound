@@ -814,4 +814,32 @@ public sealed partial class ProximityExpressionsGetterTests
             int b = 2;
             $$ Console.WriteLine("Hello, World!");
             """, topLevelStatement, "Console", "b");
+
+    [Theory, CombinatorialData]
+    public Task ExpressionsAfterMutateStatement(bool topLevelStatement)
+        => TestTryDoInMainAsync("""
+            bool i = true;
+            mutate i to int;
+
+            $$var z = 0;
+            """, topLevelStatement, "i", "z");
+
+    [Theory, CombinatorialData]
+    public Task ExpressionsAfterIfCatchStatement(bool topLevelStatement)
+        => TestTryDoInMainAsync("""
+            int a = 0, b = 0, c = 0, d = 0;
+
+            if (a == 0)
+            {
+                a = 2;
+                b = 3; // included
+            }
+            catch (System.DivideByZeroException)
+            {
+                c = 2;
+                d = 5; // included
+            }
+
+            $$var z = 0;
+            """, topLevelStatement, "b", "d", "z");
 }

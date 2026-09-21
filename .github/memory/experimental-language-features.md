@@ -379,6 +379,78 @@ This would be a `CodeRefactoringProvider`/`CodeFixProvider`, not yet started.
 **Not audited:** whether other IDE analyzers with exhaustive `SyntaxKind` switches (IDE0xxx style/
 simplification analyzers) silently skip these new node kinds. Not yet checked.
 
+**PR #99 (10 Codex findings deferred from PR #97's review, all fixed) — mostly `if/catch` and `mutate`
+gaps beyond the "as of this writing" baseline above:**
+- `LocalBinderFactory.VisitIfCatchStatement` now propagates `BinderFlags.InTryBlockOfTryCatch` to the
+  chain's arms/trailing-else when it has catches (mirroring `VisitTryStatement`) — without this, a
+  `yield return` inside an if/catch arm with a following `catch` missed CS1626 and crashed the
+  iterator rewriter downstream.
+- `CSharpMiscellaneousReducer.SimplifyBlock` no longer simplifies a block-condition arm's
+  `ConditionBlock`/`Consequence` to an embedded statement — both are required blocks for that arm
+  shape, so simplifying either produced unparseable syntax.
+- `NullableWalker.VisitMutateStatement` no longer always inherits the source local's flow state for
+  the mutated local. `BoundMutateStatement.ConversionExpression` is just a reference to the original
+  local (see `Binder_MutateStatement`), not the real lowered conversion
+  (`LocalRewriter_MutateStatement.BuildLoweredConversion`), so which state to use now depends on that
+  method's actual lowering strategy: same-underlying-type mutation (`string? -> string`) and
+  reference-to-reference mutation where the target isn't `string` (`object? -> string[]`, lowered
+  through a plain checked cast, which preserves the source reference including its null-ness) both
+  still track the source; everything else (anything `-> string` via `.ToString()`, `string ->`
+  primitive via `Type.Parse`, numeric/bool paths — all producing a genuinely new value) falls back to
+  the target type's own declared nullable annotation.
+- `CSharpEditAndContinueAnalyzer` gained `DoUntilStatement` cases in `FindStatementAndPartner`,
+  `TryGetActiveSpan`, and `FindContainingStatementPart`, mirroring the existing `DoStatement` ones —
+  EnC's active-statement span for a do/until loop's condition now stays on `until (...)` instead of
+  resolving to the body's opening brace.
+- `UntilKeywordRecommender` now recommends `until` after any unbraced `do` body (checking whether the
+  target token is the last token of a `DoStatement` whose `WhileKeyword` is still missing), not just
+  after a `{ }` block — the previous block-only check was too narrow, matching how the parser actually
+  accepts `until` in either shape.
+- `SyntaxTreeExtensions.IsCatchOrFinallyContext` now offers `catch`/`finally` after an unbraced
+  trailing `else` (`else Work();`), not just a braced one.
+- `CSharpAddBracesDiagnosticAnalyzer.RequiresBracesToMatchContext` now matches braces across sibling
+  if/catch arms (added `AnyArmOfIfCatchChainUsesBraces`), not just the classic if/else-if/else case.
+- `CSharpProximityExpressionsService` (the source behind the debugger's Autos window): added a
+  `VisitMutateStatement` collector override (previously the mutated local was silently omitted from
+  Autos for a breakpoint on the following statement), and `Worker.AddLastStatementOfConstruct`'s
+  `IfCatchStatement` case now visits the chain's arms/else *and* catches together when catches exist
+  (previously only catches) — mirrors the adjacent `TryStatement` case, which already visits both its
+  normal body and every catch.
+- Razor's `CSharpCodeParser.ParseElseClause` now parses a trailing `catch`/`finally` after a plain
+  (non-`else if`) trailing `else`, via a `ParseTrailingCatchOrFinally` helper shared with
+  `ParseAfterIfClause` — previously only the arm-chain-without-trailing-else path checked for a
+  following catch/finally, so `if { ... } { ... } else { ... } catch { ... }` misparsed in
+  `.razor`/`.cshtml`. Covered by `CSharpBlockTest.SupportsCatchClauseAfterBracedTrailingElse`/
+  `SupportsCatchClauseAfterUnbracedTrailingElse` and the finally-clause equivalents
+  (`src/Razor/src/Compiler/Microsoft.AspNetCore.Razor.Language/test/Legacy/CSharpBlockTest.cs`), using
+  the existing `ParseDocumentTest`/baseline-tree infrastructure that file already has for `try`/`catch`/
+  `finally` and `if`/`else` — no new test infrastructure was needed. **Still an open gap:** that's the
+  only Razor parser coverage this fork's if/catch/mutate/until statements have; `do`/`until`, `mutate`,
+  and the rest of the if/catch chain shape (block-condition arms, multiple arms, `ifout`) remain
+  untested in Razor specifically (each has real compiler-level test coverage elsewhere in this file,
+  just not through Razor's embedded-C#-in-markup parsing path).
+- Also fixed while in the area (not from the Codex review, noticed alongside the mutate collector
+  gap): `CSharpProximityExpressionsService.RelevantExpressionsCollector` had no
+  `VisitDoUntilStatement` override, mirroring the existing `VisitDoStatement` one.
+
+**Separately noticed, not yet fixed:** `object? value = null; mutate value to C;` (mutating to a
+user-defined class, or any reference type whose name is a bare `IdentifierNameSyntax`/
+`QualifiedNameSyntax` rather than a keyword/array-type syntax) crashes
+`MethodCompiler.BindMethodBody`'s debug-only `assertBindIdentifierTargets` consistency check.
+`Binder_MutateStatement` binds the mutation's target `Type` via `BindType`, which doesn't register the
+type-name identifier in `InMethodBinder.IdentifierMap` the way ordinary expression identifiers get
+registered via `BindExpression` — but the assert's identifier-prediction pre-pass apparently still
+predicts that identifier needs binding through the tracked path, so it never sees the "actually bound"
+flag get set. Every existing `mutate` test only targets a `PredefinedTypeSyntax` (`int`, `string`,
+etc.) or (found while adding `MutateStatementTests.Regression_NullableWalker_ReferenceToReferenceMutationPreservesSourceNullability`)
+an `ArrayTypeSyntax` (`string[]`), neither of which trips this — so mutating to a *named* custom or
+BCL reference type (`C`, `System.Exception`, ...) is apparently untested and currently broken in debug
+builds (release builds skip the assert but the underlying identifier-map inconsistency would presumably
+still exist, just unobserved). Whoever next touches `mutate` should investigate whether `BindType`
+needs to route target-type identifier binding through whatever records into `IdentifierMap`, or
+whether the identifier-prediction pre-pass needs a `MutateStatementSyntax`-aware case to stop
+predicting its `Type` position needs tracked binding at all.
+
 ## `receiver?.Call(...) ?? fallback;` — two overlapping features, same surface syntax
 
 No new `SyntaxKind` or grammar for either: `a?.b() ?? c` already parses today as an ordinary

@@ -142,5 +142,50 @@ class C
             _ = model.GetDiagnostics();
             compilation.VerifyDiagnostics();
         }
+
+        [Fact]
+        public void Regression_YieldInArmWithCatch_ReportsCS1626()
+        {
+            // Before the fix, LocalBinderFactory.VisitIfCatchStatement didn't propagate
+            // BinderFlags.InTryBlockOfTryCatch to the chain's arms/trailing-else the way
+            // VisitTryStatement does for an ordinary try's Block, so a yield inside an if/catch arm that
+            // has a following catch missed CS1626 (the same diagnostic an ordinary
+            // `try { yield return 1; } catch { }` gets) -- and then crashed the iterator rewriter
+            // downstream instead (a yielding try with catches but no finally violates one of its
+            // invariants).
+            var text =
+@"using System;
+using System.Collections.Generic;
+class C
+{
+    static IEnumerable<int> M(bool cond)
+    {
+        if (cond) yield return 1; catch (Exception) { }
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                // (7,19): error CS1626: Cannot yield a value in the body of a try block with a catch clause
+                Diagnostic(ErrorCode.ERR_BadYieldInTryOfCatch, "yield").WithLocation(7, 19));
+        }
+
+        [Fact]
+        public void Regression_YieldInTrailingElseWithCatch_ReportsCS1626()
+        {
+            // Same as above, but for the chain's trailing else rather than an arm -- both are visited
+            // through the same armsAndElseEnclosing binder in VisitIfCatchStatement.
+            var text =
+@"using System;
+using System.Collections.Generic;
+class C
+{
+    static IEnumerable<int> M(bool cond)
+    {
+        if (cond) { } else yield return 1; catch (Exception) { }
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                // (7,28): error CS1626: Cannot yield a value in the body of a try block with a catch clause
+                Diagnostic(ErrorCode.ERR_BadYieldInTryOfCatch, "yield").WithLocation(7, 28));
+        }
     }
 }
