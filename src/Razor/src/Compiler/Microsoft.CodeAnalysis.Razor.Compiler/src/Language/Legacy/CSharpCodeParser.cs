@@ -2317,22 +2317,16 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
             Accept(in whitespace);
             Assert(CSharpSyntaxKind.ElseKeyword);
             ParseElseClause(builder);
+            return;
         }
-        else if (At(CSharpSyntaxKind.CatchKeyword, CSharpSyntaxKind.FinallyKeyword))
-        {
-            // This fork's if/catch/finally chain: catch/finally clauses can attach directly after the
-            // final arm's block (or after a trailing plain 'else'), just like after a 'try' block. Reuse
-            // the same catch/finally parsing ParseAfterTryClause uses.
-            Accept(in whitespace);
-            ParseAfterTryClause(builder);
-        }
-        else
-        {
-            // No else/catch/finally, return whitespace
-            PutCurrentBack();
-            PutBack(in whitespace);
-            SetAcceptedCharacters(AcceptedCharactersInternal.Any);
-        }
+
+        // No else yet -- put back the whitespace we grabbed above and let the shared helper redo its own
+        // (identical) lookahead for a trailing catch/finally. This fork's if/catch/finally chain: those
+        // clauses can attach directly after the final arm's block (or after a trailing plain 'else'), just
+        // like after a 'try' block.
+        PutCurrentBack();
+        PutBack(in whitespace);
+        ParseTrailingCatchOrFinally(builder);
     }
 
     private void ParseElseClause(in SyntaxListBuilder<RazorSyntaxNode> builder)

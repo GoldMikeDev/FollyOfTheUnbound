@@ -3660,21 +3660,28 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             // node.ConversionExpression is deliberately just a reference to the original local (see
             // Binder_MutateStatement.BindMutateStatement) -- it does not represent the real lowered
-            // conversion, which is synthesized independently by LocalRewriter_MutateStatement. When
-            // OriginalLocal and NewLocal share the same underlying type (MutationValidity.GetValidity's
-            // own "same type is always valid" case, e.g. `string? -> string`), the lowered lookup is a
-            // same-type re-view -- the value is unchanged, so nullability should flow through exactly
-            // like an ordinary assignment. Otherwise this is a genuine runtime conversion
-            // (parse/ToString/checked-cast), whose result isn't the source value at all (e.g.
-            // `object? value = Get(); mutate value to string;` lowers through `value.ToString()`, which
-            // never returns null on success, even though `value` itself was maybe-null) -- model that
-            // opaquely using the new local's declared nullable annotation as its resulting flow state,
-            // the same fallback used elsewhere for a value whose specific nullability isn't otherwise
-            // analyzed, rather than inheriting the unrelated source value's state.
+            // conversion, which is synthesized independently by LocalRewriter_MutateStatement.BuildLoweredConversion.
+            // That method's actual lowering strategy determines whether the mutated local's nullability
+            // should track the source local's flow state or be modeled opaquely from its own declared
+            // annotation:
+            //  - Same underlying type (MutationValidity.GetValidity's "same type is always valid" case,
+            //    e.g. `string? -> string`): a same-type re-view, value unchanged -- track the source.
+            //  - Reference type to reference type, target not `string`: BuildLoweredConversion falls
+            //    through to a plain checked cast (`(T)value`), which throws or preserves the exact same
+            //    reference -- including its null-ness -- so this also tracks the source (e.g.
+            //    `object? value = Get(); mutate value to C;` preserves `value`'s maybe-null state).
+            //  - Everything else (anything -> string goes through `.ToString()`, string -> primitive
+            //    through `Type.Parse`, and the numeric/bool paths) produces a genuinely new value, so
+            //    model that opaquely using the new local's declared nullable annotation as its resulting
+            //    flow state, the same fallback used elsewhere for a value whose specific nullability
+            //    isn't otherwise analyzed.
             var conversionResult = VisitRvalueWithState(node.ConversionExpression);
             var type = node.NewLocal.TypeWithAnnotations;
             bool isSameUnderlyingType = Symbols.SymbolEqualityComparer.Default.Equals(node.OriginalLocal.Type, node.NewLocal.Type);
-            var resultType = isSameUnderlyingType ? conversionResult : type.ToTypeWithState();
+            bool isNullPreservingCast = node.OriginalLocal.Type.IsReferenceType &&
+                node.NewLocal.Type.IsReferenceType &&
+                node.NewLocal.Type.SpecialType != SpecialType.System_String;
+            var resultType = (isSameUnderlyingType || isNullPreservingCast) ? conversionResult : type.ToTypeWithState();
             int slot = GetOrCreateSlot(node.NewLocal);
             if (slot > 0)
             {

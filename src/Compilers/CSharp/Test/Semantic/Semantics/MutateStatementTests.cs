@@ -96,5 +96,36 @@ class C
             CreateCompilation(text).VerifyDiagnostics(
                 Diagnostic(ErrorCode.WRN_MutationMayFail, "mutate value to string;").WithArguments("value", "string").WithLocation(7, 9));
         }
+
+        [Fact]
+        public void Regression_NullableWalker_ReferenceToReferenceMutationPreservesSourceNullability()
+        {
+            // Unlike object? -> string above, object? -> string[] (a different reference type, but not
+            // 'string' itself) is NOT lowered through .ToString() -- LocalRewriter_MutateStatement.
+            // BuildLoweredConversion falls through to a plain checked cast for this case, which either
+            // throws or preserves the exact same reference (including its null-ness). So the mutated
+            // local's nullability should track the source local here, unlike the ToString() case: CS8602
+            // should still fire.
+            //
+            // Uses an array type (string[]) rather than a user-defined class as the mutation target: the
+            // latter hits an unrelated, pre-existing MethodCompiler debug-assert
+            // (assertBindIdentifierTargets) because Binder_MutateStatement binds the target Type via
+            // BindType rather than the tracked BindExpression path the identifier-prediction pass expects
+            // every plain-identifier type reference to go through -- a separate bug, out of scope here.
+            var text =
+@"#nullable enable
+class C
+{
+    static void M()
+    {
+        object? value = null;
+        mutate value to string[];
+        value.ToString();
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                Diagnostic(ErrorCode.WRN_MutationMayFail, "mutate value to string[];").WithArguments("value", "string[]").WithLocation(7, 9),
+                Diagnostic(ErrorCode.WRN_NullReferenceReceiver, "value").WithLocation(8, 9));
+        }
     }
 }
