@@ -132,6 +132,22 @@ public sealed class FinallyKeywordRecommenderTests : KeywordRecommenderTests
             """));
 
     [Fact]
+    public Task TestAfterIfCatchChainUnbracedTrailingElse()
+        // Mirrors TestAfterIfCatchChainBlockConditionArmWithTrailingCatch, but for an unbraced trailing
+        // else statement -- the parser accepts a following catch/finally there too, not only after a
+        // braced else.
+        => VerifyKeywordAsync(AddInsideMethod(
+            """
+            if {
+                var b = true;
+                ifout = b;
+            }
+            {
+            } else Work();
+            $$
+            """));
+
+    [Fact]
     public Task TestNotAfterOrdinaryIfBlockNoTrailingCatchOrFinally()
         // A plain if-block with nothing else present stays a classic IfStatementSyntax (matching
         // TestNotAfterBlock above) -- catch/finally are deliberately not offered speculatively here,
