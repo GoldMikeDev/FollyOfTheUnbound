@@ -410,6 +410,7 @@ Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEnumDeclaration(Microsof
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEnumMemberDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEqualsValueClause(Microsoft.CodeAnalysis.CSharp.Syntax.EqualsValueClauseSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitErrorDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax)
+Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEscapeStatement(Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitEventFieldDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventFieldDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxRewriter.VisitExplicitInterfaceSpecifier(Microsoft.CodeAnalysis.CSharp.Syntax.ExplicitInterfaceSpecifierSyntax)
@@ -716,6 +717,7 @@ Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEnumDeclaration(Microsoft
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEnumMemberDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEqualsValueClause(Microsoft.CodeAnalysis.CSharp.Syntax.EqualsValueClauseSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitErrorDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax)
+Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEscapeStatement(Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitEventFieldDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventFieldDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor.VisitExplicitInterfaceSpecifier(Microsoft.CodeAnalysis.CSharp.Syntax.ExplicitInterfaceSpecifierSyntax)
@@ -976,6 +978,7 @@ Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitEnumDeclaration(Microso
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitEnumMemberDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EnumMemberDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitEqualsValueClause(Microsoft.CodeAnalysis.CSharp.Syntax.EqualsValueClauseSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitErrorDirectiveTrivia(Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax)
+Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitEscapeStatement(Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitEventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitEventFieldDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.EventFieldDeclarationSyntax)
 Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor`1.VisitExplicitInterfaceSpecifier(Microsoft.CodeAnalysis.CSharp.Syntax.ExplicitInterfaceSpecifierSyntax)
@@ -2451,6 +2454,17 @@ Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax.get_EndOfDirecti
 Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax.get_ErrorKeyword
 Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax.get_HashToken
 Microsoft.CodeAnalysis.CSharp.Syntax.ErrorDirectiveTriviaSyntax.get_IsActive
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Accept(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor)
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Accept``1(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor{``0})
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.AddAttributeLists(Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax[])
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.Update(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.WithAttributeLists(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax})
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.WithEscapeKeyword(Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.WithSemicolonToken(Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.get_AttributeLists
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.get_EscapeKeyword
+Microsoft.CodeAnalysis.CSharp.Syntax.EscapeStatementSyntax.get_SemicolonToken
 Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax
 Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax.Accept(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor)
 Microsoft.CodeAnalysis.CSharp.Syntax.EventDeclarationSyntax.Accept``1(Microsoft.CodeAnalysis.CSharp.CSharpSyntaxVisitor{``0})
@@ -5214,6 +5228,10 @@ Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EqualsValueClause(Microsoft.CodeAnal
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EqualsValueClause(Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.ErrorDirectiveTrivia(Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.SyntaxToken,System.Boolean)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.ErrorDirectiveTrivia(System.Boolean)
+Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EscapeStatement(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EscapeStatement(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EscapeStatement(Microsoft.CodeAnalysis.SyntaxToken)
+Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EscapeStatement(System.String)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax,Microsoft.CodeAnalysis.SyntaxToken)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EventDeclaration(Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax,System.String)
 Microsoft.CodeAnalysis.CSharp.SyntaxFactory.EventDeclaration(Microsoft.CodeAnalysis.SyntaxList{Microsoft.CodeAnalysis.CSharp.Syntax.AttributeListSyntax},Microsoft.CodeAnalysis.SyntaxTokenList,Microsoft.CodeAnalysis.CSharp.Syntax.TypeSyntax,Microsoft.CodeAnalysis.CSharp.Syntax.ExplicitInterfaceSpecifierSyntax,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.CSharp.Syntax.AccessorListSyntax)
@@ -6124,6 +6142,7 @@ Microsoft.CodeAnalysis.CSharp.SyntaxKind.EqualsToken
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.EqualsValueClause
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ErrorDirectiveTrivia
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.ErrorKeyword
+Microsoft.CodeAnalysis.CSharp.SyntaxKind.EscapeStatement
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.EventDeclaration
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.EventFieldDeclaration
 Microsoft.CodeAnalysis.CSharp.SyntaxKind.EventKeyword
