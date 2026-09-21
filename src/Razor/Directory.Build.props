@@ -66,8 +66,8 @@
     <ExcludeFromSourceOnlyBuild>true</ExcludeFromSourceOnlyBuild>
 
     <NetFxVS>net472</NetFxVS>
-    <NetVS>net10.0</NetVS>
-    <NetVSCode>net10.0</NetVSCode>
+    <NetVS>net11.0</NetVS>
+    <NetVSCode>net11.0</NetVSCode>
     <NetVSAndVSCode>$(NetVS)</NetVSAndVSCode>
     <NetVSAndVSCode Condition="'$(NetVS)' != '$(NetVSCode)'">$(NetVS);$(NetVSCode)</NetVSAndVSCode>
   </PropertyGroup>
