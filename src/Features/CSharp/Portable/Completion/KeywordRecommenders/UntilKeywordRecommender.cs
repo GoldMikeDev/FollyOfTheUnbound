@@ -34,8 +34,13 @@ internal sealed class UntilKeywordRecommender() : AbstractSyntacticSingleKeyword
 
         var token = context.TargetToken;
 
-        if (token.Parent?.FirstAncestorOrSelf<DoStatementSyntax>() is { WhileKeyword.IsMissing: true } doStatement &&
-            doStatement.Statement.GetLastToken() == token)
+        // Search for a DoStatementSyntax ancestor that is itself incomplete and whose body ends at the
+        // target token -- not just the nearest one -- since the unbraced body can itself be a complete,
+        // nested `do`/`while` statement, e.g. `do do Work(); while (condition); |`: the parser produces an
+        // incomplete *outer* DoStatement whose Statement is the complete inner one, so the inner node's
+        // own (non-missing) WhileKeyword must not stop the search.
+        if (token.Parent?.FirstAncestorOrSelf<DoStatementSyntax>(
+                d => d.WhileKeyword.IsMissing && d.Statement.GetLastToken() == token) is { })
         {
             return true;
         }

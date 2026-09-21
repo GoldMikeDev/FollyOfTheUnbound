@@ -3675,7 +3675,11 @@ namespace Microsoft.CodeAnalysis.CSharp
             //    never null (it's a value type) and boxing a non-null value is never null either, so the
             //    result is unconditionally NotNull, regardless of what the new local's own annotation
             //    says (e.g. `int value = 1; mutate value to object?;` must still report NotNull, not
-            //    MaybeNull just because the local's declared type happens to be annotated).
+            //    MaybeNull just because the local's declared type happens to be annotated) -- EXCEPT when
+            //    the source is a nullable value type (`Nullable<T>`): boxing an empty `Nullable<T>`
+            //    produces an actual null reference, so that case falls through to the opaque annotation-
+            //    based fallback below instead (e.g. `int? value = null; mutate value to object;` must
+            //    still be able to report CS8602 on a later dereference).
             //  - Everything else (anything reference-typed -> string goes through `.ToString()`, string
             //    -> primitive through `Type.Parse`, and the remaining numeric/bool paths) produces a
             //    genuinely new value whose nullability isn't otherwise pinned down, so model that opaquely
@@ -3687,7 +3691,9 @@ namespace Microsoft.CodeAnalysis.CSharp
             bool isNullPreservingCast = node.OriginalLocal.Type.IsReferenceType &&
                 node.NewLocal.Type.IsReferenceType &&
                 node.NewLocal.Type.SpecialType != SpecialType.System_String;
-            bool isBoxingNeverNull = node.OriginalLocal.Type.IsValueType && node.NewLocal.Type.IsReferenceType;
+            bool isBoxingNeverNull = node.OriginalLocal.Type.IsValueType &&
+                !node.OriginalLocal.Type.IsNullableType() &&
+                node.NewLocal.Type.IsReferenceType;
             var resultType = (isSameUnderlyingType || isNullPreservingCast) ? conversionResult
                 : isBoxingNeverNull ? TypeWithState.Create(type.Type, NullableFlowState.NotNull)
                 : type.ToTypeWithState();

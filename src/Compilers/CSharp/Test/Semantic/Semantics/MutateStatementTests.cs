@@ -148,5 +148,28 @@ class C
 }";
             CreateCompilation(text).VerifyDiagnostics();
         }
+
+        [Fact]
+        public void Regression_NullableWalker_BoxingNullableValueTypeMutationCanBeNull()
+        {
+            // Unlike int -> object? above, int? -> object? boxes a *nullable* value type: an empty
+            // Nullable<T> boxes to an actual null reference, so (unlike the non-nullable-value-type
+            // boxing case) this can genuinely be null and CS8602 should still fire. Before this fix, the
+            // "boxing is never null" rule didn't exclude Nullable<T> sources and incorrectly suppressed
+            // the warning here too.
+            var text =
+@"#nullable enable
+class C
+{
+    static void M()
+    {
+        int? value = null;
+        mutate value to object?;
+        value.ToString();
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                Diagnostic(ErrorCode.WRN_NullReferenceReceiver, "value").WithLocation(8, 9));
+        }
     }
 }

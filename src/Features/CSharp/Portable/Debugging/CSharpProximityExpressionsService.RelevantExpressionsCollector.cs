@@ -44,13 +44,21 @@ internal sealed partial class CSharpProximityExpressionsService
         public override void VisitMutateStatement(MutateStatementSyntax node)
         {
             // A mutate statement re-declares its variable under the same name with a new type, analogous
-            // to a local declaration -- record the name the same way AddVariableExpressions does for one,
-            // so a breakpoint on the following statement includes the mutated local in Autos/proximity
-            // expressions.
+            // to a local declaration -- record the name the same way AddVariableExpressions does for one
+            // (gated on _includeDeclarations, same as a local declaration's own name), so a breakpoint on
+            // the *following* statement includes the mutated local in Autos/proximity expressions.
             if (_includeDeclarations)
             {
                 _expressions.Add(node.VariableName.Identifier.ValueText);
             }
+
+            // Unlike a local declaration's name, though, the mutate statement itself also *reads* the
+            // variable's existing value to perform the conversion -- so at a breakpoint on the mutate
+            // statement itself (_includeDeclarations: false, via Worker.Do's initial
+            // AddRelevantExpressions(_parentStatement, ...) call), the variable still needs to show up in
+            // Autos, the same way an ordinary expression read of it would. Add it unconditionally as an
+            // expression term for that case.
+            AddExpressionTerms(node.VariableName, _expressions);
         }
 
         public override void VisitLockStatement(LockStatementSyntax node)

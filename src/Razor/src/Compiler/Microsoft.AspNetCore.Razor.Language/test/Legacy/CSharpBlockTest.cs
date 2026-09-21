@@ -628,6 +628,34 @@ catch(bar) { baz(); }");
     }
 
     [Fact]
+    public void SupportsCatchClauseAfterBracedTrailingElse()
+    {
+        // This fork's if/catch/finally chain: catch/finally clauses can attach directly after a trailing
+        // 'else' clause's braced body, just like after a 'try' block.
+        ParseDocumentTest("@if(foo) { bar(); } else { baz(); } catch(Exception ex) { biz(); }");
+    }
+
+    [Fact]
+    public void SupportsCatchClauseAfterUnbracedTrailingElse()
+    {
+        // Same as above, but for an unbraced trailing else body -- regression test for
+        // ParseElseClause's plain-else branch not checking for a following catch/finally.
+        ParseDocumentTest("@if(foo) { bar(); } else baz(); catch(Exception ex) { biz(); }");
+    }
+
+    [Fact]
+    public void SupportsFinallyClauseAfterBracedTrailingElse()
+    {
+        ParseDocumentTest("@if(foo) { bar(); } else { baz(); } finally { biz(); }");
+    }
+
+    [Fact]
+    public void SupportsFinallyClauseAfterUnbracedTrailingElse()
+    {
+        ParseDocumentTest("@if(foo) { bar(); } else baz(); finally { biz(); }");
+    }
+
+    [Fact]
     public void DoesNotAllowMultipleFinallyBlocks()
     {
         var content = "@try { var foo = new { } } finally { var foo = new { } }";
