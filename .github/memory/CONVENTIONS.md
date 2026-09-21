@@ -121,6 +121,30 @@ with the suggestion, or it's the large/design-level exception above) still needs
 fix" and "I left it alone, here's why" are both acceptable end states for a thread; "the fix is in the
 diff and the thread is still open" is not.
 
+## Trace merge/branch operations for cross-PR side effects before running them, not after
+
+GitHub auto-closes a PR as merged the instant all of its commits become reachable from the base
+branch through *any* path — not just a direct merge of that PR — regardless of the PR's own draft
+status, and this cannot be undone afterward by any means (no API, no UI, no history rewrite, no
+force-push, nothing — GitHub's own docs and support threads confirm this is permanent and
+deliberate). Concretely: if PR A's branch gets merged into PR B's branch, and PR B then gets merged
+into the shared base, PR A auto-closes as merged too, even if PR A was explicitly meant to stay open
+or draft, and even though no one merged PR A directly.
+
+Before merging one open PR's branch into another's (directly, or by feeding both into a shared
+integration branch), work out and state whether that will cause a *third* PR to auto-close as a side
+effect, and flag it before running the merge — not after. This is a knowable, predictable
+consequence at the time the merge command is written, not a surprise to discover afterward. Treat
+"does this affect any other open PR's state" as a standing check before any cross-branch merge in
+this repo, the same way a destructive-command check runs before `git reset --hard`/`checkout .`/etc.
+
+This cuts the other way too: once a merge like this has already happened, further hand-wringing
+about it (extensively re-litigating whether it can be reversed, inventing new reasons an already-
+disproven undo path might secretly work) is not the same caution applied usefully — it's caution
+applied to the wrong side of the decision. Do the consequence-tracing before acting, once, and settle
+for a clear "here's what did happen and why it can't be undone" afterward, backed by verification
+(an actual API attempt, not just an assertion) rather than repeated re-argued refusals.
+
 ## Language / Framework Constraints
 
 - SDK and VS toolset pinned in `global.json`.
