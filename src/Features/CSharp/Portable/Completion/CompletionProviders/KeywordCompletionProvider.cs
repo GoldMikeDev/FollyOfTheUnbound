@@ -62,6 +62,7 @@ internal sealed class KeywordCompletionProvider() : AbstractKeywordCompletionPro
         new EnumKeywordRecommender(),
         new EqualsKeywordRecommender(),
         new ErrorKeywordRecommender(),
+        new EscapeKeywordRecommender(),
         new EventKeywordRecommender(),
         new ExplicitKeywordRecommender(),
         new ExtensionKeywordRecommender(),

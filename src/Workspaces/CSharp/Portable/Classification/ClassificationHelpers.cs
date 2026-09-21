@@ -22,6 +22,7 @@ internal static class ClassificationHelpers
     private const string DynamicKeyword = "dynamic";
     private const string AwaitKeyword = "await";
     private const string MutateKeyword = "mutate";
+    private const string EscapeKeyword = "escape";
 
     /// <summary>
     /// Determine the classification type for a given token.
@@ -517,6 +518,10 @@ internal static class ClassificationHelpers
                 case MutateKeyword:
                     return token.Parent is MutateStatementSyntax mutateStatement
                         && mutateStatement.MutateKeyword == token;
+
+                case EscapeKeyword:
+                    return token.Parent is EscapeStatementSyntax escapeStatement
+                        && escapeStatement.EscapeKeyword == token;
             }
         }
 

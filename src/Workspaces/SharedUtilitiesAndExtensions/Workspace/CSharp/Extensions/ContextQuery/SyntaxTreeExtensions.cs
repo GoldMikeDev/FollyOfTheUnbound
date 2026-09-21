@@ -2953,11 +2953,54 @@ internal static partial class SyntaxTreeExtensions
             var block = token.GetAncestor<BlockSyntax>();
 
             if (block != null &&
-                token == block.GetLastToken(includeSkipped: true) &&
-                block.Parent?.Kind() is SyntaxKind.TryStatement or SyntaxKind.CatchClause)
+                token == block.GetLastToken(includeSkipped: true))
             {
-                return true;
+                if (block.Parent?.Kind() is SyntaxKind.TryStatement or SyntaxKind.CatchClause)
+                {
+                    return true;
+                }
+
+                // Same idea, but for an if/catch/finally chain: catch/finally clauses attach to the whole
+                // chain, so only offer them right after the block that closes the chain itself -- either
+                // the last arm's consequence block (if there's no trailing 'else'), or a trailing 'else'
+                // clause's block.
+                if (block.Parent is IfCatchArmSyntax { Consequence: var consequence } arm &&
+                    block == consequence &&
+                    arm.Parent is IfCatchStatementSyntax { Else: null } ifCatchStatement &&
+                    ifCatchStatement.Arms[^1] == arm)
+                {
+                    return true;
+                }
+
+                if (block.Parent is ElseClauseSyntax { Statement: var elseStatement } &&
+                    block == elseStatement &&
+                    block.Parent.Parent.IsKind(SyntaxKind.IfCatchStatement))
+                {
+                    return true;
+                }
+
+                // Deliberately NOT offered after a *plain* if-block (IfStatementSyntax) with no existing
+                // catch/finally/block-condition to establish the if/catch-chain shape -- unlike 'else'
+                // (which upstream's ElseKeywordRecommender offers unconditionally after any if-block),
+                // catch/finally are only surfaced once something already signals intent to use this
+                // fork's if/catch/finally chain extension, keeping this from firing on every ordinary
+                // if-statement in existing code.
             }
+        }
+
+        // Same idea as the trailing-'else'-block case above, but for an unbraced trailing else statement:
+        // if { ifout = true; } { } else Work(); |
+        // The parser accepts a following catch/finally after any else statement, not only a block one, so
+        // this isn't gated on token being a close brace.
+        //
+        // Search for an ElseClauseSyntax whose Parent is the IfCatchStatementSyntax specifically -- not
+        // just the nearest one -- since the trailing else's own unbraced statement can itself contain
+        // further (ordinary) if/else nesting, e.g. `else while (a) if (b) F(); else G();`: the nearest
+        // ElseClauseSyntax there belongs to the inner ordinary 'if', not the if/catch chain.
+        if (token.Parent?.FirstAncestorOrSelf<ElseClauseSyntax>(e => e.Parent is IfCatchStatementSyntax) is { } elseClause &&
+            elseClause.Statement.GetLastToken(includeSkipped: true) == token)
+        {
+            return true;
         }
 
         return false;

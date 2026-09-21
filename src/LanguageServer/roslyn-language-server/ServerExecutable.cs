@@ -4,6 +4,7 @@
 
 using System.Diagnostics;
 using Microsoft.CodeAnalysis.LanguageServer.Client.Interop;
+using Microsoft.CodeAnalysis.Shared.Utilities;
 using Roslyn.Utilities;
 
 namespace Microsoft.CodeAnalysis.LanguageServer.Client;
@@ -130,10 +131,10 @@ internal sealed class ServerExecutable
         if (!suppressStandardHandleInheritance)
             return StartCore();
 
-        DaemonHandleInheritance.SuppressHandleInheritance(startInfo);
+        StandardHandleInheritance.SuppressHandleInheritance(startInfo);
 
         ILaunchedProcess? result = null;
-        DaemonHandleInheritance.WithStandardHandleInheritanceSuppressed(() => result = StartCore());
+        StandardHandleInheritance.WithStandardHandleInheritanceSuppressed(() => result = StartCore());
         return result!;
 
         ILaunchedProcess StartCore()

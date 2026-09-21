@@ -787,6 +787,7 @@ internal static class BreakpointSpans
             case SyntaxKind.ExpressionStatement:
             case SyntaxKind.EmptyStatement:
             case SyntaxKind.MutateStatement:
+            case SyntaxKind.EscapeStatement:
             default:
                 // Fallback case.  If it was none of the above types of statements, then we make a span
                 // over the entire statement.  Note: this is not a very desirable thing to do (as

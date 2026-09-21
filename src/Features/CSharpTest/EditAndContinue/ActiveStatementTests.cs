@@ -7632,6 +7632,164 @@ public sealed class ActiveStatementTests : EditingTestBase
     }
 
     [Fact]
+    public void DoUntilBody_Update1()
+    {
+        var src1 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    do
+                    {
+                        x++;
+                    }
+                    <AS:1>until (B());</AS:1>
+                }
+            }
+            """;
+        var src2 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    do
+                    {
+                        x += 1;
+                    }
+                    <AS:1>until (B());</AS:1>
+                }
+            }
+            """;
+        var edits = GetTopEdits(src1, src2);
+        var active = GetActiveStatements(src1, src2);
+
+        // Body-only edit inside a do/until loop must not crash SyntaxComparer.TryComputeWeightedDistance
+        // and must not be treated as an active statement update, since the condition is unchanged.
+        edits.VerifySemanticDiagnostics(active);
+    }
+
+    [Fact]
+    public void DoUntilBody_Update2()
+    {
+        var src1 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    do
+                    {
+                        System.Console.WriteLine(0);
+                    }
+                    <AS:1>until (B());</AS:1>
+                }
+            }
+            """;
+        var src2 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    do
+                    {
+                        System.Console.WriteLine(1);
+                    }
+                    <AS:1>until (!B());</AS:1>
+                }
+            }
+            """;
+        var edits = GetTopEdits(src1, src2);
+        var active = GetActiveStatements(src1, src2);
+
+        // Editing the condition must still be reported as an active statement update
+        // (regression for the fix to AreEquivalentActiveStatements(DoUntilStatementSyntax, DoUntilStatementSyntax),
+        // confirming the SyntaxComparer/label fix didn't make the check too lenient).
+        edits.VerifySemanticDiagnostics(active,
+            Diagnostic(RudeEditKind.ActiveStatementUpdate, "until (!B());"));
+    }
+
+    [Fact]
+    public void IfCatchArmBody_Update1()
+    {
+        var src1 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    <AS:1>if (B())</AS:1> { x++; } <ER:1.0>catch (System.Exception e) { Handle(e); }</ER:1.0>
+                }
+            }
+            """;
+        var src2 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    <AS:1>if (B())</AS:1> { x += 1; } <ER:1.0>catch (System.Exception e) { Handle(e); }</ER:1.0>
+                }
+            }
+            """;
+        var edits = GetTopEdits(src1, src2);
+        var active = GetActiveStatements(src1, src2);
+
+        // Body-only edit inside a classic-form if/catch arm's consequence must not crash the diff
+        // and must not be treated as an active statement update, since the condition is unchanged.
+        edits.VerifySemanticDiagnostics(active);
+    }
+
+    [Fact]
+    public void IfCatchArmBody_Update2()
+    {
+        var src1 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    <AS:1>if (B())</AS:1> { System.Console.WriteLine(0); } <ER:1.0>catch (System.Exception e) { Handle(e); }</ER:1.0>
+                }
+            }
+            """;
+        var src2 = """
+
+            class C
+            {
+                public static bool B() <AS:0>{</AS:0> return false; }
+
+                public static void F()
+                {
+                    <AS:1>if (!B())</AS:1> { System.Console.WriteLine(1); } <ER:1.0>catch (System.Exception e) { Handle(e); }</ER:1.0>
+                }
+            }
+            """;
+        var edits = GetTopEdits(src1, src2);
+        var active = GetActiveStatements(src1, src2);
+
+        // Editing the condition must still be reported as an active statement update.
+        edits.VerifySemanticDiagnostics(active,
+            Diagnostic(RudeEditKind.ActiveStatementUpdate, "if (!B())"));
+    }
+
+    [Fact]
     public void DoWhileBody_Update_Lambda()
     {
         var src1 = """
@@ -10455,6 +10613,70 @@ public sealed class ActiveStatementTests : EditingTestBase
         var edits = GetTopEdits(src1, src2);
         var active = GetActiveStatements(src1, src2);
 
+        edits.VerifySemanticDiagnostics(active);
+    }
+
+    [Fact]
+    public void IfCatchStatement_Finally_Regions()
+    {
+        var src1 = """
+
+            class C
+            {
+                static void Main(string[] args)
+                {
+                    <ER:1.0>if (B())
+                    {
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                    finally
+                    {
+                        <AS:1>Goo();</AS:1>
+                    }</ER:1.0>
+                }
+
+                static bool B() => <AS:0>false</AS:0>;
+
+                static void Goo()
+                {
+                }
+            }
+            """;
+        var src2 = """
+
+            class C
+            {
+                static void Main(string[] args)
+                {
+                    <ER:1.0>if (B())
+                    {
+                    }
+                    catch (System.Exception)
+                    {
+                    }
+                    finally
+                    {
+                        <AS:1>Goo();</AS:1>
+                    }</ER:1.0>
+                    Goo();
+                }
+
+                static bool B() => <AS:0>false</AS:0>;
+
+                static void Goo()
+                {
+                }
+            }
+            """;
+        var edits = GetTopEdits(src1, src2);
+        var active = GetActiveStatements(src1, src2);
+
+        // Regression for GetExceptionHandlingRegion/GetExceptionHandlingAncestors previously assuming
+        // Catches/Finally could only be reached from a TryStatementSyntax parent, which threw
+        // InvalidCastException for an if/catch chain's finally block. This must not throw and must
+        // compute a sensible (non-crashing) result.
         edits.VerifySemanticDiagnostics(active);
     }
 

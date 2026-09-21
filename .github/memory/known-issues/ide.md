@@ -31,14 +31,17 @@ LSP request handling (`ConnectionScopedOptionOverrides`/`GetConnectionScopedOpti
 into `Solution.FallbackAnalyzerOptions` via `SolutionAnalyzerConfigOptionsUpdater.ApplyChangedOptionsIfRelevant`),
 and per-connection `ExtensionLogDirectory`/`SourceGeneratorExecutionPreference` (via a `ConnectionHandshake`
 a connecting client sends before its stream becomes the LSP channel, no longer baked into the daemon pipe
-key) are all isolated per connection. **Still open, by design, not deferred:** `TelemetryLevel`/`SessionId`
-still come from whichever client happened to launch the daemon — the shared `LanguageServerTelemetry`
-reporter (`src/LanguageServer/Microsoft.CodeAnalysis.LanguageServer/Telemetry/LanguageServerTelemetry.cs`,
-successor to the old process-wide `RoslynLogger` singleton) and its `IEventSink`/`IMetricSink` sinks are
-still owned once per daemon process, with no way for two instances (one per connection) to coexist without
-a telemetry-plumbing redesign that's out of scope, and telemetry answers "how is this tool used in
-aggregate," not "what did this workspace do," so misattributing it across a shared daemon's connections
-isn't a correctness/privacy problem the way the option/log gaps were.
+key) are all isolated per connection. **Telemetry is no longer in this "still open" bucket** (as of the
+`origin/roslyn` sync merging upstream's per-server telemetry sessions, GoldMikeDev/FollyOfTheUnbound#97):
+`DaemonPipeName.GetPipeName` now takes `telemetryLevel` alongside `serverArguments`, so a client with a
+different `COPILOT_TELEMETRY_LEVEL`/telemetry level gets a separate daemon process — and therefore its own
+`LanguageServerTelemetry` reporter/`daemonSessionId` — instead of sharing one with a client at a different
+level. This is telemetry-level *partitioning* via separate daemon processes, not true per-connection
+isolation within one daemon: two connections that share both server arguments and telemetry level still
+share one `LanguageServerTelemetry` reporter and `daemonSessionId`, same as before. That narrower remaining
+gap is unchanged from the original by-design decision below (telemetry answers "how is this tool used in
+aggregate," not "what did this workspace do," so misattributing it across same-level connections on a
+shared daemon isn't a correctness/privacy problem the way the option/log gaps were) and still isn't planned.
 **Fixed since the above was written:** `RazorClientServerManagerProvider`
 (`src/Razor/.../Services/RazorClientServerManagerProvider.cs`), `CohostConfigurationChangedService`'s
 `IClientSettingsManager` (`src/Razor/.../Services/ClientSettingsManager.cs`), and the separate remote/OOP

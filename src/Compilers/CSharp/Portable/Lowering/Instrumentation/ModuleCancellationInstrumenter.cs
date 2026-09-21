@@ -103,6 +103,9 @@ internal sealed class ModuleCancellationInstrumenter(
     public override BoundExpression InstrumentDoStatementCondition(BoundDoStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
         => InstrumentExpression(base.InstrumentDoStatementCondition(original, rewrittenCondition, factory));
 
+    public override BoundExpression InstrumentDoUntilStatementCondition(BoundDoUntilStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
+        => InstrumentExpression(base.InstrumentDoUntilStatementCondition(original, rewrittenCondition, factory));
+
     public override BoundExpression InstrumentForStatementCondition(BoundForStatement original, BoundExpression rewrittenCondition, SyntheticBoundNodeFactory factory)
         => InstrumentExpression(base.InstrumentForStatementCondition(original, rewrittenCondition, factory));
 

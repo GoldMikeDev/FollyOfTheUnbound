@@ -46,7 +46,7 @@ internal static class DaemonPipeName
     /// <summary>
     /// Environment variable that overrides the daemon's keepalive (in seconds) when <c>--daemonKeepAlive</c>
     /// isn't explicitly passed. Defined here (rather than solely in <c>LanguageServerCommandLine</c>, which
-    /// resolves it into the effective value) because <see cref="GetPipeName(string, bool, string, IReadOnlyList{string})"/>
+    /// resolves it into the effective value) because <see cref="GetPipeName(string, bool, string, IReadOnlyList{string}, string?)"/>
     /// needs the same name to fold this setting into the pipe key -- see the remarks there for why.
     /// </summary>
     public const string DaemonKeepAliveEnvironmentVariable = "ROSLYN_LANGUAGE_SERVER_DAEMON_KEEPALIVE";
@@ -60,10 +60,12 @@ internal static class DaemonPipeName
     public const int DefaultDaemonKeepAliveSeconds = 15 * 60;
 
     /// <summary>
-    /// Computes the pipe name for the current user, scoped by <paramref name="toolIdentifier"/> and
-    /// <paramref name="serverArguments"/>.
+    /// Computes the pipe name for the current user, scoped by <paramref name="toolIdentifier"/>,
+    /// <paramref name="serverArguments"/>, and <paramref name="telemetryLevel"/> -- clients with different
+    /// telemetry settings get their own daemon (and telemetry session) rather than silently sharing one, the
+    /// same trade-off already accepted for incompatible <paramref name="serverArguments"/>.
     /// </summary>
-    public static string GetPipeName(string toolIdentifier, IReadOnlyList<string> serverArguments)
+    public static string GetPipeName(string toolIdentifier, IReadOnlyList<string> serverArguments, string? telemetryLevel = null)
     {
         // Prefix with identity and elevation so different users / elevation levels don't share a daemon.
         var isAdmin = false;
@@ -80,7 +82,7 @@ internal static class DaemonPipeName
             userName = identity.User?.Value ?? userName;
         }
 
-        return GetPipeName(userName, isAdmin, toolIdentifier, serverArguments);
+        return GetPipeName(userName, isAdmin, toolIdentifier, serverArguments, telemetryLevel);
     }
 
     /// <summary>
@@ -124,7 +126,7 @@ internal static class DaemonPipeName
     /// Environment variables folded into <c>GetPipeName</c>'s hash input alongside <c>PATH</c> because
     /// <c>DotnetCliHelper.Run</c> inherits the daemon process's own environment into every dotnet CLI
     /// invocation it makes on behalf of any connection, regardless of which client is currently connected --
-    /// see the remarks on <see cref="GetPipeName(string, bool, string, IReadOnlyList{string})"/>.
+    /// see the remarks on <see cref="GetPipeName(string, bool, string, IReadOnlyList{string}, string?)"/>.
     /// <c>DOTNET_HOST_PATH</c>/<c>DOTNET_EXPERIMENTAL_HOST_PATH</c> are folded in for a related but distinct
     /// reason: <c>RuntimeHostInfo.GetToolDotNetRoot</c> (via <c>GetDotNetPathOrDefault</c>) prioritizes those two
     /// over scanning <c>PATH</c>, and <c>ServerExecutable.Start</c> uses the result to set the bundled server
@@ -165,8 +167,10 @@ internal static class DaemonPipeName
     /// with an invalid setting can't silently reuse an already-running default-keyed daemon and skip that
     /// validation depending on what else happens to be running.
     /// </para>
+    /// <paramref name="telemetryLevel"/> is folded in too: each daemon gets its own telemetry session, so
+    /// clients with different telemetry settings must not silently share one.
     /// </summary>
-    public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier, IReadOnlyList<string> serverArguments)
+    public static string GetPipeName(string userName, bool isAdmin, string toolIdentifier, IReadOnlyList<string> serverArguments, string? telemetryLevel = null)
     {
         // Windows paths are case-insensitive. Preserve casing on other platforms, where paths may be
         // case-sensitive and distinct executables must not share a daemon.
@@ -194,7 +198,7 @@ internal static class DaemonPipeName
         // U+0001 can't appear in a parsed command-line argument, so joining with it can't collide
         // across different splits of the same concatenated arguments (e.g. ["--extension", "a b"] vs
         // ["--extension", "a", "b"]).
-        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}.{effectiveDotnetEnvironment}";
+        var pipeNameInput = $"{userName}.{isAdmin}.{toolIdentifier}.{string.Join('', keyRelevantArguments)}.{effectiveKeepAlive}.{effectiveDotnetEnvironment}.{telemetryLevel}";
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(pipeNameInput));
         return Convert.ToBase64String(bytes)
             .Replace("/", "_")

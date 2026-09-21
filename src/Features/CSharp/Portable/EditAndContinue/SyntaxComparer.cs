@@ -88,6 +88,7 @@ internal sealed class SyntaxComparer(
         UnsafeStatement,
 
         TryStatement,
+        IfCatchStatement,
         CatchClause,                      // tied to parent
         CatchDeclaration,                 // tied to parent
         CatchFilterClause,                // tied to parent
@@ -101,8 +102,10 @@ internal sealed class SyntaxComparer(
         LockStatement,
         WhileStatement,
         DoStatement,
+        DoUntilStatement,
         IfStatement,
-        ElseClause,                        // tied to parent 
+        IfCatchArm,
+        ElseClause,                        // tied to parent
 
         SwitchStatement,
         SwitchSection,
@@ -348,6 +351,10 @@ internal sealed class SyntaxComparer(
                 isLeaf = true;
                 return Label.GotoStatement;
 
+            case SyntaxKind.EscapeStatement:
+                isLeaf = true;
+                return Label.GotoStatement;
+
             case SyntaxKind.GotoCaseStatement:
             case SyntaxKind.GotoDefaultStatement:
                 isLeaf = true;
@@ -374,6 +381,9 @@ internal sealed class SyntaxComparer(
 
             case SyntaxKind.DoStatement:
                 return Label.DoStatement;
+
+            case SyntaxKind.DoUntilStatement:
+                return Label.DoUntilStatement;
 
             case SyntaxKind.WhileStatement:
                 return Label.WhileStatement;
@@ -441,6 +451,12 @@ internal sealed class SyntaxComparer(
 
             case SyntaxKind.TryStatement:
                 return Label.TryStatement;
+
+            case SyntaxKind.IfCatchStatement:
+                return Label.IfCatchStatement;
+
+            case SyntaxKind.IfCatchArm:
+                return Label.IfCatchArm;
 
             case SyntaxKind.CatchClause:
                 return Label.CatchClause;
@@ -876,10 +892,26 @@ internal sealed class SyntaxComparer(
                 distance = ComputeWeightedDistance(leftDo.Condition, leftDo.Statement, rightDo.Condition, rightDo.Statement);
                 return true;
 
+            case SyntaxKind.DoUntilStatement:
+                var leftDoUntil = (DoUntilStatementSyntax)leftNode;
+                var rightDoUntil = (DoUntilStatementSyntax)rightNode;
+                distance = ComputeWeightedDistance(leftDoUntil.Condition, leftDoUntil.Statement, rightDoUntil.Condition, rightDoUntil.Statement);
+                return true;
+
             case SyntaxKind.IfStatement:
                 var leftIf = (IfStatementSyntax)leftNode;
                 var rightIf = (IfStatementSyntax)rightNode;
                 distance = ComputeWeightedDistance(leftIf.Condition, leftIf.Statement, rightIf.Condition, rightIf.Statement);
+                return true;
+
+            case SyntaxKind.IfCatchArm:
+                var leftArm = (IfCatchArmSyntax)leftNode;
+                var rightArm = (IfCatchArmSyntax)rightNode;
+                distance = ComputeWeightedDistance(
+                    (SyntaxNode?)leftArm.Condition ?? leftArm.ConditionBlock!,
+                    leftArm.Consequence,
+                    (SyntaxNode?)rightArm.Condition ?? rightArm.ConditionBlock!,
+                    rightArm.Consequence);
                 return true;
 
             case SyntaxKind.Block:
@@ -1062,11 +1094,13 @@ internal sealed class SyntaxComparer(
         switch (leftBlock.Parent.Kind())
         {
             case SyntaxKind.IfStatement:
+            case SyntaxKind.IfCatchArm:
             case SyntaxKind.ForEachStatement:
             case SyntaxKind.ForEachVariableStatement:
             case SyntaxKind.ForStatement:
             case SyntaxKind.WhileStatement:
             case SyntaxKind.DoStatement:
+            case SyntaxKind.DoUntilStatement:
             case SyntaxKind.FixedStatement:
             case SyntaxKind.LockStatement:
             case SyntaxKind.UsingStatement:
@@ -1082,12 +1116,15 @@ internal sealed class SyntaxComparer(
             case SyntaxKind.CatchClause:
                 var leftCatch = (CatchClauseSyntax)leftBlock.Parent;
                 var rightCatch = (CatchClauseSyntax)rightBlock.Parent;
-                if (leftCatch is { Declaration: null, Filter: null } &&
-                    rightCatch is { Declaration: null, Filter: null })
-                {
-                    var leftTry = (TryStatementSyntax)leftCatch.Parent!;
-                    var rightTry = (TryStatementSyntax)rightCatch.Parent!;
 
+                // Catches/finally attached to an if/catch chain reuse the exact same CatchClauseSyntax/
+                // FinallyClauseSyntax node types as an ordinary try (see Syntax.xml), so their Parent may
+                // be an IfCatchStatementSyntax instead of a TryStatementSyntax.
+                if (leftCatch is { Declaration: null, Filter: null } &&
+                    rightCatch is { Declaration: null, Filter: null } &&
+                    leftCatch.Parent is TryStatementSyntax leftTry &&
+                    rightCatch.Parent is TryStatementSyntax rightTry)
+                {
                     distance = 0.5 * ComputeValueDistance(leftTry.Block, rightTry.Block) +
                                0.5 * ComputeValueDistance(leftBlock, rightBlock);
                 }

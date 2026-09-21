@@ -294,9 +294,18 @@ namespace Microsoft.CodeAnalysis.CSharp
                         // during lowering -- BoundNode.CheckLocalsDefined() validates the binder's raw
                         // output, before lowering ever runs, so a lowering-time-only local would fail
                         // that check for every subsequent read of the mutated variable.
+                        // Do NOT eagerly bind mutateStatement.Type here (as SourceLocalSymbol.MakeLocal's
+                        // caller normally could, via SetTypeWithAnnotations): binding an identifier-named
+                        // type can require a full name lookup, which walks the enclosing binder chain and
+                        // -- for a LocalScopeBinder -- reads its own LocalsMap/Locals. Since we are still
+                        // inside the call that computes THIS binder's Locals (the array hasn't been
+                        // assigned yet), that read would recursively invoke BuildLocals() again, forever
+                        // (stack overflow). Instead, mirror the LocalDeclarationStatement case above:
+                        // pass the TypeSyntax through unbound and let SourceLocalSymbol's own lazy
+                        // GetTypeWithAnnotations bind it on first real access, safely after this method
+                        // has returned and Locals has been assigned.
                         var mutateStatement = (MutateStatementSyntax)innerStatement;
                         Binder mutateBinder = enclosingBinder.GetBinder(mutateStatement) ?? enclosingBinder;
-                        TypeWithAnnotations targetType = mutateBinder.BindType(mutateStatement.Type, BindingDiagnosticBag.Discarded);
                         SourceLocalSymbol mutationLocal = SourceLocalSymbol.MakeLocal(
                             mutateBinder.ContainingMemberOrLambda,
                             mutateBinder,
@@ -306,7 +315,6 @@ namespace Microsoft.CodeAnalysis.CSharp
                             identifierToken: mutateStatement.VariableName.Identifier,
                             declarationKind: LocalDeclarationKind.MutationTarget,
                             initializer: null);
-                        mutationLocal.SetTypeWithAnnotations(targetType);
                         locals.Add(mutationLocal);
                     }
                     break;

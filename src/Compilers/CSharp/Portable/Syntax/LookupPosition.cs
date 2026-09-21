@@ -330,6 +330,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((DoUntilStatementSyntax)statement).DoKeyword;
                 case SyntaxKind.MutateStatement:
                     return ((MutateStatementSyntax)statement).MutateKeyword;
+                case SyntaxKind.EscapeStatement:
+                    return ((EscapeStatementSyntax)statement).EscapeKeyword;
                 case SyntaxKind.EmptyStatement:
                     return default(SyntaxToken); //The caller will have to check for this.
                 case SyntaxKind.FixedStatement:
@@ -345,6 +347,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((GotoStatementSyntax)statement).GotoKeyword;
                 case SyntaxKind.IfStatement:
                     return ((IfStatementSyntax)statement).IfKeyword;
+                case SyntaxKind.IfCatchStatement:
+                    return GetFirstIncludedIfCatchStatementToken((IfCatchStatementSyntax)statement);
                 case SyntaxKind.LabeledStatement:
                     return ((LabeledStatementSyntax)statement).Identifier;
                 case SyntaxKind.LockStatement:
@@ -395,6 +399,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((DoUntilStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.MutateStatement:
                     return ((MutateStatementSyntax)statement).SemicolonToken;
+                case SyntaxKind.EscapeStatement:
+                    return ((EscapeStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.EmptyStatement:
                     return ((EmptyStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.ExpressionStatement:
@@ -412,6 +418,8 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return ((GotoStatementSyntax)statement).SemicolonToken;
                 case SyntaxKind.IfStatement:
                     return GetFirstExcludedIfStatementToken((IfStatementSyntax)statement);
+                case SyntaxKind.IfCatchStatement:
+                    return GetFirstExcludedIfCatchStatementToken((IfCatchStatementSyntax)statement);
                 case SyntaxKind.LabeledStatement:
                     return GetFirstExcludedToken(((LabeledStatementSyntax)statement).Statement);
                 case SyntaxKind.LockStatement:
@@ -476,6 +484,59 @@ namespace Microsoft.CodeAnalysis.CSharp.Syntax
                     return GetFirstExcludedToken(elseOpt.Statement);
                 }
             }
+        }
+
+        private static SyntaxToken GetFirstIncludedIfCatchStatementToken(IfCatchStatementSyntax ifCatchStmt)
+        {
+            // Programmatically-constructed syntax can have an empty Arms list (e.g. via
+            // SyntaxFactory.IfCatchStatement() with only a catch or finally clause), so this can't
+            // unconditionally index Arms[0] the way parsed trees always could.
+            if (ifCatchStmt.Arms.Count > 0)
+            {
+                return ifCatchStmt.Arms[0].IfKeyword;
+            }
+
+            CatchClauseSyntax? firstCatch = ifCatchStmt.Catches.FirstOrDefault();
+            if (firstCatch != null)
+            {
+                return firstCatch.CatchKeyword;
+            }
+
+            if (ifCatchStmt.Finally is { } finallyClause)
+            {
+                return finallyClause.FinallyKeyword;
+            }
+
+            return ifCatchStmt.GetFirstToken();
+        }
+
+        private static SyntaxToken GetFirstExcludedIfCatchStatementToken(IfCatchStatementSyntax ifCatchStmt)
+        {
+            // Mirrors TryStatement's finally > last catch > body precedence, with the if/else-if/else
+            // arm chain (mirroring GetFirstExcludedIfStatementToken) standing in for TryStatement's body.
+            FinallyClauseSyntax? finallyClause = ifCatchStmt.Finally;
+            if (finallyClause != null)
+            {
+                return finallyClause.Block.CloseBraceToken;
+            }
+
+            CatchClauseSyntax? lastCatch = ifCatchStmt.Catches.LastOrDefault();
+            if (lastCatch != null)
+            {
+                return lastCatch.Block.CloseBraceToken;
+            }
+
+            if (ifCatchStmt.Else is { } elseClause)
+            {
+                return GetFirstExcludedToken(elseClause.Statement);
+            }
+
+            if (ifCatchStmt.Arms.Count > 0)
+            {
+                return GetFirstExcludedToken(ifCatchStmt.Arms[^1].Consequence);
+            }
+
+            return ifCatchStmt.GetLastToken().GetNextToken();
         }
 
         internal static bool IsInAnonymousFunctionOrQuery(int position, SyntaxNode lambdaExpressionOrQueryNode)

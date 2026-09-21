@@ -431,4 +431,14 @@ public sealed class ElseKeywordRecommenderTests : KeywordRecommenderTests
                 Console.WriteLine();,
             $$
             """));
+
+    [Fact]
+    public Task TestAfterIfCatchChainArmConsequenceForChainedElseIf()
+        => VerifyKeywordAsync(AddInsideMethod(
+            """
+            if (true) {
+            } else if (false) {
+            } $$
+            catch (System.Exception e) { }
+            """));
 }

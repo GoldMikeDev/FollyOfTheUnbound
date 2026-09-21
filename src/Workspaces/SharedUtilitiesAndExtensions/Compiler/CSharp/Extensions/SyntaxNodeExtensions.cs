@@ -116,11 +116,13 @@ internal static partial class SyntaxNodeExtensions
     public static bool IsEmbeddedStatementOwner([NotNullWhen(true)] this SyntaxNode? node)
     {
         return node is DoStatementSyntax or
+               DoUntilStatementSyntax or
                ElseClauseSyntax or
                FixedStatementSyntax or
                CommonForEachStatementSyntax or
                ForStatementSyntax or
                IfStatementSyntax or
+               IfCatchArmSyntax or
                LabeledStatementSyntax or
                LockStatementSyntax or
                UsingStatementSyntax or
@@ -131,17 +133,59 @@ internal static partial class SyntaxNodeExtensions
         => node switch
         {
             DoStatementSyntax n => n.Statement,
+            // Folly of the Unbound: this fork's do/until construct -- structurally identical to
+            // DoStatementSyntax with "until" instead of "while", including an unbraced embedded
+            // Statement.
+            DoUntilStatementSyntax n => n.Statement,
             ElseClauseSyntax n => n.Statement,
             FixedStatementSyntax n => n.Statement,
             CommonForEachStatementSyntax n => n.Statement,
             ForStatementSyntax n => n.Statement,
             IfStatementSyntax n => n.Statement,
+            IfCatchArmSyntax n => n.Consequence,
             LabeledStatementSyntax n => n.Statement,
             LockStatementSyntax n => n.Statement,
             UsingStatementSyntax n => n.Statement,
             WhileStatementSyntax n => n.Statement,
             _ => null,
         };
+
+    /// <summary>
+    /// Folly of the Unbound: true if <paramref name="statement"/> is (or, through a chain of further
+    /// unbraced embedded statements -- e.g. nested <c>if</c>/<c>else</c>, <c>for</c>, <c>while</c>, etc. --
+    /// eventually reaches) an <c>escape;</c> statement that is not already inside its own
+    /// <see cref="BlockSyntax"/>. Such an <c>escape;</c> targets the nearest enclosing <see
+    /// cref="BlockSyntax"/> lexically, so wrapping <paramref name="statement"/> itself in a new
+    /// <see cref="BlockSyntax"/> (e.g. via the "add braces" code fix, or when converting a
+    /// <c>foreach</c> loop's unbraced body to a <c>for</c> loop) would silently retarget the
+    /// <c>escape;</c> to the newly introduced block instead of whatever block it used to target.
+    /// Encountering an already-present <see cref="BlockSyntax"/> along the way stops the walk:
+    /// an <c>escape;</c> nested inside its own block already targets that block and is unaffected
+    /// by wrapping an ancestor embedded statement.
+    /// </summary>
+    public static bool ContainsTopLevelEscapeStatement(this StatementSyntax? statement)
+    {
+        while (true)
+        {
+            switch (statement)
+            {
+                case null:
+                case BlockSyntax:
+                    return false;
+                case EscapeStatementSyntax:
+                    return true;
+                case IfStatementSyntax ifStatement:
+                    if (ifStatement.Statement.ContainsTopLevelEscapeStatement())
+                        return true;
+
+                    statement = ifStatement.Else?.Statement;
+                    continue;
+                default:
+                    statement = statement.GetEmbeddedStatement();
+                    continue;
+            }
+        }
+    }
 
     public static BaseParameterListSyntax? GetParameterList(this SyntaxNode? declaration)
         => declaration switch

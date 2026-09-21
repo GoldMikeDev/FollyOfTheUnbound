@@ -42,6 +42,21 @@
                        AdditionalProperties="FollyOfTheUnboundBuild=true" />
     <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CodeFix.Testing\Microsoft.CodeAnalysis.CodeFix.Testing.csproj"
                        AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <!-- These are distinct from the two base-library references above: they provide the
+         language-specific verifier types (e.g. CSharpCodeFixVerifier<,>) that analyzer/code-fix/
+         code-refactoring unit tests consume directly, and are not transitively pulled in by them. -->
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CSharp.Analyzer.Testing\Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.csproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CSharp.CodeFix.Testing\Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.csproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing\Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing.csproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.VisualBasic.Analyzer.Testing\Microsoft.CodeAnalysis.VisualBasic.Analyzer.Testing.vbproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeFix.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeFix.Testing.vbproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
+    <ProjectReference Include="..\..\RoslynSdk\Microsoft.CodeAnalysis.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeRefactoring.Testing\Microsoft.CodeAnalysis.VisualBasic.CodeRefactoring.Testing.vbproj"
+                       AdditionalProperties="FollyOfTheUnboundBuild=true" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />

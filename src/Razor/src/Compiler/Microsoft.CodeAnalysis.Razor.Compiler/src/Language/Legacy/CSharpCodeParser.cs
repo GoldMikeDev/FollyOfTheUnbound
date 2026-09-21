@@ -2317,14 +2317,16 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
             Accept(in whitespace);
             Assert(CSharpSyntaxKind.ElseKeyword);
             ParseElseClause(builder);
+            return;
         }
-        else
-        {
-            // No else, return whitespace
-            PutCurrentBack();
-            PutBack(in whitespace);
-            SetAcceptedCharacters(AcceptedCharactersInternal.Any);
-        }
+
+        // No else yet -- put back the whitespace we grabbed above and let the shared helper redo its own
+        // (identical) lookahead for a trailing catch/finally. This fork's if/catch/finally chain: those
+        // clauses can attach directly after the final arm's block (or after a trailing plain 'else'), just
+        // like after a 'try' block.
+        PutCurrentBack();
+        PutBack(in whitespace);
+        ParseTrailingCatchOrFinally(builder);
     }
 
     private void ParseElseClause(in SyntaxListBuilder<RazorSyntaxNode> builder)
@@ -2348,6 +2350,34 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         {
             // Else
             ParseExpectedCodeBlock(builder, block);
+
+            // A plain (non-'else if') trailing else can still be followed by catch/finally, same as the
+            // arm chain itself -- e.g. `if { ... } { ... } else { ... } catch { ... }`. Without this, the
+            // catch/finally were left unconsumed after a plain else, misparsing an otherwise-valid chain.
+            ParseTrailingCatchOrFinally(builder);
+        }
+    }
+
+    /// <summary>
+    /// Checks for a trailing catch/finally after an if/catch chain's last arm or trailing else, and parses
+    /// it via <see cref="ParseAfterTryClause"/> if present -- shared by <see cref="ParseAfterIfClause"/>
+    /// (arms with no trailing else) and <see cref="ParseElseClause"/> (a plain trailing else).
+    /// </summary>
+    private void ParseTrailingCatchOrFinally(SyntaxListBuilder<RazorSyntaxNode> builder)
+    {
+        using var whitespace = new PooledArrayBuilder<SyntaxToken>();
+        SkipToNextImportantToken(builder, ref whitespace.AsRef());
+
+        if (At(CSharpSyntaxKind.CatchKeyword, CSharpSyntaxKind.FinallyKeyword))
+        {
+            Accept(in whitespace);
+            ParseAfterTryClause(builder);
+        }
+        else
+        {
+            PutCurrentBack();
+            PutBack(in whitespace);
+            SetAcceptedCharacters(AcceptedCharactersInternal.Any);
         }
     }
 
@@ -2441,7 +2471,7 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         }
 
         ParseUnconditionalBlock(builder);
-        ParseWhileClause(builder);
+        ParseWhileOrUntilClause(builder);
         var topLevel = transition != null;
         if (topLevel)
         {
@@ -2449,16 +2479,18 @@ internal class CSharpCodeParser : TokenizerBackedParser<CSharpTokenizer>
         }
     }
 
-    private void ParseWhileClause(in SyntaxListBuilder<RazorSyntaxNode> builder)
+    private void ParseWhileOrUntilClause(in SyntaxListBuilder<RazorSyntaxNode> builder)
     {
         SetAcceptedCharacters(AcceptedCharactersInternal.Any);
         using var whitespace = new PooledArrayBuilder<SyntaxToken>();
         SkipToNextImportantToken(builder, ref whitespace.AsRef());
 
-        if (At(CSharpSyntaxKind.WhileKeyword))
+        // `do { ... } until (...)` is this fork's alternative to `do { ... } while (...)` -- same shape,
+        // just an inverted loop condition, so it needs to be consumed here the same way or the trailing
+        // `until (...);` is left unconsumed and mis-parsed as a new top-level statement/expression.
+        if (At(CSharpSyntaxKind.WhileKeyword, CSharpSyntaxKind.UntilKeyword))
         {
             Accept(in whitespace);
-            Assert(CSharpSyntaxKind.WhileKeyword);
             AcceptAndMoveNext();
             AcceptWhile(IsSpacingTokenIncludingNewLinesAndCommentsAndCSharpDirectives);
             if (TryParseCondition(builder) && TryAccept(SyntaxKind.Semicolon))

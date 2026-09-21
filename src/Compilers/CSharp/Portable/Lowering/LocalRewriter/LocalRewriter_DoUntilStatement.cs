@@ -23,12 +23,24 @@ namespace Microsoft.CodeAnalysis.CSharp
 
             var syntax = node.Syntax;
 
+            // EnC: We need to insert a hidden sequence point to handle function remapping in case
+            // the containing method is edited while methods invoked in the condition are being executed.
+            if (!node.WasCompilerGenerated && this.Instrument)
+            {
+                rewrittenCondition = Instrumenter.InstrumentDoUntilStatementCondition(node, rewrittenCondition, _factory);
+            }
+
             // do...until loops until the condition is true (exits when condition becomes true).
             // This is equivalent to do...while(!condition).
             // Negate the condition for the goto-if-true check.
             var negatedCondition = _factory.Not(rewrittenCondition);
 
             BoundStatement ifConditionGotoStart = new BoundConditionalGoto(syntax, negatedCondition, true, startLabel);
+
+            if (!node.WasCompilerGenerated && this.Instrument)
+            {
+                ifConditionGotoStart = Instrumenter.InstrumentDoUntilStatementConditionalGotoStart(node, ifConditionGotoStart);
+            }
 
             // do
             //   body

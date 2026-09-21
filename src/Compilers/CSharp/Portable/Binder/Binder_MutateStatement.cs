@@ -89,7 +89,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             // lookups of varNameText resolve to newLocal
             RegisterMutationOverride(varNameText, newLocal);
 
-            return new BoundMutateStatement(node, originalLocal, newLocal, conversionExpr);
+            return new BoundMutateStatement(node, originalLocal, newLocal, conversionExpr, validity);
         }
 
         private void RegisterMutationOverride(string name, LocalSymbol newLocal)

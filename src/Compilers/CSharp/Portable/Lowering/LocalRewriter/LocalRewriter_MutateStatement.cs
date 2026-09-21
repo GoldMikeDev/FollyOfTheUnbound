@@ -16,7 +16,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         {
             var sourceType = node.OriginalLocal.Type;
             var targetType = node.NewLocal.Type;
-            var validity = MutationValidity.GetValidity(sourceType, targetType, _compilation);
+            var validity = node.Validity;
 
             // node.NewLocal is already declared in the enclosing block's Locals -- it was registered by
             // LocalScopeBinder.BuildLocals's MutateStatement case during binding, not synthesized here.

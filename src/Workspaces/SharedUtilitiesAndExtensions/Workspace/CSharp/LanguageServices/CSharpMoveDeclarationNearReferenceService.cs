@@ -37,6 +37,7 @@ internal sealed partial class CSharpMoveDeclarationNearReferenceService :
                ForStatementSyntax or
                WhileStatementSyntax or
                DoStatementSyntax or
+               DoUntilStatementSyntax or
                CheckedStatementSyntax;
     }
 

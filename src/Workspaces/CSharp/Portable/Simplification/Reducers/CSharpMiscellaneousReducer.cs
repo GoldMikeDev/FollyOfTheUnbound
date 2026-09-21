@@ -126,6 +126,15 @@ internal sealed partial class CSharpMiscellaneousReducer : AbstractCSharpReducer
             return node;
         }
 
+        if (node.Parent is IfCatchArmSyntax ifCatchArm && (ifCatchArm.Condition is null || node == ifCatchArm.ConditionBlock))
+        {
+            // A block-condition arm ("if { cond } { ... }") has both a required ConditionBlock and a required
+            // block Consequence -- simplifying either to its contained statement would produce syntax the parser
+            // can't represent. Only a classic parenthesized arm's Consequence ("if (cond) { ... }") may be
+            // treated as an optional embedded-statement block.
+            return node;
+        }
+
         switch (options.PreferBraces.Value)
         {
             case PreferBracesPreference.Always:
@@ -180,12 +189,14 @@ internal sealed partial class CSharpMiscellaneousReducer : AbstractCSharpReducer
             switch (node.Kind())
             {
                 case SyntaxKind.IfStatement:
+                case SyntaxKind.IfCatchArm:
                 case SyntaxKind.ElseClause:
                 case SyntaxKind.ForStatement:
                 case SyntaxKind.ForEachStatement:
                 case SyntaxKind.ForEachVariableStatement:
                 case SyntaxKind.WhileStatement:
                 case SyntaxKind.DoStatement:
+                case SyntaxKind.DoUntilStatement:
                 case SyntaxKind.UsingStatement:
                 case SyntaxKind.LockStatement:
                     return true;

@@ -112,4 +112,49 @@ public sealed class CatchKeywordRecommenderTests : KeywordRecommenderTests
                 $$
             }
             """);
+
+    [Fact]
+    public Task TestAfterIfCatchChainBlockConditionArmWithTrailingCatch()
+        // A block-condition arm (`if { ... } { ... }`) is always parsed as an if/catch chain
+        // (IfCatchStatementSyntax) regardless of whether a catch/finally is present yet -- unlike the
+        // classic parenthesized form, which only becomes an if/catch chain once a catch/finally is
+        // already there (see ParseIfStatementOrIfCatchStatement). So 'catch' is offered here even before
+        // typing it, same as for a real try-block.
+        => VerifyKeywordAsync(AddInsideMethod(
+            """
+            if {
+                var b = true;
+                ifout = b;
+            }
+            {
+            } $$
+            catch (System.Exception e) { }
+            """));
+
+    [Fact]
+    public Task TestAfterIfCatchChainUnbracedTrailingElse()
+        // Mirrors TestAfterIfCatchChainBlockConditionArmWithTrailingCatch, but for an unbraced trailing
+        // else statement -- the parser accepts a following catch/finally there too, not only after a
+        // braced else.
+        => VerifyKeywordAsync(AddInsideMethod(
+            """
+            if {
+                var b = true;
+                ifout = b;
+            }
+            {
+            } else Work();
+            $$
+            """));
+
+    [Fact]
+    public Task TestNotAfterOrdinaryIfBlockNoTrailingCatchOrFinally()
+        // A plain if-block with nothing else present stays a classic IfStatementSyntax (matching
+        // TestNotAfterBlock above) -- catch/finally are deliberately not offered speculatively here,
+        // unlike 'else', to avoid suggesting them after every ordinary if-statement in existing code.
+        => VerifyAbsenceAsync(AddInsideMethod(
+            """
+            if (true) {
+            } $$
+            """));
 }

@@ -998,6 +998,124 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             expectDiagnostic);
 
     [Theory]
+    [InlineData((int)PreferBracesPreference.None)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline)]
+    [InlineData((int)PreferBracesPreference.Always)]
+    public Task DoNotFireForDoUntilWithBraces(int bracesPreference)
+        => TestMissingInRegularAndScriptAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|do|]
+                    {
+                        return;
+                    }
+                    until (true);
+                }
+            }
+            """,
+            new TestParameters(options: Option(CSharpCodeStyleOptions.PreferBraces, (PreferBracesPreference)bracesPreference, NotificationOption2.Silent)));
+
+    [Theory]
+    [InlineData((int)PreferBracesPreference.None, false)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline, false)]
+    [InlineData((int)PreferBracesPreference.Always, true)]
+    public Task FireForDoUntilWithoutBraces(int bracesPreference, bool expectDiagnostic)
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|do|] DoWork(); until (true);
+                }
+
+                static void DoWork() { }
+            }
+            """,
+
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    do
+                    {
+                        DoWork();
+                    }
+                    until (true);
+                }
+
+                static void DoWork() { }
+            }
+            """,
+            (PreferBracesPreference)bracesPreference,
+            expectDiagnostic);
+
+    [Theory]
+    [InlineData((int)PreferBracesPreference.None)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline)]
+    [InlineData((int)PreferBracesPreference.Always)]
+    public Task DoNotFireForIfCatchArmWithBraces(int bracesPreference)
+        => TestMissingInRegularAndScriptAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|if|] (true)
+                    {
+                        DoWork();
+                    }
+                    catch (System.Exception e)
+                    {
+                        Handle(e);
+                    }
+                }
+
+                static void DoWork() { }
+                static void Handle(System.Exception e) { }
+            }
+            """,
+            new TestParameters(options: Option(CSharpCodeStyleOptions.PreferBraces, (PreferBracesPreference)bracesPreference, NotificationOption2.Silent)));
+
+    [Theory]
+    [InlineData((int)PreferBracesPreference.None, false)]
+    [InlineData((int)PreferBracesPreference.WhenMultiline, false)]
+    [InlineData((int)PreferBracesPreference.Always, true)]
+    public Task FireForIfCatchArmWithoutBraces(int bracesPreference, bool expectDiagnostic)
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    [|if|] (true) DoWork(); catch (System.Exception e) { Handle(e); }
+                }
+
+                static void DoWork() { }
+                static void Handle(System.Exception e) { }
+            }
+            """,
+
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    if (true) { DoWork(); } catch (System.Exception e) { Handle(e); }
+                }
+
+                static void DoWork() { }
+                static void Handle(System.Exception e) { }
+            }
+            """,
+            (PreferBracesPreference)bracesPreference,
+            expectDiagnostic);
+
+    [Theory]
     [InlineData((int)PreferBracesPreference.None, false)]
     [InlineData((int)PreferBracesPreference.WhenMultiline, true)]
     [InlineData((int)PreferBracesPreference.Always, true)]
@@ -1848,6 +1966,144 @@ public sealed partial class AddBracesTests : AbstractCSharpDiagnosticProviderBas
             """,
             (PreferBracesPreference)bracesPreference,
             expectDiagnostic);
+
+    // Folly of the Unbound: an `escape;` statement targets the nearest enclosing block lexically. Wrapping an
+    // unbraced embedded statement that is (or leads to) a top-level `escape;` in a new block would silently
+    // retarget that `escape;`. The IDE0011 diagnostic itself still fires (bracing is still "missing" from the
+    // analyzer's point of view), but -- as of the PR #96 third review round -- the Add Braces code fix is no
+    // longer even *offered* for that diagnostic (round 2 only made the rewrite a no-op when applied, which left
+    // the action registered but ineffective forever). `expectDiagnostic: false` below drives
+    // TestMissingInRegularAndScriptAsync, i.e. "no code fix offered", which is what we're asserting.
+    [Fact]
+    public Task DoNotWrapIfBodyContainingTopLevelEscapeStatement()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        [|if|] (true) escape;
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        if (true) escape;
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: false);
+
+    [Fact]
+    public Task DoNotWrapIfBodyContainingNestedTopLevelEscapeStatement()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        [|if|] (true) if (false) escape; else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        if (true) if (false) escape; else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: false);
+
+    // Control case: the `escape;` here is already inside its own nested block, so wrapping the outer `if`'s
+    // embedded statement is safe -- it doesn't change what the inner `escape;` targets. The fix should still
+    // wrap normally.
+    [Fact]
+    public Task WrapIfBodyWhenEscapeStatementIsInsideItsOwnNestedBlock()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        [|if|] (true) if (false) { escape; } else System.Console.WriteLine();
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    {
+                        if (true)
+                        {
+                            if (false) { escape; } else System.Console.WriteLine();
+                        }
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: true);
+
+    // Folly of the Unbound: same hazard, but reached through this fork's own do/until construct as the
+    // further unbraced embedded statement -- confirms GetEmbeddedStatement()'s DoUntilStatementSyntax case
+    // (added alongside this test) is actually consulted by ContainsTopLevelEscapeStatement()'s walk.
+    [Fact]
+    public Task DoNotWrapIfBodyContainingTopLevelEscapeStatementInsideDoUntil()
+        => TestAsync(
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    bool done = false;
+                    {
+                        [|if|] (true) do escape; until (done);
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            """
+            class Program
+            {
+                static void Main()
+                {
+                    bool done = false;
+                    {
+                        if (true) do escape; until (done);
+                        System.Console.WriteLine();
+                    }
+                }
+            }
+            """,
+            PreferBracesPreference.Always,
+            expectDiagnostic: false);
 
     private async Task TestAsync(string initialMarkup, string expectedMarkup, PreferBracesPreference bracesPreference, bool expectDiagnostic)
     {
