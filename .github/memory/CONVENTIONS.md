@@ -95,16 +95,31 @@ through with no usable build output. In such an environment:
 - If a build appears to hang or is taking far longer than a filtered build should, suspect disk
   exhaustion (or an accidental full-solution build) before assuming the build itself is broken.
 
+## A review finding on a PR is always in scope for that PR
+
+If a review (bot or human) raises a finding on an open PR, fixing it is in scope for that PR — full
+stop. This holds even when the finding is about pre-existing code the PR only touches incidentally, or
+code entirely unrelated to the PR's stated purpose ("this PR is about X, the finding is about Y" is not
+a reason to defer). Never split a finding off into a separate follow-up PR just to keep the original PR
+narrowly scoped. Fix it in the PR where it was raised, in the same round of work that addresses the
+rest of that review.
+
+The one exception is a finding that is itself large enough to be its own real piece of work (a
+multi-file refactor, a design change, something that needs its own review cycle) — that kind still gets
+raised with the user/author rather than silently folded in or silently dropped, per the "Review
+comments" step of the PR-driving rules. "Out of scope for this PR" is never, on its own, a reason to
+defer a small, mechanical fix.
+
 ## Every open PR review thread must end resolved, not just addressed
 
 A review comment that has been fixed (code changed, doc updated, test added — whatever the comment
 asked for) must be marked resolved on GitHub (`resolve_review_thread`/equivalent) as part of the same
 work, not left open for someone else to close later. This applies to every PR, current and future,
 opened by any agent working in this repo. A thread you're intentionally *not* acting on (disagreeing
-with the suggestion, deferring it, it's out of scope) still needs a reply explaining why — it does not
-get resolved silently, but it also does not get left with no response at all. "I pushed a fix" and "I
-left it alone, here's why" are both acceptable end states for a thread; "the fix is in the diff and the
-thread is still open" is not.
+with the suggestion, or it's the large/design-level exception above) still needs a reply explaining why
+— it does not get resolved silently, but it also does not get left with no response at all. "I pushed a
+fix" and "I left it alone, here's why" are both acceptable end states for a thread; "the fix is in the
+diff and the thread is still open" is not.
 
 ## Language / Framework Constraints
 
