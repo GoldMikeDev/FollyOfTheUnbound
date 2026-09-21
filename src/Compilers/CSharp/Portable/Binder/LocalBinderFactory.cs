@@ -880,14 +880,21 @@ namespace Microsoft.CodeAnalysis.CSharp
             // braces-less embedded statement of an enclosing construct like `while (x) if (a) {} catch {}`).
             AddToMap(node, _enclosing);
 
+            // Mirrors VisitTryStatement: when this chain has catches, its arms and trailing else are the
+            // "try body" the catches guard, so bind them the same way TryStatement binds its Block -- e.g. so
+            // BindYieldReturnStatement can report CS1626 for a yield inside a try that has catches.
+            var armsAndElseEnclosing = node.Catches.Any()
+                ? _enclosing.WithAdditionalFlags(BinderFlags.InTryBlockOfTryCatch)
+                : _enclosing;
+
             foreach (var arm in node.Arms)
             {
-                Visit(arm, _enclosing);
+                Visit(arm, armsAndElseEnclosing);
             }
 
             if (node.Else != null)
             {
-                Visit(node.Else, _enclosing);
+                Visit(node.Else, armsAndElseEnclosing);
             }
 
             foreach (CatchClauseSyntax c in node.Catches)

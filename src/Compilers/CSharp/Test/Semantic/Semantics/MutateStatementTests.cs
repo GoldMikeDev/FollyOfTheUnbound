@@ -73,5 +73,28 @@ class C
                 Diagnostic(ErrorCode.HDN_UnusedUsingDirective, "using System;").WithLocation(2, 1),
                 Diagnostic(ErrorCode.WRN_NullReferenceReceiver, "s").WithLocation(9, 9));
         }
+
+        [Fact]
+        public void Regression_NullableWalker_MutationConversionResultIsNotSourceValue()
+        {
+            // object? -> string is a genuine runtime conversion (object.ToString()), not a same-type
+            // re-view of the source local: its result is never null on success even though the source
+            // local was maybe-null, so no CS8602 should fire on the mutated local afterward. Before the
+            // fix, NullableWalker copied the source local's maybe-null state onto the mutated local for
+            // this case too (treating every mutation like the same-type case tested above).
+            var text =
+@"#nullable enable
+class C
+{
+    static void M()
+    {
+        object? value = null;
+        mutate value to string;
+        value.ToString();
+    }
+}";
+            CreateCompilation(text).VerifyDiagnostics(
+                Diagnostic(ErrorCode.WRN_MutationMayFail, "mutate value to string;").WithArguments("value", "string").WithLocation(7, 9));
+        }
     }
 }

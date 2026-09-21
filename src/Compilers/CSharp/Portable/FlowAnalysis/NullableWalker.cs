@@ -3658,14 +3658,29 @@ namespace Microsoft.CodeAnalysis.CSharp
 
         public override BoundNode? VisitMutateStatement(BoundMutateStatement node)
         {
+            // node.ConversionExpression is deliberately just a reference to the original local (see
+            // Binder_MutateStatement.BindMutateStatement) -- it does not represent the real lowered
+            // conversion, which is synthesized independently by LocalRewriter_MutateStatement. When
+            // OriginalLocal and NewLocal share the same underlying type (MutationValidity.GetValidity's
+            // own "same type is always valid" case, e.g. `string? -> string`), the lowered lookup is a
+            // same-type re-view -- the value is unchanged, so nullability should flow through exactly
+            // like an ordinary assignment. Otherwise this is a genuine runtime conversion
+            // (parse/ToString/checked-cast), whose result isn't the source value at all (e.g.
+            // `object? value = Get(); mutate value to string;` lowers through `value.ToString()`, which
+            // never returns null on success, even though `value` itself was maybe-null) -- model that
+            // opaquely using the new local's declared nullable annotation as its resulting flow state,
+            // the same fallback used elsewhere for a value whose specific nullability isn't otherwise
+            // analyzed, rather than inheriting the unrelated source value's state.
             var conversionResult = VisitRvalueWithState(node.ConversionExpression);
             var type = node.NewLocal.TypeWithAnnotations;
+            bool isSameUnderlyingType = Symbols.SymbolEqualityComparer.Default.Equals(node.OriginalLocal.Type, node.NewLocal.Type);
+            var resultType = isSameUnderlyingType ? conversionResult : type.ToTypeWithState();
             int slot = GetOrCreateSlot(node.NewLocal);
             if (slot > 0)
             {
-                this.State[slot] = conversionResult.State;
+                this.State[slot] = resultType.State;
             }
-            TrackNullableStateForAssignment(node.ConversionExpression, type, slot, conversionResult);
+            TrackNullableStateForAssignment(node.ConversionExpression, type, slot, resultType);
             return null;
         }
 

@@ -7659,10 +7659,10 @@ public sealed class ActiveStatementTests : EditingTestBase
                 public static void F()
                 {
                     do
-                    <AS:1>{</AS:1>
+                    {
                         x += 1;
                     }
-                    until (B());
+                    <AS:1>until (B());</AS:1>
                 }
             }
             """;
@@ -7671,11 +7671,6 @@ public sealed class ActiveStatementTests : EditingTestBase
 
         // Body-only edit inside a do/until loop must not crash SyntaxComparer.TryComputeWeightedDistance
         // and must not be treated as an active statement update, since the condition is unchanged.
-        // (Note: this also documents a separate, narrower gap than the Classify/AreEquivalentActiveStatements
-        // fixes this regression suite targets -- unlike DoStatement, DoUntilStatement has no dedicated case in
-        // CSharpEditAndContinueAnalyzer's FindStatement/TryGetActiveSpan, so the tracked active statement span
-        // resolves to the loop body's opening brace rather than staying on "until (...)"; the fix under test here
-        // (condition-only comparison) still correctly avoids flagging this body-only edit as a rude edit.)
         edits.VerifySemanticDiagnostics(active);
     }
 
@@ -7707,10 +7702,10 @@ public sealed class ActiveStatementTests : EditingTestBase
                 public static void F()
                 {
                     do
-                    <AS:1>{</AS:1>
+                    {
                         System.Console.WriteLine(1);
                     }
-                    until (!B());
+                    <AS:1>until (!B());</AS:1>
                 }
             }
             """;
@@ -7719,11 +7714,9 @@ public sealed class ActiveStatementTests : EditingTestBase
 
         // Editing the condition must still be reported as an active statement update
         // (regression for the fix to AreEquivalentActiveStatements(DoUntilStatementSyntax, DoUntilStatementSyntax),
-        // confirming the SyntaxComparer/label fix didn't make the check too lenient). The reported span is the
-        // loop body's opening brace rather than "until (...)" for the same pre-existing, narrower gap noted in
-        // DoUntilBody_Update1 above.
+        // confirming the SyntaxComparer/label fix didn't make the check too lenient).
         edits.VerifySemanticDiagnostics(active,
-            Diagnostic(RudeEditKind.ActiveStatementUpdate, "{"));
+            Diagnostic(RudeEditKind.ActiveStatementUpdate, "until (!B());"));
     }
 
     [Fact]

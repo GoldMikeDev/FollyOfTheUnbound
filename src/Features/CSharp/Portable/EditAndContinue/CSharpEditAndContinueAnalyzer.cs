@@ -230,6 +230,14 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
                         Debug.Assert(!isBody);
                         goto default;
 
+                    case SyntaxKind.DoUntilStatement:
+                        // Mirrors DoStatement: the active statement of DoUntilStatement node is the until
+                        // condition, which is lexically not the closest breakpoint span (the body is).
+                        // do { ... } [|until (condition);|]
+                        Debug.Assert(position == ((DoUntilStatementSyntax)node).UntilKeyword.SpanStart);
+                        Debug.Assert(!isBody);
+                        goto default;
+
                     case SyntaxKind.PropertyDeclaration:
                         // The active span corresponding to a property declaration is the span corresponding to its initializer (if any),
                         // not the span corresponding to the accessor.
@@ -606,6 +614,15 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
 
                 var doStatement = (DoStatementSyntax)node;
                 return BreakpointSpans.TryGetClosestBreakpointSpan(node, doStatement.WhileKeyword.SpanStart, minLength, out span);
+
+            case SyntaxKind.DoUntilStatement:
+                // Mirrors DoStatement: the active statement of DoUntilStatement node is the until
+                // condition, which is lexically not the closest breakpoint span (the body is).
+                // do { ... } [|until (condition);|]
+                Debug.Assert(statementPart == DefaultStatementPart);
+
+                var doUntilStatement = (DoUntilStatementSyntax)node;
+                return BreakpointSpans.TryGetClosestBreakpointSpan(node, doUntilStatement.UntilKeyword.SpanStart, minLength, out span);
 
             case SyntaxKind.PropertyDeclaration:
                 // The active span corresponding to a property declaration is the span corresponding to its initializer (if any),
@@ -2838,6 +2855,7 @@ internal sealed class CSharpEditAndContinueAnalyzer() : AbstractEditAndContinueA
                 case SyntaxKind.IfStatement:
                 case SyntaxKind.WhileStatement:
                 case SyntaxKind.DoStatement:
+                case SyntaxKind.DoUntilStatement:
                 case SyntaxKind.SwitchStatement:
                 case SyntaxKind.LockStatement:
                 case SyntaxKind.UsingStatement:
